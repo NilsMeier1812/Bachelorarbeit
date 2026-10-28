@@ -1,0 +1,69 @@
+% !TEX program = pdflatex
+\documentclass[
+  12pt,
+  a4paper,
+  oneside,
+  parskip=half,
+  bibliography=totoc,
+  listof=totoc
+]{scrreprt}
+
+% --- Sprache und Schrift ---------------------------------------------------
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[autostyle]{csquotes}
+
+% --- Layout ----------------------------------------------------------------
+\usepackage[left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% --- Inhalte ---------------------------------------------------------------
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+
+% --- Literatur -------------------------------------------------------------
+\usepackage[backend=biber,style=authoryear]{biblatex}
+\addbibresource{literatur.bib}
+
+% --- Links (möglichst spät laden) ------------------------------------------
+\usepackage[hidelinks]{hyperref}
+
+% --- Metadaten -------------------------------------------------------------
+\newcommand{\thesistitle}{Titel der Bachelorarbeit}
+\newcommand{\thesisauthor}{Nils Meier}
+
+\hypersetup{pdftitle={\thesistitle}, pdfauthor={\thesisauthor}}
+
+\begin{document}
+
+\input{chapters/00_titelseite}
+
+\pagenumbering{Roman}
+\input{chapters/00_abstract}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\cleardoublepage
+\pagenumbering{arabic}
+\input{chapters/01_einleitung}
+\input{chapters/02_grundlagen}
+\input{chapters/03_methodik}
+\input{chapters/04_ergebnisse}
+\input{chapters/05_fazit}
+
+\printbibliography[title={Literaturverzeichnis}]
+
+\appendix
+\input{chapters/99_anhang}
+
+\input{chapters/99_erklaerung}
+
+\end{document}
