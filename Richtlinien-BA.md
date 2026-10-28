@@ -10,11 +10,15 @@
 - **[GS]** Handbuch „GetStarted“ Studentische Arbeiten FAPS, v1.1.1, 2024-04. Organisation, Abgabe, Umfang.
 - **[REPO]** Ist-Zustand der LaTeX-Vorlage in diesem Repo (main.tex).
 - **[ANNAHME]** Eigene Interpretation/Ergänzung, nicht aus den Dokumenten. Bei Zweifel mit Nils klären.
+- **[BA-K]** Gut bewertete FAPS-BA Kalenberg, 2019, „3D-Bahnplanung für autonome Flugroboter“, Maschinenbau, LaTeX, ~74 S. Text. Praxisbeleg, keine Vorgabe.
+- **[BA-L]** Gut bewertete FAPS-BA Lauer-Schmaltz, 2018, „GPU-Training / Hyperparameter KNN zur Navigation blinder Jogger“, Mechatronik, Word-Vorlage, ~83 S. Text. Praxisbeleg, keine Vorgabe.
+- Auswertung der beiden BAs: §13. Die Arbeiten liegen NICHT im Repo (enthalten personenbezogene Daten); Text daraus nie übernehmen, nur Muster.
 
 ### 0.2 Prioritätsregel bei Konflikten
 1. Explizite Anweisung von Nils / Betreuer (in Chat oder in dieser Datei unter §12 nachgetragen) > alles.
 2. [LF] (neuestes offizielles Dokument) > [CS] > [GS], **außer** in §1 ist ein anderer Default festgelegt.
 3. Offene Konflikte stehen in §1. Dort gilt der markierte DEFAULT, bis Nils ihn überschreibt.
+4. **Nils' Grundhaltung (2026-10-28):** Die Vorgaben sind ein Rahmen, nicht 100 % bindend; beide Referenz-BAs weichen ab und wurden gut bewertet. → Harte Regeln (§0.3) und Formalia der Vorlage strikt; Stilregeln aus §4 als starke Empfehlung, nicht als Dogma. Lesbarkeit und Logik > mechanische Regelerfüllung. Spielraum-Matrix in §13.1.
 
 ### 0.3 Harte Regeln für Agents (nicht verhandelbar)
 - **H1 Niemals Quellen erfinden.** Bereits die erste fiktive Quelle = Täuschungsversuch = Note 5,0 [LF 2.2]. Nur Einträge zitieren, die in Zotero (Sammlung „Bachelorarbeit“, in Overleaf als `zotero.bib`) stehen UND von Nils stammen/verifiziert sind. Fehlt ein Beleg: Kommentar `% TODO Quelle fehlt: <Aussage>` setzen (kein `\todo`, Paket nicht geladen) und Nils Bescheid geben, keinen Bib-Eintrag ausdenken, keine DOI/Seitenzahl raten.
@@ -33,13 +37,14 @@
 |---|---|---|---|---|
 | K1 | Tempus | Durchgängig Präsens, ergebnisorientiert. Kein Erlebnisaufsatz in Vergangenheit („Im Rahmen der Arbeit wurde untersucht…“ = schlecht) [LF 2.3] | Zeitlose Erkenntnisse/wiederholbare Ergebnisse: Präsens. Zu bestimmtem Zeitpunkt durchgeführte Tätigkeiten (Experimente): Vergangenheit [CS 1.3] | Präsens als Grundform überall. Vergangenheit (Präteritum Passiv, „Die Proben wurden … geprüft“) NUR für konkret durchgeführte, einmalige Versuchsdurchführungen in Methodik/Ergebnisse. Nie für Ergebnisse/Erkenntnisse. |
 | K2 | Aktiv/Passiv | „Passivsätze sparsam verwenden! Formuliere aktiv!“ [LF 2.3] | „Bevorzugt Passiv“; Aktiv für eigenen Beitrag (Kurzfassung, Schlussfolgerungen) [CS 1.4] | Aktivsätze mit Sach-Subjekt („Abbildung 4 zeigt…“, „Das Verfahren reduziert…“, „Die Ergebnisse belegen…“). Passiv, wo der Handelnde irrelevant ist (v. a. Methodik). Nie Personen als Subjekt (H3). Erfüllt beide Dokumente. |
-| K3 | Gliederung Hauptteil | Einleitung+Zielstellung, Grundlagen/SdT, **Handlungsbedarf**, Methodik, Ergebnisse, Diskussion, Zusammenfassung+Ausblick [LF 3.1] | **Kurzfassung**, Einleitung, Grundlagen, Stand der Forschung (endet mit Forschungsbedarf), Methoden, Ergebnisse, Diskussion, Schlussfolgerungen (Beiträge + Ausblick) [CS 1.1] | Repo-Struktur (§3.1) beibehalten. Handlungsbedarf als letztes Unterkapitel von Kap. 3 (Stand der Technik). Kurzfassung: mit Betreuer klären, bis dahin nicht anlegen. |
-| K4 | Mehrfachzitate | Getrennte Klammern `[xy] [yz]`, NICHT `[xy; yz]` [LF 5.1] | Beispiel `[27, 28]` [CS 1.7.3] | [LF]: getrennte Klammern → LaTeX `\cite{a} \cite{b}`. Sammelzitate generell vermeiden [CS 1.7.2]. |
-| K5 | Achsbeschriftung Diagramme | DIN 461: Achse mit Pfeil in Anstiegsrichtung, Einheit ersetzt die Zahl am vorletzten Achsenstrich, Rahmen um Diagramm [LF 4.4.2] | „Zeit in s“ [CS 2.4.2] | [LF] DIN 461 (Einheit am vorletzten Tick). Mit Betreuer klären, falls Plot-Tool das schwer macht. |
+| K3 | Gliederung Hauptteil | Einleitung+Zielstellung, Grundlagen/SdT, **Handlungsbedarf**, Methodik, Ergebnisse, Diskussion, Zusammenfassung+Ausblick [LF 3.1] | **Kurzfassung**, Einleitung, Grundlagen, Stand der Forschung (endet mit Forschungsbedarf), Methoden, Ergebnisse, Diskussion, Schlussfolgerungen (Beiträge + Ausblick) [CS 1.1] | Repo-Struktur (§3.1) beibehalten. Handlungsbedarf als letztes Unterkapitel von Kap. 3 (Stand der Technik); eigenes kurzes Kapitel ist laut [BA-L] auch ok. Kurzfassung: keine der beiden Referenz-BAs hat eine → nicht anlegen, außer Betreuer will es. |
+| K4 | Mehrfachzitate | Getrennte Klammern `[xy] [yz]`, NICHT `[xy; yz]` [LF 5.1] | Beispiel `[27, 28]` [CS 1.7.3] | [LF]: getrennte Klammern → LaTeX `\cite{a} \cite{b}`. Bestätigt: beide Referenz-BAs nutzen `[2] [3]`. Sammelzitate generell vermeiden [CS 1.7.2]. |
+| K5 | Achsbeschriftung Diagramme | DIN 461: Achse mit Pfeil in Anstiegsrichtung, Einheit ersetzt die Zahl am vorletzten Achsenstrich, Rahmen um Diagramm [LF 4.4.2] | „Zeit in s“ [CS 2.4.2] | GEÄNDERT nach Praxisbefund: „Größe in Einheit“ (z. B. „Rechenzeit in ms“) wie [CS] und [BA-K] (gut bewertet, kein DIN 461). DIN 461 nur, wenn Betreuer es ausdrücklich will. Einheitlich über alle Diagramme. |
 | K6 | Formel-Nummerierung | Kapitelweise `(X.Y)` [LF 4.4.4] | `(n)` oder `(X.Y)` [CS 2.5.3] | `(X.Y)` — macht scrreprt automatisch. Kein Konflikt in der Praxis. |
 | K7 | Verweis auf Formel | – | „Gleichung 1“, Identifier ohne Klammer [CS 2.5.4] | `Gleichung~\ref{eq:x}` (nicht `\eqref`). |
 | K8 | „ergibt sich“ | Vermeiden (Reflexivpronomen), stattdessen „resultieren“; keine Sätze „Aus der Betrachtung von xy folgt/ergibt sich…“ [LF 2.4] | Nutzt selbst „ergibt sich zu“ im Formelbeispiel [CS 2.5] | Vermeiden. |
 | K9 | Literaturverwaltung | Citavi empfohlen [LF 5.1] | – | Nils nutzt Zotero online + biblatex/biber (`zotero.bib`). Abgabe verlangt Citavi-Projekt [GS 3.4] → stattdessen Zotero-Export bzw. .bib abgeben; mit Betreuer abklären. |
+| K10 | Nummerierung Abb./Tab. | Fortlaufend arabisch (1, 2, 3 …) [LF 4.4.1] | – | Kapitelweise (2.1, 2.2 …), scrreprt-Standard; [BA-K] macht es so, [BA-L] fortlaufend → beides akzeptiert. Nicht umbauen. |
 
 ---
 
@@ -374,4 +379,85 @@ Dimensions, FAU-Katalog (VPN), Google Scholar (+ Alerts), Scopus, Web of Science
 
 ## 12. Projektspezifische Absprachen (von Nils/Betreuer, hier ergänzen)
 - *(noch leer — geklärte Konflikte aus §1 hier mit Datum eintragen, z. B. „2026-11-xx K1: Betreuer will Präteritum für Versuche“)*
-- Offene Fragen an Betreuer: K1 Tempus, K2 Aktiv/Passiv, K3 Kurzfassung ja/nein, K4 Mehrfachzitate, K5 Achsbeschriftung, K9 .bib statt Citavi.
+- Offene Fragen an Betreuer (nach Praxisabgleich §13 nur noch nötig, falls Nils sicher gehen will): K1 Tempus, K2 Aktiv/Passiv, K9 Zotero/.bib statt Citavi. K3/K4/K5/K10 durch Referenz-BAs praktisch geklärt.
+
+---
+
+## 13. Praxis aus gut bewerteten FAPS-Bachelorarbeiten ([BA-K], [BA-L])
+
+> Zweck: zeigen, was real akzeptiert wird. Muster übernehmen, nie Text. Wo §1–§11 strenger sind als die Praxis, gilt §13.1.
+
+### 13.1 Spielraum-Matrix (was ist wie verbindlich?)
+| Stufe | Regeln | Beleg |
+|---|---|---|
+| **HART** (nie brechen) | H1 keine erfundenen Quellen; jede fremde Aussage belegt; eigene Worte; kein ich/wir im Text (nur Erklärung); Erklärung unterschrieben; Verzeichnisse vollständig; Abb./Tab. referenziert + Quelle bei Fremdinhalt; Abgabeformalia §9 | Beide BAs halten das durchgehend ein |
+| **STANDARD** (einhalten, Vorlage erledigt das meist) | Seitenlayout, Schrift, Römisch/Arabisch, max. 3 Gliederungsebenen, Formelnummern (X.Y), Literaturverzeichnis in Zitierreihenfolge, `[n] [m]` getrennt, Zitat vor/nach Punkt (§7.2), Caption Abb. unten/Tab. oben, Anhang mit Buchstaben | Beide BAs |
+| **WEICH** (Empfehlung; Abweichung kostet keine gute Note) | Stil-Verbotsliste §4.3 (beide nutzen „in der Regel“, „beispielsweise“, „aktuell“, „heute“, „offensichtlich“, „essentiell“; [BA-L] 5× „man“); strikt aktiv (beide stark passiv: „wird … erläutert“); striktes Präsens (beide Perfekt/Präteritum für Versuche); ≥ 3 Unterkapitel pro Hauptkapitel ([BA-K] Kap. 9 hat 2; [BA-L] Kap. 3 und 5 haben 0); Kapitelnamen exakt „Grundlagen/Methodik/…“ (beide thematische Titel); Einleitung ≤ 3 S. ([BA-K] 4 S.); Zahlen ≤ 12 ausschreiben; DIN 461 | Beide BAs |
+| **OPTIONAL** | Kurzfassung (keine BA hat eine); Lebenslauf (nur [BA-L]); Symbolverzeichnis (nur [BA-K]); separates Quellenverzeichnis für Webquellen (nur [BA-K]) | – |
+
+Agent-Konsequenz: Bei WEICH-Regeln Text nicht zwanghaft umbauen, wenn er dadurch schlechter lesbar wird. Bei neuen Texten trotzdem die §4-Regeln als Default anwenden (kostet nichts, wirkt professioneller). Abweichungen von HART nie.
+
+### 13.2 Gliederung der Referenzarbeiten
+**[BA-K]** (Entwicklung/Implementierung, LaTeX):
+1 Einleitung (1.1 Motivation · 1.2 Zielsetzung · 1.3 Aufbau der Arbeit) → 2 Autonome Navigation von Flugrobotern → 3 Wahrnehmung des Umfeldes → 4 Aktuelle Konzepte zur Pfadplanung (= Grundlagen + SdT, thematisch auf 3 Kapitel verteilt, ~22 S. ≈ 30 %) → 5 Ausgangssituation und Architektur (Vorgängerarbeiten im Projekt, endet mit abgeleitetem Handlungsbedarf) → 6 Konzept zur Kollisionsvermeidung (2 Lösungsvarianten) → 7 Umsetzung der Konzepte → 8 Evaluation (8.1 Simulation · 8.2 Realversuche · 8.3 Ergebnisdiskussion) → 9 Zusammenfassung und Ausblick (9.1 · 9.2) → Literaturverzeichnis → Quellenverzeichnis (Web, [Q1]…) → Anhang A Vollständige Messungen.
+
+**[BA-L]** (Versuchsreihe/Optimierung, Word):
+1 Einleitung (1.1 Einleitungsgedanke · 1.2 Zielstellung und Rahmenprojekt · 1.3 Aufbau) → 2 Stand der Technik (2.1 Rechnerarchitekturen · 2.2 KNN mit 6 Unterpunkten, letzter = verwandte Anwendungen; ~33 S. ≈ 40 %) → 3 Handlungsbedarf und Anforderungen (eigenes Kapitel, 2 S., ohne Unterkapitel) → 4 Implementierung … (4.1 Software · 4.2 Datensatz · 4.3–4.6 Versuchsblöcke; Methodik + Ergebnisse + Diskussion zusammen, ~42 S.) → 5 Zusammenfassung und Ausblick (ohne Unterkapitel) → Literaturverzeichnis → Anhang A–C (Abbildungen) → Anhang D (Inhalt Datenträger) → Lebenslauf.
+
+Gemeinsame Muster (übernehmen):
+- **Einleitung = 3 Unterkapitel: Motivation → Zielsetzung (inkl. Rahmenprojekt) → Aufbau der Arbeit.** Aufbau-Abschnitt beschreibt jedes Kapitel in 2–4 Sätzen mit Kapitelnummer.
+- **Kapiteltitel thematisch** statt generisch („Wahrnehmung des Umfeldes“ statt „Grundlagen“). Für Nils' Repo: Dateinamen bleiben, `\chapter{}`-Titel dürfen thematisch sein.
+- **Grundlagen und SdT dürfen verschmelzen** und über mehrere Kapitel verteilt sein; SdT endet mit „verwandte Arbeiten/Anwendungen“ direkt vor dem Handlungsbedarf.
+- **Vorgängerarbeiten im Projekt** (andere FAPS-Abschlussarbeiten) werden explizit als Ausgangslage beschrieben und zitiert ([BA-K] Kap. 5, [BA-L] Quelle [3] = frühere BA). Graue Literatur ist hier üblich und ok.
+- **Handlungsbedarf mit quantifizierten Anforderungen**: [BA-L] leitet aus Literatur (85 % Genauigkeit in [58]) + eigener Rechnung (Binomialverteilung → 99,9 %, max. 33 ms/Bild) messbare Anforderungen ab. [BA-K] setzt Zielwert 20 Hz aus Literatur. → Starkes Muster: Anforderungen als Zahlen, später im Schluss explizit dagegen prüfen.
+- **Ehrliche Zielverfehlung ist ok**: [BA-K] erreicht die selbst gesetzten 20 Hz nicht (max. ~10 Hz) und schreibt das klar in Diskussion + Zusammenfassung, mit Ursachen und Optimierungsansätzen. Gut bewertet.
+- **Diskussion muss nicht eigenes Kapitel sein**: [BA-K] als 8.3 „Ergebnisdiskussion“ im Evaluationskapitel; [BA-L] pro Versuchsblock.
+- **Zusammenfassung** fasst kapitelweise zusammen („In Kapitel 4 …“) und prüft am Ende gegen die Anforderungen aus dem Handlungsbedarf. Ausblick = konkrete, technisch begründete Verbesserungsvorschläge (Konjunktiv „könnte“ dort normal). Länge 3–4 S.
+
+### 13.3 Muster für Versuchs-/Evaluationskapitel ([BA-L] sehr sauber)
+- Pro Versuchsblock (eigenes Unterkapitel 4.x.y) drei fett gesetzte, unnummerierte Zwischenüberschriften: **Versuchsaufbau → Ergebnisse → Diskussion**. LaTeX: `\paragraph*{Versuchsaufbau}` oder `\textbf{…}`-Zeile, NICHT als 4. Gliederungsebene nummerieren.
+- Versuche durchnummeriert („Versuch 1 … 19“) und über Kapitel hinweg referenzierbar („Netzarchitektur nach Versuch 8“).
+- Versuchsaufbau als **Parametertabelle** (Spalten = Versuche, Zeilen = Parameter); nur geänderte Parameter hervorheben.
+- Ergebnisse als **Ergebnistabelle** mit identischen Kennzahlen in jedem Block (vergleichbar) + Text, der die wichtigsten Zahlen nennt (absolut und relativ: „51 min statt 7 h, ca. 12 %“).
+- Rohverläufe/Trainingskurven in den Anhang, im Text verweisen („Anhang B – Abbildung 1“).
+- Diskussion erklärt Ursachen mit Rückbezug auf Grundlagenkapitel („Dies beruht auf den in Kapitel 2.1.1 und 2.1.2 erläuterten Architekturen“) und leitet Konsequenz für den nächsten Versuch ab („Aus diesem Grund werden … im Folgenden ausschließlich mit GPU …“).
+- Feldtest/Realtest: qualitative Beobachtungen tabellarisch nach Szenario, danach Diskussion jeder Auffälligkeit mit Ursachenhypothese („vermutlich“, „lässt sich erklären durch“ – vorsichtige Formulierung in der Diskussion ist ok).
+- [BA-K]: Simulation zuerst, dann Realversuch; gleiche Kennzahlen in beiden; vollständige Messreihen im Anhang, im Text nur repräsentative Messung + Übersichtstabelle („vollständige Messungen im Anhang“ in der Tabellenüberschrift).
+- Testumgebung (Hardware: CPU, RAM, GPU, OS, Softwareversionen) explizit angeben → Reproduzierbarkeit.
+
+### 13.4 Abbildungen, Tabellen, Formeln, Code in der Praxis
+- Captions: [BA-L] = Titel + 1–2 erklärende Sätze (entspricht [CS]/[LF], **bevorzugen**); [BA-K] = nur kurzer Titel (auch akzeptiert).
+- Quellenangabe direkt in der Caption: `[12]`, `nach [4]`, `in Anlehnung an [12]` (nachgezeichnet/vereinfacht). Beide nutzen das konsequent. Eigene Fotos/Grafiken ohne Quelle.
+- Teilabbildungen mit a) / b) und Untertitel ([BA-K]).
+- Diagramme: zwei y-Achsen möglich (Rechenzeit + expandierte Knoten über Flugzeit), Achse „Größe in Einheit“ ([BA-K]).
+- Formeln: [BA-L] mit „mit:“-Variablenliste unter jeder Formel (wie [LF]) und Einleitungssatz „ergibt sich in Anlehnung an [14] zu:“ → fremde Formeln werden zitiert! [BA-K] mit Symbolverzeichnis statt Liste. Beides ok; Variablen müssen erklärt sein.
+- **Code**: [BA-L] zeigt Quellcode-Ausschnitte (≤ 30 Zeilen) mit Zeilennummern und erklärt danach im Text zeilenweise („In Zeile 21 wird …“); dort als „Tabelle“ beschriftet (Word-Notlösung). In LaTeX besser `listings`/`minted` mit eigenem Verzeichnis oder als Abbildung; vorher mit Nils klären, Paket ist in der Vorlage nicht geladen. [BA-K] zeigt keinen Code, sondern Architektur- und Ablaufdiagramme → für Software-Arbeiten Diagramme > Code.
+- Technische Daten (Hardware, Kamera, Rechner) im Fließtext mit Datenblatt-/Webquelle.
+- Anhang-Abbildungen: [BA-L] „Anhang A – Abbildung 1“ (wie [LF]); [BA-K] „A.1“ im Abbildungsverzeichnis. Beides akzeptiert.
+
+### 13.5 Zitieren & Quellen in der Praxis
+- Getrennte Klammern `[2] [3]`; Absatzbeleg nach dem Punkt `… Folgen. [3]`; Satzbeleg vor dem Punkt. Auch Kombination: Satzbelege im Absatz + Absatzbeleg am Ende ([BA-K] „… [7] [11]. [12] [20]“). Häufig: ganze Absätze aus einem Lehrbuch mit Absatzbeleg am Ende.
+- Quellenmix: Lehrbücher und Dissertationen für Grundlagen, Journal-/Konferenzpaper (IEEE, Springer) für SdT, Webseiten für Produkt-/Softwaredaten (ROS-Wiki, Hersteller, sogar Amazon-Produktseite für Preisangabe in [BA-K]; Tech-Blogs in [BA-L]). → Webquellen für technische Fakten/Produktdaten werden toleriert; für wissenschaftliche Aussagen trotzdem Paper/Bücher.
+- [BA-K] trennt Literaturverzeichnis `[n]` und Quellenverzeichnis `[Qn]` (Webseiten). In biblatex machbar (`\printbibliography[nottype=online]` + zweites mit `type=online` und eigenem Präfix); nur auf Wunsch von Nils.
+- Webquellen mit URL + Abrufdatum („Aufgerufen am 04.02.2019“ / „Überprüfungsdatum“) → biblatex `urldate`.
+- Umfang Literatur: [BA-K] 38 + 13 Webquellen, [BA-L] ~70 Quellen. Richtwert für eine BA: 40–70.
+- Fachbegriffe: englischer Originalbegriff bei Einführung in Klammern „(engl. unmanned aerial vehicle)“ ([BA-K]); Abkürzung danach konsequent.
+
+### 13.6 Sprache in der Praxis (realistische Messlatte)
+- Beide schreiben überwiegend Präsens + Vorgangspassiv („wird … erläutert“, „werden … gemessen“); Versuchsdurchführung im Perfekt/Präteritum Passiv („sind … durchgeführt worden“, „wurden … gesetzt“). → K1-Default bestätigt.
+- Kapitel- und Abschnittseinleitungen mit Vorschau („Im Folgenden wird zunächst … und anschließend … eingegangen.“) und Überleitungssätze am Kapitelende zum nächsten Kapitel ([BA-K] durchgehend). Gutes Muster für den roten Faden.
+- Querverweise sehr häufig („vgl. Abbildung 3.3“, „siehe Kapitel 2.2.5“, „wie in Kapitel 2.3 erläutert“). → Mit `\ref` großzügig verknüpfen.
+- Anschauliche Analogien in Grundlagen erlaubt ([BA-K]: menschliche Navigation durch eine Stadt als Analogie zu globalem/lokalem Pfadfinder).
+- Formulierungen „Im Folgenden soll … erläutert werden“ ([BA-L], sehr häufig) sind akzeptiert, aber „wird … erläutert“ ist knapper → bevorzugen.
+- Fehler, die trotzdem durchgingen (nicht nachmachen): Tippfehler im Abkürzungsverzeichnis, uneinheitliche Zitierreihenfolge „[10] [9]“, „essentiell“/„extrem“-Wertungen, Beispiel-Aufzählungen statt MECE.
+
+### 13.7 Umfang & Gewichtung (Referenzwerte)
+| | [BA-K] | [BA-L] | Vorgabe |
+|---|---|---|---|
+| Textseiten | ~74 | ~83 | 60–80 [GS] |
+| Einleitung | 4 S. | 3 S. | 2–3 [LF] |
+| Grundlagen + SdT | ~22 S. (~30 %) | ~33 S. (~40 %) | ~1/3 [GS] |
+| Eigener Teil (Konzept/Umsetzung/Versuche/Diskussion) | ~44 S. | ~45 S. | ~2/3 [LF] |
+| Zusammenfassung + Ausblick | 4 S. | 3 S. | ≤ 3 [LF] |
+| Abbildungen / Tabellen im Text | ~35 / 3 | 24 / 21 | – |
+| Anhang | 24 Messdiagramme | Netzarchitekturen, Trainingskurven, Feldtestbilder, Datenträgerliste | – |
