@@ -1,0 +1,41 @@
+\chapter{Grundlagen}
+
+Das Grundlagenkapitel vermittelt dem Leser das Fachwissen, das zum Verständnis der restlichen Arbeit nötig ist. Hier werden keine eigenen Ergebnisse präsentiert, sondern etabliertes Wissen aus der Literatur zusammengefasst. Die Faustregel lautet: Alles, was ein Leser aus dem Fachgebiet nicht als Allgemeinwissen voraussetzen kann, gehört hierhin.
+
+Typische Inhalte sind Definitionen, physikalische Grundlagen, relevante Normen oder eine Beschreibung der eingesetzten Technologien.
+
+\section{Theoretischer Hintergrund}
+
+Grundlagenwissen wird in der Regel durch etablierte Fachbücher belegt. Für das Verständnis von industriellen Produktionsprozessen und elektronischen Baugruppen liefert beispielsweise das Standardwerk von Franke die wichtigsten Definitionen und Herstellungsverfahren für räumliche elektronische Schaltungsträger \cite{Franke2013}. Bücher eignen sich besonders für zeitlich stabile Inhalte wie Definitionen, physikalische Gesetze oder Fertigungsverfahren.
+
+Jede Abbildung muss im Text referenziert werden, bevor sie erscheint. Abbildung \ref{fig:faps_logo} zeigt exemplarisch das Logo des Lehrstuhls \ac{FAPS}. Der Verweis im Text kommt immer zuerst, dann folgt die Abbildung.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=6cm]{LogoFAPS}
+    \caption{Logo des Lehrstuhls FAPS \cite{FAPS2024}}
+    \label{fig:faps_logo}
+\end{figure}
+
+\section{Mathematische und physikalische Grundlagen}
+
+Formeln werden nummeriert und im Text erläutert. Vor der Formel steht eine Einleitung, nach der Formel eine Erklärung aller Variablen. Idealisiert ergibt sich die magnetische Flussdichte im Inneren einer langen Spule nach Gleichung \ref{eq:spule}:
+
+\begin{equation}
+    B = \mu_0 \cdot \mu_r \cdot \frac{I \cdot n}{l}
+    \label{eq:spule}
+\end{equation}
+\formeleintrag{Magnetische Flussdichte einer idealen Spule}
+
+mit:
+\begin{tabbing}
+    \hspace{2cm} \= \kill
+    $B$ \> magnetische Flussdichte in T \\
+    $\mu_0$ \> magnetische Feldkonstante ($4\pi \times 10^{-7}$ \, Vs/Am) \\
+    $\mu_r$ \> relative Permeabilität des Kernmaterials \\
+    $I$ \> Stromstärke in A \\
+    $n$ \> Anzahl der Windungen \\
+    $l$ \> wirksame Länge der Spule in m
+\end{tabbing}
+
+Hinweis: Jede Formel, die im Formelverzeichnis erscheinen soll, benötigt den Befehl \texttt{\textbackslash formeleintrag\{\}} direkt nach der Gleichungsumgebung.

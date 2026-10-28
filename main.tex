@@ -1,69 +1,227 @@
-% !TEX program = pdflatex
 \documentclass[
-  12pt,
-  a4paper,
-  oneside,
-  parskip=half,
-  bibliography=totoc,
-  listof=totoc
+    12pt,               
+    a4paper,            
+    twoside,                  
+    chapterprefix=false,
+    captions=tableheading
 ]{scrreprt}
 
-% --- Sprache und Schrift ---------------------------------------------------
-\usepackage[ngerman]{babel}
+% --- SPRACHE & SCHRIFT ---
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\usepackage{microtype}
-\usepackage[autostyle]{csquotes}
-
-% --- Layout ----------------------------------------------------------------
-\usepackage[left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[ngerman]{babel}
+\usepackage[scaled]{helvet}         
+\renewcommand{\familydefault}{\sfdefault} 
 \usepackage{setspace}
-\onehalfspacing
+\setstretch{1.2}
+\setlength{\parindent}{0pt} % Setzt die Einrückung der ersten Zeile auf 0
 
-% --- Inhalte ---------------------------------------------------------------
+% --- SEITENLAYOUT (Word-Vorgabe) ---
+\usepackage[
+    inner=3cm, 
+    outer=2cm, 
+    top=2.5cm, 
+    bottom=3cm, 
+    bindingoffset=0cm
+]{geometry}
+
+% --- ABSTÄNDE FÜR ÜBERSCHRIFTEN ---
+\RedeclareSectionCommand[beforeskip=0pt]{chapter}
+
+% --- VERZEICHNISSE FORMATIEREN ---
+% Setzt die Einrückung (indent) für Abbildungen und Tabellen auf 0pt (linksbündig)
+\DeclareTOCStyleEntry[indent=0pt]{tocline}{figure}
+\DeclareTOCStyleEntry[indent=0pt]{tocline}{table}
+
+% --- FORMELVERZEICHNIS DEFINIEREN ---
+\DeclareNewTOC[
+    type=formel,
+    types=formeln,
+    name={Formel},
+    listname={Formelverzeichnis}
+]{for}
+
+% Formatierung: Linksbündig (0pt) und Platz für die Nummer (2.3em)
+\DeclareTOCStyleEntry[indent=0pt, numwidth=2.3em]{tocline}{formel}
+
+% Befehl für die Studierenden
+\newcommand{\formeleintrag}[1]{\addxcontentsline{for}{formel}[{\theequation}]{#1}}
+
+% --- KOPF- UND FUSSZEILEN ---
+\usepackage[headsepline=0.75pt, automark]{scrlayer-scrpage}
+\clearpairofpagestyles  
+\ohead{\pagemark}       
+\ihead{\headmark}       
+\renewcommand{\chaptermarkformat}{\thechapter\autodot\enskip} 
+\renewcommand*{\chapterpagestyle}{scrheadings}
+
+\automark[chapter]{chapter}
+
+% --- ZITIERSTIL (DIN ISO 690 für Deutsch) ---
+\usepackage[
+    backend=biber,
+    style=iso-numeric,
+    autolang=other
+]{biblatex}
+\addbibresource{references.bib} 
+
+% --- WEITERE PAKETE ---
 \usepackage{graphicx}
-\graphicspath{{figures/}}
-\usepackage{booktabs}
-\usepackage{amsmath,amssymb}
-\usepackage{xcolor}
-
-% --- Literatur -------------------------------------------------------------
-\usepackage[backend=biber,style=authoryear]{biblatex}
-\addbibresource{literatur.bib}
-
-% --- Links (möglichst spät laden) ------------------------------------------
+\graphicspath{{Bilder/}} 
+\usepackage[absolute,overlay]{textpos} 
+\usepackage{calc} 
+\usepackage{wasysym} 
+\usepackage{acronym} 
+\usepackage{csquotes}
 \usepackage[hidelinks]{hyperref}
+\usepackage{booktabs}
 
-% --- Metadaten -------------------------------------------------------------
-\newcommand{\thesistitle}{Titel der Bachelorarbeit}
-\newcommand{\thesisauthor}{Nils Meier}
+% --- BILD- UND TABELLENBESCHRIFTUNGEN ---
+\usepackage[
+    justification=raggedright, % Linksbündig
+    singlelinecheck=false,      % Verhindert Zentrierung bei kurzen Zeilen
+    labelfont=it,               % "Abbildung X" kursiv (optional, sieht oft besser aus)
+    font={small, it}                  % Etwas kleinere Schrift als der Haupttext (optional)
+]{caption}
 
-\hypersetup{pdftitle={\thesistitle}, pdfauthor={\thesisauthor}}
+% --- FARBEN & LISTEN (Corporate Design) ---
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+% Hier definieren wir das FAPS-Grün. 
+% (Falls du den exakten RGB-Wert aus dem Styleguide hast, kannst du die Zahlen hier anpassen)
+\definecolor{FAPSGruen}{RGB}{151, 193, 57} 
+
+% Ändert das Standard-Zeichen der 1. Ebene in ein grünes Quadrat (\rule macht ein Viereck)
+\setlist[itemize,1]{label=\textcolor{FAPSGruen}{\rule{1ex}{1ex}}}
+
+% Falls du auch die 2. Ebene anpassen willst (z.B. ein leerer grüner Kreis):
+\setlist[itemize,2]{label=\textcolor{FAPSGruen}{--}}
+
+% Setzt den vertikalen Abstand bei Tabellenbeschriftungen (da diese OBEN stehen)
+\captionsetup[table]{skip=10pt}
+
+% ==============================================================================
+% 1. BITTE HIER DEINE PERSÖNLICHEN DATEN EINTRAGEN!
+% ==============================================================================
+\newcommand{\Titel}{Titel der Arbeit (ggf. zweizeilig)} 
+\newcommand{\Arbeitstyp}{Bachelorarbeit im Studiengang Maschinenbau} % Art der Arbeit
+\newcommand{\Autor}{Max Mustermann} % Dein Vor- und Nachname
+\newcommand{\Matrikelnummer}{12345678} % Deine Matrikelnummer
+\newcommand{\Bearbeiter}{\Autor, (B.\,Sc.,) \Matrikelnummer} % Abschlüsse anpassen
+\newcommand{\BetreuerEins}{Prof. Dr.-Ing. Jörg Franke} 
+\newcommand{\BetreuerZwei}{(Dipl.-Ing.) Vorname Nachname(, M.\,Sc.)} % Betreuer anpassen
+\newcommand{\BetreuerDrei}{Vorname2 Nachname2, M.\,Sc., M.\,Sc.} % Ggf. leer lassen
+\newcommand{\Abgabetermin}{XX.XX.202X} 
+\newcommand{\Bearbeitungszeit}{XX Monate} 
+\newcommand{\Titelbild}{CoverImage} % Dateiname deines Titelbilds (OHNE Dateiendung wie .png)
+
+% Formelverzeichnis anzeigen? (true = ja, false = nein)
+\newif\ifMitFormelverzeichnis
+\MitFormelverzeichnistrue
 
 \begin{document}
 
-\input{chapters/00_titelseite}
+% --- TITELSEITE ---
+\begin{titlepage}
+    \begin{textblock*}{0cm}[0,0](0.85cm, 2.9cm + 0.02cm)
+        \includegraphics[height=0.53cm,width=1.5cm]{BalkenFAPSGruen}
+    \end{textblock*}
+    \begin{textblock*}{13.2cm}[0,0](2.5cm, 2.9cm - 0.65cm)
+        {\singlespacing\large\bfseries\Titel}
+    \end{textblock*}
+    \begin{textblock*}{0cm}[0,0](16.38cm, 1.4cm)
+        \includegraphics[height=3cm,width=3cm]{LogoFAPS}
+    \end{textblock*}
+    \begin{textblock*}{13cm}[0,0](2.5cm, 2.9cm + 3.6cm)
+        {\normalsize\textbf{\Arbeitstyp}}
+    \end{textblock*}
+    \begin{textblock*}{16cm}[0,0](2.5cm, 2.9cm + 5.6cm)
+        Friedrich-Alexander-Universität Erlangen-Nürnberg \\ 
+        Lehrstuhl für Fertigungsautomatisierung und Produktionssystematik \\ 
+        Prof. Dr.-Ing. Jörg Franke
+    \end{textblock*}
+    \begin{textblock*}{16.88cm}[0,0](2.5cm, 2.9cm + 8.75cm)
+        \includegraphics[width=16.88cm,height=9cm]{\Titelbild}
+    \end{textblock*}
+    \begin{textblock*}{16cm}[0,0](2.5cm, 2.9cm + 9cm + 10.2cm)
+        \begin{tabular}{@{}ll}
+            Bearbeiter: & \Bearbeiter \\[0.6cm] 
+            Betreuer: & \BetreuerEins \\ 
+                      & \BetreuerZwei \\ 
+                      & \BetreuerDrei \\[0.6cm] 
+            Abgabetermin: & \Abgabetermin \\ 
+            Bearbeitungszeit: & \Bearbeitungszeit 
+        \end{tabular}
+    \end{textblock*}
+    \mbox{}
+\end{titlepage}
 
-\pagenumbering{Roman}
-\input{chapters/00_abstract}
-\tableofcontents
-\listoffigures
-\listoftables
+\cleardoublepage 
 
+% ==========================================
+% EIGENSTÄNDIGKEITSERKLÄRUNG (Komplett ohne Zählung)
+% ==========================================
+
+\input{Kapitel/00_Eigenständigkeitserklärung}
+
+% ==========================================
+% VORSPANN (Ab hier exakt Römisch I, II...)
+% ==========================================
+\pagestyle{scrheadings} 
+\pagenumbering{Roman} 
+\setcounter{page}{1} % Erzwingt den Start bei I
+
+\tableofcontents 
 \cleardoublepage
+
+\listoffigures 
+\cleardoublepage
+
+\listoftables 
+\cleardoublepage
+
+\ifMitFormelverzeichnis
+    \listofformeln
+    \cleardoublepage
+\fi
+
+\chapter*{Abkürzungsverzeichnis}
+\markboth{Abkürzungsverzeichnis}{Abkürzungsverzeichnis}
+% HINWEIS: Neue Abkürzungen hier im Format \acro{Kürzel}{Ausgeschriebener Text} eintragen.
+% Im Fließtext kannst du sie dann einfach mit \ac{Kürzel} aufrufen!
+\begin{acronym}[XXXXXXXXX]
+    \acro{KI}{Künstliche Intelligenz}
+    \acro{DSGVO}{Datenschutz-Grundverordnung}
+    \acro{FAPS}{Fertigungsautomatisierung und Produktionssystematik}
+\end{acronym}
+\cleardoublepage
+
+% ==============================================================================
+% HAUPTTEIL (Hier NICHTS reinschreiben, sondern die Dateien im Ordner "Kapitel" nutzen!)
+% ==============================================================================
 \pagenumbering{arabic}
-\input{chapters/01_einleitung}
-\input{chapters/02_grundlagen}
-\input{chapters/03_methodik}
-\input{chapters/04_ergebnisse}
-\input{chapters/05_fazit}
 
-\printbibliography[title={Literaturverzeichnis}]
+% Hier werden die einzelnen Dateien aus dem Ordner geladen:
+\input{Kapitel/01_Einleitung}
+\input{Kapitel/02_Grundlagen}
+\input{Kapitel/03_Stand_der_Technik}
+\input{Kapitel/04_Methodik}
+\input{Kapitel/05_Ergebnisse}
+\input{Kapitel/06_Diskussion}
+\input{Kapitel/07_Zusammenfassung}
 
-\appendix
-\input{chapters/99_anhang}
+% ==========================================
+% LITERATURVERZEICHNIS
+% ==========================================
+\cleardoublepage
+\printbibliography[heading=bibintoc, title={Literaturverzeichnis}]
 
-\input{chapters/99_erklaerung}
+% ==========================================
+% ANHANG
+% ==========================================
+\cleardoublepage
+\appendix % Schaltet die Kapitel-Nummerierung auf Buchstaben (A, B, C...) um
+\input{Kapitel/Anhang_A}
+\input{Kapitel/Anhang_B}
 
 \end{document}

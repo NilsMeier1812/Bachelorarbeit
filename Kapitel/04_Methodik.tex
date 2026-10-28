@@ -1,0 +1,49 @@
+\chapter{Methodik}
+
+Das Methodikkapitel ist das Herzstück der Arbeit. Hier wird beschrieben, \textit{wie} die Lösung entwickelt wurde — so detailliert, dass ein anderer Forscher die Arbeit nachvollziehen und reproduzieren könnte. Typische Inhalte sind der Versuchsaufbau, eingesetzte Hardware und Software, gewählte Algorithmen oder mathematische Modelle.
+
+\section{Vorgehen und Versuchsplanung}
+
+Zu Beginn empfiehlt es sich, das grundsätzliche Vorgehen zu beschreiben: Wurde ein experimenteller, simulativer oder analytischer Ansatz gewählt? Warum ist dieser Ansatz für die Problemstellung geeignet?
+
+Tabellen eignen sich hervorragend, um Versuchsparameter oder Systemspezifikationen übersichtlich darzustellen. Jede Tabelle muss im Text referenziert werden. Tabelle \ref{tab:versuchsparameter} zeigt exemplarisch die Parameter eines fiktiven Versuchsaufbaus.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Übersicht der Versuchsparameter.}
+    \label{tab:versuchsparameter}
+    \begin{tabular}{l c r}
+        \toprule
+        \textbf{Parameter} & \textbf{Formelzeichen} & \textbf{Wert} \\
+        \midrule
+        Vorschubgeschwindigkeit & $v_f$ & 120 mm/s \\
+        Laserleistung & $P$ & 200 W \\
+        Schichtdicke & $d$ & 0,05 mm \\
+        Bauraum-Temperatur & $T$ & 80 °C \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Hinweis zum Tabellenstil: In wissenschaftlichen Arbeiten werden ausschließlich horizontale Linien verwendet (\texttt{\textbackslash toprule}, \texttt{\textbackslash midrule}, \texttt{\textbackslash bottomrule} aus dem Paket \texttt{booktabs}). Vertikale Linien gelten als veraltet und sollten vermieden werden.
+
+\section{Eingesetzte Werkzeuge}
+
+Hier werden die konkreten Werkzeuge beschrieben — z.\,B. welche Programmiersprache, welches CAD-System oder welche Messgeräte verwendet wurden. Versionsnummern und Hersteller sollten genannt werden, damit die Ergebnisse reproduzierbar sind.
+
+An die eingesetzte Software wurden folgende Anforderungen gestellt:
+
+\begin{itemize}
+    \item Kompatibilität mit dem bestehenden Datenformat der Versuchsanlage, um eine nahtlose Integration in den Messablauf zu gewährleisten.
+    \item Echtzeitfähige Datenverarbeitung mit einer Latenz von unter 50\,ms, da die Regelung des Prozesses zeitkritisch ist.
+    \item Open-Source-Verfügbarkeit, um die Reproduzierbarkeit der Ergebnisse auch ohne kostenpflichtige Lizenzen sicherzustellen.
+\end{itemize}
+
+Hinweis zum Stil: Stichpunkte sollten sparsam eingesetzt werden. Für die meisten Inhalte ist Fließtext die bessere Wahl. Aufzählungen eignen sich vor allem für Anforderungslisten, Versuchsschritte oder knappe Vergleiche. In dieser Vorlage erscheinen die Aufzählungszeichen automatisch als grüne Quadrate im \ac{FAPS}-Design.
+
+Nummerierte Listen eignen sich besonders für Abläufe mit fester Reihenfolge:
+
+\begin{enumerate}
+    \item Kalibrierung des Sensors bei Raumtemperatur.
+    \item Durchführung der Messreihe mit steigender Laserleistung.
+    \item Auswertung der Rohdaten und Filterung von Ausreißern.
+\end{enumerate}
