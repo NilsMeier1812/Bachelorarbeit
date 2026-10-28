@@ -9,7 +9,7 @@ LaTeX-Quellen der Bachelorarbeit. Wird mit Overleaf über die GitHub-Synchronisi
 | `main.tex` | Hauptdokument der FAPS-Vorlage (Präambel, Titelseite, Verzeichnisse, persönliche Daten) |
 | `Kapitel/` | Ein `.tex`-File pro Kapitel sowie Eigenständigkeitserklärung und Anhänge |
 | `Bilder/` | Abbildungen und Logos (werden über `\includegraphics{name}` gefunden) |
-| `references.bib` | Literaturdatenbank (biblatex + biber, DIN ISO 690) |
+| `zotero.bib` | Literaturdatenbank, aus Zotero online verknüpft (in Overleaf nur per „Aktualisieren“ ändern, nicht von Hand; biblatex + biber, DIN ISO 690) |
 
 Basiert auf der LaTeX-Vorlage des Lehrstuhls FAPS (FAU Erlangen-Nürnberg).
 

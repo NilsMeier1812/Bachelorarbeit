@@ -17,7 +17,7 @@
 3. Offene Konflikte stehen in §1. Dort gilt der markierte DEFAULT, bis Nils ihn überschreibt.
 
 ### 0.3 Harte Regeln für Agents (nicht verhandelbar)
-- **H1 Niemals Quellen erfinden.** Bereits die erste fiktive Quelle = Täuschungsversuch = Note 5,0 [LF 2.2]. Nur Einträge zitieren, die in `references.bib` stehen UND von Nils stammen/verifiziert sind. Fehlt ein Beleg: Kommentar `% TODO Quelle fehlt: <Aussage>` setzen (kein `\todo`, Paket nicht geladen) und Nils Bescheid geben, keinen Bib-Eintrag ausdenken, keine DOI/Seitenzahl raten.
+- **H1 Niemals Quellen erfinden.** Bereits die erste fiktive Quelle = Täuschungsversuch = Note 5,0 [LF 2.2]. Nur Einträge zitieren, die in Zotero (Sammlung „Bachelorarbeit“, in Overleaf als `zotero.bib`) stehen UND von Nils stammen/verifiziert sind. Fehlt ein Beleg: Kommentar `% TODO Quelle fehlt: <Aussage>` setzen (kein `\todo`, Paket nicht geladen) und Nils Bescheid geben, keinen Bib-Eintrag ausdenken, keine DOI/Seitenzahl raten.
 - **H2 Keine Aussage ohne Beleg.** Jede fremde Aussage zitieren [CS 1.7.1, LF 5]; jede eigene Behauptung durch eigene Analyse oder Quelle belegen [LF 2.3].
 - **H3 Kein „ich“, „wir“, „man“** im Text [CS 1.4.3, LF 2.3].
 - **H4 Vorlage nur im Textteil ändern.** Kopf-/Fußzeilen, Verzeichnisse, Titelseite-Layout nicht manuell anfassen [GS 5.1, LF 4.1]. Persönliche Daten nur über die `\newcommand`s oben in main.tex.
@@ -39,7 +39,7 @@
 | K6 | Formel-Nummerierung | Kapitelweise `(X.Y)` [LF 4.4.4] | `(n)` oder `(X.Y)` [CS 2.5.3] | `(X.Y)` — macht scrreprt automatisch. Kein Konflikt in der Praxis. |
 | K7 | Verweis auf Formel | – | „Gleichung 1“, Identifier ohne Klammer [CS 2.5.4] | `Gleichung~\ref{eq:x}` (nicht `\eqref`). |
 | K8 | „ergibt sich“ | Vermeiden (Reflexivpronomen), stattdessen „resultieren“; keine Sätze „Aus der Betrachtung von xy folgt/ergibt sich…“ [LF 2.4] | Nutzt selbst „ergibt sich zu“ im Formelbeispiel [CS 2.5] | Vermeiden. |
-| K9 | Literaturverwaltung | Citavi empfohlen [LF 5.1] | – | Nils nutzt biblatex/biber + `references.bib`. Abgabe verlangt Citavi-Projekt [GS 3.4] → stattdessen .bib abgeben; mit Betreuer abklären. |
+| K9 | Literaturverwaltung | Citavi empfohlen [LF 5.1] | – | Nils nutzt Zotero online + biblatex/biber (`zotero.bib`). Abgabe verlangt Citavi-Projekt [GS 3.4] → stattdessen Zotero-Export bzw. .bib abgeben; mit Betreuer abklären. |
 
 ---
 
@@ -327,7 +327,7 @@ Dimensions, FAU-Katalog (VPN), Google Scholar (+ Alerts), Scopus, Web of Science
 - **1 gebundenes Exemplar**, doppelseitig (sofern nicht anders abgesprochen), **klebegebunden, klare Deckfolie, grünes Abschlussblatt (FAPS-Grün)**; persönlich beim Betreuer mit Datenträger.
 - Zusätzlich elektronisch (PDF) + Abgabeordner in Teams/FAUbox, identisch mit Datenträger (CD/USB/SD), eindeutig benannte Dateien:
   - Arbeit digital (LaTeX-Quellen + PDF)
-  - Literaturverwaltung (Citavi-Projekt; hier: `references.bib` + PDFs, s. K9)
+  - Literaturverwaltung (Citavi-Projekt; hier: Zotero-Bibliothek bzw. `zotero.bib` + PDFs, s. K9)
   - Grafiken als Nativdaten + Austauschformat
   - Alle Arbeitsdateien dokumentiert/aufbereitet: Code (kommentiert), CAD, Messdaten
   - Dokumentation: Fotos, Videos, Code-Anleitungen
