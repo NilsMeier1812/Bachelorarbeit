@@ -15,7 +15,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from balib import (CHAPTER_DIR, MAIN_TEX, MAP_PATH, ROOT, evidence_files,  # noqa: E402
-                   load_bib_keys, load_evidence_file, load_map_keys, load_pages, norm)
+                   bib_key_counts, load_bib_keys, load_evidence_file, load_map_keys, load_pages,
+                   norm)
 
 try:
     from rapidfuzz import fuzz as _rf
@@ -126,10 +127,9 @@ def find_quote(zitat, seite, pages):
 
 
 # ---------------------------------------------------------------- Evidence
-def check_evidence(rep, bib, check_text):
+def check_evidence(rep, bib, check_text, renamed):
     zmap = json.loads(MAP_PATH.read_text(encoding="utf-8")) if MAP_PATH.exists() else {}
-    if not zmap:
-        rep.warn("zotero-map.json", "fehlt oder leer – `python scripts/zot.py bib` ausführen")
+    by_item = {v["zotero_key"]: k for k, v in zmap.items()}
     index = {}
     for path in evidence_files():
         where = f"evidence/{path.name}"
@@ -142,7 +142,13 @@ def check_evidence(rep, bib, check_text):
         if ck != path.stem:
             rep.err(where, f"citekey '{ck}' passt nicht zum Dateinamen")
         if ck not in bib:
-            rep.err(where, f"citekey '{ck}' nicht in der BA-Sammlung (zotero-map.json)")
+            new = by_item.get(data.get("zotero_key"))
+            if new:
+                renamed[ck] = new
+                rep.err(where, f"citekey '{ck}' wurde in Zotero zu '{new}' umbenannt – Datei, IDs und "
+                               "\\cite anpassen (oder den alten Key in Zotero wiederherstellen)")
+            else:
+                rep.err(where, f"citekey '{ck}' nicht in der BA-Sammlung (zotero-map.json)")
         if zmap and ck in zmap and data.get("zotero_key") != zmap[ck]["zotero_key"]:
             rep.err(where, f"zotero_key {data.get('zotero_key')} ≠ {zmap[ck]['zotero_key']} laut zotero-map.json")
 
@@ -219,7 +225,7 @@ def detex(s):
     return re.sub(r"\s+", " ", s).strip()
 
 
-def check_tex(rep, bib, latex_bib, index, files, pairs_out=None):
+def check_tex(rep, bib, latex_bib, renamed, index, files, pairs_out=None):
     used, marks, stars = set(), [], []
     pairs = []
     for f in files:
@@ -234,7 +240,9 @@ def check_tex(rep, bib, latex_bib, index, files, pairs_out=None):
             keys = [k.strip() for k in m.group("keys").split(",") if k.strip()]
             for k in keys:
                 if k not in bib:
-                    if k in latex_bib:
+                    if k in renamed:
+                        rep.err(where, f"Citekey '{k}' wurde in Zotero zu '{renamed[k]}' umbenannt")
+                    elif k in latex_bib:
                         rep.err(where, f"Citekey '{k}' steht in zotero.bib, ist aber nicht freigegeben "
                                        "(nicht in der BA-Sammlung oder ohne 'Citation Key:')")
                     else:
@@ -311,8 +319,12 @@ def main():
         rep.err("zotero-map.json", "fehlt oder leer – `python scripts/zot.py bib` ausführen")
     for k in sorted(bib - latex_bib):
         rep.warn("zotero.bib", f"'{k}' fehlt noch – in Overleaf die Zotero-Datei aktualisieren und pushen")
-    index = check_evidence(rep, bib, not args.no_text)
-    check_tex(rep, bib, latex_bib, index, tex_files(args.file), args.pairs)
+    for k, n in sorted(bib_key_counts().items()):
+        if n > 1:
+            rep.err("zotero.bib", f"Key '{k}' kommt {n}-mal vor – in Zotero eindeutigen 'Citation Key:' setzen")
+    renamed = {}
+    index = check_evidence(rep, bib, not args.no_text, renamed)
+    check_tex(rep, bib, latex_bib, renamed, index, tex_files(args.file), args.pairs)
     rep.print()
     sys.exit(1 if rep.errors else 0)
 

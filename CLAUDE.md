@@ -44,8 +44,8 @@ Wenn du etwas nicht belegen kannst, **markierst du die Lücke**, statt sie zu f�
 8. **Generierte Dateien nicht von Hand ändern:** `zotero.bib` (verknüpft Overleaf aus Zotero, nur über
    „Aktualisieren“ in Overleaf), `zotero-map.json`, `sources-text/`, `.zotero-cache/`.
 9. **Bevor du eine Aufgabe als fertig meldest:** `python3 scripts/check.py` ausführen. 0 Fehler ist Pflicht;
-   Warnungen nennst du Nils explizit. Ausnahme bis zu ihrer Ersetzung: die Beispielsätze der FAPS-Vorlage
-   in `Kapitel/` (`\cite` ohne `\ev`) – als bekannte Altlast nennen, nicht mit `\ev{*}` kaschieren.
+   Warnungen nennst du Nils explizit. `\ev{*}` nur für reine Verweise ohne Sachaussage, nie um Fehler
+   zu kaschieren.
 10. Bei Sprache, Gliederung, Übergängen, LaTeX-Technik darfst du frei helfen – solange dabei keine neuen
     Inhalte ohne Beleg entstehen.
 
@@ -130,25 +130,25 @@ Am Ende jedes Schritts kurzer Bericht an Nils: was erledigt ist, was offen ist, 
 ### Quellenbeschaffung durch Nils
 
 So bekommt Nils die PDFs – damit du ihm passende Hinweise gibst und danach prüfen kannst, ob alles stimmt.
-Nils arbeitet an mehreren PCs nur mit Zotero online (keine Desktop-App). PDFs müssen deshalb als **Datei im
-Zotero-Speicher** hängen (nicht als Link), sonst kann `zot.py text` sie nicht laden.
+Nils arbeitet an mehreren PCs **nur im Browser auf zotero.org** (keine Zotero-App, keine Erweiterungen).
+Gib deshalb nur Hinweise für die Web-Bibliothek. PDFs müssen als **Datei im Zotero-Speicher** am Eintrag
+hängen (nicht als Link), sonst kann `zot.py text` sie nicht laden.
 Im Uni-Netz der FAU sind lizenzierte Verlagsinhalte direkt zugänglich; sonst beim Verlag
 „Institutional Login“ → FAU → IdM-Kennung.
 
-**Vorschläge aus `_Vorschläge` (von dir angelegt):**
-1. Nils öffnet die DOI im Browser und lädt das PDF herunter (Open Access oder über die FAU).
-2. In der Web-Bibliothek auf zotero.org hängt er es als Datei an den bestehenden Eintrag an.
-   („Verfügbares PDF finden“ gibt es nur in der Desktop-App.)
+**Vorschläge aus `_Vorschläge` (von dir angelegt, Metadaten sind dann schon da):**
+1. Nils öffnet die DOI-/Verlagsseite aus deiner Liste und lädt das PDF herunter (Open Access oder über die FAU).
+2. Auf zotero.org öffnet er den Eintrag und lädt das PDF als Datei-Anhang hoch.
 3. Nils verschiebt den Eintrag in die Sammlung „Bachelorarbeit“ = **Freigabe**. Erst dann machst du mit
-   Phase 0 weiter. Den Eintrag nicht zusätzlich über den Zotero Connector speichern – das erzeugt Duplikate.
+   Phase 0 weiter. Den Eintrag nicht ein zweites Mal anlegen – das erzeugt Duplikate.
 
 **Quellen, die Nils selbst findet:**
-- Optional mit dem **Zotero Connector** (Browser-Erweiterung, speichert ohne Desktop-App direkt nach
-  zotero.org) auf der Artikelseite des Verlags, Ziel-Sammlung „Bachelorarbeit“ – Metadaten und PDF zusammen.
-- Oder in der Web-Bibliothek per DOI/ISBN (*„Add by Identifier“*) und das PDF als Datei anhängen.
-- Oder Nils schickt dir DOI/Link, und du legst den Eintrag an (wie im Recherche-Modus, aber nach Rücksprache
-  direkt in „Bachelorarbeit“).
-- Normen legt Nils meist von Hand an (Eintragstyp „Norm“) und hängt das PDF an.
+- Am einfachsten: Nils schickt dir DOI, ISBN oder Link. Du prüfst die Metadaten (Crossref/Verlag/Katalog),
+  legst den Eintrag per API an – nach seiner Ansage direkt in „Bachelorarbeit“, sonst in `_Vorschläge` –
+  und er hängt nur noch das PDF an.
+- Oder selbst auf zotero.org: neuen Eintrag per DOI/ISBN (*„Add by Identifier“*) in der Sammlung
+  „Bachelorarbeit“ anlegen und das PDF als Datei anhängen.
+- Normen legt Nils auf zotero.org von Hand an (Eintragstyp „Norm“) und hängt das PDF an.
 - Was die FAU nicht hat: Fernleihe über die UB.
 
 **Was du nach der Freigabe prüfst, bevor du exzerpierst:**
@@ -167,7 +167,9 @@ Im Uni-Netz der FAU sind lizenzierte Verlagsinhalte direkt zugänglich; sonst be
    behalten). Schema wie die bestehenden Keys: `NachnameJahr`, großer Anfangsbuchstabe, ASCII
    (ä→ae, ö→oe, ü→ue, ß→ss), bei Kollision Suffix `a`, `b` (`Mueller2021`, `Mueller2021a`). Erstautor,
    bei Normen das Kürzel (`DIN743Teil1`), bei Institutionen ein Kurzname (`Acatech2020`).
-   Einen schon zitierten Key nie ändern.
+   Einen schon zitierten Key nie ändern. Der Key hängt nur an der Zeile in *Extra*, nicht an Autor/Jahr:
+   Korrigiert Nils später Metadaten, bleibt der Key gleich. `zotero-map.json` ordnet jeden Key dem
+   unveränderlichen Zotero-Item-Key zu; `check.py` meldet umbenannte, verschwundene und doppelte Keys.
 3. `python3 scripts/zot.py bib` → aktualisiert `zotero-map.json` und meldet Keys, die in `zotero.bib`
    noch fehlen. Dann Nils bitten: in Overleaf `zotero.bib` → *Aktualisieren* und auf GitHub pushen
    (sonst kompiliert der Text mit dem neuen Key nicht).
@@ -175,7 +177,7 @@ Im Uni-Netz der FAU sind lizenzierte Verlagsinhalte direkt zugänglich; sonst be
    Meldet das Skript „kaum Text“, ist das PDF gescannt → Nils Bescheid geben (OCR nötig).
 
 ### Phase 1 – Exzerpieren
-- **Hat Nils das PDF in Zotero markiert:** `python3 scripts/zot.py annotations <key>` übernimmt die
+- **Hat Nils das PDF im Zotero-Reader auf zotero.org markiert:** `python3 scripts/zot.py annotations <key>` übernimmt die
   Markierungen als Belege (`quelle: annotation`). Du ergänzt nur `kernaussage`.
 - **Sonst:** Du liest `sources-text/<key>.txt` und legst Belege an (`quelle: exzerpt`).
   Nur Stellen, die für die Arbeit relevant sind. Ein Beleg = 1–3 Sätze, wörtlich, inkl. Originalschreibweise.

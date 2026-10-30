@@ -66,6 +66,15 @@ def load_bib_keys():
     return set(re.findall(r"^@\w+\s*\{\s*([^,\s]+)\s*,", txt, re.M))
 
 
+def bib_key_counts():
+    """Wie oft jeder Key in zotero.bib vorkommt (doppelte Keys = zwei Zotero-Einträge mit gleichem Key)."""
+    from collections import Counter
+    if not BIB_PATH.exists():
+        return Counter()
+    txt = BIB_PATH.read_text(encoding="utf-8")
+    return Counter(re.findall(r"^@\w+\s*\{\s*([^,\s]+)\s*,", txt, re.M))
+
+
 def load_evidence_file(path: Path):
     data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     data.setdefault("belege", [])

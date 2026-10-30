@@ -73,7 +73,5 @@ Mit Zotero 7 Desktop geht auch die lokale API: `export ZOTERO_API_BASE=http://lo
   und in Zotero ersetzen.
 - **Zweispaltige Paper:** pdftotext liest meist korrekt spaltenweise. Wird ein Zitat nur „fast wörtlich“
   gefunden, liegt es oft an Spalten- oder Tabellenumbrüchen – kurz im PDF nachsehen.
-- **Vorlagen-Beispielsätze:** Die Beispieltexte der FAPS-Vorlage in `Kapitel/` haben `\cite` ohne `\ev` und
-  erzeugen bis zu ihrer Ersetzung 6 Fehler in `check.py`.
 - **Noch nicht mit echten PDFs aus Zotero getestet:** `zot.py bib` läuft gegen deine Bibliothek, `check.py`
   wurde mit einem Test-PDF geprüft. Der PDF-Download (`zot.py text`) läuft erst, sobald ein Eintrag ein PDF hat.
