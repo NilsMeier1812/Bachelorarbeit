@@ -88,6 +88,8 @@ _TRANS = str.maketrans({"ä": "ae", "ö": "oe", "ü": "ue", "Ä": "Ae", "Ö": "O
 def suggest_key(d):
     """Schema der Arbeit: NachnameJahr, ASCII, großer Anfangsbuchstabe (Todorov2012, Bruendl2024)."""
     creators = d.get("creators") or []
+    # Erstautor vor Herausgebern (bei Buchkapiteln stehen die Herausgeber oft zuerst)
+    creators = [c for c in creators if c.get("creatorType") == "author"] or creators
     if creators:
         name = creators[0].get("lastName") or creators[0].get("name") or ""
     else:
@@ -192,6 +194,25 @@ def page_labels(pdf: Path, n):
     return [str(i + 1) for i in range(n)]
 
 
+def printed_numbers(pages):
+    """Gedruckte Seitenzahlen aus Kopf-/Fußzeilen, wenn das PDF keine Seitenlabels hat
+    (z. B. Sammelband-Beitrag S. 1625–1635). Nur bei durchgehend konstantem Versatz."""
+    from collections import Counter
+    offsets = Counter()
+    for i, txt in enumerate(pages, start=1):
+        lines = [ln.strip() for ln in txt.splitlines() if ln.strip()]
+        found = {int(ln) - i for ln in lines[:4] + lines[-3:] if re.fullmatch(r"\d{1,5}", ln)}
+        offsets.update(found)
+    if not offsets:
+        return None
+    off, cnt = offsets.most_common(1)[0]
+    if off == 0 or cnt < max(2, 0.6 * len(pages)):
+        return None
+    print(f"  Hinweis: keine Seitenlabels im PDF, gedruckte Seitenzahlen erkannt (PDF-Seite 1 = S. {1 + off})",
+          file=sys.stderr)
+    return [str(i + 1 + off) for i in range(len(pages))]
+
+
 def extract(pdf: Path, out: Path, header: str):
     try:
         res = subprocess.run(["pdftotext", "-enc", "UTF-8", str(pdf), "-"],
@@ -202,6 +223,8 @@ def extract(pdf: Path, out: Path, header: str):
     if pages and not pages[-1].strip():
         pages = pages[:-1]
     labels = page_labels(pdf, len(pages))
+    if labels == [str(i + 1) for i in range(len(pages))]:
+        labels = printed_numbers(pages) or labels
     parts = [header, "# Seitenmarker: === PDF-Seite <index> | Seite <gedruckte Seitenzahl> ===", ""]
     for i, (txt, lab) in enumerate(zip(pages, labels), start=1):
         parts.append(f"=== PDF-Seite {i} | Seite {lab} ===")
