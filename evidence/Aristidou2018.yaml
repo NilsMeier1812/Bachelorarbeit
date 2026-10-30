@@ -1,0 +1,70 @@
+citekey: Aristidou2018
+zotero_key: J89HRD7V
+# Computer Graphics Forum 37(6), S. 35–58. Zweispaltig: pdftotext mischt teils die Spalten, Zitate nur innerhalb einer Spalte.
+belege:
+  - id: Aristidou2018.01
+    seite: "35"
+    zitat: "Inverse kinematics (IK) is the use of kinematic equations to determine the joint parameters of a manipulator so that the end effector moves to a desired position; IK can be applied in many areas, including robotics, engineering, computer graphics and video games."
+    kernaussage: "IK bestimmt über kinematische Gleichungen die Gelenkparameter eines Manipulators, damit der Endeffektor eine gewünschte Position erreicht; Anwendung u. a. in Robotik und Computergrafik."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 (Definition)"
+  - id: Aristidou2018.02
+    seite: "35"
+    zitat: "Inverse kinematics (IK) was initiated in robotics as the problem of moving a redundant kinematic arm with specific degrees of freedom (DoFs) to a pre-defined target."
+    kernaussage: "Die IK entstand in der Robotik als Problem, einen redundanten Arm mit bestimmten Freiheitsgraden zu einem vorgegebenen Ziel zu bewegen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1"
+  - id: Aristidou2018.03
+    seite: "37"
+    zitat: "When a target is reachable, multiple solutions may exist for a two or more links chain. This makes the IK problem under-constrained (or redundant)—it may have an infinite number of solutions that satisfy the desired target."
+    kernaussage: "Ist ein Ziel erreichbar, kann es für Ketten ab zwei Gliedern mehrere bis unendlich viele Lösungen geben; das IK-Problem ist dann unterbestimmt (redundant)."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 Redundanz"
+  - id: Aristidou2018.04
+    seite: "36"
+    zitat: "The solvers presented here are divided into four main categories: the Analytic family (Section 4), the Numerical family (Section 5), Data-driven methods (Section 6) and the Hybrid family of solvers (Section 7)."
+    kernaussage: "Die Survey teilt IK-Löser in analytische, numerische, datengetriebene und hybride Verfahren ein."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 Überblick Lösungsverfahren"
+  - id: Aristidou2018.05
+    seite: "38"
+    zitat: "The analytical IK solutions usually do not suffer from singularity problems, they offer a global solution, and they are reliable, which is the main reason why they are exploited in robotics."
+    kernaussage: "Analytische IK-Lösungen haben meist keine Singularitätsprobleme, liefern eine globale Lösung und sind zuverlässig, weshalb sie in der Robotik genutzt werden."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 analytisch vs. numerisch"
+  - id: Aristidou2018.06
+    seite: "39"
+    zitat: "make them less suitable for redundant systems, they often fall into local minima, and (in their simple form) they cannot handle prioritized constraints."
+    kernaussage: "Analytische Verfahren eignen sich weniger für redundante Systeme und können in einfacher Form keine priorisierten Nebenbedingungen behandeln."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 / Kap. 6 Begründung numerische IK für den 7-DoF-Arm. Satzanfang steht auf S. 38 (Subjekt: analytische Löser)."
+  - id: Aristidou2018.07
+    seite: "40"
+    zitat: "when the configuration of a chain is close to a singularity, then the pseudoinverse method will lead to very large changes in joint angles, while the movement to the target might be very small, resulting in oscillations and discontinuities in motion."
+    kernaussage: "Nahe einer Singularität führt die Pseudoinverse zu sehr großen Gelenkwinkeländerungen bei kleiner Zielbewegung, was Oszillationen und Sprünge verursacht."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 (Begründung Dämpfung)"
+  - id: Aristidou2018.08
+    seite: "40"
+    zitat: "Another variation of the Jacobian is the damped least squares (DLS) method, also known as the Levenberg–Marquardt algorithm, which was first used for IK by Wampler in [Wam86] and Nakamura and Hanafusa in [NH86]."
+    kernaussage: "Das Damped-Least-Squares-Verfahren (DLS), auch Levenberg–Marquardt-Algorithmus, ist eine Variante des Jacobi-Ansatzes und wurde zuerst von Wampler sowie Nakamura und Hanafusa für IK genutzt."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 gedämpfte Pseudoinverse. Folgesatz (DLS stabilisiert, vermeidet Singularitätsprobleme) enthält im PDF ein Steuerzeichen – dafür Aristidou2009.08 nutzen."
+  - id: Aristidou2018.09
+    seite: "40"
+    zitat: "The pseudo-inverse DLS method performs similarly to the simple pseudo-inverse when away from singularities, but smooths out the performance in areas near singularities."
+    kernaussage: "Die gedämpfte Pseudoinverse verhält sich fern von Singularitäten wie die einfache und glättet nahe Singularitäten."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1"
+  - id: Aristidou2018.10
+    seite: "41"
+    zitat: "The task-based Jacobian and its null space projection operators can handle kinematic problems with multiple-priority levels and with highly redundant structures."
+    kernaussage: "Aufgabenbasierte Jacobi-Matrizen mit Nullraumprojektion können Probleme mit mehreren Prioritätsebenen und hoch redundanten Strukturen behandeln."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 Nullraum, Sekundäraufgaben"
+  - id: Aristidou2018.11
+    seite: "41"
+    zitat: "Some other popular methods to control the kinematic chain under joint constraints are task-priority [NHY87, SS91] and the null space projection of the Jacobian [CD95, DVS01, CW93]."
+    kernaussage: "Gelenkgrenzen werden u. a. über Aufgabenpriorisierung und Nullraumprojektion der Jacobi-Matrix berücksichtigt."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 / 7.4.1 Gelenkgrenzen"

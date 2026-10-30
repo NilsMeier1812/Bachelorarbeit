@@ -1,0 +1,76 @@
+citekey: Tong2024
+zotero_key: TVSPTBZH
+# IEEE/CAA Journal of Automatica Sinica 11(2), S. 301–328. Zweispaltig. Teile von Abschnitt III (Rechner/Sensorik) ähneln stark Saeedvand2019 – dort lieber das Original zitieren.
+belege:
+  - id: Tong2024.01
+    seite: "301"
+    zitat: "Despite persistent challenges, humanoid robots hold extensive potential for applications across various domains of human life, including military operations, industry, rescue missions, healthcare, education, assistance, entertainment, and agriculture"
+    kernaussage: "Humanoide haben laut den Autoren breites Anwendungspotenzial, u. a. in Militär, Industrie, Rettung, Gesundheit, Bildung, Assistenz, Unterhaltung und Landwirtschaft."
+    quelle: exzerpt
+    kommentar: "Kap. 1.1 Motivation; Kap. 2.1.2 Einsatzszenarien"
+  - id: Tong2024.02
+    seite: "301"
+    zitat: "Despite these advantages, challenges such as balance and energy efficiency persist, making continued research crucial for unlocking their full potential across various domains."
+    kernaussage: "Trotz der Vorteile bleiben Herausforderungen wie Gleichgewicht und Energieeffizienz."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.2 Hemmnisse"
+  - id: Tong2024.03
+    seite: "308"
+    zitat: "The ZMPbased approach excels in generating stable gait patterns but faces limitations related to walking speed and robustness."
+    kernaussage: "ZMP-basierte Verfahren erzeugen stabile Gangmuster, sind aber bei Gehgeschwindigkeit und Robustheit begrenzt."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1.1 → Überleitung zu 4.1.2 lernbasierte Regler"
+  - id: Tong2024.04
+    seite: "309"
+    zitat: "Reinforcement learning starts with a random policy and gradually updates it based on reward feedback from the environment to achieve a specific goal, but the difference between the simulation environment and the actual environment leads to low practicality."
+    kernaussage: "RL verbessert eine zufällige Strategie schrittweise über Belohnungen; der Unterschied zwischen Simulation und realer Umgebung mindert die Praxistauglichkeit."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1.2 Lernbasierte Lauf-Regler; Kap. 3.1.2 Sim-to-Real (Tabelle IV)"
+  - id: Tong2024.05
+    seite: "311"
+    zitat: "However, conducting RL solely through trial and error in the real environment is not only perilous but also inefficient. Transfer learning from simulation to the real world introduces challenges in the sim-to-real transfer"
+    kernaussage: "RL nur durch Ausprobieren in der realen Umgebung ist gefährlich und ineffizient; der Transfer aus der Simulation bringt eigene Sim-to-Real-Herausforderungen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 Einsatzzwecke der Simulation; 3.1.2 Sim-to-Real; 4.1.2"
+  - id: Tong2024.06
+    seite: "311"
+    zitat: "It is noteworthy that while simulation advancements are evident, ensuring secure transition from simulation to the real world remains a challenge."
+    kernaussage: "Trotz Fortschritten in der Simulation bleibt der sichere Übergang von der Simulation in die reale Welt eine Herausforderung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2; Kap. 5.1 Handlungsbedarf"
+  - id: Tong2024.07
+    seite: "310"
+    zitat: "Behavioral control poses a pivotal challenge in humanoid robot control, encompassing autonomous, semi-autonomous, and remote control methods"
+    kernaussage: "Die Verhaltenssteuerung umfasst autonome, teilautonome und ferngesteuerte Verfahren."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Bedienung und Teleoperation"
+  - id: Tong2024.08
+    seite: "313"
+    zitat: "Humanoid robots can be employed in industries for repetitive and labor-intensive tasks, improving productivity and efficiency. They can collaborate with humans, providing assistance in activities such as assembly, packaging, and material handling."
+    kernaussage: "In der Industrie können Humanoide repetitive, arbeitsintensive Aufgaben übernehmen und mit Menschen bei Montage, Verpackung und Materialhandhabung zusammenarbeiten."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.2 Einsatzszenarien in der Produktion. Potenzialaussage, kein Nachweis realer Einsätze."
+  - id: Tong2024.09
+    seite: "314"
+    zitat: "Costs: High development and maintenance costs limit commercial adoption."
+    kernaussage: "Hohe Entwicklungs- und Wartungskosten begrenzen die kommerzielle Verbreitung."
+    quelle: exzerpt
+    kommentar: "Kap. 1.1 Motivation; Kap. 2.1.2 Hemmnisse"
+  - id: Tong2024.10
+    seite: "314"
+    zitat: "Application Domains: Despite potential applications in areas like emergency response and healthcare, robot performance, safety, and costs must align with specific needs."
+    kernaussage: "Leistung, Sicherheit und Kosten müssen zu den Anforderungen des jeweiligen Einsatzbereichs passen."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.2 Hemmnisse"
+  - id: Tong2024.11
+    seite: "314"
+    zitat: "Fault Tolerance and Safety: Ensuring robot stability and safety is critical. Collaborative efforts in technology and regulation are essential for reliable, safe robot deployment in various applications."
+    kernaussage: "Stabilität und Sicherheit sind entscheidend; für einen sicheren Einsatz braucht es technische und regulatorische Anstrengungen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 Sicherheit; Kap. 2.1.2"
+  - id: Tong2024.12
+    seite: "316"
+    zitat: "Future trends in remote control for humanoid robots include improved teleoperation interfaces, reduced latency through advanced communication technologies, augmented reality integration, autonomous features, and standardization."
+    kernaussage: "Als Trends der Fernsteuerung nennen die Autoren bessere Teleoperationsschnittstellen, geringere Latenz, AR-Integration, autonome Funktionen und Standardisierung."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Bedienung und Teleoperation"

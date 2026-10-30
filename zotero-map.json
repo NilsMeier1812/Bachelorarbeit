@@ -3,6 +3,14 @@
     "titel": "acatech HORIZONTE: Künstliche Intelligenz in der Industrie",
     "zotero_key": "8TVBCFC8"
   },
+  "Aristidou2009": {
+    "titel": "Inverse kinematics: a review of existing techniques and introduction of a new fast iterative solver",
+    "zotero_key": "CFV2E447"
+  },
+  "Aristidou2018": {
+    "titel": "Inverse Kinematics Techniques in Computer Graphics: A Survey",
+    "zotero_key": "J89HRD7V"
+  },
   "Bruendl2024": {
     "titel": "Towards a circular economy for electrical products: A systematic literature review and research agenda for automated recycling",
     "zotero_key": "XEMUAVXP"
@@ -27,9 +35,17 @@
     "titel": "Räumliche elektronische Baugruppen (3D-MID): Werkstoffe, Herstellung, Montage und Anwendungen für spritzgegossene Schaltungsträger",
     "zotero_key": "ZACM7ZSZ"
   },
+  "Kucuk2006": {
+    "titel": "Robot kinematics: Forward and inverse kinematics",
+    "zotero_key": "8S8FCMGQ"
+  },
   "Radosavovic2024": {
     "titel": "Real-world humanoid locomotion with reinforcement learning",
     "zotero_key": "PXC8DDBQ"
+  },
+  "Saeedvand2019": {
+    "titel": "A comprehensive survey on humanoid robot development",
+    "zotero_key": "AQK9ESP9"
   },
   "Scheck2026": {
     "titel": "Deep Learning-Based Object Detection for Automated Disassembly of Control Cabinets",
@@ -50,6 +66,10 @@
   "Todorov2014": {
     "titel": "Convex and analytically-invertible dynamics with contacts and constraints: Theory and implementation in MuJoCo",
     "zotero_key": "VCPG8PE5"
+  },
+  "Tong2024": {
+    "titel": "Advancements in Humanoid Robots: A Comprehensive Review and Future Prospects",
+    "zotero_key": "TVSPTBZH"
   },
   "Tunyasuvunakool2020": {
     "titel": "dm_control: Software and tasks for continuous control",

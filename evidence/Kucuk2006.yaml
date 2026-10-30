@@ -1,0 +1,58 @@
+citekey: Kucuk2006
+zotero_key: 8S8FCMGQ
+# Kapitel 4 (S. 117–148) in: Cubero (Hrsg.), Industrial Robotics: Theory, Modelling and Control, 2006, ISBN 3-86611-285-8.
+belege:
+  - id: Kucuk2006.01
+    seite: "117"
+    zitat: "Kinematics studies the motion of bodies without consideration of the forces or moments that cause the motion."
+    kernaussage: "Die Kinematik beschreibt Bewegungen von Körpern ohne Berücksichtigung der verursachenden Kräfte und Momente."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 Grundbegriffe"
+  - id: Kucuk2006.02
+    seite: "117"
+    zitat: "Of these representations, homogenous transformations based on 4x4 real matrices (orthonormal matrices) have been used most often in robotics."
+    kernaussage: "Homogene Transformationen mit 4x4-Matrizen sind die in der Robotik am häufigsten genutzte Darstellung."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1"
+  - id: Kucuk2006.03
+    seite: "117"
+    zitat: "Forward kinematics problem is straightforward and there is no complexity deriving the equations. Hence, there is always a forward kinematics solution of a manipulator. Inverse kinematics is a much more difficult problem than forward kinematics."
+    kernaussage: "Die Vorwärtskinematik ist einfach herzuleiten und immer lösbar; die inverse Kinematik ist deutlich schwieriger."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1"
+  - id: Kucuk2006.04
+    seite: "118"
+    zitat: "Two main solution techniques for the inverse kinematics problem are analytical and numerical methods."
+    kernaussage: "Die inverse Kinematik wird hauptsächlich analytisch oder numerisch gelöst."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1"
+  - id: Kucuk2006.05
+    seite: "118"
+    zitat: "There are some difficulties to solve the inverse kinematics problem when the kinematics equations are coupled, and multiple solutions and singularities exist."
+    kernaussage: "Gekoppelte Gleichungen, Mehrdeutigkeit und Singularitäten erschweren die Lösung der inversen Kinematik."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1"
+  - id: Kucuk2006.06
+    seite: "119"
+    zitat: "Calculating the position and orientation of the end-effector in terms of the joint variables is called as forward kinematics."
+    kernaussage: "Vorwärtskinematik bezeichnet die Berechnung von Position und Orientierung des Endeffektors aus den Gelenkvariablen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 (Definition)"
+  - id: Kucuk2006.07
+    seite: "119"
+    zitat: "Denavit-Hartenberg method that uses four parameters is the most common method for describing the robot kinematics."
+    kernaussage: "Das Denavit-Hartenberg-Verfahren mit vier Parametern ist die verbreitetste Beschreibung der Roboterkinematik."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1"
+  - id: Kucuk2006.08
+    seite: "135"
+    zitat: "A singularity of the mechanism exists when θ 5 = 0 o and θ 5 = 180 o . In this case, the manipulator loses one or more degrees of freedom."
+    kernaussage: "Im Beispiel liegt bei θ5 = 0° bzw. 180° eine Singularität vor; der Manipulator verliert dort einen oder mehrere Freiheitsgrade."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1. Bezieht sich auf das Beispiel 3 des Kapitels (Handgelenk), nicht allgemein formuliert."
+  - id: Kucuk2006.09
+    seite: "135"
+    zitat: "The inverse kinematics solution for a manipulator whose structure comprises of revolute joints generally produces multiple solutions."
+    kernaussage: "Für Manipulatoren aus Drehgelenken liefert die inverse Kinematik in der Regel mehrere Lösungen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1"

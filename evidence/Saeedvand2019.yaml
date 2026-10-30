@@ -1,0 +1,76 @@
+citekey: Saeedvand2019
+zotero_key: AQK9ESP9
+# The Knowledge Engineering Review 34, e20 (Artikelnummer); Seitenzählung "x of 18" = Seiten 1–18.
+belege:
+  - id: Saeedvand2019.01
+    seite: "1"
+    zitat: "Humanoid robots are generally human-like and use bipedal locomotion. Existing humanoid robots have different capabilities, allowing them to be one of the most capable robots in various applications such as rescue, education, assisting, entertainment, etc."
+    kernaussage: "Humanoide sind menschenähnlich und laufen zweibeinig; sie werden u. a. in Rettung, Bildung, Assistenz und Unterhaltung eingesetzt."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1 (Begriff), 2.1.2 Einsatzszenarien"
+  - id: Saeedvand2019.02
+    seite: "2"
+    zitat: "Bipedal robots are more suitable for navigating in a complex workplace, and they are more adaptable"
+    kernaussage: "Zweibeinige Roboter eignen sich besser für die Navigation in komplexen Arbeitsumgebungen und sind anpassungsfähiger (als Radroboter)."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.2. Vergleich bezieht sich auf Radroboter (Satz davor); Sekundärverweis Silva & Machado 2012, Al-Shuka et al. 2014"
+  - id: Saeedvand2019.03
+    seite: "2"
+    zitat: "One of the challenges in the design and control of bipedal robots is to keep their stability during walking in different kinds of environments"
+    kernaussage: "Eine Herausforderung bei zweibeinigen Robotern ist die Stabilität beim Gehen in verschiedenen Umgebungen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1 Fortbewegung"
+  - id: Saeedvand2019.04
+    seite: "6"
+    zitat: "A humanoid robot includes torso, hip, head, neck, two arms, hands, legs, and feet, and each joint in a humanoid robot can be rotated in three orthogonal axes in maximum as roll, pitch, and yaw"
+    kernaussage: "Ein Humanoider besteht aus Rumpf, Hüfte, Kopf, Hals, zwei Armen, Händen, Beinen und Füßen; jedes Gelenk dreht maximal um drei orthogonale Achsen (Roll, Nick, Gier)."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.1 Aufbau und Freiheitsgrade"
+  - id: Saeedvand2019.05
+    seite: "6"
+    zitat: "Regarding the number of DOF shown in Table 2, a humanoid robot requires at least 20 DOFs. A critical trend, in this table, is that generally when increasing a robot’s DOF, its size increases too. Also, a stronger processing unit and more power are required. Thus, this ultimately leads to an increase in the cost."
+    kernaussage: "Laut der Übersichtstabelle der Autoren braucht ein Humanoider mindestens 20 Freiheitsgrade; mehr Freiheitsgrade gehen mit größerer Bauform, mehr Rechen- und Energiebedarf und höheren Kosten einher."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.1 / 2.1.2 (Kosten). Aussage aus den Robotern in Tabelle 2 abgeleitet."
+  - id: Saeedvand2019.06
+    seite: "8"
+    zitat: "According to the bipedal nature of humanoid robots, the most important sensor in humanoid robots is IMU."
+    kernaussage: "Wegen des zweibeinigen Gangs ist die IMU der wichtigste Sensor humanoider Roboter."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2 Hardware (Sensorik)"
+  - id: Saeedvand2019.07
+    seite: "9"
+    zitat: "ROS is supported by very useful simulators such as open-source Gazebo (Koenig & Howard, 2004; Cho et al., 2011). As a result, humanoid robot researchers can use shared simulations of existing humanoid robots or simulate and control their robots in robust simulators using ROS."
+    kernaussage: "ROS wird von Simulatoren wie Gazebo unterstützt; Forschende können so geteilte Simulationen vorhandener Humanoider nutzen oder ihre Roboter simuliert steuern."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 Vergleich Simulatoren; Kap. 3.3 Middleware"
+  - id: Saeedvand2019.08
+    seite: "9"
+    zitat: "A robot is considered stable if its COM or COP is within the convex hull of the foot support area"
+    kernaussage: "Ein Roboter gilt als stabil, wenn Schwerpunkt oder Druckmittelpunkt innerhalb der konvexen Hülle der Fußstützfläche liegen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1.1 Gleichgewichtsregelung"
+  - id: Saeedvand2019.09
+    seite: "9"
+    zitat: "ZMP is a point on the ground where the results of ground reaction forces act. Also, making the ZMP of a bipedal robot that stays within the convex hull of the foot support area during walking causes a stable gait"
+    kernaussage: "Der ZMP ist der Punkt am Boden, an dem die resultierenden Bodenreaktionskräfte angreifen; bleibt er in der konvexen Hülle der Stützfläche, ist der Gang stabil."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1.1"
+  - id: Saeedvand2019.10
+    seite: "10"
+    zitat: "A humanoid robot’s behavior control can be categorized into autonomous, semi-autonomous, or remote controlling approaches."
+    kernaussage: "Die Verhaltenssteuerung humanoider Roboter lässt sich in autonom, teilautonom und ferngesteuert einteilen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Bedienung und Teleoperation"
+  - id: Saeedvand2019.11
+    seite: "12"
+    zitat: "some tasks require very complex DM systems that existing algorithms often are unable to cover. Thus, performing tasks by remote control policy is a necessity so far (e.g., emergency operations in disaster environments)."
+    kernaussage: "Manche Aufgaben erfordern Entscheidungssysteme, die vorhandene Algorithmen nicht abdecken; deshalb ist Fernsteuerung bislang nötig (z. B. Katastropheneinsätze)."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 (Begründung manueller Bedienung)"
+  - id: Saeedvand2019.12
+    seite: "15"
+    zitat: "However, the major limitation in humanoid robot development relies on current actuator technologies."
+    kernaussage: "Die Hauptbeschränkung der Humanoidenentwicklung liegt laut den Autoren in der aktuellen Aktortechnik."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.2 Hemmnisse"

@@ -1,0 +1,70 @@
+citekey: Aristidou2009
+zotero_key: CFV2E447
+# Technischer Bericht CUED/F-INFENG/TR-632, University of Cambridge, 20.09.2009. Seitenzahlen: Vorspann i–xii, Hauptteil ab 1.
+belege:
+  - id: Aristidou2009.01
+    seite: "i"
+    zitat: "Inverse Kinematics (IK) is defined as the problem of determining a set of appropriate joint configurations for which the end effectors move to desired positions as smoothly, rapidly, and as accurately as possible."
+    kernaussage: "Inverse Kinematik ist das Problem, Gelenkkonfigurationen zu bestimmen, mit denen Endeffektoren möglichst glatt, schnell und genau gewünschte Positionen erreichen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 Inverse Kinematik (Definition)"
+  - id: Aristidou2009.02
+    seite: "2"
+    zitat: "However, the most popular numerical approach is to use the Jacobian matrix to find a linear approximation to the IK problem."
+    kernaussage: "Der verbreitetste numerische Ansatz nähert das IK-Problem mit der Jacobi-Matrix linear an."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1"
+  - id: Aristidou2009.03
+    seite: "13"
+    zitat: "In most cases, the IK equation cannot be solved uniquely. Indeed, the Jacobian J may not be square or invertible, and even if it is invertible, J may work poorly as it may be nearly singular"
+    kernaussage: "Die IK-Gleichung ist meist nicht eindeutig lösbar; die Jacobi-Matrix ist oft nicht quadratisch bzw. invertierbar und kann nahezu singulär sein."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 (Redundanz, Singularität)"
+  - id: Aristidou2009.04
+    seite: "13"
+    zitat: "Singularities occur when no change in joint angle can achieve a desired change in chain end position."
+    kernaussage: "Singularitäten liegen vor, wenn keine Gelenkwinkeländerung die gewünschte Änderung der Kettenendposition bewirken kann."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 (Definition Singularität, Fußnote)"
+  - id: Aristidou2009.05
+    seite: "14"
+    zitat: "The pseudo-inverse has the property that the matrix (I − J † J) performs a projection onto the nullspace of J ."
+    kernaussage: "Die Matrix (I − J†J) projiziert auf den Nullraum der Jacobi-Matrix."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 Nullraum; Kap. 7.4.1 eigene IK"
+  - id: Aristidou2009.06
+    seite: "14"
+    zitat: "Several authors have used the nullspace method to help avoid singular configurations [46, 47]."
+    kernaussage: "Die Nullraummethode wird genutzt, um singuläre Konfigurationen zu vermeiden."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1. Sekundäraussage mit Verweis [46, 47]"
+  - id: Aristidou2009.07
+    seite: "14"
+    zitat: "The pseudo-inverse method is widely discussed in the literature, however it often performs poorly because of its instability near singularities."
+    kernaussage: "Die Pseudoinverse ist verbreitet, arbeitet aber nahe Singularitäten wegen Instabilität oft schlecht."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 (Begründung für Dämpfung)"
+  - id: Aristidou2009.08
+    seite: "15"
+    zitat: "DLS avoids many of the pseudo-inverse method’s problems with singularities"
+    kernaussage: "Das Damped-Least-Squares-Verfahren vermeidet viele Singularitätsprobleme der Pseudoinversen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 gedämpfte Pseudoinverse; Kap. 6/7 Begründung der IK-Wahl"
+  - id: Aristidou2009.09
+    seite: "16"
+    zitat: "The damping constant should be large enough so that the solutions for ∆θ are well-behaved near singularities, but if it is too large, the convergence rate is slow."
+    kernaussage: "Die Dämpfungskonstante muss groß genug für gutmütiges Verhalten nahe Singularitäten sein; zu groß verlangsamt sie die Konvergenz."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1; Kap. 7.4.1 (Wahl des Dämpfungsfaktors)"
+  - id: Aristidou2009.10
+    seite: "17"
+    zitat: "Pseudo-inverse DLS acts similarly to the more simple version away from singularities, but smooths out the performance of the simple pseudo-inverse method in areas close to singularities."
+    kernaussage: "Die gedämpfte Pseudoinverse verhält sich fern von Singularitäten wie die einfache, glättet aber das Verhalten nahe Singularitäten."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1"
+  - id: Aristidou2009.11
+    seite: "34"
+    zitat: "The Jacobian methods also incur high computational cost making this family of methods non-ideal for realtime applications."
+    kernaussage: "Jacobi-Verfahren sind laut den Autoren rechenaufwendig und daher für Echtzeitanwendungen nicht ideal."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1. Gilt für die Versuche im Bericht (Animation, viele Iterationen) – nicht ungeprüft auf Robotik-IK übertragen."
