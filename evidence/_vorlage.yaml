@@ -1,0 +1,12 @@
+# Vorlage – Dateien mit "_" am Anfang ignoriert check.py.
+# Dateiname = citekey, z. B. evidence/Mueller2021.yaml
+citekey: Mueller2021
+zotero_key: X7K2P9QA           # aus zotero-map.json
+belege:
+  - id: Mueller2021.01         # <citekey>.<NN>, nie neu vergeben
+    seite: "34"                # gedruckte Seitenzahl (Label aus dem Seitenmarker)
+    zitat: "Wörtlich aus sources-text/Mueller2021.txt kopiert."
+    kernaussage: "Was das Zitat aussagt – nicht mehr."
+    quelle: exzerpt            # exzerpt | annotation
+    # kommentar: optional
+    # verworfen: true          # statt löschen, wenn der Beleg falsch war

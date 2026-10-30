@@ -1,0 +1,4 @@
+requests
+pyyaml
+pypdf
+rapidfuzz   # optional, macht die unscharfe Zitatsuche deutlich schneller

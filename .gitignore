@@ -28,3 +28,13 @@ main.pdf
 # System
 .DS_Store
 Thumbs.db
+
+# Belegsystem: Volltexte und PDFs der Quellen (Urheberrecht, Repo-Größe) – lokal aus Zotero erzeugt
+sources-text/
+.zotero-cache/
+review/pairs.jsonl
+
+# Python
+__pycache__/
+*.pyc
+.venv/

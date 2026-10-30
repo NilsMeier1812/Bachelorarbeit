@@ -10,6 +10,12 @@ LaTeX-Quellen der Bachelorarbeit. Wird mit Overleaf über die GitHub-Synchronisi
 | `Kapitel/` | Ein `.tex`-File pro Kapitel sowie Eigenständigkeitserklärung und Anhänge |
 | `Bilder/` | Abbildungen und Logos (werden über `\includegraphics{name}` gefunden) |
 | `zotero.bib` | Literaturdatenbank, aus Zotero online verknüpft (in Overleaf nur per „Aktualisieren“ ändern, nicht von Hand; biblatex + biber, DIN ISO 690) |
+| `CLAUDE.md` | Regeln für Claude: quellenbasiertes Schreiben mit Belegsystem |
+| `ba-makros.tex` | `\ev{}` (Beleg-ID), `\qf{}` (Quelle fehlt), `\pruefen{}` |
+| `evidence/` | Belege: wörtliche Zitate mit Seitenzahl, eine YAML-Datei pro Quelle |
+| `zotero-map.json` | Freigegebene Quellen (Sammlung „Bachelorarbeit“), erzeugt von `scripts/zot.py bib` |
+| `scripts/` | `zot.py` (Zotero-Brücke), `check.py` (Belegprüfung), Anleitung in `scripts/README.md` |
+| `review/` | Kapitelpläne und Verifikationsberichte |
 
 Basiert auf der LaTeX-Vorlage des Lehrstuhls FAPS (FAU Erlangen-Nürnberg).
 

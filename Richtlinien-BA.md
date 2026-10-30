@@ -21,7 +21,7 @@
 4. **Nils' Grundhaltung (2026-10-28):** Die Vorgaben sind ein Rahmen, nicht 100 % bindend; beide Referenz-BAs weichen ab und wurden gut bewertet. → Harte Regeln (§0.3) und Formalia der Vorlage strikt; Stilregeln aus §4 als starke Empfehlung, nicht als Dogma. Lesbarkeit und Logik > mechanische Regelerfüllung. Spielraum-Matrix in §13.1.
 
 ### 0.3 Harte Regeln für Agents (nicht verhandelbar)
-- **H1 Niemals Quellen erfinden.** Bereits die erste fiktive Quelle = Täuschungsversuch = Note 5,0 [LF 2.2]. Nur Einträge zitieren, die in Zotero (Sammlung „Bachelorarbeit“, in Overleaf als `zotero.bib`) stehen UND von Nils stammen/verifiziert sind. Fehlt ein Beleg: Kommentar `% TODO Quelle fehlt: <Aussage>` setzen (kein `\todo`, Paket nicht geladen) und Nils Bescheid geben, keinen Bib-Eintrag ausdenken, keine DOI/Seitenzahl raten.
+- **H1 Niemals Quellen erfinden.** Bereits die erste fiktive Quelle = Täuschungsversuch = Note 5,0 [LF 2.2]. Nur Einträge zitieren, die in Zotero (Sammlung „Bachelorarbeit“, in Overleaf als `zotero.bib`) stehen UND von Nils stammen/verifiziert sind. Fehlt ein Beleg: `\qf{<was fehlt>}` setzen (Belegsystem, siehe `CLAUDE.md`; wird rot gedruckt und von `scripts/check.py` gezählt) und Nils Bescheid geben, keinen Bib-Eintrag ausdenken, keine DOI/Seitenzahl raten.
 - **H2 Keine Aussage ohne Beleg.** Jede fremde Aussage zitieren [CS 1.7.1, LF 5]; jede eigene Behauptung durch eigene Analyse oder Quelle belegen [LF 2.3].
 - **H3 Kein „ich“, „wir“, „man“** im Text [CS 1.4.3, LF 2.3].
 - **H4 Vorlage nur im Textteil ändern.** Kopf-/Fußzeilen, Verzeichnisse, Titelseite-Layout nicht manuell anfassen [GS 5.1, LF 4.1]. Persönliche Daten nur über die `\newcommand`s oben in main.tex.

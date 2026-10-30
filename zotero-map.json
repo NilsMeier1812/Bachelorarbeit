@@ -1,0 +1,62 @@
+{
+  "Acatech2020": {
+    "titel": "acatech HORIZONTE: Künstliche Intelligenz in der Industrie",
+    "zotero_key": "8TVBCFC8"
+  },
+  "Bruendl2024": {
+    "titel": "Towards a circular economy for electrical products: A systematic literature review and research agenda for automated recycling",
+    "zotero_key": "XEMUAVXP"
+  },
+  "Choi2021": {
+    "titel": "On the use of simulation in robotics: Opportunities, challenges, and suggestions for moving forward",
+    "zotero_key": "RQPC7XD2"
+  },
+  "Collins2021": {
+    "titel": "A Review of Physics Simulators for Robotic Applications",
+    "zotero_key": "Q5UIDI9U"
+  },
+  "Erez2015": {
+    "titel": "Simulation tools for model-based robotics: Comparison of Bullet, Havok, MuJoCo, ODE and PhysX",
+    "zotero_key": "WKQSWUPD"
+  },
+  "FAPS2024": {
+    "titel": "Forschung am Lehrstuhl für Fertigungsautomatisierung und Produktionssystematik",
+    "zotero_key": "VPAN5UNZ"
+  },
+  "Franke2013": {
+    "titel": "Räumliche elektronische Baugruppen (3D-MID): Werkstoffe, Herstellung, Montage und Anwendungen für spritzgegossene Schaltungsträger",
+    "zotero_key": "ZACM7ZSZ"
+  },
+  "Radosavovic2024": {
+    "titel": "Real-world humanoid locomotion with reinforcement learning",
+    "zotero_key": "PXC8DDBQ"
+  },
+  "Scheck2026": {
+    "titel": "Deep Learning-Based Object Detection for Automated Disassembly of Control Cabinets",
+    "zotero_key": "434W7QRZ"
+  },
+  "Tan2018": {
+    "titel": "Sim-to-Real: Learning Agile Locomotion For Quadruped Robots",
+    "zotero_key": "FEB75CS6"
+  },
+  "Tobin2017": {
+    "titel": "Domain randomization for transferring deep neural networks from simulation to the real world",
+    "zotero_key": "3GWN6ZUZ"
+  },
+  "Todorov2012": {
+    "titel": "MuJoCo: A physics engine for model-based control",
+    "zotero_key": "8KPR3KK9"
+  },
+  "Todorov2014": {
+    "titel": "Convex and analytically-invertible dynamics with contacts and constraints: Theory and implementation in MuJoCo",
+    "zotero_key": "VCPG8PE5"
+  },
+  "Tunyasuvunakool2020": {
+    "titel": "dm_control: Software and tasks for continuous control",
+    "zotero_key": "5AIT64ZH"
+  },
+  "Zhao2020": {
+    "titel": "Sim-to-Real Transfer in Deep Reinforcement Learning for Robotics: a Survey",
+    "zotero_key": "NW39RPJN"
+  }
+}

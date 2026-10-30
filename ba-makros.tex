@@ -1,0 +1,11 @@
+% Makros für das Belegsystem (siehe CLAUDE.md). Eingebunden in main.tex per \input{ba-makros}.
+% \ev{id}       Beleg-ID direkt nach dem Zitat, z. B. \cite{Tobin2017}\ev{Tobin2017.03}
+% \qf{...}      Quelle fehlt   (muss vor Abgabe 0 sein)
+% \pruefen{...} Nils muss etwas klären oder liefern (muss vor Abgabe 0 sein)
+\RequirePackage{xcolor}
+\newif\ifbelegeanzeigen
+\belegeanzeigenfalse   % \belegeanzeigentrue für Entwurf mit sichtbaren Beleg-IDs
+% robust, damit \ev auch in \caption und Überschriften funktioniert
+\DeclareRobustCommand{\ev}[1]{\ifbelegeanzeigen\textsuperscript{\tiny\color{gray}\texttt{\detokenize{#1}}}\fi}
+\DeclareRobustCommand{\qf}[1]{\textcolor{red}{[QUELLE FEHLT: #1]}}
+\DeclareRobustCommand{\pruefen}[1]{\textcolor{orange}{[PRÜFEN: #1]}}
