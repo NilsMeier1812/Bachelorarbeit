@@ -23,6 +23,10 @@
     "titel": "A Review of Physics Simulators for Robotic Applications",
     "zotero_key": "Q5UIDI9U"
   },
+  "DSouza2001": {
+    "titel": "Learning inverse kinematics",
+    "zotero_key": "H4GBFW2D"
+  },
   "Erez2015": {
     "titel": "Simulation tools for model-based robotics: Comparison of Bullet, Havok, MuJoCo, ODE and PhysX",
     "zotero_key": "WKQSWUPD"
@@ -74,6 +78,10 @@
   "Tunyasuvunakool2020": {
     "titel": "dm_control: Software and tasks for continuous control",
     "zotero_key": "5AIT64ZH"
+  },
+  "Westervelt2018": {
+    "titel": "Feedback control of dynamic bipedal robot locomotion",
+    "zotero_key": "7FFU9BDR"
   },
   "Yu2026": {
     "titel": "Energy-Efficient Multi-Joint Cooperative Motion Planning for Unitree G1 Humanoid Robot in Complex Dance Scenarios",

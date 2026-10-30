@@ -206,11 +206,23 @@ def printed_numbers(pages):
     if not offsets:
         return None
     off, cnt = offsets.most_common(1)[0]
-    if off == 0 or cnt < max(2, 0.6 * len(pages)):
+    if off == 0:
         return None
-    print(f"  Hinweis: keine Seitenlabels im PDF, gedruckte Seitenzahlen erkannt (PDF-Seite 1 = S. {1 + off})",
-          file=sys.stderr)
-    return [str(i + 1 + off) for i in range(len(pages))]
+    if cnt >= max(2, 0.6 * len(pages)):
+        print(f"  Hinweis: keine Seitenlabels im PDF, gedruckte Seitenzahlen erkannt (PDF-Seite 1 = S. {1 + off})",
+              file=sys.stderr)
+        return [str(i + 1 + off) for i in range(len(pages))]
+    # Auszug/Vorschau (z. B. Vorspann + ein Kapitel): Versatz nur im zusammenhängenden Bereich mit
+    # erkannten Seitenzahlen anwenden, übrige Seiten als "PDF<n>" kennzeichnen (keine gedruckte Zahl bekannt).
+    hits = [i for i, txt in enumerate(pages, start=1)
+            if any(re.fullmatch(r"\d{1,5}", ln.strip()) and int(ln.strip()) - i == off
+                   for ln in [l for l in txt.splitlines() if l.strip()][:4] + [l for l in txt.splitlines() if l.strip()][-3:])]
+    lo, hi = min(hits), max(hits)
+    if cnt < 5 or cnt < 0.6 * (hi - lo + 1):
+        return None
+    print(f"  Hinweis: gedruckte Seitenzahlen nur für PDF-Seiten {lo}–{hi} erkannt (S. {lo + off}–{hi + off}), "
+          f"übrige Seiten als PDF<n>", file=sys.stderr)
+    return [str(i + off) if lo <= i <= hi else f"PDF{i}" for i in range(1, len(pages) + 1)]
 
 
 def extract(pdf: Path, out: Path, header: str):

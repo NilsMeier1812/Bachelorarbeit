@@ -1,0 +1,101 @@
+citekey: Westervelt2018
+zotero_key: 7FFU9BDR
+# PDF ist die Verlagsvorschau (previewpdf): nur Vorspann, Kapitel 1 "Introduction" (S. 1–27) und Literaturliste.
+# Buch: CRC Press, 1. Aufl. © 2007, ISBN 978-1-4200-5372-2. Seiten außerhalb von Kap. 1 haben im Text das Label PDF<n>.
+belege:
+  - id: Westervelt2018.01
+    seite: "3"
+    zitat: "In the case of environments with discontinuous ground support, such as a rocky slope, a flight of stairs, or the rungs of a ladder, it is arguable that the most appropriate and versatile means for locomotion is legs."
+    kernaussage: "Bei unterbrochenem Untergrund (Geröllhang, Treppe, Leitersprossen) sind Beine vermutlich das geeignetste und vielseitigste Fortbewegungsmittel."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1 / 4.1 Fortbewegung (Motivation Beine). Vorsichtig formuliert ('it is arguable')."
+  - id: Westervelt2018.02
+    seite: "3"
+    zitat: "Moreover, legs are an obvious choice for locomotion in environments designed for human walking, running, and climbing."
+    kernaussage: "In Umgebungen, die für menschliches Gehen, Laufen und Klettern gestaltet sind, liegen Beine als Fortbewegungsmittel nahe."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.2 (Humanoide in für Menschen gebauten Umgebungen)"
+  - id: Westervelt2018.03
+    seite: "5"
+    zitat: "The state-of-the-art is characterized by a heavy reliance on heuristics or on principles such as the zero moment point (ZMP) criterion [114,233,235] that don’t ensure stability; see Fig. 1.1 and Section 10.8. As a result, only slow motions may be achieved."
+    kernaussage: "Der Stand der Technik stützt sich laut den Autoren stark auf Heuristiken oder Prinzipien wie das ZMP-Kriterium, die Stabilität nicht sicherstellen; deshalb seien nur langsame Bewegungen möglich."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1.1 (Grenzen ZMP). Stand der Technik von 2007!"
+  - id: Westervelt2018.04
+    seite: "6"
+    zitat: "A biped is an open kinematic chain consisting of two subchains called legs and, often, a subchain called the torso, all connected at a common point called the hip."
+    kernaussage: "Ein Zweibeiner ist eine offene kinematische Kette aus zwei Beinen und oft einem Rumpf, verbunden an der Hüfte."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.1 Aufbau (Begriffe)"
+  - id: Westervelt2018.05
+    seite: "6"
+    zitat: "The single support or swing phase is defined to be the phase of locomotion where only one foot is on the ground. Conversely, double support is the phase where both feet are on the ground"
+    kernaussage: "Einbeinstütz- bzw. Schwungphase: nur ein Fuß am Boden; Doppelstützphase: beide Füße am Boden."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1 Fortbewegung (Begriffe)"
+  - id: Westervelt2018.06
+    seite: "7"
+    zitat: "A statically stable gait is periodic locomotion in which the biped’s COM does not leave the support polygon, that is, the convex hull formed by all of the contact points with the ground."
+    kernaussage: "Ein statisch stabiler Gang ist periodische Fortbewegung, bei der der Schwerpunkt das Stützpolygon (konvexe Hülle der Bodenkontakte) nicht verlässt."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1.1 Gleichgewichtsregelung"
+  - id: Westervelt2018.07
+    seite: "7"
+    zitat: "A quasi-statically stable gait is one where the center of pressure4 (CoP) of the biped’s stance foot remains strictly within the interior of the support polygon, and hence does not lie on the boundary."
+    kernaussage: "Beim quasistatisch stabilen Gang bleibt der Druckmittelpunkt des Standfußes strikt im Inneren des Stützpolygons."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1.1. Die '4' im Zitat ist die Fußnotenziffer aus dem PDF."
+  - id: Westervelt2018.08
+    seite: "7"
+    zitat: "To be more precise, the CoP is defined as the point on the ground where the resultant of the ground-reaction force acts [92]. In the legged robotics literature, the CoP is often referred to as the ZMP [235]."
+    kernaussage: "Der Druckmittelpunkt ist der Bodenpunkt, an dem die resultierende Bodenreaktionskraft angreift; in der Literatur zu Laufrobotern wird er oft ZMP genannt."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1.1 (Fußnote 4)"
+  - id: Westervelt2018.09
+    seite: "9"
+    zitat: "A mechanical model is said to be fully actuated when the number of independent actuators equals the number of degrees of freedom. If there are fewer actuators than degrees of freedom then it is underactuated"
+    kernaussage: "Ein Modell ist voll aktuiert, wenn die Zahl unabhängiger Aktoren der Zahl der Freiheitsgrade entspricht, bei weniger Aktoren unteraktuiert."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.1 / 4.1.1 Begriffe"
+  - id: Westervelt2018.10
+    seite: "11"
+    zitat: "Bipeds are typically high degree of freedom (DOF) mechanisms but the task of biped walking is inherently a low DOF task—transportation of the robot’s COM from one point to another."
+    kernaussage: "Zweibeiner haben viele Freiheitsgrade, Gehen ist aber im Kern eine Aufgabe mit wenigen Freiheitsgraden: den Schwerpunkt von A nach B bringen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1 (Schwierigkeit Gliedmaßenkoordination)"
+  - id: Westervelt2018.11
+    seite: "11"
+    zitat: "Unlike traditional robotic manipulators, which are securely fastened to the environment, bipeds are designed to move with respect to the environment. Because of finite foot size, a large torque supplied at the ankle joint may result in foot rollover, in which case the robot is underactuated."
+    kernaussage: "Anders als fest montierte Manipulatoren bewegen sich Zweibeiner gegenüber der Umgebung; wegen der begrenzten Fußgröße kann ein großes Knöchelmoment den Fuß abkippen lassen, der Roboter ist dann unteraktuiert."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1.1; Kap. 3.4 (Sturzrisiko als Sicherheitsthema)"
+  - id: Westervelt2018.12
+    seite: "12"
+    zitat: "That is, in dynamic walking, the projection of the location of the biped’s COM onto the walking surface is outside the biped’s support polygon—and usually the location of the biped’s CoP is on the boundary of the support polygon—during portions of the walking cycle. This prohibits the use of the popular ZMP criterion to devise walking motions."
+    kernaussage: "Beim dynamischen Gehen liegt die Schwerpunktprojektion zeitweise außerhalb des Stützpolygons; das schließt das ZMP-Kriterium zur Gangplanung aus."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1.1 → Überleitung 4.1.2"
+  - id: Westervelt2018.13
+    seite: "14"
+    zitat: "Despite such great interest, there are almost no legged machines in use today, and those in use are for entertainment purposes only."
+    kernaussage: "Zum Zeitpunkt des Buchs (2007) waren kaum Laufmaschinen im Einsatz, und die eingesetzten nur zur Unterhaltung."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.2 historischer Kontrast. Nur als Stand 2007 verwenden!"
+  - id: Westervelt2018.14
+    seite: "15"
+    zitat: "Despite all of these developments, legged machines have not yet made their way into sectors where their utility exceeds their novelty."
+    kernaussage: "Laufmaschinen waren (Stand 2007) noch nicht in Bereichen angekommen, in denen ihr Nutzen ihren Neuheitswert übersteigt."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.2 / 1.1 Motivation (Nutzen unklar). Stand 2007."
+  - id: Westervelt2018.15
+    seite: "16"
+    zitat: "Stability is also of great concern. A vehicle that overturns may damage itself and whatever it falls onto."
+    kernaussage: "Stabilität ist wichtig, weil ein umkippendes Fahrzeug sich selbst und das, worauf es fällt, beschädigen kann."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 Sicherheit (Sturz); Kap. 6.3 Sicherheitskonzept"
+  - id: Westervelt2018.16
+    seite: "21"
+    zitat: "The ZMP criterion states that when the ZMP is contained within the interior of the support polygon, the robot is stable, i.e., will not topple."
+    kernaussage: "Nach dem ZMP-Kriterium ist der Roboter stabil (kippt nicht), solange der ZMP im Inneren des Stützpolygons liegt."
+    quelle: exzerpt
+    kommentar: "Kap. 4.1.1. Autoren betrachten das Kriterium kritisch (vgl. .03, .12)."
