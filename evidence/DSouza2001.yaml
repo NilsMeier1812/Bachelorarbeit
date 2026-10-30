@@ -1,0 +1,58 @@
+citekey: DSouza2001
+zotero_key: H4GBFW2D
+# IROS 2001, Bd. 1, S. 298–303. PDF ist ein OCR-Scan (IEEE Xplore): Formeln im Text unbrauchbar, nur Fließtext zitieren.
+belege:
+  - id: DSouza2001.01
+    seite: "298"
+    zitat: "Real-time control of the endeffector of a humanoid robot in external coordinates requires computationally efficientsolutions of the inverse kinematics problem."
+    kernaussage: "Echtzeitregelung des Endeffektors eines Humanoiden in äußeren Koordinaten erfordert recheneffiziente IK-Lösungen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1; Kap. 7.4.1 (IK im eigenen Prozess, Takt). 'efficientsolutions' so im OCR-Text."
+  - id: DSouza2001.02
+    seite: "298"
+    zitat: "The transformation from kinematic plans in external coordinates to internal coordinates is the classic inverse kinematics problem, a problem that arises from the fact that inverse transformations are often ill-posed."
+    kernaussage: "Die Umrechnung von Bewegungsplänen aus äußeren in innere (Gelenk-)Koordinaten ist das klassische IK-Problem; es entsteht, weil inverse Transformationen oft schlecht gestellt sind."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 (Definition)"
+  - id: DSouza2001.03
+    seite: "298"
+    zitat: "Heuristic methods have been suggested, such as freezing DOFs to eliminate redundancy. However, redundant DOFs are not necessarily disadvantageous as they can be used to optimize"
+    kernaussage: "Redundanz lässt sich heuristisch durch Einfrieren von Freiheitsgraden beseitigen; redundante Freiheitsgrade sind aber nicht unbedingt nachteilig, da sie zur Optimierung genutzt werden können."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 Redundanz, Nullraum. Satz geht weiter mit 'additional constraints, e.g., manipulability, force constraints', im OCR-Text durch die Bildunterschrift zerrissen, daher Zitat gekürzt."
+  - id: DSouza2001.04
+    seite: "298"
+    zitat: "Global methods find an optimal path of 8 with respect to the entire trajectory, usually in computationally expensive off-line calculations. In contrast, local methods, which are feasible in real time, only compute an optimal change in 6"
+    kernaussage: "Globale Verfahren optimieren über die ganze Trajektorie, meist rechenaufwendig offline; lokale Verfahren sind echtzeitfähig und berechnen nur eine optimale Gelenkänderung für eine kleine Endeffektoränderung."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 global vs. lokal. '8' und '6' sind OCR-Fehler für θ."
+  - id: DSouza2001.05
+    seite: "299"
+    zitat: "Learning of inverse kinematics is useful when the kinematic model of a robot is not accurately available, when Cartesian information is provided in uncalibrated camera coordinates, or when the computational complexity of analytical solutions becomes too high."
+    kernaussage: "Gelernte IK lohnt sich, wenn das kinematische Modell ungenau ist, kartesische Daten aus unkalibrierten Kameras stammen oder analytische Lösungen zu rechenaufwendig werden."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 (Alternative lernbasierte IK; Abgrenzung zum eigenen modellbasierten Ansatz)"
+  - id: DSouza2001.06
+    seite: "299"
+    zitat: "The major obstacle in learning inverse kinematics lies in the problem that the inverse kinematics of a redundant kinematic chain has infinitely many solutions."
+    kernaussage: "Die inverse Kinematik einer redundanten Kette hat unendlich viele Lösungen; das ist das Haupthindernis beim Lernen der IK."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 Redundanz"
+  - id: DSouza2001.07
+    seite: "301"
+    zitat: "Note that the null space optimization will sacrifice some performance in tracking accuracy to accomplish the desired null space motion towards the optimal posture"
+    kernaussage: "Die Nullraumoptimierung opfert im Verfahren der Autoren etwas Folgegenauigkeit, um die Bewegung zur Vorzugshaltung zu erreichen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 / 7.4.1 Zielkonflikt Genauigkeit vs. Nullraumaufgabe (bezieht sich auf das gelernte Verfahren)"
+  - id: DSouza2001.08
+    seite: "302"
+    zitat: "For redundant manipulators, following a periodic trajectory in operational space does not imply consistency in joint space"
+    kernaussage: "Bei redundanten Manipulatoren folgt aus einer periodischen Bahn im Arbeitsraum keine periodische Bewegung im Gelenkraum."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1; Kap. 8.2.3 (Jog-Genauigkeit, Nullraumdrift)"
+  - id: DSouza2001.09
+    seite: "302"
+    zitat: "after merely 1 minute of additional learning, the system performs as accurately as the analytical solution."
+    kernaussage: "Nach 1 Minute zusätzlichem Lernen auf der Aufgabe war das System im Versuch so genau wie die analytische Lösung."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2.1 (Ergebnis, 30-DoF-Humanoid, Achter-Bahn)"
