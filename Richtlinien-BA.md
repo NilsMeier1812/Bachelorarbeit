@@ -72,14 +72,18 @@ Systematische Vorgehensweise dokumentiert · Einsatz von Methoden/Werkzeugen · 
 | Datei | Kapitel | Entspricht |
 |---|---|---|
 | `Kapitel/00_Eigenständigkeitserklärung.tex` | Erklärung | [LF 4.6] |
-| `Kapitel/01_Einleitung.tex` | 1 Einleitung | Einleitung und Zielstellung |
-| `Kapitel/02_Grundlagen.tex` | 2 Grundlagen | Grundlagen |
-| `Kapitel/03_Stand_der_Technik.tex` | 3 Stand der Technik | SdT/Stand der Forschung + Handlungsbedarf (letztes Unterkapitel) |
-| `Kapitel/04_Methodik.tex` | 4 Methodik | Methodenteil |
-| `Kapitel/05_Ergebnisse.tex` | 5 Ergebnisse | Ergebnisteil |
-| `Kapitel/06_Diskussion.tex` | 6 Diskussion | Diskussionsteil |
-| `Kapitel/07_Zusammenfassung.tex` | 7 Zusammenfassung und Ausblick | Schlussteil / Schlussfolgerungen |
+| `Kapitel/01_Einleitung.tex` | 1 Einleitung | Einleitung und Zielstellung (inkl. Forschungsfragen F1–F4) |
+| `Kapitel/02_Humanoide_G1.tex` | 2 Humanoide Roboter und der Unitree G1 | Grundlagen |
+| `Kapitel/03_Simulation_Infrastruktur.tex` | 3 Simulation und Software-Infrastruktur | Grundlagen + SdT |
+| `Kapitel/04_Faehigkeiten_Verwandte_Arbeiten.tex` | 4 Fähigkeiten humanoider Roboter und verwandte Arbeiten | SdT |
+| `Kapitel/05_Handlungsbedarf_Methodik.tex` | 5 Handlungsbedarf, Anforderungen und Bewertungsmethodik | Handlungsbedarf (eigenes Kapitel wie [BA-L]) + Methodik |
+| `Kapitel/06_Konzept.tex` | 6 Konzept der Umgebung | Methodik (Konzept) |
+| `Kapitel/07_Umsetzung.tex` | 7 Umsetzung | Methodik (Umsetzung) |
+| `Kapitel/08_Evaluation.tex` | 8 Evaluation | Ergebnisse + Diskussion (8.5), gegliedert nach F1–F4 |
+| `Kapitel/09_Zusammenfassung.tex` | 9 Zusammenfassung und Ausblick | Schlussteil |
 | `Kapitel/Anhang_*.tex` | Anhang A, B, … | [LF 4.5] |
+
+Gliederung seit 2026-10-30 (mit Nils erarbeitet, Muster [BA-K]): Anforderungen A1–A7 und Forschungsfragen F1–F4 stehen als Kommentare in den Kapiteldateien 01 und 05.
 
 ### 3.2 Umfang [GS 5.2, LF 3]
 - BA gesamt: **ca. 60–80 Seiten** ohne Verzeichnisse und Anhang.

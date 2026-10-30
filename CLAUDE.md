@@ -254,5 +254,5 @@ python3 scripts/zot.py bib                   # zotero-map.json aus Zotero, Abgle
 python3 scripts/zot.py text [key ...]        # PDF-Text mit Seitenmarkern (--force zum Neuerzeugen)
 python3 scripts/zot.py annotations <key>     # Zotero-Markierungen -> evidence/<key>.yaml
 python3 scripts/check.py                     # alles prüfen
-python3 scripts/check.py --pairs review/pairs.jsonl --file Kapitel/02_Grundlagen.tex
+python3 scripts/check.py --pairs review/pairs.jsonl --file Kapitel/02_Humanoide_G1.tex
 ```

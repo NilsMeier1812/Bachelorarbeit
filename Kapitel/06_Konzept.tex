@@ -1,0 +1,77 @@
+% Gliederung Stand 30.10.2026. ~10 Seiten.
+% Schema je Unterkapitel: Anforderung -> Alternativen -> begründete Entscheidung -> Kern der Lösung -> Verweis auf Nachweis in Kap. 8.
+\chapter{Konzept der Umgebung}
+\label{chap:konzept}
+% Kurze Kapiteleinleitung vor 6.1.
+
+\section{Ausgangsbasis und Abgrenzung}
+\label{sec:ausgangsbasis}
+
+\subsection{Auswahl der Ausgangsbasis}
+\label{sec:auswahl_basis}
+% g1pilot (HuCeBot) gegenüber Alternativen (Unitree-Beispiele, Neuentwicklung).
+
+\subsection{Übernommener Funktionsumfang und Defizite}
+\label{sec:defizite}
+% Fehlte: Lauf-Simulation, Real-Sicherheit, Hände, Laienbedienung.
+
+\subsection{Abgrenzung der Eigenleistung}
+\label{sec:eigenleistung}
+% Tabelle "übernommen aus g1pilot vs. neu entwickelt".
+
+\section{Gesamtarchitektur}
+\label{sec:architektur}
+% [A2, F1]
+
+\subsection{Komponenten und Datenflüsse}
+\label{sec:komponenten}
+% Kernbild des Kapitels.
+
+\subsection{Umschaltung zwischen Simulation und Realbetrieb}
+\label{sec:sim_real_schalter}
+% Eine Umgebungsvariable, getrennte DDS-Domains.
+
+\subsection{Fortbewegungspfade in Simulation und Realbetrieb}
+\label{sec:fortbewegungspfade}
+% Sim-Ersatzregler vs. Onboard-Regler hinter gleichen Topics.
+
+\section{Sicherheitskonzept}
+\label{sec:sicherheitskonzept}
+% [A5, F3]
+
+\subsection{Betriebszustände und Übergänge}
+\label{sec:zustaende}
+% Zustandsmaschine als Diagramm.
+
+\subsection{Schutzmechanismen}
+\label{sec:schutzmechanismen}
+% Limits, Totmann, Notaus-Kette, Bodenkontaktprüfung.
+
+\subsection{Übergabe der Arme an den Onboard-Regler}
+\label{sec:armuebergabe}
+
+\section{Bedienkonzept}
+\label{sec:bedienkonzept}
+% [A6, F3]
+
+\subsection{Leitgedanken}
+\label{sec:leitgedanken}
+% Ein Modus zur Zeit (GEHEN/GREIFEN), Simulation zuerst.
+
+\subsection{Bedienwege und geteilter Bedienzustand}
+\label{sec:bedienwege_konzept}
+
+\subsection{Posen und Abläufe als aufgabenunabhängige Bausteine}
+\label{sec:posen_ablaeufe}
+% [A1]
+
+\section{Erweiterungskonzept}
+\label{sec:erweiterungskonzept}
+% [A7, F4]
+
+\subsection{Andockpunkte für externe Projekte}
+\label{sec:andockpunkte}
+% Arm-API, DDS-Schnittstelle, Szenen, ROS-Topics.
+
+\subsection{Modularisierung über Container-Profile}
+\label{sec:container_profile}
