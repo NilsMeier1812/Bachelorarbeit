@@ -1,0 +1,22 @@
+citekey: Fu2024
+zotero_key: ME9SVNEJ
+# arXiv 2406.10454v1 (Preprint; CoRL 2024 laut Projektseite). Roboter: auf Unitree H1 aufgebauter 33-DoF-Humanoid. Zweispaltiger Satz: Textfluss im PDF-Text teils vermischt.
+belege:
+  - id: Fu2024.01
+    seite: "2"
+    zitat: "Prior works use motion capture systems, first-person-view (FPV) virtual reality (VR) headsets and exoskeletons to teleoperate humanoids [17, 20, 38, 59], which are expensive and restricted in operation locations."
+    kernaussage: "Bisherige Arbeiten nutzen Motion Capture, FPV-VR-Brillen und Exoskelette zur Teleoperation von Humanoiden, die teuer und örtlich eingeschränkt sind."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Hürden bestehender Teleoperation"
+  - id: Fu2024.02
+    seite: "2"
+    zitat: "we can shadow human motion to our customized 33-DoF 180cm humanoid in real time using a single RGB camera"
+    kernaussage: "HumanPlus überträgt menschliche Bewegung in Echtzeit mit einer einzelnen RGB-Kamera auf einen angepassten 33-DoF-Humanoiden (180 cm)."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 kostengünstigere Teleoperation"
+  - id: Fu2024.03
+    seite: "3"
+    zitat: "Prior works develop humanoid and dexterous teleoperation by using human motion capture suits [14, 17, 20, 21], exoskeletons [35, 35, 63, 70, 75], haptic feedback devices [6, 61, 71], and VR devices for visual feedbacks"
+    kernaussage: "Frühere Arbeiten zur Humanoiden-Teleoperation nutzen Motion-Capture-Anzüge, Exoskelette, haptische Geräte und VR-Geräte."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Überblick Eingabegeräte"

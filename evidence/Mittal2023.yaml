@@ -1,0 +1,16 @@
+citekey: Mittal2023
+zotero_key: K3CW9VAJ
+# IEEE RA-L 8(6), 2023, S. 3740–3747. Orbit = Vorgänger von Isaac Lab.
+belege:
+  - id: Mittal2023.01
+    seite: "3740"
+    zitat: "We present ORBIT, a unified and modular framework for robot learning powered by NVIDIA Isaac Sim."
+    kernaussage: "ORBIT ist ein einheitliches, modulares Framework für Robot Learning auf Basis von NVIDIA Isaac Sim."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 Vergleich Simulatoren / Kap. 4.2"
+  - id: Mittal2023.02
+    seite: "3740"
+    zitat: "ORBIT allows training reinforcement learning policies and collecting large demonstration datasets from hand-crafted or expert solutions in a matter of minutes by leveraging GPU-based parallelization."
+    kernaussage: "ORBIT erlaubt durch GPU-Parallelisierung, RL-Policies zu trainieren und große Demonstrationsdatensätze innerhalb von Minuten zu sammeln."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2"

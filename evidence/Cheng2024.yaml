@@ -1,0 +1,34 @@
+citekey: Cheng2024
+zotero_key: SMM8845K
+# arXiv 2407.01512v2 (Preprint; CoRL 2024 laut Projektseite, Metadaten prüfen). Roboter: Unitree H1 und Fourier GR1, nicht G1.
+belege:
+  - id: Cheng2024.01
+    seite: "1"
+    zitat: "Teleoperation serves as a powerful method for collecting on-robot data essential for robot learning from demonstrations."
+    kernaussage: "Teleoperation dient als Methode, um Daten am Roboter für das Lernen aus Demonstrationen zu sammeln."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 – Zweck der Forschungs-Teleoperation = Datensammlung"
+  - id: Cheng2024.02
+    seite: "1"
+    zitat: "The intuitiveness and ease of use of the teleoperation system are crucial for ensuring high-quality, diverse, and scalable data."
+    kernaussage: "Intuitivität und einfache Bedienbarkeit des Teleoperationssystems sind laut Autoren entscheidend für hochwertige, vielfältige und skalierbare Daten."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3"
+  - id: Cheng2024.03
+    seite: "1"
+    zitat: "we propose an immersive teleoperation system OpenTeleVision that allows operators to actively perceive the robot’s surroundings in a stereoscopic manner"
+    kernaussage: "Open-TeleVision ist ein immersives Teleoperationssystem, mit dem Bediener die Umgebung des Roboters stereoskopisch und aktiv wahrnehmen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 VR-Teleoperation"
+  - id: Cheng2024.04
+    seite: "11"
+    zitat: "To collect realworld data, teleoperation has emerged as the mainstream approach using RGB cameras [6, 7, 8], mocap gloves [9, 10, 11], and VR devices [3, 2]."
+    kernaussage: "Zur Sammlung realer Daten hat sich Teleoperation mit RGB-Kameras, Mocap-Handschuhen und VR-Geräten als Hauptansatz etabliert."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Eingabegeräte der Teleoperation"
+  - id: Cheng2024.05
+    seite: "12"
+    zitat: "there is still a lack of other forms of feedback, such as haptic feedback"
+    kernaussage: "Dem System fehlen laut Autoren weitere Rückmeldungsformen wie haptisches Feedback."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Grenzen"

@@ -1,0 +1,28 @@
+citekey: He2024
+zotero_key: WX6EUD2G
+# arXiv 2406.08858v1 (Preprint; CoRL 2024, PMLR 270). Roboter: Unitree H1, nicht G1.
+belege:
+  - id: He2024.01
+    seite: "1"
+    zitat: "OmniH2O enables various ways for a human to control a full-sized humanoid with dexterous hands, including using realtime teleoperation through VR headset, verbal instruction, and RGB camera."
+    kernaussage: "OmniH2O erlaubt verschiedene Wege, einen Humanoiden in voller Größe mit Händen zu steuern: Echtzeit-Teleoperation per VR-Brille, sprachliche Anweisung und RGB-Kamera."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Bedienwege"
+  - id: He2024.02
+    seite: "1"
+    zitat: "We develop an RL-based sim-to-real pipeline, which involves large-scale retargeting and augmentation of human motion datasets"
+    kernaussage: "OmniH2O nutzt eine RL-basierte Sim-to-Real-Pipeline mit groß angelegtem Retargeting und Augmentierung menschlicher Bewegungsdaten."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2 Lernbasierte Regelung / 4.3"
+  - id: He2024.03
+    seite: "2"
+    zitat: "For the humanoid teleoperation interface [2], the need for expensive setups such as motion captures and exoskeletons also hinders large-scale humanoid data collection."
+    kernaussage: "Teure Aufbauten wie Motion Capture und Exoskelette behindern laut Autoren die Datensammlung mit Humanoiden in großem Maßstab."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Kosten/Hürden der Teleoperation"
+  - id: He2024.04
+    seite: "8"
+    zitat: "Another limitation is safety; although the OmniH2O policy has shown great robustness, we do not have guarantees or safety checks for extreme disturbances or out-of-distribution motion goals"
+    kernaussage: "Als Grenze nennen die Autoren die Sicherheit: Für extreme Störungen oder Bewegungsziele außerhalb der Trainingsverteilung gibt es keine Garantien oder Sicherheitsprüfungen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3/5.1 – Sicherheit in Forschungs-Teleoperation offen (A5)"

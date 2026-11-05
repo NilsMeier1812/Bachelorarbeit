@@ -1,0 +1,28 @@
+citekey: Durrani2026
+zotero_key: XKEBSQ8E
+# arXiv 2605.12347v1 (Preprint, nicht begutachtet), WeGo Robotics. G1 + MuJoCo + gleicher Code Sim/Real -> nächste verwandte Arbeit zu A2, aber Bedienung per IMU-Anzug.
+belege:
+  - id: Durrani2026.01
+    seite: "1"
+    zitat: "This paper presents a complete real-time whole-body teleoperation system that maps human motion, recorded with a Virdyn IMU-based full-body motion capture suit, directly onto a Unitree G1 humanoid robot."
+    kernaussage: "Die Arbeit stellt ein Echtzeit-Ganzkörper-Teleoperationssystem vor, das mit einem IMU-Motion-Capture-Anzug (Virdyn) aufgenommene Bewegung direkt auf einen Unitree G1 überträgt."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3/4.4 – verwandte Arbeit mit G1"
+  - id: Durrani2026.02
+    seite: "1"
+    zitat: "The system is first validated in simulation using the MuJoCo physics model of the Unitree G1 (sim2sim), and then deployed without modification on the physical platform (sim2real)."
+    kernaussage: "Das System wird zuerst in MuJoCo mit dem G1-Modell validiert und dann ohne Änderung auf dem realen G1 eingesetzt."
+    quelle: exzerpt
+    kommentar: "Kap. 4.4/5.1 – gleicher Code Sim/Real (vgl. A2), aber nur eine Funktion"
+  - id: Durrani2026.03
+    seite: "4"
+    zitat: "Second, because the same retargeting code runs unmodified in both simulation and on the real robot, passing sim2sim verification constitutes strong evidence that the pipeline will transfer successfully to hardware."
+    kernaussage: "Weil derselbe Retargeting-Code unverändert in Simulation und am realen Roboter läuft, werten die Autoren eine bestandene Sim2Sim-Prüfung als starkes Indiz für erfolgreiche Übertragung auf die Hardware."
+    quelle: exzerpt
+    kommentar: "Kap. 6 Konzept – Argument für gleichen Code Sim/Real (A2)"
+  - id: Durrani2026.04
+    seite: "5"
+    zitat: "The current system relies on the Unitree G1’s onboard servo controllers for low-level stability."
+    kernaussage: "Das System stützt sich für die Stabilität auf niedriger Ebene auf die Onboard-Servoregler des G1."
+    quelle: exzerpt
+    kommentar: "Kap. 4.4 – wie G1Pilot real: Unitree-Onboard-Regelung"

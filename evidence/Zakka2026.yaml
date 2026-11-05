@@ -1,0 +1,34 @@
+citekey: Zakka2026
+zotero_key: VZP9INMB
+# arXiv 2601.22074v2, Technical Report (Preprint). Basis von unitree_rl_mjlab (Herkunft der G1-Policy in G1Pilot).
+belege:
+  - id: Zakka2026.01
+    seite: "1"
+    zitat: "We present mjlab, a lightweight, open-source framework for robot learning that combines GPU-accelerated simulation with composable environments and minimal setup friction."
+    kernaussage: "mjlab ist ein leichtgewichtiges Open-Source-Framework für Robot Learning mit GPU-beschleunigter Simulation, zusammensetzbaren Umgebungen und geringem Einrichtungsaufwand."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2/4.4; Kap. 7 Herkunft Policy"
+  - id: Zakka2026.02
+    seite: "1"
+    zitat: "mjlab adopts the manager-based API introduced by Isaac Lab (Mittal et al., 2025), where users compose modular building blocks for observations, rewards, and events, and pairs it with MuJoCo Warp"
+    kernaussage: "mjlab übernimmt die Manager-API von Isaac Lab (modulare Bausteine für Beobachtungen, Belohnungen, Ereignisse) und kombiniert sie mit MuJoCo Warp."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2/4.2"
+  - id: Zakka2026.03
+    seite: "1"
+    zitat: "The result is a framework installable with a single command, requiring minimal dependencies, and providing direct access to native MuJoCo data structures."
+    kernaussage: "mjlab ist laut Autoren mit einem einzigen Befehl installierbar, hat minimale Abhängigkeiten und gibt direkten Zugriff auf native MuJoCo-Datenstrukturen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.4 – einfache Einrichtung als Designziel auch bei Forschungstools"
+  - id: Zakka2026.04
+    seite: "1"
+    zitat: "Figure 1: Unitree G1 humanoids performing a dance trained with the motion tracking pipeline from BeyondMimic (Liao et al., 2025)."
+    kernaussage: "mjlab zeigt Unitree-G1-Humanoide mit einem Tanz, der mit der Motion-Tracking-Pipeline von BeyondMimic trainiert wurde."
+    quelle: exzerpt
+    kommentar: "Kap. 4.4 – G1 als Referenzplattform"
+  - id: Zakka2026.05
+    seite: "2"
+    zitat: "However, it requires the Omniverse runtime, which adds installation complexity and startup latency."
+    kernaussage: "Isaac Lab benötigt laut Autoren die Omniverse-Laufzeitumgebung, was Installationsaufwand und Startverzögerung erhöht."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 Simulatorvergleich (Isaac vs. MuJoCo)"

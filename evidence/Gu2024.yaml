@@ -1,0 +1,28 @@
+citekey: Gu2024
+zotero_key: X82NSFWC
+# arXiv 2404.05695v2 (ICRA 2024 Workshop). Roboter: RobotEra XBot-S/XBot-L, nicht G1.
+belege:
+  - id: Gu2024.01
+    seite: "1"
+    zitat: "Humanoid-Gym is an easy-to-use reinforcement learning (RL) framework based on Nvidia Isaac Gym, designed to train locomotion skills for humanoid robots"
+    kernaussage: "Humanoid-Gym ist ein laut Autoren einfach nutzbares RL-Framework auf Basis von Nvidia Isaac Gym zum Training von Laufen für Humanoide."
+    quelle: exzerpt
+    kommentar: "Kap. 4.2/4.4"
+  - id: Gu2024.02
+    seite: "1"
+    zitat: "allows users to verify the trained policies in different physical simulations to ensure the robustness and generalization of the policies"
+    kernaussage: "Das Sim-to-Sim-Framework (Isaac Gym → MuJoCo) erlaubt, trainierte Policies in verschiedenen Physiksimulationen zu prüfen, um Robustheit und Generalisierung sicherzustellen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2/4.2 – MuJoCo als Prüfstand vor Realtransfer"
+  - id: Gu2024.03
+    seite: "2"
+    zitat: "For training simulations, Isaac Gym is utilized [8], while MuJoCo, known for its accurate physical dynamics, is chosen for sim2sim validation."
+    kernaussage: "Training läuft in Isaac Gym; MuJoCo wird wegen seiner genauen Dynamik für die Sim2Sim-Validierung gewählt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 Simulatorvergleich, Begründung MuJoCo"
+  - id: Gu2024.04
+    seite: "3"
+    zitat: "It is clear to see that the dynamics in MuJoCo are closer to the real environment than Isaac Gym."
+    kernaussage: "Im untersuchten Fall liegt die Dynamik in MuJoCo laut Autoren näher an der Realität als in Isaac Gym."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2; Einschränkung: nur Roboter/Versuch der Autoren"

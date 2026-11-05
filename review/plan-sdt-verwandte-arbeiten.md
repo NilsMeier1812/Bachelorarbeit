@@ -221,3 +221,12 @@ wirst du zitieren müssen.
 2. Danach Phase 0/1: Citation Keys, `zot.py text`, Belege entlang Q1–Q7.
 3. Offene Suchhinweise: Usability-Bewertung von Robotersoftware (z. B. System Usability Scale), Docker
    in der Robotik (Reproduzierbarkeit), Sicherheitsnormen für (mobile/humanoide) Roboter. Diese wurden noch nicht recherchiert.
+
+---
+
+## 7. Stand 05.11.2026, 11 Uhr: aufgenommen und exzerpiert
+
+- Freigegeben und mit Citation Key: Ajaykumar2021, Pot2009, Sekkat2024, Cheng2024, He2024, Fu2024, Gu2024, Zakka2026, Mittal2023, Rudin2021, Durrani2026 (51 Belege in `evidence/`), außerdem Zakka2025, He2025, Chi2025 (Key gesetzt, aber PDF ohne Text, keine Belege).
+- Noch ohne PDF: Darvish2023, Macenski2022, Luo2026 (SONIC), Ze2025 (TWIST), Ali Pour 2026, Zhao2025 (XRoboToolkit), Trochez2026 (Software).
+- Abdeckung: Q1 jetzt teilweise (Cheng, He, Fu, Durrani; Darvish fehlt), Q2 gedeckt (Ajaykumar, Pot), Q3 teilweise (Durrani, Sekkat, Yu; Software-Stacks fehlen als Quellen), Q4/Q5 gedeckt (Gu, Rudin, Mittal, Zakka2026, Durrani), Q6 offen (Macenski ohne PDF), Q7 = Wertung in Kap. 5.1.
+- Entwurf Kap. 4.3 und 4.4 in `Kapitel/04_Faehigkeiten_Verwandte_Arbeiten.tex`; Verifikation in `review/verifikation-kap4-2026-11-05.md` (28 gedeckt, 11 teilweise).

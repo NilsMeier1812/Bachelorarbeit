@@ -1,0 +1,77 @@
+citekey: Ajaykumar2021
+zotero_key: V27QC36D
+# ACM Computing Surveys 54(8), Article 164. Gedruckte Seiten "164:1"–"164:36"; Seitenangabe hier = Teil nach dem Doppelpunkt
+# (so wie zot.py die Seiten labelt). Survey über End-User-Programmierung (Programmspezifikation), nicht über direkte Steuerung.
+belege:
+  - id: Ajaykumar2021.01
+    seite: "1"
+    zitat: "end-user robot programming has helped democratize robot programming by empowering end-users who may not have experience in robot programming to customize robots to meet their individual contextual needs"
+    kernaussage: "End-User-Roboterprogrammierung ermöglicht Nutzern ohne Erfahrung in Roboterprogrammierung, Roboter an ihre eigenen Bedürfnisse anzupassen."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Bedienung durch Laien; Kap. 5.1 Handlungsbedarf (A6)"
+  - id: Ajaykumar2021.02
+    seite: "2"
+    zitat: "Effective robot programming not only requires mastery of the technical concepts involved in computer programming in general, such as data structures and algorithms, but also of a variety of multidisciplinary topics, from control engineering to mechatronics."
+    kernaussage: "Wirksame Roboterprogrammierung erfordert neben allgemeinen Programmierkenntnissen Wissen aus mehreren Disziplinen, von Regelungstechnik bis Mechatronik."
+    quelle: exzerpt
+    kommentar: "Kap. 1/5.1 Hürde für Laien und Unternehmen"
+  - id: Ajaykumar2021.03
+    seite: "2"
+    zitat: "The primary goal of end-user robot programming is to distill the complexity of robot programming into programming methods that are approachable for users without extensive experience in robotics."
+    kernaussage: "Hauptziel der End-User-Roboterprogrammierung ist, die Komplexität der Roboterprogrammierung in Methoden zu überführen, die für Nutzer ohne umfangreiche Robotikerfahrung zugänglich sind."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3; Zielbild A6"
+  - id: Ajaykumar2021.04
+    seite: "2"
+    zitat: "we only survey papers on end-user program specification, as opposed to papers on direct control or instruction of robots"
+    kernaussage: "Der Survey betrachtet nur Programmspezifikation durch Endnutzer, nicht direkte Steuerung oder Anweisung von Robotern."
+    quelle: exzerpt
+    kommentar: "Abgrenzung: Nils' GUI/Gamepad/Handy ist eher direkte Steuerung – beim Zitieren beachten"
+  - id: Ajaykumar2021.05
+    seite: "14"
+    zitat: "GUIs generally provide pre-specified programming options rather than allowing open-ended user input. Some systems also include simulations of the robot in their GUI for visualization and programming purposes"
+    kernaussage: "GUIs bieten meist vorgegebene Programmieroptionen statt offener Eingaben; manche Systeme integrieren eine Simulation des Roboters in die GUI zur Visualisierung und Programmierung."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3; Kap. 6 Konzept Demo-GUI (vorgegebene Aktionen)"
+  - id: Ajaykumar2021.06
+    seite: "14"
+    zitat: "GUI-based end-user robot programming emphasizes familiar, intuitive interaction styles and visualization of program information, but it may still result in high cognitive burden for end-users because of the difficulty of programming robot capabilities meant for 3-D task environments using 2-D screens"
+    kernaussage: "GUI-basierte End-User-Programmierung setzt auf vertraute, intuitive Interaktion, kann aber hohe kognitive Belastung erzeugen, weil 3D-Aufgaben über 2D-Bildschirme programmiert werden."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Vor-/Nachteile GUI; Kap. 6 Alternativenbewertung"
+  - id: Ajaykumar2021.07
+    seite: "16"
+    zitat: "offline programming features enable users to program using a virtual simulation of a robot"
+    kernaussage: "Offline-Programmierfunktionen erlauben das Programmieren an einer virtuellen Simulation des Roboters."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 Einsatzzwecke Simulation; Kap. 4.3"
+  - id: Ajaykumar2021.08
+    seite: "16"
+    zitat: "offline programming features can help reduce user effort and program suboptimalities [81], cost [82], difficulties in modifying and developing programs [82], and idle time in waiting for a robot to become available [82]"
+    kernaussage: "Offline-Programmierung (an der Simulation) kann laut Survey Nutzeraufwand, suboptimale Programme, Kosten, Schwierigkeiten beim Ändern/Entwickeln und Wartezeiten auf einen verfügbaren Roboter verringern."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1, 5.1 (Motivation 'erst in Sim'); Sekundäraussage mit Verweisen [81],[82]"
+  - id: Ajaykumar2021.09
+    seite: "22"
+    zitat: "The most common tool for measuring system usability in user evaluations for end-user robot programming systems is the System Usability Scale (SUS)"
+    kernaussage: "Das häufigste Werkzeug zur Messung der Usability in Nutzerstudien zu End-User-Roboterprogrammiersystemen ist die System Usability Scale (SUS)."
+    quelle: exzerpt
+    kommentar: "Kap. 5.3 Bewertungsmethodik (A6)"
+  - id: Ajaykumar2021.10
+    seite: "23"
+    zitat: "The most common tool for measuring user workload during end-user robot programming is the NASA Task Load Index (NASA-TLX)"
+    kernaussage: "Das häufigste Werkzeug zur Messung der Arbeitsbelastung bei End-User-Roboterprogrammierung ist der NASA Task Load Index (NASA-TLX)."
+    quelle: exzerpt
+    kommentar: "Kap. 5.3 Bewertungsmethodik"
+  - id: Ajaykumar2021.11
+    seite: "23"
+    zitat: "Gaps in user understanding may be observed by measuring the number, rate, and type of errors users make while using the system"
+    kernaussage: "Lücken im Nutzerverständnis lassen sich über Anzahl, Rate und Art der Fehler bei der Systemnutzung beobachten."
+    quelle: exzerpt
+    kommentar: "Kap. 5.3 Kennzahlen (Fehlbedienungen)"
+  - id: Ajaykumar2021.12
+    seite: "26"
+    zitat: "academic work on end-user robot programming may present a limited view of user experiences in end-user robot programming due to a lack of deployments and user evaluations in non-laboratory settings"
+    kernaussage: "Akademische Arbeiten zur End-User-Roboterprogrammierung zeigen wegen fehlender Einsätze und Nutzerstudien außerhalb des Labors möglicherweise nur ein eingeschränktes Bild."
+    quelle: exzerpt
+    kommentar: "Kap. 5.1 Handlungsbedarf"

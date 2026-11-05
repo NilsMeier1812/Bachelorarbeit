@@ -1,0 +1,40 @@
+citekey: Pot2009
+zotero_key: PQ262WZH
+# IEEE RO-MAN 2009, S. 46–51. Autoren sind Mitarbeiter des Herstellers (Aldebaran) -> Selbstdarstellung, vorsichtig formulieren.
+belege:
+  - id: Pot2009.01
+    seite: "46"
+    zitat: "we present Choregraphe: a graphical environment developed by Aldebaran Robotics for programming its humanoid robot, Nao"
+    kernaussage: "Choregraphe ist eine von Aldebaran Robotics entwickelte grafische Umgebung zur Programmierung des humanoiden Roboters Nao."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3/4.4 Beispiel grafische Bedienung eines Humanoiden"
+  - id: Pot2009.02
+    seite: "46"
+    zitat: "Choregraphe was conceived to allow rapid development of complex applications by generalist developers while providing the ability to have a fine control of motions for demanding programmers."
+    kernaussage: "Choregraphe soll Generalisten schnelle Entwicklung komplexer Anwendungen erlauben und anspruchsvollen Programmierern feine Bewegungskontrolle bieten."
+    quelle: exzerpt
+    kommentar: "Kap. 4.4; Parallele zu G1Pilot (Laien-GUI + API für Entwickler)"
+  - id: Pot2009.03
+    seite: "47"
+    zitat: "Because we believe that each household will have at least one robot, it is important that anybody can program his robot in an easy and seamless manner."
+    kernaussage: "Die Autoren begründen die einfache Programmierbarkeit damit, dass jeder seinen Roboter leicht programmieren können soll."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3 Motivation Laienbedienung (Herstellersicht)"
+  - id: Pot2009.04
+    seite: "47"
+    zitat: "the programming tool should run on any platform (PC, MAC, Linux) because we consider that our customers should not have to modify their computer environment when buying a robot"
+    kernaussage: "Anforderung an Choregraphe: Lauffähigkeit auf PC, Mac und Linux, damit Kunden ihre Rechnerumgebung beim Roboterkauf nicht ändern müssen."
+    quelle: exzerpt
+    kommentar: "Kap. 6 Konzept (Docker, plattformunabhängiger Start) – analoge Anforderung"
+  - id: Pot2009.05
+    seite: "47"
+    zitat: "In the Box Library a set of classical pre-programmed behaviors are proposed from high level functions (walk, dance, turn, lie down, standup, reading sensors, speech synthesis, speech recognition) to very low level ones (reading sensors, turning LEDS on and off)."
+    kernaussage: "Die Box Library von Choregraphe bietet vorprogrammierte Verhalten von hohen Funktionen (Gehen, Tanzen, Aufstehen, Sprache) bis zu niedrigen (Sensoren lesen, LEDs schalten)."
+    quelle: exzerpt
+    kommentar: "Kap. 4.4; Vergleich Posen/Abläufe in G1Pilot"
+  - id: Pot2009.06
+    seite: "51"
+    zitat: "The simultaneous use of both sides opens huge possibilities to play with a humanoid robot without compiling a single line of C++."
+    kernaussage: "Flussdiagramm und Zeitleiste zusammen ermöglichen laut Autoren die Arbeit mit dem Humanoiden, ohne eine Zeile C++ zu kompilieren."
+    quelle: exzerpt
+    kommentar: "Kap. 4.3/4.4"

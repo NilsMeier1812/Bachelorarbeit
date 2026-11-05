@@ -3,6 +3,10 @@
     "titel": "acatech HORIZONTE: Künstliche Intelligenz in der Industrie",
     "zotero_key": "8TVBCFC8"
   },
+  "Ajaykumar2021": {
+    "titel": "A Survey on End-User Robot Programming",
+    "zotero_key": "V27QC36D"
+  },
   "Aristidou2009": {
     "titel": "Inverse kinematics: a review of existing techniques and introduction of a new fast iterative solver",
     "zotero_key": "CFV2E447"
@@ -14,6 +18,14 @@
   "Bruendl2024": {
     "titel": "Towards a circular economy for electrical products: A systematic literature review and research agenda for automated recycling",
     "zotero_key": "XEMUAVXP"
+  },
+  "Cheng2024": {
+    "titel": "Open-TeleVision: Teleoperation with Immersive Active Visual Feedback",
+    "zotero_key": "SMM8845K"
+  },
+  "Chi2025": {
+    "titel": "Demonstrating Berkeley Humanoid Lite: An Open-source, Accessible, and Customizable 3D-printed Humanoid Robot",
+    "zotero_key": "EWQIDXDD"
   },
   "Choi2021": {
     "titel": "On the use of simulation in robotics: Opportunities, challenges, and suggestions for moving forward",
@@ -27,6 +39,10 @@
     "titel": "Learning inverse kinematics",
     "zotero_key": "H4GBFW2D"
   },
+  "Durrani2026": {
+    "titel": "Real-Time Whole-Body Teleoperation of a Humanoid Robot Using IMU-Based Motion Capture with Sim2Sim and Sim2Real Validation",
+    "zotero_key": "XKEBSQ8E"
+  },
   "Erez2015": {
     "titel": "Simulation tools for model-based robotics: Comparison of Bullet, Havok, MuJoCo, ODE and PhysX",
     "zotero_key": "WKQSWUPD"
@@ -39,13 +55,41 @@
     "titel": "Räumliche elektronische Baugruppen (3D-MID): Werkstoffe, Herstellung, Montage und Anwendungen für spritzgegossene Schaltungsträger",
     "zotero_key": "ZACM7ZSZ"
   },
+  "Fu2024": {
+    "titel": "HumanPlus: Humanoid Shadowing and Imitation from Humans",
+    "zotero_key": "ME9SVNEJ"
+  },
+  "Gu2024": {
+    "titel": "Humanoid-Gym: Reinforcement Learning for Humanoid Robot with Zero-Shot Sim2Real Transfer",
+    "zotero_key": "X82NSFWC"
+  },
+  "He2024": {
+    "titel": "OmniH2O: Universal and Dexterous Human-to-Humanoid Whole-Body Teleoperation and Learning",
+    "zotero_key": "WX6EUD2G"
+  },
+  "He2025": {
+    "titel": "ASAP: Aligning Simulation and Real-World Physics for Learning Agile Humanoid Whole-Body Skills",
+    "zotero_key": "RC8F75KA"
+  },
   "Kucuk2006": {
     "titel": "Robot kinematics: Forward and inverse kinematics",
     "zotero_key": "8S8FCMGQ"
   },
+  "Mittal2023": {
+    "titel": "Orbit: A Unified Simulation Framework for Interactive Robot Learning Environments",
+    "zotero_key": "K3CW9VAJ"
+  },
+  "Pot2009": {
+    "titel": "Choregraphe: a graphical tool for humanoid robot programming",
+    "zotero_key": "PQ262WZH"
+  },
   "Radosavovic2024": {
     "titel": "Real-world humanoid locomotion with reinforcement learning",
     "zotero_key": "PXC8DDBQ"
+  },
+  "Rudin2021": {
+    "titel": "Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning",
+    "zotero_key": "UUXUUX4J"
   },
   "Saeedvand2019": {
     "titel": "A comprehensive survey on humanoid robot development",
@@ -54,6 +98,10 @@
   "Scheck2026": {
     "titel": "Deep Learning-Based Object Detection for Automated Disassembly of Control Cabinets",
     "zotero_key": "434W7QRZ"
+  },
+  "Sekkat2024": {
+    "titel": "Beyond simulation: Unlocking the frontiers of humanoid robot capability and intelligence with Pepper's open-source digital twin",
+    "zotero_key": "BCDEHUNG"
   },
   "Tan2018": {
     "titel": "Sim-to-Real: Learning Agile Locomotion For Quadruped Robots",
@@ -86,6 +134,14 @@
   "Yu2026": {
     "titel": "Energy-Efficient Multi-Joint Cooperative Motion Planning for Unitree G1 Humanoid Robot in Complex Dance Scenarios",
     "zotero_key": "MCFF9VCG"
+  },
+  "Zakka2025": {
+    "titel": "Demonstrating MuJoCo Playground",
+    "zotero_key": "XEDJBDX5"
+  },
+  "Zakka2026": {
+    "titel": "mjlab: A Lightweight Framework for GPU-Accelerated Robot Learning",
+    "zotero_key": "VZP9INMB"
   },
   "Zhao2020": {
     "titel": "Sim-to-Real Transfer in Deep Reinforcement Learning for Robotics: a Survey",

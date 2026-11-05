@@ -31,9 +31,66 @@
 
 \section{Bedienung und Teleoperation humanoider Roboter}
 \label{sec:teleoperation_sdt}
-% Kandidaten: Saeedvand2019 (autonom/teilautonom/ferngesteuert, Fernsteuerung nötig), Tong2024 (Trends Teleoperation).
+% ENTWURF 05.11.2026 (Claude, Kapitel-Workflow Schritt 4) – von Nils zu lesen. Belege: evidence/*.yaml.
+% Weitere Kandidaten: Darvish2023 (Teleoperations-Survey, PDF fehlt noch), Ajaykumar2021.09–.11 (SUS, NASA-TLX, Fehler) -> Kap. 5.3.
+Die Verhaltenssteuerung humanoider Roboter lässt sich in autonome, teilautonome und ferngesteuerte Verfahren einteilen \cite{Saeedvand2019}\ev{Saeedvand2019.10} \cite{Tong2024}\ev{Tong2024.07}.
+Für Aufgaben, deren Entscheidungsfindung vorhandene Algorithmen nicht abdecken, ist die Fernsteuerung bislang notwendig, etwa bei Einsätzen in Katastrophengebieten \cite{Saeedvand2019}\ev{Saeedvand2019.11}.
+Als Entwicklungsrichtungen der Fernsteuerung gelten verbesserte Teleoperationsschnittstellen, geringere Latenz, die Einbindung von Augmented Reality, autonome Funktionen und Standardisierung \cite{Tong2024}\ev{Tong2024.12}.
+
+In der Forschung dient die Teleoperation vor allem dazu, Daten am Roboter für das Lernen aus Demonstrationen zu sammeln \cite{Cheng2024}\ev{Cheng2024.01}.
+Zur Erfassung der Bewegungen des Bedieners kommen Motion-Capture-Anzüge, Exoskelette, haptische Geräte und VR-Geräte zum Einsatz \cite{Fu2024}\ev{Fu2024.03}.
+Für die Sammlung realer Daten hat sich die Teleoperation mit RGB-Kameras, Motion-Capture-Handschuhen und VR-Geräten etabliert \cite{Cheng2024}\ev{Cheng2024.04}.
+Open-TeleVision lässt den Bediener die Umgebung des Roboters über eine VR-Brille stereoskopisch und aktiv wahrnehmen \cite{Cheng2024}\ev{Cheng2024.03}.
+OmniH2O steuert einen Humanoiden in voller Größe wahlweise über eine VR-Brille, sprachliche Anweisungen oder eine RGB-Kamera \cite{He2024}\ev{He2024.01}.
+HumanPlus überträgt menschliche Bewegungen mit einer einzelnen RGB-Kamera in Echtzeit auf einen Humanoiden mit 33 Freiheitsgraden \cite{Fu2024}\ev{Fu2024.02}.
+Für den Unitree G1 bildet ein System von Durrani und Khan die mit einem IMU-basierten Motion-Capture-Anzug erfasste Ganzkörperbewegung in Echtzeit auf den Roboter ab \cite{Durrani2026}\ev{Durrani2026.01}.
+
+Den Einsatz dieser Systeme begrenzen Kosten, Einsatzort und Sicherheit.
+Motion-Capture-Systeme, VR-Brillen mit Ich-Perspektive und Exoskelette sind teuer und an bestimmte Einsatzorte gebunden \cite{Fu2024}\ev{Fu2024.01}.
+Teure Aufbauten wie Motion Capture und Exoskelette behindern zudem die Datensammlung in großem Maßstab \cite{He2024}\ev{He2024.03}.
+Für extreme Störungen oder Bewegungsziele außerhalb der Trainingsverteilung bietet OmniH2O keine Garantien oder Sicherheitsprüfungen \cite{He2024}\ev{He2024.04}.
+Open-TeleVision fehlen weitere Rückmeldungsformen wie haptisches Feedback \cite{Cheng2024}\ev{Cheng2024.05}.
+\pruefen{Übergang: Die genannten Systeme richten sich an Forschende mit Spezialhardware – als Wertung erst in Kap.~5.1 formulieren?}
+
+Einen anderen Zugang verfolgt die End-User-Roboterprogrammierung: Sie ermöglicht Nutzern ohne Erfahrung in der Roboterprogrammierung, Roboter an ihre eigenen Anforderungen anzupassen \cite{Ajaykumar2021}\ev{Ajaykumar2021.01}.
+Ihr Ziel ist, die Komplexität der Roboterprogrammierung in Methoden zu überführen, die auch ohne umfangreiche Robotikerfahrung zugänglich sind \cite{Ajaykumar2021}\ev{Ajaykumar2021.03}.
+Die Hürde ist hoch, da wirksame Roboterprogrammierung neben allgemeinen Programmierkenntnissen Wissen aus mehreren Disziplinen von der Regelungstechnik bis zur Mechatronik erfordert \cite{Ajaykumar2021}\ev{Ajaykumar2021.02}.
+Grafische Benutzeroberflächen bieten dafür meist vorgegebene Optionen statt offener Eingaben, und manche Systeme binden eine Simulation des Roboters zur Visualisierung und Programmierung ein \cite{Ajaykumar2021}\ev{Ajaykumar2021.05}.
+Sie setzen auf vertraute, intuitive Interaktion, können aber eine hohe kognitive Belastung verursachen, weil Fähigkeiten für dreidimensionale Aufgaben über zweidimensionale Bildschirme programmiert werden \cite{Ajaykumar2021}\ev{Ajaykumar2021.06}.
+Die Offline-Programmierung an einer virtuellen Simulation des Roboters \cite{Ajaykumar2021}\ev{Ajaykumar2021.07} kann Nutzeraufwand, Kosten und Wartezeiten auf einen verfügbaren Roboter verringern \cite{Ajaykumar2021}\ev{Ajaykumar2021.08}.
+Der Survey betrachtet dabei ausschließlich die Programmspezifikation durch Endnutzer und nicht die direkte Steuerung von Robotern \cite{Ajaykumar2021}\ev{Ajaykumar2021.04}.
+
+Für humanoide Roboter ist Choregraphe ein Beispiel einer grafischen Programmierumgebung; der Hersteller Aldebaran Robotics hat sie für den Roboter Nao entwickelt \cite{Pot2009}\ev{Pot2009.01}.
+Sie soll Generalisten die schnelle Entwicklung komplexer Anwendungen ermöglichen und anspruchsvollen Programmierern eine feine Bewegungskontrolle bieten \cite{Pot2009}\ev{Pot2009.02}.
+Eine Bibliothek vorprogrammierter Verhalten reicht von Funktionen wie Gehen, Tanzen und Aufstehen bis zum Auslesen von Sensoren und Schalten von LEDs \cite{Pot2009}\ev{Pot2009.05}.
+Laut den Autoren lässt sich der Humanoid so bedienen, ohne eine Zeile C++ zu kompilieren \cite{Pot2009}\ev{Pot2009.06}.
 
 \section{Verwandte Arbeiten}
 \label{sec:verwandte_arbeiten}
 % Bestehende Umgebungen und Software-Stacks für den G1 und vergleichbare Humanoide
 % (u. a. HuCeBot g1pilot, Unitree-Beispiele, unitree_rl_mjlab, WBC-AGILE). Kandidat: Yu2026 (G1 nur in MATLAB/Simulink).
+% ENTWURF 05.11.2026 (Claude, Kapitel-Workflow Schritt 4) – von Nils zu lesen.
+% Noch ohne PDF/Text: Zakka2025 (MuJoCo Playground), He2025 (ASAP), Chi2025 (Berkeley Humanoid Lite), Luo2026 (SONIC), Macenski2022 (ROS 2, -> Kap. 3.3).
+Für das Training lernbasierter Lauf-Regler existieren mehrere Frameworks.
+Rudin et al.\ erzeugen durch massive Parallelisierung auf einer einzelnen Workstation-GPU schnell Policies für reale Robotikaufgaben \cite{Rudin2021}\ev{Rudin2021.01}; für den Vierbeiner ANYmal dauert das Training auf ebenem Gelände unter vier Minuten und auf unebenem Gelände zwanzig Minuten \cite{Rudin2021}\ev{Rudin2021.02}.
+ORBIT ist ein modulares Framework auf Basis von NVIDIA Isaac Sim \cite{Mittal2023}\ev{Mittal2023.01}, das durch GPU-Parallelisierung RL-Policies trainiert und Demonstrationsdaten innerhalb von Minuten sammelt \cite{Mittal2023}\ev{Mittal2023.02}.
+mjlab übernimmt die modulare Programmierschnittstelle von Isaac Lab und verbindet sie mit der GPU-beschleunigten Physik von MuJoCo Warp \cite{Zakka2026}\ev{Zakka2026.02}.
+Als Grund für ein eigenes Framework nennen die Autoren den Installationsaufwand und die Startverzögerung durch die Omniverse-Laufzeitumgebung von Isaac Lab \cite{Zakka2026}\ev{Zakka2026.05}.
+mjlab ist dagegen mit einem einzigen Befehl installierbar und hat minimale Abhängigkeiten \cite{Zakka2026}\ev{Zakka2026.03}; als Referenzplattform zeigen die Autoren Unitree-G1-Humanoide \cite{Zakka2026}\ev{Zakka2026.04}.
+\pruefen{unitree\_rl\_mjlab (Herkunft der Lauf-Policy in G1Pilot) als Software-Quelle in Zotero anlegen und hier nennen}
+
+Mehrere Arbeiten nutzen MuJoCo als Prüfstand zwischen Training und Realroboter.
+Humanoid-Gym trainiert Lauf-Policies für Humanoide in Isaac Gym \cite{Gu2024}\ev{Gu2024.01} und prüft sie anschließend in einer zweiten Physiksimulation auf Robustheit und Generalisierung \cite{Gu2024}\ev{Gu2024.02}.
+MuJoCo wird dafür wegen seiner genauen Dynamik gewählt \cite{Gu2024}\ev{Gu2024.03}; im untersuchten Fall liegt die Dynamik in MuJoCo näher an der Realität als in Isaac Gym \cite{Gu2024}\ev{Gu2024.04}.
+Durrani und Khan validieren ihre Teleoperation des G1 zuerst in MuJoCo und setzen sie danach ohne Änderung am realen Roboter ein \cite{Durrani2026}\ev{Durrani2026.02}.
+Weil derselbe Code in Simulation und Realität läuft, werten sie eine bestandene Prüfung in der Simulation als starkes Indiz für eine erfolgreiche Übertragung \cite{Durrani2026}\ev{Durrani2026.03}.
+Die Stabilität auf niedriger Ebene übernehmen dabei die Onboard-Regler des G1 \cite{Durrani2026}\ev{Durrani2026.04}.
+
+Simulationsumgebungen für andere Humanoide verfolgen ähnliche Ziele.
+Humanoide wie Pepper sind schwer und teuer zu bauen und zu testen, während Simulationsumgebungen das sichere Erproben neuer Konzepte erlauben \cite{Sekkat2024}\ev{Sekkat2024.05}.
+Sekkat et al.\ erstellen daher eine quelloffene Simulationsumgebung für Pepper auf Basis von ROS~2 \cite{Sekkat2024}\ev{Sekkat2024.01}, die Gazebo Sim und MoveIt~2 kombiniert \cite{Sekkat2024}\ev{Sekkat2024.06}.
+Die Genauigkeit des digitalen Zwillings bewerten sie durch den Vergleich mit Choregraphe und einem realen Pepper \cite{Sekkat2024}\ev{Sekkat2024.07}.
+Für den G1 untersucht eine Studie die Bewegungsplanung ausschließlich in MATLAB/Simulink mit einem selbst erstellten Robotermodell \cite{Yu2026}\ev{Yu2026.03}; Versuche am realen G1 zur Verifikation stehen nach Angabe der Autoren noch aus \cite{Yu2026}\ev{Yu2026.04}.
+
+\qf{Quelloffene Software-Stacks für den G1 (Ausgangsbasis g1pilot, Hersteller-Beispiele, LeRobot, GR00T-WholeBodyControl) – dafür Software-Einträge in Zotero anlegen: hucebot/g1pilot, unitree\_mujoco, xr\_teleoperate, LeRobot-G1-Doku, GR00T-WholeBodyControl als Typ „Software“ in Zotero anlegen}.
+\pruefen{Merkmalsvergleich der Stacks (Tabelle aus review/plan-sdt-verwandte-arbeiten.md, Abschnitt 4) hier oder in Kap.~5.1 einfügen – Inhalte vorher an den Repos selbst prüfen}

@@ -1,0 +1,46 @@
+citekey: Sekkat2024
+zotero_key: BCDEHUNG
+# Heliyon 10 (2024) e34456, Open Access CC BY-NC. Seiten = Artikelseiten 1–18.
+belege:
+  - id: Sekkat2024.01
+    seite: "2"
+    zitat: "this work addresses the task of creating a high-fidelity, open-source simulation environment for the Pepper robot based on the Robot Operating System 2 (ROS 2)"
+    kernaussage: "Die Arbeit erstellt eine quelloffene Simulationsumgebung für den Pepper-Roboter auf Basis von ROS 2 (laut Autoren mit hoher Wiedergabetreue)."
+    quelle: exzerpt
+    kommentar: "Kap. 4.4 Verwandte Arbeiten (Sim-Umgebung für Humanoid); Kap. 3.3 ROS 2."
+  - id: Sekkat2024.02
+    seite: "1"
+    zitat: "The cost of the physical Pepper robot is well known to be prohibitive [13]"
+    kernaussage: "Die Kosten des physischen Pepper-Roboters gelten als prohibitiv hoch (Sekundäraussage mit Verweis [13])."
+    quelle: exzerpt
+    kommentar: "Kap. 1/5.1 Kosten als Hürde, analog G1"
+  - id: Sekkat2024.03
+    seite: "2"
+    zitat: "it is critical to test and validate the training’s safety and effectiveness before deploying it on the real robot"
+    kernaussage: "Sicherheit und Wirksamkeit des Trainings müssen vor dem Einsatz auf dem realen Roboter getestet und validiert werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 Einsatzzwecke Simulation; Kap. 5.1"
+  - id: Sekkat2024.04
+    seite: "2"
+    zitat: "current simulation platforms for the robot Pepper present significant gaps, including a lack of high fidelity, limited integration of complex ML frameworks, and insufficient open-source scalability"
+    kernaussage: "Bestehende Simulationsplattformen für Pepper haben laut Autoren Lücken: geringe Wiedergabetreue, begrenzte Integration von ML-Frameworks, unzureichende Open-Source-Skalierbarkeit."
+    quelle: exzerpt
+    kommentar: "Kap. 4.4 – Parallele: auch bei anderen Humanoiden fehlen passende Sim-Umgebungen"
+  - id: Sekkat2024.05
+    seite: "2"
+    zitat: "Humanoid robots such as Pepper are hard and expensive to build and test [13] but simulation environments are critical for testing fresh concepts and increasing robot performance in a safe and effective manner [3,15]."
+    kernaussage: "Humanoide wie Pepper sind schwer und teuer zu bauen und zu testen; Simulationsumgebungen sind entscheidend, um neue Konzepte sicher und effektiv zu testen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1; Kap. 5.1"
+  - id: Sekkat2024.06
+    seite: "2"
+    zitat: "This package, which combines Gazebo Sim,1,2 and MoveIt 2, intends to provide precise simulation and assist sophisticated ML training"
+    kernaussage: "Das ROS-2-Paket kombiniert Gazebo Sim und MoveIt 2 für präzise Simulation und ML-Training."
+    quelle: exzerpt
+    kommentar: "Kap. 4.4 – anderes Werkzeug (Gazebo statt MuJoCo)"
+  - id: Sekkat2024.07
+    seite: "2"
+    zitat: "This study evaluates the accuracy of the digital robot twin generated in the simulated environment by comparing it with both the Choreograph environment and a real Pepper robot."
+    kernaussage: "Die Genauigkeit des digitalen Zwillings wird durch Vergleich mit der Choregraphe-Umgebung und einem realen Pepper bewertet."
+    quelle: exzerpt
+    kommentar: "Kap. 4.4/8 – Vorbild für Sim-Real-Vergleich"
