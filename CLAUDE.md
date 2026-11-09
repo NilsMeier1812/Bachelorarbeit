@@ -193,6 +193,9 @@ Nichts verschieben, löschen oder an Metadaten ändern; vorher prüfen, ob am Ei
   `~/claude_area/documents` (Nils' Zugangsdaten nie selbst eingeben – fehlt ein Login, Nils fragen) und
   lädt sie per Zotero-Web-API hoch. Der Schlüssel liegt auf dem PC in `~/.config/zotero_api_key`
   (Nils' eigener Schlüssel mit Schreibrecht; nie in Chat, Repo oder Logs ausgeben).
+- Auf dem PC gibt es dafür `~/claude_area/CLAUDE.md` (Chrome-Kniffe für ACM/IEEE) und das Skript
+  `tools/zotero_attach.py` (`--check ITEMKEY` bzw. `ITEMKEY:documents/Datei.pdf`, überspringt Einträge
+  mit vorhandenem PDF).
 - Läuft keine Remote-Control-Sitzung: Nils um Start bitten (Befehl oben) oder ihm die Liste geben.
 
 Speicher: Zotero kostenlos = 300 MB; bei großen Mengen Nils auf den Verbrauch hinweisen.
