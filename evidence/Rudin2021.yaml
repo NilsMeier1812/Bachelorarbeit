@@ -1,22 +1,27 @@
 citekey: Rudin2021
 zotero_key: UUXUUX4J
-# arXiv 2109.11978v3 (CoRL 2021 laut arXiv). Roboter: ANYmal (Vierbeiner). Grundlage legged_gym.
 belege:
-  - id: Rudin2021.01
-    seite: "1"
-    zitat: "we present and study a training set-up that achieves fast policy generation for real-world robotic tasks by using massive parallelism on a single workstation GPU"
-    kernaussage: "Die Arbeit stellt ein Trainings-Setup vor, das durch massive Parallelisierung auf einer einzelnen Workstation-GPU schnell Policies für reale Robotikaufgaben erzeugt."
-    quelle: exzerpt
-    kommentar: "Kap. 4.2 Lernbasierte Lauf-Regelung"
-  - id: Rudin2021.02
-    seite: "1"
-    zitat: "The parallel approach allows training policies for flat terrain in under four minutes, and in twenty minutes for uneven terrain."
-    kernaussage: "Im untersuchten Fall (Vierbeiner ANYmal) lassen sich Policies für ebenes Gelände in unter vier Minuten und für unebenes Gelände in zwanzig Minuten trainieren."
-    quelle: exzerpt
-    kommentar: "Kap. 4.2 – Einschränkung Vierbeiner beachten"
-  - id: Rudin2021.03
-    seite: "1"
-    zitat: "Finally, we transfer the policies to the real robot to validate the approach."
-    kernaussage: "Die Policies werden zur Validierung auf den realen Roboter übertragen."
-    quelle: exzerpt
-    kommentar: "Kap. 3.1.2 Sim-to-Real"
+- id: Rudin2021.01
+  seite: '1'
+  zitat: we present and study a training set-up that achieves fast policy generation for real-world robotic tasks by using massive parallelism on a single workstation GPU
+  kernaussage: Die Arbeit stellt ein Trainings-Setup vor, das durch massive Parallelisierung auf einer einzelnen Workstation-GPU schnell Policies für reale Robotikaufgaben erzeugt.
+  quelle: exzerpt
+  kommentar: Kap. 4.2 Lernbasierte Lauf-Regelung
+- id: Rudin2021.02
+  seite: '1'
+  zitat: The parallel approach allows training policies for flat terrain in under four minutes, and in twenty minutes for uneven terrain.
+  kernaussage: Im untersuchten Fall (Vierbeiner ANYmal) lassen sich Policies für ebenes Gelände in unter vier Minuten und für unebenes Gelände in zwanzig Minuten trainieren.
+  quelle: exzerpt
+  kommentar: Kap. 4.2 – Einschränkung Vierbeiner beachten
+- id: Rudin2021.03
+  seite: '1'
+  zitat: Finally, we transfer the policies to the real robot to validate the approach.
+  kernaussage: Die Policies werden zur Validierung auf den realen Roboter übertragen.
+  quelle: exzerpt
+  kommentar: Kap. 3.1.2 Sim-to-Real
+- id: Rudin2021.04
+  seite: '1'
+  zitat: We evaluate the approach by training the quadrupedal robot ANYmal to walk on challenging terrain.
+  kernaussage: Bewertet wird der Ansatz am Vierbeiner ANYmal auf schwierigem Gelände.
+  quelle: exzerpt
+  kommentar: Kap. 4.1 – Plattform zu Rudin2021.02

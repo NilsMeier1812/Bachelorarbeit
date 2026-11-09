@@ -7,6 +7,10 @@
     "titel": "A Survey on End-User Robot Programming",
     "zotero_key": "V27QC36D"
   },
+  "AliPour2026": {
+    "titel": "Toward Humanoid Robots in Construction: A Teleoperation Feasibility Study",
+    "zotero_key": "77JWSVT5"
+  },
   "Aristidou2009": {
     "titel": "Inverse kinematics: a review of existing techniques and introduction of a new fast iterative solver",
     "zotero_key": "CFV2E447"
@@ -15,9 +19,21 @@
     "titel": "Inverse Kinematics Techniques in Computer Graphics: A Survey",
     "zotero_key": "J89HRD7V"
   },
+  "Billard2019": {
+    "titel": "Trends and challenges in robot manipulation",
+    "zotero_key": "XIH2SSUX"
+  },
   "Bruendl2024": {
     "titel": "Towards a circular economy for electrical products: A systematic literature review and research agenda for automated recycling",
     "zotero_key": "XEMUAVXP"
+  },
+  "Cadene2024": {
+    "titel": "LeRobot: State-of-the-art Machine Learning for Real-World Robotics in Pytorch",
+    "zotero_key": "NHIMCNB8"
+  },
+  "Carpentier2019": {
+    "titel": "The Pinocchio C++ library : A fast and flexible implementation of rigid body dynamics algorithms and their analytical derivatives",
+    "zotero_key": "PX2SE4EX"
   },
   "Cheng2024": {
     "titel": "Open-TeleVision: Teleoperation with Immersive Active Visual Feedback",
@@ -31,13 +47,29 @@
     "titel": "On the use of simulation in robotics: Opportunities, challenges, and suggestions for moving forward",
     "zotero_key": "RQPC7XD2"
   },
+  "Coleman2014": {
+    "titel": "Reducing the Barrier to Entry of Complex Robotic Software: a MoveIt! Case Study",
+    "zotero_key": "R7KCMICQ"
+  },
   "Collins2021": {
     "titel": "A Review of Physics Simulators for Robotic Applications",
     "zotero_key": "Q5UIDI9U"
   },
+  "Controzzi2014": {
+    "titel": "Design of Artificial Hands: A Review",
+    "zotero_key": "XQBH9QZ9"
+  },
   "DSouza2001": {
     "titel": "Learning inverse kinematics",
     "zotero_key": "H4GBFW2D"
+  },
+  "Dahiya2010": {
+    "titel": "Tactile Sensing—From Humans to Humanoids",
+    "zotero_key": "IRGTI2CI"
+  },
+  "Darvish2023": {
+    "titel": "Teleoperation of Humanoid Robots: A Survey",
+    "zotero_key": "UBV6FQFP"
   },
   "Durrani2026": {
     "titel": "Real-Time Whole-Body Teleoperation of a Humanoid Robot Using IMU-Based Motion Capture with Sim2Sim and Sim2Real Validation",
@@ -59,6 +91,10 @@
     "titel": "HumanPlus: Humanoid Shadowing and Imitation from Humans",
     "zotero_key": "ME9SVNEJ"
   },
+  "GalbotOpenWBT": {
+    "titel": "OpenWBT",
+    "zotero_key": "ZH92RWXX"
+  },
   "Gu2024": {
     "titel": "Humanoid-Gym: Reinforcement Learning for Humanoid Robot with Zero-Shot Sim2Real Transfer",
     "zotero_key": "X82NSFWC"
@@ -71,13 +107,73 @@
     "titel": "ASAP: Aligning Simulation and Real-World Physics for Learning Agile Humanoid Whole-Body Skills",
     "zotero_key": "RC8F75KA"
   },
+  "Hubbard1996": {
+    "titel": "Approximating polyhedra with spheres for time-critical collision detection",
+    "zotero_key": "3HNNHVRK"
+  },
+  "HucebotG1Pilot": {
+    "titel": "G1Pilot: ROS 2 package for Unitree G1 humanoid robots",
+    "zotero_key": "264P8F7P"
+  },
+  "Inspire2024": {
+    "titel": "The Dexterous Hand RH56DFTP User Manual",
+    "zotero_key": "8IUJU2JR"
+  },
+  "Kalakrishnan2011": {
+    "titel": "STOMP: Stochastic trajectory optimization for motion planning",
+    "zotero_key": "JJCXTGTH"
+  },
+  "Kappassov2015": {
+    "titel": "Tactile sensing in dexterous robot hands — Review",
+    "zotero_key": "GZDSZB3G"
+  },
   "Kucuk2006": {
     "titel": "Robot kinematics: Forward and inverse kinematics",
     "zotero_key": "8S8FCMGQ"
   },
+  "Kuffner2000": {
+    "titel": "RRT-connect: An efficient approach to single-query path planning",
+    "zotero_key": "F78X3692"
+  },
+  "Kunz2012": {
+    "titel": "Time-Optimal Trajectory Generation for Path Following with Bounded Acceleration and Velocity",
+    "zotero_key": "CUPQPXN4"
+  },
+  "LaValle2006": {
+    "titel": "Planning Algorithms",
+    "zotero_key": "P9RFGS6D"
+  },
+  "Luo2026": {
+    "titel": "SONIC: Supersizing motion tracking for natural humanoid whole-body control",
+    "zotero_key": "CR2MA6D7"
+  },
+  "Ma2017": {
+    "titel": "Yale OpenHand Project: Optimizing Open-Source Hand Designs for Ease of Fabrication and Adoption",
+    "zotero_key": "TH9FTB5T"
+  },
+  "Macenski2022": {
+    "titel": "Robot Operating System 2: Design, architecture, and uses in the wild",
+    "zotero_key": "WNM4ZU76"
+  },
   "Mittal2023": {
     "titel": "Orbit: A Unified Simulation Framework for Interactive Robot Learning Environments",
     "zotero_key": "K3CW9VAJ"
+  },
+  "NvidiaGR00TWBC": {
+    "titel": "GR00T Whole-Body Control (WBC)",
+    "zotero_key": "S4J3KGT2"
+  },
+  "Pan2012": {
+    "titel": "FCL: A general purpose library for collision and proximity queries",
+    "zotero_key": "W3G7C6UP"
+  },
+  "Pham2018": {
+    "titel": "A New Approach to Time-Optimal Path Parameterization Based on Reachability Analysis",
+    "zotero_key": "4IW5TPM6"
+  },
+  "Piazza2019": {
+    "titel": "A Century of Robotic Hands",
+    "zotero_key": "7N743NGQ"
   },
   "Pot2009": {
     "titel": "Choregraphe: a graphical tool for humanoid robot programming",
@@ -86,6 +182,10 @@
   "Radosavovic2024": {
     "titel": "Real-world humanoid locomotion with reinforcement learning",
     "zotero_key": "PXC8DDBQ"
+  },
+  "Romeo2020": {
+    "titel": "Methods and Sensors for Slip Detection in Robotics: A Survey",
+    "zotero_key": "DGSK8QMA"
   },
   "Rudin2021": {
     "titel": "Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning",
@@ -99,9 +199,17 @@
     "titel": "Deep Learning-Based Object Detection for Automated Disassembly of Control Cabinets",
     "zotero_key": "434W7QRZ"
   },
+  "Schulman2014": {
+    "titel": "Motion planning with sequential convex optimization and convex collision checking",
+    "zotero_key": "7R7DBMGK"
+  },
   "Sekkat2024": {
     "titel": "Beyond simulation: Unlocking the frontiers of humanoid robot capability and intelligence with Pepper's open-source digital twin",
     "zotero_key": "BCDEHUNG"
+  },
+  "Sucan2012": {
+    "titel": "The Open Motion Planning Library",
+    "zotero_key": "EBA6U7UR"
   },
   "Tan2018": {
     "titel": "Sim-to-Real: Learning Agile Locomotion For Quadruped Robots",
@@ -123,9 +231,29 @@
     "titel": "Advancements in Humanoid Robots: A Comprehensive Review and Future Prospects",
     "zotero_key": "TVSPTBZH"
   },
+  "Trochez2026": {
+    "titel": "A MATLAB/Simulink-Based Sim2Real Control Framework for the Unitree G1 Using ROS 2 and MuJoCo",
+    "zotero_key": "ESIXJ2MQ"
+  },
   "Tunyasuvunakool2020": {
     "titel": "dm_control: Software and tasks for continuous control",
     "zotero_key": "5AIT64ZH"
+  },
+  "UnitreeMujoco": {
+    "titel": "unitree_mujoco",
+    "zotero_key": "IUWRXZV9"
+  },
+  "UnitreeRLMjlab": {
+    "titel": "Unitree RL Mjlab",
+    "zotero_key": "A3Q24Z2R"
+  },
+  "UnitreeSDK2Py": {
+    "titel": "unitree_sdk2_python: Python interface for unitree sdk2",
+    "zotero_key": "WBSSHTNF"
+  },
+  "UnitreeXRTeleop": {
+    "titel": "XR-Teleoperate: An Open-Source Teleoperation Framework and Data Collection Toolkit for Embodied Intelligence",
+    "zotero_key": "4Q6MHIFB"
   },
   "Westervelt2018": {
     "titel": "Feedback control of dynamic bipedal robot locomotion",
@@ -143,8 +271,20 @@
     "titel": "mjlab: A Lightweight Framework for GPU-Accelerated Robot Learning",
     "zotero_key": "VZP9INMB"
   },
+  "Ze2025": {
+    "titel": "TWIST: Teleoperated Whole-Body Imitation System",
+    "zotero_key": "KXI4X3XB"
+  },
   "Zhao2020": {
     "titel": "Sim-to-Real Transfer in Deep Reinforcement Learning for Robotics: a Survey",
     "zotero_key": "NW39RPJN"
+  },
+  "Zhao2025": {
+    "titel": "XRoboToolkit: A Cross-Platform Framework for Robot Teleoperation",
+    "zotero_key": "3PTS9B64"
+  },
+  "Zucker2013": {
+    "titel": "CHOMP: Covariant Hamiltonian optimization for motion planning",
+    "zotero_key": "69QS5WTW"
   }
 }

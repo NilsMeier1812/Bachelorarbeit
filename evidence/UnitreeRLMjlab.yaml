@@ -25,3 +25,9 @@ belege:
   kernaussage: Beim Training wird die Policy als ONNX für den Einsatz auf realen Robotern exportiert.
   quelle: exzerpt
   kommentar: Kap. 4.1 Tabelle (Format)
+- id: UnitreeRLMjlab.05
+  seite: '1'
+  zitat: '1. Velocity Tracking Training Run the following command to train a velocity tracking policy:'
+  kernaussage: Das Repository trainiert u. a. Policies zur Geschwindigkeitsverfolgung.
+  quelle: exzerpt
+  kommentar: Kap. 4.1 Tabelle (Ansteuerung)
