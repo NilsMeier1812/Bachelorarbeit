@@ -28,6 +28,7 @@ die Wertung folgt in 5.1. Umfang ca. 8 Seiten.
 1. Wie halten modellbasierte Regler einen Zweibeiner im Gleichgewicht (Schwerpunkt, Druckpunkt/ZMP), und wo liegen deren Grenzen? – **abgedeckt** (Westervelt2018, Saeedvand2019, Tong2024)
 2. Wie entstehen lernbasierte Lauf-Regler (RL in der Simulation, Übertragung auf den Roboter)? – **teilweise** (Tong2024, Rudin2021; Radosavovic2024 freigegeben, aber noch ohne Belege → PDF prüfen)
 3. Mit welchen Frameworks werden solche Policies für den G1 trainiert (Isaac Lab/Orbit, mjlab)? – **abgedeckt** (Mittal2023, Zakka2026)
+3a. Welche fertigen Lauf-Policies für den G1 sind öffentlich verfügbar (Herkunft, Framework, Simulator, Eingänge, Format, Lizenz)? – **offen**; Wunsch Nils 09.11.: Übersichtstabelle in 4.1, Auswahlbegründung in 6.2.3. Liste der gefundenen/verworfenen Policies kommt von Nils. In `_Vorschläge`: Unitree RL Mjlab, GR00T-WBC, OpenWBT; WBC-AGILE fehlt.
 
 ### 4.2 Manipulation
 4. Wie löst man die IK eines redundanten 7-DoF-Arms numerisch, wie geht man mit Singularitäten um (DLS, adaptive Dämpfung) und wie nutzt man die Redundanz (Nullraum)? – **abgedeckt** (Aristidou2009, Aristidou2018, Kucuk2006, DSouza2001)
