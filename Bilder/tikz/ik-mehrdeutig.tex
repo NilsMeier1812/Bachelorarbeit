@@ -1,0 +1,28 @@
+% Mehrdeutigkeit der inversen Kinematik: ebener Arm mit drei Drehgelenken, zwei Gelenkkonfigurationen
+% für dieselbe Zielposition. Eigene Darstellung in Anlehnung an Aristidou2009 (Fig. 2.4 c, S. 9).
+% Koordinaten berechnet (Gliedlängen 2,6 / 2,2 / 1,4; Ziel (4,6 | 2,6); letzter Gliedwinkel 10° bzw. -20°).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/ik-mehrdeutig} in einer figure-Umgebung.
+\begin{tikzpicture}[ba]
+  \coordinate (B) at (0,0);
+  \coordinate (Z) at (4.6,2.6);
+  % Lösung 1 (durchgezogen)
+  \coordinate (A1) at (2.588,0.250);
+  \coordinate (A2) at (3.221,2.357);
+  % Lösung 2 (gestrichelt)
+  \coordinate (C1) at (2.365,1.080);
+  \coordinate (C2) at (3.284,3.079);
+  \draw[ba normal, baGrau] (-0.9,0) -- (5.6,0);
+  \foreach \x in {-0.8,-0.5,...,5.5} \draw[ba duenn, baGrau] (\x,0) -- ++(-0.2,-0.2);
+  \draw[line width=2.4pt, color=baBlau, dash pattern=on 5pt off 3pt] (B) -- (C1) -- (C2) -- (Z);
+  \draw[ba glied] (B) -- (A1) -- (A2) -- (Z);
+  \node[ba gelenk] at (A1) {};
+  \node[ba gelenk] at (A2) {};
+  \node[ba gelenk, fill=baBlau] at (C1) {};
+  \node[ba gelenk, fill=baBlau] at (C2) {};
+  \node[ba basis] at (B) {};
+  \node[ba endeffektor] at (Z) {};
+  \node[anchor=west] at ($(Z)+(0.25,0)$) {Ziel $\vec{r}_\mathrm{E}$};
+  % Beschriftung der Lösungen (Linienart + Text, nicht nur Farbe)
+  \node[anchor=west, text=baGruen, align=left] at ($(A1)!0.45!(A2)+(0.3,0)$) {Lösung 1\\(durchgezogen)};
+  \node[anchor=south east, text=baBlau, align=right] at ($(C2)+(-0.2,0.05)$) {Lösung 2\\(gestrichelt)};
+\end{tikzpicture}

@@ -74,9 +74,6 @@ Die folgenden Abschnitte ordnen diese Bausteine in die Literatur ein.
 \label{sec:ik}
 Die Vorwärtskinematik berechnet Position und Orientierung des Endeffektors aus den Gelenkvariablen \cite{Kucuk2006}\ev{Kucuk2006.06}.
 Sie ist einfach herzuleiten und immer lösbar, die inverse Kinematik (IK) dagegen deutlich schwieriger \cite{Kucuk2006}\ev{Kucuk2006.03}.
-Die IK bestimmt die Gelenkparameter eines Manipulators so, dass der Endeffektor eine gewünschte Position erreicht \cite{Aristidou2018}\ev{Aristidou2018.01}.
-Ist ein Ziel erreichbar, kann es für Ketten ab zwei Gliedern mehrere bis unendlich viele Lösungen geben; das Problem ist dann redundant \cite{Aristidou2018}\ev{Aristidou2018.03}.
-Analytische Lösungen sind zuverlässig und liefern eine globale Lösung \cite{Aristidou2018}\ev{Aristidou2018.05}, eignen sich aber weniger für redundante Systeme \cite{Aristidou2018}\ev{Aristidou2018.06}.
 Abbildung~\ref{fig:ik} stellt beide Richtungen gegenüber.
 
 \begin{figure}[htbp]
@@ -84,6 +81,18 @@ Abbildung~\ref{fig:ik} stellt beide Richtungen gegenüber.
   \input{Bilder/tikz/ik-vorwaerts-invers}
   \caption[Vorwärts- und inverse Kinematik eines ebenen Arms]{Vorwärts- und inverse Kinematik eines ebenen Arms mit drei Drehgelenken, in Anlehnung an \cite{Kucuk2006}\ev{*}. Die Vorwärtskinematik berechnet aus den Gelenkwinkeln $\theta_1$ bis $\theta_3$ die Lage $\vec{r}_\mathrm{E}$ des Endeffektors, die inverse Kinematik umgekehrt die Gelenkwinkel zu einer vorgegebenen Lage. Gesuchte Größen sind orange markiert.}
   \label{fig:ik}
+\end{figure}
+
+Die IK bestimmt die Gelenkparameter eines Manipulators so, dass der Endeffektor eine gewünschte Position erreicht \cite{Aristidou2018}\ev{Aristidou2018.01}.
+Ist ein Ziel erreichbar, kann es für Ketten ab zwei Gliedern mehrere bis unendlich viele Lösungen geben; das Problem ist dann redundant \cite{Aristidou2018}\ev{Aristidou2018.03}.
+Abbildung~\ref{fig:ik-mehrdeutig} zeigt dies für einen ebenen Arm mit drei Gliedern.
+Analytische Lösungen sind zuverlässig und liefern eine globale Lösung \cite{Aristidou2018}\ev{Aristidou2018.05}, eignen sich aber weniger für redundante Systeme \cite{Aristidou2018}\ev{Aristidou2018.06}.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/ik-mehrdeutig}
+  \caption[Mehrdeutigkeit der inversen Kinematik]{Zwei Gelenkkonfigurationen eines ebenen Arms mit drei Drehgelenken, die dieselbe Zielposition $\vec{r}_\mathrm{E}$ erreichen, in Anlehnung an \cite{Aristidou2009}\ev{*}. Meist hat das IK-Problem mehr als eine Lösung \cite{Aristidou2009}\ev{Aristidou2009.12}.}
+  \label{fig:ik-mehrdeutig}
 \end{figure}
 
 Der verbreitetste numerische Ansatz nähert das IK-Problem mit der Jacobi-Matrix linear an \cite{Aristidou2009}\ev{Aristidou2009.02}.

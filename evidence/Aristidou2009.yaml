@@ -68,3 +68,9 @@ belege:
     kernaussage: "Jacobi-Verfahren sind laut den Autoren rechenaufwendig und daher für Echtzeitanwendungen nicht ideal."
     quelle: exzerpt
     kommentar: "Kap. 4.2.1. Gilt für die Versuche im Bericht (Animation, viele Iterationen) – nicht ungeprüft auf Robotik-IK übertragen."
+  - id: Aristidou2009.12
+    seite: "9"
+    zitat: "(c) Many solution; most of the times the IK problem has more than a single solution."
+    kernaussage: "Meist hat das IK-Problem mehr als eine Lösung (Abb. 2.4 c)."
+    quelle: exzerpt
+    kommentar: "Bildunterschrift Fig. 2.4 (c); Vorlage für fig:ik-mehrdeutig"
