@@ -321,6 +321,9 @@ eine Grafik oder Tabelle sie ausdrücklich nutzt – nie `\captionsetup`, Abstä
   `\toprule`/`\midrule`/`\bottomrule`, keine senkrechten Linien. Innerhalb einer Tabelle nie mischen.
   Auf Textbreite mit `tabularx` und den Spalten `L` (linksbündig) bzw. `C`; `\tabstil` als erste Zeile in der
   `table`-Umgebung setzt Schrift `\small`, graue Linien und Zeilenabstand (wirkt nur in dieser Tabelle). Mehrseitig: `xltabular` mit `\endhead`. Caption über der Tabelle.
+- **Nie ohne Textbezug (Nils, 09.11.2026):** Jede Tabelle und Abbildung wird im Fließtext vor ihr mit `\ref{}` eingeführt und
+  danach im Text erläutert (z. B. Zeilen einer Tabelle beim Besprechen ansprechen). Die `table`/`figure`-Umgebung
+  steht direkt nach dem Absatz mit dem ersten Verweis.
 - **Teilbilder** mit „a) …“, „b) …“ unter dem jeweiligen Teil (`ba teiltitel`), getrennt durch `ba trenner`.
 - Vor „fertig“: kompilieren und die Grafik im PDF ansehen (überlappende Beschriftungen, Overfull-Boxen).
 

@@ -31,14 +31,12 @@ Beim dynamischen Gehen liegt die Projektion des Schwerpunkts zeitweise außerhal
 
 Lernbasierte Verfahren verbessern mit Reinforcement Learning (RL) eine zunächst zufällige Strategie schrittweise über Belohnungen; der Unterschied zwischen Simulation und realer Umgebung mindert jedoch ihre Praxistauglichkeit \cite{Tong2024}\ev{Tong2024.04}.
 Durch massive Parallelisierung auf einer einzelnen Workstation-GPU lassen sich Policies für reale Robotikaufgaben schnell erzeugen \cite{Rudin2021}\ev{Rudin2021.01}; für den Vierbeiner ANYmal \cite{Rudin2021}\ev{Rudin2021.04} dauert das Training auf ebenem Gelände unter vier Minuten und auf unebenem Gelände zwanzig Minuten \cite{Rudin2021}\ev{Rudin2021.02}.
-Auf dieser Grundlage entstanden Frameworks wie ORBIT auf Basis von NVIDIA Isaac Sim \cite{Mittal2023}\ev{Mittal2023.01} und mjlab, das die modulare Programmierschnittstelle von Isaac Lab mit MuJoCo Warp kombiniert \cite{Zakka2026}\ev{Zakka2026.02}.
-MuJoCo Playground verspricht, Policies nach einer einfachen Installation in Minuten auf einer einzelnen GPU zu trainieren \cite{Zakka2025}\ev{Zakka2025.01}, und unterstützt Vierbeiner, Humanoide, Hände und Arme mit Übertragung ohne Nachtraining auf den realen Roboter \cite{Zakka2025}\ev{Zakka2025.02}.
-Neuere Arbeiten skalieren solche Regler deutlich: SONIC wächst auf 1,2 bis 42 Millionen Parameter, über 100 Millionen Bilder aus 700 Stunden Motion Capture und 21\,000 GPU-Stunden \cite{Luo2026}\ev{Luo2026.02}, während aktuelle neuronale Regler für Humanoide laut den Autoren klein und auf wenige Verhaltensweisen beschränkt sind \cite{Luo2026}\ev{Luo2026.01}.
 
 Der G1 wird mit einem eingebauten Laufregler des Herstellers betrieben; G1Pilot etwa überlässt den Unterkörper diesem Regler \cite{HucebotG1Pilot}\ev{HucebotG1Pilot.01}.
 Dieser offizielle Laufregler von Unitree \cite{Hu2026}\ev{Hu2026.01} ist nicht quelloffen, sodass Hu et al.\ ihm keine inneren Mechanismen zuschreiben und ihn nur als technische Vergleichsbasis verwenden \cite{Hu2026}\ev{Hu2026.02}.
 Allgemein ist kommerziell verfügbare Humanoid-Hardware laut Chi et al.\ überwiegend teuer, nicht quelloffen und intransparent \cite{Chi2025}\ev{Chi2025.01}.
-Für die Simulation des G1 werden daher öffentlich verfügbare Policies benötigt; Tabelle~\ref{tab:policies} stellt die für diese Arbeit relevanten zusammen.
+Für die Simulation des G1 werden daher öffentlich verfügbare Policies benötigt.
+Tabelle~\ref{tab:policies} stellt die für diese Arbeit relevanten nach Training, Ansteuerung und Bereitstellung gegenüber.
 
 \begin{table}[htbp]
     \tabstil
@@ -47,12 +45,22 @@ Für die Simulation des G1 werden daher öffentlich verfügbare Policies benöti
     \label{tab:policies}
     \begin{tabularx}{\textwidth}{|L|L|L|L|}\hline
         \tabkopfzeile \tabkopf{Quelle} & \tabkopf{Training} & \tabkopf{Ansteuerung} & \tabkopf{Bereitstellung}\\\hline
-        unitree\_rl\_mjlab (Unitree) & RL in MuJoCo auf Basis von mjlab \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.01} & Geschwindigkeitsvorgabe \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.05} & Export als ONNX für reale Roboter \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.03}\\\hline
+        unitree\_rl\_mjlab (Unitree) & RL in MuJoCo auf Basis von mjlab \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.01} & Geschwindigkeitsvorgabe \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.05} & Export als ONNX für reale Roboter \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.04}\\\hline
         WBC-AGILE (NVIDIA) & \pruefen{AGILE-Paper Zhao 2026 liegt in \_Vorschläge – nach Freigabe belegen} & \pruefen{Geschwindigkeit bzw.\ Geschwindigkeit und Körperhöhe} & \pruefen{TorchScript, im Projekt nach ONNX exportiert}\\\hline
         GR00T-WholeBodyControl (NVIDIA) & RL für den Unterkörper, IK für den Oberkörper \cite{NvidiaGR00TWBC}\ev{NvidiaGR00TWBC.02} & \pruefen{} & Checkpoints und Skripte für Training und Einsatz \cite{NvidiaGR00TWBC}\ev{NvidiaGR00TWBC.01}\\\hline
         OpenWBT (Galbot) & \pruefen{R2S2-Paper Zhang 2025 liegt in \_Vorschläge} & Joystick für den Unterkörper, VR und IK für den Oberkörper \cite{GalbotOpenWBT}\ev{GalbotOpenWBT.02} & real und in Simulation \cite{GalbotOpenWBT}\ev{GalbotOpenWBT.01}\\\hline
     \end{tabularx}
 \end{table}
+
+Die erste Zeile der Tabelle~\ref{tab:policies}, unitree\_rl\_mjlab, ist ein RL-Projekt mit MuJoCo als Physik-Backend, das unter anderem den G1 unterstützt \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.01}.
+Es baut auf mjlab auf, das die modulare Programmierschnittstelle von Isaac Lab mit MuJoCo Warp kombiniert \cite{Zakka2026}\ev{Zakka2026.02}; ein vergleichbares Framework auf Basis von NVIDIA Isaac Sim ist ORBIT \cite{Mittal2023}\ev{Mittal2023.01}.
+Beim Training exportiert unitree\_rl\_mjlab die Policy zusätzlich als ONNX für den Einsatz auf realen Robotern \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.04}.
+\pruefen{WBC-AGILE (zweite Zeile) erläutern, sobald das AGILE-Paper Zhao 2026 freigegeben und exzerpiert ist.}
+GR00T-WholeBodyControl in der dritten Zeile trennt die Regelung auf: RL für den Unterkörper und IK für den Oberkörper \cite{NvidiaGR00TWBC}\ev{NvidiaGR00TWBC.02}.
+OpenWBT in der letzten Zeile ist dagegen auf Teleoperation ausgelegt: Den Unterkörper steuern zwei Joystick-Controller, den Oberkörper eine IK aus den in VR gemessenen Handposen \cite{GalbotOpenWBT}\ev{GalbotOpenWBT.02}; das System läuft auf realen Robotern und in der Simulation \cite{GalbotOpenWBT}\ev{GalbotOpenWBT.01}.
+
+Über diese Auswahl hinaus verspricht MuJoCo Playground, Policies nach einer einfachen Installation in Minuten auf einer einzelnen GPU zu trainieren \cite{Zakka2025}\ev{Zakka2025.01}, und unterstützt Vierbeiner, Humanoide, Hände und Arme mit Übertragung ohne Nachtraining auf den realen Roboter \cite{Zakka2025}\ev{Zakka2025.02}.
+Neuere Arbeiten skalieren solche Regler deutlich: SONIC wächst auf 1,2 bis 42 Millionen Parameter, über 100 Millionen Bilder aus 700 Stunden Motion Capture und 21\,000 GPU-Stunden \cite{Luo2026}\ev{Luo2026.02}, während aktuelle neuronale Regler für Humanoide laut den Autoren klein und auf wenige Verhaltensweisen beschränkt sind \cite{Luo2026}\ev{Luo2026.01}.
 % Nils 09.11.: Liste = die aktuell im Code verfügbaren Policies (g1_wholebody aus unitree_rl_mjlab, agile_velocity_g1, agile_velocity_height_g1).
 % GR00T-WBC und OpenWBT nur aufnehmen, wenn Nils sie bei der Suche betrachtet hat. Auswahlbegründung gehört nach Kap. 6.2.3.
 
