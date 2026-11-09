@@ -16,7 +16,7 @@ die Wertung folgt in 5.1. Umfang ca. 8 Seiten.
 | 4.2.1 Inverse Kinematik redundanter Arme | | 7.4.1 | – |
 | 4.2.2 Kollisionsmodelle und Abstandsberechnung | | 7.4.2 | vor die Bahnplanung gezogen (der Planer nutzt die Abstände) |
 | 4.2.3 Bahnplanung | | 7.4.3 | – |
-| *(optional 4.2.4 Greifen mit Mehrfingerhänden)* | | 7.5 | **Frage an Nils** |
+| 4.2.4 Roboterhände und Greifen | ~1 S. | 7.5 (Inspire-Bridge, Kraftregelung, Taktilzonen), 6.3 (Schutzmechanismen), 2.2 | **von Nils am 09.11. bestätigt** |
 | **4.3 Bedienung und Teleoperation** | ~2 S. | 6.4, 7.6 | Entwurf vom 05.11. vorhanden |
 | 4.3.1 Teleoperation humanoider Roboter | | | Unterteilung neu |
 | 4.3.2 Bedienung durch Nutzer ohne Robotikerfahrung | | | Unterteilung neu |
@@ -36,7 +36,11 @@ die Wertung folgt in 5.1. Umfang ca. 8 Seiten.
 6. Welche Klassen von Bahnplanern gibt es (sampling-basiert wie RRT-Connect, optimierungsbasiert wie CHOMP/TrajOpt), und was sind ihre Stärken/Schwächen? – **offen**
 7. Welche Frameworks bündeln das (MoveIt, OMPL)? – **offen**
 8. Wie wird eine geometrische Bahn mit Geschwindigkeits-/Beschleunigungsgrenzen zeitlich parametriert? – **offen** (Yu2026 nur Polynom 5. Grades)
-9. *(optional)* Wie werden Mehrfingerhände kraftgeregelt und taktil überwacht? – **offen**
+9. Welche Bauarten von Roboterhänden gibt es (passiv/nachgiebig wie Rubber Hands, aktuierte Mehrfingerhand wie Inspire FTP, selbst gedruckte/aufgabenspezifische Greifer) und worin unterscheiden sie sich (Gewicht, Freiheitsgrade, Aktuierung, Fähigkeiten)? – **offen** → Piazza2019, Controzzi2014, Ma2017
+9a. Wie funktionieren taktile Sensorik und Kraftmessung in Roboterhänden? – **offen** → Dahiya2010, Kappassov2015
+9b. Welche Grundlagen braucht die Greifsicherheit (Griffkraftbegrenzung, Schlupf)? – **offen** → Romeo2020; Normbezug (ISO/TS 15066) ggf. in Kap. 3.4
+9c. Kenndaten der konkreten Hände (Rubber Hands, Inspire RH56DFTP) – nur aus Hersteller-Datenblatt/Handbuch als PDF in Zotero; gehört eher nach Kap. 2.2 – **offen, Nils fragen**
+Hinweis: Nils baut gerade eine Sim-Funktion für 3D-gedruckte, aufgabenspezifische Hände (Praxisteil); Infos folgen im Repo G1.
 
 ### 4.3 Bedienung und Teleoperation
 10. Welche Bedienarten (autonom, teilautonom, Teleoperation) gibt es, und wofür wird Teleoperation eingesetzt? – **abgedeckt**, 3 Sätze laut Verifikation 05.11. zu korrigieren
@@ -75,3 +79,16 @@ abgeglichen (Titel, Autoren, Jahr), Duplikatsuche in der Bibliothek ohne Treffer
 | Pham, Pham 2018: TOPP-RA | 10.1109/TRO.2018.2819195 | Preprint auf arXiv, sonst FAU (IEEE) | 8 | aktueller Ansatz zur zeitoptimalen Parametrierung |
 | LaValle 2006: Planning Algorithms (Buch) | ISBN 978-0-521-86205-9 | Autorenfassung frei online | 5, 6 | Lehrbuch: Konfigurationsraum, Kollisionsprüfung, sampling-basierte Planung |
 | Carpentier et al. 2019: Pinocchio | 10.1109/SII.2019.8700380 | vermutlich HAL | 4 (Werkzeug) | Kinematikbibliothek, auf der die IK im Projekt aufbaut; eher für Kap. 7 |
+
+### Nachtrag 09.11.2026 – Roboterhände (Frage 9)
+7 Einträge in `_Vorschläge`, Tags `Kap4-Recherche 2026-11-09` + `Hände`, Metadaten per doi.org/Crossref geprüft, keine Duplikate:
+
+| Vorschlag | DOI | Frage | warum geeignet |
+|---|---|---|---|
+| Piazza et al. 2019: A Century of Robotic Hands | 10.1146/annurev-control-060117-105003 | 9 | Überblick über Bauarten und Entwicklung von Roboterhänden |
+| Controzzi et al. 2014: Design of Artificial Hands: A Review (Buchkapitel) | 10.1007/978-3-319-03017-3_11 | 9 | Konstruktionsmerkmale: Aktuierung, Übertragung, Freiheitsgrade |
+| Ma, Dollar 2017: Yale OpenHand Project | 10.1109/MRA.2016.2639034 | 9 | quelloffene, gedruckte, unteraktuierte Hände → Bezug zu selbst gedruckten Händen |
+| Dahiya et al. 2010: Tactile Sensing – From Humans to Humanoids | 10.1109/TRO.2009.2033627 | 9a | Grundlagen taktiler Sensorik |
+| Kappassov et al. 2015: Tactile sensing in dexterous robot hands | 10.1016/j.robot.2015.07.015 | 9a | taktile Sensorik speziell in Mehrfingerhänden |
+| Romeo, Zollo 2020: Slip Detection in Robotics (Survey) | 10.1109/ACCESS.2020.2987849 | 9b | Griffkraft und Schlupf; IEEE Access, Open Access |
+| Billard, Kragic 2019: Trends and challenges in robot manipulation | 10.1126/science.aat8414 | Einstieg 4.2 | kurzer Überblick Manipulation |
