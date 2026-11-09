@@ -99,3 +99,32 @@ belege:
     kernaussage: "Nach dem ZMP-Kriterium ist der Roboter stabil (kippt nicht), solange der ZMP im Inneren des Stützpolygons liegt."
     quelle: exzerpt
     kommentar: "Kap. 4.1.1. Autoren betrachten das Kriterium kritisch (vgl. .03, .12)."
+  - id: Westervelt2018.17
+    seite: "5"
+    zitat: "Idealize a robot with one leg in contact with the ground as a planar inverted pendulum that is attached to a base consisting of a foot with torque applied at the ankle, and assume all other joints are independently actuated."
+    kernaussage: "Abb. 1.1 idealisiert den Roboter mit einem Bein am Boden als ebenes inverses Pendel auf einem Fuß, an dessen Knöchel ein Moment wirkt."
+    quelle: exzerpt
+    kommentar: "Bildunterschrift Fig. 1.1; Vorlage für fig:zmp"
+  - id: Westervelt2018.18
+    seite: "5"
+    zitat: "In (a), the robot’s nominal trajectory has been planned so that the center of pressure of the forces on the foot, P, remains strictly within the interior of the footprint. In this case, the foot will not rotate"
+    kernaussage: "Liegt der Druckpunkt P strikt im Inneren der Fußfläche, dreht der Fuß nicht."
+    quelle: exzerpt
+    kommentar: "Bildunterschrift Fig. 1.1 (a)"
+  - id: Westervelt2018.19
+    seite: "5"
+    zitat: "In case (b), however, the center of pressure (CoP) has moved to the toe, allowing the foot to rotate."
+    kernaussage: "Wandert der Druckpunkt an die Fußspitze, kann der Fuß drehen."
+    quelle: exzerpt
+    kommentar: "Bildunterschrift Fig. 1.1 (b)"
+  - id: Westervelt2018.20
+    seite: "7"
+    zitat: "A statically stable gait is periodic locomotion in which the biped’s COM does not leave the support polygon, that is, the convex hull formed by all of the contact points with the ground."
+    kernaussage: "Statisch stabiler Gang: Der Schwerpunkt verlässt das Stützpolygon (konvexe Hülle aller Bodenkontaktpunkte) nicht."
+    quelle: exzerpt
+  - id: Westervelt2018.21
+    seite: "7"
+    zitat: "the CoP is deﬁned as the point on the ground where the resultant of the ground-reaction force acts [92]. In the legged robotics literature, the CoP is often referred to as the ZMP [235]."
+    kernaussage: "CoP = Punkt am Boden, an dem die resultierende Bodenreaktionskraft angreift; in der Literatur zu Laufrobotern oft ZMP genannt."
+    quelle: exzerpt
+    kommentar: "Fußnote 4"

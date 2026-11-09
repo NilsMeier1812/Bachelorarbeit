@@ -12,7 +12,20 @@ Die Darstellung ist wertungsfrei; die Bewertung folgt im Handlungsbedarf in Absc
 % Kurz halten (Vorgabe Nils): keine eigene Policy, nur Einordnung der übernommenen Policies.
 Eine Herausforderung zweibeiniger Roboter ist die Stabilität beim Gehen in verschiedenen Umgebungen \cite{Saeedvand2019}\ev{Saeedvand2019.03}.
 Modellbasierte Verfahren bewerten die Stabilität über den Zero Moment Point (ZMP), den Punkt am Boden, an dem die resultierenden Bodenreaktionskräfte angreifen \cite{Saeedvand2019}\ev{Saeedvand2019.09}.
+Westervelt et al.\ definieren diesen Punkt als Druckpunkt (Center of Pressure, CoP), der in der Literatur zu Laufrobotern oft als ZMP bezeichnet wird \cite{Westervelt2018}\ev{Westervelt2018.21}.
+Das Stützpolygon ist die konvexe Hülle aller Bodenkontaktpunkte; bei einem statisch stabilen Gang verlässt der Schwerpunkt dieses Polygon nicht \cite{Westervelt2018}\ev{Westervelt2018.20}.
 Solange der ZMP im Inneren des Stützpolygons liegt, kippt der Roboter nach diesem Kriterium nicht \cite{Westervelt2018}\ev{Westervelt2018.16}.
+Abbildung~\ref{fig:zmp} zeigt beide Fälle am Fuß eines als inverses Pendel idealisierten Roboters.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/zmp-stuetzpolygon}
+  \caption[Druckpunkt und Stützpolygon am Fuß]{Druckpunkt $P$ (CoP bzw.\ ZMP) am Fuß eines als ebenes inverses Pendel idealisierten Roboters, in Anlehnung an \cite{Westervelt2018}\ev{*}. a) $P$ liegt strikt im Inneren der Fußfläche, der Fuß dreht nicht \cite{Westervelt2018}\ev{Westervelt2018.18}. b) $P$ ist an die Fußspitze gewandert, der Fuß kann drehen \cite{Westervelt2018}\ev{Westervelt2018.19}. $\vec{F}_\mathrm{B}$: resultierende Bodenreaktionskraft; gestrichelt: Lot vom Schwerpunkt auf den Boden. Kritischer Fall orange markiert.}
+  \label{fig:zmp}
+\end{figure}
+
+% Eigenleistung, Datenbasis: G1-Repo g1pilot/g1pilot/navigation/stand_balancer.py und com_model.py
+Der Stand-Regler dieser Arbeit (Abschnitt~\ref{sec:ersatzregler}) nutzt diese Größen: Er führt den aus den Gelenkwinkeln berechneten Schwerpunkt über die Fußmitte und schätzt die Lage des Druckpunkts vor dem Knöchel aus dem Knöchelmoment.
 ZMP-basierte Verfahren erzeugen stabile Gangmuster, sind aber bei Gehgeschwindigkeit und Robustheit begrenzt \cite{Tong2024}\ev{Tong2024.03}.
 Beim dynamischen Gehen liegt die Projektion des Schwerpunkts zeitweise außerhalb des Stützpolygons, sodass das ZMP-Kriterium für die Gangplanung ausscheidet \cite{Westervelt2018}\ev{Westervelt2018.12}.
 

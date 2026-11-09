@@ -1,0 +1,79 @@
+% Druckpunkt (CoP/ZMP) und Stützpolygon am Fuß eines als inverses Pendel idealisierten Roboters.
+% Eigene Darstellung in Anlehnung an Westervelt2018 (Fig. 1.1, S. 5: Pendel auf Fuß, P im Inneren
+% der Fußfläche vs. an der Fußspitze); Begriffe Stützpolygon/CoP: S. 7 (Westervelt2018.20, .21).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/zmp-stuetzpolygon} in einer figure-Umgebung.
+\begin{tikzpicture}[ba]
+  % Schwerpunkt-Symbol
+  \newcommand{\baSchwerpunkt}[1]{%
+    \fill[white] (#1) circle (1.9mm);
+    \fill[baGrau] (#1) -- ++(1.9mm,0) arc[start angle=0, end angle=90, radius=1.9mm] -- cycle;
+    \fill[baGrau] (#1) -- ++(-1.9mm,0) arc[start angle=180, end angle=270, radius=1.9mm] -- cycle;
+    \draw[ba normal, baGrau] (#1) circle (1.9mm);
+  }
+  % Boden
+  \newcommand{\baBoden}{%
+    \draw[ba normal, baGrau] (-0.9,0) -- (4.2,0);
+    \foreach \x in {-0.8,-0.5,...,4.0} \draw[ba duenn, baGrau] (\x,0) -- ++(-0.2,-0.2);
+  }
+
+  % ---------------- a) P im Inneren der Fußfläche ----------------
+  \begin{scope}
+    \baBoden
+    \coordinate (Ferse) at (0,0);
+    \coordinate (Spitze) at (2.6,0);
+    \coordinate (K) at (0.7,0.45);          % Knöchel
+    \coordinate (S) at (1.3,3.7);           % Schwerpunkt
+    \coordinate (P) at (1.3,0);             % Druckpunkt unter dem Schwerpunkt
+    % Fuß
+    \draw[ba dick, baGruen, fill=baFlaeche] (Ferse) -- (Spitze) -- (2.6,0.18) -- (0.95,0.32) -- (0.4,0.42) -- (0,0.28) -- cycle;
+    % Pendel
+    \draw[ba glied] (K) -- (S);
+    \node[ba gelenk] at (K) {};
+    \baSchwerpunkt{S}
+    \node[anchor=west] at ($(S)+(0.3,0)$) {Schwerpunkt};
+    % Projektion des Schwerpunkts
+    \draw[ba hilfslinie] ($(S)+(0,-0.25)$) -- (P);
+    % Bodenreaktionskraft in P
+    \draw[ba pfeil, line width=1.2pt] ($(P)+(0,-1.0)$) -- ($(P)+(0,-0.05)$);
+    \node[anchor=west] at ($(P)+(0.1,-0.7)$) {$\vec{F}_\mathrm{B}$};
+    \fill[black] (P) circle (0.9mm);
+    \node[anchor=north east, fill=white, inner sep=1pt] at ($(P)+(-0.12,-0.1)$) {$P$};
+    % Stützpolygon (Fußlänge)
+    \draw[ba doppelpfeil] ($(Ferse)+(0,-1.35)$) -- ($(Spitze)+(0,-1.35)$);
+    \draw[ba duenn, baGrau] (Ferse) -- ++(0,-1.5);
+    \draw[ba duenn, baGrau] (Spitze) -- ++(0,-1.5);
+    \node[anchor=north] at ($(Ferse)!0.5!(Spitze)+(0,-1.4)$) {Stützpolygon};
+    \node[ba teiltitel, align=center] at (1.6,-2.15) {a) $P$ im Inneren der Fußfläche};
+  \end{scope}
+
+  % Trennlinie
+  \draw[ba trenner] (4.7,-2.6) -- (4.7,4.3);
+
+  % ---------------- b) P an der Fußspitze, Fuß kippt ----------------
+  \begin{scope}[xshift=5.9cm]
+    \baBoden
+    \coordinate (Spitze) at (2.6,0);
+    % Fuß um die Spitze um 14 Grad gedreht
+    \begin{scope}[rotate around={-14:(Spitze)}]
+      \coordinate (Ferse) at (0,0);
+      \coordinate (K) at (0.7,0.45);
+      \draw[ba dick, baGruen, fill=baFlaeche] (Ferse) -- (Spitze) -- (2.6,0.18) -- (0.95,0.32) -- (0.4,0.42) -- (0,0.28) -- cycle;
+    \end{scope}
+    \coordinate (S) at (3.3,3.55);
+    \coordinate (Sp) at (3.3,0);            % Projektion außerhalb
+    \draw[ba glied] (K) -- (S);
+    \node[ba gelenk] at (K) {};
+    \baSchwerpunkt{S}
+    \draw[ba hilfslinie] ($(S)+(0,-0.25)$) -- (Sp);
+    \draw[ba normal, baGrau] ($(Sp)+(-0.1,-0.1)$) -- ++(0.2,0.2) ($(Sp)+(-0.1,0.1)$) -- ++(0.2,-0.2);
+    % Druckpunkt an der Spitze
+    \draw[ba pfeil, line width=1.2pt, baAkzent] ($(Spitze)+(0,-1.0)$) -- ($(Spitze)+(0,-0.05)$);
+    \node[anchor=west, ba gesucht] at ($(Spitze)+(0.1,-0.7)$) {$\vec{F}_\mathrm{B}$};
+    \fill[baAkzent] (Spitze) circle (0.9mm);
+    \node[anchor=north east, ba gesucht, fill=white, inner sep=1pt] at ($(Spitze)+(-0.12,-0.1)$) {$P$};
+    % Drehung des Fußes um die Spitze
+    \draw[ba pfeil, baAkzent] ($(Spitze)+(176:3.0)$) arc[start angle=176, end angle=156, radius=3.0];
+    \node[anchor=south, ba gesucht, align=center] at ($(Spitze)+(152:3.1)$) {Fuß kippt\\um die Spitze};
+    \node[ba teiltitel, align=center] at (1.6,-2.15) {b) $P$ an der Fußspitze};
+  \end{scope}
+\end{tikzpicture}
