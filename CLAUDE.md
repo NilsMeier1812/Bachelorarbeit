@@ -39,6 +39,8 @@ Wenn du etwas nicht belegen kannst, **markierst du die Lücke**, statt sie zu f�
 7. **Zotero:** Lesen ist frei. Schreiben nur, um (a) im Feld *Extra* die Zeile `Citation Key: <key>` zu
    setzen (bei freigegebenen Einträgen in der Sammlung „Bachelorarbeit“) und (b) im Recherche-Modus neue
    Einträge **ausschließlich in der Sammlung `_Vorschläge`** anzulegen.
+   Außerdem (c) darfst du PDFs als Datei-Anhang an Einträge hängen, die noch kein PDF haben
+   (Ablauf siehe „PDFs selbst beschaffen“).
    Andere Metadaten nur nach Rückfrage ändern. Nichts eigenmächtig aus `_Vorschläge` herausverschieben.
    **Niemals** Einträge, Anhänge oder Annotationen löschen.
 8. **Generierte Dateien nicht von Hand ändern:** `zotero.bib` (verknüpft Overleaf aus Zotero, nur über
@@ -112,7 +114,8 @@ auf Nils.** Arbeitet Nils gerade nicht mit (unbeaufsichtigter Lauf), erledigst d
   verfügbar ist (Open Access) oder Nils es über die Uni beschaffen muss.
 - Du legst **keine** Belege aus Abstracts, Suchtreffer-Snippets oder Webseiten an. Belege entstehen nur aus
   dem vollständigen PDF in Zotero.
-- **Stopp:** Nils prüft die Vorschläge, beschafft die PDFs und verschiebt die gewünschten in die
+- PDFs hängst du selbst an (siehe „PDFs selbst beschaffen“), soweit du rankommst.
+- **Stopp:** Nils prüft die Vorschläge, beschafft fehlende PDFs und verschiebt die gewünschten in die
   BA-Sammlung (Ablauf siehe „Quellenbeschaffung durch Nils“). Gib ihm dazu eine kurze Liste:
   Titel · DOI/ISBN · Open Access ja/nein · welche Frage sie beantwortet.
 
@@ -160,6 +163,39 @@ Im Uni-Netz der FAU sind lizenzierte Verlagsinhalte direkt zugänglich; sonst be
   Nils, statt sie selbst zu ändern – sie landen 1:1 in der `zotero.bib`.
 - Duplikate (gleiche DOI/ISBN zweimal in Zotero)? → Nils fragen, welcher Eintrag bleibt.
 - Gescanntes PDF ohne Text → Nils Bescheid geben (OCR, z. B. `ocrmypdf`).
+
+### PDFs selbst beschaffen (seit 09.11.2026)
+
+Du hängst PDFs selbst an Zotero-Einträge (meist in `_Vorschläge`), damit Nils nur noch freigibt.
+Nichts verschieben, löschen oder an Metadaten ändern; vorher prüfen, ob am Eintrag schon ein PDF hängt.
+
+**Weg 1 – frei verfügbare PDFs (direkt in der Cloud-Sitzung):**
+- Open-Access-Links finden: `https://api.openalex.org/works/doi:<DOI>` → `locations[].pdf_url`
+  (kein E-Mail-Parameter nötig). arXiv, Konferenzseiten (z. B. roboticsproceedings.org) und
+  Autorenseiten gehen meist per `curl`; ACM, HAL (Bot-Schutz), IEEE und manche Uni-Server blocken.
+- Seite 1 prüfen (`pdftotext -l 1`): Titel und Erstautor = Zotero-Eintrag.
+- Upload per Web-API (Proxy setzt den Schlüssel): Anhang anlegen
+  `POST /users/22350426/items` mit `itemType: attachment, linkMode: imported_file, parentItem: <key>,
+  contentType: application/pdf, filename`, dann `POST /items/<anhang>/file` (md5, filename, filesize,
+  mtime, Header `If-None-Match: *`). Antwort `{"exists":1}` = Datei liegt schon im Speicher, fertig;
+  sonst an die gelieferte URL hochladen (prefix + Datei + suffix) und mit `upload=<uploadKey>` bestätigen.
+  Zum Schluss `GET /items/<anhang>/file` und md5 vergleichen.
+- **Preprint/Autorenversion statt Verlagsfassung:** im Anhang-Titel kennzeichnen (z. B.
+  „Preprint arXiv (nicht Verlagsfassung)“) und Nils sagen – Seitenzahlen weichen oft von der gedruckten
+  Fassung ab (wichtig für `seite` in den Belegen).
+
+**Weg 2 – Verlags-PDFs über die FAU (auf Nils' PC `faps-pc`):**
+- Voraussetzung auf dem PC: In `~/claude_area` läuft `claude remote-control` (im Terminal, nicht über die
+  Desktop-App – die ist dort zu alt). Claude in Chrome muss in Claude Code eingeschaltet sein
+  (einmalig `claude` → `/chrome` → standardmäßig aktivieren), **bevor** `remote-control` startet;
+  eine laufende Sitzung bekommt Chrome nicht nachträglich.
+- Die Sitzung auf dem PC lädt die PDFs mit Chrome über den FAU-Zugang nach
+  `~/claude_area/documents` (Nils' Zugangsdaten nie selbst eingeben – fehlt ein Login, Nils fragen) und
+  lädt sie per Zotero-Web-API hoch. Der Schlüssel liegt auf dem PC in `~/.config/zotero_api_key`
+  (Nils' eigener Schlüssel mit Schreibrecht; nie in Chat, Repo oder Logs ausgeben).
+- Läuft keine Remote-Control-Sitzung: Nils um Start bitten (Befehl oben) oder ihm die Liste geben.
+
+Speicher: Zotero kostenlos = 300 MB; bei großen Mengen Nils auf den Verbrauch hinweisen.
 
 ### Phase 0 – Quelle aufnehmen
 1. Nils legt die Quelle mit PDF in Zotero an.
