@@ -1,0 +1,14 @@
+citekey: Hu2026
+zotero_key: WPV3XC2R
+belege:
+  - id: Hu2026.01
+    seite: "7"
+    zitat: "D3 (Unitree Built-in): the official built-in locomotion controller from Unitree, used as an engineering baseline."
+    kernaussage: "Vergleichsregler D3 ist der offizielle, eingebaute Laufregler von Unitree, verwendet als technische Referenz."
+    quelle: exzerpt
+    kommentar: "Preprint arXiv 2604.23702v1; von Nils geliefert 09.11.2026"
+  - id: Hu2026.02
+    seite: "7"
+    zitat: "Since its implementation is closed-source, we do not attribute its internal mechanisms, and use it only as an engineering baseline."
+    kernaussage: "Die Implementierung des eingebauten Unitree-Reglers ist nicht quelloffen; die Autoren treffen daher keine Aussagen über seine inneren Mechanismen und nutzen ihn nur als Referenz."
+    quelle: exzerpt
