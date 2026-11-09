@@ -1,0 +1,44 @@
+% Vorwärts- vs. inverse Kinematik am ebenen Arm mit drei Drehgelenken.
+% Eigene Darstellung in Anlehnung an Kucuk2006 (Abb. 5a, S. 126: ebener Arm, Winkelkonvention;
+% Abb. 1, S. 118: Vorwärts- vs. inverse Kinematik).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/ik-vorwaerts-invers} in einer figure-Umgebung.
+\begin{tikzpicture}[ba]
+  % #1 = Stil der Gelenkwinkel, #2 = Zusatz an den Winkeln (z.B. "=?"), #3 = Stil Endeffektor-Label, #4 = Zusatz am Endeffektor
+  \newcommand{\baIKArm}[4]{%
+    \coordinate (B)  at (0,0);
+    \coordinate (J1) at (20:2.3);
+    \coordinate (J2) at ($(J1)+(50:2.0)$);
+    \coordinate (E)  at ($(J2)+(78:1.8)$);
+    % Bezugslinien: Horizontale an der Basis, Verlängerung der Glieder
+    \coordinate (H)  at (2.4,0);
+    \coordinate (X1) at ($(J1)+(20:1.2)$);
+    \coordinate (X2) at ($(J2)+(50:1.1)$);
+    \draw[ba hilfslinie, #1] (B) -- (H);
+    \draw[ba hilfslinie, #1] (J1) -- (X1);
+    \draw[ba hilfslinie, #1] (J2) -- (X2);
+    % Glieder
+    \draw[ba glied] (B) -- (J1) -- (J2) -- (E);
+    % Gelenkwinkel
+    \pic[ba winkel, #1, "$\theta_1#2$", angle eccentricity=1.12, pic text options={anchor=west}] {angle = H--B--J1};
+    \pic[ba winkel, #1, "$\theta_2#2$", angle eccentricity=1.12, pic text options={anchor=west}] {angle = X1--J1--J2};
+    \pic[ba winkel, #1, "$\theta_3#2$", angle eccentricity=1.12, pic text options={anchor=south west}] {angle = X2--J2--E};
+    % Gelenke, Basis, Endeffektor
+    \node[ba basis]  at (B)  {};
+    \node[ba gelenk] at (J1) {};
+    \node[ba gelenk] at (J2) {};
+    \node[ba endeffektor] at (E) {};
+    \node[right=1.5mm of E, #3] {$\vec{r}_\mathrm{E}#4$};
+  }
+  % a) Vorwärtskinematik: Winkel gegeben, Endeffektorlage gesucht
+  \begin{scope}
+    \baIKArm{}{}{ba gesucht}{=\,?}
+    \node[ba teiltitel, align=center] at (2.0,-0.6) {a) Vorwärtskinematik};
+  \end{scope}
+  % Trennlinie
+  \draw[ba trenner] (5.4,-1.0) -- (5.4,4.9);
+  % b) Inverse Kinematik: Endeffektorlage gegeben, Winkel gesucht
+  \begin{scope}[xshift=6.6cm]
+    \baIKArm{ba gesucht}{=\,?}{}{}
+    \node[ba teiltitel, align=center] at (2.0,-0.6) {b) Inverse Kinematik};
+  \end{scope}
+\end{tikzpicture}

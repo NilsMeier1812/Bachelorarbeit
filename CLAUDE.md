@@ -62,6 +62,7 @@ Bachelorarbeit/           # Repo-Root = Overleaf-Projekt (Hauptdokument main.tex
 ├── Kapitel/              # ein .tex pro Kapitel
 ├── Bilder/
 ├── ba-makros.tex         # \ev, \qf, \pruefen
+├── ba-grafik.tex         # einheitlicher Stil für eigene Grafiken, Diagramme, Tabellen
 ├── zotero.bib            # von OVERLEAF aus Zotero online verknüpft und gepusht – nie selbst schreiben
 ├── zotero-map.json       # GENERIERT (zot.py bib): freigegebene citekeys -> Zotero-Item-Key
 ├── evidence/             # Belegdateien, eine pro Quelle: <citekey>.yaml
@@ -72,6 +73,7 @@ Bachelorarbeit/           # Repo-Root = Overleaf-Projekt (Hauptdokument main.tex
 └── scripts/
     ├── zot.py            # bib | text | annotations
     ├── check.py          # mechanische Prüfung
+    ├── ba_plotstil.py    # matplotlib-Stil passend zu ba-grafik.tex
     ├── balib.py          # gemeinsame Funktionen
     └── README.md         # Einrichtung und Stolpersteine
 ```
@@ -284,6 +286,43 @@ IDs werden nie umnummeriert oder wiederverwendet. Ein falscher Beleg wird korrig
 - Reine Verweise ohne Sachaussage (Abbildungsquelle, „vgl. weiterführend“): `\ev{*}` – wird gelistet.
 - `\qf{...}` = Quelle fehlt, `\pruefen{...}` = Nils muss etwas klären/liefern. Beide müssen vor
   Abgabe auf 0 sein.
+
+### Grafiken, Diagramme, Tabellen (einheitlicher Stil, seit 09.11.2026)
+
+Alle Darstellungsobjekte nutzen `ba-grafik.tex` (in `main.tex` nach `FAPSGruen` eingebunden). Farben,
+Linienstärken und Schrift **nur dort** ändern, nie in einzelnen Grafiken. Muster: `Bilder/tikz/ik-vorwaerts-invers.tex`.
+Inhaltliche Regeln (Caption, Platzierung, Quellen) stehen in `Richtlinien-BA.md` §6.
+**Die FAPS-Vorlage bleibt unangetastet:** Captions (Format, Position, Verzeichnisse), Überschriften, Nummerierung und
+Layout kommen weiter aus `main.tex`. `ba-grafik.tex` definiert nur Farben, Stile und Befehle, die erst wirken, wenn
+eine Grafik oder Tabelle sie ausdrücklich nutzt – nie `\captionsetup`, Abstände oder Verzeichnisse darin ändern.
+
+- **Eigene Grafik vor fremder.** Skizzen, Ablauf-/Blockdiagramme und Diagramme selbst bauen (TikZ/pgfplots).
+  Fremde Bilder nur, wenn nicht nachbaubar (Fotos, Messergebnisse aus Papern) – dann mit `\cite{}\ev{*}` in der Caption.
+- **Quellenangabe in der Caption:** eigene Darstellung ohne Angabe; nachgebaut/vereinfacht
+  „in Anlehnung an \cite{key}\ev{*}“; übernommen `\cite{key}\ev{*}`. Auch dafür nur Quellen aus `zotero-map.json`
+  (keine Blogs als Vorlage – passende Abbildung in einer freigegebenen Quelle suchen, Abb.-Nr. und Seite als
+  Kommentar in die .tex-Datei der Grafik). Sachaussagen im Caption-Text brauchen wie im Fließtext einen echten Beleg.
+- **Ablage:** TikZ-Grafiken als eigene Datei `Bilder/tikz/<name>.tex` (einbinden mit `\input`), Plotdaten als
+  CSV in `Daten/`, fertige PDFs/Fotos in `Bilder/`. Dateinamen klein, mit Bindestrich.
+- **TikZ:** `\begin{tikzpicture}[ba]` und die Stile `ba glied`, `ba gelenk`, `ba basis`, `ba endeffektor`,
+  `ba winkel`, `ba hilfslinie`, `ba pfeil`, `ba block`, `ba block hervor`, `ba gruppe`, `ba gesucht`,
+  `ba trenner`, `ba teiltitel`. **Nie skalieren** (`\resizebox`, `scale=`), sonst passt die Schrift nicht mehr;
+  stattdessen Koordinaten ändern. Breite höchstens `\textwidth` (16 cm).
+- **Farben:** `baGruen` (Reihe 1, Hauptfarbe), `baBlau`, `baGrau`, `baHellblau` (Reihen 2–4), `baAkzent` (Orange)
+  nur für Hervorhebung (gesucht, Grenzwert, kritisch), `baHellgrau` für Gitter/Hilfslinien. Flächen nur füllen,
+  wenn die Farbe Bedeutung trägt; Bedeutung nie allein über Farbe (zusätzlich Text, Marker oder Linienart).
+- **Diagramme:** pgfplots mit `\begin{axis}[ba plot, xlabel={Zeit in s}, ylabel={…}]`. Achsen „Größe in Einheit“,
+  Dezimalkomma (macht der Stil), Rahmen, Legende im Diagramm. Daten aus CSV (`\addplot table[col sep=comma]`).
+  Python nur, wenn pgfplots ungeeignet ist (sehr viele Punkte, Heatmap, 3D): `scripts/ba_plotstil.py`
+  (`stil()`, `groesse()`, `speichern()`), PDF ohne Skalierung einbinden. Messwerte nie erfinden (Regel 5).
+- **Tabellen:** Stil je nach Inhalt wählen, was übersichtlicher ist (Nils, 09.11.2026):
+  **Gitter** (Standard für Text- und Vergleichstabellen): `|L|L|…|`, `\hline` nach jeder Zeile, Kopfzeile mit
+  `\tabkopfzeile` (hellgrün) und `\tabkopf{}`. **Schlicht** (reine Zahlen-/Messwerttabellen): booktabs
+  `\toprule`/`\midrule`/`\bottomrule`, keine senkrechten Linien. Innerhalb einer Tabelle nie mischen.
+  Auf Textbreite mit `tabularx` und den Spalten `L` (linksbündig) bzw. `C`; `\tabstil` als erste Zeile in der
+  `table`-Umgebung setzt Schrift `\small`, graue Linien und Zeilenabstand (wirkt nur in dieser Tabelle). Mehrseitig: `xltabular` mit `\endhead`. Caption über der Tabelle.
+- **Teilbilder** mit „a) …“, „b) …“ unter dem jeweiligen Teil (`ba teiltitel`), getrennt durch `ba trenner`.
+- Vor „fertig“: kompilieren und die Grafik im PDF ansehen (überlappende Beschriftungen, Overfull-Boxen).
 
 ## Verifier-Prompt (für den Subagenten, wörtlich übernehmen)
 
