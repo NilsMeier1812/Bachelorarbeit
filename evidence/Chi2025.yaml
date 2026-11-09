@@ -1,0 +1,15 @@
+citekey: Chi2025
+zotero_key: EWQIDXDD
+belege:
+- id: Chi2025.01
+  seite: '1'
+  zitat: Despite significant interest and advancements in humanoid robotics, most existing commercially available hardware remains high-cost, closed-source, and non-transparent within the robotics community.
+  kernaussage: Kommerziell verfügbare Humanoid-Hardware ist meist teuer, nicht quelloffen und intransparent.
+  quelle: exzerpt
+  kommentar: Kap. 4.1/5.1. OCR-Fassung
+- id: Chi2025.02
+  seite: '1'
+  zitat: These experiments successfully showcased zero-shot policy transfer from simulation to hardware, highlighting the platform’s suitability for research validation.
+  kernaussage: Die Versuche zeigten Zero-Shot-Übertragung der Policy von der Simulation auf die Hardware.
+  quelle: exzerpt
+  kommentar: Kap. 4.1/4.4

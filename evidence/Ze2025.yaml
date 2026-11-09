@@ -1,0 +1,9 @@
+citekey: Ze2025
+zotero_key: KXI4X3XB
+belege:
+- id: Ze2025.01
+  seite: '1'
+  zitat: Yet, most current humanoid teleoperation systems fall short of enabling coordinated whole-body behavior, typically limiting themselves to isolated locomotion or manipulation tasks.
+  kernaussage: Die meisten Humanoid-Teleoperationssysteme beschränken sich auf Fortbewegung oder Manipulation statt koordinierter Ganzkörperbewegung.
+  quelle: exzerpt
+  kommentar: Kap. 4.3.1

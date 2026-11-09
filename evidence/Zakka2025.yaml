@@ -1,0 +1,15 @@
+citekey: Zakka2025
+zotero_key: XEDJBDX5
+belege:
+- id: Zakka2025.01
+  seite: '1'
+  zitat: With a simple pip install playground, researchers can train policies in minutes on a single GPU.
+  kernaussage: Mit MuJoCo Playground lassen sich Policies nach einfacher Installation in Minuten auf einer GPU trainieren.
+  quelle: exzerpt
+  kommentar: Kap. 4.1. OCR-Fassung
+- id: Zakka2025.02
+  seite: '1'
+  zitat: Playground supports diverse robotic platforms, including quadrupeds, humanoids, dexterous hands, and robotic arms, enabling zero-shot sim-to-real transfer from both state and pixel inputs.
+  kernaussage: Playground unterstützt Vierbeiner, Humanoide, Hände und Arme mit Zero-Shot-Sim-to-Real aus Zustands- und Pixeleingaben.
+  quelle: exzerpt
+  kommentar: Kap. 4.1

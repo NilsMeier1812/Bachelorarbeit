@@ -1,0 +1,15 @@
+citekey: Carpentier2019
+zotero_key: PX2SE4EX
+belege:
+- id: Carpentier2019.01
+  seite: '2'
+  zitat: We introduce Pinocchio, an open-source software framework that implements rigid body dynamics algorithms and their analytical derivatives.
+  kernaussage: Pinocchio ist ein Open-Source-Framework mit Algorithmen der Starrkörperdynamik und ihren analytischen Ableitungen.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.1/7.4 Werkzeug. HAL-Fassung
+- id: Carpentier2019.02
+  seite: '2'
+  zitat: Pinocchio does not only include standard algorithms employed in robotics (e.g., forward and inverse dynamics) but provides additional features essential for the control, the planning and the simulation of robots.
+  kernaussage: Pinocchio bietet neben Standardalgorithmen (Vorwärts-/Inversdynamik) Funktionen für Regelung, Planung und Simulation.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.1/7.4

@@ -1,0 +1,15 @@
+citekey: GalbotOpenWBT
+zotero_key: ZH92RWXX
+belege:
+- id: GalbotOpenWBT.01
+  seite: '1'
+  zitat: This repository implements whole body teleoperation of the Unitree G1 and H1 humanoid robot using Apple Vision Pro. The system supports both real robots and simulation environments.
+  kernaussage: 'OpenWBT: Ganzkörper-Teleoperation von G1 und H1 mit Apple Vision Pro, real und in Simulation.'
+  quelle: exzerpt
+  kommentar: Kap. 4.1/4.3. README, Commit a0154ca
+- id: GalbotOpenWBT.02
+  seite: '1'
+  zitat: For lower-body control, our method allows you to control the humanoid to walk or change body pose with a pair of joystick controllers. For upper-body control, the robot hand motion is derived from the human hand poses measured in VR using inverse kinematics.
+  kernaussage: Unterkörper per Joystick-Controllern (Gehen, Haltung), Oberkörper per IK aus in VR gemessenen Handposen.
+  quelle: exzerpt
+  kommentar: Kap. 4.3

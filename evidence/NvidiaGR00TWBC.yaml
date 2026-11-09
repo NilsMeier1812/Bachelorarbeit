@@ -1,0 +1,15 @@
+citekey: NvidiaGR00TWBC
+zotero_key: S4J3KGT2
+belege:
+- id: NvidiaGR00TWBC.01
+  seite: '1'
+  zitat: It hosts model checkpoints and scripts for training, evaluating, and deploying advanced whole-body controllers for humanoid robots.
+  kernaussage: Das Repository enthält Checkpoints und Skripte zu Training, Bewertung und Einsatz von Ganzkörperreglern für Humanoide.
+  quelle: exzerpt
+  kommentar: Kap. 4.1 Policy-Tabelle. README, Commit 1e1ec4f
+- id: NvidiaGR00TWBC.02
+  seite: '1'
+  zitat: 'Decoupled WBC: the decoupled controller (RL for lower body, and IK for upper body) used in NVIDIA GR00T N1.5 and N1.6 models;'
+  kernaussage: 'Decoupled WBC: RL für den Unterkörper, IK für den Oberkörper.'
+  quelle: exzerpt
+  kommentar: Kap. 4.1

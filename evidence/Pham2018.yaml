@@ -1,0 +1,15 @@
+citekey: Pham2018
+zotero_key: 4IW5TPM6
+belege:
+- id: Pham2018.01
+  seite: '1'
+  zitat: Time-Optimal Path Parameterization (TOPP) is the problem of finding the fastest way to traverse a path in the configuration space of a robot system while respecting the system constraints [1].
+  kernaussage: TOPP sucht die schnellste Durchfahrt eines Pfads im Konfigurationsraum unter Einhaltung der Systemgrenzen.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3. arXiv-Preprint v2, Seitenzahlen ggf. abweichend
+- id: Pham2018.02
+  seite: '1'
+  zitat: 'There are two main families of methods to address TOPP: Numerical Integration (NI) and Convex Optimization (CO). NIbased methods are fast but difficult to implement and suffer from robustness issues, while CO-based approaches are more robust but at the same time significantly slower.'
+  kernaussage: Für TOPP gibt es numerische Integration (schnell, aber schwer umzusetzen und weniger robust) und konvexe Optimierung (robuster, aber deutlich langsamer).
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3

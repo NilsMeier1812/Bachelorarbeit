@@ -1,0 +1,27 @@
+citekey: HucebotG1Pilot
+zotero_key: 264P8F7P
+belege:
+- id: HucebotG1Pilot.01
+  seite: '1'
+  zitat: G1Pilot is an open‑source ROS 2 package for Unitree G1 humanoid robots. Basically is made to leave the robot lower body to the controller of unitree while providing all necessary tools to control the upper body and teleoperate the robot.
+  kernaussage: 'G1Pilot ist ein ROS-2-Paket für den G1: Unterkörper beim Unitree-Regler, Werkzeuge für Oberkörpersteuerung und Teleoperation.'
+  quelle: exzerpt
+  kommentar: Kap. 4.4/6.1. README, Commit 5346e52
+- id: HucebotG1Pilot.02
+  seite: '1'
+  zitat: 'Dual controller: Unitree’s built‑in loco controller for walking + custom upper‑body controller for arm manipulation.'
+  kernaussage: Eingebauter Unitree-Laufregler plus eigener Oberkörperregler.
+  quelle: exzerpt
+  kommentar: Kap. 4.4
+- id: HucebotG1Pilot.03
+  seite: '1'
+  zitat: 'Docker‑first workflow: reproducible build/run scripts for Ubuntu 22.04 + ROS 2 Humble.'
+  kernaussage: Docker-basierter, reproduzierbarer Ablauf.
+  quelle: exzerpt
+  kommentar: Kap. 4.4
+- id: HucebotG1Pilot.04
+  seite: '1'
+  zitat: 'Navigation stack integrated: MOLA odometry and path planner for autonomous navigation.'
+  kernaussage: Integrierte Navigation mit MOLA-Odometrie und Pfadplaner.
+  quelle: exzerpt
+  kommentar: Kap. 4.4/7.7

@@ -1,0 +1,15 @@
+citekey: Kalakrishnan2011
+zotero_key: JJCXTGTH
+belege:
+- id: Kalakrishnan2011.01
+  seite: '4570'
+  zitat: In this work, we instead optimize it using a derivative-free stochastic optimization method. This allows us to optimize arbitrary costs
+  kernaussage: STOMP optimiert ableitungsfrei und stochastisch und kann so beliebige Kostenfunktionen verwenden.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3
+- id: Kalakrishnan2011.02
+  seite: '4570'
+  zitat: for which derivatives are not available, or are non-differentiable or non-smooth.
+  kernaussage: …auch solche ohne verfügbare Ableitung oder nicht differenzierbare bzw. nicht glatte Kosten.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3 (Fortsetzung von .01)

@@ -1,0 +1,15 @@
+citekey: Pan2012
+zotero_key: W3G7C6UP
+belege:
+- id: Pan2012.01
+  seite: '1'
+  zitat: We present a new collision and proximity library that integrates several techniques for fast and accurate collision checking and proximity computation.
+  kernaussage: FCL ist eine Bibliothek, die Verfahren zur schnellen und genauen Kollisions- und Abstandsberechnung vereint.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.2
+- id: Pan2012.02
+  seite: '1'
+  zitat: The set of queries includes discrete collision detection, continuous collision detection, separation distance computation and penetration depth estimation.
+  kernaussage: FCL bietet diskrete und kontinuierliche Kollisionserkennung, Abstandsberechnung und Eindringtiefenschätzung.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.2

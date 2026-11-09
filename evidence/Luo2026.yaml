@@ -1,0 +1,15 @@
+citekey: Luo2026
+zotero_key: CR2MA6D7
+belege:
+- id: Luo2026.01
+  seite: '1'
+  zitat: Current neural controllers for humanoids remain modest in size, target a limited set of behaviors, and are trained on a handful of GPUs.
+  kernaussage: Aktuelle neuronale Humanoid-Regler sind klein, auf wenige Verhaltensweisen beschränkt und auf wenigen GPUs trainiert.
+  quelle: exzerpt
+  kommentar: Kap. 4.1
+- id: Luo2026.02
+  seite: '1'
+  zitat: 'We build a foundation model for motion tracking by scaling along three axes: network size (1.2M to 42M parameters), dataset volume (100M+ frames from 700 hours of motion capture), and compute (21k GPU hours).'
+  kernaussage: SONIC skaliert Netzgröße (1,2–42 Mio. Parameter), Datenmenge (über 100 Mio. Frames aus 700 h Motion Capture) und Rechenaufwand (21 000 GPU-Stunden).
+  quelle: exzerpt
+  kommentar: Kap. 4.1

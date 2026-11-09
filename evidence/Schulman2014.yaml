@@ -1,0 +1,21 @@
+citekey: Schulman2014
+zotero_key: 7R7DBMGK
+belege:
+- id: Schulman2014.01
+  seite: '1'
+  zitat: Sampling-based motion planners [21, 25] are very effective and offer probabilistic completeness guarantees. However, these planners often require a post-processing step to smooth and shorten the computed trajectories.
+  kernaussage: Sampling-basierte Planer sind sehr wirksam und probabilistisch vollständig, brauchen aber oft eine Nachbearbeitung zum Glätten und Kürzen.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3
+- id: Schulman2014.02
+  seite: '1'
+  zitat: Like CHOMP, our algorithm can be used to find collision-free trajectories from naı̈ve, straight-line initializations that might be in collision.
+  kernaussage: TrajOpt findet wie CHOMP kollisionsfreie Trajektorien aus einfachen geradlinigen, evtl. kollidierenden Startlösungen.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3
+- id: Schulman2014.03
+  seite: '2'
+  zitat: 'CHOMP has the following key features: (1) formulation of trajectory costs that are invariant to the time parameterization of the trajectory, (2) using pre-computed signed distance fields for collision checking, and (3) using pre-conditioned gradient descent for numerical optimization.'
+  kernaussage: 'Kernmerkmale von CHOMP: zeitparametrierungsinvariante Kosten, vorberechnete vorzeichenbehaftete Abstandsfelder zur Kollisionsprüfung, vorkonditionierter Gradientenabstieg.'
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3

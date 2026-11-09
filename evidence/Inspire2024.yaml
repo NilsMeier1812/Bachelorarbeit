@@ -1,0 +1,33 @@
+citekey: Inspire2024
+zotero_key: 8IUJU2JR
+belege:
+- id: Inspire2024.01
+  seite: '4'
+  zitat: These dexterous hands feature six Micro linear servo actuators equipped with sensitive pressure sensors. By setting different force control thresholds, precise gripping force control can be achieved.
+  kernaussage: Die RH56DFTP hat sechs Mikro-Linearservoaktoren mit Drucksensoren; über Kraftschwellen lässt sich die Greifkraft regeln.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.4 / 2.2. Herstellerhandbuch V1.0.0
+- id: Inspire2024.02
+  seite: '4'
+  zitat: High-precision tactile sensors are integrated into the fingertips, finger pads, and palm areas, providing real-time feedback on finger gripping information.
+  kernaussage: Taktilsensoren in Fingerspitzen, Fingerballen und Handfläche melden Greifinformationen in Echtzeit.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.4
+- id: Inspire2024.03
+  seite: '4'
+  zitat: Total number of joints 12 Degree of freedom (DOF) 6 Number of force sensors 6 Resolution of force sensor 0.1N Number of tactile sensors 5-17
+  kernaussage: 12 Gelenke, 6 Freiheitsgrade, 6 Kraftsensoren (Auflösung 0,1 N), 5–17 Taktilsensoren.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.4 / 2.2 Tabelle
+- id: Inspire2024.04
+  seite: '4'
+  zitat: Five-finger gripping force 30N
+  kernaussage: Fünffinger-Greifkraft 30 N.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.4 / 2.2
+- id: Inspire2024.05
+  seite: '4'
+  zitat: User interfaces include Ethernet, RS485, and CAN2.0 communication interface.
+  kernaussage: 'Schnittstellen: Ethernet, RS485, CAN2.0.'
+  quelle: exzerpt
+  kommentar: Kap. 2.2/7.5

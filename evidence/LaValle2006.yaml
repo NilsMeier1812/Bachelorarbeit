@@ -1,0 +1,39 @@
+citekey: LaValle2006
+zotero_key: P9RFGS6D
+belege:
+- id: LaValle2006.01
+  seite: '56'
+  zitat: The state space for motion planning is a set of possible transformations that could be applied to the robot. This will be referred to as the configuration space
+  kernaussage: Der Zustandsraum der Bewegungsplanung ist die Menge möglicher Transformationen des Roboters, genannt Konfigurationsraum.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3 Begriff
+- id: LaValle2006.02
+  seite: '70'
+  zitat: The removed part of C is referred to as the obstacle region. The leftover space is precisely what a solution path must traverse.
+  kernaussage: Der entfernte Teil des Konfigurationsraums heißt Hindernisbereich; der Rest ist der Raum, den ein Lösungspfad durchqueren muss.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3 Begriff
+- id: LaValle2006.03
+  seite: '97'
+  zitat: In most motion planning applications, the majority of computation time is spent on collision checking.
+  kernaussage: In den meisten Anwendungen entfällt der Großteil der Rechenzeit auf die Kollisionsprüfung.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.2
+- id: LaValle2006.04
+  seite: '97'
+  zitat: 'There are generally two opposing criteria that guide the selection of the type of bounding region: 1. The region should ﬁt the intended body points as tightly as possible. 2. The intersection test for two regions should be as eﬃcient as possible.'
+  kernaussage: Bei Hüllkörpern stehen enge Anpassung und effizienter Schnitttest gegeneinander.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.2
+- id: LaValle2006.05
+  seite: '98'
+  zitat: 'Four diﬀerent kinds of bounding regions: (a) sphere, (b) axis-aligned bounding box (AABB), (c) oriented bounding box (OBB), and (d) convex hull. Each usually provides a tighter approximation than the previous one but is more expensive to test for overlapping pairs.'
+  kernaussage: 'Hüllkörper Kugel, AABB, OBB, konvexe Hülle: jeweils meist enger als der vorige, aber teurer im Überlappungstest.'
+  quelle: exzerpt
+  kommentar: Kap. 4.2.2
+- id: LaValle2006.06
+  seite: '85'
+  zitat: The sampling-based planning philosophy uses collision detection as a “black box” that separates the motion planning from the particular geometric and kinematic models.
+  kernaussage: Sampling-basierte Planung nutzt die Kollisionserkennung als Blackbox und trennt so Planung von Geometrie- und Kinematikmodell.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.2/4.2.3

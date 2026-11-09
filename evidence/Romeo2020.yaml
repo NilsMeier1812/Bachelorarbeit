@@ -1,0 +1,27 @@
+citekey: Romeo2020
+zotero_key: DGSK8QMA
+belege:
+- id: Romeo2020.01
+  seite: '73027'
+  zitat: The sense of touch allows recognizing a wide set of properties of a grasped object, such as shape, weight and dimension. Based on such properties, the applied force can be accordingly regulated avoiding slip of the grasped object.
+  kernaussage: Über den Tastsinn werden Objekteigenschaften erkannt; danach lässt sich die Greifkraft so regeln, dass das Objekt nicht rutscht.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.4
+- id: Romeo2020.02
+  seite: '73027'
+  zitat: Despite the great importance of tactile sensing for humans, mechatronic hands (robotic manipulators, prosthetic hands etc.) are rarely endowed with tactile feedback.
+  kernaussage: Mechatronische Hände haben trotz der Bedeutung des Tastsinns selten taktile Rückmeldung.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.4
+- id: Romeo2020.03
+  seite: '73043'
+  zitat: Thus, opportune corrections in the grip force are to be applied, i.e. the normal force should be incremented to tighten the grip. Detecting the incipient slip allows the gripping system to correct applied force faster
+  kernaussage: Bei beginnendem Rutschen ist die Normalkraft zu erhöhen; das Erkennen beginnenden Schlupfs erlaubt eine schnellere Kraftkorrektur.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.4
+- id: Romeo2020.04
+  seite: '73028'
+  zitat: object drop, object damage, control algorithms for force regulation or minimization
+  kernaussage: Der Survey behandelt Objektverlust, Objektbeschädigung und Kraftregelung/-minimierung ausdrücklich nicht.
+  quelle: exzerpt
+  kommentar: nur als Abgrenzung

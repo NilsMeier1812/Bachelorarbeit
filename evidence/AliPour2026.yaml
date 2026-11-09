@@ -1,0 +1,15 @@
+citekey: AliPour2026
+zotero_key: 77JWSVT5
+belege:
+- id: AliPour2026.01
+  seite: '1'
+  zitat: We present a teleoperation system that enables a single operator to perform construction tasks on a Unitree G1 humanoid, combining extended reality (XR) based upper body control with pedal-based locomotion to enable simultaneous manipulation and locomotion.
+  kernaussage: 'Ein Bediener führt mit einem G1 Bauaufgaben aus: XR-Steuerung des Oberkörpers und Pedale für die Fortbewegung.'
+  quelle: exzerpt
+  kommentar: Kap. 4.3.1/4.4. arXiv
+- id: AliPour2026.02
+  seite: '1'
+  zitat: The system achieved 100% success on tool transport and 80% success on surface painting, with teleoperation requiring substantially more time compared to manual execution.
+  kernaussage: 100 % Erfolg beim Werkzeugtransport, 80 % beim Streichen; Teleoperation deutlich langsamer als manuell.
+  quelle: exzerpt
+  kommentar: Kap. 4.3.1

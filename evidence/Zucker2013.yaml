@@ -1,0 +1,33 @@
+citekey: Zucker2013
+zotero_key: 69QS5WTW
+belege:
+- id: Zucker2013.01
+  seite: '1'
+  zitat: CHOMP uses functional gradient techniques to iteratively improve the quality of an initial trajectory, optimizing a functional that trades off between a smoothness and an obstacle avoidance component.
+  kernaussage: CHOMP verbessert eine Anfangstrajektorie iterativ per funktionalem Gradienten; das Funktional wägt Glattheit gegen Hindernisvermeidung ab.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3
+- id: Zucker2013.02
+  seite: '1'
+  zitat: CHOMP can be used to locally optimize feasible trajectories, as well as to solve motion planning queries, converging to lowcost trajectories even when initialized with infeasible ones.
+  kernaussage: CHOMP optimiert zulässige Trajektorien lokal und löst Planungsanfragen; es konvergiert auch aus unzulässigen Startlösungen zu kostengünstigen Trajektorien.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3
+- id: Zucker2013.03
+  seite: '1'
+  zitat: the presence of local minima when considering motion planning as a (generally non-convex) continuous optimization problem.
+  kernaussage: Bewegungsplanung als (im Allgemeinen nicht konvexes) kontinuierliches Optimierungsproblem hat lokale Minima.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3 Nachteil Optimierung
+- id: Zucker2013.04
+  seite: '2'
+  zitat: Instead of computing the cost field in the robot’s high-dimensional configuration space, we compute it in its workspace (typically 2-3 dimensional) and use body points on the robot to accumulate workspace cost
+  kernaussage: CHOMP berechnet das Kostenfeld im (2–3-dimensionalen) Arbeitsraum statt im hochdimensionalen Konfigurationsraum und summiert die Kosten über Körperpunkte des Roboters.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.2/4.2.3 – Körperpunkte (Bezug Kugelmodell)
+- id: Zucker2013.05
+  seite: '3'
+  zitat: 'These approaches typically work in a two-step fashion: first a collision-free path is discovered without regard for any measure of cost, and then it is improved by applying certain heuristics.'
+  kernaussage: Sampling-basierte Ansätze finden meist erst einen kollisionsfreien Pfad ohne Kostenmaß und verbessern ihn dann heuristisch.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3

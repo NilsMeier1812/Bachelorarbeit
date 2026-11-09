@@ -1,0 +1,21 @@
+citekey: UnitreeMujoco
+zotero_key: IUWRXZV9
+belege:
+- id: UnitreeMujoco.01
+  seite: '1'
+  zitat: unitree_mujoco is a simulator developed based on Unitree sdk2 and mujoco. Users can easily integrate the control programs developed with Unitree_sdk2, unitree_ros2, and unitree_sdk2_python into this simulator, enabling a seamless transition from simulation to physical development.
+  kernaussage: 'unitree_mujoco: Simulator auf Basis von unitree_sdk2 und MuJoCo; mit dem SDK entwickelte Programme laufen auch im Simulator.'
+  quelle: exzerpt
+  kommentar: Kap. 4.4. README, Commit 1eb6642
+- id: UnitreeMujoco.02
+  seite: '1'
+  zitat: Current version only supports low-level development, mainly used for sim to real verification of controller
+  kernaussage: Nur Low-Level-Entwicklung, vor allem zur Sim-to-Real-Prüfung von Reglern.
+  quelle: exzerpt
+  kommentar: Kap. 4.4
+- id: UnitreeMujoco.03
+  seite: '1'
+  zitat: In the actual robot hardware, the SportModeState message is not readable after the built-in motion control service is turned off.
+  kernaussage: Am realen Roboter ist SportModeState nach Abschalten des eingebauten Bewegungsreglers nicht lesbar.
+  quelle: exzerpt
+  kommentar: Kap. 4.1/4.4 – eingebauter Regler

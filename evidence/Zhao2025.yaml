@@ -1,0 +1,21 @@
+citekey: Zhao2025
+zotero_key: 3PTS9B64
+belege:
+- id: Zhao2025.01
+  seite: '1'
+  zitat: Although teleoperation is the predominant method for data collection, current approaches suffer from limited scalability, complex setup procedures, and suboptimal data quality.
+  kernaussage: Teleoperation ist die vorherrschende Datensammelmethode, leidet aber unter begrenzter Skalierbarkeit, aufwendiger Einrichtung und mäßiger Datenqualität.
+  quelle: exzerpt
+  kommentar: Kap. 4.3.1
+- id: Zhao2025.02
+  seite: '1'
+  zitat: Leader-follower approaches [11] offer low latency and intuitive operation but require custom hardware tailored to specific robot platforms, limiting scalability and accessibility.
+  kernaussage: 'Leader-Follower-Ansätze: geringe Latenz, intuitiv, aber roboterspezifische Hardware.'
+  quelle: exzerpt
+  kommentar: Kap. 4.3.1
+- id: Zhao2025.03
+  seite: '1'
+  zitat: Vision-based teleoperation systems [12] provide greater flexibility and generalizability across diverse robotic hardware but often suffer from unstable tracking performance and higher latency, degrading operator performance and data quality.
+  kernaussage: 'Kamerabasierte Systeme: flexibel, aber instabiles Tracking und höhere Latenz.'
+  quelle: exzerpt
+  kommentar: Kap. 4.3.1

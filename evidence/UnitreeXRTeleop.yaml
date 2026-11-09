@@ -1,0 +1,15 @@
+citekey: UnitreeXRTeleop
+zotero_key: 4Q6MHIFB
+belege:
+- id: UnitreeXRTeleop.01
+  seite: '1'
+  zitat: This repository implements teleoperation control of a Unitree humanoid robot using XR (Extended Reality) devices (such as Apple Vision Pro, PICO 4 Ultra Enterprise, or Meta Quest 3).
+  kernaussage: xr_teleoperate steuert Unitree-Humanoide per XR-Brille (Apple Vision Pro, PICO 4 Ultra Enterprise, Meta Quest 3).
+  quelle: exzerpt
+  kommentar: Kap. 4.3.1/4.4. README, Commit 817fb00
+- id: UnitreeXRTeleop.02
+  seite: '1'
+  zitat: If you have never worked with a Unitree robot before, please at least read up to the “Application Development” chapter in the official documentation first.
+  kernaussage: Neueinsteiger sollen vorab die offizielle Dokumentation mindestens bis zur Anwendungsentwicklung lesen.
+  quelle: exzerpt
+  kommentar: Kap. 4.4/5.1 Einstiegshürde

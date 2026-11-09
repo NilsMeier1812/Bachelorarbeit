@@ -1,0 +1,15 @@
+citekey: Sucan2012
+zotero_key: EBA6U7UR
+belege:
+- id: Sucan2012.01
+  seite: '72'
+  zitat: open motion planning library (OMPL) is a new library for sampling-based motion planning, which contains implementations of many state-of-the-art planning algorithms.
+  kernaussage: OMPL ist eine Bibliothek für sampling-basierte Bewegungsplanung mit Implementierungen vieler aktueller Planungsalgorithmen.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3 Frameworks
+- id: Sucan2012.02
+  seite: '72'
+  zitat: The library is also available for use through Robot Operating System (ROS).
+  kernaussage: OMPL ist auch über ROS nutzbar.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3

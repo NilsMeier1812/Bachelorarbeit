@@ -1,0 +1,15 @@
+citekey: Hubbard1996
+zotero_key: 3HNNHVRK
+belege:
+- id: Hubbard1996.01
+  seite: '179'
+  zitat: The approximationsare hierarchies of spheres, and they allow the time-critical algorithm to progressively refine the accuracy of its detection, stopping as needed to maintain the real-time performanceessential for interactive applications.
+  kernaussage: Die Approximationen sind Kugelhierarchien; mit ihnen verfeinert der zeitkritische Algorithmus die Genauigkeit schrittweise und bricht ab, wenn es für Echtzeit nötig ist.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.2 – Kugelmodell. Wortverschmelzungen wie im PDF-Text.
+- id: Hubbard1996.02
+  seite: '179'
+  zitat: The key to this approach is a preprocessthat automaticallybuilds tightly fitting hierarchies for rigid and articulatedobjects.
+  kernaussage: Kern ist eine Vorverarbeitung, die automatisch eng anliegende Kugelhierarchien für starre und gelenkige Objekte erzeugt.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.2

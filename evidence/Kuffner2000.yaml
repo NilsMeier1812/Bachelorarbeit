@@ -1,0 +1,21 @@
+citekey: Kuffner2000
+zotero_key: F78X3692
+belege:
+- id: Kuffner2000.01
+  seite: '1'
+  zitat: The method works by incrementally building two Rapidly-exploring Random Trees (RRTs) rooted at the start and the goal conﬁgurations.
+  kernaussage: RRT-Connect baut schrittweise zwei schnell explorierende Zufallsbäume (RRTs) auf, je einen an Start- und Zielkonfiguration.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3 Bahnplanung
+- id: Kuffner2000.02
+  seite: '1'
+  zitat: For single-query planning, it is assumed that a single path planning problem must be solved quickly, without any preprocessing.
+  kernaussage: Bei Single-Query-Planung wird angenommen, dass ein einzelnes Planungsproblem schnell und ohne Vorverarbeitung zu lösen ist.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3
+- id: Kuffner2000.03
+  seite: '1'
+  zitat: Although originally designed to plan motions for a human arm (modeled as a 7-DOF kinematic chain) for the automatic graphic animation of collision-free grasping and manipulation tasks, the algorithm has been successfully applied to a variety of path planning problems.
+  kernaussage: Ursprünglich für einen als 7-DoF-Kette modellierten menschlichen Arm entwickelt, wurde der Algorithmus auf viele Planungsprobleme angewandt.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3 – Bezug 7-DoF-Arm

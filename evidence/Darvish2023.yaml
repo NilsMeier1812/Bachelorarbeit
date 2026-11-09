@@ -1,0 +1,21 @@
+citekey: Darvish2023
+zotero_key: UBV6FQFP
+belege:
+- id: Darvish2023.01
+  seite: '1'
+  zitat: Teleoperation of humanoid robots enables the integration of the cognitive skills and domain expertise of humans with the physical capabilities of humanoid robots.
+  kernaussage: Teleoperation verbindet kognitive Fähigkeiten und Fachwissen des Menschen mit den physischen Fähigkeiten des Humanoiden.
+  quelle: exzerpt
+  kommentar: Kap. 4.3.1. arXiv-Fassung
+- id: Darvish2023.02
+  seite: '1'
+  zitat: However, the complexity of humanoid robots imposes challenges for teleoperation, particularly in unstructured dynamic environments with limited communication.
+  kernaussage: Die Komplexität von Humanoiden erschwert die Teleoperation, besonders in unstrukturierten Umgebungen mit eingeschränkter Kommunikation.
+  quelle: exzerpt
+  kommentar: Kap. 4.3.1
+- id: Darvish2023.03
+  seite: '1'
+  zitat: fully autonomous solutions are still far from producing socially and physically competent robot behaviors; that is why teleoperating robots (Fig. 1) acting as physical avatars of human workers at the site is the most reasonable solution.
+  kernaussage: Vollautonome Lösungen sind von kompetentem Verhalten noch weit entfernt; daher ist Teleoperation laut Autoren die naheliegendste Lösung.
+  quelle: exzerpt
+  kommentar: Kap. 4.3.1

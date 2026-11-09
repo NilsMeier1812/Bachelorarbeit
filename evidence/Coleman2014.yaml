@@ -1,0 +1,33 @@
+citekey: Coleman2014
+zotero_key: R7KCMICQ
+belege:
+- id: Coleman2014.01
+  seite: '1'
+  zitat: the MoveIt! framework, an open-source tool for mobile manipulation in ROS
+  kernaussage: MoveIt! ist ein Open-Source-Werkzeug für mobile Manipulation in ROS.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3 Frameworks
+- id: Coleman2014.02
+  seite: '4'
+  zitat: 'MoveIt! uses plugins for most of its functionality: motion planning plugins (currently using OMPL), collision detection (currently using the Fast Collision Library (FCL) [32]), kinematics plugins'
+  kernaussage: 'MoveIt! realisiert die meisten Funktionen als Plugins: Bewegungsplanung (OMPL), Kollisionserkennung (FCL), Kinematik.'
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3
+- id: Coleman2014.03
+  seite: '3'
+  zitat: Other planning components include a collision checking module that detects the potential intersection of geometric primitives and meshes in the planning scene and robot model.
+  kernaussage: Zu einem Planungsframework gehört ein Kollisionsprüfmodul, das Überschneidungen geometrischer Primitive und Meshes in Planungsszene und Robotermodell erkennt.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.2
+- id: Coleman2014.04
+  seite: '1'
+  zitat: If the entry barriers for configuring and using the software on robots is too high, even the most powerful of frameworks are useless.
+  kernaussage: Sind die Einstiegshürden für Konfiguration und Nutzung zu hoch, ist laut Autoren selbst das leistungsfähigste Framework nutzlos.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3/4.3.2/5.1 – Einstiegshürde
+- id: Coleman2014.05
+  seite: '2'
+  zitat: Most researchers and engineers typically do not have the time or ability to completely understand the entirety of robotics software before they start using it.
+  kernaussage: Die meisten Forschenden und Ingenieure können Robotiksoftware vor der Nutzung nicht vollständig verstehen.
+  quelle: exzerpt
+  kommentar: Kap. 4.3.2/5.1

@@ -1,0 +1,15 @@
+citekey: Kunz2012
+zotero_key: CUPQPXN4
+belege:
+- id: Kunz2012.01
+  seite: '1'
+  zitat: This paper presents a novel method to generate the time-optimal trajectory that exactly follows a given differentiable joint-space path within given bounds on joint accelerations and velocities.
+  kernaussage: Verfahren für die zeitoptimale Trajektorie entlang eines differenzierbaren Gelenkraumpfads innerhalb von Grenzen für Gelenkbeschleunigung und -geschwindigkeit.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3 Zeitparametrierung
+- id: Kunz2012.02
+  seite: '1'
+  zitat: We also present a path preprocessing method to make nondifferentiable paths differentiable by adding circular blends.
+  kernaussage: Nicht differenzierbare Pfade werden durch Kreisbögen an den Stützpunkten differenzierbar gemacht.
+  quelle: exzerpt
+  kommentar: Kap. 4.2.3
