@@ -55,5 +55,22 @@ die Wertung folgt in 5.1. Umfang ca. 8 Seiten.
 - D: OCR-Fassungen von Zakka2025/He2025/Chi2025 liegen im Projektordner – an die Zotero-Einträge hängen (darf Claude das per API)?
 - E: Die 11 „teilweise“-Korrekturen aus `verifikation-kap4-2026-11-05.md` nach Vorschlag des Prüfers einarbeiten?
 
-## Recherche (Schritt 2)
-Folgt für die offenen Fragen 5–8 (und 9, 13 je nach Entscheidung).
+## Recherche (Schritt 2) – 09.11.2026, Fragen 5–8
+
+12 Einträge in Zotero `_Vorschläge`, Tag `Kap4-Recherche 2026-11-09`, ohne Citation Key. Metadaten je per Crossref/doi.org
+abgeglichen (Titel, Autoren, Jahr), Duplikatsuche in der Bibliothek ohne Treffer. Fragen 9 und 13 erst nach Nils' Entscheidung B.
+
+| Vorschlag | DOI/ISBN | frei verfügbar | Frage | warum geeignet |
+|---|---|---|---|---|
+| Kuffner, LaValle 2000: RRT-Connect | 10.1109/ROBOT.2000.844730 | nein → FAU (IEEE) | 6 | Originalarbeit des sampling-basierten Planers, den der eigene Planer als Rückfallebene nutzt |
+| Zucker et al. 2013: CHOMP (IJRR) | 10.1177/0278364913488805 | nein → FAU (SAGE) | 6 | Journalfassung des Optimierungsplaners, an dem sich der eigene Planer orientiert (Glattheit + Hindernisterm, vorkonditionierter Gradient) |
+| Schulman et al. 2014: TrajOpt | 10.1177/0278364914528132 | nein → FAU (SAGE) | 5, 6 | zweiter optimierungsbasierter Ansatz, vergleicht mit CHOMP; konvexe Kollisionsprüfung |
+| Kalakrishnan et al. 2011: STOMP | 10.1109/ICRA.2011.5980280 | nein → FAU (IEEE) | 6 | gradientenfreie Alternative zu CHOMP (optional, nur wenn Platz) |
+| Sucan, Moll, Kavraki 2012: OMPL | 10.1109/MRA.2012.2205651 | nein → FAU (IEEE) | 7 | Standardbibliothek sampling-basierter Planer |
+| Coleman et al. 2014: MoveIt! | 10.6092/JOSER_2014_05_01_P3 | ja (aisberg.unibg.it) | 7 | Framework, das Planer, Kollisionsprüfung und Zeitparametrierung bündelt; Gegenstück zum eigenen Planer |
+| Pan, Chitta, Manocha 2012: FCL | 10.1109/ICRA.2012.6225337 | nein → FAU (IEEE) | 5 | Kollisions- und Abstandsbibliothek; coal (im Projekt genutzt) ist deren Weiterentwicklung – das muss aber eine Quelle belegen |
+| Hubbard 1996: Polyeder durch Kugeln annähern | 10.1145/231731.231732 | nein → FAU (ACM) | 5 | Grundlage der Kugel-Approximation (eigenes Kugelmodell der Arme) |
+| Kunz, Stilman 2012: Zeitoptimale Bahnparametrierung | 10.15607/RSS.2012.VIII.027 | ja (RSS-Proceedings) | 8 | Zeitparametrierung mit Beschleunigungsgrenzen, in MoveIt verbreitet |
+| Pham, Pham 2018: TOPP-RA | 10.1109/TRO.2018.2819195 | Preprint auf arXiv, sonst FAU (IEEE) | 8 | aktueller Ansatz zur zeitoptimalen Parametrierung |
+| LaValle 2006: Planning Algorithms (Buch) | ISBN 978-0-521-86205-9 | Autorenfassung frei online | 5, 6 | Lehrbuch: Konfigurationsraum, Kollisionsprüfung, sampling-basierte Planung |
+| Carpentier et al. 2019: Pinocchio | 10.1109/SII.2019.8700380 | vermutlich HAL | 4 (Werkzeug) | Kinematikbibliothek, auf der die IK im Projekt aufbaut; eher für Kap. 7 |
