@@ -28,16 +28,17 @@ Allgemein ist kommerziell verfügbare Humanoid-Hardware laut Chi et al.\ überwi
 Für die Simulation des G1 werden daher öffentlich verfügbare Policies benötigt; Tabelle~\ref{tab:policies} stellt die für diese Arbeit relevanten zusammen.
 
 \begin{table}[htbp]
+    \tabstil
     \centering
     \caption{Öffentlich verfügbare Lauf- und Ganzkörper-Policies für den Unitree G1 (Auswahl)}
     \label{tab:policies}
-    \begin{tabular}{|p{3.2cm}|p{3.3cm}|p{3.3cm}|p{3.6cm}|}\hline
-        Quelle & Training & Ansteuerung & Bereitstellung\\\hline
+    \begin{tabularx}{\textwidth}{|L|L|L|L|}\hline
+        \tabkopfzeile \tabkopf{Quelle} & \tabkopf{Training} & \tabkopf{Ansteuerung} & \tabkopf{Bereitstellung}\\\hline
         unitree\_rl\_mjlab (Unitree) & RL in MuJoCo auf Basis von mjlab \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.01} & Geschwindigkeitsvorgabe \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.05} & Export als ONNX für reale Roboter \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.03}\\\hline
         WBC-AGILE (NVIDIA) & \pruefen{AGILE-Paper Zhao 2026 liegt in \_Vorschläge – nach Freigabe belegen} & \pruefen{Geschwindigkeit bzw.\ Geschwindigkeit und Körperhöhe} & \pruefen{TorchScript, im Projekt nach ONNX exportiert}\\\hline
         GR00T-WholeBodyControl (NVIDIA) & RL für den Unterkörper, IK für den Oberkörper \cite{NvidiaGR00TWBC}\ev{NvidiaGR00TWBC.02} & \pruefen{} & Checkpoints und Skripte für Training und Einsatz \cite{NvidiaGR00TWBC}\ev{NvidiaGR00TWBC.01}\\\hline
         OpenWBT (Galbot) & \pruefen{R2S2-Paper Zhang 2025 liegt in \_Vorschläge} & Joystick für den Unterkörper, VR und IK für den Oberkörper \cite{GalbotOpenWBT}\ev{GalbotOpenWBT.02} & real und in Simulation \cite{GalbotOpenWBT}\ev{GalbotOpenWBT.01}\\\hline
-    \end{tabular}
+    \end{tabularx}
 \end{table}
 % Nils 09.11.: Liste = die aktuell im Code verfügbaren Policies (g1_wholebody aus unitree_rl_mjlab, agile_velocity_g1, agile_velocity_height_g1).
 % GR00T-WBC und OpenWBT nur aufnehmen, wenn Nils sie bei der Suche betrachtet hat. Auswahlbegründung gehört nach Kap. 6.2.3.
@@ -55,6 +56,14 @@ Sie ist einfach herzuleiten und immer lösbar, die inverse Kinematik (IK) dagege
 Die IK bestimmt die Gelenkparameter eines Manipulators so, dass der Endeffektor eine gewünschte Position erreicht \cite{Aristidou2018}\ev{Aristidou2018.01}.
 Ist ein Ziel erreichbar, kann es für Ketten ab zwei Gliedern mehrere bis unendlich viele Lösungen geben; das Problem ist dann redundant \cite{Aristidou2018}\ev{Aristidou2018.03}.
 Analytische Lösungen sind zuverlässig und liefern eine globale Lösung \cite{Aristidou2018}\ev{Aristidou2018.05}, eignen sich aber weniger für redundante Systeme \cite{Aristidou2018}\ev{Aristidou2018.06}.
+Abbildung~\ref{fig:ik} stellt beide Richtungen gegenüber.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/ik-vorwaerts-invers}
+  \caption[Vorwärts- und inverse Kinematik eines ebenen Arms]{Vorwärts- und inverse Kinematik eines ebenen Arms mit drei Drehgelenken, in Anlehnung an \cite{Kucuk2006}\ev{*}. Die Vorwärtskinematik berechnet aus den Gelenkwinkeln $\theta_1$ bis $\theta_3$ die Lage $\vec{r}_\mathrm{E}$ des Endeffektors, die inverse Kinematik umgekehrt die Gelenkwinkel zu einer vorgegebenen Lage. Gesuchte Größen sind orange markiert.}
+  \label{fig:ik}
+\end{figure}
 
 Der verbreitetste numerische Ansatz nähert das IK-Problem mit der Jacobi-Matrix linear an \cite{Aristidou2009}\ev{Aristidou2009.02}.
 Diese ist oft nicht quadratisch oder nicht invertierbar und kann nahezu singulär werden \cite{Aristidou2009}\ev{Aristidou2009.03}.
