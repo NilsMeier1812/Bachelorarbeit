@@ -39,7 +39,8 @@ Wenn du etwas nicht belegen kannst, **markierst du die Lücke**, statt sie zu f�
 7. **Zotero:** Lesen ist frei. Schreiben nur, um (a) im Feld *Extra* die Zeile `Citation Key: <key>` zu
    setzen (bei freigegebenen Einträgen in der Sammlung „Bachelorarbeit“) und (b) im Recherche-Modus neue
    Einträge **ausschließlich in der Sammlung `_Vorschläge`** anzulegen.
-   Außerdem (c) darfst du PDFs als Datei-Anhang an Einträge hängen, die noch kein PDF haben
+   Außerdem (c) darfst du PDFs an Einträge hängen, die noch kein PDF haben – seit 09.11.2026 als Link-Anhang
+   auf das private Quellen-Repo `bachelorarbeit_quellen`, dort darfst du PDFs committen
    (Ablauf siehe „PDFs selbst beschaffen“).
    Andere Metadaten nur nach Rückfrage ändern. Nichts eigenmächtig aus `_Vorschläge` herausverschieben.
    **Niemals** Einträge, Anhänge oder Annotationen löschen.
@@ -134,24 +135,32 @@ Am Ende jedes Schritts kurzer Bericht an Nils: was erledigt ist, was offen ist, 
 
 So bekommt Nils die PDFs – damit du ihm passende Hinweise gibst und danach prüfen kannst, ob alles stimmt.
 Nils arbeitet an mehreren PCs **nur im Browser auf zotero.org** (keine Zotero-App, keine Erweiterungen).
-Gib deshalb nur Hinweise für die Web-Bibliothek. PDFs müssen als **Datei im Zotero-Speicher** am Eintrag
-hängen (nicht als Link), sonst kann `zot.py text` sie nicht laden.
+Gib deshalb nur Hinweise für die Web-Bibliothek.
+
+**PDF-Ablage (seit 09.11.2026):** Der Zotero-Speicher (300 MB) ist voll. **Neue PDFs kommen ins private
+Repo `NilsMeier1812/bachelorarbeit_quellen`** (Ordner `pdf/`, Name `Nachname_Jahr_Kurztitel.pdf`), am
+Zotero-Eintrag hängt nur ein Link-Anhang darauf (`python3 scripts/zot.py link <ITEMKEY> pdf/<Datei>.pdf`).
+Die älteren PDFs bleiben als Datei im Zotero-Speicher; `zot.py text` liest beide Orte. Das Repo muss privat
+bleiben (Urheberrecht) und wird nie in Overleaf eingebunden. In der Cloud-Sitzung den Klon als Nachbarordner
+anlegen: `git clone --filter=blob:none https://github.com/NilsMeier1812/bachelorarbeit_quellen ../bachelorarbeit_quellen`.
+Markierungen (`zot.py annotations`) gehen nur bei PDFs im Zotero-Speicher.
 Im Uni-Netz der FAU sind lizenzierte Verlagsinhalte direkt zugänglich; sonst beim Verlag
 „Institutional Login“ → FAU → IdM-Kennung.
 
 **Vorschläge aus `_Vorschläge` (von dir angelegt, Metadaten sind dann schon da):**
 1. Nils öffnet die DOI-/Verlagsseite aus deiner Liste und lädt das PDF herunter (Open Access oder über die FAU).
-2. Auf zotero.org öffnet er den Eintrag und lädt das PDF als Datei-Anhang hoch.
+2. Er lädt das PDF auf github.com im Repo `bachelorarbeit_quellen` in den Ordner `pdf/` hoch
+   (*Add file* → *Upload files*, max. 25 MB) und sagt dir Bescheid; du legst den Link in Zotero an.
 3. Nils verschiebt den Eintrag in die Sammlung „Bachelorarbeit“ = **Freigabe**. Erst dann machst du mit
    Phase 0 weiter. Den Eintrag nicht ein zweites Mal anlegen – das erzeugt Duplikate.
 
 **Quellen, die Nils selbst findet:**
 - Am einfachsten: Nils schickt dir DOI, ISBN oder Link. Du prüfst die Metadaten (Crossref/Verlag/Katalog),
   legst den Eintrag per API an – nach seiner Ansage direkt in „Bachelorarbeit“, sonst in `_Vorschläge` –
-  und er hängt nur noch das PDF an.
+  und er lädt nur noch das PDF ins Quellen-Repo hoch.
 - Oder selbst auf zotero.org: neuen Eintrag per DOI/ISBN (*„Add by Identifier“*) in der Sammlung
-  „Bachelorarbeit“ anlegen und das PDF als Datei anhängen.
-- Normen legt Nils auf zotero.org von Hand an (Eintragstyp „Norm“) und hängt das PDF an.
+  „Bachelorarbeit“ anlegen und das PDF ins Quellen-Repo hochladen.
+- Normen legt Nils auf zotero.org von Hand an (Eintragstyp „Norm“) und lädt das PDF ins Quellen-Repo.
 - Was die FAU nicht hat: Fernleihe über die UB.
 
 **Was du nach der Freigabe prüfst, bevor du exzerpierst:**
@@ -174,7 +183,9 @@ Nichts verschieben, löschen oder an Metadaten ändern; vorher prüfen, ob am Ei
   (kein E-Mail-Parameter nötig). arXiv, Konferenzseiten (z. B. roboticsproceedings.org) und
   Autorenseiten gehen meist per `curl`; ACM, HAL (Bot-Schutz), IEEE und manche Uni-Server blocken.
 - Seite 1 prüfen (`pdftotext -l 1`): Titel und Erstautor = Zotero-Eintrag.
-- Upload per Web-API (Proxy setzt den Schlüssel): Anhang anlegen
+- Ablage: PDF nach `../bachelorarbeit_quellen/pdf/` kopieren, committen, auf `main` pushen, dann
+  `python3 scripts/zot.py link <ITEMKEY> pdf/<Datei>.pdf --titel "..."`.
+- Nur noch historisch (Zotero-Speicher voll): Upload per Web-API (Proxy setzt den Schlüssel): Anhang anlegen
   `POST /users/22350426/items` mit `itemType: attachment, linkMode: imported_file, parentItem: <key>,
   contentType: application/pdf, filename`, dann `POST /items/<anhang>/file` (md5, filename, filesize,
   mtime, Header `If-None-Match: *`). Antwort `{"exists":1}` = Datei liegt schon im Speicher, fertig;
@@ -190,15 +201,17 @@ Nichts verschieben, löschen oder an Metadaten ändern; vorher prüfen, ob am Ei
   (einmalig `claude` → `/chrome` → standardmäßig aktivieren), **bevor** `remote-control` startet;
   eine laufende Sitzung bekommt Chrome nicht nachträglich.
 - Die Sitzung auf dem PC lädt die PDFs mit Chrome über den FAU-Zugang nach
-  `~/claude_area/documents` (Nils' Zugangsdaten nie selbst eingeben – fehlt ein Login, Nils fragen) und
-  lädt sie per Zotero-Web-API hoch. Der Schlüssel liegt auf dem PC in `~/.config/zotero_api_key`
+  `~/claude_area/documents` (Nils' Zugangsdaten nie selbst eingeben – fehlt ein Login, Nils fragen).
+  Seit 09.11.2026 nicht mehr in den Zotero-Speicher hochladen, sondern ins Quellen-Repo (dafür die PDFs
+  über die Cloud-Sitzung bzw. Nils' Browser-Upload ins Repo bringen, dann `zot.py link`). Der Schlüssel liegt auf dem PC in `~/.config/zotero_api_key`
   (Nils' eigener Schlüssel mit Schreibrecht; nie in Chat, Repo oder Logs ausgeben).
 - Auf dem PC gibt es dafür `~/claude_area/CLAUDE.md` (Chrome-Kniffe für ACM/IEEE) und das Skript
   `tools/zotero_attach.py` (`--check ITEMKEY` bzw. `ITEMKEY:documents/Datei.pdf`, überspringt Einträge
   mit vorhandenem PDF).
 - Läuft keine Remote-Control-Sitzung: Nils um Start bitten (Befehl oben) oder ihm die Liste geben.
 
-Speicher: Zotero kostenlos = 300 MB; bei großen Mengen Nils auf den Verbrauch hinweisen.
+Speicher: Zotero kostenlos = 300 MB, voll seit 09.11.2026 → neue PDFs nur noch ins Quellen-Repo.
+GitHub empfiehlt Repos unter ca. 1–5 GB; bei großen Mengen Nils auf die Größe hinweisen.
 
 ### Phase 0 – Quelle aufnehmen
 1. Nils legt die Quelle mit PDF in Zotero an.
@@ -291,6 +304,7 @@ IDs werden nie umnummeriert oder wiederverwendet. Ein falscher Beleg wird korrig
 pip install -r requirements.txt              # einmal pro Cloud-Sitzung, falls Pakete fehlen (pdftotext ist da)
 python3 scripts/zot.py bib                   # zotero-map.json aus Zotero, Abgleich mit zotero.bib
 python3 scripts/zot.py text [key ...]        # PDF-Text mit Seitenmarkern (--force zum Neuerzeugen)
+python3 scripts/zot.py link <ITEMKEY> pdf/<Datei>.pdf   # Link-Anhang aufs Quellen-Repo in Zotero
 python3 scripts/zot.py annotations <key>     # Zotero-Markierungen -> evidence/<key>.yaml
 python3 scripts/check.py                     # alles prüfen
 python3 scripts/check.py --pairs review/pairs.jsonl --file Kapitel/02_Humanoide_G1.tex

@@ -16,6 +16,14 @@ Konfiguration über Umgebungsvariablen (siehe scripts/README.md):
   ZOTERO_DATA_DIR   Standard: ~/Zotero  (enthält storage/; fehlt das PDF dort, wird es über die
                     Web-API nach .zotero-cache/ geladen)
   ZOTERO_LINKED_BASE  Basisordner für verknüpfte Dateien ("attachments:..."), falls genutzt
+  QUELLEN_DIR       Standard: ../bachelorarbeit_quellen  (Klon des privaten PDF-Repos, siehe unten)
+
+PDF-Ablage (seit 09.11.2026): Der Zotero-Speicher (300 MB) ist voll. Neue PDFs liegen im privaten Repo
+NilsMeier1812/bachelorarbeit_quellen unter pdf/; in Zotero hängt nur ein Link-Anhang
+(linkMode linked_url) auf https://github.com/NilsMeier1812/bachelorarbeit_quellen/blob/main/pdf/<Datei>.
+Ältere PDFs bleiben als Datei im Zotero-Speicher; zot.py liest beide Orte.
+
+  python scripts/zot.py link <ITEMKEY> pdf/<Datei>.pdf [--titel "..."]   Link-Anhang in Zotero anlegen
 """
 import argparse
 import json
@@ -38,6 +46,10 @@ API_KEY = os.environ.get("ZOTERO_API_KEY") or ("dummy" if WEB_API else None)
 COLLECTION = os.environ.get("ZOTERO_COLLECTION", "99VAKC9A")
 DATA_DIR = Path(os.environ.get("ZOTERO_DATA_DIR", str(Path.home() / "Zotero"))).expanduser()
 LINKED_BASE = os.environ.get("ZOTERO_LINKED_BASE")
+QUELLEN_REPO = "https://github.com/NilsMeier1812/bachelorarbeit_quellen"
+QUELLEN_URL = QUELLEN_REPO + "/blob/main/"
+QUELLEN_DIR = Path(os.environ.get(
+    "QUELLEN_DIR", str(Path(__file__).resolve().parent.parent.parent / "bachelorarbeit_quellen"))).expanduser()
 
 SKIP_TYPES = {"attachment", "note", "annotation"}
 CK_RE = re.compile(r"^\s*Citation Key:\s*(\S+)\s*$", re.I | re.M)
@@ -138,10 +150,40 @@ def cmd_bib(_args):
 
 
 # ---------------------------------------------------------------- text
+def is_repo_link(d):
+    return d.get("linkMode") == "linked_url" and (d.get("url") or "").startswith(QUELLEN_URL)
+
+
 def pdf_attachments(zotero_key):
-    return [c for c in get_all(f"items/{zotero_key}/children")
-            if c["data"].get("itemType") == "attachment"
-            and c["data"].get("contentType") == "application/pdf"]
+    """PDF-Anhänge: Dateien im Zotero-Speicher (nur mit Datei, d. h. md5 gesetzt) und Links ins Quellen-Repo.
+    Links ins Repo zuerst, weil leere Datei-Anhänge (Upload am Speicherlimit gescheitert) vorkommen."""
+    out = []
+    for c in get_all(f"items/{zotero_key}/children"):
+        d = c["data"]
+        if d.get("itemType") != "attachment":
+            continue
+        if is_repo_link(d):
+            out.append(c)
+        elif d.get("contentType") == "application/pdf" and (
+                d.get("linkMode") == "linked_file" or d.get("md5") or not WEB_API):
+            out.append(c)
+    out.sort(key=lambda c: not is_repo_link(c["data"]))
+    return out
+
+
+def from_repo(att):
+    """PDF aus dem lokalen Klon des Quellen-Repos holen (bei partiellem Klon wird die Datei nachgeladen)."""
+    rel = att["data"]["url"][len(QUELLEN_URL):]
+    p = QUELLEN_DIR / rel
+    if not p.exists() and (QUELLEN_DIR / ".git").exists():
+        subprocess.run(["git", "-C", str(QUELLEN_DIR), "pull", "-q", "--ff-only"], check=False)
+        if not p.exists():
+            subprocess.run(["git", "-C", str(QUELLEN_DIR), "checkout", "HEAD", "--", rel], check=False)
+    if not p.exists():
+        print(f"  {rel}: nicht im Quellen-Repo unter {QUELLEN_DIR} – klonen mit\n"
+              f"  git clone --filter=blob:none {QUELLEN_REPO} {QUELLEN_DIR}", file=sys.stderr)
+        return None
+    return p
 
 
 def locate(att):
@@ -154,6 +196,8 @@ def locate(att):
             pdfs = list(folder.glob("*.pdf"))
             p = pdfs[0] if pdfs else None
         return p
+    if mode == "linked_url" and is_repo_link(d):
+        return from_repo(att)
     if mode == "linked_file":
         raw = d.get("path") or ""
         if raw.startswith("attachments:"):
@@ -282,6 +326,28 @@ def cmd_text(args):
             print(f"{ck}: {n} Seiten -> sources-text/{ck}.txt")
 
 
+# ---------------------------------------------------------------- link
+def cmd_link(args):
+    """Link-Anhang auf eine PDF im Quellen-Repo an einen Zotero-Eintrag hängen."""
+    rel = args.pfad.lstrip("/")
+    if not (QUELLEN_DIR / rel).exists():
+        die(f"{rel} nicht im Quellen-Repo ({QUELLEN_DIR}) – erst committen und pushen.")
+    url = QUELLEN_URL + rel
+    for c in get_all(f"items/{args.item}/children"):
+        if c["data"].get("url") == url:
+            print(f"{args.item}: Link existiert schon ({c['key']})")
+            return
+    body = [{"itemType": "attachment", "parentItem": args.item, "linkMode": "linked_url",
+             "title": args.titel or "PDF (Quellen-Repo)", "url": url, "contentType": "application/pdf",
+             "accessDate": "", "note": "", "tags": [], "relations": {}}]
+    r = requests.post(f"{API_BASE}/items", json=body, timeout=60,
+                      headers={"Zotero-API-Version": "3", "Zotero-API-Key": API_KEY or ""})
+    res = r.json() if r.ok else {}
+    if not r.ok or res.get("failed"):
+        die(f"Anlegen fehlgeschlagen: {r.status_code} {r.text[:300]}")
+    print(f"{args.item}: Link-Anhang {res['successful']['0']['key']} -> {url}")
+
+
 # ---------------------------------------------------------------- annotations
 def cmd_annotations(args):
     mapping = load_map()
@@ -336,6 +402,11 @@ def main():
     t.add_argument("keys", nargs="*")
     t.add_argument("--force", action="store_true")
     t.set_defaults(fn=cmd_text)
+    lk = sub.add_parser("link")
+    lk.add_argument("item")
+    lk.add_argument("pfad")
+    lk.add_argument("--titel")
+    lk.set_defaults(fn=cmd_link)
     a = sub.add_parser("annotations")
     a.add_argument("key")
     a.set_defaults(fn=cmd_annotations)

@@ -28,8 +28,9 @@ Kapitel/*.tex   \cite{Key}\ev{Key.03}                    ◄── check.py: Key
   *Aktualisieren* und auf GitHub pushen. Die Skripte schreiben die `.bib` nie.
 - **`zotero-map.json`** listet, was zitiert werden darf (Einträge der Sammlung „Bachelorarbeit“ mit
   `Citation Key:` im Feld *Extra*). Erzeugt von `zot.py bib`.
-- **PDFs** müssen in Zotero als *Datei* am Eintrag hängen (Zotero-Speicher, kostenlos 300 MB). `zot.py text`
-  lädt sie über die Web-API. Ein reiner Link reicht nicht.
+- **PDFs:** Die älteren hängen als *Datei* im Zotero-Speicher (300 MB, seit 09.11.2026 voll). Neue PDFs
+  liegen im privaten Repo `NilsMeier1812/bachelorarbeit_quellen` unter `pdf/`, in Zotero hängt nur ein
+  Link darauf (`zot.py link`). `zot.py text` liest beide Orte (Repo als Klon im Nachbarordner).
 - **`ba-makros.tex`** ist in `main.tex` eingebunden. Für einen Entwurf mit sichtbaren Beleg-IDs dort
   `\belegeanzeigentrue` setzen. `\qf{}` (rot) und `\pruefen{}` (orange) müssen vor Abgabe weg sein.
 - Claude arbeitet in der Cloud: `pdftotext` ist dort installiert, der Zotero-Schlüssel wird vom Proxy
@@ -47,7 +48,8 @@ Mit Zotero 7 Desktop geht auch die lokale API: `export ZOTERO_API_BASE=http://lo
 
 ## Ablauf pro Quelle
 
-1. Du hängst das PDF in Zotero an und verschiebst den Eintrag in „Bachelorarbeit“ (= Freigabe).
+1. Du lädst das PDF ins Quellen-Repo (`pdf/`), Claude verlinkt es in Zotero; du verschiebst den Eintrag
+   in „Bachelorarbeit“ (= Freigabe).
 2. Claude setzt `Citation Key: NachnameJahr`, ruft `zot.py bib` und `zot.py text <Key>` auf.
 3. Du klickst in Overleaf bei `zotero.bib` auf *Aktualisieren* und pushst.
 4. Claude exzerpiert (oder übernimmt mit `zot.py annotations <Key>` deine Markierungen aus dem Zotero-Reader)
