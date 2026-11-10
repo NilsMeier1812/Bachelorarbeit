@@ -136,7 +136,15 @@ Entfernt man die kollidierenden Konfigurationen als Hindernisbereich, bleibt der
 Sampling-basierte Planer sind sehr wirksam und probabilistisch vollständig, brauchen aber oft eine Nachbearbeitung, um die Bahn zu glätten und zu kürzen \cite{Schulman2014}\ev{Schulman2014.01}.
 Sie finden meist zuerst einen kollisionsfreien Pfad ohne Kostenmaß und verbessern ihn anschließend heuristisch \cite{Zucker2013}\ev{Zucker2013.05}.
 RRT-Connect richtet sich an Anfragen, die ohne Vorverarbeitung schnell zu lösen sind \cite{Kuffner2000}\ev{Kuffner2000.02}, und baut dazu je einen schnell explorierenden Zufallsbaum an Start- und Zielkonfiguration auf \cite{Kuffner2000}\ev{Kuffner2000.01}.
+Abbildung~\ref{fig:rrtconnect} zeigt das Prinzip.
 Ursprünglich wurde das Verfahren für einen als 7-DoF-Kette modellierten menschlichen Arm entwickelt \cite{Kuffner2000}\ev{Kuffner2000.03}.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/rrt-connect}
+  \caption[Prinzip von RRT-Connect]{Prinzip von RRT-Connect, in Anlehnung an \cite{Kuffner2000}\ev{*}: Je ein Zufallsbaum an Start- und Zielkonfiguration \cite{Kuffner2000}\ev{Kuffner2000.01} wächst auf den anderen zu \cite{Kuffner2000}\ev{Kuffner2000.04}. Grau: Hindernisbereiche; Verbindung der Bäume orange.}
+  \label{fig:rrtconnect}
+\end{figure}
 
 Optimierungsbasierte Planer formulieren die Bahn als Optimierungsproblem.
 CHOMP verbessert eine Anfangstrajektorie iterativ über einen funktionalen Gradienten, wobei das Funktional Glattheit gegen Hindernisvermeidung abwägt \cite{Zucker2013}\ev{Zucker2013.01}; es konvergiert auch aus unzulässigen Startlösungen zu kostengünstigen Trajektorien \cite{Zucker2013}\ev{Zucker2013.02}.
