@@ -112,7 +112,15 @@ Eine verbreitete Implementierung der zugrunde liegenden Kinematik und Dynamik is
 In den meisten Anwendungen der Bewegungsplanung entfällt der Großteil der Rechenzeit auf die Kollisionsprüfung \cite{LaValle2006}\ev{LaValle2006.03}.
 Hierarchische Verfahren umhüllen Körper mit einfachen Hüllkörpern; bei deren Wahl stehen eine möglichst enge Anpassung und ein möglichst effizienter Schnitttest gegeneinander \cite{LaValle2006}\ev{LaValle2006.04}.
 Kugel, achsparalleler Quader, orientierter Quader und konvexe Hülle liegen in dieser Reihenfolge meist enger am Körper an, sind aber aufwendiger auf Überlappung zu prüfen \cite{LaValle2006}\ev{LaValle2006.05}.
+Abbildung~\ref{fig:huellkoerper} zeigt die vier Arten am selben Körper.
 Hubbard nähert Polyeder durch Kugelhierarchien an, mit denen ein zeitkritischer Algorithmus seine Genauigkeit schrittweise verfeinert und bei Bedarf abbricht, um Echtzeit zu halten \cite{Hubbard1996}\ev{Hubbard1996.01}; eine Vorverarbeitung erzeugt die eng anliegenden Hierarchien automatisch für starre und gelenkige Objekte \cite{Hubbard1996}\ev{Hubbard1996.02}.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/huellkoerper}
+  \caption[Arten von Hüllkörpern]{Vier Arten von Hüllkörpern (blau) um denselben Körper (grün), in Anlehnung an \cite{LaValle2006}\ev{*}. Jede Art liegt meist enger an als die vorige, ist aber aufwendiger auf Überlappung zu prüfen \cite{LaValle2006}\ev{LaValle2006.05}.}
+  \label{fig:huellkoerper}
+\end{figure}
 
 Für allgemeine Geometrien vereint die Bibliothek FCL Verfahren zur schnellen und genauen Kollisions- und Abstandsberechnung \cite{Pan2012}\ev{Pan2012.01}.
 Sie beantwortet diskrete und kontinuierliche Kollisionsabfragen und berechnet Abstände und Eindringtiefen \cite{Pan2012}\ev{Pan2012.02}.
@@ -149,6 +157,7 @@ Die Autoren betonen, dass selbst das leistungsfähigste Framework nutzlos ist, w
 
 \subsection{Roboterhände und Greifen}
 \label{sec:haende_sdt}
+\pruefen{Foto (eigene Aufnahme) von Rubber Hands, Inspire FTP und gedruckter Hand nebeneinander als Abbildung einfügen, mit Verweis im Text}
 % Nils 09.11.: Vergleich Rubber Hands / Inspire FTP / selbst gedruckte Hände (Gewicht, Fähigkeiten), Funktionsweise, Grundlagen für die Schutzmechanismen. Die Funktion zum Austausch gedruckter Hände in der Sim liefert Nils nach.
 \qf{Überblick über Bauarten von Roboterhänden (passiv, aktuiert, unteraktuiert) – Piazza2019, Controzzi2014, Ma2017 sind freigegeben, aber noch ohne PDF}
 \qf{Grundlagen taktiler Sensorik in Roboterhänden – Dahiya2010, Kappassov2015 ohne PDF}
@@ -237,4 +246,4 @@ Die Genauigkeit des digitalen Zwillings bewerten sie durch den Vergleich mit Cho
 Berkeley Humanoid Lite zeigt eine Übertragung der Lauf-Policy ohne Nachtraining von der Simulation auf einen quelloffenen, 3D-gedruckten Humanoiden \cite{Chi2025}\ev{Chi2025.02}.
 Für den G1 simuliert eine Studie ausschließlich in MATLAB/Simulink mit einem selbst erstellten Robotermodell \cite{Yu2026}\ev{Yu2026.03}; Versuche am realen G1 zur Verifikation stehen nach Angabe der Autoren noch aus \cite{Yu2026}\ev{Yu2026.04}.
 \qf{Trochez2026 (MATLAB/Simulink-Sim2Real-Framework für den G1, Zenodo) ist freigegeben, hat aber noch kein PDF}
-\pruefen{Merkmalsvergleich der Stacks (Tabelle aus review/plan-sdt-verwandte-arbeiten.md, Abschnitt 4) hier oder in Kap.~5.1 einfügen – jede Zelle braucht einen Beleg aus den README-PDFs}
+\pruefen{Merkmalstabelle (Nils 10.11.: gewünscht, mit Textbezug): Merkmalsvergleich der Stacks (Tabelle aus review/plan-sdt-verwandte-arbeiten.md, Abschnitt 4) hier oder in Kap.~5.1 einfügen – jede Zelle braucht einen Beleg aus den README-PDFs}
