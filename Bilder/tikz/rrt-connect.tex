@@ -1,0 +1,37 @@
+% RRT-Connect: je ein Zufallsbaum an Start und Ziel, die aufeinander zu wachsen.
+% Eigene Darstellung in Anlehnung an Kuffner2000 (Fig. 6, S. 4; Belege Kuffner2000.01, .04).
+% Baumknoten von Hand gesetzt, nur zur Veranschaulichung.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/rrt-connect} in einer figure-Umgebung.
+\begin{tikzpicture}[ba]
+  \tikzset{kn/.style={circle, inner sep=0pt, minimum size=1.6mm}}
+  \draw[ba normal, baGrau] (0,0) rectangle (9,4.4);
+  \fill[baHellgrau] (3.1,0) rectangle (4.0,2.6);
+  \fill[baHellgrau] (5.4,1.8) rectangle (6.2,4.4);
+  % Baum am Start (durchgezogen, grün)
+  \coordinate (s) at (0.9,1.2);
+  \draw[ba normal, baGruen] (s) -- (1.6,0.4);
+  \draw[ba normal, baGruen] (s) -- (0.5,2.4) -- (1.2,3.5);
+  \draw[ba normal, baGruen] (s) -- (1.9,1.9) -- (2.7,2.0);
+  \draw[ba normal, baGruen] (1.9,1.9) -- (2.6,3.0) -- (3.6,3.4) -- (4.6,2.9);
+  \foreach \p in {(1.6,0.4),(0.5,2.4),(1.2,3.5),(1.9,1.9),(2.7,2.0),(2.6,3.0),(3.6,3.4),(4.6,2.9)} \node[kn, fill=baGruen] at \p {};
+  % Baum am Ziel (gestrichelt, blau)
+  \coordinate (g) at (8.1,3.2);
+  \tikzset{zb/.style={ba normal, baBlau, dash pattern=on 3pt off 2pt}}
+  \draw[zb] (g) -- (8.4,1.9) -- (7.7,0.8);
+  \draw[zb] (g) -- (7.1,3.9);
+  \draw[zb] (8.4,1.9) -- (7.0,1.5) -- (6.1,1.1) -- (5.0,1.4) -- (4.9,2.5);
+  \draw[zb] (7.0,1.5) -- (6.6,0.5);
+  \foreach \p in {(8.4,1.9),(7.7,0.8),(7.1,3.9),(7.0,1.5),(6.1,1.1),(5.0,1.4),(4.9,2.5),(6.6,0.5)} \node[kn, fill=baBlau] at \p {};
+  % Verbindung
+  \draw[ba dick, baAkzent] (4.6,2.9) -- (4.9,2.5);
+  \node[anchor=east, ba gesucht] at (5.25,3.95) {Verbindung};
+  \draw[ba duenn, baAkzent] (4.85,3.75) -- (4.76,2.8);
+  % Start und Ziel
+  \node[ba basis, minimum size=3.2mm] at (s) {};
+  \node[anchor=north] at ($(s)+(0,-0.15)$) {$q_\mathrm{I}$};
+  \node[ba endeffektor] at (g) {};
+  \node[anchor=south] at ($(g)+(0,0.15)$) {$q_\mathrm{G}$};
+  % Legende
+  \draw[ba normal, baGruen] (0,-0.6) -- ++(0.8,0); \node[anchor=west] at (0.9,-0.6) {Baum vom Start};
+  \draw[zb] (4.2,-0.6) -- ++(0.8,0); \node[anchor=west] at (5.1,-0.6) {Baum vom Ziel};
+\end{tikzpicture}

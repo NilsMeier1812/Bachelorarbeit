@@ -19,3 +19,9 @@ belege:
   kernaussage: Ursprünglich für einen als 7-DoF-Kette modellierten menschlichen Arm entwickelt, wurde der Algorithmus auf viele Planungsprobleme angewandt.
   quelle: exzerpt
   kommentar: Kap. 4.2.3 – Bezug 7-DoF-Arm
+- id: Kuffner2000.04
+  seite: '4'
+  zitat: Growing two trees towards each other.
+  kernaussage: 'Abb. 6: zwei Bäume wachsen aufeinander zu.'
+  quelle: exzerpt
+  kommentar: Bildunterschrift Fig. 6; Vorlage für fig:rrtconnect

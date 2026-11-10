@@ -19,3 +19,9 @@ belege:
   kernaussage: Vollautonome Lösungen sind von kompetentem Verhalten noch weit entfernt; daher ist Teleoperation laut Autoren die naheliegendste Lösung.
   quelle: exzerpt
   kommentar: Kap. 4.3.1
+- id: Darvish2023.04
+  seite: '2'
+  zitat: In a teleoperation setup, the user is the person who teleoperates the humanoid robot and identifies the teleoperation goal, i.e. intended outcome, through interfaces. The interfaces are the means of the interaction between the user and the robot.
+  kernaussage: Der Nutzer teleoperiert den Humanoiden und gibt das Ziel über Schnittstellen vor; Schnittstellen sind das Mittel der Interaktion zwischen Nutzer und Roboter.
+  quelle: exzerpt
+  kommentar: Kap. 4.3.1; Vorlage fig:teleop ist Fig. 2 (S. 2)

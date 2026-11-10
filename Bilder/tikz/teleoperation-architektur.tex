@@ -1,0 +1,31 @@
+% Architektur der Teleoperation eines Humanoiden: Vorgabe- und Rückmeldepfad.
+% Eigene, vereinfachte Darstellung in Anlehnung an Darvish2023 (Fig. 2, S. 2: Nutzer, Schnittstellen,
+% Retargeting auf Bewegungsvorgabe, Robotersteuerung und Planer, Roboter und Umgebung, Retargeting auf
+% Rückmeldung, Teleperzeption, verzögerte Kommunikation; Beleg Darvish2023.04).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/teleoperation-architektur} in einer figure-Umgebung.
+\begin{tikzpicture}[ba]
+  \tikzset{blk/.style={ba block, text width=25mm, minimum height=17mm}}
+  \node[ba block hervor, text width=16mm, minimum height=38mm] (N) at (0,0) {Nutzer};
+  \node[blk] (I) at (2.9,1.25) {Schnittstellen};
+  \node[blk] (W) at (2.9,-1.25) {Teleperzeption\\(z.\,B. visuell, haptisch)};
+  \node[blk] (RB) at (7.0,1.25) {Retargeting auf Bewegungs\-vorgabe};
+  \node[blk] (RR) at (7.0,-1.25) {Retargeting auf Rückmeldung};
+  \node[blk] (C) at (10.3,1.25) {Roboter\-steuerung und Planer};
+  \node[blk] (SN) at (10.3,-1.25) {Sensorik des Roboters};
+  \node[ba block hervor, text width=18mm, minimum height=38mm] (R) at (13.3,0) {Roboter und Umgebung};
+  % Vorgabepfad
+  \draw[ba pfeil] (N.east |- I) -- (I);
+  \draw[ba pfeil] (I) -- (RB);
+  \draw[ba pfeil] (RB) -- (C);
+  \draw[ba pfeil] (C) -- (R.west |- C);
+  % Rückmeldepfad
+  \draw[ba pfeil] (R.west |- SN) -- (SN);
+  \draw[ba pfeil] (SN) -- (RR);
+  \draw[ba pfeil] (RR) -- (W);
+  \draw[ba pfeil] (W) -- (N.east |- W);
+  % verzögerte Kommunikation
+  \draw[ba hilfslinie] (4.95,-2.4) -- (4.95,2.4);
+  \node[anchor=south, align=center, font=\footnotesize, text=baGrau] at (4.95,2.4) {verzögerte\\Kommunikation};
+  \node[anchor=north, font=\footnotesize, text=baGrau] at (2.9,-2.25) {Bedienerseite};
+  \node[anchor=north, font=\footnotesize, text=baGrau] at (10.3,-2.25) {Roboterseite};
+\end{tikzpicture}

@@ -37,3 +37,9 @@ belege:
   kernaussage: Sampling-basierte Planung nutzt die Kollisionserkennung als Blackbox und trennt so Planung von Geometrie- und Kinematikmodell.
   quelle: exzerpt
   kommentar: Kap. 4.2.2/4.2.3
+- id: LaValle2006.07
+  seite: '71'
+  zitat: The basic motion planning problem is conceptually very simple using C-space ideas. The task is to ﬁnd a path from qI to qG in Cf ree . The entire blob represents C = Cf ree ∪ Cobs .
+  kernaussage: 'Abb. 4.11: Aufgabe ist ein Pfad von q_I nach q_G im freien Konfigurationsraum; C = C_free ∪ C_obs.'
+  quelle: exzerpt
+  kommentar: 'Bildunterschrift Fig. 4.11; Vorlage für fig:cspace (Textschicht: ''Cf ree'' = C_free)'

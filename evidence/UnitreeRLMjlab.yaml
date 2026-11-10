@@ -31,3 +31,15 @@ belege:
   kernaussage: Das Repository trainiert u. a. Policies zur Geschwindigkeitsverfolgung.
   quelle: exzerpt
   kommentar: Kap. 4.1 Tabelle (Ansteuerung)
+- id: UnitreeRLMjlab.06
+  seite: '1'
+  zitat: 'The basic workflow for using reinforcement learning to achieve motion control is: Train → Play → Sim2Real'
+  kernaussage: 'Grundablauf: Train, Play, Sim2Real.'
+  quelle: exzerpt
+  kommentar: README; Vorlage für fig:rl-ablauf
+- id: UnitreeRLMjlab.07
+  seite: '1'
+  zitat: 'Play: Replay trained policies to verify expected behavior.'
+  kernaussage: 'Play: trainierte Policies werden zur Prüfung des erwarteten Verhaltens wiedergegeben.'
+  quelle: exzerpt
+  kommentar: README

@@ -13,3 +13,9 @@ belege:
   kernaussage: Nicht differenzierbare Pfade werden durch Kreisbögen an den Stützpunkten differenzierbar gemacht.
   quelle: exzerpt
   kommentar: Kap. 4.2.3
+- id: Kunz2012.03
+  seite: '1'
+  zitat: Circular blend around waypoint
+  kernaussage: 'Abb. 1: Kreisbogen-Überblendung um einen Stützpunkt.'
+  quelle: exzerpt
+  kommentar: Bildunterschrift Fig. 1; Vorlage für fig:blend
