@@ -383,7 +383,7 @@ Dimensions, FAU-Katalog (VPN), Google Scholar (+ Alerts), Scopus, Web of Science
 
 ## 12. Projektspezifische Absprachen (von Nils/Betreuer, hier ergänzen)
 - *(noch leer — geklärte Konflikte aus §1 hier mit Datum eintragen, z. B. „2026-11-xx K1: Betreuer will Präteritum für Versuche“)*
-- 2026-11-11 (Nils): Keine Autorennamen als Satzsubjekt im Fließtext („Collins et al. vergleichen …“, „laut Ayala et al. …“). Aussagen sachlich formulieren, die Quelle steht nur im `\cite{}`. Ausnahme nur, wo die Zuordnung inhaltlich nötig ist (z. B. Selbstaussage der Entwickler) – dann ohne Namen umschreiben („nach Einschätzung der Entwickler“).
+- 2026-11-11 (Nils): Autorennamen als Satzsubjekt im Fließtext („Collins et al. vergleichen …“, „laut Ayala et al. …“) **möglichst vermeiden**, weil sie den Lesefluss stören. Aussagen sachlich formulieren, die Quelle steht im `\cite{}`. **Nicht verboten:** An einzelnen Stellen, wo die Nennung wirklich Sinn macht (z. B. ein Ansatz wird als Arbeit einer Gruppe eingeführt, Abgrenzung zweier Positionen, Selbstaussage der Entwickler), ist sie in Ordnung – nur nicht als Standardmuster.
 - Offene Fragen an Betreuer (nach Praxisabgleich §13 nur noch nötig, falls Nils sicher gehen will): K1 Tempus, K2 Aktiv/Passiv, K9 Zotero/.bib statt Citavi. K3/K4/K5/K10 durch Referenz-BAs praktisch geklärt.
 
 ---
