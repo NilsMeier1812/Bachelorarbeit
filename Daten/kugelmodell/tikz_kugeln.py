@@ -43,15 +43,15 @@ for n in ("inspire", "haken"):
     L.append(f"  \\draw[ba normal, black] ({t[0]*S-0.12:.2f},{t[2]*S+off-0.12:.2f}) -- ++(0.24,0.24) ({t[0]*S-0.12:.2f},{t[2]*S+off+0.12:.2f}) -- ++(0.24,-0.24);")
     L.append(f"  \\node[anchor=south west, font=\\footnotesize] at ({t[0]*S+0.1:.2f},{t[2]*S+off+0.1:.2f}) {{TCP}};")
     L.append(f"  \\node[ba teiltitel, anchor=north west] at ({-0.1*S:.2f},{zmin*S+off-0.25:.2f}) {{{titles[n]}}};")
-    y0 = zmin * S + off - 1.3
+    y0 = zmin * S + off - 1.6
 # Maßstab
-L.append(f"  \\draw[ba normal] ({0.18*S:.2f},{y0+0.4:.2f}) -- ++({0.05*S:.2f},0) node[midway, below, font=\\footnotesize] {{5\\,cm}};")
-L.append(f"  \\draw[ba normal] ({0.18*S:.2f},{y0+0.3:.2f}) -- ++(0,0.2) ({0.23*S:.2f},{y0+0.3:.2f}) -- ++(0,0.2);")
+L.append(f"  \\draw[ba normal] ({0.24*S:.2f},{y0+0.4:.2f}) -- ++({0.05*S:.2f},0) node[midway, below, font=\\footnotesize] {{5\\,cm}};")
+L.append(f"  \\draw[ba normal] ({0.24*S:.2f},{y0+0.3:.2f}) -- ++(0,0.2) ({0.29*S:.2f},{y0+0.3:.2f}) -- ++(0,0.2);")
 # Legende
 L.append(f"  \\fill[baFlaeche, draw=baGruen, ba duenn] ({-0.1*S:.2f},{y0+0.25:.2f}) rectangle ++(0.4,0.3);")
 L.append(f"  \\node[anchor=west] at ({-0.1*S+0.45:.2f},{y0+0.4:.2f}) {{Kollisionsgeometrie (Projektion)}};")
-L.append(f"  \\draw[ba duenn, baBlau] ({0.05*S+0.4:.2f},{y0+0.4:.2f}) circle (0.17);")
-L.append(f"  \\node[anchor=west] at ({0.05*S+0.65:.2f},{y0+0.4:.2f}) {{Kugel des Planers}};")
+L.append(f"  \\draw[ba duenn, baBlau] ({0.115*S:.2f},{y0+0.4:.2f}) circle (0.17);")
+L.append(f"  \\node[anchor=west] at ({0.115*S+0.25:.2f},{y0+0.4:.2f}) {{Kugel des Planers}};")
 L.append(r"\end{tikzpicture}")
 open(sys.argv[2], "w").write("\n".join(L) + "\n")
 print("ok", y0)
