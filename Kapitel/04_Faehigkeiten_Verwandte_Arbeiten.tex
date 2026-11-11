@@ -12,7 +12,7 @@ Die Darstellung ist wertungsfrei; die Bewertung folgt im Handlungsbedarf in Absc
 % Kurz halten (Vorgabe Nils): keine eigene Policy, nur Einordnung der übernommenen Policies.
 Eine Herausforderung zweibeiniger Roboter ist die Stabilität beim Gehen in verschiedenen Umgebungen \cite{Saeedvand2019}\ev{Saeedvand2019.03}.
 Modellbasierte Verfahren bewerten die Stabilität über den Zero Moment Point (ZMP), den Punkt am Boden, an dem die resultierenden Bodenreaktionskräfte angreifen \cite{Saeedvand2019}\ev{Saeedvand2019.09}.
-Westervelt et al.\ definieren diesen Punkt als Druckpunkt (Center of Pressure, CoP), der in der Literatur zu Laufrobotern oft als ZMP bezeichnet wird \cite{Westervelt2018}\ev{Westervelt2018.21}.
+Derselbe Punkt heißt Druckpunkt (Center of Pressure, CoP), der in der Literatur zu Laufrobotern oft als ZMP bezeichnet wird \cite{Westervelt2018}\ev{Westervelt2018.21}.
 Das Stützpolygon ist die konvexe Hülle aller Bodenkontaktpunkte; bei einem statisch stabilen Gang verlässt der Schwerpunkt dieses Polygon nicht \cite{Westervelt2018}\ev{Westervelt2018.20}.
 Solange der ZMP im Inneren des Stützpolygons liegt, kippt der Roboter nach diesem Kriterium nicht \cite{Westervelt2018}\ev{Westervelt2018.16}.
 Abbildung~\ref{fig:zmp} zeigt beide Fälle am Fuß eines als inverses Pendel idealisierten Roboters.
@@ -33,8 +33,8 @@ Lernbasierte Verfahren verbessern mit Reinforcement Learning (RL) eine zunächst
 Durch massive Parallelisierung auf einer einzelnen Workstation-GPU lassen sich Policies für reale Robotikaufgaben schnell erzeugen \cite{Rudin2021}\ev{Rudin2021.01}; für den Vierbeiner ANYmal \cite{Rudin2021}\ev{Rudin2021.04} dauert das Training auf ebenem Gelände unter vier Minuten und auf unebenem Gelände zwanzig Minuten \cite{Rudin2021}\ev{Rudin2021.02}.
 
 Der G1 wird mit einem eingebauten Laufregler des Herstellers betrieben; G1Pilot etwa überlässt den Unterkörper diesem Regler \cite{HucebotG1Pilot}\ev{HucebotG1Pilot.01}.
-Dieser offizielle Laufregler von Unitree \cite{Hu2026}\ev{Hu2026.01} ist nicht quelloffen, sodass Hu et al.\ ihm keine inneren Mechanismen zuschreiben und ihn nur als technische Vergleichsbasis verwenden \cite{Hu2026}\ev{Hu2026.02}.
-Allgemein ist kommerziell verfügbare Humanoid-Hardware laut Chi et al.\ überwiegend teuer, nicht quelloffen und intransparent \cite{Chi2025}\ev{Chi2025.01}.
+Dieser offizielle Laufregler von Unitree \cite{Hu2026}\ev{Hu2026.01} ist nicht quelloffen; in einer aktuellen Vergleichsarbeit werden ihm deshalb keine inneren Mechanismen zugeschrieben, und er dient dort nur als technische Vergleichsbasis \cite{Hu2026}\ev{Hu2026.02}.
+Allgemein ist kommerziell verfügbare Humanoid-Hardware überwiegend teuer, nicht quelloffen und intransparent \cite{Chi2025}\ev{Chi2025.01}.
 Für die Simulation des G1 werden daher öffentlich verfügbare Policies benötigt.
 Tabelle~\ref{tab:policies} stellt die für diese Arbeit relevanten nach Training, Ansteuerung und Bereitstellung gegenüber.
 
@@ -60,7 +60,7 @@ GR00T-WholeBodyControl in der dritten Zeile trennt die Regelung auf: RL für den
 OpenWBT in der letzten Zeile ist dagegen auf Teleoperation ausgelegt: Den Unterkörper steuern zwei Joystick-Controller, den Oberkörper eine IK aus den in VR gemessenen Handposen \cite{GalbotOpenWBT}\ev{GalbotOpenWBT.02}; das System läuft auf realen Robotern und in der Simulation \cite{GalbotOpenWBT}\ev{GalbotOpenWBT.01}.
 
 Über diese Auswahl hinaus verspricht MuJoCo Playground, Policies nach einer einfachen Installation in Minuten auf einer einzelnen GPU zu trainieren \cite{Zakka2025}\ev{Zakka2025.01}, und unterstützt Vierbeiner, Humanoide, Hände und Arme mit Übertragung ohne Nachtraining auf den realen Roboter \cite{Zakka2025}\ev{Zakka2025.02}.
-Neuere Arbeiten skalieren solche Regler deutlich: SONIC wächst auf 1,2 bis 42 Millionen Parameter, über 100 Millionen Bilder aus 700 Stunden Motion Capture und 21\,000 GPU-Stunden \cite{Luo2026}\ev{Luo2026.02}, während aktuelle neuronale Regler für Humanoide laut den Autoren klein und auf wenige Verhaltensweisen beschränkt sind \cite{Luo2026}\ev{Luo2026.01}.
+Neuere Arbeiten skalieren solche Regler deutlich: SONIC wächst auf 1,2 bis 42 Millionen Parameter, über 100 Millionen Bilder aus 700 Stunden Motion Capture und 21\,000 GPU-Stunden \cite{Luo2026}\ev{Luo2026.02}, während aktuelle neuronale Regler für Humanoide noch klein und auf wenige Verhaltensweisen beschränkt sind \cite{Luo2026}\ev{Luo2026.01}.
 % Nils 09.11.: Liste = die aktuell im Code verfügbaren Policies (g1_wholebody aus unitree_rl_mjlab, agile_velocity_g1, agile_velocity_height_g1).
 % GR00T-WBC und OpenWBT nur aufnehmen, wenn Nils sie bei der Suche betrachtet hat. Auswahlbegründung gehört nach Kap. 6.2.3.
 
@@ -103,7 +103,7 @@ Die Dämpfungskonstante muss groß genug für ein gutmütiges Verhalten nahe Sin
 
 Redundante Freiheitsgrade lassen sich durch Einfrieren beseitigen, sie können aber auch zur Optimierung genutzt werden \cite{DSouza2001}\ev{DSouza2001.03}.
 Dazu projiziert die Matrix $(I - J^{\dagger}J)$ auf den Nullraum der Jacobi-Matrix \cite{Aristidou2009}\ev{Aristidou2009.05}; über aufgabenbasierte Jacobi-Matrizen mit Nullraumprojektion lassen sich mehrere Prioritätsebenen behandeln \cite{Aristidou2018}\ev{Aristidou2018.10}.
-In einem Verfahren von D'Souza et al.\ opfert die Nullraumoptimierung etwas Folgegenauigkeit, um eine Vorzugshaltung zu erreichen \cite{DSouza2001}\ev{DSouza2001.07}.
+Die Nullraumoptimierung opfert dabei etwas Folgegenauigkeit, um die Bewegung zu einer Vorzugshaltung zu erreichen \cite{DSouza2001}\ev{DSouza2001.07}.
 Lokale Verfahren berechnen nur eine optimale Gelenkänderung je Schritt und sind echtzeitfähig, globale optimieren über die ganze Trajektorie und sind meist rechenaufwendig \cite{DSouza2001}\ev{DSouza2001.04}.
 Eine verbreitete Implementierung der zugrunde liegenden Kinematik und Dynamik ist die quelloffene Bibliothek Pinocchio \cite{Carpentier2019}\ev{Carpentier2019.01}, die neben Standardalgorithmen Funktionen für Regelung, Planung und Simulation bereitstellt \cite{Carpentier2019}\ev{Carpentier2019.02}.
 
@@ -156,7 +156,7 @@ Als nicht konvexes Optimierungsproblem hat die Bewegungsplanung allerdings lokal
 Eine geometrische Bahn wird anschließend zeitlich parametriert.
 Die zeitoptimale Pfadparametrierung (TOPP) sucht die schnellste Durchfahrt eines Pfads unter Einhaltung der Systemgrenzen \cite{Pham2018}\ev{Pham2018.01}.
 Verfahren der numerischen Integration sind schnell, aber schwer umzusetzen und weniger robust, Verfahren der konvexen Optimierung robuster, aber deutlich langsamer \cite{Pham2018}\ev{Pham2018.02}.
-Kunz und Stilman erzeugen die zeitoptimale Trajektorie entlang eines Gelenkraumpfads innerhalb von Grenzen für Gelenkbeschleunigung und -geschwindigkeit \cite{Kunz2012}\ev{Kunz2012.01} und machen nicht differenzierbare Pfade durch Kreisbögen an den Stützpunkten differenzierbar \cite{Kunz2012}\ev{Kunz2012.02}.
+Ein Verfahren erzeugt die zeitoptimale Trajektorie entlang eines Gelenkraumpfads innerhalb von Grenzen für Gelenkbeschleunigung und -geschwindigkeit \cite{Kunz2012}\ev{Kunz2012.01} und macht nicht differenzierbare Pfade durch Kreisbögen an den Stützpunkten differenzierbar \cite{Kunz2012}\ev{Kunz2012.02}.
 
 Frameworks bündeln diese Bausteine.
 OMPL stellt Implementierungen vieler sampling-basierter Planungsalgorithmen bereit \cite{Sucan2012}\ev{Sucan2012.01} und ist auch über ROS nutzbar \cite{Sucan2012}\ev{Sucan2012.02}.
@@ -189,7 +189,7 @@ Für Aufgaben, die sehr komplexe Entscheidungssysteme erfordern, die vorhandene 
 \subsection{Teleoperation}
 \label{sec:teleoperation_teil}
 Teleoperation verbindet die kognitiven Fähigkeiten und das Fachwissen des Menschen mit den physischen Fähigkeiten des humanoiden Roboters \cite{Darvish2023}\ev{Darvish2023.01}.
-Weil vollautonome Lösungen von kompetentem Verhalten noch weit entfernt sind, halten Darvish et al.\ ferngesteuerte Roboter als physische Stellvertreter von Arbeitskräften für die naheliegendste Lösung \cite{Darvish2023}\ev{Darvish2023.03}.
+Weil vollautonome Lösungen von kompetentem Verhalten noch weit entfernt sind, erscheinen ferngesteuerte Roboter als physische Stellvertreter von Arbeitskräften vor Ort als die naheliegendste Lösung \cite{Darvish2023}\ev{Darvish2023.03}.
 Die Komplexität humanoider Roboter erschwert die Teleoperation jedoch, besonders in unstrukturierten Umgebungen mit eingeschränkter Kommunikation \cite{Darvish2023}\ev{Darvish2023.02}.
 Als Entwicklungsrichtungen gelten verbesserte Teleoperationsschnittstellen, geringere Latenz, die Einbindung von Augmented Reality, autonome Funktionen und Standardisierung \cite{Tong2024}\ev{Tong2024.12}.
 
@@ -201,24 +201,24 @@ OmniH2O steuert einen Humanoiden in voller Größe wahlweise über eine VR-Brill
 HumanPlus überträgt menschliche Bewegungen mit einer einzelnen RGB-Kamera in Echtzeit auf einen Humanoiden mit 33 Freiheitsgraden \cite{Fu2024}\ev{Fu2024.02}.
 Die meisten Systeme beschränken sich allerdings auf Fortbewegung oder Manipulation statt auf koordinierte Ganzkörperbewegungen \cite{Ze2025}\ev{Ze2025.01}.
 
-Für den Unitree G1 bildet ein System von Durrani und Khan die mit einem IMU-basierten Motion-Capture-Anzug erfasste Ganzkörperbewegung in Echtzeit auf den Roboter ab \cite{Durrani2026}\ev{Durrani2026.01}.
+Für den Unitree G1 bildet ein System die mit einem IMU-basierten Motion-Capture-Anzug erfasste Ganzkörperbewegung in Echtzeit auf den Roboter ab \cite{Durrani2026}\ev{Durrani2026.01}.
 Der Hersteller stellt mit xr\_teleoperate eine Steuerung über XR-Brillen wie Apple Vision Pro, PICO 4 Ultra Enterprise oder Meta Quest 3 bereit \cite{UnitreeXRTeleop}\ev{UnitreeXRTeleop.01}.
 OpenWBT steuert den Unterkörper des G1 über Joystick-Controller und den Oberkörper über IK aus den in VR gemessenen Handposen \cite{GalbotOpenWBT}\ev{GalbotOpenWBT.02}.
-Ali Pour et al.\ lassen einen einzelnen Bediener mit dem G1 Bauaufgaben ausführen, mit XR-Steuerung des Oberkörpers und Pedalen für die Fortbewegung \cite{AliPour2026}\ev{AliPour2026.01}; der Werkzeugtransport gelang in 100\,\% und das Streichen in 80\,\% der Versuche, wobei die Teleoperation deutlich mehr Zeit benötigte als die manuelle Ausführung \cite{AliPour2026}\ev{AliPour2026.02}.
+Ein weiteres System lässt einen einzelnen Bediener mit dem G1 Bauaufgaben ausführen, mit XR-Steuerung des Oberkörpers und Pedalen für die Fortbewegung \cite{AliPour2026}\ev{AliPour2026.01}; der Werkzeugtransport gelang in 100\,\% und das Streichen in 80\,\% der Versuche, wobei die Teleoperation deutlich mehr Zeit benötigte als die manuelle Ausführung \cite{AliPour2026}\ev{AliPour2026.02}.
 
 Den Einsatz dieser Systeme begrenzen Kosten, Einsatzort und Sicherheit.
 Motion-Capture-Systeme, VR-Brillen mit Ich-Perspektive und Exoskelette sind teuer und an bestimmte Einsatzorte gebunden \cite{Fu2024}\ev{Fu2024.01}.
 Teure Aufbauten wie Motion Capture und Exoskelette behindern zudem die Datensammlung in großem Maßstab \cite{He2024}\ev{He2024.03}.
-Auch bei Teleoperation zur Datensammlung bemängeln Zhao et al.\ begrenzte Skalierbarkeit und aufwendige Einrichtung \cite{Zhao2025}\ev{Zhao2025.01}.
+Auch bisherige Ansätze der Teleoperation zur Datensammlung leiden unter begrenzter Skalierbarkeit und aufwendiger Einrichtung \cite{Zhao2025}\ev{Zhao2025.01}.
 Für extreme Störungen oder Bewegungsziele außerhalb der Trainingsverteilung bietet OmniH2O keine Garantien oder Sicherheitsprüfungen \cite{He2024}\ev{He2024.04}.
-Open-TeleVision fehlen laut den Autoren weitere Rückmeldungsformen wie haptisches Feedback \cite{Cheng2024}\ev{Cheng2024.05}.
+Open-TeleVision fehlen noch weitere Rückmeldungsformen wie haptisches Feedback \cite{Cheng2024}\ev{Cheng2024.05}.
 
 \subsection{Bedienung durch Nutzer ohne Robotikerfahrung}
 \label{sec:laienbedienung_sdt}
 Einen anderen Zugang verfolgt die End-User-Roboterprogrammierung: Sie ermöglicht Nutzern ohne Erfahrung in der Roboterprogrammierung, Roboter an ihre eigenen Anforderungen anzupassen \cite{Ajaykumar2021}\ev{Ajaykumar2021.01}.
 Ihr Ziel ist, die Komplexität der Roboterprogrammierung in Methoden zu überführen, die auch ohne umfangreiche Robotikerfahrung zugänglich sind \cite{Ajaykumar2021}\ev{Ajaykumar2021.03}.
 Wirksame Roboterprogrammierung erfordert neben allgemeinen Programmierkenntnissen Wissen aus mehreren Disziplinen \cite{Ajaykumar2021}\ev{Ajaykumar2021.02}.
-Auch bei Robotiksoftware haben die meisten Forschenden und Ingenieure laut Coleman et al.\ nicht die Zeit, sie vor der Nutzung vollständig zu verstehen \cite{Coleman2014}\ev{Coleman2014.05}.
+Auch bei Robotiksoftware fehlt den meisten Forschenden und Ingenieuren typischerweise die Zeit oder die Fähigkeit, sie vor der Nutzung vollständig zu verstehen \cite{Coleman2014}\ev{Coleman2014.05}.
 Grafische Benutzeroberflächen bieten meist vorgegebene Optionen statt offener Eingaben, und manche Systeme binden eine Simulation des Roboters zur Visualisierung und Programmierung ein \cite{Ajaykumar2021}\ev{Ajaykumar2021.05}.
 Sie setzen auf vertraute, intuitive Interaktion, können aber eine hohe kognitive Belastung verursachen, weil Fähigkeiten für dreidimensionale Aufgaben über zweidimensionale Bildschirme programmiert werden \cite{Ajaykumar2021}\ev{Ajaykumar2021.06}.
 Die Offline-Programmierung an einer virtuellen Simulation des Roboters \cite{Ajaykumar2021}\ev{Ajaykumar2021.07} kann Nutzeraufwand, Kosten und Wartezeiten auf einen verfügbaren Roboter verringern \cite{Ajaykumar2021}\ev{Ajaykumar2021.08}.
@@ -236,8 +236,8 @@ Die gleichzeitige Nutzung von Flussdiagramm und Zeitleiste eröffnet laut den Au
 Mehrere Arbeiten nutzen MuJoCo als Prüfstand zwischen Training und realem Roboter.
 Humanoid-Gym trainiert Lauf-Policies für Humanoide in Isaac Gym \cite{Gu2024}\ev{Gu2024.01} und prüft sie anschließend in einer zweiten Physiksimulation auf Robustheit und Generalisierung \cite{Gu2024}\ev{Gu2024.02}.
 MuJoCo wird dafür wegen seiner genauen Dynamik gewählt \cite{Gu2024}\ev{Gu2024.03}; im untersuchten Fall liegt die Dynamik in MuJoCo näher an der Realität als in Isaac Gym \cite{Gu2024}\ev{Gu2024.04}.
-Durrani und Khan validieren ihre Teleoperation des G1 zuerst in MuJoCo und setzen sie danach ohne Änderung am realen Roboter ein \cite{Durrani2026}\ev{Durrani2026.02}.
-Weil derselbe Code in Simulation und Realität läuft, werten sie eine bestandene Prüfung in der Simulation als starkes Indiz für eine erfolgreiche Übertragung \cite{Durrani2026}\ev{Durrani2026.03}.
+Das oben genannte Ganzkörper-Teleoperationssystem für den G1 wird zuerst in MuJoCo validiert und danach ohne Änderung am realen Roboter eingesetzt \cite{Durrani2026}\ev{Durrani2026.02}.
+Weil derselbe Retargeting-Code in Simulation und Realität läuft, gilt dort eine bestandene Prüfung in der Simulation als starkes Indiz für eine erfolgreiche Übertragung \cite{Durrani2026}\ev{Durrani2026.03}.
 Die Stabilität auf niedriger Ebene übernehmen dabei die Onboard-Regler des G1 \cite{Durrani2026}\ev{Durrani2026.04}.
 
 Der Hersteller stellt mit unitree\_mujoco einen Simulator auf Basis von unitree\_sdk2 und MuJoCo bereit, in den mit dem SDK entwickelte Steuerprogramme eingebunden werden können \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}.
@@ -249,8 +249,8 @@ OpenWBT unterstützt den realen G1 ebenso wie eine Simulationsumgebung \cite{Gal
 
 Simulationsumgebungen für andere Humanoide verfolgen ähnliche Ziele.
 Humanoide wie Pepper sind schwer und teuer zu bauen und zu testen, während Simulationsumgebungen das sichere Erproben neuer Konzepte erlauben \cite{Sekkat2024}\ev{Sekkat2024.05}.
-Sekkat et al.\ erstellen eine quelloffene Simulationsumgebung für Pepper auf Basis von ROS~2 \cite{Sekkat2024}\ev{Sekkat2024.01}, die Gazebo Sim und MoveIt~2 kombiniert \cite{Sekkat2024}\ev{Sekkat2024.06}.
-Die Genauigkeit des digitalen Zwillings bewerten sie durch den Vergleich mit Choregraphe und einem realen Pepper \cite{Sekkat2024}\ev{Sekkat2024.07}.
+Eine quelloffene Simulationsumgebung für Pepper auf Basis von ROS~2 \cite{Sekkat2024}\ev{Sekkat2024.01} kombiniert Gazebo Sim und MoveIt~2 \cite{Sekkat2024}\ev{Sekkat2024.06}.
+Die Genauigkeit des digitalen Zwillings wird dort durch den Vergleich mit Choregraphe und einem realen Pepper bewertet \cite{Sekkat2024}\ev{Sekkat2024.07}.
 Berkeley Humanoid Lite zeigt eine Übertragung der Lauf-Policy ohne Nachtraining von der Simulation auf einen quelloffenen, 3D-gedruckten Humanoiden \cite{Chi2025}\ev{Chi2025.02}.
 Für den G1 simuliert eine Studie ausschließlich in MATLAB/Simulink mit einem selbst erstellten Robotermodell \cite{Yu2026}\ev{Yu2026.03}; Versuche am realen G1 zur Verifikation stehen nach Angabe der Autoren noch aus \cite{Yu2026}\ev{Yu2026.04}.
 \qf{Trochez2026 (MATLAB/Simulink-Sim2Real-Framework für den G1, Zenodo) ist freigegeben, hat aber noch kein PDF}
