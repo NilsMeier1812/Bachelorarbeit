@@ -17,29 +17,20 @@ Er bildet damit die Grundlage für den Leitgedanken der Arbeit, jede Funktion zu
 \label{sec:sim_zwecke}
 Physiksimulatoren ermöglichen laut Collins et al.\ den Großteil der Robotikforschung: Neue Methoden werden zunächst oder ausschließlich im Simulator erprobt, weil Roboter oft teuer, empfindlich und knapp sind \cite{Collins2021}\ev{Collins2021.01}.
 Choi et al.\ nennen fünf Chancen der Simulation: Trainingsdaten für maschinelles Lernen schnell und günstig erzeugen, den Entwicklungszyklus beschleunigen und verbilligen, eine sichere und vollständig kontrollierte virtuelle Test- und Verifikationsumgebung bereitstellen, die Entwicklung intelligenterer Roboter erleichtern und das Verständnis der Mensch-Roboter-Interaktion fördern \cite{Choi2021}\ev{Choi2021.03}.
-Für die Verifikation autonomer Systeme heben die Autoren die Wiederholbarkeit auch bei Grenz- und Extremfällen, die volle Kontrolle über die Umgebung und das fehlende Risiko für Mensch und Hardware hervor \cite{Choi2021}\ev{Choi2021.05}.
-Eine präzise Simulation unterstützt nach Sekkat et al.\ Entwicklung, Programmierung, Test und Validierung von Robotikprojekten und verringert Entwicklungszeit und -kosten \cite{Sekkat2024}\ev{Sekkat2024.08}.
-Auch die Offline-Programmierung nutzt eine virtuelle Simulation des Roboters \cite{Ajaykumar2021}\ev{Ajaykumar2021.07} und kann unter anderem Kosten und Wartezeiten auf einen verfügbaren Roboter verringern \cite{Ajaykumar2021}\ev{Ajaykumar2021.08}.
-
-Für humanoide Roboter und lernbasierte Regler nennen die Quellen weitere Gründe.
-Humanoide wie Pepper sind schwer und teuer zu bauen und zu testen, während Simulationsumgebungen das sichere Erproben neuer Konzepte erlauben \cite{Sekkat2024}\ev{Sekkat2024.05}.
-Beim Lernen von Regelungsstrategien (Policies) mit Reinforcement Learning (RL) kommt die Stichprobenineffizienz der Algorithmen hinzu; zusammen mit dem Risiko von Ausfällen oder Schäden beim Training führt sie dazu, dass die meisten Arbeiten zu Deep RL zuerst in der Simulation lernen und erst danach auf Hardware wechseln \cite{Collins2021}\ev{Collins2021.11}.
-RL allein durch Ausprobieren in der realen Umgebung ist laut Tong et al.\ gefährlich und ineffizient \cite{Tong2024}\ev{Tong2024.05}.
-Sicherheit und Wirksamkeit des Trainings sind vor dem Einsatz auf dem realen Roboter zu testen und zu validieren \cite{Sekkat2024}\ev{Sekkat2024.03}.
+Für die Verifikation heben die Autoren die Wiederholbarkeit auch bei Grenz- und Extremfällen, die volle Kontrolle über die Umgebung und das fehlende Risiko für Mensch und Hardware hervor \cite{Choi2021}\ev{Choi2021.05}.
+Beim Lernen von Regelungsstrategien (Policies) mit Reinforcement Learning (RL) führen die Stichprobenineffizienz der Algorithmen und das Risiko von Schäden beim Training dazu, dass die meisten Arbeiten zuerst in der Simulation lernen und erst danach auf Hardware wechseln \cite{Collins2021}\ev{Collins2021.11}.
+Für Humanoide wie Pepper, die schwer und teuer zu bauen und zu testen sind, erlauben Simulationsumgebungen das sichere Erproben neuer Konzepte \cite{Sekkat2024}\ev{Sekkat2024.05}.
 
 Die Simulation ersetzt den Versuch am realen Roboter jedoch nicht.
 Physisches Testen vor dem Einsatz bleibt laut Choi et al.\ zwingend; die Simulation beschleunigt und verbilligt den Entwicklungsprozess und ermöglicht gründlicheres Testen \cite{Choi2021}\ev{Choi2021.02}.
-Ihren Nutzen binden die Autoren an eine gut validierte Simulation \cite{Choi2021}\ev{Choi2021.01}.
 Simulationsumgebungen sind kostengünstig und sicher, bilden die komplexe Dynamik realer Interaktionen aber nur schwer genau ab \cite{Sekkat2024}\ev{Sekkat2024.09}.
-Zudem muss der Detaillierungsgrad zum Problem passen: Ein zu einfaches Modell für ein komplexes Problem kann irreführende Ergebnisse liefern, ein zu komplexes Modell für ein einfaches Problem unverhältnismäßigen Aufwand und sehr lange Rechenzeiten verursachen \cite{Choi2021}\ev{Choi2021.16}.
+Zudem muss der Detaillierungsgrad zum Problem passen: Ein zu einfaches Modell kann irreführende Ergebnisse liefern, ein zu komplexes unverhältnismäßigen Aufwand und sehr lange Rechenzeiten verursachen \cite{Choi2021}\ev{Choi2021.16}.
 
 Für die Kopplung von Simulation und realer Hardware gibt es eigene Begriffe.
 \qf{Begriff und Nutzen der virtuellen Inbetriebnahme – Lechler2019 und VDI/VDE 3693 liegen nur in \_Vorschläge}
 \qf{Definition des digitalen Zwillings in Abgrenzung zu digitalem Modell und digitalem Schatten – Kritzinger2018 liegt nur in \_Vorschläge}
 Bei einer Hardware-in-the-Loop-Simulation (HIL) wird reale Hardware, sofern verfügbar, in die Simulationsschleife eingebunden, statt Regelalgorithmen aufwendig und langwierig zu testen \cite{Mihalic2022}\ev{Mihalic2022.02}.
-Mihalič et al.\ geben dazu die Definition von Fathy wieder, nach der ein HIL-Simulator ein System emuliert, indem physische Nachbildungen einiger Teilsysteme in eine geschlossene virtuelle Simulation der übrigen Teilsysteme eingebettet werden \cite{Mihalic2022}\ev{Mihalic2022.05}; wesentlich ist die bidirektionale Wechselwirkung zwischen physischen und virtuellen Anteilen \cite{Mihalic2022}\ev{Mihalic2022.06}.
-Weil Aktoren schwer zu modellieren sind, können sie laut den Autoren in die Schleife eingebunden werden, um die Simulation zu verbessern \cite{Mihalic2022}\ev{Mihalic2022.03}.
-HIL-Tests erlauben zudem Prüfungen unter anormalen und fehlerhaften Bedingungen, die die Hardware beschädigen könnten \cite{Mihalic2022}\ev{Mihalic2022.08}.
+Wesentlich ist dabei die bidirektionale Wechselwirkung zwischen physischen und virtuellen Anteilen \cite{Mihalic2022}\ev{Mihalic2022.06}.
 Bei einer Software-in-the-Loop-Lösung (SIL) laufen dagegen die Software eines Steuergeräts und das zugehörige Objektmodell ohne Steuergeräte-Hardware auf einem PC \cite{Mihalic2022}\ev{Mihalic2022.04}.
 \qf{Allgemeine Definition von Model- und Software-in-the-Loop – Mihalic2022 beschreibt SIL nur für Steuergeräte, Model-in-the-Loop gar nicht}
 
@@ -47,56 +38,28 @@ Bei einer Software-in-the-Loop-Lösung (SIL) laufen dagegen die Software eines S
 \label{sec:sim2real}
 Die Unterschiede zwischen Simulation und realem System fassen Tobin et al.\ unter dem Begriff Sim-to-Real-Lücke (engl.\ reality gap) zusammen; sie bilden die Barriere für die Nutzung simulierter Daten auf realen Robotern \cite{Tobin2017}\ev{Tobin2017.04}.
 Hwangbo et al.\ definieren die Lücke als Diskrepanz zwischen Simulation und realem System hinsichtlich Dynamik und Wahrnehmung \cite{Hwangbo2019}\ev{Hwangbo2019.01}.
-In der Simulation gelernte Policies verschlechtern sich bei der Übertragung auf Hardware typischerweise \cite{Collins2021}\ev{Collins2021.12}, sodass die Simulation laut Choi et al.\ für die Erzeugung von Trainingsdaten kein Allheilmittel ist \cite{Choi2021}\ev{Choi2021.06}.
-Eine rein in der Simulation trainierte Policy kann zudem Eigenheiten der Simulation ausnutzen, die in der Realität fehlen, und beim direkten Einsatz versagen \cite{Ha2025}\ev{Ha2025.06}.
-
-Die Literatur führt die Lücke auf mehrere Ursachen zurück.
-Tan et al.\ nennen Modellabweichungen zwischen simuliertem und realem System, zu denen nicht modellierte Dynamik, falsche Simulationsparameter und numerische Fehler beitragen \cite{Tan2018}\ev{Tan2018.01}.
+In der Simulation gelernte Policies verschlechtern sich bei der Übertragung auf Hardware typischerweise \cite{Collins2021}\ev{Collins2021.12} und können Eigenheiten der Simulation ausnutzen, die in der Realität fehlen \cite{Ha2025}\ev{Ha2025.06}.
 Collins et al.\ ordnen die Lücken hauptsächlich den Aktoren, den Sensoren, der zeitlichen Dynamik und der Physik der Interaktion zwischen Roboter und Umgebung zu \cite{Collins2019}\ev{Collins2019.02}.
-Die folgenden Absätze behandeln diese Ursachen in der Reihenfolge Modellparameter, Aktordynamik und Latenz, Kontakt sowie Sensorik.
 
-Modellparameter sind schwer zu bestimmen und nicht konstant.
-Viele physikalische Parameter desselben Roboters können sich mit Temperatur, Feuchte, Positionierung oder Verschleiß stark ändern \cite{Zhao2020}\ev{Zhao2020.07}.
-Ein Modell mit korrekten Parametern zu füllen, ist laut Choi et al.\ zeitaufwendig und meist ein einmaliger Vorgang ohne festes Verfahren \cite{Choi2021}\ev{Choi2021.12}.
-Auch nach sorgfältiger Systemidentifikation bleiben nach Tobin et al.\ Effekte wie Nachgiebigkeit, Getriebespiel, Verschleiß und Fluiddynamik, die die Physiksimulatoren nach dem Stand von 2017 nicht abbilden \cite{Tobin2017}\ev{Tobin2017.02}.
-
+Die Ursachen beginnen bei den Modellparametern.
+Viele physikalische Parameter desselben Roboters können sich mit Temperatur, Feuchte, Positionierung oder Verschleiß stark ändern \cite{Zhao2020}\ev{Zhao2020.07}, und auch nach sorgfältiger Systemidentifikation bleiben Effekte wie Nachgiebigkeit, Getriebespiel und Verschleiß, die die Physiksimulatoren nach dem Stand von 2017 nicht abbilden \cite{Tobin2017}\ev{Tobin2017.02}.
 Eine dominante Quelle von Modellfehlern ist laut Ha et al.\ die Aktordynamik: In der Simulation legen Motoren beliebige befohlene Drehmomentverläufe an, reale Aktoren wegen begrenzter Bandbreite und Regelgenauigkeit des unterlagerten Motorreglers dagegen ungenauere \cite{Ha2025}\ev{Ha2025.07}.
-Für den Vierbeiner ANYmal enthält das analytische Mehrkörpermodell laut Hwangbo et al.\ weder die Aktordynamik noch die Signalverzögerungen durch Hardware- und Softwareschichten, die Dynamik des unterlagerten Reglers oder Nachgiebigkeit und Dämpfung der Gelenke \cite{Hwangbo2019}\ev{Hwangbo2019.04}.
-In der Simulation mit Bullet wirken Motorbefehle sofort und Sensoren melden den Zustand ohne Verzögerung, wodurch der Stabilitätsbereich eines Regelkreises in der Simulation deutlich größer ist als auf der Hardware \cite{Tan2018}\ev{Tan2018.07}.
-Neben der Systemidentifikation identifizieren Tan et al.\ ungenaue Aktormodelle und fehlende Latenzmodellierung als zwei Hauptursachen der Lücke bei ihrem Vierbeiner \cite{Tan2018}\ev{Tan2018.03}.
-Ha et al.\ ergänzen Beispiele: Motoren erwärmen sich und reagieren dann anders auf denselben Befehl, und die Kommunikation zwischen Hardwareteilen erzeugt nichtdeterministische Verzögerungen \cite{Ha2025}\ev{Ha2025.05}.
-
-Der Kontakt mit der Umgebung verstärkt diese Abweichungen.
-Die meisten Simulatoren verwenden starren Kontakt, während in der Realität immer Verformungen auftreten \cite{Ha2025}\ev{Ha2025.09}; Füße von Laufrobotern bestehen zudem meist aus weichem Material \cite{Ha2025}\ev{Ha2025.05}.
-Bei Fortbewegung mit häufigen Kontaktwechseln kann laut Tan et al.\ jede kleine Modellabweichung vergrößert werden und zu verzweigten Folgen führen \cite{Tan2018}\ev{Tan2018.02}.
-Auf der Sensorseite reproduzieren simulierte Sensoren niedriger Wiedergabetreue wie Bildrenderer die Reichhaltigkeit und das Rauschen realer Sensoren oft nicht \cite{Tobin2017}\ev{Tobin2017.03}.
+In der Simulation mit Bullet wirken Motorbefehle zudem sofort und Sensoren melden den Zustand ohne Verzögerung, wodurch der Stabilitätsbereich eines Regelkreises in der Simulation deutlich größer ist als auf der Hardware \cite{Tan2018}\ev{Tan2018.07}.
+Beim Kontakt verwenden die meisten Simulatoren ein starres Modell, während in der Realität immer Verformungen auftreten \cite{Ha2025}\ev{Ha2025.09}; bei Fortbewegung mit häufigen Kontaktwechseln kann jede kleine Modellabweichung vergrößert werden \cite{Tan2018}\ev{Tan2018.02}.
 In Versuchen mit dem Unitree G1 halten He et al.\ die Sim-to-Real-Lücke für ausgeprägter als die Abweichungen zwischen zwei Simulatoren, unter anderem wegen verrauschter Sensoreingaben, ungenauer Robotermodelle und Aktorunterschieden \cite{He2025}\ev{He2025.07}.
 
 Den Ursachen stehen zwei grundsätzliche Strategien gegenüber.
 Nach Hwangbo et al.\ lässt sich entweder die Simulation analytisch oder datengetrieben genauer machen, wobei der datengetriebene Weg auch Systemidentifikation heißt, oder der Regler robust gegen Variationen der Systemeigenschaften auslegen \cite{Hwangbo2019}\ev{Hwangbo2019.02}.
 Der erste Weg ist laut den Autoren umständlich und oft unmöglich, der zweite kann die Leistung der Policy beeinträchtigen, weshalb in der Praxis meist beide kombiniert werden \cite{Hwangbo2019}\ev{Hwangbo2019.03}.
-Wird ein in der Simulation trainiertes Modell ohne weitere Anpassung direkt in der Realität eingesetzt, spricht man von Zero-Shot- oder Direkt-Transfer \cite{Zhao2020}\ev{Zhao2020.05}.
-Aus der Literatur lassen sich fünf Klassen von Gegenmaßnahmen ableiten: Systemidentifikation, Domain Randomization, Aktormodelle, Domain Adaptation und Real-to-Sim-Ansätze.
+Zum ersten Weg zählt die Systemidentifikation, die Tobin et al.\ als zeitaufwendig und fehleranfällig beschreiben \cite{Tobin2017}\ev{Tobin2017.01}.
+Hierzu zählen auch Aktormodelle: Hwangbo et al.\ lernen die Abbildung von Aktorbefehlen auf Drehmomente am realen Vierbeiner ANYmal mit einem neuronalen Netz und setzen es in der Simulation ein \cite{Hwangbo2019}\ev{Hwangbo2019.05}.
+Real-to-Sim-Ansätze verbessern die Simulation mit realen Daten, indem sie deren Übergangsfunktion erweitern \cite{Ha2025}\ev{Ha2025.14}; das Verfahren von He et al.\ benötigt dafür ein Motion-Capture-System \cite{He2025}\ev{He2025.12}.
 
-Die Systemidentifikation bildet ein präzises mathematisches Modell des physikalischen Systems und erfordert für einen realitätsnahen Simulator eine sorgfältige Kalibrierung \cite{Zhao2020}\ev{Zhao2020.06}.
-Tobin et al.\ bezeichnen dieses Anpassen der Simulationsparameter als zeitaufwendig und fehleranfällig \cite{Tobin2017}\ev{Tobin2017.01}.
-Klassische Identifikationsverfahren sind laut Choi et al.\ wirksam, wenn Versuchsdaten des Roboters vorliegen und der Parameterraum nicht groß ist \cite{Choi2021}\ev{Choi2021.13}; Kontaktparameter genau zu identifizieren, ist nach Tan et al.\ schwierig \cite{Tan2018}\ev{Tan2018.10}.
-He et al.\ unterscheiden Offline- und Online-Verfahren danach, ob die Identifikation zur Testzeit stattfindet \cite{He2025}\ev{He2025.04}.
-
-Domain Randomization verzichtet dagegen darauf, alle Parameter der Realität sorgfältig zu modellieren, und randomisiert die Simulation stark, um die reale Datenverteilung trotz der Abweichung zwischen Modell und Realität abzudecken \cite{Zhao2020}\ev{Zhao2020.08}.
-Zugrunde liegt die Annahme, dass eine Policy, die hinreichend vielfältige Trainingsumgebungen beherrscht, wahrscheinlich auch in der nie gesehenen realen Welt funktioniert \cite{Ha2025}\ev{Ha2025.12}.
-Zhao et al.\ unterscheiden visuelle Randomisierung und Dynamik-Randomisierung \cite{Zhao2020}\ev{Zhao2020.09}: Tobin et al.\ randomisieren nur simulierte Kamerabilder \cite{Tobin2017}\ev{Tobin2017.07}, während Tan et al.\ zu Beginn jeder Trainingsepisode einen Satz physikalischer Parameter ziehen \cite{Tan2018}\ev{Tan2018.09}.
+Den zweiten Weg verfolgt Domain Randomization.
+Statt alle Parameter der Realität sorgfältig zu modellieren, randomisiert sie die Simulation stark, um die reale Datenverteilung trotz der Abweichung zwischen Modell und Realität abzudecken \cite{Zhao2020}\ev{Zhao2020.08}.
 Masse, Trägheit und Reibungskoeffizienten von Objekten zu randomisieren, ist bei vielen Simulatoren üblich \cite{Collins2021}\ev{Collins2021.13}.
-Die Methode hat Grenzen: Tan et al.\ beobachten einen Zielkonflikt zwischen Robustheit und Optimalität \cite{Tan2018}\ev{Tan2018.14}, He et al.\ verweisen auf übermäßig konservative Policies \cite{He2025}\ev{He2025.05}, und laut Acosta et al.\ wirkt sie am besten, wenn der randomisierte Parameterbereich klein und die übrige Dynamik genau ist \cite{Acosta2022}\ev{Acosta2022.02}.
-
-Aktormodelle setzen an der Aktordynamik als Ursache an.
-Nach Tan et al.\ sind ein genaues Aktormodell und die Simulation der Latenz beide nötig; ohne eines von beiden funktionieren die gelernten Regler auf ihrem realen Roboter nicht \cite{Tan2018}\ev{Tan2018.13}.
-Hwangbo et al.\ lernen die Abbildung von Aktorbefehlen auf Drehmomente am realen ANYmal mit einem neuronalen Netz und setzen dieses Aktornetz in der Simulation für alle zwölf Gelenke ein \cite{Hwangbo2019}\ev{Hwangbo2019.05}.
-Auf den Validierungsdaten erreicht es einen mittleren Fehler von 0,740\,Nm gegenüber 3,55\,Nm des idealen Aktormodells \cite{Hwangbo2019}\ev{Hwangbo2019.10}; mit dem idealen oder einem analytischen Aktormodell trainiert, konnte der Roboter keinen einzigen Schritt ohne Sturz gehen \cite{Hwangbo2019}\ev{Hwangbo2019.07}.
-
-Domain Adaptation ist eine Teilmenge des Transfer Learning für den Fall, dass ausreichend gelabelte Daten der Quelldomäne und dieselbe Aufgabe, aber keine oder nur sehr wenige Daten der Zieldomäne vorliegen \cite{Zhao2020}\ev{Zhao2020.11}; Zhao et al.\ unterscheiden diskrepanzbasierte, adversariale und rekonstruktionsbasierte Verfahren \cite{Zhao2020}\ev{Zhao2020.12}.
-Real-to-Sim-Ansätze verbessern dagegen die Simulation selbst mit realen Daten, indem sie deren Übergangsfunktion erweitern \cite{Ha2025}\ev{Ha2025.14}.
-He et al.\ lernen dafür ein residuales Aktionsmodell, das die Dynamikabweichung durch Korrekturaktionen ausgleicht, statt Systemparameter explizit zu schätzen \cite{He2025}\ev{He2025.03}; ihr Verfahren benötigt allerdings ein Motion-Capture-System zur Aufzeichnung realer Trajektorien \cite{He2025}\ev{He2025.12}.
+Tan et al.\ beobachten dabei einen Zielkonflikt zwischen Robustheit und Optimalität \cite{Tan2018}\ev{Tan2018.14}, und laut Acosta et al.\ wirkt die Methode am besten, wenn der randomisierte Parameterbereich klein und die übrige Dynamik genau ist \cite{Acosta2022}\ev{Acosta2022.02}.
+Liegen nur wenige oder keine Daten der Zieldomäne vor, bei ausreichend gelabelten Daten der Quelldomäne und derselben Aufgabe, spricht man von Domain Adaptation \cite{Zhao2020}\ev{Zhao2020.11}.
 
 % Eigenleistung, Datenbasis: G1-Repo g1pilot/utils/common.py:21-55; review/plan-kap3.md (Code-Befunde: keine Domain Randomization, keine Systemidentifikation)
 Die vorliegende Arbeit trainiert und überträgt keine eigene Policy.
@@ -107,26 +70,18 @@ Die beschriebenen Ursachen bestimmen deshalb, wie weit ein in der Simulation beo
 \label{sec:abbildungsguete}
 Die Literatur bewertet die Abbildungsgüte einer Simulation mit unterschiedlichen Bezugsgrößen.
 Eine Simulation kann laut Erez et al.\ aus zwei Gründen von der Realität abweichen: wegen numerischer Integrationsfehler und wegen Modellfehlern \cite{Erez2015}\ev{Erez2015.13}.
-Für die numerischen Fehler messen die Autoren die Konsistenz einer Physik-Engine: Sie integrieren das System mit sehr kleinem Zeitschritt von 1/64\,ms zu einer Referenztrajektorie und prüfen, wie stark größere Zeitschritte davon abweichen \cite{Erez2015}\ev{Erez2015.14}.
-Für einen Greiftest dient ihnen der größte Zeitschritt als Maß, bei dem das Objekt während der gesamten Simulation in der Hand bleibt \cite{Erez2015}\ev{Erez2015.19}.
+Für die numerischen Fehler messen die Autoren die Konsistenz einer Physik-Engine: Sie integrieren das System mit einem Zeitschritt von 1/64\,ms zu einer Referenztrajektorie und prüfen, wie stark größere Zeitschritte davon abweichen \cite{Erez2015}\ev{Erez2015.14}.
+Collins et al.\ vergleichen dagegen mehrere Simulatoren mit den Bewegungen eines realen Manipulators, die ein Motion-Capture-System als Referenz aufzeichnet \cite{Collins2019}\ev{Collins2019.03}; Kennzahl ist der euklidische Abstand der Handgelenkposition zur Zielposition über der Zeit \cite{Collins2019}\ev{Collins2019.06}.
+Acosta et al.\ werten beim Sprung des Zweibeiners Cassie nur ein Zeitfenster von 50\,ms um den Aufprall aus, um Modellunsicherheiten abzumildern \cite{Acosta2022}\ev{Acosta2022.08}, und Tan et al.\ messen die Lücke als Differenz des in Simulation und Realexperiment erwarteten Return \cite{Tan2018}\ev{Tan2018.12}.
 
-Andere Arbeiten vergleichen die Simulation direkt mit Messungen am realen System.
-Collins et al.\ simulieren dieselben Szenarien in mehreren Simulatoren und vergleichen sie mit den Bewegungen eines realen Manipulators, die ein Motion-Capture-System als Referenz aufzeichnet \cite{Collins2019}\ev{Collins2019.03}; Kennzahl ist der euklidische Abstand der Handgelenkposition zur Zielposition über der Zeit \cite{Collins2019}\ev{Collins2019.06}.
-Alle übrigen Parameter lassen sie auf den Voreinstellungen der Simulatoren, um eine generische Szene ohne Expertenwissen zu bewerten \cite{Collins2019}\ev{Collins2019.05}.
-Acosta et al.\ werten beim Sprung des Zweibeiners Cassie nur ein Zeitfenster von 50\,ms um den Aufprall aus, um Modellunsicherheiten abzumildern \cite{Acosta2022}\ev{Acosta2022.08}.
-Tan et al.\ messen die Sim-to-Real-Lücke als Differenz des erwarteten Return, der jeweils in der Simulation und im realen Experiment berechnet wird \cite{Tan2018}\ev{Tan2018.12}.
-Hwangbo et al.\ geben für die Geschwindigkeitsregelung ihrer Policy einen mittleren Fehler von 2,2\,\% am realen Roboter an, 1,1\,\% mehr als in der Simulation \cite{Hwangbo2019}\ev{Hwangbo2019.09}.
-
-Kadian et al.\ bewerten einen Simulator dagegen nicht nach seinem visuellen oder physikalischen Realismus, sondern danach, ob eine Methode, die in der Simulation besser abschneidet, auch in der Realität besser ist \cite{Kadian2020}\ev{Kadian2020.01}.
-Dazu definieren sie den Sim2Real Correlation Coefficient (SRCC) aus den paarweisen Kennzahlen jeder Methode in Simulation und Realität \cite{Kadian2020}\ev{Kadian2020.02}.
-Werte nahe +1 bedeuten eine hohe lineare Korrelation, Werte nahe 0 zeigen, dass Änderungen in der Simulation Änderungen in der Realität nicht vorhersagen \cite{Kadian2020}\ev{Kadian2020.03}.
-Für die Navigationsumgebung Habitat in der Konfiguration der CVPR19-Challenge ergab sich für die Erfolgsrate ein SRCC von 0,18 \cite{Kadian2020}\ev{Kadian2020.05}, nach Anpassung der Simulationsparameter von 0,844 \cite{Kadian2020}\ev{Kadian2020.07}.
+Kadian et al.\ bewerten einen Simulator nicht nach seinem Realismus, sondern danach, ob eine Methode, die in der Simulation besser abschneidet, auch in der Realität besser ist \cite{Kadian2020}\ev{Kadian2020.01}.
+Ihr Sim2Real Correlation Coefficient (SRCC) korreliert dazu die Kennzahlen jeder Methode in Simulation und Realität \cite{Kadian2020}\ev{Kadian2020.02}; Werte nahe~0 zeigen, dass Änderungen in der Simulation Änderungen in der Realität nicht vorhersagen \cite{Kadian2020}\ev{Kadian2020.03}.
+Für die Navigationsumgebung Habitat stieg der SRCC der Erfolgsrate durch angepasste Simulationsparameter von 0,18 auf 0,844 \cite{Kadian2020}\ev{Kadian2020.07}.
 
 Als Zwischenstufe zwischen Simulation und realem Roboter dient der Vergleich zweier Simulatoren (Sim-to-Sim).
 Humanoid-Gym prüft in Isaac Gym trainierte Policies in einer zweiten Physiksimulation auf Robustheit und Generalisierung \cite{Gu2024}\ev{Gu2024.02}.
-He et al.\ richten Sim-to-Sim-Benchmarks ein, um Verfahren gegen die Dynamiklücke zu bewerten \cite{He2025}\ev{He2025.08}; dazu spielen sie dieselbe Trajektorie in Trainings- und Testumgebung ab und bewerten die Abweichung mit Kennzahlen wie dem MPJPE \cite{He2025}\ev{He2025.09}.
-Läuft derselbe Code unverändert in Simulation und Realität, werten Durrani und Khan eine bestandene Sim-to-Sim-Prüfung als starkes Indiz für die erfolgreiche Übertragung auf die Hardware \cite{Durrani2026}\ev{Durrani2026.03}.
-Laut Choi et al.\ sind neue Wege zur Validierung von Modellen nötig, besonders wenn der simulierte Roboter noch nicht existiert \cite{Choi2021}\ev{Choi2021.18}.
+He et al.\ spielen dieselbe Trajektorie in Trainings- und Testumgebung ab und bewerten die Abweichung mit Kennzahlen wie dem MPJPE \cite{He2025}\ev{He2025.09}.
+Läuft derselbe Code unverändert in Simulation und Realität, werten Durrani und Khan eine bestandene Sim-to-Sim-Prüfung als starkes Indiz für die Übertragbarkeit auf die Hardware \cite{Durrani2026}\ev{Durrani2026.03}.
 \qf{Definition und Messung des Echtzeitfaktors einer Physiksimulation – kein Beleg vorhanden}
 Welche dieser Kennzahlen die Arbeit verwendet, legt Abschnitt~\ref{sec:bewertungsmethodik} fest.
 
@@ -140,100 +95,62 @@ Er liefert die Begriffe für die Simulationsumgebung in Abschnitt~\ref{sec:simul
 \label{sec:sim_aufbau}
 Die Literatur unterscheidet zwischen Physik-Engine und Simulator.
 Ayala et al.\ verstehen unter einer Physik-Engine die Software, die Starrkörperstrukturen sowie Bewegungs- und Kontaktdynamik abbildet, unter einem Simulationssystem dagegen eine vollständige Suite mit Physik-Engine, die zusätzlich Modelleditor, Sensorsimulation und Nutzerinteraktion enthalten kann \cite{Ayala2020}\ev{Ayala2020.03}.
-Für Collins et al.\ ist die Physik-Engine Bestandteil jedes Robotiksimulators, aber erst dann selbst ein Robotiksimulator, wenn sie alle ihre Kriterien erfüllt \cite{Collins2021}\ev{Collins2021.03}.
-Zu diesen Kriterien zählen Kollisionserkennung und Reibungsmodelle, eine grafische Oberfläche, der Import von Szenen und Netzen, eine Programmierschnittstelle für C++ oder Python sowie verfügbare Modelle für Gelenke, Aktoren und Sensoren \cite{Collins2021}\ev{Collins2021.02}.
-Spiele-Engines sind laut Choi et al.\ nicht darauf ausgelegt, die Physik des Roboterverhaltens und seiner Wechselwirkung mit der Umgebung genau zu simulieren \cite{Choi2021}\ev{Choi2021.09}.
-
-Eine Robotersimulation setzt sich aus mehreren Teilmodellen zusammen.
-Nötig sind laut Choi et al.\ eine Dynamik-Engine, die die zeitliche Entwicklung der Roboter in teils unstrukturierten, veränderlichen Umgebungen abbildet, und eine Sensorsimulation \cite{Choi2021}\ev{Choi2021.08}.
-Mit den Teilkomponenten zu Dynamik, Sensorik, virtueller Welt, menschlicher Beteiligung und Kommunikation wird die Robotersimulation zu einer multidisziplinären Aufgabe \cite{Choi2021}\ev{Choi2021.07}.
+Für einen Robotiksimulator fordern Collins et al.\ zusätzlich unter anderem Kollisionserkennung und Reibungsmodelle, den Import von Szenen und Netzen, eine Programmierschnittstelle für C++ oder Python sowie Modelle für Gelenke, Aktoren und Sensoren \cite{Collins2021}\ev{Collins2021.02}.
 Den Rechenablauf beschreiben Tan et al.\ am Beispiel von Bullet: Die Engine löst die Bewegungsgleichungen gelenkig verbundener Starrkörper in generalisierten Koordinaten, erfüllt dabei Zwangsbedingungen für Kontakt, Gelenkgrenzen und Aktormodelle und integriert den Zustand anschließend semi-implizit über der Zeit \cite{Tan2018}\ev{Tan2018.04}.
 
-Für die Mehrkörperdynamik stehen zwei Darstellungen zur Wahl.
-Engines aus dem Bereich der Mehrkörperdynamik und der Spiele nutzen eine kartesische Darstellung mit sechs Freiheitsgraden je Körper und erzwingen Gelenke als Gleichheitsbedingungen \cite{Erez2015}\ev{Erez2015.02}.
+Die Teilmodelle bestimmen Genauigkeit und Rechenaufwand.
 In der Robotik ist nach Erez et al.\ die Arbeit in generalisierten Gelenkkoordinaten bevorzugt, weil sie effizienter und genauer ist, denn Gelenkbedingungen können dort nicht verletzt werden \cite{Erez2015}\ev{Erez2015.03}.
-Für die Zeitintegration nichtglatter Systeme gibt es ereignisgesteuerte Verfahren und Zeitschrittverfahren; die meisten Robotiksimulatoren gehören zur zweiten Gruppe, weil die Vorhersage von Kollisionen in komplexen Szenen nicht handhabbar ist \cite{LeLidec2024}\ev{LeLidec2024.02}.
-Die Genauigkeit lässt sich über einen kleineren Zeitschritt und bei iterativen Kontaktlösern über mehr Iterationen steigern, jeweils zulasten der Simulationsgeschwindigkeit \cite{Erez2015}\ev{Erez2015.15,Erez2015.16}.
-
-Das Kontaktmodell gilt als kritisches Teilmodell.
-Feder-Dämpfer-Modelle wurden durch impulsbasierte Velocity-Stepping-Verfahren abgelöst, die nach Erez et al.\ (Stand 2015) den Kern der meisten Physik-Engines bilden \cite{Erez2015}\ev{Erez2015.04}.
-Weil diese Verfahren in jedem Schritt NP-schwere Probleme lösen müssen, entstehen konvexe Näherungen mit ähnlichem Kontaktverhalten, die jedoch die Frage der physikalischen Genauigkeit weiter verkomplizieren \cite{Erez2015}\ev{Erez2015.05}.
-Kontakte sind laut Collins et al.\ das wichtigste gut zu modellierende Phänomen; die Kollisionserkennung ist sehr rechenintensiv und oft eine Quelle von Instabilität \cite{Collins2021}\ev{Collins2021.16}.
-Le Lidec et al.\ zeigen, dass einige in der Robotik verbreitete Näherungen die Sim-to-Real-Lücke erheblich vergrößern können \cite{LeLidec2024}\ev{LeLidec2024.01}, und finden keinen vollständig zufriedenstellenden Ansatz, da alle bestehenden Lösungen bei Genauigkeit, Robustheit oder Effizienz Kompromisse eingehen \cite{LeLidec2024}\ev{LeLidec2024.09}.
+Die meisten Robotiksimulatoren integrieren mit festen Zeitschritten, weil die Vorhersage von Kollisionen in komplexen Szenen nicht handhabbar ist \cite{LeLidec2024}\ev{LeLidec2024.02}.
+Ein kleinerer Zeitschritt und bei iterativen Kontaktlösern mehr Iterationen steigern die Genauigkeit, jeweils zulasten der Simulationsgeschwindigkeit \cite{Erez2015}\ev{Erez2015.15,Erez2015.16}.
+Kontakte sind laut Collins et al.\ das wichtigste gut zu modellierende Phänomen, wobei die Kollisionserkennung sehr rechenintensiv und oft eine Quelle von Instabilität ist \cite{Collins2021}\ev{Collins2021.16}.
+Le Lidec et al.\ zeigen, dass einige in der Robotik verbreitete Näherungen die Sim-to-Real-Lücke erheblich vergrößern können \cite{LeLidec2024}\ev{LeLidec2024.01}; alle untersuchten Kontaktmodelle gehen bei Genauigkeit, Robustheit oder Effizienz Kompromisse ein \cite{LeLidec2024}\ev{LeLidec2024.09}.
 
 \subsection{MuJoCo}
 \label{sec:mujoco}
 MuJoCo (Multi-Joint dynamics with Contact) ist eine Physik-Engine für allgemeine Zwecke, die Forschung und Entwicklung unter anderem in Robotik, Biomechanik und maschinellem Lernen durch schnelle und genaue Simulation gelenkiger Strukturen unterstützen soll \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.01}.
 Ursprünglich von Roboti LLC entwickelt, wurde sie im Oktober 2021 von Google DeepMind erworben und frei verfügbar gemacht und im Mai 2022 als Open Source veröffentlicht \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.02}.
-Collins et al.\ nennen die Kontaktstabilität als einen Grund für die Verbreitung in der Forschung \cite{Collins2021}\ev{Collins2021.10}; Le Lidec et al.\ ordnen MuJoCo vor allem der RL-Forschung zu \cite{LeLidec2024}\ev{LeLidec2024.03}.
 
 MuJoCo verbindet generalisierte Koordinaten mit einem konvexen Kontaktmodell.
-Die Mehrkörperdynamik wird in generalisierten Koordinaten dargestellt und rekursiv berechnet, Kontaktreaktionen nach dem Velocity-Stepping-Ansatz \cite{Todorov2012}\ev{Todorov2012.01}; laut Dokumentation hat MuJoCo diese Kombination mit optimierungsbasierter Kontaktdynamik eingeführt \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.03}.
-MuJoCo nutzt eine konvexe Näherung starrer Kontakte, deren Regularisierung den Kontakt weich macht, indem sie die strikte Komplementarität von Kontaktkraft und Abstand lockert \cite{Acosta2022}\ev{Acosta2022.04}.
-Solche komplementaritätsfreien Verfahren machen aus dem NP-schweren Problem ein konvexes Optimierungsproblem, bei exaktem Reibungskegel ein Kegelprogramm und bei pyramidaler Näherung ein quadratisches Programm \cite{Todorov2014}\ev{Todorov2014.04}.
-Die Lösung ist laut Todorov et al.\ in der Praxis sehr ähnlich, aber effizienter berechenbar \cite{Todorov2012}\ev{Todorov2012.14}.
-Alle Zwangsbedingungen werden dabei so aufgeweicht, dass die Instabilitäten und unrealistischen Durchdringungen früherer Feder-Dämpfer-Verfahren entfallen \cite{Todorov2014}\ev{Todorov2014.03}.
-Bei solchen weichen Kontakten ist die Komplementarität verletzt: Dringen Körper ein und drückt das Material sie auseinander, sind Normalkraft und Normalgeschwindigkeit beide positiv \cite{MujocoDoku2026}\ev{MujocoDoku2026.02}.
-
-Das Kontaktmodell hat bekannte Grenzen.
-Die konvexe Formulierung garantiert laut Acosta et al.\ eine eindeutige Lösung je Zeitschritt und schnelle, differenzierbare Berechnungen, die Regularisierung wurde jedoch als Ursache nichtphysikalischer Artefakte beim Gleiten beobachtet \cite{Acosta2022}\ev{Acosta2022.05}.
-Le Lidec et al.\ sehen für die gewählte Regularisierung keine physikalische Rechtfertigung; sie diene nur der besseren Konditionierung und mache die Lösung künstlich eindeutig \cite{LeLidec2024}\ev{LeLidec2024.07}.
-Grundsätzlich sind laut Todorov alle Kontaktmodelle in Starrkörpersimulationen phänomenologisch und nur durch Messung der Kontaktwechselwirkung realer Roboter zu validieren, was selten geschieht \cite{Todorov2014}\ev{Todorov2014.05}.
-
-Mehrere Parameter steuern Kontakt und Reibung.
+Die Mehrkörperdynamik wird in generalisierten Koordinaten dargestellt und rekursiv berechnet, Kontaktreaktionen nach dem Velocity-Stepping-Ansatz \cite{Todorov2012}\ev{Todorov2012.01}.
+Dabei nutzt MuJoCo eine konvexe Näherung starrer Kontakte, deren Regularisierung den Kontakt weich macht, indem sie die strikte Komplementarität von Kontaktkraft und Abstand lockert \cite{Acosta2022}\ev{Acosta2022.04}.
+Das Aufweichen aller Zwangsbedingungen vermeidet laut Todorov die Instabilitäten und unrealistischen Durchdringungen früherer Feder-Dämpfer-Verfahren \cite{Todorov2014}\ev{Todorov2014.03}.
+Die konvexe Formulierung garantiert eine eindeutige Lösung je Zeitschritt, die Regularisierung wurde jedoch als Ursache nichtphysikalischer Artefakte beim Gleiten beobachtet \cite{Acosta2022}\ev{Acosta2022.05}.
 Jede skalare Zwangsbedingung verhält sich näherungsweise wie ein gedämpftes System zweiter Ordnung, dessen Zeitkonstante und Dämpfungsgrad das Attribut \texttt{solref} und dessen Stärke die über \texttt{solimp} gesetzte Impedanz bestimmen \cite{MujocoDoku2026}\ev{MujocoDoku2026.14}.
-Kleine Werte der Weichheitsparameter erschweren laut Todorov die Vorwärtssimulation und erfordern kleinere Zeitschritte oder mehr Löseriterationen \cite{Todorov2014}\ev{Todorov2014.09}.
-Für Tangential-, Torsions- und Rollreibung sind mehrere Reibungskoeffizienten nötig \cite{Todorov2014}\ev{Todorov2014.06}.
-Elliptische und pyramidale Reibungskegel definieren eine meist sehr ähnliche Weichkontakt-Dynamik; das elliptische Modell ist physikalisch intuitiver, je nach Modell aber nicht so effizient wie die pyramidalen Löser \cite{MujocoDoku2026}\ev{MujocoDoku2026.13}.
-In der Praxis wählen Anwender Kontaktparameter wie die Steifigkeit laut Acosta et al.\ oft zugunsten der Simulationsgeschwindigkeit und sind sich der Einbußen an Realitätstreue kaum bewusst \cite{Acosta2022}\ev{Acosta2022.03}.
 
-Zeitschritt, Integrator und Löser bestimmen Genauigkeit und Rechenzeit.
 Der Zeitschritt ist laut Dokumentation der wichtigste einstellbare Parameter: Ist er zu groß, wird die Simulation instabil, ist er zu klein, verschwendet sie Rechenzeit ohne nennenswert genauer zu werden \cite{MujocoDoku2026}\ev{MujocoDoku2026.10}.
 Voreingestellt ist \texttt{timestep="0.002"}; der Durchsatz wächst linear mit dem Zeitschritt bis zur Stabilitätsgrenze, ab der die Simulation divergiert \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.04}.
 \pruefen{Einheit des Zeitschritts (Sekunden) steht nicht im Beleg MujocoDoku2026b.04 – Stelle der XML-Referenz als Beleg ergänzen}
-Voreingestellt ist der Integrator \texttt{Euler} \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.05}, ein semi-implizites Verfahren, bei dem nur die Gelenkdämpfung implizit eingeht \cite{MujocoDoku2026}\ev{MujocoDoku2026.08}.
-Diese Voreinstellung stammt wie der pyramidale Reibungskegel und \texttt{solref="0.02 1"} aus frühen Versionen und wird für neue Modelle nicht empfohlen \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.03}.
-Für die meisten Modelle empfiehlt die Dokumentation stattdessen \texttt{implicitfast}, das bei nahezu gleichen Kosten je Schritt die Geschwindigkeitsrückführung der Aktuatoren, die Sehnendämpfung und die Fluidviskosität implizit integriert \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.05}.
-Voreingestellter Löser ist das Newton-Verfahren mit 100 Iterationen und einer Toleranz von $10^{-8}$; es konvergiert laut Dokumentation in etwa zwei bis drei Iterationen \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.06}.
-Für einen Humanoiden mit 27 Freiheitsgraden und zehn Kontakten berechnete MuJoCo im Jahr 2014 die Vorwärtsdynamik in 0,1\,ms und lief bei einem stabilen Zeitschritt von 10\,ms auf einem Prozessorkern 100-mal schneller als in Echtzeit \cite{Todorov2014}\ev{Todorov2014.02}.
+Voreingestellter Integrator ist \texttt{Euler}, für die meisten Modelle empfiehlt die Dokumentation jedoch \texttt{implicitfast}, das bei nahezu gleichen Kosten je Schritt unter anderem die Geschwindigkeitsrückführung der Aktuatoren implizit integriert \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.05}.
+Voreingestellter Löser ist das Newton-Verfahren, das laut Dokumentation in etwa zwei bis drei Iterationen konvergiert \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.06}.
 
 Modelle beschreibt MuJoCo in der nativen Szenenbeschreibungssprache MJCF, einem XML-Format; URDF-Dateien lassen sich ebenfalls laden \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.04}.
-Da URDF kein Aktuatormodell kennt, wird die Kraftgrenze eines Gelenks dabei zu dessen Aktuator-Kraftbereich \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.10}.
-Ein eingebauter Compiler wandelt das Nutzermodell in eine für die Laufzeit optimierte Datenstruktur um \cite{Todorov2012}\ev{Todorov2012.02}: \texttt{mjModel} enthält die konstante Modellbeschreibung, \texttt{mjData} alle dynamischen Variablen und Zwischenergebnisse \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.05,MujocoDoku2026a.06}.
-Gelenke erzeugen Bewegungsfreiheitsgrade zwischen einem Körper und seinem Elternkörper, ohne Gelenk sind beide starr verbunden \cite{Todorov2012}\ev{Todorov2012.21}.
-Die Lage eines freien Gelenks beschreiben sieben Zahlen (Position und Einheitsquaternion), seine Geschwindigkeit sechs \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.09}.
-
-Gelenke und Aktuatoren tragen eigene Parameter.
-Viskose Gelenkdämpfung (\texttt{damping}) geht auch beim Euler-Integrator implizit ein und dämpft Rattern ohne Löserkosten, während trockene Reibung (\texttt{frictionloss}) je Gelenk eine aktive Zwangsbedingung hinzufügt \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.08}; sie begrenzt den Betrag der Reibkraft nach oben \cite{MujocoDoku2026}\ev{MujocoDoku2026.04}.
-Getriebene Aktuatoren fügen eine reflektierte Rotorträgheit hinzu, die oft die Trägheit von Handgelenk-, Finger- und Knöchelgliedern übersteigt; ein realistischer Wert für \texttt{armature} verbessert laut Dokumentation Realismus, Konditionierung der Massenmatrix und Stabilität bezüglich des Zeitschritts \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.09}.
-Die Kraft eines Aktuators hängt von einem Verstärkungsparameter (Gain) und Bias-Parametern ab \cite{MujocoDoku2026}\ev{MujocoDoku2026.05}; je nach Einstellung modellieren sie eine direkte Kraftvorgabe oder einen Positions- bzw.\ Geschwindigkeitsservo, dessen Eingang dann die Sollposition bzw.\ Sollgeschwindigkeit ist \cite{MujocoDoku2026}\ev{MujocoDoku2026.06}.
-MJCF bietet dafür Kurzformen wie \texttt{motor}, \texttt{position} und \texttt{velocity} \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.01}; \texttt{position} erzeugt etwa einen Positionsservo mit der Verstärkung \texttt{kp} \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.02}.
+Zur Laufzeit enthält \texttt{mjModel} die konstante Modellbeschreibung und \texttt{mjData} alle dynamischen Variablen und Zwischenergebnisse \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.05,MujocoDoku2026a.06}.
+Viskose Gelenkdämpfung (\texttt{damping}) dämpft Rattern ohne Löserkosten, während trockene Reibung (\texttt{frictionloss}) je Gelenk eine aktive Zwangsbedingung hinzufügt \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.08}.
+Getriebene Aktuatoren fügen eine reflektierte Rotorträgheit hinzu; ein realistischer Wert für \texttt{armature} verbessert laut Dokumentation Realismus, Konditionierung der Massenmatrix und Stabilität bezüglich des Zeitschritts \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.09}.
+Die Kraft eines Aktuators hängt von einem Verstärkungs- und Bias-Parametern ab \cite{MujocoDoku2026}\ev{MujocoDoku2026.05}, mit denen sich eine direkte Kraftvorgabe oder ein Positions- bzw.\ Geschwindigkeitsservo modellieren lässt \cite{MujocoDoku2026}\ev{MujocoDoku2026.06}; MJCF bietet dafür Kurzformen wie \texttt{motor} und \texttt{position} \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.01}.
 
 Kollisionen, Zwangsbedingungen und Sensoren ergänzen das Modell.
-Ein Paar geometrischer Körper (Geoms) wird nur auf Kollision geprüft, wenn der Ausdruck \texttt{(contype1 \& conaffinity2) || (contype2 \& conaffinity1)} wahr ist \cite{MujocoDoku2026}\ev{MujocoDoku2026.15}; mit der Voreinstellung \texttt{contype = conaffinity = 1} ist der Test immer erfüllt \cite{MujocoDoku2026}\ev{MujocoDoku2026.16}.
-Reine Visualisierungsnetze sollen mit \texttt{contype="0"} und \texttt{conaffinity="0"} aus der Kollisionserkennung herausgehalten werden \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.07}.
+Ein Paar geometrischer Körper wird nur auf Kollision geprüft, wenn der Ausdruck \texttt{(contype1 \& conaffinity2) || (contype2 \& conaffinity1)} wahr ist \cite{MujocoDoku2026}\ev{MujocoDoku2026.15}; reine Visualisierungsnetze sollen deshalb \texttt{contype="0"} und \texttt{conaffinity="0"} erhalten \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.07}.
 Nicht konvexe Netze nutzte MuJoCo nach dem Stand von 2012 nicht für die Kollisionserkennung; Nutzer sollten sie in konvexe Netze zerlegen \cite{Todorov2012}\ev{Todorov2012.24}.
 Die Zwangsbedingung \texttt{weld} verschweißt zwei Körper und unterdrückt alle relativen Freiheitsgrade zwischen ihnen \cite{MujocoDoku2026}\ev{MujocoDoku2026.03}.
 Als Sensoren stehen unter anderem Berührungssensoren, inertiale Messeinheiten (IMU), Kraft-Momenten-Sensoren sowie Positions- und Geschwindigkeitssensoren für Gelenke zur Verfügung \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.08}.
+Eigene Software bindet MuJoCo über Python-Bindings mit Zugriff auf die gesamte C-Programmierschnittstelle an \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.07}, und für den G1 stellt Unitree in unitree\_mujoco MJCF-Dateien sowie einen C++- und einen Python-Simulator bereit \cite{UnitreeMujoco}\ev{UnitreeMujoco.04}.
 
-Für die Anbindung eigener Software bietet MuJoCo Python-Bindings mit Zugriff auf die gesamte C-Programmierschnittstelle \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.07}.
-Daneben gibt es dm\_control, eine Sammlung von Python-Bibliotheken und Aufgabensammlungen für RL-Agenten mit einem MuJoCo-Wrapper und Bibliotheken zur prozeduralen Modellmanipulation \cite{Tunyasuvunakool2020}\ev{Tunyasuvunakool2020.01}.
-Für den G1 stellt Unitree in unitree\_mujoco MJCF-Beschreibungsdateien der vom SDK unterstützten Roboter sowie einen C++- und einen Python-Simulator bereit \cite{UnitreeMujoco}\ev{UnitreeMujoco.04}.
 % Eigenleistung, Datenbasis: G1-Repo unitree_mujoco/simulate_python/config.py:61-66 und unitree_sdk2py_bridge.py:305-307; review/plan-kap3.md (Code-Befunde)
 Die Simulationsumgebung dieser Arbeit nutzt MuJoCo über das Python-Binding mit einem Zeitschritt von 1\,ms, den der Code mit der Stabilität der PD-Regelung begründet; Integrator, Löser und Kontaktparameter des G1-Modells bleiben auf den Voreinstellungen (Abschnitt~\ref{sec:zeitschritt}).
 Die Körpergelenke werden über Drehmoment-Aktuatoren (\texttt{motor}) mit einem PD-Regler außerhalb des Simulators angesteuert, die Finger über Positions-Aktuatoren (Abschnitt~\ref{sec:bridge}).
-Kollisionsgruppen über \texttt{contype} und \texttt{conaffinity}, konvex zerlegte Netze, eine \texttt{weld}-Bedingung zum Halten der Basis und die Sensoren für IMU, Gelenkgrößen und Berührung beschreibt Abschnitt~\ref{sec:szenen}.
+Kollisionsgruppen, konvex zerlegte Netze, eine \texttt{weld}-Bedingung zum Halten der Basis und die Sensoren beschreibt Abschnitt~\ref{sec:szenen}.
 
 \subsection{Vergleich mit weiteren Simulatoren}
 \label{sec:sim_vergleich}
 Neben MuJoCo setzt die Forschung zu Lauf- und humanoiden Robotern weitere Simulatoren ein.
 Für die Auswahl empfehlen Collins et al., zuerst Roboterplattform, Aktuierung, Sensoren und Betriebsumgebung festzulegen \cite{Collins2021}\ev{Collins2021.04}.
-Tabelle~\ref{tab:simulatoren} stellt die Simulatoren gegenüber, zu denen belegte Angaben vorliegen; leere Zellen bedeuten, dass kein Beleg vorliegt.
+Tabelle~\ref{tab:simulatoren} stellt die Simulatoren gegenüber, zu denen belegte Angaben vorliegen.
 
 \begin{table}[htbp]
     \tabstil
     \centering
-    \caption[Simulatoren für Lauf- und humanoide Roboter]{Simulatoren für Lauf- und humanoide Roboter (Auswahl). Angaben nach den zitierten Quellen und mit deren Stand; „–“: kein Beleg.}
+    \caption[Simulatoren für Lauf- und humanoide Roboter]{Simulatoren für Lauf- und humanoide Roboter (Auswahl). Angaben nach den zitierten Quellen und mit deren Stand.}
     \label{tab:simulatoren}
     \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.0cm}|L|L|L|}\hline
         \tabkopfzeile \tabkopf{Simulator} & \tabkopf{Physik und Kontakt} & \tabkopf{Besonderheit} & \tabkopf{Typischer Einsatz}\\\hline
@@ -246,29 +163,21 @@ Tabelle~\ref{tab:simulatoren} stellt die Simulatoren gegenüber, zu denen belegt
     \end{tabularx}
 \end{table}
 
-Gazebo in der ersten Zeile verdankt seine Verbreitung laut Collins et al.\ auch der Schnittstelle zum Robot Operating System (ROS) \cite{Collins2021}\ev{Collins2021.05}; Forschende an Humanoiden können darüber geteilte Simulationen vorhandener Roboter nutzen \cite{Saeedvand2019}\ev{Saeedvand2019.07}.
+Gazebo in der ersten Zeile verdankt seine Verbreitung laut Collins et al.\ auch der Schnittstelle zum Robot Operating System (ROS) \cite{Collins2021}\ev{Collins2021.05}.
 In der DARPA Virtual Robotics Challenge griffen die Teams über Gazebo auf eine Echtzeitsimulation des Roboters Atlas in ODE zu \cite{Erez2015}\ev{Erez2015.07}, die laut den MuJoCo-Entwicklern Erez et al.\ mindestens sechs der neun Monate nur grenzwertig nutzbar war \cite{Erez2015}\ev{Erez2015.08}.
-Gazebo, Webots und V-REP vergleichen Ayala et al.\ anhand des Ressourcenbedarfs, wobei alle drei die Physik-Engine ODE enthalten \cite{Ayala2020}\ev{Ayala2020.01,Ayala2020.06}.
-Für ein Navigationsszenario des Humanoiden NAO benötigte Webots im Mittel 11,05\,\% der Prozessorleistung, V-REP 20,65\,\% und Gazebo 42,38\,\% \cite{Ayala2020}\ev{Ayala2020.02,Ayala2020.05}, gemessen in einer virtuellen Maschine auf einem Intel Core i5-2410M \cite{Ayala2020}\ev{Ayala2020.04}.
-
+Beim Ressourcenbedarf für ein Navigationsszenario des Humanoiden NAO benötigte Webots im Mittel 11,05\,\% der Prozessorleistung, V-REP 20,65\,\% und Gazebo 42,38\,\% \cite{Ayala2020}\ev{Ayala2020.02,Ayala2020.05}.
 Für PyBullet in der dritten Zeile fanden Collins et al.\ trotz derselben Physik-Engine Bullet große Unterschiede zwischen Simulatoren: PyBullet erreichte einen kumulierten Positionsfehler von $\pm$45,5\,m, die beiden Bullet-Varianten in V-Rep jeweils $\pm$131\,m; als mögliche Gründe nennen die Autoren unterschiedliche Voreinstellungen wie den Zeitschritt und die Implementierung \cite{Collins2019}\ev{Collins2019.07}.
-Für die Regelung des Manipulators schnitten Newton, Bullet in PyBullet und Vortex deutlich besser ab, die Interaktion zwischen Objekten modellierte dagegen keine Physik-Engine gut \cite{Collins2019}\ev{Collins2019.08}.
-Bullet unterstützte nach dem Stand von 2022 nativ keine reflektierte Trägheit von Motoren und Getrieben, die für die Dynamik von Cassie eine wesentliche Rolle spielt \cite{Acosta2022}\ev{Acosta2022.06}.
 RaiSim in der vierten Zeile wurde an der ETH Zürich für das Lernen dynamischer Strategien von Laufrobotern entwickelt \cite{Collins2021}\ev{Collins2021.08}.
 
 Die GPU-parallelen Simulatoren der fünften Zeile beschleunigen vor allem das Training: Aufgaben der Fortbewegung und Manipulation, die früher Tage auf Mehrrechnersystemen benötigten, lassen sich laut Zakka et al.\ in Minuten bis Stunden auf einer einzelnen GPU lösen \cite{Zakka2025}\ev{Zakka2025.04,Zakka2025.05}.
-Isaac Gym und Brax nutzen elementare Kontaktmodelle und konzentrieren sich auf die Parallelisierung auf GPUs oder TPUs \cite{LeLidec2024}\ev{LeLidec2024.05}.
-ORBIT, ein modulares Framework auf Basis von Isaac Sim \cite{Mittal2023}\ev{Mittal2023.01}, simuliert laut den Autoren Physik mit bis zu 125.000~FPS \cite{Mittal2023}\ev{Mittal2023.06}.
-Frühere Frameworks auf Basis von MuJoCo oder Bullet benötigten dagegen nach dem Stand von 2023 CPU-Cluster für eine massive Parallelisierung \cite{Mittal2023}\ev{Mittal2023.04}.
-Mit MuJoCo XLA (MJX) enthält MuJoCo eine über JAX GPU-fähige Variante \cite{Ha2025}\ev{Ha2025.02}; das darauf aufbauende MuJoCo Playground übernimmt allerdings die durch JAX bedingten Einschränkungen von MJX \cite{Zakka2025}\ev{Zakka2025.06}.
+Frühere Frameworks auf Basis von MuJoCo oder Bullet benötigten dafür nach dem Stand von 2023 CPU-Cluster \cite{Mittal2023}\ev{Mittal2023.04}; mit MuJoCo XLA (MJX) enthält MuJoCo eine über JAX GPU-fähige Variante \cite{Ha2025}\ev{Ha2025.02}.
 Das Training mit diesen Werkzeugen behandelt Abschnitt~\ref{sec:fortbewegung_sdt}.
 
 Für MuJoCo in der letzten Zeile liegen die meisten Vergleichsdaten vor.
-In der Studie von Erez et al.\ (Stand 2015) gewinnt MuJoCo die robotikbezogenen Tests, die Spiele-Engines die spielebezogenen \cite{Erez2015}\ev{Erez2015.01}; auf robotikrelevanten Systemen war MuJoCo am schnellsten und genauesten und griff mit deutlich größerem Zeitschritt stabil \cite{Erez2015}\ev{Erez2015.26}.
-Die Autoren weisen selbst darauf hin, dass sie MuJoCo entwickeln \cite{Erez2015}\ev{Erez2015.09}.
-Bei Würfelwürfen gaben dagegen Drake und Bullet die Trajektorien genauer wieder als MuJoCo \cite{Acosta2022}\ev{Acosta2022.09}, und beim Sprung von Cassie begrenzten Modellunterschiede zwischen realem Roboter und Simulatoren die Genauigkeit \cite{Acosta2022}\ev{Acosta2022.01}.
+In der Studie von Erez et al.\ (Stand 2015) war MuJoCo auf robotikrelevanten Systemen am schnellsten und genauesten und griff mit deutlich größerem Zeitschritt stabil, wobei keine Engine durchgehend besser als alle anderen war \cite{Erez2015}\ev{Erez2015.26}; die Autoren weisen selbst darauf hin, dass sie MuJoCo entwickeln \cite{Erez2015}\ev{Erez2015.09}.
+Bei Würfelwürfen gaben dagegen Drake und Bullet die Trajektorien genauer wieder als MuJoCo \cite{Acosta2022}\ev{Acosta2022.09}.
 Im Fall von Humanoid-Gym liegt die Dynamik in MuJoCo laut Gu et al.\ näher an der Realität als in Isaac Gym \cite{Gu2024}\ev{Gu2024.04}.
-Zusammenfassend war in der Studie von Erez et al.\ keine Engine durchgehend besser als alle anderen \cite{Erez2015}\ev{Erez2015.26}, und Sekkat et al.\ geben eine weitere Vergleichsstudie mit dem Ergebnis wieder, dass es keinen insgesamt besten Simulator gibt \cite{Sekkat2024}\ev{Sekkat2024.10}.
+Sekkat et al.\ geben eine weitere Vergleichsstudie mit dem Ergebnis wieder, dass es keinen insgesamt besten Simulator gibt \cite{Sekkat2024}\ev{Sekkat2024.10}.
 
 % ======================================================================
 \section{Middleware und Bereitstellung}
@@ -281,52 +190,36 @@ Dieser Abschnitt beschreibt dazu ROS~2, den zugrunde liegenden Data Distribution
 \label{sec:ros2}
 ROS~2 ist eine Softwareplattform zur Entwicklung von Robotikanwendungen, auch Robotik-SDK genannt \cite{Macenski2022}\ev{Macenski2022.03}.
 ROS wurde laut Saeedvand et al.\ eingeführt, um die Vielfalt an Programmiersprachen und Plattformen für Humanoide zu vereinheitlichen und die Umsetzung zu beschleunigen \cite{Saeedvand2019}\ev{Saeedvand2019.13}.
-ROS~1 hat nach Macenski et al.\ Schwierigkeiten mit verlustbehafteten Verbindungen, einen Single Point of Failure und keine eingebauten Sicherheitsmechanismen \cite{Macenski2022}\ev{Macenski2022.02}.
-ROS~2 baut auf dem Data Distribution Service (DDS) auf, einem offenen Kommunikationsstandard \cite{Macenski2022}\ev{Macenski2022.01}.
-Für die Distribution ROS~1 Noetic endet die offizielle Unterstützung laut Sekkat et al.\ im Mai 2025 \cite{Sekkat2024}\ev{Sekkat2024.11}.
-
-Zwei Designprinzipien prägen ROS~2.
-Nach dem Prinzip der Verteilung werden Anforderungen in funktional unabhängige Komponenten wie Gerätetreiber, Wahrnehmung und Regelung getrennt \cite{Macenski2022}\ev{Macenski2022.04}.
-Nach dem Prinzip der Modularität soll jedes Programm eine Sache gut tun; dies gilt für Bibliotheksschnittstellen, Nachrichtendefinitionen, Kommandozeilenwerkzeuge und das Ökosystem \cite{Macenski2022}\ev{Macenski2022.05}.
-Für Anwendungen mit Echtzeitanforderungen, wie sie von Humanoiden bis zu selbstfahrenden Autos üblich sind, bietet ROS~2 Programmierschnittstellen, mit denen Entwickler anwendungsspezifische Zeitvorgaben durchsetzen können \cite{Macenski2022}\ev{Macenski2022.06}.
+ROS~1 hat nach Macenski et al.\ Schwierigkeiten mit verlustbehafteten Verbindungen, einen Single Point of Failure und keine eingebauten Sicherheitsmechanismen \cite{Macenski2022}\ev{Macenski2022.02}; ROS~2 baut auf dem Data Distribution Service (DDS) auf, einem offenen Kommunikationsstandard \cite{Macenski2022}\ev{Macenski2022.01}.
+Nach dem Designprinzip der Verteilung werden Anforderungen in funktional unabhängige Komponenten wie Gerätetreiber, Wahrnehmung und Regelung getrennt \cite{Macenski2022}\ev{Macenski2022.04}.
 
 Die Kommunikation organisiert ROS~2 in Knoten (Nodes) mit den Mustern Topics, Services und Actions \cite{Macenski2022}\ev{Macenski2022.07}.
-Topics sind das häufigste Muster und übertragen Nachrichten asynchron \cite{Macenski2022}\ev{Macenski2022.08}, Services folgen dem Anfrage-Antwort-Prinzip \cite{Macenski2022}\ev{Macenski2022.09}.
-Actions sind zielorientierte, asynchrone Schnittstellen mit Anfrage, Antwort, periodischer Rückmeldung und Abbruchmöglichkeit, etwa für Navigation oder Manipulation \cite{Macenski2022}\ev{Macenski2022.10}.
+Topics sind das häufigste Muster und übertragen Nachrichten asynchron \cite{Macenski2022}\ev{Macenski2022.08}, Services folgen dem Anfrage-Antwort-Prinzip \cite{Macenski2022}\ev{Macenski2022.09}, und Actions sind zielorientierte, asynchrone Schnittstellen mit periodischer Rückmeldung und Abbruchmöglichkeit \cite{Macenski2022}\ev{Macenski2022.10}.
 Unter der Client-Bibliothek liegt die Abstraktionsschicht rmw (ROS Middleware), deren Implementierungen ohne Codeänderung austauschbar sind \cite{Macenski2022}\ev{Macenski2022.11}; alle offiziell unterstützten Implementierungen basieren auf DDS \cite{Macenski2022}\ev{Macenski2022.12}.
-Die Distribution Foxy Fitzroy unterstützt unter anderem eProsima FastRTPS, Eclipse Cyclone DDS und RTI Connext \cite{Kronauer2021}\ev{Kronauer2021.02}.
-% Eigenleistung, Datenbasis: review/plan-kap3.md (Code-Befunde: ROS 2 Humble, rmw_cyclonedds_cpp, nur Topics, QoS transient local)
+% Eigenleistung, Datenbasis: review/plan-kap3.md (Code-Befunde: ROS 2 Humble, rmw_cyclonedds_cpp, nur Topics)
 Die Arbeit nutzt ROS~2 Humble mit der Implementierung \texttt{rmw\_cyclonedds\_cpp} und ausschließlich Topics (Abschnitt~\ref{sec:komponenten}).
 
 \subsection{Data Distribution Service}
 \label{sec:dds}
-Die DDS-Spezifikation beschreibt ein datenzentriertes Modell zum Veröffentlichen und Abonnieren von Daten (Data-Centric Publish-Subscribe, DCPS) für die Kommunikation verteilter Anwendungen und legt Programmierschnittstellen sowie die Kommunikationssemantik fest \cite{OMG2015}\ev{OMG2015.01}.
+Die DDS-Spezifikation beschreibt ein datenzentriertes Modell zum Veröffentlichen und Abonnieren von Daten (Data-Centric Publish-Subscribe, DCPS) für die Kommunikation verteilter Anwendungen \cite{OMG2015}\ev{OMG2015.01}.
 Anwendungen, die Daten beitragen, treten als Publisher auf, Anwendungen, die Daten lesen, als Subscriber; die Middleware verteilt jede in den „globalen Datenraum“ veröffentlichte Information an alle interessierten Subscriber \cite{OMG2015}\ev{OMG2015.04}.
-Ein Publisher verteilt Daten, ein DataWriter ist ein typisierter Zugriffspunkt auf ihn \cite{OMG2015}\ev{OMG2015.05}; entsprechend greift die Anwendung über einen typisierten DataReader auf die Daten eines Subscribers zu \cite{OMG2015}\ev{OMG2015.06}.
+Ein DataWriter ist ein typisierter Zugriffspunkt auf einen Publisher \cite{OMG2015}\ev{OMG2015.05}, ein typisierter DataReader entsprechend auf einen Subscriber \cite{OMG2015}\ev{OMG2015.06}.
 Ein Topic verbindet einen in der Domain eindeutigen Namen mit einem Datentyp und datenbezogener Dienstgüte \cite{OMG2015}\ev{OMG2015.07}.
 
 Domains trennen Gruppen von Anwendungen vollständig voneinander.
-Alle DCPS-Entitäten hängen an einem DomainParticipant, der die Zugehörigkeit der Anwendung zu einer Domain darstellt; nur Publisher und Subscriber derselben Domain können interagieren \cite{OMG2015}\ev{OMG2015.08}.
+Alle Entitäten hängen an einem DomainParticipant, der die Zugehörigkeit der Anwendung zu einer Domain darstellt; nur Publisher und Subscriber derselben Domain können interagieren \cite{OMG2015}\ev{OMG2015.08}.
 Entitäten verschiedener Domains sind vollständig isoliert, kein Daten- oder Metaverkehr erreicht eine fremde Domain \cite{OMG2015}\ev{OMG2015.09}.
-Andere Teilnehmer muss die Middleware selbst entdecken (Discovery); diese Informationen stellt DCPS der Anwendung über eingebaute Topics bereit \cite{OMG2015}\ev{OMG2015.12}.
-
-Das Verhalten der Kommunikation legt die Dienstgüte (Quality of Service, QoS) fest.
-Über QoS-Einstellungen gibt der Entwickler nur an, was gewünscht ist, nicht wie es erreicht wird \cite{OMG2015}\ev{OMG2015.02}; jede QoS-Policy verbindet einen Namen mit einem Wert \cite{OMG2015}\ev{OMG2015.03}.
-DDS überträgt Daten per UDP und entscheidet selbst, wann und wie es bei unzuverlässigen Verbindungen erneut sendet \cite{Macenski2022}\ev{Macenski2022.13}.
-Bei der Zuverlässigkeit „best-effort“ versucht der Publisher die Zustellung einmal, was sich für Sensordaten eignet, bei „reliable“ sendet er, bis der Empfänger den Erhalt bestätigt \cite{Macenski2022}\ev{Macenski2022.14}.
-Bei der Dauerhaftigkeit „volatile“ werden Nachrichten nach dem Senden vergessen, bei „transient-local“ gespeichert und an später hinzukommende Abonnenten nachgeliefert \cite{Macenski2022}\ev{Macenski2022.15}.
-Mit der Historie KEEP\_LAST hält der Dienst nur die letzten Werte; voreingestellt ist eine Tiefe von eins, also nur der neueste Wert \cite{OMG2015}\ev{OMG2015.11}.
+Das Verhalten der Kommunikation legt die Dienstgüte (Quality of Service, QoS) fest, bei der der Entwickler nur angibt, was gewünscht ist, nicht wie es erreicht wird \cite{OMG2015}\ev{OMG2015.02}.
+Bei der Zuverlässigkeit „best-effort“ versucht der Publisher die Zustellung einmal, bei „reliable“ sendet er, bis der Empfänger den Erhalt bestätigt \cite{Macenski2022}\ev{Macenski2022.14}; bei der Dauerhaftigkeit „transient-local“ werden Daten gespeichert und an später hinzukommende Abonnenten nachgeliefert \cite{Macenski2022}\ev{Macenski2022.15}.
 
 Die Latenz hängt von Implementierung, Hardware und Einstellungen ab.
-Kronauer et al.\ messen sie vom Veröffentlichen einer Nachricht im ersten Knoten bis zum Aufruf des Subscriber-Callbacks im letzten Knoten \cite{Kronauer2021}\ev{Kronauer2021.04}, und zwar über localhost mit UDP und den Implementierungen FastRTPS~2.0.1, Cyclone DDS~0.6.0 und Connext~6.0.1 \cite{Kronauer2021}\ev{Kronauer2021.06}.
-Auf dem Desktop-PC war bei großen Nachrichten FastRTPS etwas schneller als Connext, Cyclone DDS hatte die höchste Latenz \cite{Kronauer2021}\ev{Kronauer2021.08}; insgesamt lieferte jedoch keine Middleware in allen Fällen die niedrigste Latenz \cite{Kronauer2021}\ev{Kronauer2021.12}.
+Kronauer et al.\ messen sie auf einem Rechner über localhost mit den Implementierungen FastRTPS, Cyclone DDS und Connext \cite{Kronauer2021}\ev{Kronauer2021.06}; keine Middleware lieferte dabei in allen Fällen die niedrigste Latenz \cite{Kronauer2021}\ev{Kronauer2021.12}.
 Der Mehraufwand von ROS~2 gegenüber reinem DDS betrug bei kleinen Nachrichten bis zu 50\,\% \cite{Kronauer2021}\ev{Kronauer2021.10}, die Einstellung RELIABLE gegenüber BEST\_EFFORT bis zu 15\,\% \cite{Kronauer2021}\ev{Kronauer2021.11}.
-Netzwerkeffekte erfassten die Autoren nicht, da sie auf einem Rechner maßen \cite{Kronauer2021}\ev{Kronauer2021.14}.
-In Messungen von Macenski et al.\ mit Cyclone DDS blieb die Latenz selbst in der langsamsten untersuchten Konfiguration bis zu einer Nachrichtengröße von 1\,MB unter 1\,ms und stieg bei 8\,MB auf 7,85\,ms \cite{Macenski2022}\ev{Macenski2022.16}.
+In Messungen von Macenski et al.\ mit Cyclone DDS blieb die Latenz selbst in der langsamsten untersuchten Konfiguration bis zu einer Nachrichtengröße von 1\,MB unter 1\,ms \cite{Macenski2022}\ev{Macenski2022.16}.
 
 Auch das Unitree SDK kommuniziert über DDS.
-Seine Python-Schnittstelle erfasst und steuert den Roboterzustand per Anfrage und Antwort oder über das Abonnieren und Veröffentlichen von Topics \cite{UnitreeSDK2Py}\ev{UnitreeSDK2Py.01} und setzt die Python-Bindung von Cyclone DDS in der Version 0.10.2 voraus \cite{UnitreeSDK2Py}\ev{UnitreeSDK2Py.02}.
-Für die Low-Level-Kommunikation nutzt der G1 die Schnittstellendefinition unitree\_hg \cite{UnitreeMujoco}\ev{UnitreeMujoco.06} mit den Nachrichten LowCmd für Motorbefehle und LowState für Motorzustände \cite{UnitreeMujoco}\ev{UnitreeMujoco.05}.
+Seine Python-Schnittstelle erfasst und steuert den Roboterzustand über das Abonnieren und Veröffentlichen von Topics oder per Anfrage und Antwort \cite{UnitreeSDK2Py}\ev{UnitreeSDK2Py.01} und setzt die Python-Bindung von Cyclone DDS voraus \cite{UnitreeSDK2Py}\ev{UnitreeSDK2Py.02}.
+Für die Low-Level-Kommunikation nutzt der G1 die Nachrichten LowCmd für Motorbefehle und LowState für Motorzustände \cite{UnitreeMujoco}\ev{UnitreeMujoco.05}.
 Der Simulator unitree\_mujoco verwendet die Domain~1 und empfiehlt, sie vom realen Roboter mit seiner Voreinstellung Domain~0 zu unterscheiden \cite{UnitreeMujoco}\ev{UnitreeMujoco.07}; als Netzwerkschnittstelle der Simulation empfiehlt er das lokale Loopback \texttt{lo} \cite{UnitreeMujoco}\ev{UnitreeMujoco.08}.
 % Eigenleistung, Datenbasis: G1-Repo g1pilot/utils/common.py:21-55
 Der Steuerungsprozess dieser Arbeit nutzt diese Trennung: Ein Umschalter ordnet ihn entweder der Domain~1 mit Loopback-Schnittstelle (Simulation) oder der Domain~0 mit der Netzwerkkarte zum Roboter (Realbetrieb) zu (Abschnitt~\ref{sec:sim_real_schalter}).
@@ -335,7 +228,7 @@ Abbildung~\ref{fig:dds_domains} stellt beide Zuordnungen dar.
 \begin{figure}[htbp]
   \centering
   \input{Bilder/tikz/dds-domains}
-  \caption[Getrennte DDS-Domains für Simulation und Realbetrieb]{Getrennte DDS-Domains für Simulation und Realbetrieb. Nur Teilnehmer derselben Domain tauschen Daten aus \cite{OMG2015}\ev{OMG2015.08}; Domain~1 mit Loopback-Schnittstelle für die Simulation und Domain~0 am realen Roboter nach \cite{UnitreeMujoco}\ev{UnitreeMujoco.07,UnitreeMujoco.08}. Der Steuerungsprozess dieser Arbeit wird je nach Umschalter genau einer Domain zugeordnet und schreibt Befehle auf \texttt{rt/lowcmd} und liest Zustände von \texttt{rt/lowstate}.}
+  \caption[Getrennte DDS-Domains für Simulation und Realbetrieb]{Getrennte DDS-Domains für Simulation und Realbetrieb. Nur Teilnehmer derselben Domain tauschen Daten aus \cite{OMG2015}\ev{OMG2015.08}; Domain~1 mit Loopback-Schnittstelle für die Simulation und Domain~0 am realen Roboter nach \cite{UnitreeMujoco}\ev{UnitreeMujoco.07,UnitreeMujoco.08}. Der Steuerungsprozess dieser Arbeit wird je nach Umschalter genau einer Domain zugeordnet, schreibt Befehle auf \texttt{rt/lowcmd} und liest Zustände von \texttt{rt/lowstate}.}
   \label{fig:dds_domains}
 \end{figure}
 
@@ -346,26 +239,19 @@ Da die Domains isoliert sind \cite{OMG2015}\ev{OMG2015.09}, kann ein für die Si
 \subsection{Containerisierung}
 \label{sec:container}
 Forschungssoftware lässt sich häufig nicht ohne Weiteres auf einem anderen Rechner ausführen.
-Dafür muss die Rechenumgebung der ursprünglichen Entwickler nachgebildet werden \cite{Boettiger2015}\ev{Boettiger2015.02}, und Softwareabhängigkeiten ändern sich durch regelmäßige Aktualisierungen, die die Ergebnisse des Codes verändern können \cite{Boettiger2015}\ev{Boettiger2015.03}.
-Boettiger zitiert eine Studie der University of Arizona, nach der weniger als 50\,\% der untersuchten Software überhaupt gebaut oder installiert werden konnte \cite{Boettiger2015}\ev{Boettiger2015.01}.
-Für die Robotik untersuchen Cervera et al.\ den Quellcode von 30 Veröffentlichungen der ICRA~2017 \cite{Cervera2019}\ev{Cervera2019.03}: Nur 30\,\% der Repositories erklären die Installation der Voraussetzungen, 60\,\% den Build und 33\,\% das Ausführen \cite{Cervera2019}\ev{Cervera2019.07}.
-Acht Repositories ließen sich nicht bauen, und nur bei einem von drei Repositories lief ein dokumentiertes Beispiel fehlerfrei \cite{Cervera2019}\ev{Cervera2019.08}; die meisten Fehlschläge führen die Autoren auf unvollständige oder inkonsistente Dokumentation zurück \cite{Cervera2019}\ev{Cervera2019.09}.
+Dafür muss die Rechenumgebung der ursprünglichen Entwickler nachgebildet werden \cite{Boettiger2015}\ev{Boettiger2015.02}, und Softwareabhängigkeiten ändern sich durch Aktualisierungen, die die Ergebnisse des Codes verändern können \cite{Boettiger2015}\ev{Boettiger2015.03}.
+Cervera et al.\ untersuchen den Quellcode von 30 Veröffentlichungen der ICRA~2017 \cite{Cervera2019}\ev{Cervera2019.03}: Acht Repositories ließen sich nicht bauen, und nur bei einem von drei Repositories lief ein dokumentiertes Beispiel fehlerfrei \cite{Cervera2019}\ev{Cervera2019.08}.
+Die meisten Fehlschläge führen die Autoren auf unvollständige oder inkonsistente Dokumentation zurück \cite{Cervera2019}\ev{Cervera2019.09}.
 
 Container begegnen dem Abhängigkeitsproblem mit einem vorbereiteten Abbild der Software.
 Ein Docker-Image enthält die gesamte Software bereits installiert, konfiguriert und getestet, ähnlich dem Abbild einer virtuellen Maschine \cite{Boettiger2015}\ev{Boettiger2015.06}; ein Container ist die laufende Instanz eines Images \cite{Boettiger2015}\ev{Boettiger2015.08}.
-Aus Laufzeitsicht ist ein Container eine Menge ressourcenbegrenzter Prozesse, die über die Linux-Kernelfunktionen Namespaces und Control Groups vom restlichen System und von anderen Containern isoliert sind \cite{Struhar2020}\ev{Struhar2020.02}.
-Ein Dockerfile legt als einfaches Skript genau fest, wie das Image aufgebaut wird \cite{Boettiger2015}\ev{Boettiger2015.09}; spätere Builds sind jedoch nicht zwingend bitweise identisch, weil sie neuere Softwareversionen installieren können \cite{Boettiger2015}\ev{Boettiger2015.10}.
-
-Von einer virtuellen Maschine unterscheidet sich ein Container durch den gemeinsamen Betriebssystemkern.
-Docker-Images teilen sich den Linux-Kernel mit dem Host \cite{Boettiger2015}\ev{Boettiger2015.07}, und containerbasierte Virtualisierung kommt ohne die Virtualisierungsschicht (Hypervisor) aus, die laut Struhar et al.\ Leistungseinbußen verursacht \cite{Struhar2020}\ev{Struhar2020.01}.
-Ein Desktop-Rechner kann laut Boettiger nur wenige virtuelle Maschinen, aber hunderte Container gleichzeitig betreiben \cite{Boettiger2015}\ev{Boettiger2015.08}.
-Containerisierte Anwendungen plant der Scheduler des Hosts wie native Anwendungen ein \cite{Struhar2020}\ev{Struhar2020.03}; eine von Struhar et al.\ wiedergegebene Untersuchung fand bei Docker keinen zusätzlichen Overhead für Scheduling und Ein- und Ausgabe, wohl aber einen größeren Einfluss der Kernelwahl \cite{Struhar2020}\ev{Struhar2020.06}.
-Der Standard-Linux-Kernel gibt allerdings keine zeitlichen Garantien \cite{Struhar2020}\ev{Struhar2020.04}, und für industrielle Domänen mit Echtzeitanforderungen halten die Autoren containerbasierte Virtualisierung noch nicht für ausgereift genug \cite{Struhar2020}\ev{Struhar2020.08}.
+Aus Laufzeitsicht ist ein Container eine Menge ressourcenbegrenzter Prozesse, die über die Linux-Kernelfunktionen Namespaces und Control Groups vom restlichen System isoliert sind \cite{Struhar2020}\ev{Struhar2020.02}.
+Anders als eine virtuelle Maschine teilt ein Docker-Image den Linux-Kernel mit dem Host \cite{Boettiger2015}\ev{Boettiger2015.07} und kommt ohne Virtualisierungsschicht (Hypervisor) aus, die laut Struhar et al.\ Leistungseinbußen verursacht \cite{Struhar2020}\ev{Struhar2020.01}.
+Eine von Struhar et al.\ wiedergegebene Untersuchung fand bei Docker keinen zusätzlichen Overhead für Scheduling und Ein- und Ausgabe \cite{Struhar2020}\ev{Struhar2020.06}; für industrielle Domänen mit Echtzeitanforderungen halten die Autoren containerbasierte Virtualisierung jedoch noch nicht für ausgereift genug \cite{Struhar2020}\ev{Struhar2020.08}.
 
 In der Robotikforschung schlagen Cervera et al.\ Docker vor, um Quellcode-Repositories in ausführbare Images zu überführen, die isoliert und ohne aufwendige Integration ins Hostsystem laufen \cite{Cervera2019}\ev{Cervera2019.01}.
 Insgesamt konnten sie die Software in 16 der 30 untersuchten Repositories bauen und ausführen, teils nach eigener Fehlerbehebung \cite{Cervera2019}\ev{Cervera2019.10}.
-Frameworks wie ROS haben die Reproduktion laut den Autoren nicht vereinfacht, weil Systeme verschiedene Werkzeuge und oft verborgene Abhängigkeiten kombinieren \cite{Cervera2019}\ev{Cervera2019.02}.
-Docker erleichtert dagegen die modulare Wiederverwendung, indem ein Container auf einem anderen aufbaut \cite{Boettiger2015}\ev{Boettiger2015.11}, ersetzt aber keine Paketierungswerkzeuge wie apt oder pip \cite{Cervera2019}\ev{Cervera2019.12}.
+Docker erleichtert zudem die modulare Wiederverwendung, indem ein Container auf einem anderen aufbaut \cite{Boettiger2015}\ev{Boettiger2015.11}, ersetzt aber keine Paketierungswerkzeuge wie apt oder pip \cite{Cervera2019}\ev{Cervera2019.12}.
 % Eigenleistung, Datenbasis: review/plan-kap3.md (Code-Befunde: drei Images, Compose-Datei mit Profilen sim/real, Host-Netzwerk)
 Die Arbeit stellt ihre Software in drei Images bereit, die eine Compose-Datei mit den Profilen \texttt{sim} und \texttt{real} im Host-Netzwerk startet (Abschnitt~\ref{sec:bereitstellung}).
 
@@ -378,29 +264,18 @@ Er bildet die Grundlage für das Sicherheitskonzept in Abschnitt~\ref{sec:sicher
 \subsection{Rechtsrahmen und Normen}
 \label{sec:normen}
 Die wichtigste europäische Rechtsvorschrift für Gesundheits- und Sicherheitsanforderungen an Maschinen ist laut Villani et al.\ die Maschinenrichtlinie \cite{Villani2018}\ev{Villani2018.01}, die Richtlinie 2006/42/EG \cite{MRL2006}\ev{*}.
-Als Maschine gilt dort unter anderem eine Gesamtheit verbundener Teile mit einem anderen Antrieb als unmittelbar eingesetzter menschlicher oder tierischer Kraft, von denen mindestens eines beweglich ist und die für eine bestimmte Anwendung zusammengefügt sind \cite{MRL2006}\ev{MRL2006.01}.
-Der Hersteller muss eine Risikobeurteilung vornehmen lassen und die Maschine unter Berücksichtigung ihrer Ergebnisse konstruieren und bauen \cite{MRL2006}\ev{MRL2006.03}.
+Ihr Hersteller muss eine Risikobeurteilung vornehmen lassen und die Maschine unter Berücksichtigung der Ergebnisse konstruieren und bauen \cite{MRL2006}\ev{MRL2006.03}.
 Ausgenommen sind Maschinen, die speziell für Forschungszwecke konstruiert und gebaut wurden und zur vorübergehenden Verwendung in Laboratorien bestimmt sind \cite{MRL2006}\ev{MRL2006.02}.
 \pruefen{Ob die Forschungsausnahme auf den Einsatz des G1 am Lehrstuhl zutrifft, mit dem Betreuer klären – keine Eigenbewertung im Text}
-
-Die Maschinenverordnung löst die Richtlinie ab.
-In der vorliegenden Fassung gilt sie ab dem 14.~Januar 2027 und hebt die Richtlinie 2006/42/EG mit Wirkung vom selben Tag auf \cite{MVO2023}\ev{MVO2023.01,MVO2023.02}.
+Die Maschinenverordnung gilt in der vorliegenden Fassung ab dem 14.~Januar 2027 und hebt die Richtlinie mit Wirkung vom selben Tag auf \cite{MVO2023}\ev{MVO2023.01,MVO2023.02}.
 \pruefen{Datum mit der Berichtigung ABl. L 169/35 abgleichen – sie ändert laut Belegkommentar Datumsangaben und liegt nicht als Text vor}
-Neu sind Anforderungen an Steuerungen mit selbstentwickelndem Verhalten: Sind sie für einen in wechselndem Maße autonomen Betrieb ausgelegt, dürfen sie nicht zu Handlungen über die festgelegte Aufgabe und den festgelegten Bewegungsbereich hinaus führen \cite{MVO2023}\ev{MVO2023.07}.
 
 Normen konkretisieren diese Anforderungen in mehreren Stufen.
 ISO~12100 und IEC~61508 sind Typ-A-Normen für Grundbegriffe und Methodik der Maschinensicherheit bzw.\ die funktionale Sicherheit elektrischer, elektronischer und programmierbarer Einrichtungen \cite{Villani2018}\ev{Villani2018.02}; die Festlegungen der Typ-C-Normen haben Vorrang vor den übrigen Kategorien \cite{Villani2018}\ev{Villani2018.03}.
 Die in ISO~12100 behandelten Grundgefährdungen werden in produktspezifischen Normen erweitert, etwa für Industrieroboter in ISO~10218-1 und -2 und für Personal-Care-Roboter in ISO~13482 \cite{Prather2025}\ev{Prather2025.02}.
-EN ISO 10218-1 gilt für Industrieroboter, also automatisch gesteuerte, frei programmierbare Mehrzweck-Manipulatoren mit drei oder mehr Achsen \cite{DGUV2015}\ev{DGUV2015.01}; die von der DGUV im Jahr 2015 zitierte Ausgabe stammt von 2011 \cite{DGUV2015}\ev{DGUV2015.16}.
-Solange keine Normen für den nichtindustriellen Bereich vorliegen, dürfen deren Anforderungen auch auf nichtindustrielle Anwendungen angewendet werden \cite{DGUV2015}\ev{DGUV2015.02}.
 \qf{ISO 10218-1/-2 in der Ausgabe 2025 – Inhalt der Neuausgabe liegt nicht als Quelle vor; Ding2026 nennt nur die Überarbeitung}
-
-Für Humanoide fehlt eine eigene Norm.
-Die meisten Robotiknormen setzen laut einem nicht begutachteten Bericht der IEEE Humanoid Study Group feste oder statisch stabile Systeme voraus und berücksichtigen die dynamische, inhärent instabile Fortbewegung eines Humanoiden nicht \cite{Prather2025}\ev{Prather2025.01}.
-Der Anwendungsbereich von ISO/TS~15066 ist etwa auf am Boden fixierte, auf Schienen geführte oder auf statisch stabilen Basen integrierte Roboter begrenzt \cite{Prather2025}\ev{Prather2025.05}.
-Ein Preprint von Ding et al.\ stellt ebenso fest, dass keine eigene, harmonisierte Sicherheitsnorm für Industriehumanoide die Reaktionskette eines balancierenden Zweibeiners regelt \cite{Ding2026}\ev{Ding2026.07}.
-Laut dem Bericht entwickelt eine Arbeitsgruppe im ISO-Komitee TC~299 mit ISO/AWI~25785-1 eine Sicherheitsnorm für industrielle mobile Roboter mit aktiv geregelter Stabilität, ausdrücklich einschließlich Humanoiden \cite{Prather2025}\ev{Prather2025.07}.
-Tabelle~\ref{tab:normen} fasst die Regelwerke zusammen.
+Für Humanoide fehlt dagegen eine eigene Norm: Die meisten Robotiknormen setzen laut einem nicht begutachteten Bericht der IEEE Humanoid Study Group feste oder statisch stabile Systeme voraus und berücksichtigen die inhärent instabile Fortbewegung eines Humanoiden nicht \cite{Prather2025}\ev{Prather2025.01}.
+Tabelle~\ref{tab:normen} fasst die Regelwerke und ihren Bezug zu Humanoiden zusammen.
 
 \begin{table}[htbp]
     \tabstil
@@ -419,33 +294,25 @@ Tabelle~\ref{tab:normen} fasst die Regelwerke zusammen.
     \end{tabularx}
 \end{table}
 
-Die ersten beiden Zeilen der Tabelle~\ref{tab:normen} bilden den Rechtsrahmen, die übrigen die Normen.
+Die ersten beiden Zeilen der Tabelle~\ref{tab:normen} bilden den Rechtsrahmen.
+Die Maschinenverordnung verlangt darin, dass Steuerungen mit selbstentwickelndem Verhalten nicht zu Handlungen über die festgelegte Aufgabe und den festgelegten Bewegungsbereich hinaus führen \cite{MVO2023}\ev{MVO2023.07}.
+Die Normen der folgenden Zeilen gelten für Industrieroboter, kollaborative Anwendungen und Personal-Care-Roboter; EN ISO 10218-1 darf laut DGUV jedoch auch auf nichtindustrielle Anwendungen angewendet werden, solange eigene Normen fehlen \cite{DGUV2015}\ev{DGUV2015.02}.
 Der Bericht der Studiengruppe folgert, dass sich die bestehenden Normen nicht direkt auf Humanoide anwenden lassen, weil das Stabilitätsproblem alle sicherheitskritischen Funktionen betrifft \cite{Prather2025}\ev{Prather2025.06}.
-Erst das Normprojekt ISO/AWI~25785-1 in der letzten Zeile adressiert Humanoide, liegt laut Bericht aber erst als Arbeitsentwurf vor \cite{Prather2025}\ev{Prather2025.07}.
+Erst das Normprojekt ISO/AWI~25785-1 in der letzten Zeile adressiert Humanoide; eine Arbeitsgruppe im ISO-Komitee TC~299 entwickelt es \cite{Prather2025}\ev{Prather2025.07}.
 
 \subsection{Schutzfunktionen}
 \label{sec:schutzfunktionen}
 Rechtsrahmen und Normen fordern mehrere Schutzfunktionen.
 Steuerungen sind so auszulegen, dass weder Defekte der Hardware oder Software noch Fehler in der Logik des Steuerkreises oder vernünftigerweise vorhersehbare Bedienungsfehler zu Gefährdungssituationen führen \cite{MRL2006}\ev{MRL2006.04}.
-Jede Maschine braucht eine Befehlseinrichtung zum sicheren Stillsetzen der gesamten Maschine \cite{MRL2006}\ev{MRL2006.05}; der Stillsetzbefehl hat Vorrang vor Befehlen zum Ingangsetzen, und nach dem Stillsetzen ist die Energieversorgung des Antriebs zu unterbrechen \cite{MRL2006}\ev{MRL2006.06}.
-Ist das betriebsbedingt nicht möglich, muss der Zustand der Stillsetzung überwacht und aufrechterhalten werden \cite{MRL2006}\ev{MRL2006.07}.
-
-Der Not-Halt ergänzt das normale Stillsetzen.
-Jede Maschine muss ein oder mehrere Not-Halt-Befehlsgeräte haben, mit denen sich eine unmittelbar drohende oder eintretende Gefahr vermeiden lässt \cite{MRL2006}\ev{MRL2006.08}.
-Die Not-Halt-Funktion muss unabhängig von der Betriebsart jederzeit verfügbar sein und darf andere Schutzmaßnahmen nur ergänzen, nicht ersetzen \cite{MRL2006}\ev{MRL2006.09}.
+Der Stillsetzbefehl hat Vorrang vor Befehlen zum Ingangsetzen, und nach dem Stillsetzen ist die Energieversorgung des Antriebs zu unterbrechen \cite{MRL2006}\ev{MRL2006.06}.
+Jede Maschine muss zudem ein oder mehrere Not-Halt-Befehlsgeräte haben, mit denen sich eine unmittelbar drohende oder eintretende Gefahr vermeiden lässt \cite{MRL2006}\ev{MRL2006.08}; die Not-Halt-Funktion muss unabhängig von der Betriebsart jederzeit verfügbar sein und darf andere Schutzmaßnahmen nur ergänzen \cite{MRL2006}\ev{MRL2006.09}.
 EN~60204-1 unterscheidet laut DGUV drei Stoppkategorien: Kategorie~0 setzt durch sofortiges Abschalten der Energie still, Kategorie~1 hält die Energie bis zum Stillstand aufrecht und schaltet sie dann ab, Kategorie~2 setzt gesteuert still und behält die Energie bei; Kategorie~2 eignet sich nur mit zusätzlichen Maßnahmen für Sicherheitsfunktionen \cite{DGUV2015}\ev{DGUV2015.10}.
-Neben dem Not-Halt-Eingang muss jeder Industrieroboter einen Sicherheitshalt-Eingang für externe Schutzeinrichtungen haben, dessen Stoppreaktion in Kategorie~0 oder~1 erfolgt; Kategorie~2 darf zusätzlich verwendet werden, wenn der Stillstand sicher überwacht wird \cite{DGUV2015}\ev{DGUV2015.08}.
 
 Betriebsarten und Zustimmeinrichtungen sichern das Arbeiten am laufenden Roboter.
-Die gewählte Betriebsart hat Vorrang vor allen anderen Steuerungsfunktionen außer dem Not-Halt; bei mehreren Betriebsarten mit unterschiedlichen Schutzmaßnahmen ist ein in jeder Stellung abschließbarer Wahlschalter erforderlich \cite{MRL2006}\ev{MRL2006.10}.
+Die gewählte Betriebsart hat Vorrang vor allen anderen Steuerungsfunktionen außer dem Not-Halt \cite{MRL2006}\ev{MRL2006.10}.
 In der Betriebsart manuell reduzierte Geschwindigkeit (T1) dürfen Schutzeinrichtungen unwirksam sein, wenn der Roboter über eine gesonderte Stellung des Betriebsartenwahlschalters mit höchstens 250\,mm/s in Verbindung mit Zustimmungsschalter und Tippschaltung verfährt \cite{DGUV2015}\ev{DGUV2015.04}.
-In der Betriebsart manuell hohe Geschwindigkeit (T2) ist bis zur vollen Arbeitsgeschwindigkeit zusätzlich ein geschützter Standort für den Einrichter nötig, im Automatikbetrieb müssen alle Schutzeinrichtungen wirksam sein \cite{DGUV2015}\ev{DGUV2015.05}.
 Eine Zustimmeinrichtung ist ein zusätzliches handbetätigtes Befehlsgerät, das bei ständiger Betätigung eine Maschinenfunktion erlaubt, aber allein keine Bewegung starten darf \cite{DGUV2015}\ev{DGUV2015.06}; für Industrieroboter, die nach Februar 2007 produziert wurden, sind nur noch dreistufige Zustimmungsschalter zulässig \cite{DGUV2015}\ev{DGUV2015.07}.
-
-Für den kollaborativen Betrieb nennen ISO~10218-1/-2 vier Betriebsarten \cite{Villani2018}\ev{Villani2018.04}.
-Der sicherheitsbewertete überwachte Halt erfordert zusätzlich einen Halt der Stoppkategorie~2, bei dem die Aktoren nach dem Ende der Bewegung mit Energie versorgt bleiben \cite{Villani2018}\ev{Villani2018.05}.
-Bei der Handführung lernt der Bediener Positionen ein, indem er den Roboter direkt bewegt \cite{Villani2018}\ev{Villani2018.06}; der Roboter muss dabei mit sicher reduzierter Geschwindigkeit betrieben werden \cite{DGUV2015}\ev{DGUV2015.12}.
-Die Geschwindigkeits- und Abstandsüberwachung lässt den Menschen im Arbeitsraum zu und verringert die Robotergeschwindigkeit abhängig von seiner Position \cite{Villani2018}\ev{Villani2018.07}, die Leistungs- und Kraftbegrenzung begrenzt Motorleistung und -kraft, damit ein Werker neben dem Roboter arbeiten kann \cite{Villani2018}\ev{Villani2018.08}.
+Für den kollaborativen Betrieb nennen ISO~10218-1/-2 vier Betriebsarten \cite{Villani2018}\ev{Villani2018.04}, darunter die Leistungs- und Kraftbegrenzung, die Motorleistung und -kraft begrenzt, damit ein Werker neben dem Roboter arbeiten kann \cite{Villani2018}\ev{Villani2018.08}.
 ISO/TS~15066 legt dafür unter der Grundannahme einer sicher reduzierten Geschwindigkeit von höchstens 250\,mm/s zulässige Größen wie Mindestabstände und Belastungsgrenzen für den menschlichen Körper fest \cite{Villani2018}\ev{Villani2018.09}.
 Die Umsetzung dieser Schutzfunktionen in der Arbeit beschreibt Abschnitt~\ref{sec:schutzmechanismen}.
 
@@ -458,20 +325,14 @@ Ein umkippendes Fahrzeug kann laut Westervelt et al.\ sich selbst und das besch�
 
 Daraus folgt ein Widerspruch zum klassischen Stillsetzen.
 In der klassischen Maschinensicherheit entzieht ein Schutzstopp die Energie, und die Maschine läuft aus oder bremst bis zu einem ungefährlichen Stillstand \cite{Ding2026}\ev{Ding2026.02}.
-Bei einem dynamisch balancierenden Humanoiden erzeugt der Energieentzug dagegen nach Ding et al.\ einen unkontrollierten Sturz, der selbst eine Gefährdung ist \cite{Ding2026}\ev{Ding2026.03}.
-Der Bericht der IEEE-Studiengruppe stellt ebenso fest, dass ein Humanoid selbst mit gebremsten und abgeschalteten Gelenken, dem üblichen sicheren Zustand fester Manipulatoren, nicht notwendig sicher ist \cite{Prather2025}\ev{Prather2025.03}.
-Der sichere Zustand muss daher laut Ding et al.\ von der Regelung aktiv gehalten werden, sodass deren Ausfall während oder nach dem Stopp eine eigene Gefährdung darstellt \cite{Ding2026}\ev{Ding2026.10}; zugleich kann ein zu abrupter Halt eine Störung jenseits der Erholungsgrenze des Balancereglers einbringen und einen Sturz auslösen \cite{Ding2026}\ev{Ding2026.09}.
+Bei einem dynamisch balancierenden Humanoiden erzeugt der Energieentzug dagegen nach einem nicht begutachteten Preprint von Ding et al.\ einen unkontrollierten Sturz, der selbst eine Gefährdung ist \cite{Ding2026}\ev{Ding2026.03}.
+Auch der Bericht der IEEE-Studiengruppe stellt fest, dass ein Humanoid selbst mit gebremsten und abgeschalteten Gelenken, dem üblichen sicheren Zustand fester Manipulatoren, nicht notwendig sicher ist \cite{Prather2025}\ev{Prather2025.03}.
+Der sichere Zustand muss laut Ding et al.\ von der Regelung aktiv gehalten werden, sodass deren Ausfall während oder nach dem Stopp eine eigene Gefährdung darstellt \cite{Ding2026}\ev{Ding2026.10}; zugleich kann ein zu abrupter Halt eine Störung jenseits der Erholungsgrenze des Balancereglers einbringen und einen Sturz auslösen \cite{Ding2026}\ev{Ding2026.09}.
 In ihrer Fallstudie mit dem G1 schalten die Autoren die Energie deshalb nicht ab, sondern befehlen einen kontrollierten Halt im Stand \cite{Ding2026}\ev{Ding2026.08}.
-Normen müssen nach dem Bericht deshalb auch Fehlerbehandlung und Sturzreaktion regeln \cite{Prather2025}\ev{Prather2025.08}.
 
-Die Robotikforschung behandelt Stürze in drei Teilproblemen.
-Subburaman et al.\ definieren den Sturzzustand als Menge aller Zustände, aus denen keine aktive Regelung in den stabilen Bereich zurückführt und die sich bis zum Kontakt mit dem Boden oder einer festen Struktur weiterentwickeln \cite{Subburaman2023}\ev{Subburaman2023.03}.
-Das Sturzproblem unterteilen sie in Sturzvorhersage, kontrollierten Sturz und Sturzerholung \cite{Subburaman2023}\ev{Subburaman2023.04}.
-Die Sturzvorhersage arbeitet mit statischen Schwellwerten, analytischen bzw.\ modellbasierten Verfahren, Multisensorfusion oder Lernverfahren \cite{Subburaman2023}\ev{Subburaman2023.06}; eine agilere Vorhersage verschafft ausreichend Vorlaufzeit, kann aber die Rate falscher Alarme erhöhen \cite{Subburaman2023}\ev{Subburaman2023.05}.
-Der kontrollierte Sturz soll Schäden an Roboter, Objekten und Personen verringern \cite{Subburaman2023}\ev{Subburaman2023.07} und zielt entweder auf geringere Eigenschäden oder auf geringere Schäden an der Umgebung \cite{Subburaman2023}\ev{Subburaman2023.08}.
-Befinden sich Menschen um den Roboter, kann ein Sturz auf sie laut den Autoren schwere Verletzungen verursachen \cite{Subburaman2023}\ev{Subburaman2023.10}.
-
-Für den G1 selbst liegen nur wenige sicherheitsbezogene Angaben vor.
-Seine Bordrechner sind laut Ding et al.\ handelsübliche Standardhardware, sodass der darauf laufende Sicherheitscontroller ihrer Fallstudie keine zertifizierte Sicherheitslaufzeit ist \cite{Ding2026}\ev{Ding2026.05}.
+Die Robotikforschung teilt das Sturzproblem in Sturzvorhersage, kontrollierten Sturz und Sturzerholung \cite{Subburaman2023}\ev{Subburaman2023.04}.
+Die Sturzvorhersage arbeitet mit statischen Schwellwerten, analytischen bzw.\ modellbasierten Verfahren, Multisensorfusion oder Lernverfahren \cite{Subburaman2023}\ev{Subburaman2023.06}.
+Der kontrollierte Sturz soll Schäden an Roboter, Objekten und Personen verringern \cite{Subburaman2023}\ev{Subburaman2023.07}; befinden sich Menschen um den Roboter, kann ein Sturz auf sie laut den Autoren schwere Verletzungen verursachen \cite{Subburaman2023}\ev{Subburaman2023.10}.
+Für den G1 selbst sind die Bordrechner laut Ding et al.\ handelsübliche Standardhardware, sodass der darauf laufende Sicherheitscontroller ihrer Fallstudie keine zertifizierte Sicherheitslaufzeit ist \cite{Ding2026}\ev{Ding2026.05}.
 \qf{Sicherheitshinweise von Unitree zum G1 (Dämpfungsmodus, Not-Aus der Fernbedienung) – Herstellerseite als PDF fehlt}
 Damit sind die Grundlagen für Simulation, Kommunikation und Sicherheit gelegt; Kapitel~\ref{chap:faehigkeiten} stellt die Fähigkeiten humanoider Roboter vor, die die Umgebung in Simulation und Realbetrieb bereitstellt.
