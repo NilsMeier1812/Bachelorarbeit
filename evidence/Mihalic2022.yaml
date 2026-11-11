@@ -1,0 +1,52 @@
+citekey: Mihalic2022
+zotero_key: 8HPEP2PR            # aus zotero-map.json
+# Übersichtsartikel (Review), MDPI Electronics 2022, 11, 2462; Schwerpunkt Automotive, Leistungselektronik, Antriebe; MiL und PiL werden nicht definiert, SIL nur beiläufig
+belege:
+  - id: Mihalic2022.01
+    seite: "1"
+    zitat: "Realistic simulation is enabled by the closed loop between the hardware under test (HUT) and real-time simulation."
+    kernaussage: "Laut den Autoren ermöglicht der geschlossene Regelkreis zwischen dem zu testenden Gerät (HUT) und einer Echtzeitsimulation eine realistische Simulation."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L2); HiL, Abstract"
+  - id: Mihalic2022.02
+    seite: "1"
+    zitat: "The real hardware (when available) is used in the simulation loop instead of strenuous and long-term testing of the control algorithms [1,2]."
+    kernaussage: "Bei HIL-Simulationen wird, wenn verfügbar, reale Hardware in die Simulationsschleife eingebunden, statt Regelalgorithmen aufwendig und langwierig zu testen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L2); HiL, Einleitung; Sekundäraussage, verweist auf [1,2]"
+  - id: Mihalic2022.03
+    seite: "1"
+    zitat: "The fact is that the actuators are hard to model, and, when they are available, can be incorporated into the simulation loop to improve the simulation."
+    kernaussage: "Laut den Autoren sind Aktuatoren schwer zu modellieren und können, wenn verfügbar, in die Simulationsschleife eingebunden werden, um die Simulation zu verbessern."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L2); Nutzen von HiL; Aussage im Kontext von Steuergeräte-Tests (ECU)"
+  - id: Mihalic2022.04
+    seite: "3"
+    zitat: "The ECU software is, in a SIL solution, certified in a virtual environment. The ECU software can then be approved with no ECU hardware at all. The requested object model and the software run on a PC using particular tools."
+    kernaussage: "Bei einer SIL-Lösung wird die ECU-Software in einer virtuellen Umgebung zertifiziert, ohne ECU-Hardware freigegeben und mit dem Objektmodell auf einem PC ausgeführt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L2); SiL, einzige Aussage zu SIL im Text, nur im ECU-Kontext (dSpace); keine allgemeine Definition; MiL/PiL fehlen"
+  - id: Mihalic2022.05
+    seite: "5"
+    zitat: "Furthermore, Fathy in [23] defines a HIL simulator as “a setup that emulates a system by immersing faithful physical replicas of some of its subsystems within a closed-loop virtual simulation of the remaining subsystems”."
+    kernaussage: "Fathy definiert einen HIL-Simulator als Aufbau, der ein System emuliert, indem physische Nachbildungen einiger Teilsysteme in eine virtuelle Closed-Loop-Simulation der übrigen Teilsysteme eingebettet werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L2); HiL-Definition; Sekundäraussage, verweist auf [23]"
+  - id: Mihalic2022.06
+    seite: "5"
+    zitat: "This definition emphasizes an essential characteristic of the HIL simulator: the bidirectional interactions (with closed-loop) must be included between its physical and virtual ingredients."
+    kernaussage: "Wesentliches Merkmal eines HIL-Simulators ist laut den Autoren die bidirektionale Wechselwirkung (Regelkreis) zwischen physischen und virtuellen Anteilen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L2); Abgrenzung HiL; die Autoren nennen auch unidirektionale Kopplung mit leichtem Genauigkeitsverlust"
+  - id: Mihalic2022.07
+    seite: "6"
+    zitat: "The HIL methodology produces comprehensive control system testing for preventing damageable and costly failures. Moreover, HIL simulations reduce the time of development, and can enable more tests than are available on the real system."
+    kernaussage: "Laut den Autoren ermöglicht HIL umfassende Tests von Regelsystemen zur Vermeidung schädlicher und teurer Ausfälle, verkürzt die Entwicklungszeit und kann mehr Tests ermöglichen als am realen System."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L2); Nutzen von HiL"
+  - id: Mihalic2022.08
+    seite: "7"
+    zitat: "HIL testing is a real-time simulation that enables the testing of the embedded code without the real system hardware. The system can be tested for abnormal and faulty conditions, which could damage the hardware."
+    kernaussage: "HIL-Test ist eine Echtzeitsimulation, die den Test von Embedded-Code ohne die reale Systemhardware erlaubt und Tests unter anormalen und fehlerhaften Bedingungen ermöglicht, die die Hardware beschädigen könnten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L2); Nutzen von HiL"

@@ -1,0 +1,88 @@
+citekey: Kronauer2021
+zotero_key: 3T7IZVHT            # aus zotero-map.json
+# arXiv-Preprint (arXiv:2101.02074v3, 11.06.2021) der SenSys-2021-Arbeit; Seitenzahlen = Preprint-Fassung, Messung auf einem Rechner (localhost), ROS 2 Foxy
+belege:
+  - id: Kronauer2021.01
+    seite: "1"
+    zitat: "Although still using the publish/subscribe mechanism of ROS1, ROS2 builds its transport layer on a new middleware. The middleware is an implementation of the DDS standard [13] that is widely used for distributed, real-time systems."
+    kernaussage: "Laut den Autoren baut ROS 2 seine Transportschicht auf einer Middleware auf, die eine Implementierung des DDS-Standards ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13)"
+  - id: Kronauer2021.02
+    seite: "1"
+    zitat: "For that purpose, middleware interface modules (rmw in short for ros middleware) were introduced. The most recent release of ROS2, Foxy Fitzroy, supports, among others, eProsima FastRTPS, Eclipse Cyclone DDS, and RTI Connext as DDS middleware."
+    kernaussage: "ROS 2 verbirgt die DDS-Middleware über rmw-Module; Foxy Fitzroy unterstützt unter anderem FastRTPS, Cyclone DDS und RTI Connext."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); Stand ROS 2 Foxy; verweist auf [15, 16]"
+  - id: Kronauer2021.03
+    seite: "2"
+    zitat: "A distinguishing feature of DDS is the use of quality of service (QoS) policies. Each entity has an assigned QoS policy determining the behavior of each entity concerning communication and discovery."
+    kernaussage: "Jede DDS-Entität hat laut den Autoren eine QoS-Policy, die ihr Verhalten bei Kommunikation und Discovery bestimmt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); Sekundäraussage, Zusammenfassung der DDS-Spezifikation 1.4"
+  - id: Kronauer2021.04
+    seite: "3"
+    zitat: "latency is defined between publishing a message in the first node and receiving the message in the last node, i.e. the call of the callback of the subscriber."
+    kernaussage: "Die Latenz ist definiert zwischen dem Publizieren einer Nachricht im ersten Knoten und dem Empfang im letzten Knoten, also dem Aufruf des Subscriber-Callbacks."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L14); Messgröße"
+  - id: Kronauer2021.05
+    seite: "4"
+    zitat: "We compare two different hardware settings, namely a desktop PC, with an Intel i7-8700 CPU @ 3.2 GHz x 6 and 32 GB RAM. In addition, we use a Raspberry Pi 4 Model B Rev 1.1 with 4 GB RAM."
+    kernaussage: "Gemessen wurde auf einem Desktop-PC (i7-8700, 32 GB RAM) und einem Raspberry Pi 4 Model B (4 GB RAM)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L14); Messaufbau"
+  - id: Kronauer2021.06
+    seite: "4"
+    zitat: "We set the network device as localhost with UDP as transport layer. FastRTPS version is 2.0.1, CycloneDDS is 0.6.0, and Connext was updated to 6.0.1 as major improvements were made during this update."
+    kernaussage: "Die Messungen liefen über localhost mit UDP als Transportschicht; verwendet wurden FastRTPS 2.0.1, CycloneDDS 0.6.0 und Connext 6.0.1."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L14); Messaufbau, Versionen"
+  - id: Kronauer2021.07
+    seite: "4"
+    zitat: "Further, we can see that the obtained latencies for 128 B, 1 KB, 10 KB are equal, but increase for 100 KB and 500 KB. This can be explained by the maximum UDP packet size of 64 KB which incurs fragmentation for large payloads."
+    kernaussage: "Auf dem Desktop-PC waren die Latenzen für 128 B, 1 KB und 10 KB gleich und stiegen für 100 KB und 500 KB; die Autoren erklären dies mit der UDP-Fragmentierung oberhalb von 64 KB."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L14); Einfluss der Nachrichtengröße; Desktop-PC, QoS BEST_EFFORT, drei Knoten"
+  - id: Kronauer2021.08
+    seite: "4"
+    zitat: "FastRTPS is slighty faster than Connext, whereas CycloneDDS entails the highest latency."
+    kernaussage: "Beim Desktop-PC war laut den Autoren FastRTPS etwas schneller als Connext, Cyclone DDS hatte die höchste Latenz."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L14); Einschränkung: Aussage im Kontext großer Nachrichten (Fragmentierung), Desktop-PC; auf dem Raspberry Pi anderes Bild (siehe .12)"
+  - id: Kronauer2021.09
+    seite: "5"
+    zitat: "As far as the desktop PC is concerned, for a payload of 128 B, the results indicate a linear relationship between the number of nodes and latency."
+    kernaussage: "Auf dem Desktop-PC deuten die Ergebnisse bei 128 B Nutzlast einen linearen Zusammenhang zwischen Knotenanzahl und Latenz an."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L14); Einfluss der Knotenanzahl (3 bis 23); Ausreißer bei wenigen Samples laut Quelle möglich"
+  - id: Kronauer2021.10
+    seite: "5"
+    zitat: "The overhead of ROS2 compared to raw DDS amounts up to 50 % for small messages."
+    kernaussage: "Der Overhead von ROS 2 gegenüber reinem DDS beträgt bei kleinen Nachrichten bis zu 50 %."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L14); Profiling; unter den Messbedingungen der Quelle (localhost, Foxy)"
+  - id: Kronauer2021.11
+    seite: "6"
+    zitat: "In our setup, using RELIABLE transmission imposed a latency overhead of up to 15 %, cf. Fig. 7."
+    kernaussage: "In ihrem Aufbau verursachte die QoS-Einstellung RELIABLE gegenüber BEST_EFFORT einen Latenz-Overhead von bis zu 15 %."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13/L14); QoS-Einfluss, Messung bei höchstem Durchsatz"
+  - id: Kronauer2021.12
+    seite: "6"
+    zitat: "Latency critically depends on the hardware used and the parameter settings. No middleware yields the lowest latency in all cases."
+    kernaussage: "Die Latenz hängt laut den Autoren stark von Hardware und Parametern ab; keine Middleware liefert in allen Fällen die niedrigste Latenz."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L14); Fazit, Cyclone DDS nicht generell langsamer oder schneller"
+  - id: Kronauer2021.13
+    seite: "7"
+    zitat: "During our evaluation, we observe that latency highly depends on energy saving features of the OS and the hardware."
+    kernaussage: "Die Latenz hängt laut den Autoren stark von Energiesparfunktionen des Betriebssystems und der Hardware ab."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L14)"
+  - id: Kronauer2021.14
+    seite: "7"
+    zitat: "In future work, one might consider an evaluation in a more realistic setup, i.e. with distributed systems. Network effects could be better evaluated."
+    kernaussage: "Die Autoren nennen als Einschränkung, dass Netzwerkeffekte nicht erfasst wurden und eine Evaluation mit verteilten Systemen künftig sinnvoll wäre."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L14); Einschränkung der Studie (Messung auf einem Rechner)"

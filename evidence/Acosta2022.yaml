@@ -1,0 +1,76 @@
+citekey: Acosta2022
+zotero_key: NV36N3N8
+# IEEE Robotics and Automation Letters 2022, arXiv-Preprint v3 vom 14.07.2022 (nicht Verlagsfassung; Seitenzahlen = Preprint-Seiten 1-7). Vergleich Drake, MuJoCo, Bullet; Würfelwurf und Cassie-Sprung.
+belege:
+  - id: Acosta2022.01
+    seite: "1"
+    zitat: "For the simple example of a cube tossed onto a table, simulators capture inelastic impacts surprisingly well, though generally fail to reproduce elasticity. For the higher-dimensional case of a Cassie biped landing from a jump, the simulators capture the bulk motion well but the accuracy is limited by model differences between the real robot and the simulators."
+    kernaussage: "Laut Autoren erfassen die Simulatoren beim Würfelwurf unelastische Stöße überraschend gut, geben Elastizität aber meist nicht wieder; beim Cassie-Sprung bilden sie die Gesamtbewegung gut ab, die Genauigkeit sei aber durch Modellunterschiede zwischen realem Roboter und Simulatoren begrenzt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.3/3.2.3 (L6, L11); Zusammenfassung; Cassie nur Drake und MuJoCo"
+  - id: Acosta2022.02
+    seite: "1"
+    zitat: "However, domain randomization works best when the range of randomized model parameters is small, and non-randomized dynamics are accurate. Contact parameters other than friction are rarely randomized, suggesting accurate impact simulation could be a contributing factor in successful sim-to-real transfer."
+    kernaussage: "Laut Autoren funktioniert Domain Randomization am besten, wenn der Bereich der randomisierten Parameter klein und die nicht randomisierte Dynamik genau ist; Kontaktparameter außer Reibung würden selten randomisiert, weshalb genaue Stoßsimulation zum Sim-to-Real-Erfolg beitragen könnte."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4/L5); Einschätzung der Autoren (\"suggesting ... could be\"), keine eigene Messung"
+  - id: Acosta2022.03
+    seite: "1"
+    zitat: "While simulators may be able to accurately capture real impacts if tuned to a correct set of parameters, roboticists often choose contact parameters such as stiffness to maximize simulation speed and may only be peripherally aware of the tradeoffs being made with physical realism."
+    kernaussage: "Laut Autoren können Simulatoren reale Stöße genau erfassen, wenn die Parameter richtig eingestellt sind; Anwender wählten Kontaktparameter wie die Steifigkeit aber oft zugunsten der Simulationsgeschwindigkeit und seien sich der Einbußen an physikalischer Realitätstreue kaum bewusst."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L8); Einschätzung der Autoren zur Praxis"
+  - id: Acosta2022.04
+    seite: "2"
+    zitat: "MuJoCo uses a convex approximation of rigid contact first introduced in [17] with regularization introduced in [18]. This regularization softens contact by relaxing the strict complementary of contact force and distance between objects."
+    kernaussage: "Laut Autoren nutzt MuJoCo eine konvexe Näherung starrer Kontakte mit Regularisierung, die den Kontakt weich macht, indem die strikte Komplementarität von Kontaktkraft und Abstand gelockert wird."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7); Beschreibung der Autoren, verweist auf [17], [18]"
+  - id: Acosta2022.05
+    seite: "2"
+    zitat: "This convex formulation guarantees a unique solution at each time step and yields fast, differentiable computations. This speed has made MuJoCo a popular simulator in the robotics community, especially among RL practitioners, though MuJoCo’s contact constraint regularization has been observed to cause non-physical artifacts during slip."
+    kernaussage: "Laut Autoren garantiert die konvexe Formulierung in MuJoCo eine eindeutige Lösung je Zeitschritt und liefert schnelle, differenzierbare Berechnungen, weshalb MuJoCo verbreitet ist; die Kontaktregularisierung wurde jedoch als Ursache nichtphysikalischer Artefakte beim Gleiten beobachtet."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7); Einschränkung \"observed to cause non-physical artifacts during slip\"; Sekundäraussage zu Artefakten (verweist auf [19], [20])"
+  - id: Acosta2022.06
+    seite: "3"
+    zitat: "Bullet does not natively support modeling the reflected inertia from the motors and gearboxes, which plays a significant role in the dynamics of Cassie."
+    kernaussage: "Laut Autoren unterstützt Bullet nativ keine reflektierte Trägheit von Motoren und Getrieben, die für die Dynamik von Cassie eine wesentliche Rolle spielt; Bullet wurde deshalb für die Cassie-Daten nicht verwendet."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10); Zweibeiner (Cassie), Einschränkung von Bullet (Stand 2022)"
+  - id: Acosta2022.07
+    seite: "3"
+    zitat: "The timestep for each simulator is set to 1480 Hz, and the resulting trajectories are down-sampled to match the data collection frequency of 148 Hz. We found that decreasing the simulator timestep further did not improve the prediction capability of any simulator."
+    kernaussage: "Beim Würfelwurf wurde der Zeitschritt aller Simulatoren auf 1480 Hz gesetzt und auf die Messfrequenz von 148 Hz heruntergetastet; eine weitere Verkleinerung des Zeitschritts verbesserte die Vorhersage laut Autoren bei keinem Simulator."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2/3.1.3 (L8); gilt für den Würfelwurf mit diesen Parametern"
+  - id: Acosta2022.08
+    seite: "4"
+    zitat: "To mitigate the effects of model uncertainty mentioned above, and to focus on capturing the impact event, we evaluate the trajectories for a brief 50 ms time window (T = 100 when sampled at 2000 Hz) around the impact event."
+    kernaussage: "Um Modellunsicherheiten abzumildern, werten die Autoren beim Cassie-Sprung nur ein kurzes Zeitfenster von 50 ms (T = 100 bei 2000 Hz) um den Stoß aus."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.3 (L6); Kennzahl bezieht sich nur auf das Stoßfenster; verwendet gewichtete Norm (Gl. 4, S. 4)"
+  - id: Acosta2022.09
+    seite: "5"
+    zitat: "As shown in Table V, the simulators are all able to accurately reproduce cube toss trajectories, with Drake and Bullet being more accurate than MuJoCo."
+    kernaussage: "Laut Autoren geben alle Simulatoren die Würfelwurf-Trajektorien genau wieder, Drake und Bullet dabei genauer als MuJoCo."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3/3.1.3 (L11); Tab. V (S. 5) mit Positionsfehler in Prozent der Würfelbreite, Rotationsfehler in Grad und eq"
+  - id: Acosta2022.10
+    seite: "5"
+    zitat: "This may be due to the contact patches on the physical robot able to exert moments about the contact normal, whereas in both simulators, contact forces are represented as point contacts and unable to produce moments about the contact point."
+    kernaussage: "Laut Autoren könnte die geringere Verdrehung des realen Roboters daran liegen, dass reale Kontaktflächen Momente um die Kontaktnormale übertragen können, während in beiden Simulatoren Kontaktkräfte als Punktkontakte dargestellt werden und kein solches Moment erzeugen können."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2/3.1.3 (L8, L11); Zweibeiner-Landung Cassie, Vermutung der Autoren (\"may be due to\")"
+  - id: Acosta2022.11
+    seite: "6"
+    zitat: "We observe that for both systems, the simulators tested are able to reproduce the bulk motion observed during impact. This suggests that simulators can indeed be an appropriate tool for controller design and verification in impact-rich settings. Additionally, we observe that accurate simulator performance can be achieved by a wide range of contact parameters, which suggests that extensive identification of the contact parameters is not necessary."
+    kernaussage: "Laut Autoren geben die getesteten Simulatoren bei beiden Systemen die Gesamtbewegung beim Stoß wieder; genaue Ergebnisse seien mit einem weiten Bereich von Kontaktparametern erreichbar, sodass eine umfangreiche Identifikation der Kontaktparameter nicht nötig sei."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.3/3.2.2 (L6, L8); Schlussfolgerung der Autoren für Würfelwurf und Cassie-Sprung mit Drake, MuJoCo, Bullet"
+  - id: Acosta2022.12
+    seite: "7"
+    zitat: "Although the identified cube parameters are fairly stiff, the identified parameters for Cassie are much softer. This may be due to the rubber pads on Cassie’s feet as well as other mechanical compliance associated with a larger system."
+    kernaussage: "Laut Autoren sind die identifizierten Kontaktparameter für Cassie viel weicher als für den Würfel; sie vermuten als Grund die Gummisohlen an Cassies Füßen und weitere mechanische Nachgiebigkeit eines größeren Systems."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2/3.1.3 (L8, L11); Vermutung der Autoren (\"may be due to\"), Zweibeiner Cassie"

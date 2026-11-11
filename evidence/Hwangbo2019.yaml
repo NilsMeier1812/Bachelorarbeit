@@ -1,0 +1,64 @@
+citekey: Hwangbo2019
+zotero_key: 955KKVJT
+# Science Robotics 2019 (Research Article), arXiv-Preprint v1 vom 24.01.2019 (nicht Verlagsfassung; Seitenzahlen = Preprint-Seiten 1-15 und können von der gedruckten Fassung abweichen). ANYmal, Aktornetz.
+belege:
+  - id: Hwangbo2019.01
+    seite: "2"
+    zitat: "Unfortunately, such simulation-to-reality transfer is hindered by the reality gap – the discrepancy between simulation and the real system in terms of dynamics and perception."
+    kernaussage: "Laut Autoren wird der Transfer von der Simulation in die Realität durch die Reality Gap behindert, die als Diskrepanz zwischen Simulation und realem System in Dynamik und Wahrnehmung definiert wird."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4); Definition der Reality Gap"
+  - id: Hwangbo2019.02
+    seite: "2"
+    zitat: "There are two general approaches to bridging the reality gap. The first is to improve simulation fidelity either analytically or in a data-driven way; the latter is also known as system identification [27–32]. The second approach is to accept the imperfections of simulation and aim to make the controller robust to variations in system properties, thereby allowing for better transfer."
+    kernaussage: "Laut Autoren gibt es zwei Ansätze gegen die Lücke: die Simulation genauer machen (analytisch oder datengetrieben, Letzteres auch Systemidentifikation genannt) oder den Regler robust gegen Variationen der Systemeigenschaften machen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); verweist auf [27-32]"
+  - id: Hwangbo2019.03
+    seite: "2"
+    zitat: "Both approaches lead to improved transfer; however, the former is cumbersome and often impossible, while the latter can compromise the performance of the policy. Therefore, in practice, both are typically employed in conjunction."
+    kernaussage: "Laut Autoren verbessern beide Ansätze den Transfer, der erste sei aber umständlich und oft unmöglich, der zweite könne die Leistung der Policy beeinträchtigen, weshalb in der Praxis meist beide kombiniert werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Einschränkungen beider Ansätze laut Autoren"
+  - id: Hwangbo2019.04
+    seite: "3"
+    zitat: "The rigid links of ANYmal, connected through high-quality ball bearings, closely resemble an idealized multi-body system that can be modeled with well-known physical principles [40]. However, this analytical model does not include the set of mechanisms that map the actuator commands to the generalized forces acting on the rigid-body system: the actuator dynamics, the delays in control signals introduced by multiple hardware and software layers, the low-level controller dynamics, and compliance/damping at the joints."
+    kernaussage: "Laut Autoren ähnelt die Mehrkörperstruktur von ANYmal einem idealisierten Mehrkörpersystem, das analytisch modelliert werden kann; dieses Modell enthält aber nicht Aktordynamik, Verzögerungen durch Hardware- und Softwareschichten, die Dynamik des unterlagerten Reglers sowie Nachgiebigkeit und Dämpfung der Gelenke."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4); Ursachen Aktordynamik und Latenz, bezogen auf ANYmal"
+  - id: Hwangbo2019.05
+    seite: "3"
+    zitat: "Since these mechanisms are nearly impossible to model accurately, we learn the corresponding mapping in an end-to-end manner – from commanded actions to the resulting torques – with a deep network. We learn this “actuator net” on the physical system via self-supervised learning and use it in the simulation loop to model each of the 12 joints of ANYmal."
+    kernaussage: "Laut Autoren lernen sie die Abbildung von Aktorbefehlen auf Drehmomente mit einem tiefen Netz (Actuator Net), per selbstüberwachtem Lernen am realen System, und nutzen es in der Simulationsschleife für alle 12 Gelenke von ANYmal."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); gelerntes Aktormodell"
+  - id: Hwangbo2019.06
+    seite: "4"
+    zitat: "The ideal actuator model assumes that all controllers and hardware inside the actuator have infinite bandwidth and zero latency."
+    kernaussage: "Beim idealen Aktormodell wird angenommen, dass alle Regler und Hardware im Aktor unendliche Bandbreite und keine Latenz haben."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4/L5); Vergleichsmodell der Ablation"
+  - id: Hwangbo2019.07
+    seite: "4"
+    zitat: "Both alternative methods could not make a single step without falling. The resulting motions are shown in movies S4 and S5. We observed violent shaking of the limbs, probably due to not accounting for various delays properly."
+    kernaussage: "Beim Training mit idealem bzw. analytischem Aktormodell konnte der Roboter laut Autoren keinen einzigen Schritt ohne Sturz machen; sie beobachteten starkes Zittern der Gliedmaßen, vermutlich weil Verzögerungen nicht richtig berücksichtigt wurden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4/L5); Ergebnis nur für ANYmal mit diesen beiden Modellen; Ursache \"probably\" laut Autoren"
+  - id: Hwangbo2019.08
+    seite: "4"
+    zitat: "Even though the analytical model contains multiple delay sources that are tuned using real data, accurately modeling all delay sources is complicated when the actuator has limited bandwidth. SEA mechanisms generate amplitude-dependent mechanical response time, and manual tuning of latency parameters becomes challenging. We have tuned the analytical model for more than a week without much success."
+    kernaussage: "Laut Autoren ist die genaue Modellierung aller Verzögerungen bei begrenzter Aktorbandbreite kompliziert; bei Serien-Elastik-Aktoren (SEA) hänge die mechanische Ansprechzeit von der Amplitude ab, und sie hätten das analytische Modell mehr als eine Woche ohne großen Erfolg abgestimmt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4/L5); Aufwand analytisches Aktormodell, SEA-spezifisch"
+  - id: Hwangbo2019.09
+    seite: "4"
+    zitat: "In terms of average velocity, the learned policy has an error of 2.2 % on the real robot, 1.1 % higher than in a simulation."
+    kernaussage: "Bei der Geschwindigkeitsregelung hat die gelernte Policy im Mittel einen Fehler von 2,2 % am realen Roboter, 1,1 % mehr als in der Simulation."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Ergebnis des Transfers; Fig. 2B, nur für Vorwärtsgeschwindigkeit 0,25 bis 1,0 m/s"
+  - id: Hwangbo2019.10
+    seite: "9"
+    zitat: "The trained model has an average error of 0.740 Nm on the validation set, which is not far from the resolution of the torque measurement (0.2 Nm) and much smaller than the error of the ideal actuator model (3.55 Nm). Its prediction error on test data (i.e., collected using the trained locomotion policies) is significantly higher (0.966 Nm) but still far less than that of the ideal model (5.74 Nm)."
+    kernaussage: "Das trainierte Aktornetz hat auf den Validierungsdaten einen mittleren Fehler von 0,740 Nm (ideales Modell 3,55 Nm) und auf Testdaten, die mit den trainierten Policies erhoben wurden, 0,966 Nm (ideales Modell 5,74 Nm); die Auflösung der Drehmomentmessung beträgt 0,2 Nm."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Genauigkeit des Aktornetzes, nur ANYmal-Aktor"

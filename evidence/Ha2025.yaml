@@ -1,0 +1,88 @@
+citekey: Ha2025
+zotero_key: XMFIII8C
+# International Journal of Robotics Research (SAGE), Übersichtsarbeit; arXiv-Preprint v2 vom 22.11.2024 (nicht Verlagsfassung; Seitenzahlen = Preprint-Seiten und können von der gedruckten Fassung abweichen). Nur Simulatoren (Abschn. 1.2, 2, 4.5) und Sim-to-Real (Abschn. 5) exzerpiert.
+belege:
+  - id: Ha2025.01
+    seite: "2"
+    zitat: "To avoid this stiff numerical behavior, more recent simulators rely on rigid contact models, which can be either elastic or inelastic. In this approach, contact is handled via a complementarity condition together with friction cone constraints Smith et al. (2005); Todorov et al. (2012); Coumans and Bai (2016); Lee et al. (2018b); Hwangbo et al. (2018); Makoviychuk et al. (2021)."
+    kernaussage: "Laut Autoren verwenden neuere Simulatoren starre Kontaktmodelle (elastisch oder unelastisch), bei denen Kontakt über eine Komplementaritätsbedingung mit Reibkegel-Bedingungen behandelt wird; genannt werden u. a. Todorov et al. (2012), Coumans und Bai (2016) und Makoviychuk et al. (2021)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10); Aufzählung genannter Simulatoren, Sekundäraussage"
+  - id: Ha2025.02
+    seite: "6"
+    zitat: "The GPU-friendly nature of Isaac Sim Makoviychuk et al. (2021) allows for collecting statetransition data at a rate of nearly one million per second, making it especially interesting for DRL Kim et al. (2021). Relatedly, the new version of MuJoCo includes MuJoCo XLA (MJX) which makes it GPU-compatible via the JAX framework MJX (2023). The trend of recent simulator usage for learning-based locomotion is illustrated in Figure 4, which captures early-developed communities for PyBullet and MuJoCo and also highlights the recent rise of Isaac Sim."
+    kernaussage: "Laut Autoren erlaubt Isaac Sim wegen GPU-Eignung fast eine Million Zustandsübergänge pro Sekunde, MuJoCo enthält mit MJX eine GPU-kompatible Variante über JAX, und die Nutzung von PyBullet, MuJoCo und Isaac Sim für das Lernen von Laufbewegungen ist in Fig. 4 dargestellt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10); Fig. 4 (S. 7) ist laut Bildunterschrift eine grobe Schätzung per Google-Scholar-Suche; Sekundäraussage zu Isaac Sim (verweist auf Kim et al. 2021)"
+  - id: Ha2025.03
+    seite: "11"
+    zitat: "In terms of simulation, as suggested by Fig. 4, Isaac and Mujoco are the best choices to start with. In particular, Mujoco open-sourced the simulation code which can help with understanding the components within a simulator."
+    kernaussage: "Laut Autoren sind Isaac und MuJoCo die besten Einstiegspunkte, und MuJoCo habe den Simulationscode quelloffen gemacht, was beim Verständnis der Simulatorbestandteile helfen könne."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2/3.2.3 (L10); Empfehlung der Autoren für das Lernen von Laufbewegungen"
+  - id: Ha2025.04
+    seite: "12"
+    zitat: "However, a major challenge for policies that are trained using simulation data is whether they will perform well on real hardware due to the discrepancies between computer simulation and real-world robot dynamics, also known as the sim-to-real gap."
+    kernaussage: "Laut Autoren ist eine Hauptschwierigkeit für in Simulation trainierte Policies, ob sie auf realer Hardware funktionieren, wegen der Diskrepanzen zwischen Computersimulation und realer Roboterdynamik, auch Sim-to-Real-Lücke genannt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4); Definition"
+  - id: Ha2025.05
+    seite: "12"
+    zitat: "For example, motors can heat up over time, showing a different behavior given the same command input, nondeterministic delays exist due to communication of different parts of the hardware, and the feet of the robots are usually made of soft materials instead of the rigid body model commonly used in most simulators."
+    kernaussage: "Als Beispiele für Diskrepanzen nennen die Autoren: Motoren erwärmen sich und verhalten sich bei gleichem Befehl anders, nichtdeterministische Verzögerungen durch die Kommunikation der Hardware-Teile, und Roboterfüße aus weichem Material statt des üblichen Starrkörpermodells."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4); Ursachen, laut Autoren Beispiele (keine vollständige Liste)"
+  - id: Ha2025.06
+    seite: "12"
+    zitat: "Furthermore, a policy trained entirely in simulation can take advantage of some aspects of the simulation that are not present in reality, resulting in direct failure upon direct deployment."
+    kernaussage: "Laut Autoren kann eine rein in Simulation trainierte Policy Eigenheiten der Simulation ausnutzen, die in der Realität nicht vorhanden sind, was beim direkten Einsatz zum Versagen führt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4)"
+  - id: Ha2025.07
+    seite: "12"
+    zitat: "To improve the fidelity of the simulator, system identification can be performed. A dominant source of modeling errors comes from the actuator dynamics. In simulation, motors can apply arbitrary torque profiles that a policy commands, while a physical actuator often produces less accurate torque profiles due to the limited bandwidth as well as limited tracking accuracy of the underlying motor controller."
+    kernaussage: "Laut Autoren kann Systemidentifikation die Simulatorgüte verbessern; eine Hauptquelle von Modellfehlern sei die Aktordynamik, da Motoren in der Simulation beliebige Drehmomentverläufe anlegen, reale Aktoren wegen begrenzter Bandbreite und Regelgenauigkeit aber ungenauere Verläufe liefern."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4/L5); Aktordynamik als \"dominant source\" laut Autoren"
+  - id: Ha2025.08
+    seite: "12"
+    zitat: "One of the earliest successful sim-toreal transfer for quadrupedal locomotion used an analytic actuator model Tan et al. (2018) for a miniature quadruped. Later Hwangbo et al. (2019) used a fully black-box model (neural network) to learn an actuator model, which was then used in the simulation to train locomotion policies."
+    kernaussage: "Laut Autoren nutzte einer der frühesten erfolgreichen Sim-to-Real-Transfers bei Vierbeinern ein analytisches Aktormodell (Tan et al. 2018, Minitaur), später lernten Hwangbo et al. (2019) ein Black-Box-Aktormodell (neuronales Netz) und nutzten es in der Simulation zum Training."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Aktormodelle; Sekundäraussage zu Tan et al. 2018 und Hwangbo et al. 2019"
+  - id: Ha2025.09
+    seite: "12"
+    zitat: "Another important source of the sim-to-real gap is the discrepancy between the contact model in simulation and the real-world interactions. Most of the existing simulators use rigid contact, while in reality there always exist some deformations in the interaction."
+    kernaussage: "Laut Autoren ist eine weitere wichtige Quelle der Lücke die Abweichung zwischen simuliertem Kontaktmodell und realer Interaktion: die meisten Simulatoren verwenden starren Kontakt, in der Realität gibt es immer Verformungen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4); Kontakt als Ursache"
+  - id: Ha2025.10
+    seite: "12"
+    zitat: "One notable success in using a more complicated contact model is Choi et al. (2023), which develops a compliant contact model to simulate diverse terrains, ranging from very soft beach sand to hard asphalt. Training with this model boosts the performance of the policy handling similar terrains in the real world compared to training with a rigid contact model."
+    kernaussage: "Laut Autoren entwickelten Choi et al. (2023) ein nachgiebiges Kontaktmodell für verschiedene Untergründe von weichem Sand bis hartem Asphalt; Training damit verbessere die Leistung der Policy auf ähnlichen realen Untergründen gegenüber einem starren Kontaktmodell."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Kontaktmodell; Sekundäraussage zu Choi et al. (2023), Laufroboter"
+  - id: Ha2025.11
+    seite: "12"
+    zitat: "One important approach to improve policy transfer is domain randomization, where the system parameters are randomized during training."
+    kernaussage: "Laut Autoren ist Domain Randomization, bei dem Systemparameter während des Trainings randomisiert werden, ein wichtiger Ansatz zur Verbesserung des Policy-Transfers."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Definition (Satz beginnt auf S. 12, endet auf S. 12)"
+  - id: Ha2025.12
+    seite: "13"
+    zitat: "A fundamental assumption behind domain randomization is that if we generate control policies that can handle sufficiently diverse training environments, it is more likely that this policy also work in the real world, even though it has never seen it during training."
+    kernaussage: "Laut Autoren liegt Domain Randomization die Annahme zugrunde, dass eine Policy, die hinreichend vielfältige Trainingsumgebungen beherrscht, wahrscheinlich auch in der realen Welt funktioniert, obwohl sie sie nie gesehen hat."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Voraussetzung/Annahme"
+  - id: Ha2025.13
+    seite: "13"
+    zitat: "In the legged locomotion field, Tan et al. (2018) were amongst the first to adopt the idea of domain randomization. Specifically, they randomized key dynamic parameters that are important for obtaining robust policies such as robot mass, friction coefficient, motor strength, and latency."
+    kernaussage: "Laut Autoren gehörten Tan et al. (2018) zu den ersten, die Domain Randomization bei Laufrobotern nutzten, und randomisierten Robotermasse, Reibkoeffizient, Motorstärke und Latenz."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Sekundäraussage zu Tan et al. (2018)"
+  - id: Ha2025.14
+    seite: "13"
+    zitat: "There are also works that learn to improve the simulation accuracy by using real-world data. The transition function in a simulation can be augmented in order to better match the real world. Policies trained with the augmented simulation are shown to demonstrate better sim-to-real performance, e.g., Golemo et al. (2018); Jeong et al. (2019); Jiang et al. (2021)."
+    kernaussage: "Laut Autoren gibt es Arbeiten, die die Simulationsgenauigkeit mit realen Daten verbessern, indem die Übergangsfunktion der Simulation erweitert wird; mit der erweiterten Simulation trainierte Policies zeigen laut den zitierten Arbeiten besseren Sim-to-Real-Transfer."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Real-to-Sim bzw. Simulationsanpassung; Sekundäraussage, verweist auf Golemo et al. (2018), Jeong et al. (2019), Jiang et al. (2021)"
