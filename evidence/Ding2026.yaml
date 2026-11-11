@@ -1,0 +1,64 @@
+citekey: Ding2026
+zotero_key: 7BTNKVHX
+# Preprint (arXiv 2608.02809v1, August 2026), nicht begutachtet; Siemens-Autoren, Fallstudie mit Unitree G1 EDU; Aussagen zum eigenen System sind Aussagen der Autoren.
+belege:
+- id: Ding2026.01
+  seite: '1'
+  zitat: 'The root difficulty is that the safe state of a legged robot is an actively-controlled state, which violates the fail-passive assumption underlying ISO 13849-1 / EN 60204-1: removing power from a walking biped causes an uncontrolled fall, so classical de-energization is itself a hazard.'
+  kernaussage: Laut Autoren ist der sichere Zustand eines Beinroboters ein aktiv geregelter Zustand und verletzt die Fail-passive-Annahme von ISO 13849-1 / EN 60204-1; das Abschalten der Energie bei einem laufenden Zweibeiner führt zu einem unkontrollierten Sturz, sodass klassisches Abschalten selbst eine Gefährdung ist.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20, L18); Kernthese der Quelle (Abstract); Preprint, nicht begutachtet
+- id: Ding2026.02
+  seite: '1'
+  zitat: In classical machinery safety a protective stop removes power and the machine coasts or brakes to a harmless standstill; a Stop Category 0 is power removal.
+  kernaussage: Laut Autoren entzieht ein Schutzstopp in der klassischen Maschinensicherheit die Energie, und die Maschine läuft aus oder bremst bis zu einem ungefährlichen Stillstand; Stoppkategorie 0 ist Energieabschaltung.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L19); Erläuterung der Stoppkategorie 0 durch die Autoren, keine Normdefinition im Wortlaut
+- id: Ding2026.03
+  seite: '1'
+  zitat: 'For a dynamically balancing humanoid this assumption inverts: removing power from a walking biped produces an uncontrolled fall, which is itself a hazard.'
+  kernaussage: 'Für einen dynamisch balancierenden Humanoiden kehrt sich diese Annahme laut Autoren um: Energieentzug bei einem laufenden Zweibeiner erzeugt einen unkontrollierten Sturz, der selbst eine Gefährdung darstellt.'
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20)
+- id: Ding2026.04
+  seite: '1'
+  zitat: For fixed-base manipulators and wheeled mobile platforms this is supported by a mature standards ecosystem (ISO 13849-1/-2 and IEC 62061 for safety-related control systems, EN ISO 13850 for emergency stop, EN 602041 for stop categories, ISO 10218 and ISO/TS 15066 for collaborative operation). None of these resolves the failpassive gap for a balancing biped.
+  kernaussage: Laut Autoren existiert für Manipulatoren mit fester Basis und radgebundene mobile Plattformen ein ausgereiftes Normenumfeld (ISO 13849-1/-2, IEC 62061, EN ISO 13850 für Not-Halt, EN 60204-1 für Stoppkategorien, ISO 10218 und ISO/TS 15066 für kollaborativen Betrieb); keine dieser Normen löst die Fail-passive-Lücke für einen balancierenden Zweibeiner.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L18, L19); Einordnung der Normen durch die Autoren; im Original steht „EN 602041“ (Zeilenumbruch/Satzfehler im PDF-Text, gemeint EN 60204-1)
+- id: Ding2026.05
+  seite: '5'
+  zitat: Crucially, a genuine PROFIsafe F-host (with a SIL/PL claim) would require safety-rated hardware; the G1’s onboard compute is standard commercial off-the-shelf (COTS), so the SDA controller is not a certified safety runtime and its reception element carries no PFHD/DC/CCF claim.
+  kernaussage: Laut Autoren erfordert ein echter PROFIsafe-F-Host (mit SIL/PL-Anspruch) sicherheitsbewertete Hardware; die Bordrechner des G1 sind handelsübliche Standardhardware (COTS), sodass der SDA-Controller keine zertifizierte Sicherheitslaufzeit ist und sein Empfangselement keinen PFHD/DC/CCF-Anspruch trägt.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L22); Bezug zum Unitree G1 (Fallstudie der Autoren); betrifft den Bordrechner des G1, keine Herstellerangabe
+- id: Ding2026.06
+  seite: '3'
+  zitat: ISO 10218-1/-2 (revised 2025) and ISO/TS 15066 define collaborative operation modes—safety-rated monitored stop, hand-guiding, speed and separation monitoring (SSM), and power and force limiting (PFL);
+  kernaussage: Laut Autoren definieren ISO 10218-1/-2 (2025 überarbeitet) und ISO/TS 15066 die kollaborativen Betriebsarten sicherheitsbewerteter überwachter Halt, Handführung, Geschwindigkeits- und Abstandsüberwachung sowie Leistungs- und Kraftbegrenzung.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L18, L19); Zitat endet mit Strichpunkt, Satz geht weiter (ISO 13855, ISO 3691-4)
+- id: Ding2026.07
+  seite: '3'
+  zitat: Recent industrial-humanoid pilots (e.g., Agility Digit, Figure, Apptronik Apollo) [19] intensify the need, yet no dedicated, harmonized industrial humanoid safety standard governs the reaction chain of a balancing biped.
+  kernaussage: Laut Autoren verstärken aktuelle Pilotprojekte mit Industriehumanoiden den Bedarf, doch keine eigene, harmonisierte Sicherheitsnorm für Industriehumanoide regelt die Reaktionskette eines balancierenden Zweibeiners.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L18, L20); Lücke in den Normen; Stand Aug. 2026 laut Preprint
+- id: Ding2026.08
+  seite: '4'
+  zitat: 'The humanoid cell deliberately does not do this: removing power from a walking biped would cause an uncontrolled fall. Instead the system commands a controlled standing halt while maintaining the control authority needed to remain balanced.'
+  kernaussage: Die Zelle der Autoren schaltet die Energie bewusst nicht ab, weil dies bei einem laufenden Zweibeiner zu einem unkontrollierten Sturz führen würde; stattdessen wird ein kontrollierter Halt im Stand befohlen, bei dem die zum Balancieren nötige Regelung erhalten bleibt.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L19, L20); beschreibt das System der Autoren (Unitree G1 EDU), nicht allgemein gültig
+- id: Ding2026.09
+  seite: '7'
+  zitat: 'Fall-as-hazard trade-off. For a fail-passive machine “stop” is unconditionally safe. For the humanoid it is nonmonotonic: an overly aggressive halt can inject a disturbance exceeding the balance controller’s recovery margin and induce a fall, converting a protective action into a new hazard.'
+  kernaussage: 'Laut Autoren ist ein Stopp bei einer Fail-passive-Maschine bedingungslos sicher, beim Humanoiden dagegen nicht monoton: ein zu aggressiver Halt kann eine Störung über die Erholungsgrenze des Balancereglers hinaus einbringen und einen Sturz auslösen und so eine Schutzmaßnahme zu einer neuen Gefährdung machen.'
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20); Analyse der Autoren, nicht empirisch belegt
+- id: Ding2026.10
+  seite: '7'
+  zitat: The active safe state must be held by the control policy, so failure of that policy (software fault, sensor dropout, actuator saturation, or a disturbance beyond the recovery margin) during or after the stop is a distinct hazard; a fail-passive safe state, by contrast, persists without energy or computation.
+  kernaussage: Laut Autoren muss der aktive sichere Zustand von der Regelungsstrategie gehalten werden; deren Ausfall (Softwarefehler, Sensorausfall, Aktorsättigung oder Störung jenseits der Erholungsgrenze) während oder nach dem Stopp ist eine eigene Gefährdung, während ein Fail-passive-Zustand ohne Energie oder Rechenleistung bestehen bleibt.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20, L22); Analyse der Autoren; Bezug zum Unitree G1 EDU (Fallstudie)

@@ -1,0 +1,46 @@
+citekey: Kadian2020
+zotero_key: 4C5KDVJJ            # aus zotero-map.json
+# IEEE Robotics and Automation Letters 2020, Preprint-Fassung (arXiv:1912.06321v2); Seitenzahlen = Preprint; Navigationsaufgabe (PointNav) mit LoCoBot, Habitat – kein Humanoid
+belege:
+  - id: Kadian2020.01
+    seite: "2"
+    zitat: "Our thesis is that simulators need not be a perfect replica of reality to be useful. Specifically, we should primarily judge simulators not by their visual or physical realism, but by their sim2real predictivity – if method A outperforms B in simulation, how likely is the trend to hold in reality?"
+    kernaussage: "Laut den Autoren sollte ein Simulator primär an seiner Sim2Real-Vorhersagekraft gemessen werden (hält die Rangfolge von Methoden in der Realität?), nicht an visuellem oder physikalischem Realismus."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L6); These der Autoren"
+  - id: Kadian2020.02
+    seite: "5"
+    zitat: "To quantify the degree to which performance in simulation translates to performance in reality, we use a measure we call Sim2Real Correlation Coefficient (SRCC). Let (si , ri ) denote accuracy (episode success rate, SPL [10], etc.) of navigation method i in simulation and reality respectively."
+    kernaussage: "Der Sim2Real Correlation Coefficient (SRCC) quantifiziert, wie gut Leistung in der Simulation auf die Realität übertragen wird; Grundlage sind paarweise Genauigkeiten (z. B. Erfolgsrate, SPL) je Methode in Simulation und Realität."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L6); Definition SRCC (Pearson-Korrelation, Fortsetzung auf S. 6 nicht Teil des Zitats)"
+  - id: Kadian2020.03
+    seite: "6"
+    zitat: "SRCC values close to +1 indicate high linear correlation and are desirable, insofar as changes in simulation performance metrics correlate highly with changes in reality performance metrics. Values close to 0 indicate low correlation and are undesirable as they indicate changes of performance in simulation is not predictive of real world changes in performance."
+    kernaussage: "SRCC-Werte nahe +1 bedeuten hohe lineare Korrelation zwischen Simulations- und Realitätskennzahlen, Werte nahe 0 geringe Korrelation, sodass Änderungen in der Simulation Änderungen in der Realität nicht vorhersagen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L6); Interpretation der Kennzahl"
+  - id: Kadian2020.04
+    seite: "5"
+    zitat: "The starting points, starting rotations, and goal locations are identical across simulation and reality. In total, we test 9 navigation models (described in the next section), in 3 different room configurations, each with 5 spawn-to-goal waypoints, and 3 independent trials, for a total of 810 runs in simulation and reality combined."
+    kernaussage: "Start- und Zielpunkte sind in Simulation und Realität identisch; getestet wurden 9 Navigationsmodelle in 3 Raumkonfigurationen mit je 5 Wegpunkten und 3 Wiederholungen, insgesamt 810 Läufe in Simulation und Realität."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L6); gleiche Auswertung in Simulation und Realität (Testprotokoll)"
+  - id: Kadian2020.05
+    seite: "1"
+    zitat: "We find that SRCC for Habitat as used for the CVPR19 challenge is low (0.18 for the success metric), suggesting that performance differences in this simulator-based challenge do not persist after physical deployment."
+    kernaussage: "Für Habitat in der Konfiguration der CVPR19-Challenge ist der SRCC niedrig (0,18 für die Erfolgsmetrik); Leistungsunterschiede aus der Simulation bleiben laut Autoren nach dem Einsatz am realen Roboter nicht bestehen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L6); Ergebnis; Zahl 0.18 im Original mit Punkt"
+  - id: Kadian2020.06
+    seite: "7"
+    zitat: "We perform grid-search over simulation parameters – sliding (off vs on) and a scalar multiplier on actuation noise (varying from 0 to 1, in increments of 0.1). We find that sliding off and 0.0 actuation noise lead to the highest SRCC."
+    kernaussage: "Per Gittersuche über Simulationsparameter (Gleiten an Hindernissen, Faktor für Aktuierungsrauschen) wurde der höchste SRCC bei deaktiviertem Gleiten und ohne Aktuierungsrauschen gefunden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L6); Folgerung zur Simulatorabstimmung; im untersuchten Navigationsfall"
+  - id: Kadian2020.07
+    seite: "7"
+    zitat: "SRCCSPL improves from 0.603 (Fig. 5) to 0.875 (0.272 gain). SRCCSucc shows an even stronger improvement – from 0.18 to 0.844 (0.664 gain)!"
+    kernaussage: "Durch die Anpassung der Simulationsparameter stieg SRCC (SPL) von 0,603 auf 0,875 und SRCC (Erfolgsrate) von 0,18 auf 0,844."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.x (L6); Ergebnis der Optimierung; Zahlen im Original mit Punkt; 9 Modelle, eine Laborumgebung (CODA)"

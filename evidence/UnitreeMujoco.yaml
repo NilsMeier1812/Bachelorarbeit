@@ -19,3 +19,39 @@ belege:
   kernaussage: Am realen Roboter ist SportModeState nach Abschalten des eingebauten Bewegungsreglers nicht lesbar.
   quelle: exzerpt
   kommentar: Kap. 4.1/4.4 – eingebauter Regler
+- id: UnitreeMujoco.04
+  seite: "1"
+  zitat: "simulate: Simulator implemented based on unitree_sdk2 and mujoco (C++, recommended) simulate_python: Simulator implemented based on unitree_sdk2_python and mujoco (Python) unitree_robots: MJCF description files for robots supported by unitree_sdk2"
+  kernaussage: "Das Repository enthält einen C++-Simulator (empfohlen) und einen Python-Simulator sowie MJCF-Beschreibungsdateien der vom SDK unterstützten Roboter."
+  quelle: exzerpt
+  kommentar: "Kap. 3.2.2/3.3.2 (L9) – Directory Structure"
+- id: UnitreeMujoco.05
+  seite: "1"
+  zitat: "LowCmd: Motor control commands - LowState: Motor state information - SportModeState: Robot position and velocity data - IMUState: Torso IMU state at rt/secondary_imu topic (G1 only)"
+  kernaussage: "Unterstützte Nachrichten: LowCmd (Motorbefehle), LowState (Motorzustände), SportModeState (Position und Geschwindigkeit) und IMUState (Rumpf-IMU auf Topic rt/secondary_imu, nur G1)."
+  quelle: exzerpt
+  kommentar: "Kap. 3.3.2 (L9, L13)"
+- id: UnitreeMujoco.06
+  seite: "1"
+  zitat: "Unitree G1, H1-2, and AS2 robots use unitree_hg idl for low-level communication."
+  kernaussage: "Der G1 (sowie H1-2 und AS2) nutzt für die Low-Level-Kommunikation die DDS-IDL unitree_hg."
+  quelle: exzerpt
+  kommentar: "Kap. 3.3.2 (L13)"
+- id: UnitreeMujoco.07
+  seite: "3"
+  zitat: "# DDS domain id, it is recommended to distinguish from the real robot (default is 0 on the real robot) domain_id: 1"
+  kernaussage: "In der Konfiguration des C++-Simulators ist domain_id: 1 gesetzt; laut Kommentar soll sie sich vom realen Roboter unterscheiden (dort standardmäßig 0)."
+  quelle: exzerpt
+  kommentar: "Kap. 3.3.2 (L13) – config.yaml; Python-Variante analog (DOMAIN_ID = 1)"
+- id: UnitreeMujoco.08
+  seite: "4"
+  zitat: "# Network interface name, for simulation, it is recommended to use the local loopback \"lo\" interface: \"lo\""
+  kernaussage: "Für die Simulation wird als Netzwerkschnittstelle das lokale Loopback \"lo\" empfohlen."
+  quelle: exzerpt
+  kommentar: "Kap. 3.3.2 (L13) – config.yaml"
+- id: UnitreeMujoco.09
+  seite: "6"
+  zitat: "if len(sys.argv) < 2: // If no network card is input, use the simulated domain id and the local network card ChannelFactoryInitialize(1, \"lo\") else: // Otherwise, use the specified network card ChannelFactoryInitialize(0, sys.argv[1])"
+  kernaussage: "Beispielcode: Ohne Argument wird Domain 1 mit \"lo\" (Simulation) initialisiert, sonst Domain 0 mit der angegebenen Netzwerkkarte (realer Roboter)."
+  quelle: exzerpt
+  kommentar: "Kap. 3.3.2 (L13) – Abschnitt 'Sim to Real', Python-Beispiel (stand_go2.py für Go2); README-Code mit '//' statt '#' als Kommentarzeichen"

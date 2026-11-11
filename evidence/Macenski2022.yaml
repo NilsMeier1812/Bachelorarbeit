@@ -1,0 +1,100 @@
+citekey: Macenski2022
+zotero_key: WNM4ZU76
+# Science Robotics 2022 (Review); PDF = arXiv-Preprint v1 (arXiv:2211.07752v1, 14.11.2022, 'accepted for publication', nicht Verlagsfassung) – Seitenzahlen = arXiv-Seiten 1–13 und weichen von der gedruckten Fassung ab. Tabelle I (ROS 1 vs. ROS 2) ist im PDF-Text zerlegt und daher nicht zitiert.
+belege:
+  - id: Macenski2022.01
+    seite: "1"
+    zitat: "ROS 2 is based on the Data Distribution Service (DDS), an open standard for communications that is used in critical infrastructure such as military, spacecraft, and financial systems [7]."
+    kernaussage: "ROS 2 baut auf dem Data Distribution Service (DDS) auf, einem offenen Kommunikationsstandard, der laut den Autoren in kritischer Infrastruktur wie Militär, Raumfahrt und Finanzsystemen eingesetzt wird."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1/3.3.2 (L12, L13)"
+  - id: Macenski2022.02
+    seite: "2"
+    zitat: "While ROS 1 solves many of the complexity issues inherent to robotics, it struggles to consistently deliver data over lossy links (like WiFi or satellite links), has a single point of failure, and does not have any built-in security mechanisms."
+    kernaussage: "Laut den Autoren hat ROS 1 Schwierigkeiten bei verlustbehafteten Verbindungen, einen Single Point of Failure und keine eingebauten Sicherheitsmechanismen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L12) – Unterschied zu ROS 1; Table I (S. 2) als Vorlage für Gegenüberstellung ROS 1/ROS 2, im PDF-Text jedoch zerlegt"
+  - id: Macenski2022.03
+    seite: "2"
+    zitat: "ROS 2 is a software platform for developing robotics applications, also known as a robotics software development kit (SDK)."
+    kernaussage: "ROS 2 ist eine Softwareplattform zur Entwicklung von Robotikanwendungen, auch als Robotik-SDK bezeichnet."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L12)"
+  - id: Macenski2022.04
+    seite: "3"
+    zitat: "Distribution As with similarly complex domains, problems in robotics are best tackled with a distributed systems approach [23]. Requirements are separated into functionally independent components, like device drivers for hardware, perception systems, control systems, executives, and so on."
+    kernaussage: "Designprinzip Distribution: Robotikprobleme werden laut Autoren am besten verteilt gelöst; Anforderungen werden in funktional unabhängige Komponenten wie Gerätetreiber, Wahrnehmung und Regelung getrennt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L12, L17) – Designprinzip laut Autoren"
+  - id: Macenski2022.05
+    seite: "3"
+    zitat: "Modularity The UNIX design goal to ‘make each program do one thing well’ is mirrored [26]. Modularity is enforced at multiple levels, across library APIs, message definitions, command-line tools, and even the software ecosystem itself."
+    kernaussage: "Designprinzip Modularität: Das UNIX-Ziel, dass jedes Programm eine Sache gut tut, wird übernommen; Modularität gilt auf mehreren Ebenen (Bibliotheks-APIs, Nachrichtendefinitionen, Kommandozeilenwerkzeuge, Ökosystem)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L12, L17) – Designprinzip laut Autoren"
+  - id: Macenski2022.06
+    seite: "3"
+    zitat: "From humanoids to self-driving cars, it is common for robot applications to include real-time computing requirements. To meet safety and/or performance goals, some parts of a system must execute in deterministic amounts of time. ROS 2 offers APIs for developers of realtime systems to enforce application-specific constraints [33], [34]."
+    kernaussage: "Robotikanwendungen (von Humanoiden bis zu selbstfahrenden Autos) haben häufig Echtzeitanforderungen; ROS 2 bietet laut Autoren APIs, mit denen Entwickler anwendungsspezifische Randbedingungen durchsetzen können."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L14); Humanoide nur als Beispiel genannt"
+  - id: Macenski2022.07
+    seite: "3"
+    zitat: "The ROS 2 APIs provide access to communication patterns. These are notably topics, services, and actions, which are organized under the concept of a node."
+    kernaussage: "ROS 2 stellt die Kommunikationsmuster Topics, Services und Actions bereit, die dem Konzept des Knotens (Node) untergeordnet sind."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L12); Fig. 1 (S. 5) zeigt die Knoten-Schnittstellen"
+  - id: Macenski2022.08
+    seite: "3"
+    zitat: "The most common pattern that users will interact with is topics, which are an asynchronous message passing framework."
+    kernaussage: "Topics sind das häufigste Muster und ein asynchrones Nachrichtenübergabe-Framework."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L12)"
+  - id: Macenski2022.09
+    seite: "4"
+    zitat: "ROS 2 also provides a request-response style pattern, known as services."
+    kernaussage: "Services sind das Anfrage-Antwort-Muster von ROS 2."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L12)"
+  - id: Macenski2022.10
+    seite: "4"
+    zitat: "Actions are goal-oriented and asynchronous communication interfaces with a request, response, periodic feedback, and the ability to be canceled, Fig. 1. This pattern is used in long-running tasks like autonomous navigation or manipulation, though it has a variety of uses."
+    kernaussage: "Actions sind zielorientierte, asynchrone Schnittstellen mit Anfrage, Antwort, periodischem Feedback und Abbruchmöglichkeit; sie dienen u. a. langlaufenden Aufgaben wie Navigation oder Manipulation."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L12)"
+  - id: Macenski2022.11
+    seite: "4"
+    zitat: "Below rcl, the middleware abstraction layer called rmw (ROS MiddleWare) provides the essential communication interfaces. The vendors for each middleware implements the rmw interface and are made interchangeable without code changes."
+    kernaussage: "Die Schicht rmw (ROS MiddleWare) stellt die grundlegenden Kommunikationsschnittstellen bereit; die Middleware-Implementierungen sind ohne Codeänderung austauschbar."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1/3.3.2 (L12, L13); Fig. 2 (S. 5) zeigt den Client-Library-Stack"
+  - id: Macenski2022.12
+    seite: "4"
+    zitat: "While all of the supported rmws are based on DDS, a few community-supported rmws exist for other communications methods [7]."
+    kernaussage: "Alle unterstützten rmw-Implementierungen basieren auf DDS; einige von der Community gepflegte nutzen andere Kommunikationsverfahren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.2 (L13) – Stand zum Zeitpunkt der Veröffentlichung (2022)"
+  - id: Macenski2022.13
+    seite: "5"
+    zitat: "DDS uses UDP to deliver data, which does not attempt to re-transmit data. Instead, DDS decides when and how to re-transmit in unreliable conditions. DDS introduces Quality-of-Service (QoS) to expose these settings to optimize for the available bandwidth and latency."
+    kernaussage: "DDS nutzt UDP und entscheidet selbst, wann und wie bei unzuverlässigen Bedingungen erneut gesendet wird; über Quality of Service (QoS) werden diese Einstellungen für verfügbare Bandbreite und Latenz zugänglich gemacht."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.2 (L13)"
+  - id: Macenski2022.14
+    seite: "5"
+    zitat: "The reliability setting determines whether message delivery is guaranteed. Using ‘best-effort’, the publisher will attempt to deliver the message once, useful when new data will make the old obsolete (e.g. sensor data). Set to ‘reliable’, the publisher will continue to send data until the receiver acknowledges receipt."
+    kernaussage: "QoS Reliability: Bei 'best-effort' versucht der Publisher die Zustellung einmal (sinnvoll, wenn neue Daten die alten überholen, z. B. Sensordaten), bei 'reliable' sendet er, bis der Empfänger den Erhalt bestätigt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.2 (L13)"
+  - id: Macenski2022.15
+    seite: "6"
+    zitat: "‘Volatile’ messages will be forgotten once after being sent. Meanwhile, ‘transient-local’ will store and send late-joining subscriptions data as necessary."
+    kernaussage: "QoS Durability: 'volatile'-Nachrichten werden nach dem Senden vergessen, 'transient-local' speichert Daten und sendet sie bei Bedarf an später hinzukommende Abonnenten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.2 (L13); Satzanfang 'The durability QoS setting determines the persistence of a message' steht auf S. 5"
+  - id: Macenski2022.16
+    seite: "6"
+    zitat: "Expectedly, it also shows the highest latency, below 1 millisecond until 1 MB, then spiking to 7.85 milliseconds by 8 MB."
+    kernaussage: "Bei Kommunikation zwischen Maschinen (Multi-Process) liegt die Latenz laut Messung der Autoren bis 1 MB unter 1 ms und steigt bei 8 MB auf 7,85 ms."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.2 (L14) – Messung der Autoren: ein Publisher, ein Subscriber, 1000 Nachrichten/s, CycloneDDS, ROS 2 Rolling (Sept. 2021), Intel i7-6800K; Latenz = 95. Perzentil; Fig. 3a (S. 7)"

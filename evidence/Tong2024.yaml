@@ -74,3 +74,27 @@ belege:
     kernaussage: "Als Trends der Fernsteuerung nennen die Autoren bessere Teleoperationsschnittstellen, geringere Latenz, AR-Integration, autonome Funktionen und Standardisierung."
     quelle: exzerpt
     kommentar: "Kap. 4.3 Bedienung und Teleoperation"
+  - id: Tong2024.13
+    seite: "317"
+    zitat: "In recent years, there has been a focus on reducing software development efforts in humanoid robots through the introduction of robot operating system (ROS) packages specifically designed for humanoid robots and their actuators [279], [280]. ROS is supported by useful simulators like the open-source Gazebo [347], [348]."
+    kernaussage: "Laut den Autoren werden Entwicklungsaufwände bei Humanoiden durch ROS-Pakete für Humanoide und ihre Aktoren verringert; ROS wird von Simulatoren wie dem quelloffenen Gazebo unterstützt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1/3.3.1 (L1, L12) – Abschnitt Software System; Sekundäraussage, verweist auf [279], [280], [347], [348]"
+  - id: Tong2024.14
+    seite: "316"
+    zitat: "g) Safety and ethics: Ensuring the safety and ethical use of humanoid robots, particularly in sensitive domains like healthcare and caregiving, remains a significant challenge. Control algorithms will need to incorporate safety measures to prevent accidents."
+    kernaussage: "Die sichere Nutzung humanoider Roboter bleibt laut den Autoren eine große Herausforderung; Regelalgorithmen müssen Sicherheitsmaßnahmen zur Unfallvermeidung enthalten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4.3 (L20) – Ausblick der Autoren; kein Bezug zu Stürzen"
+  - id: Tong2024.15
+    seite: "316"
+    zitat: "k) Regulation and standardization: As humanoid robots become more prevalent, there will be a growing need for regulation and standardization in control systems to ensure safety and interoperability across different platforms."
+    kernaussage: "Mit zunehmender Verbreitung Humanoider wächst laut den Autoren der Bedarf an Regulierung und Standardisierung in der Regelung für Sicherheit und Interoperabilität."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4.1 (L18, L20)"
+  - id: Tong2024.16
+    seite: "317"
+    zitat: "Safe human-robot coexistence in humanoid robots is crucial, requiring a focus on flexible mechanism design, control strategies, and safety methods [158], [292], [308], [357]."
+    kernaussage: "Sichere Koexistenz von Mensch und Humanoid ist laut den Autoren entscheidend und erfordert Fokus auf nachgiebige Mechanik, Regelungsstrategien und Sicherheitsmethoden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4.3 (L20); Sekundäraussage, verweist auf [158], [292], [308], [357]"

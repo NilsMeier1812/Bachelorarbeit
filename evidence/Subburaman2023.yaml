@@ -1,0 +1,64 @@
+citekey: Subburaman2023
+zotero_key: CFH4TT6M
+# Überblicksartikel (Robotics and Autonomous Systems, 2023), Autorenmanuskript (nicht Verlagsfassung); Seitenzahlen können von der gedruckten Fassung abweichen.
+belege:
+- id: Subburaman2023.01
+  seite: '1'
+  zitat: Further, compared to other multi-legged robots such as quadruped or hexapod robots, the humanoid’s center of gravity (CoG) location is relatively high and the convex hull size of its feet is small, which makes the humanoid more vulnerable to falling over.
+  kernaussage: Laut Autoren liegt der Schwerpunkt eines Humanoiden im Vergleich zu mehrbeinigen Robotern wie Vier- oder Sechsbeinern relativ hoch und die konvexe Hülle seiner Füße ist klein, weshalb der Humanoide anfälliger für Stürze ist.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20); Gründe für Sturzanfälligkeit; Aussage der Autoren ohne Zahlen
+- id: Subburaman2023.02
+  seite: '1'
+  zitat: A number of strategies had been proposed over the years to prevent the robot from falling over, however, their success is limited, making the fall-over problem unavoidable and yet to be resolved.
+  kernaussage: Laut Autoren wurden über die Jahre mehrere Strategien zur Sturzvermeidung vorgeschlagen, deren Erfolg jedoch begrenzt ist, sodass das Sturzproblem unvermeidbar und ungelöst bleibt.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20); keine Häufigkeitsangabe, nur qualitative Aussage
+- id: Subburaman2023.03
+  seite: '2'
+  zitat: A fall over state is the set of all states of a robot which cannot be driven back to the stable region (S stable ) by any means of active control and it continues to evolve until it makes contact with the ground or any fixed structure.
+  kernaussage: Die Autoren definieren den Sturzzustand als Menge aller Roboterzustände, die durch keine aktive Regelung in den stabilen Bereich zurückgeführt werden können und sich weiterentwickeln, bis der Roboter Kontakt mit dem Boden oder einer festen Struktur hat.
+  quelle: exzerpt
+  kommentar: 'Kap. 3.4 (L20); Definition der Autoren; Abgrenzung zu bloßer Instabilität: Instabilität führt nicht notwendig zum Sturz (Seite 1)'
+- id: Subburaman2023.04
+  seite: '2'
+  zitat: it is subdivided by the robotics research community into three major components— fall prediction, controlled fall, and fall recovery.
+  kernaussage: 'Laut Autoren wird das Sturzproblem in der Robotikforschung in drei Hauptkomponenten unterteilt: Sturzvorhersage, kontrollierter Sturz und Sturzerholung.'
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20); Klasseneinteilung der Autoren; Fig. 2 (Seite 2) zeigt den Erholungspfad
+- id: Subburaman2023.05
+  seite: '2'
+  zitat: While increasing its agility provides enough fall over lead time, it may induce an increase in false alarm rates (failure).
+  kernaussage: Laut Autoren verschafft höhere Agilität der Sturzvorhersage ausreichend Vorlaufzeit, kann aber die Rate falscher Alarme erhöhen.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20); Zielkonflikt Zuverlässigkeit/Agilität bei der Sturzerkennung
+- id: Subburaman2023.06
+  seite: '3'
+  zitat: 'In general, fall prediction works can be categorized into four types: static thresholds, analytical technique or model-based, multiple sensor-fusion-based, and learning-based methods.'
+  kernaussage: 'Laut Autoren lassen sich Arbeiten zur Sturzvorhersage in vier Typen einteilen: statische Schwellwerte, analytische bzw. modellbasierte Verfahren, Multisensor-Fusion und lernbasierte Methoden.'
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20); Klassen der Sturzerkennung; Tab. 1 (Seite 6) fasst die Arbeiten zusammen
+- id: Subburaman2023.07
+  seite: '7'
+  zitat: The main motivation to control the fall over of humanoids is to reduce the damage they can sustain or bring upon their surrounding objects or people. Further, humanoid robots being expensive, in particular, human-sized ones, severe damages can incur high repair costs and also keep them away from achieving their design purpose, i.e., to operate autonomously in real environments.
+  kernaussage: Laut Autoren dient der kontrollierte Sturz dazu, Schäden am Roboter und an umgebenden Objekten oder Personen zu verringern; bei teuren, menschengroßen Humanoiden könnten schwere Schäden hohe Reparaturkosten verursachen und den Roboter von seinem Einsatzzweck fernhalten.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20); Schäden an Roboter und Umgebung; Formulierung „can incur“ ist qualitativ, keine Kostenangabe
+- id: Subburaman2023.08
+  seite: '7'
+  zitat: 'Broadly, these works can be classified into two depending on their intended purpose: 1) reactive controlled fall of humanoids to minimize their self-inflicted damages and 2) to minimize the damages inflicted on their surroundings.'
+  kernaussage: 'Laut Autoren lassen sich Arbeiten zum kontrollierten Sturz nach ihrem Zweck in zwei Gruppen einteilen: Minimierung der Eigenschäden des Roboters und Minimierung der Schäden an der Umgebung.'
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20); Klasse Schadensminderung/Fallstrategien; Abschnitte 3.1 und 3.4 der Quelle
+- id: Subburaman2023.09
+  seite: '13'
+  zitat: The first work in this direction is proposed in [71], wherein a fall direction changing control is suggested to prevent the robot from inflicting any damage onto its surrounding objects or human beings.
+  kernaussage: Laut Autoren wird in einer ersten Arbeit eine Steuerung zur Änderung der Fallrichtung vorgeschlagen, die verhindern soll, dass der Roboter umgebende Objekte oder Menschen beschädigt.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20); Sekundäraussage, verweist auf [71]
+- id: Subburaman2023.10
+  seite: '20'
+  zitat: Decisions such as whether to fall such that a robot breaks or the environment breaks, are still not completely considered in the literature. A scenario of interest is when humans are around a robot, and then falling on them might cause serious injuries.
+  kernaussage: Laut Autoren sind Entscheidungen darüber, ob der Roboter oder die Umgebung zu Schaden kommt, in der Literatur noch nicht vollständig berücksichtigt; befinden sich Menschen um den Roboter, könne ein Fall auf sie schwere Verletzungen verursachen.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L20); offene Fragen laut Autoren (Abschnitt 5); Verletzungsgefahr für Personen als Möglichkeit („might“)

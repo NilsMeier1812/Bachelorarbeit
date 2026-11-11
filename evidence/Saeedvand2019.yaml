@@ -74,3 +74,15 @@ belege:
     kernaussage: "Die Hauptbeschränkung der Humanoidenentwicklung liegt laut den Autoren in der aktuellen Aktortechnik."
     quelle: exzerpt
     kommentar: "Kap. 2.1.2 Hemmnisse"
+  - id: Saeedvand2019.13
+    seite: "9"
+    zitat: "For developing humanoid robots, a wide variety of programming languages and platforms are existing. To deal with the diversity problem and have a unification along with faster implementation process, the Robot Operating System (ROS) is introduced (Schmidt et al., 2006; Quigley et al., 2009)."
+    kernaussage: "Laut den Autoren existieren für Humanoide viele Programmiersprachen und Plattformen; ROS wurde eingeführt, um diese Vielfalt zu vereinheitlichen und die Umsetzung zu beschleunigen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L12) – Abschnitt 2.2 Software architecture"
+  - id: Saeedvand2019.14
+    seite: "9"
+    zitat: "Nowadays, most of the main and sub-processors are supported by ROS. In addition, most of the sensors are ROS-compatible, which means there are some packages that developers can use without much software development efforts."
+    kernaussage: "Laut den Autoren werden die meisten Haupt- und Nebenprozessoren von ROS unterstützt, und die meisten Sensoren sind ROS-kompatibel, sodass Pakete mit wenig Entwicklungsaufwand nutzbar sind."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L12) – Stand 2019 (ROS 1 Zeitraum)"

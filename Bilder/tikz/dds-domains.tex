@@ -1,0 +1,44 @@
+% Getrennte DDS-Domains für Simulation und Realbetrieb.
+% Eigene Darstellung. Sachgrundlage: Domain als Kommunikationsebene, nur Teilnehmer derselben Domain
+% interagieren (OMG2015.08), Domains vollständig isoliert (OMG2015.09); Publisher/DataWriter und
+% Subscriber/DataReader (OMG2015.05, OMG2015.06); Domain 1 + Loopback "lo" in der Simulation, Domain 0 am
+% realen Roboter (UnitreeMujoco.07-.09). Topic-Namen rt/lowcmd und rt/lowstate: Eigenleistung, Datenbasis
+% G1-Repo g1pilot/utils/common.py:21-55 und unitree_mujoco/simulate_python.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/dds-domains} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    dds/.style={ba block, text width=27mm, minimum height=11mm},
+    spalte/.style={font=\footnotesize, text=baGrau, anchor=south},
+    domtitel/.style={font=\small, anchor=north, align=center},
+  }
+  % Steuerungsprozess oben, wird je nach Umschalter genau einer Domain zugeordnet
+  \node[ba block hervor, text width=52mm, minimum height=10mm] (P) at (7.95,4.75)
+    {Steuerungsprozess dieser Arbeit\\(Umschalter Simulation/Realbetrieb)};
+  % ---------------- Domain 1: Simulation ----------------
+  \draw[ba gruppe] (0.25,-0.85) rectangle (7.6,3.45);
+  \node[spalte] at (1.95,2.55) {MuJoCo-Simulation};
+  \node[spalte] at (5.85,2.55) {Steuerung};
+  \node[dds] (S1W) at (5.85,1.85) {DataWriter\\\texttt{rt/lowcmd}};
+  \node[dds] (S1R) at (5.85,0.45) {DataReader\\\texttt{rt/lowstate}};
+  \node[dds] (M1R) at (1.95,1.85) {DataReader\\\texttt{rt/lowcmd}};
+  \node[dds] (M1W) at (1.95,0.45) {DataWriter\\\texttt{rt/lowstate}};
+  \draw[ba pfeil] (S1W) -- (M1R);
+  \draw[ba pfeil] (M1W) -- (S1R);
+  \node[domtitel] at (3.9,-0.25) {Domain 1 \textperiodcentered{} Schnittstelle \texttt{lo} (Loopback)};
+  % ---------------- Domain 0: Realbetrieb ----------------
+  \draw[ba gruppe] (8.3,-0.85) rectangle (15.65,3.45);
+  \node[spalte] at (10.05,2.55) {Steuerung};
+  \node[spalte] at (13.95,2.55) {realer G1};
+  \node[dds] (S0W) at (10.05,1.85) {DataWriter\\\texttt{rt/lowcmd}};
+  \node[dds] (S0R) at (10.05,0.45) {DataReader\\\texttt{rt/lowstate}};
+  \node[dds] (R0R) at (13.95,1.85) {DataReader\\\texttt{rt/lowcmd}};
+  \node[dds] (R0W) at (13.95,0.45) {DataWriter\\\texttt{rt/lowstate}};
+  \draw[ba pfeil] (S0W) -- (R0R);
+  \draw[ba pfeil] (R0W) -- (S0R);
+  \node[domtitel] at (11.975,-0.25) {Domain 0 \textperiodcentered{} Netzwerkkarte};
+  % Trennung der Domains
+  \draw[ba trenner] (7.95,-0.85) -- (7.95,3.45);
+  % Zuordnung des Steuerungsprozesses (entweder/oder)
+  \draw[ba pfeil] (5.85,0 |- P.south) -- (5.85,3.45) node[midway, left, font=\footnotesize] {Simulation};
+  \draw[ba pfeil] (10.05,0 |- P.south) -- (10.05,3.45) node[midway, right, font=\footnotesize] {Realbetrieb};
+\end{tikzpicture}

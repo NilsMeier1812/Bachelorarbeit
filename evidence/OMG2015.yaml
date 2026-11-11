@@ -1,0 +1,76 @@
+citekey: OMG2015
+zotero_key: 4BCC2ZQB            # aus zotero-map.json
+# OMG-Spezifikation „Data Distribution Service (DDS)“, Version 1.4, April 2015 (formal/2015-04-10); Seitenlabels laut Marker, nur Kap. 1 und DCPS-Konzepte exzerpiert; Fußnotenziffern im Zitat (z. B. „typed4“) stammen aus dem PDF-Text
+belege:
+  - id: OMG2015.01
+    seite: "1"
+    zitat: "The DDS specification describes a Data-Centric Publish-Subscribe (DCPS) model for distributed application communication and integration. This specification defines both the Application Interfaces (APIs) and the Communication Semantics (behavior and quality of service) that enable the efficient delivery of information from information producers to matching consumers."
+    kernaussage: "Die DDS-Spezifikation beschreibt ein datenzentriertes Publish-Subscribe-Modell (DCPS) für Kommunikation und Integration verteilter Anwendungen und definiert Schnittstellen (APIs) sowie Kommunikationssemantik (Verhalten und Quality of Service)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); Definition DDS/DCPS"
+  - id: OMG2015.02
+    seite: "1"
+    zitat: "QoS (Quality of Service) is a general concept that is used to specify the behavior of a service. Programming service behavior by means of QoS settings offers the advantage that the application developer only indicates ‘what’ is wanted rather than ‘how’ this QoS should be achieved."
+    kernaussage: "QoS legt das Verhalten eines Dienstes fest; der Entwickler gibt über QoS-Einstellungen nur an, was gewünscht ist, nicht wie es erreicht wird."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); Zweck von QoS"
+  - id: OMG2015.03
+    seite: "1"
+    zitat: "Generally speaking, QoS is comprised of several QoS policies. Each QoS policy is then an independent description that associates a name with a value."
+    kernaussage: "QoS besteht aus mehreren QoS-Policies; jede Policy ist eine unabhängige Beschreibung, die einen Namen mit einem Wert verbindet."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); Aufbau von QoS"
+  - id: OMG2015.04
+    seite: "2"
+    zitat: "Applications that want to contribute information to this data space declare their intent to become “Publishers.” Similarly, applications that want to access portions of this data space declare their intent to become “Subscribers.” Each time a Publisher posts new data into this “global data space,” the middleware propagates the information to all interested Subscribers."
+    kernaussage: "Im DCPS-Modell veröffentlichen Publisher Daten in einen „globalen Datenraum“, und die Middleware verteilt sie an alle interessierten Subscriber."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); datenzentriertes Publish/Subscribe; „global data space“ wird im Absatz davor eingeführt"
+  - id: OMG2015.05
+    seite: "6"
+    zitat: "A Publisher is an object responsible for data distribution. It may publish data of different data types. A DataWriter acts as a typed4 accessor to a publisher."
+    kernaussage: "Ein Publisher ist für die Datenverteilung zuständig und kann Daten verschiedener Typen veröffentlichen; ein DataWriter ist ein typisierter Zugriffspunkt auf einen Publisher."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); Publisher/DataWriter; „4“ ist Fußnotenziffer (typed = ein DataWriter je Datentyp)"
+  - id: OMG2015.06
+    seite: "6"
+    zitat: "A Subscriber is an object responsible for receiving published data and making it available (according to the Subscriber’s QoS) to the receiving application. It may receive and dispatch data of different specified types. To access the received data, the application must use a typed DataReader attached to the subscriber."
+    kernaussage: "Ein Subscriber empfängt veröffentlichte Daten und stellt sie der Anwendung bereit; für den Zugriff nutzt die Anwendung einen typisierten DataReader, der an den Subscriber gebunden ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); Subscriber/DataReader"
+  - id: OMG2015.07
+    seite: "6"
+    zitat: "A Topic is meant to fulfill that purpose: it associates a name (unique in the domain5), a data-type, and QoS related to the data itself."
+    kernaussage: "Ein Topic verbindet einen Namen (eindeutig in der Domain), einen Datentyp und datenbezogene QoS."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); Topic mit Datentyp; „5“ ist Fußnotenziffer; „that purpose“ = Publikationen eindeutig referenzierbar machen"
+  - id: OMG2015.08
+    seite: "7"
+    zitat: "All these DCPS entities are attached to a DomainParticipant. A domain participant represents the local membership of the application in a domain. A domain is a distributed concept that links all the applications able to communicate with each other. It represents a communication plane: only the publishers and the subscribers attached to the same domain may interact."
+    kernaussage: "DCPS-Entitäten hängen an einem DomainParticipant, der die lokale Zugehörigkeit der Anwendung zu einer Domain darstellt; nur Publisher und Subscriber derselben Domain können interagieren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); DomainParticipant und Domain"
+  - id: OMG2015.09
+    seite: "108"
+    zitat: "First, entities belonging to different domains are completely isolated from each other; there is no traffic, meta-traffic or any other way for an application or the Service itself to see entities in a domain it does not belong to."
+    kernaussage: "Entitäten verschiedener Domains sind vollständig voneinander isoliert; weder Daten- noch Metaverkehr erreicht Entitäten einer fremden Domain."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); Isolation der Domains; Aussage steht im Abschnitt PARTITION (Abgrenzung Domain/Partition)"
+  - id: OMG2015.10
+    seite: "108"
+    zitat: "If the RELIABILITY kind is set to BEST_EFFORT, the service will not re-transmit missing data-samples. However for datasamples originating from any one DataWriter the service will ensure they are stored in the DataReader history in the same order they originated in the DataWriter."
+    kernaussage: "Bei RELIABILITY BEST_EFFORT werden fehlende Samples nicht erneut übertragen; Samples eines DataWriters bleiben aber in ihrer Entstehungsreihenfolge."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); QoS-Beispiel RELIABILITY (Gegenstück RELIABLE: Fehler werden repariert, Zitat auf derselben Seite)"
+  - id: OMG2015.11
+    seite: "109"
+    zitat: "If the kind is set to KEEP_LAST, then the Service will only attempt to keep the latest values of the instance and discard the older ones. In this case, the value of depth regulates the maximum number of values (up to and including the most current one) the Service will maintain and deliver. The default (and most common setting) for depth is one, indicating that only the most recent value should be delivered."
+    kernaussage: "Bei HISTORY KEEP_LAST hält der Dienst nur die letzten Werte einer Instanz; depth legt die maximale Anzahl fest, Standard ist 1 (nur der neueste Wert)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); QoS-Beispiel HISTORY"
+  - id: OMG2015.12
+    seite: "128"
+    zitat: "As part of its operation, the middleware must discover and possibly keep track of the presence of remote entities such as a new participant in the domain. This information may also be important to the application, which may want to react to this discovery, or else access it on demand. To make this information accessible to the application, the DCPS specification introduces a set of built-in topics and corresponding DataReader objects that can then be used by the application."
+    kernaussage: "Die Middleware muss entfernte Entitäten entdecken; diese Informationen stellt DCPS der Anwendung über Built-in-Topics und zugehörige DataReader bereit."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.x (L13); Discovery und Builtin-Topics"

@@ -1,0 +1,52 @@
+citekey: Struhar2020
+zotero_key: TEVZWFVP
+# Fog-IoT 2020 (OASIcs, Dagstuhl), systematische Literaturübersicht; Seitenlabels "1"-"9" (Artikelseiten 7:1-7:9)
+belege:
+  - id: Struhar2020.01
+    seite: "1"
+    zitat: "The technology fully relies on operating system features and does not require a virtualization layer (hypervisor) that introduces a performance degradation."
+    kernaussage: "Containerbasierte Virtualisierung nutzt Betriebssystemfunktionen und benötigt keine Virtualisierungsschicht (Hypervisor), die laut Autoren Leistungseinbußen verursacht."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Abgrenzung zur VM (Abstract)"
+  - id: Struhar2020.02
+    seite: "3"
+    zitat: "From the runtime perspective, a container is a set of resource-limited processes that are isolated from the rest of the system and from other containers. This is achieved by utilizing two Linux kernel features: (i) Namespaces and (ii) Control groups (cgroups)."
+    kernaussage: "Ein Container ist aus Laufzeitsicht eine Menge ressourcenbegrenzter, vom restlichen System und von anderen Containern isolierter Prozesse, realisiert über die Linux-Kernel-Funktionen Namespaces und Control Groups (cgroups)."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Definition Container"
+  - id: Struhar2020.03
+    seite: "3"
+    zitat: "Containerized applications are scheduled in the same way as native applications using the host’s scheduler"
+    kernaussage: "Containerisierte Anwendungen werden wie native Anwendungen vom Scheduler des Hosts eingeplant."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Echtzeit; Satz setzt sich mit der Aufzählung der drei Linux-Scheduler fort"
+  - id: Struhar2020.04
+    seite: "3"
+    zitat: "Default (Vanilla) Linux does not give any time guarantees on execution of tasks and therefore the predictability is low [24]."
+    kernaussage: "Der Standard-Linux-Kernel gibt keine zeitlichen Garantien für die Ausführung von Tasks, die Vorhersagbarkeit ist daher gering."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Echtzeit-Einschränkung. Sekundäraussage, verweist auf [24]"
+  - id: Struhar2020.05
+    seite: "3"
+    zitat: "A real-time container is a container that provides resource isolation, resource control and additionally provides time deterministic and predictable behavior for the containerized application."
+    kernaussage: "Definition der Autoren: Ein Echtzeit-Container bietet Ressourcenisolation, Ressourcenkontrolle und zusätzlich zeitlich deterministisches, vorhersagbares Verhalten für die containerisierte Anwendung."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Definition Echtzeit-Container"
+  - id: Struhar2020.06
+    seite: "4"
+    zitat: "The result shows that docker does not impose additional overhead (similarly to [19]) for scheduling and input/output performance. However, selecting the correct kernel has a greater impact on the scheduling precision and input/output performance of containers."
+    kernaussage: "Laut der referierten Literaturübersicht verursacht Docker keinen zusätzlichen Overhead bei Scheduling und Ein-/Ausgabe-Leistung; die Wahl des Kernels hat größeren Einfluss auf Scheduling-Präzision und I/O-Leistung."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Overhead. Sekundäraussage, gibt Masek et al. [21] wieder (Beispiel selbstfahrende Fahrzeuge)"
+  - id: Struhar2020.07
+    seite: "8"
+    zitat: "Processes in different containers may use the same resources in the same way because of their independent views of the system (i.e., processes are not aware of a resource-limited isolated environment co-located with other containers). This results in poor resource utilization as well as a potential violation of the real-time execution assumptions [22]."
+    kernaussage: "Prozesse in verschiedenen Containern können wegen ihrer unabhängigen Systemsicht dieselben Ressourcen gleichartig nutzen, was zu schlechter Ressourcenauslastung und möglicher Verletzung von Echtzeitannahmen führt."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Einschränkung. Sekundäraussage, verweist auf [22]"
+  - id: Struhar2020.08
+    seite: "8"
+    zitat: "However, in industrial domains where the real-time behavior is required, the containerbased virtualization seems not to be mature enough."
+    kernaussage: "Laut Autoren erscheint containerbasierte Virtualisierung in industriellen Domänen mit Echtzeitanforderungen noch nicht ausgereift genug."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Einschränkung (Fazit der Autoren, Stand Literatur 2008-2019)"

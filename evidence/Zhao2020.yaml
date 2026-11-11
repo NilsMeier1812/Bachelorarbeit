@@ -1,0 +1,112 @@
+citekey: Zhao2020
+zotero_key: NW39RPJN
+# IEEE SSCI 2020, S. 737-744 (Survey, Verlagsfassung mit Seitenlabeln 737-744). Fokus: Deep RL fuer Robotik (Manipulation, Navigation); keine Humanoiden/Laufroboter, Simulatoren nur kurz (Abschn. III-F).
+belege:
+  - id: Zhao2020.01
+    seite: "737"
+    zitat: "Owing to the limitations of gathering real-world data, i.e., sample inefficiency and the cost of collecting it, simulation environments are utilized for training the different agents."
+    kernaussage: "Wegen der begrenzten Möglichkeiten, reale Daten zu sammeln (Stichprobenineffizienz, Kosten), werden laut Autoren Simulationsumgebungen zum Training der Agenten genutzt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 (L1) und 3.1.2; Kontext Deep RL (Abstract)"
+  - id: Zhao2020.02
+    seite: "737"
+    zitat: "Nonetheless, the gap between the simulated and real worlds degrades the performance of the policies once the models are transferred into real robots."
+    kernaussage: "Die Lücke zwischen simulierter und realer Welt verschlechtert laut Autoren die Leistung der Strategien, sobald die Modelle auf reale Roboter übertragen werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4); Beschreibung der Sim-to-Real-Luecke, Kontext Deep RL (Abstract)"
+  - id: Zhao2020.03
+    seite: "737"
+    zitat: "Simulation-based training provides data at low-cost, but involves inherent mismatches with real-world settings. Bridging the gap between simulation and reality requires, first of all, methods that are able to account for mismatches in both sensing and actuation."
+    kernaussage: "Simulationsbasiertes Training liefert Daten kostengünstig, bringt aber systembedingte Abweichungen zur Realität mit; die Lücke zu überbrücken erfordert zunächst Methoden, die Abweichungen in Sensorik und Aktorik berücksichtigen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4, L5); Unterscheidung Sensorik/Aktorik"
+  - id: Zhao2020.04
+    seite: "738"
+    zitat: "Closing the gap between simulation and reality gap in terms of actuation requires simulators to be more accurate, and to account for variability in agent dynamics."
+    kernaussage: "Die Lücke hinsichtlich der Aktorik zu schließen erfordert laut Autoren genauere Simulatoren, die die Variabilität der Dynamik des Agenten berücksichtigen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4, L5); Aktorik-/Dynamikseite der Luecke"
+  - id: Zhao2020.05
+    seite: "739"
+    zitat: "The most straightforward way of transferring knowledge from simulation to reality is to build a realistic simulator, or to have enough simulated experience, so that the model can be directly applied in real-world settings. This strategy is commonly referred to as zero-shot or direct transfer."
+    kernaussage: "Die einfachste Übertragung besteht darin, einen realistischen Simulator zu bauen oder genug simulierte Erfahrung zu haben, sodass das Modell direkt in der Realität einsetzbar ist; diese Strategie heißt Zero-Shot- bzw. Direkt-Transfer."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Definition Zero-Shot-Transfer"
+  - id: Zhao2020.06
+    seite: "739"
+    zitat: "It is of note that simulators are not faithful representation of the real world. System identification [51] is exactly to build a precise mathematical model for a physical system and to make the simulator more realistic careful calibration is necessary."
+    kernaussage: "Simulatoren bilden die reale Welt nicht getreu ab; Systemidentifikation bedeutet, ein präzises mathematisches Modell eines physikalischen Systems zu bilden, wobei zur Realitätsnähe des Simulators sorgfältige Kalibrierung nötig ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4, L5); Systemidentifikation; Sekundaeraussage zu [51]"
+  - id: Zhao2020.07
+    seite: "739"
+    zitat: "Furthermore, many physical parameters of the same robot might vary significantly due to temperature, humidity, positioning or its wear-and-tear in time, which brings more difficulty for system identification."
+    kernaussage: "Viele physikalische Parameter desselben Roboters können laut Autoren mit Temperatur, Feuchte, Positionierung oder Verschleiß stark variieren, was die Systemidentifikation erschwert."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4, L5); Grenze der Systemidentifikation"
+  - id: Zhao2020.08
+    seite: "741"
+    zitat: "Domain randomization is the idea that [52], instead of carefully modeling all the parameters of the real world, we could highly randomize the simulation in order to cover the real distribution of the real-world data despite the bias between the model and real world."
+    kernaussage: "Domain Randomization bedeutet, statt alle Parameter der Realität sorgfältig zu modellieren, die Simulation stark zu randomisieren, um die reale Datenverteilung trotz der Abweichung zwischen Modell und Realität abzudecken."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Definition Domain Randomization; Sekundaeraussage, verweist auf [52]"
+  - id: Zhao2020.09
+    seite: "741"
+    zitat: "According to the components of the simulator randomized, we divide the methods of domain randomization into two kinds: visual randomization and dynamics randomization."
+    kernaussage: "Die Autoren unterteilen Domain Randomization nach den randomisierten Simulatorkomponenten in visuelle Randomisierung und Dynamik-Randomisierung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Einteilung nach Autoren"
+  - id: Zhao2020.10
+    seite: "741"
+    zitat: "To learn dexterous in-hand manipulation policies for a physical five-fingered hand, [57] randomizes various physical parameters in the simulator, such as object dimensions, objects and robot link masses, surface friction coefficients, robot joint damping coefficients and actuator force gains."
+    kernaussage: "Für das Erlernen geschickter In-Hand-Manipulation einer Fünf-Finger-Hand randomisiert [57] physikalische Simulationsparameter, darunter Objektabmessungen, Massen, Reibungskoeffizienten, Gelenkdämpfungen und Aktorkraftverstärkungen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Beispiel randomisierter Dynamikparameter; Sekundaeraussage, verweist auf [57] (OpenAI), Manipulation, nicht Laufroboter"
+  - id: Zhao2020.11
+    seite: "739"
+    zitat: "Domain adaptation is a subset of transfer learning methods. It specifies the situation when we have sufficient source domain labeled data and the same single task as the target task, but without or very few target domain data."
+    kernaussage: "Domain Adaptation ist eine Teilmenge der Transfer-Learning-Methoden und beschreibt den Fall mit ausreichend gelabelten Quelldomänen-Daten und derselben Aufgabe, aber ohne oder mit sehr wenigen Zieldomänen-Daten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Definition Domain Adaptation"
+  - id: Zhao2020.12
+    seite: "741"
+    zitat: "From the literature, we summarize three common methods for domain adaptation regardless of their tasks. They are discrepancy-based, adversarial-based, and reconstructionbased methods, which can be also used crossly."
+    kernaussage: "Die Autoren fassen drei gängige Methoden der Domain Adaptation zusammen: diskrepanzbasierte, adversariale und rekonstruktionsbasierte Verfahren, die auch kombiniert eingesetzt werden können."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Klassen von Domain Adaptation; 'reconstructionbased' im Original (Zeilenumbruch)"
+  - id: Zhao2020.13
+    seite: "742"
+    zitat: "Moreover, a relevant conclusion from this work is that excessive domain randomization can be detrimental. Specifically, when the number of different colors that were being used for each texture was too large, the performance of the real robot was significantly worse."
+    kernaussage: "Aus der Arbeit [6] folgt laut Autoren, dass übermäßige Domain Randomization schädlich sein kann: Bei zu vielen Farben je Textur war die Leistung des realen Roboters deutlich schlechter."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5, Einschraenkung); Sekundaeraussage, verweist auf [6] (Matas et al.), visuelle Randomisierung, Manipulation deformierbarer Objekte"
+  - id: Zhao2020.14
+    seite: "742"
+    zitat: "For domain randomization, researchers tend to study empirically examining which randomization to add, but it is hard to explain formally how and why it works, which thereby brings the difficulty of designing efficiently simulations and randomization distributions."
+    kernaussage: "Bei Domain Randomization wird laut Autoren empirisch untersucht, welche Randomisierung hinzuzufügen ist; es ist schwer, formal zu erklären, wie und warum sie wirkt, was den Entwurf effizienter Simulationen und Randomisierungsverteilungen erschwert."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5, Grenzen); Einschaetzung der Autoren (Abschn. V)"
+  - id: Zhao2020.15
+    seite: "743"
+    zitat: "Domain randomization has been identified as the most widely adopted method for increasing the realism of simulation and better prepare for the real world."
+    kernaussage: "Domain Randomization gilt laut Autoren als die am weitesten verbreitete Methode, um die Realitätsnähe der Simulation zu erhöhen und besser auf die Realität vorzubereiten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Fazit der Autoren; Kontext Deep RL"
+  - id: Zhao2020.16
+    seite: "741"
+    zitat: "The most widely used simulators in the literature are Gazebo [74], Unity3D, and PyBullet [75] or MuJoCo [17]."
+    kernaussage: "Als in der Literatur (des Surveys zu Deep-RL-Sim-to-Real) am häufigsten genutzte Simulatoren nennen die Autoren Gazebo, Unity3D sowie PyBullet oder MuJoCo."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L10); Aussage bezieht sich auf die im Survey betrachtete Literatur (Deep RL, Manipulation/Navigation), nicht auf Humanoide; vgl. Tab. I (S. 740) mit Simulator je Arbeit"
+  - id: Zhao2020.17
+    seite: "742"
+    zitat: "PyBullet and MuJoCo, on the other hand, present wider integration with DL and RL libraries and gym environments. In general, Gazebo suits more complex scenarios while PyBullet and MuJoCo provide faster training."
+    kernaussage: "PyBullet und MuJoCo sind laut Autoren stärker in DL- und RL-Bibliotheken sowie Gym-Umgebungen integriert; allgemein eigne sich Gazebo besser für komplexere Szenarien, PyBullet und MuJoCo ermöglichten schnelleres Training."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L10); Einschaetzung der Autoren, ohne Messwerte; davor (S. 741): Gazebo ist weit in ROS integriert"
+  - id: Zhao2020.18
+    seite: "741"
+    zitat: "A key aspect in sim-to-real transfer is the choice of simulation. Independently of the techniques utilized for efficiently transferring knowledge to real robots, the more realistic a simulation is the better results that can be expected."
+    kernaussage: "Die Wahl der Simulation ist laut Autoren ein Schlüsselaspekt des Sim-to-Real-Transfers; unabhängig von den Transfertechniken sind bei realistischerer Simulation bessere Ergebnisse zu erwarten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4, L5, L10)"

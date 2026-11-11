@@ -1,0 +1,64 @@
+citekey: MVO2023
+zotero_key: TQSVB7JM
+# Verordnung (EU) 2023/1230 (Maschinenverordnung), ABl. L 165 vom 29.6.2023, S. 1-102, deutsche Amtsblatt-Fassung ohne Berichtigung. ACHTUNG: Die Berichtigung (ABl. L 169/35) ändert Datumsangaben und ist NICHT im PDF-Text enthalten; Datumsangaben in den Belegen geben den Wortlaut der Fassung vom 29.6.2023 wieder. Seitenlabel = Amtsblatt-Seite (L 165/<Label>).
+belege:
+  - id: MVO2023.01
+    seite: "38"
+    zitat: "Die Richtlinie 2006/42/EG wird mit Wirkung vom 14. Januar 2027 aufgehoben."
+    kernaussage: "Laut dieser Fassung der Verordnung wird die Richtlinie 2006/42/EG mit Wirkung vom 14. Januar 2027 aufgehoben."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Art. 51 Abs. 2. Datum nach Wortlaut der PDF-Fassung vom 29.6.2023; die Berichtigung ABl. L 169/35 ändert Datumsangaben und liegt nicht in sources-text vor. Vor Verwendung des Datums im Text die Berichtigung prüfen."
+  - id: MVO2023.02
+    seite: "39"
+    zitat: "Diese Verordnung tritt am zwanzigsten Tag nach ihrer Veröffentlichung im Amtsblatt der Europäischen Union in Kraft. Sie gilt ab dem 14. Januar 2027."
+    kernaussage: "Laut dieser Fassung tritt die Verordnung am zwanzigsten Tag nach ihrer Veröffentlichung im Amtsblatt in Kraft und gilt ab dem 14. Januar 2027."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Art. 54 Abs. 1 (Inkrafttreten und Anwendung). Datum nach Wortlaut der PDF-Fassung vom 29.6.2023; Berichtigung ABl. L 169/35 ändert Datumsangaben, nicht in sources-text. Für einzelne Artikel nennt Art. 54 frühere Zeitpunkte (nicht zitiert)."
+  - id: MVO2023.03
+    seite: "13"
+    zitat: "„Maschine“ bezeichnet a) eine mit einem anderen Antriebssystem als der unmittelbar eingesetzten menschlichen oder tierischen Kraft ausgestattete oder dafür vorgesehene Gesamtheit miteinander verbundener Teile oder Vorrichtungen, von denen mindestens eines bzw. eine beweglich ist und die für eine bestimmte Anwendung zusammengefügt sind;"
+    kernaussage: "Als \"Maschine\" gilt (u. a.) eine Gesamtheit miteinander verbundener Teile oder Vorrichtungen mit einem anderen Antriebssystem als unmittelbar eingesetzter menschlicher oder tierischer Kraft, von denen mindestens eines beweglich ist und die für eine bestimmte Anwendung zusammengefügt sind."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Art. 3 Nr. 1 Buchstabe a. Wortgleich zur Definition in MRL2006 Art. 2 Buchstabe a erster Gedankenstrich. Die Buchstaben b bis f (u. a. 'Gesamtheit ..., der lediglich die Teile fehlen' und Software-Fall) sind nicht zitiert."
+  - id: MVO2023.04
+    seite: "40"
+    zitat: "5. Sicherheitsbauteile mit vollständig oder teilweise selbstentwickelndem Verhalten unter Verwendung von Ansätzen des maschinellen Lernens, die Sicherheitsfunktionen gewährleisten. 6. Maschinen, die über eingebettete Systeme mit vollständig oder teilweise selbstentwickelndem Verhalten unter Ver­ wendung von Ansätzen des maschinellen Lernens verfügen, die Sicherheitsfunktionen gewährleisten, die nicht ge­ sondert in Verkehr gebracht wurden, nur in Bezug auf diese Systeme."
+    kernaussage: "In der Kategorienliste, auf die ein in Artikel 25 Absatz 2 genanntes Verfahren anzuwenden ist, stehen Sicherheitsbauteile sowie Maschinen mit eingebetteten Systemen mit vollständig oder teilweise selbstentwickelndem Verhalten unter Verwendung von Ansätzen des maschinellen Lernens, die Sicherheitsfunktionen gewährleisten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Anhang I Teil A Nr. 5 und 6. Inhalt des Verfahrens nach Art. 25 Abs. 2 (laut Erwägungsgrund 54 Konformitätsbewertung durch unabhängige Dritte) nicht hier belegt. Betrifft nur Systeme, die Sicherheitsfunktionen gewährleisten."
+  - id: MVO2023.05
+    seite: "8"
+    zitat: "Dagegen sollten diese Bestimmungen nicht für Software gelten, die weder lern- noch weiterent­ wicklungsfähig ist und nur für die Ausführung bestimmter automatisierter Funktionen von Maschinen oder dazugehörigen Produkten programmiert ist."
+    kernaussage: "Die Bestimmungen über die Konformitätsbewertung von Software, die Sicherheitsfunktionen gewährleistet, durch Dritte sollen laut Erwägungsgrund nicht für Software gelten, die weder lern- noch weiterentwicklungsfähig und nur für bestimmte automatisierte Funktionen programmiert ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Erwägungsgrund 55 (zweiter Satz, 'Dagegen ...' bezieht sich auf die Bestimmungen im vorangehenden Satz: nur Systeme mit selbstentwickelndem Verhalten unter Verwendung von Ansätzen des maschinellen Lernens, die Sicherheitsfunktionen gewährleisten). Erwägungsgründe sind nicht bindend."
+  - id: MVO2023.06
+    seite: "45"
+    zitat: "Die Risikobeurteilung und Risikominderung umfassen Gefährdungen, die im Laufe des Lebenszyklus der Maschinen oder dazugehörigen Produkte auftreten können und die zum Zeitpunkt ihres Inverkehrbringens vorhersehbar sind, da sie sich aus der bestimmungsgemäßen Veränderung ihres vollständig oder teilweise selbstentwickelnden Verhaltens oder ihrer vollständig oder teilweise selbstentwickelnden Logik infolge der Auslegung der Maschinen oder dazugehörigen Produkte für einen in wechselndem Maße autonomen Betrieb ergeben. Die Risikobeurteilung und Risikominderung umfassen auch Risiken, die sich aus Wechselwirkungen zwischen Maschinen ergeben, die, damit sie zusammenwirken, so angeordnet sind und betätigt werden, dass sie als Gesamtheit funktionieren und somit eine Maschine im Sinne von Artikel 3 Absatz 1 Buchstabe d bilden."
+    kernaussage: "Risikobeurteilung und Risikominderung müssen auch Gefährdungen umfassen, die sich aus der bestimmungsgemäßen Veränderung vollständig oder teilweise selbstentwickelnden Verhaltens oder Logik bei Auslegung für einen in wechselndem Maße autonomen Betrieb ergeben und zum Inverkehrbringen vorhersehbar sind, sowie Risiken aus Wechselwirkungen zwischen zusammenwirkenden Maschinen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Anhang III Teil B, Allgemeine Grundsätze Nr. 1, Unterabsatz 3. Der Zitatanfang steht auf Seite 45; die Pflicht zur Risikobeurteilung selbst (Nr. 1, Unterabsatz 1) steht auf Seite 44 (nicht zitiert)."
+  - id: MVO2023.07
+    seite: "48"
+    zitat: "Steuerungssysteme für Maschinen oder dazugehörige Produkte, deren Verhalten oder Logik sich vollständig oder teilweise selbst entwickelt und die für einen in wechselndem Maße autonomen Betrieb ausgelegt sind, müssen so konzipiert und gebaut sein, dass a) sie nicht dazu führen, dass Maschinen oder dazugehörige Produkte Handlungen ausführen, die über ihre festgelegte Aufgabe und ihren festgelegten Bewegungsbereich hinausgehen;"
+    kernaussage: "Steuerungssysteme von Maschinen, deren Verhalten oder Logik sich vollständig oder teilweise selbst entwickelt und die für in wechselndem Maße autonomen Betrieb ausgelegt sind, müssen so konzipiert und gebaut sein, dass sie nicht zu Handlungen führen, die über die festgelegte Aufgabe und den festgelegten Bewegungsbereich hinausgehen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18/L19); Anhang III Nr. 1.2.1 (Sicherheit und Zuverlässigkeit von Steuerungen), Buchstabe a des Unterabsatzes zu selbstentwickelnden Steuerungssystemen. Weitere Buchstaben (Datenaufzeichnung, Korrekturmöglichkeit) nicht zitiert."
+  - id: MVO2023.08
+    seite: "67"
+    zitat: "„Autonome mobile Maschinen“ bezeichnet mobile Maschinen mit einer autonomen Betriebsart, in dem alle wesentlichen Sicherheitsfunktionen der mobilen Maschine in deren Bewegungs- und Arbeitsbereich ohne ständige Interaktion mit Bedienern sichergestellt sind."
+    kernaussage: "Als \"autonome mobile Maschinen\" gelten mobile Maschinen mit einer autonomen Betriebsart, in der alle wesentlichen Sicherheitsfunktionen im Bewegungs- und Arbeitsbereich ohne ständige Interaktion mit Bedienern sichergestellt sind."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Anhang III Abschnitt 3.1.1 Buchstabe c (Begriffsbestimmung für Abschnitt 3). Ob ein zweibeiniger Humanoid 'mobile Maschine' im Sinne von 3.1.1 Buchstabe a ist, ist hier nicht belegt (Eigenbewertung)."
+  - id: MVO2023.09
+    seite: "50"
+    zitat: "Die Maschine bzw. das dazugehörige Produkt muss mit einem oder mehreren NOT-HALT-Befehlsgeräten ausgerüstet sein, durch die eine unmittelbar drohende oder eintretende Gefahr vermieden werden kann."
+    kernaussage: "Die Maschine oder das dazugehörige Produkt muss mit einem oder mehreren NOT-HALT-Befehlsgeräten ausgerüstet sein, durch die eine unmittelbar drohende oder eintretende Gefahr vermieden werden kann."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Anhang III Nr. 1.2.4.3 (Stillsetzen im Notfall), erster Satz. Ausnahmen (handgehaltene/handgeführte Maschinen, Fälle ohne Risikominderung durch NOT-HALT) folgen auf Seite 50/51, nicht zitiert. Inhaltlich wie MRL2006 Anhang I Nr. 1.2.4.3."
+  - id: MVO2023.10
+    seite: "51"
+    zitat: "Die gewählte Steuerungs- oder Betriebsart muss allen anderen Steuerungs- und Betriebsfunktionen außer dem NOT-HALT übergeordnet sein. Ist die Maschine oder das dazugehörige Produkt so konstruiert und gebaut, dass mehrere Steuerungs- oder Betriebsarten mit unterschiedlichen Schutzmaßnahmen und/oder Arbeitsverfahren möglich sind, so muss es mit einem in jeder Stellung abschließbaren Steuerungs- und Betriebsartenwahlschalter ausgestattet sein. Jede Stellung des Wahlschalters muss deutlich erkennbar sein und darf nur einer Steuerungs- oder Betriebsart entsprechen."
+    kernaussage: "Die gewählte Steuerungs- oder Betriebsart hat Vorrang vor allen anderen Steuerungs- und Betriebsfunktionen außer NOT-HALT; sind mehrere Betriebsarten mit unterschiedlichen Schutzmaßnahmen oder Arbeitsverfahren möglich, ist ein in jeder Stellung abschließbarer Steuerungs- und Betriebsartenwahlschalter erforderlich, dessen Stellungen deutlich erkennbar sind und jeweils nur einer Betriebsart entsprechen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Anhang III Nr. 1.2.5 (Wahl der Steuerungs- oder Betriebsarten), Absätze 1 und 2. Inhaltlich wie MRL2006 Anhang I Nr. 1.2.5."

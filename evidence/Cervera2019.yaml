@@ -1,0 +1,76 @@
+citekey: Cervera2019
+zotero_key: EGQ5E498
+# IEEE RA-L, 2019; Autorenfassung ("Preprint Version, accepted October 2018"): Seitenzahlen der Autorenfassung, nicht zwingend der gedruckten Fassung
+belege:
+  - id: Cervera2019.01
+    seite: "1"
+    zitat: "We propose the use of Docker, a Linux container technology, to turn the source code repositories into executable images, that can be run and tested locally, in an isolated environment, without the need of a costly integration with the host system."
+    kernaussage: "Die Autoren schlagen vor, Docker zu nutzen, um Quellcode-Repositories in ausführbare Images zu überführen, die lokal in einer isolierten Umgebung ohne aufwendige Integration ins Hostsystem laufen."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Docker als Lösung (Vorschlag der Autoren)"
+  - id: Cervera2019.02
+    seite: "1"
+    zitat: "Interestingly, the use of such frameworks has not led to a simplification of the reproduction process: systems have become increasingly complex, combining different tools, and a number of dependencies, which are frequently hidden."
+    kernaussage: "Laut Autor hat die Nutzung von Frameworks (z. B. ROS, YARP, OROCOS) den Reproduktionsprozess nicht vereinfacht; Systeme kombinieren unterschiedliche Werkzeuge und Abhängigkeiten, die oft verborgen sind."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15, L17), Abschnitt II State of the Art"
+  - id: Cervera2019.03
+    seite: "2"
+    zitat: "In this work we analyze the source code of 30 papers listed in Table I, which were selected among the ∼800 papers published at ICRA2017, including Robotics and Automation Letters (RA-L)"
+    kernaussage: "Untersucht wurde der Quellcode von 30 Veröffentlichungen, ausgewählt aus rund 800 Beiträgen der ICRA 2017 (einschließlich RA-L)."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Untersuchungsrahmen; Satz endet im Original mit Fußnote 1"
+  - id: Cervera2019.04
+    seite: "2"
+    zitat: "While this final selection is not exhaustive, nor perhaps representative, we believe that it is an interesting sample of the conference papers that make their source code available for the community."
+    kernaussage: "Laut Autor ist die Auswahl nicht erschöpfend und womöglich nicht repräsentativ."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Einschränkung des Untersuchungsrahmens"
+  - id: Cervera2019.05
+    seite: "1"
+    zitat: "Can a user build, install, and run the code without errors, by following the instructions given in the code repository?"
+    kernaussage: "Untersuchungsfrage: Kann ein Nutzer den Code anhand der Anweisungen im Repository ohne Fehler bauen, installieren und ausführen?"
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Fragestellung; nicht die Replikation der Ergebnisse"
+  - id: Cervera2019.06
+    seite: "3"
+    zitat: "only 8 repositories state both the OS name and version (Ubuntu 14.04, Ubuntu 16.04, macOS Sierra), whereas in 4 cases a more or less generic OS is mentioned (Linux, Unix, Ubuntu), and 18 repositories do not provide any information at all."
+    kernaussage: "Von 30 Repositories nennen nur 8 Betriebssystem und Version, 4 nur ein generisches Betriebssystem, 18 machen keine Angabe."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Dokumentationslücken"
+  - id: Cervera2019.07
+    seite: "5"
+    zitat: "only 30% of the repositories include the instructions for installing the prerequisites; 60% of the works include building instructions; and only 33% explain how to run the software."
+    kernaussage: "Nur 30 % der Repositories enthalten Anleitungen zur Installation der Voraussetzungen, 60 % Build-Anleitungen und nur 33 % Hinweise zum Ausführen."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Dokumentationslücken (30 Repositories)"
+  - id: Cervera2019.08
+    seite: "5"
+    zitat: "In summary, the building process is likely to fail due to the differences between the platforms of the code developer and the user. Figure 5 depicts a diagram of the progress in the test of the repositories: 8 repositories failed to build, and only in 1 of 3 repositories a documented example could be run without errors."
+    kernaussage: "Der Build-Prozess scheitert laut Autor wahrscheinlich wegen Plattformunterschieden zwischen Entwickler und Nutzer; 8 Repositories ließen sich nicht bauen, nur bei 1 von 3 Repositories lief ein dokumentiertes Beispiel fehlerfrei."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Befund; Abb. 5 (S. 5) zeigt Ergebnis je Repository"
+  - id: Cervera2019.09
+    seite: "6"
+    zitat: "Robotics software is no exception, and the main conclusion of this study is that most of the failures are caused by incomplete or inconsistent documentation of the software."
+    kernaussage: "Hauptschlussfolgerung der Studie: Die meisten Fehlschläge werden durch unvollständige oder inkonsistente Dokumentation der Software verursacht."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Schlussfolgerung (Aussage der Autoren)"
+  - id: Cervera2019.10
+    seite: "7"
+    zitat: "We have succeeded in building and executing the software in roughly half of the cases (16 of 30 repositories — 4 of 5 with Matlab, 12 of 25 in other cases)."
+    kernaussage: "Die Autoren konnten bei etwa der Hälfte der Fälle (16 von 30 Repositories) die Software bauen und ausführen, teils nach eigener Fehlerbehebung."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Ergebnis; Matlab-Code ohne Docker, übrige mit Docker-Images; 'only one code repository could be built and run off-the-shelf' (S. 7)"
+  - id: Cervera2019.11
+    seite: "3"
+    zitat: "Containers can be regarded as lightweight virtual machines, which run on top of the host operating system, without the need of a native installation."
+    kernaussage: "Container lassen sich laut Autor als leichtgewichtige virtuelle Maschinen auffassen, die auf dem Host-Betriebssystem laufen, ohne native Installation."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Container-Begriff (vereinfachende Darstellung)"
+  - id: Cervera2019.12
+    seite: "7"
+    zitat: "While the presented experiment has demonstrated that Docker is a great technology for reproducing experiments in academic settings, it is not a replacement for proper software packaging technologies (apt, homebrew, pip, ...)."
+    kernaussage: "Laut Autor ist Docker in akademischen Umgebungen gut zur Reproduktion von Experimenten geeignet, ersetzt aber keine richtigen Paketierungstechnologien (apt, homebrew, pip, ...)."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L15), Einschränkung; Fortsetzung: Kombination mehrerer Docker-Images sei nicht trivial"

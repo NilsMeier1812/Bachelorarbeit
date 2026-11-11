@@ -1,0 +1,34 @@
+citekey: UnitreeSDK2Py
+zotero_key: WBSSHTNF
+# README (Markdown, Commit 814556d, abgerufen 09.11.2026) von github.com/unitreerobotics/unitree_sdk2_python; Herstellerdokumentation. Nennt weder Topic-Namen (lowcmd/lowstate) noch Domain-ID; Beispiele beziehen sich auf Unitree-Quadrupeden (Go2).
+belege:
+  - id: UnitreeSDK2Py.01
+    seite: "1"
+    zitat: "The Python sdk2 interface maintains consistency with the unitree_sdk2 interface, achieving robot status acquisition and control through request-response or topic subscription/publishing."
+    kernaussage: "Die Python-Schnittstelle bleibt konsistent zur Schnittstelle von unitree_sdk2 und erfasst bzw. steuert den Roboterzustand per Anfrage-Antwort oder per Topic-Abonnement bzw. -Veröffentlichung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.2 (L13) – README, nur Herstellerangabe"
+  - id: UnitreeSDK2Py.02
+    seite: "1"
+    zitat: "Python >= 3.8 cyclonedds == 0.10.2 numpy opencv-python"
+    kernaussage: "Als Abhängigkeiten nennt das README Python >= 3.8, cyclonedds == 0.10.2, numpy und opencv-python."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.2 (L13) – Cyclone-DDS-Bindung als Voraussetzung; Abschnitt 'Dependencies'"
+  - id: UnitreeSDK2Py.03
+    seite: "1"
+    zitat: "Before running the examples, configure the robot's network connection as per the instructions in the document at https://support.unitree.com/home/en/developer/Quick_start."
+    kernaussage: "Vor dem Ausführen der Beispiele ist die Netzwerkverbindung zum Roboter gemäß der Unitree-Anleitung zu konfigurieren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.2 (L13)"
+  - id: UnitreeSDK2Py.04
+    seite: "2"
+    zitat: "The data structure transmitted between publisher.py and subscriber.py is defined in user_data.py, and users can define the required data structure as needed."
+    kernaussage: "Im DDS-Beispiel (publisher.py/subscriber.py) ist die übertragene Datenstruktur in user_data.py definiert und kann vom Nutzer frei festgelegt werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.2 (L13) – Abschnitt 'DDS Communication'"
+  - id: UnitreeSDK2Py.05
+    seite: "2"
+    zitat: "Replace enp2s0 with the name of the network interface to which the robot is connected. The program will output the state of the right front leg hip joint, IMU, and battery voltage."
+    kernaussage: "Den Netzwerkschnittstellennamen (im Beispiel enp2s0) ersetzt man durch den Namen der Schnittstelle, mit der der Roboter verbunden ist; das Low-Level-Beispiel gibt dann Zustand von Hüftgelenk, IMU und Akkuspannung aus."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.2 (L13) – README wiederholt den Satz bei jedem Beispiel (hier Stelle im Abschnitt 'Low-Level Status', gibt zugleich Zustand von Hüftgelenk, IMU und Akkuspannung am Quadrupeden aus)"

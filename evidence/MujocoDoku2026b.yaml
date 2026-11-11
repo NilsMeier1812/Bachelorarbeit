@@ -1,0 +1,64 @@
+citekey: MujocoDoku2026b
+zotero_key: TXKVRBES
+# MuJoCo-Dokumentation, Kapitel Modeling, Version 4.0.0 (Webseite als PDF gedruckt, Abruf 11.11.2026); Herstellerdokumentation
+belege:
+  - id: MujocoDoku2026b.01
+    seite: "17"
+    zitat: "In addition, MJCF provides shortcuts for configuring common actuators. This is done via the XML elements motor, position, velocity, intvelocity, orientation, pid, damper, cylinder, muscle, adhesion, and dcmotor."
+    kernaussage: "MJCF bietet Kurzformen für gängige Aktuatoren, u. a. die Elemente motor, position, velocity, pid und dcmotor."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 / 4.x (L9, L8)"
+  - id: MujocoDoku2026b.02
+    seite: "17"
+    zitat: "For example, position creates a position servo with attribute kp which is the servo gain."
+    kernaussage: "Die Kurzform position erzeugt einen Positions-Servo mit dem Attribut kp als Servo-Verstärkung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 / 4.x (L8, L9)"
+  - id: MujocoDoku2026b.03
+    seite: "45"
+    zitat: "Several of MuJoCo’s internal defaults (e.g. integrator=\"Euler\" , cone=\"pyramidal\" , solref=\"0.02 1\" ) date back to early versions of the engine and are not what we recommend for new models today."
+    kernaussage: "Einige interne Voreinstellungen (u. a. integrator=\"Euler\", cone=\"pyramidal\", solref=\"0.02 1\") stammen aus frühen Versionen der Engine und werden laut Dokumentation für neue Modelle nicht empfohlen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8): Voreinstellungen Integrator und Kontakt"
+  - id: MujocoDoku2026b.04
+    seite: "47"
+    zitat: "Timestep (timestep: \"0.002\" ): See note under Numerical Integration. The primary speed–fidelity knob: throughput scales linearly with timestep up to the stability limit where simulation diverges."
+    kernaussage: "Der Zeitschritt (Voreinstellung 0.002) ist der wichtigste Regler zwischen Geschwindigkeit und Genauigkeit; der Durchsatz wächst linear mit dem Zeitschritt bis zur Stabilitätsgrenze, ab der die Simulation divergiert."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8); Zeitschritt der Arbeit: 1 ms (Eigenleistung)"
+  - id: MujocoDoku2026b.05
+    seite: "47"
+    zitat: "Integrator (integrator: \"Euler\" ): See note under Numerical Integration. Use implicitfast for most models: it has nearly the same per-step cost as Euler (symmetric Cholesky factorization) while integrating actuator velocity feedback (kv, dampratio), tendon damping, and fluid viscosity implicitly,"
+    kernaussage: "Voreinstellung des Integrators ist Euler; für die meisten Modelle wird implicitfast empfohlen, da es nahezu gleiche Kosten pro Schritt hat und Geschwindigkeitsrückführung der Aktuatoren, Sehnendämpfung und Fluidviskosität implizit integriert."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8); Satz im Original geht mit \"and applying exact gyroscopic derivatives ...\" weiter"
+  - id: MujocoDoku2026b.06
+    seite: "47"
+    zitat: "Solver, iterations, and tolerance (solver: \"Newton\" , iterations: \"100\" , tolerance: \"1e-8\" ): See Solver settings. Newton is the best choice for most models, converging quadratically in ~2–3 iterations."
+    kernaussage: "Voreinstellung: Löser Newton, 100 Iterationen, Toleranz 1e-8; Newton sei für die meisten Modelle die beste Wahl und konvergiere quadratisch in etwa 2–3 Iterationen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8)"
+  - id: MujocoDoku2026b.07
+    seite: "49"
+    zitat: "Every geom both renders and collides by default; put visual meshes in a default class with contype=\"0\" conaffinity=\"0\" to keep them out of collision detection,"
+    kernaussage: "Jede Geom wird standardmäßig gerendert und kollidiert; Visualisierungsnetze sollen mit contype=\"0\" conaffinity=\"0\" aus der Kollisionserkennung herausgehalten werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 / 4.x (L8, L9): contype/conaffinity; Satz im Original geht weiter"
+  - id: MujocoDoku2026b.08
+    seite: "50"
+    zitat: "Viscous joint damping likewise enters M + hD implicitly (even under Euler ) and damps chatter at no solver cost, whereas dry frictionloss adds an active constraint row per joint; reserve it for joints where Coulomb stiction matters."
+    kernaussage: "Viskose Gelenkdämpfung geht implizit in M + hD ein (auch bei Euler) und dämpft Rattern ohne Löserkosten; frictionloss fügt je Gelenk eine aktive Constraint-Zeile hinzu und sei für Gelenke mit relevanter Coulomb-Haftreibung vorzusehen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8): damping, frictionloss"
+  - id: MujocoDoku2026b.09
+    seite: "50"
+    zitat: "Geared actuators add reflected rotor inertia (Irotor N 2 ) that often exceeds the link inertia of wrists, fingers, and ankles; adding realistic armature improves realism, mass-matrix conditioning, and timestep stability for free."
+    kernaussage: "Getriebene Aktuatoren fügen reflektierte Rotorträgheit hinzu, die oft die Gliedträgheit von Handgelenken, Fingern und Knöcheln übersteigt; realistische armature verbessere Realismus, Konditionierung der Massenmatrix und Stabilität bezüglich des Zeitschritts."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8): armature; Wirkung laut Dokumentation (\"for free\")"
+  - id: MujocoDoku2026b.10
+    seite: "36"
+    zitat: "URDF specifies effort limits on joints and has no actuator model, so a joint’s <limit effort=\"...\"> becomes its actuatorfrcrange."
+    kernaussage: "URDF kennt Kraftgrenzen an Gelenken, aber kein Aktuatormodell; beim Laden wird <limit effort> zum actuatorfrcrange des Gelenks."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 / 4.x (L9): URDF-Import"

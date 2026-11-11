@@ -14,3 +14,27 @@ belege:
     kernaussage: "ORBIT erlaubt durch GPU-Parallelisierung, RL-Policies zu trainieren und große Demonstrationsdatensätze innerhalb von Minuten zu sammeln."
     quelle: exzerpt
     kommentar: "Kap. 4.2"
+  - id: Mittal2023.03
+    seite: "3741"
+    zitat: "In contrast to other engines, PhysX SDK 5 features GPU-based hardware acceleration for high throughput, signed-distance field (SDF) collision checking [22], and more stable solvers based on FEM for deformable body simulation [23], [24]."
+    kernaussage: "Laut den Autoren bietet PhysX SDK 5 im Gegensatz zu anderen Engines GPU-Hardwarebeschleunigung, SDF-Kollisionsprüfung und stabilere FEM-basierte Löser für verformbare Körper."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10) – Autorenaussage zu PhysX; Quelle ist Vorgänger von Isaac Lab"
+  - id: Mittal2023.04
+    seite: "3741"
+    zitat: "Prior frameworks [2], [5] using MuJoCo [17] or Bullet [18] focus mainly on rigid object manipulation tasks. Since their underlying physics engines are CPU-based, they need CPU clusters to achieve massive parallelization [13]."
+    kernaussage: "Frühere Frameworks auf Basis von MuJoCo oder Bullet zielen vor allem auf Starrkörper-Manipulation; da ihre Engines CPU-basiert sind, brauchen sie CPU-Cluster für massive Parallelisierung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10) – Stand 2023 (vor MJX-Nutzung für GPU-Parallelisierung); Sekundäraussage, verweist u. a. auf [13]"
+  - id: Mittal2023.05
+    seite: "3742"
+    zitat: "While recent frameworks [7], [11], [12] include physically-based renderers, they mainly support camera-based sensors (RGB, depth). This is insufficient for certain mobile robot applications that need range sensors, such as LiDARs. Leveraging the ray-tracing technology in NVIDIA Isaac Sim, ORBIT supports all these modalities and includes APIs to obtain additional information such as semantic annotations."
+    kernaussage: "Laut den Autoren unterstützt ORBIT durch das Raytracing von Isaac Sim neben Kamerasensoren (RGB, Tiefe) auch Entfernungssensoren wie LiDAR und liefert zusätzliche Informationen wie semantische Annotationen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10) – Rendering/Sensorik, nur kurz"
+  - id: Mittal2023.06
+    seite: "3747"
+    zitat: "ORBIT can notably simulate physics at up to 125,000 FPS; however, camera rendering is currently bottlenecked to a total of 270 FPS for ten cameras rendering 640 × 480 images on an RTX 3090."
+    kernaussage: "ORBIT simuliert laut Autoren Physik mit bis zu 125.000 FPS; das Kamerarendering ist auf insgesamt 270 FPS bei zehn Kameras (640 × 480, RTX 3090) begrenzt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10) – Messung der Autoren mit ORBIT/Isaac Sim, nicht verallgemeinerbar"

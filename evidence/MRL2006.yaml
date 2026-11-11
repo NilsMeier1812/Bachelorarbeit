@@ -1,0 +1,64 @@
+citekey: MRL2006
+zotero_key: 7ZAFUG2P
+# Richtlinie 2006/42/EG (Maschinenrichtlinie), ABl. L 157 vom 9.6.2006, S. 24-86, deutsche Amtsblatt-Fassung (Rechtstext, keine Berichtigungen/Konsolidierung im PDF). Seitenlabel = Seite des Sonderdrucks 1-64 (Amtsblatt-Seite = Label + 23). Ab 14.1.2027 durch Verordnung (EU) 2023/1230 aufgehoben (siehe MVO2023).
+belege:
+  - id: MRL2006.01
+    seite: "4"
+    zitat: "eine mit einem anderen Antriebssystem als der unmittelbar eingesetzten menschlichen oder tierischen Kraft ausgestattete oder dafür vorgesehene Gesamtheit miteinander verbundener Teile oder Vorrichtungen, von denen mindestens eines bzw. eine beweglich ist und die für eine bestimmte Anwendung zusammengefügt sind;"
+    kernaussage: "Als \"Maschine\" im Sinne der Richtlinie gilt (u. a.) eine Gesamtheit miteinander verbundener Teile oder Vorrichtungen mit einem anderen Antriebssystem als unmittelbar eingesetzter menschlicher oder tierischer Kraft, von denen mindestens eines beweglich ist und die für eine bestimmte Anwendung zusammengefügt sind."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Art. 2 Buchstabe a, erster Gedankenstrich. Weitere Gedankenstriche (unvollständige Gesamtheiten, einbaufertige Gesamtheiten) nicht zitiert. Richtlinie enthält keine eigene Definition 'Roboter'."
+  - id: MRL2006.02
+    seite: "4"
+    zitat: "h) Maschinen, die speziell für Forschungszwecke konstruiert und gebaut wurden und zur vorübergehenden Verwendung in Laboratorien bestimmt sind;"
+    kernaussage: "Unter den Punkten der Aufzählung in Art. 1 Abs. 2 (siehe Kommentar) steht: Maschinen, die speziell für Forschungszwecke konstruiert und gebaut wurden und zur vorübergehenden Verwendung in Laboratorien bestimmt sind."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Art. 1 Abs. 2 Buchstabe h; die Aufzählung steht unter der Überschrift 'Vom Anwendungsbereich dieser Richtlinie sind ausgenommen:' (S. 4), d. h. diese Maschinen sind vom Anwendungsbereich ausgenommen. Ausnahme verlangt beide Merkmale (speziell für Forschungszwecke gebaut UND vorübergehende Laborverwendung); ob sie auf den G1 zutrifft, ist Eigenbewertung und hier nicht belegt."
+  - id: MRL2006.03
+    seite: "12"
+    zitat: "Der Hersteller einer Maschine oder sein Bevollmächtigter hat dafür zu sorgen, dass eine Risikobeurteilung vorgenommen wird, um die für die Maschine geltenden Sicherheits- und Gesundheitsschutzanforderungen zu ermitteln. Die Maschine muss dann unter Berücksichtigung der Ergebnisse der Risikobeurteilung konstruiert und gebaut werden."
+    kernaussage: "Der Hersteller oder sein Bevollmächtigter muss dafür sorgen, dass eine Risikobeurteilung vorgenommen wird, um die geltenden Sicherheits- und Gesundheitsschutzanforderungen zu ermitteln; die Maschine ist unter Berücksichtigung der Ergebnisse der Risikobeurteilung zu konstruieren und zu bauen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Anhang I, Allgemeine Grundsätze Nr. 1 (Absatz 1)."
+  - id: MRL2006.04
+    seite: "14"
+    zitat: "Steuerungen sind so zu konzipieren und zu bauen, dass es nicht zu Gefährdungssituationen kommt. Insbesondere müssen sie so ausgelegt und beschaffen sein, dass — sie den zu erwartenden Betriebsbeanspruchungen und Fremdeinflüssen standhalten; — ein Defekt der Hardware oder der Software der Steuerung nicht zu Gefährdungssituationen führt; — Fehler in der Logik des Steuerkreises nicht zu Gefährdungssituationen führen; — vernünftigerweise vorhersehbare Bedienungsfehler nicht zu Gefährdungssituationen führen."
+    kernaussage: "Steuerungen sind so zu konzipieren und zu bauen, dass keine Gefährdungssituationen entstehen; insbesondere sollen sie Betriebsbeanspruchungen und Fremdeinflüssen standhalten, und Defekte der Hardware oder Software, Fehler in der Logik des Steuerkreises sowie vernünftigerweise vorhersehbare Bedienungsfehler dürfen nicht zu Gefährdungssituationen führen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Anhang I Nr. 1.2.1 (Sicherheit und Zuverlässigkeit von Steuerungen). Zitat enthält alle vier Aufzählungspunkte."
+  - id: MRL2006.05
+    seite: "16"
+    zitat: "Maschinen müssen mit einer Befehlseinrichtung zum sicheren Stillsetzen der gesamten Maschine ausgestattet sein."
+    kernaussage: "Maschinen müssen mit einer Befehlseinrichtung zum sicheren Stillsetzen der gesamten Maschine ausgestattet sein."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Anhang I Nr. 1.2.4.1 (Normales Stillsetzen), erster Satz."
+  - id: MRL2006.06
+    seite: "16"
+    zitat: "Der Befehl zum Stillsetzen der Maschine muss Vorrang vor den Befehlen zum Ingangsetzen haben. Sobald die Maschine stillgesetzt ist oder ihre gefährlichen Funktionen stillgesetzt sind, muss die Energieversorgung des betreffenden Antriebs unterbrochen werden."
+    kernaussage: "Der Stillsetzbefehl hat Vorrang vor Befehlen zum Ingangsetzen; sobald die Maschine oder ihre gefährlichen Funktionen stillgesetzt sind, muss die Energieversorgung des betreffenden Antriebs unterbrochen werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Anhang I Nr. 1.2.4.1 (Normales Stillsetzen), dritter und vierter Satz. Hinweis: Nr. 1.2.4.2 (Beleg .07) regelt den Fall, dass die Unterbrechung betriebsbedingt nicht möglich ist."
+  - id: MRL2006.07
+    seite: "16"
+    zitat: "Ist ein Stillsetzen, bei dem die Energieversorgung des Antriebs unterbrochen wird, betriebsbedingt nicht möglich, so muss der Betriebszustand der Stillsetzung überwacht und aufrechterhalten werden."
+    kernaussage: "Ist ein Stillsetzen mit Unterbrechung der Energieversorgung des Antriebs betriebsbedingt nicht möglich, muss der Betriebszustand der Stillsetzung überwacht und aufrechterhalten werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Anhang I Nr. 1.2.4.2 (Betriebsbedingtes Stillsetzen)."
+  - id: MRL2006.08
+    seite: "16"
+    zitat: "Jede Maschine muss mit einem oder mehreren NOT-HALT-Befehlsgeräten ausgerüstet sein, durch die eine unmittelbar drohende oder eintretende Gefahr vermieden werden kann."
+    kernaussage: "Jede Maschine muss mit einem oder mehreren NOT-HALT-Befehlsgeräten ausgerüstet sein, durch die eine unmittelbar drohende oder eintretende Gefahr vermieden werden kann."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Anhang I Nr. 1.2.4.3 (Stillsetzen im Notfall), erster Satz. Der Folgeabsatz nennt Ausnahmen (u. a. handgehaltene/handgeführte Maschinen), nicht zitiert."
+  - id: MRL2006.09
+    seite: "17"
+    zitat: "Die NOT-HALT-Funktion muss unabhängig von der Betriebsart jederzeit verfügbar und betriebsbereit sein. NOT-HALT-Befehlsgeräte müssen andere Schutzmaßnahmen ergänzen, aber dürfen nicht an deren Stelle treten."
+    kernaussage: "Die NOT-HALT-Funktion muss unabhängig von der Betriebsart jederzeit verfügbar und betriebsbereit sein; NOT-HALT-Befehlsgeräte müssen andere Schutzmaßnahmen ergänzen und dürfen sie nicht ersetzen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Anhang I Nr. 1.2.4.3, letzte beiden Sätze (Seite 17)."
+  - id: MRL2006.10
+    seite: "17"
+    zitat: "Die gewählte Steuerungs- oder Betriebsart muss allen anderen Steuerungs- und Betriebsfunktionen außer dem NOT-HALT übergeordnet sein. Ist die Maschine so konstruiert und gebaut, dass mehrere Steuerungs- oder Betriebsarten mit unterschiedlichen Schutzmaßnahmen und/oder Arbeitsverfahren möglich sind, so muss sie mit einem in jeder Stellung abschließbaren Steuerungs- und Betriebsartenwahlschalter ausgestattet sein. Jede Stellung des Wahlschalters muss deutlich erkennbar sein und darf nur einer Steuerungs- oder Betriebsart entsprechen."
+    kernaussage: "Die gewählte Steuerungs- oder Betriebsart hat Vorrang vor allen anderen Steuerungs- und Betriebsfunktionen außer NOT-HALT; sind mehrere Betriebsarten mit unterschiedlichen Schutzmaßnahmen oder Arbeitsverfahren möglich, ist ein in jeder Stellung abschließbarer Steuerungs- und Betriebsartenwahlschalter erforderlich, dessen Stellungen deutlich erkennbar sind und jeweils nur einer Betriebsart entsprechen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Anhang I Nr. 1.2.5 (Wahl der Steuerungs- oder Betriebsarten), Absätze 1 und 2. Der Wahlschalter kann laut Folgeabsatz durch andere Wahleinrichtungen ersetzt werden (nicht zitiert)."

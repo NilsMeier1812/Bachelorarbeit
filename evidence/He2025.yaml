@@ -1,0 +1,82 @@
+citekey: He2025
+zotero_key: RC8F75KA
+# RSS 2025 (OCR-Fassung des PDFs, zweispaltig; Zeilen der Spalten sind im Text teils verschränkt). Unitree G1, Ganzkörper-Bewegungsverfolgung, Sim-to-Sim (IsaacGym, IsaacSim, Genesis) und Sim-to-Real.
+belege:
+  - id: He2025.01
+    seite: "12"
+    zitat: "The dynamics mismatch between simulators and real-world physics can be attributed to two primary factors: inaccuracies"
+    kernaussage: "Laut den Autoren lässt sich die Dynamik-Abweichung zwischen Simulatoren und realer Physik auf zwei Hauptfaktoren zurückführen (zweiter Faktor siehe He2025.13)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4). Aussage der Autoren (Related Work, Abschn. VI-B). Satz setzt sich nach OCR-Spaltenumbruch fort, siehe He2025.13."
+  - id: He2025.02
+    seite: "12"
+    zitat: "Offline Sys[D methods typically collect real-world data and adjust simulation parameters to train policies in more accurate dynamics."
+    kernaussage: "Offline-Systemidentifikation erfasst typischerweise Realdaten und passt Simulationsparameter an, um Policies in genauerer Dynamik zu trainieren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5). OCR-Fehler im Original-Text: 'Sys[D' statt 'SysID'. Sekundäraussage der Autoren zur Literatur."
+  - id: He2025.03
+    seite: "12"
+    zitat: "Our framework takes a different approach from traditional SysID methods by learning a residual action model that directly compensates for dynamics mismatch through corrective actions, rather than explicitly estimating system parameters."
+    kernaussage: "Der Ansatz der Autoren lernt ein residuales Aktionsmodell, das die Dynamik-Abweichung direkt durch Korrekturaktionen ausgleicht, statt Systemparameter explizit zu schätzen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5), Real-to-Sim-Ansatz (Delta-Action-Modell). Aussage der Autoren über das eigene System."
+  - id: He2025.04
+    seite: "12"
+    zitat: "These methods can be broadly categorized into offline SysID and online SysID, depending on whether system identification occurs at test time."
+    kernaussage: "Systemidentifikations-Verfahren lassen sich laut den Autoren grob in Offline- und Online-Systemidentifikation einteilen, je nachdem ob die Identifikation zur Testzeit stattfindet."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5). Sekundäre Einordnung der Autoren zur Literatur."
+  - id: He2025.05
+    seite: "2"
+    zitat: "DR methods rely on randomizing simulation parameters [87, 68]; but this can lead to overly conservative policies [25],"
+    kernaussage: "Laut den Autoren beruht Domain Randomization auf dem Randomisieren von Simulationsparametern, was zu übermäßig konservativen Policies führen könne."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5), Grenze der Domain Randomization. Sekundäraussage, verweist auf [87, 68] und [25]. Satz geht in der OCR-Spalte weiter (...hindering the development of highly agile skills)."
+  - id: He2025.06
+    seite: "2"
+    zitat: "between simulation and real-world physics, DR methods rely on randomizing simulation parameters [87, 68]; but this can lead to overly conservative policies [25], ultimately hindering"
+    kernaussage: "Laut den Autoren beruht Domain Randomization zur Verringerung der Abweichung zwischen Simulation und realer Physik auf dem Randomisieren von Simulationsparametern; dies könne zu übermäßig konservativen Policies führen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5). Wie He2025.05 mit längerem Wortlaut; Satz setzt sich fort mit 'the development of highly agile skills' (OCR-Spalte)."
+  - id: He2025.07
+    seite: "9"
+    zitat: "The sim-to-real gap is more pronounced than simulator-to-simulator discrepancies due to factors such as noisy sensor input, inaccuracies in robot modeling, and actuator differences."
+    kernaussage: "Laut den Autoren ist die Sim-to-Real-Lücke ausgeprägter als Abweichungen zwischen Simulatoren, u. a. wegen verrauschter Sensoreingaben, Ungenauigkeiten der Robotermodellierung und Aktorunterschieden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4). Aussage im Kontext der Experimente mit dem Unitree G1."
+  - id: He2025.08
+    seite: "6"
+    zitat: "sim-to-sim transfer benchmarks to assess the effectiveness of different methods in bridging the dynamics gap."
+    kernaussage: "Die Autoren richten Sim-to-Sim-Transfer-Benchmarks ein, um die Wirksamkeit verschiedener Verfahren zur Überbrückung der Dynamik-Lücke zu bewerten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L6), Sim-to-Sim als Zwischenstufe. Satzanfang 'we establish' steht davor."
+  - id: He2025.09
+    seite: "7"
+    zitat: "environment trajectories in the training environment. This is achieved by rolling out the same trajectory executed in the testing environment and assessing tracking discrepancies using key metrics such as MPJPE."
+    kernaussage: "Die Autoren bewerten die Abweichung, indem sie dieselbe Trajektorie, die in der Testumgebung ausgeführt wurde, in der Trainingsumgebung abspielen und die Tracking-Abweichungen mit Kennzahlen wie dem MPJPE bewerten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L6). Open-loop-Replay-Auswertung (Sim-to-Sim, IsaacGym gegen IsaacSim/Genesis); Satz beginnt mit 'Open-loop evaluation measures how accurately a method can reproduce testing-'."
+  - id: He2025.10
+    seite: "7"
+    zitat: "An ideal method should minimize the discrepancies between training and testing trajectories when replaying testing-environment actions, thereby demonstrating an improved capacity for compensating dynamics mismatch."
+    kernaussage: "Nach den Autoren soll ein ideales Verfahren die Abweichungen zwischen Trainings- und Testtrajektorien beim Abspielen der Testumgebungs-Aktionen minimieren und damit besser für die Dynamik-Abweichung kompensieren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L6). Bewertungsmaßstab der Autoren."
+  - id: He2025.11
+    seite: "12"
+    zitat: "Extensive experiments demonstrate significant reductions in motion tracking errors (up to 52.7% in sim-to-real tasks) and successful deployment of diverse agile skills—including agile jumps and kicks—on the Unitree G1 humanoid."
+    kernaussage: "Laut den Autoren reduzieren sich die Tracking-Fehler in den Sim-to-Real-Aufgaben um bis zu 52,7 %, und diverse agile Fähigkeiten wurden auf dem Unitree G1 erfolgreich eingesetzt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L6). Ergebnis der Autoren für ihr Verfahren (ASAP) im Vergleich zur Vanilla-Policy."
+  - id: He2025.12
+    seite: "12"
+    zitat: "Dependence on Motion Capture Systems: Our pipeline requires MoCap setup to record real-world trajectories. This introduces practical deployment barriers in unstructured environments where MoCap setups are unavailable."
+    kernaussage: "Das Verfahren der Autoren benötigt ein Motion-Capture-System zur Aufzeichnung realer Trajektorien, was den Einsatz in unstrukturierten Umgebungen ohne MoCap erschwert."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5), Voraussetzung/Grenze des Real-to-Sim-Ansatzes."
+  - id: He2025.13
+    seite: "12"
+    zitat: "in the robot model descriptions and the presence of complex real-world dynamics that are difficult for physics-based simulators to capture."
+    kernaussage: "Die beiden Faktoren sind laut den Autoren Ungenauigkeiten in den Robotermodellbeschreibungen und komplexe reale Dynamik, die physikbasierte Simulatoren schwer abbilden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4). Fortsetzung von He2025.01."

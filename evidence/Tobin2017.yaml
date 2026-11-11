@@ -1,0 +1,58 @@
+citekey: Tobin2017
+zotero_key: 3GWN6ZUZ
+# IROS 2017 (IEEE Xplore-Fassung, gedruckte Seiten 23-30). Wahrnehmungsaufgabe (Objektlokalisierung aus Kamerabildern), keine Dynamik-Randomisierung der eigenen Methode.
+belege:
+  - id: Tobin2017.01
+    seite: "23"
+    zitat: "Unfortunately, discrepancies between physics simulators and the real world make transferring behaviors from simulation challenging. System identification, the process of tuning the parameters of the simulation to match the behavior of the physical system, is time-consuming and error-prone."
+    kernaussage: "Laut den Autoren erschweren Abweichungen zwischen Physiksimulatoren und realer Welt die Übertragung von Verhalten; Systemidentifikation (Anpassen der Simulationsparameter an das physische System) sei zeitaufwendig und fehleranfällig."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4, L5). Einordnung der Systemidentifikation durch die Autoren."
+  - id: Tobin2017.02
+    seite: "23"
+    zitat: "Even with strong system identification, the real world has unmodeled physical effects like nonrigidity, gear backlash, wear-and-tear, and fluid dynamics that are not captured by current physics simulators (though learning techniques may help bridge this gap [33])."
+    kernaussage: "Laut den Autoren hat die reale Welt auch bei starker Systemidentifikation nicht modellierte Effekte (u. a. Nachgiebigkeit, Getriebespiel, Verschleiß, Fluiddynamik), die aktuelle Physiksimulatoren nicht abbilden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4). Aussage bezieht sich auf Simulatoren Stand 2017."
+  - id: Tobin2017.03
+    seite: "23"
+    zitat: "Furthermore, low-fidelity simulated sensors like image renderers are often unable to reproduce the richness and noise produced by their realworld counterparts."
+    kernaussage: "Simulierte Sensoren niedriger Wiedergabetreue, etwa Bildrenderer, können Reichhaltigkeit und Rauschen realer Sensoren oft nicht reproduzieren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4, Sensormodelle). Bezogen auf Kamerabilder."
+  - id: Tobin2017.04
+    seite: "23"
+    zitat: "the reality gap, form the barrier to using simulated data on real robots."
+    kernaussage: "Die Gesamtheit der zuvor genannten Unterschiede (Systemidentifikation, nicht modellierte Effekte, einfache Sensormodelle) bezeichnen die Autoren als reality gap; sie bilde die Barriere für die Nutzung simulierter Daten auf realen Robotern."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4), Definition reality gap. Der Satz beginnt am Zeilenende davor: 'These differences, known collectively as' (Abb.-Beschriftung dazwischen)."
+  - id: Tobin2017.05
+    seite: "23"
+    zitat: "Instead of training a model on a single simulated environment, we randomize the simulator to expose the model to a wide range of environments at training time."
+    kernaussage: "Domain Randomization bedeutet laut den Autoren, den Simulator zu randomisieren, sodass das Modell im Training vielen verschiedenen Umgebungen statt einer einzelnen ausgesetzt ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5), Idee der Domain Randomization."
+  - id: Tobin2017.06
+    seite: "23"
+    zitat: "if the variability in simulation is significant enough, models trained in simulation will generalize to the real world with no additional training."
+    kernaussage: "Die Autoren formulieren als zu testende Hypothese: Bei ausreichend großer Variabilität der Simulation generalisieren in der Simulation trainierte Modelle ohne zusätzliches Training auf die reale Welt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5). Hypothese, kein allgemein bewiesener Satz; Satzanfang 'The purpose of this work is to test the following hypothesis:'."
+  - id: Tobin2017.07
+    seite: "23"
+    zitat: "Though in principle domain randomization could be applied to any component of the reality gap, we focus on the challenge of transferring from low-fidelity simulated camera images."
+    kernaussage: "Die Autoren halten Domain Randomization prinzipiell für auf jede Komponente der reality gap anwendbar, untersuchen aber nur den Transfer von simulierten Kamerabildern niedriger Wiedergabetreue."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5). Einschränkung: Tobin2017 randomisiert nur das Rendering, keine Dynamik."
+  - id: Tobin2017.08
+    seite: "25"
+    zitat: "Similarly, in [2], the authors use a simulator with randomized friction and action delay and find behaviors transfer to the real world."
+    kernaussage: "Die Autoren verweisen auf eine frühere Arbeit, die mit randomisierter Reibung und Aktionsverzögerung im Simulator ein Übertragen von Verhalten in die reale Welt feststellt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5). Sekundäraussage, verweist auf [2]; Beispiel für Dynamik-Randomisierung."
+  - id: Tobin2017.09
+    seite: "28"
+    zitat: "The primary drawback of our method is that it requires setting up simulated scenes and training separate detectors for each object, including creating 3D models for each object. Once trained, the models may not generalize well to new scenes"
+    kernaussage: "Laut den Autoren besteht der Hauptnachteil ihrer Methode darin, simulierte Szenen aufbauen und je Objekt einen eigenen Detektor trainieren zu müssen; trainierte Modelle generalisieren möglicherweise nicht gut auf neue Szenen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5), Grenzen. Bezieht sich auf die Objektlokalisierung der Autoren."

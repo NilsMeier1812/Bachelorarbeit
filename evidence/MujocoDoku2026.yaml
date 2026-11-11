@@ -1,0 +1,100 @@
+citekey: MujocoDoku2026
+zotero_key: 5BJ36KZS
+# MuJoCo-Dokumentation, Kapitel Computation, Version 4.0.0 (Webseite als PDF gedruckt, Abruf 11.11.2026); Herstellerdokumentation, keine begutachtete Quelle
+belege:
+  - id: MujocoDoku2026.01
+    seite: "5"
+    zitat: "The general equations of motion in continuous time are (1) M v̇ + c = τ + J T f"
+    kernaussage: "Bewegungsgleichung in kontinuierlicher Zeit: M v̇ + c = τ + J^T f (M Massenmatrix, c Bias-Kräfte, τ angewandte Kraft, J^T f Constraint-Kräfte in Gelenkkoordinaten)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L3, L7); Formel (1); Symbolbedeutung laut Tabelle und Folgetext derselben Seite, Zeichen im PDF-Text teils zerlegt"
+  - id: MujocoDoku2026.02
+    seite: "2"
+    zitat: "For soft contacts complementarity has to be violated: when there is penetration and the material is pushing the contacting bodies apart, both the normal force and velocity are positive."
+    kernaussage: "Bei weichen Kontakten muss die Komplementarität verletzt werden: bei Eindringen und abstoßendem Material sind Normalkraft und Normalgeschwindigkeit beide positiv."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L7); Begründung der Autoren für das eigene Kontaktmodell"
+  - id: MujocoDoku2026.03
+    seite: "19"
+    zitat: "This constraint welds two bodies together, suppressing all relative degrees of freedom between them."
+    kernaussage: "Die weld-Zwangsbedingung verschweißt zwei Körper und unterdrückt alle relativen Freiheitsgrade zwischen ihnen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 / 4.x (L3, L7, L8): Festhalten der Basis per weld"
+  - id: MujocoDoku2026.04
+    seite: "20"
+    zitat: "Instead it is modeled as a constraint, namely an upper limit on the absolute value of the force that friction can generate. This limit is specified via the attribute frictionloss of the corresponding model element, and can be applied to joints and tendons."
+    kernaussage: "Friction loss wird als Constraint modelliert, nämlich als Obergrenze für den Betrag der Reibkraft; sie wird über das Attribut frictionloss gesetzt und gilt für Gelenke und Sehnen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L3, L7)"
+  - id: MujocoDoku2026.05
+    seite: "9"
+    zitat: "Here a is an actuator-specific gain parameter and b0 , b1 , b2 are actuator-specific bias parameters, stored in mjModel.actuator_gainprm and mjModel.actuator_biasprm respectively."
+    kernaussage: "Die Aktuatorkraft hängt von einem aktuatorspezifischen Gain-Parameter a und den Bias-Parametern b0, b1, b2 ab (gespeichert in actuator_gainprm bzw. actuator_biasprm)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L3, L8); zur Kraftgleichung p = a·(w bzw. u) + b0 + b1·l + b2·l̇ siehe vorangehende Seite (Formel im PDF-Text zerlegt)"
+  - id: MujocoDoku2026.06
+    seite: "9"
+    zitat: "Different settings of the gain and bias parameters can be used to model direct force control as well as position and velocity servos -in which case the control/activation has the meaning of reference position or velocity."
+    kernaussage: "Mit verschiedenen Gain-/Bias-Einstellungen lassen sich direkte Kraftregelung sowie Positions- und Geschwindigkeits-Servos modellieren; die Steuergröße bedeutet dann Soll-Position bzw. Soll-Geschwindigkeit."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L3, L8): motor vs. position"
+  - id: MujocoDoku2026.07
+    seite: "14"
+    zitat: "MuJoCo supports five integrators: four single-step integrators and the multi-step 4th order RungeKutta integrator."
+    kernaussage: "MuJoCo unterstützt fünf Integratoren: vier Einschritt-Integratoren und das mehrstufige Runge-Kutta-Verfahren 4. Ordnung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8); Quelle widerspricht sich: Seite 10 derselben Quelle nennt \"Four numerical integrators\" (ohne discrete), Seite 14 fünf; discrete ist laut Quelle seit September 2026 neu"
+  - id: MujocoDoku2026.08
+    seite: "14"
+    zitat: "Semi-implicit with implicit joint damping ( Euler ) For this method, D only includes derivatives of joint damping."
+    kernaussage: "Beim Euler-Integrator (semi-implizit mit implizitem Gelenkdämpfungsterm) enthält D nur die Ableitungen der Gelenkdämpfung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8); Euler ist laut Modeling-Kapitel (Beleg MujocoDoku2026b) Voreinstellung"
+  - id: MujocoDoku2026.09
+    seite: "14"
+    zitat: "For this method, D includes derivatives of all forces used in the implicit method, with the exception of the centripetal and Coriolis forces c(v) computed by the RNE algorithm."
+    kernaussage: "Beim implicitfast-Integrator enthält D die Ableitungen aller im implicit-Verfahren verwendeten Kräfte außer den mit dem RNE-Algorithmus berechneten Zentripetal- und Corioliskräften."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8)"
+  - id: MujocoDoku2026.10
+    seite: "17"
+    zitat: "The time step is perhaps the single most important parameter that the user can adjust. If it is too large, the simulation will become unstable. If it is too small, CPU time will be wasted without meaningful improvement in accuracy."
+    kernaussage: "Laut Dokumentation ist der Zeitschritt vielleicht der wichtigste einstellbare Parameter: zu groß macht die Simulation instabil, zu klein verschwendet Rechenzeit ohne nennenswert bessere Genauigkeit."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8); Abschnitt \"Choosing timestep and integrator\""
+  - id: MujocoDoku2026.11
+    seite: "17"
+    zitat: "Summary: The recommended integrator is implicitfast which usually has the best tradeoff of stability and performance."
+    kernaussage: "Als empfohlener Integrator nennt die Dokumentation implicitfast, der meist den besten Kompromiss aus Stabilität und Rechenaufwand biete."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8)"
+  - id: MujocoDoku2026.12
+    seite: "33"
+    zitat: "– the predicted cost improvement of the next iteration. It is the default solver."
+    kernaussage: "Der Newton-Löser ist laut Dokumentation der voreingestellte Löser."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L8); Newton-Beschreibung davor auf Seite 33"
+  - id: MujocoDoku2026.13
+    seite: "39"
+    zitat: "In summary, elliptic and pyramidal friction cones define different soft-contact dynamics (although they are usually very close). The elliptic model is more principled and more consistent with physical intuition, and the corresponding solvers are quite efficient, but depending on the model may not be as efficient as the pyramidal solvers."
+    kernaussage: "Elliptische und pyramidale Reibungskegel definieren unterschiedliche Weichkontakt-Dynamik (meist sehr ähnlich); das elliptische Modell sei prinzipieller und physikalisch intuitiver, aber je nach Modell nicht so effizient wie die pyramidalen Löser."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L7, L8); Seite 33/39 beschreiben die Kegelwahl als durch den Löser bestimmt, das Modeling-Kapitel nennt die Option cone (Voreinstellung pyramidal)"
+  - id: MujocoDoku2026.14
+    seite: "38"
+    zitat: "In brief, each scalar constraint behaves approximately as a damped second-order system whose time constant and damping ratio are set by the solref attribute, and whose strength is controlled by the impedance d set via solimp."
+    kernaussage: "Jede skalare Zwangsbedingung verhält sich näherungsweise wie ein gedämpftes System zweiter Ordnung, dessen Zeitkonstante und Dämpfungsgrad über solref und dessen Stärke über die Impedanz d (solimp) eingestellt werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L7, L8)"
+  - id: MujocoDoku2026.15
+    seite: "42"
+    zitat: "(contype1 & conaffinity2) || (contype2 & conaffinity1)"
+    kernaussage: "Filterbedingung: (contype1 & conaffinity2) || (contype2 & conaffinity1) muss wahr sein."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 / 4.x (L8)"
+  - id: MujocoDoku2026.16
+    seite: "42"
+    zitat: "The default setting for all geoms is contype = conaffinity = 1 which always passes the test, so the user can ignore this mechanism if it is confusing at first."
+    kernaussage: "Voreinstellung für alle Geoms ist contype = conaffinity = 1; dieser Test wird dann immer bestanden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 / 4.x (L8)"

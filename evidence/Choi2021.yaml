@@ -1,0 +1,124 @@
+citekey: Choi2021
+zotero_key: RQPC7XD2
+# PNAS 118(1), 2021 (Perspective, Verlagsfassung, open access). Ergebnis eines NSF/DoD/NIST-Workshops 2018; Meinungs-/Positionsartikel, ausdruecklich kein Review (S. 2). Seitenlabel 1-9.
+belege:
+  - id: Choi2021.01
+    seite: "1"
+    zitat: "We posit that well-validated computer simulation can provide a virtual proving ground that in many cases is instrumental in understanding safely, faster, at lower costs, and more thoroughly how the robots of the future should be designed and controlled for safe operation and improved performance."
+    kernaussage: "Laut Autoren kann gut validierte Simulation in vielen Fällen eine virtuelle Erprobungsumgebung sein, die hilft, Entwurf und Regelung von Robotern sicherer, schneller, kostengünstiger und gründlicher zu verstehen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 (L1); Position der Autoren (Abstract), Voraussetzung: gut validierte Simulation"
+  - id: Choi2021.02
+    seite: "1"
+    zitat: "While physically testing these robots before deployment is mandatory, through simulation, the engineering design process can be accelerated, made more cost effective, and benefit from more thorough testing."
+    kernaussage: "Physisches Testen vor dem Einsatz ist laut Autoren zwingend; durch Simulation kann der Entwicklungsprozess beschleunigt, kostengünstiger und durch gründlicheres Testen verbessert werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 (L1); Simulation ersetzt den Hardwaretest nicht"
+  - id: Choi2021.03
+    seite: "2"
+    zitat: "1) Generate, expeditiously and at low cost, large amounts of training data for machine learning; 2) accelerate the engineering design cycle, and reduce its costs; 3) provide an accelerated, safe, and fully controlled virtual testing and verification environment; 4) facilitate the development of more intelligent robots; and 5) facilitate the understanding of human–robot interactions (HRI)."
+    kernaussage: "Die Autoren nennen fünf Chancen der Simulation in der Robotik: Trainingsdaten für maschinelles Lernen, schnellerer und billigerer Entwicklungszyklus, sichere und kontrollierte virtuelle Test- und Verifikationsumgebung, Entwicklung intelligenterer Roboter, Verständnis der Mensch-Roboter-Interaktion."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 (L1); Aufzaehlung der Workshop-Ergebnisse"
+  - id: Choi2021.04
+    seite: "2"
+    zitat: "Moving from a model-free to a model-based design approach, i.e., carrying out the iterative loop in simulation (8), can reduce the time associated with the design process."
+    kernaussage: "Wird die iterative Entwicklungsschleife in der Simulation statt an Prototypen durchgeführt, kann das laut Autoren die Entwicklungszeit verringern."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 (L1); Sekundaeraussage, verweist auf [8]"
+  - id: Choi2021.05
+    seite: "2"
+    zitat: "Repeatability, particularly with respect to stress/corner cases; full control of the experiment insofar as the “environment” is concerned; and the lack of risk to human and hardware damage are three attributes that can make simulation instrumental in establishing principled protocols for autonomous system verification and, by extension, industry standards and guidelines."
+    kernaussage: "Wiederholbarkeit (auch bei Grenz- und Extremfällen), volle Kontrolle über die Umgebung und fehlendes Risiko für Mensch und Hardware können Simulation laut Autoren für die Verifikation autonomer Systeme nützlich machen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 (L1, L16); Nutzen Test/Verifikation"
+  - id: Choi2021.06
+    seite: "2"
+    zitat: "Using simulation to generate training data for control policies is not a silver bullet owing to the so-called simulation-toreality gap (4), which is touched upon later in this article."
+    kernaussage: "Simulation zur Erzeugung von Trainingsdaten für Regelungsstrategien ist laut Autoren wegen der sogenannten Simulation-zu-Realität-Lücke kein Allheilmittel."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4); keine Definition der Luecke an dieser Stelle; Begriff verweist auf [4]. Im Original 'simulation-toreality' (Zeilenumbruch)"
+  - id: Choi2021.07
+    seite: "4"
+    zitat: "These simulator subcomponents, which are tied to the dynamics, sensing, virtual world, human participation, and communication facets, render the simulation-in-robotics task highly multidisciplinary."
+    kernaussage: "Die Simulator-Teilkomponenten zu Dynamik, Sensorik, virtueller Welt, menschlicher Beteiligung und Kommunikation machen die Robotersimulation laut Autoren hochgradig multidisziplinär."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L3); Teilkomponenten-Aufzaehlung; vgl. S. 6: 'three types of submodels: robots, synthetic worlds, and sensors' (nicht als Zitat, Zeilenumbruch mit Fusszeile)"
+  - id: Choi2021.08
+    seite: "7"
+    zitat: "A dynamics engine is needed to capture the time evolution of the robots in environments that can be unstructured and themselves be changing in time; sensor simulation is required in controlling the agents;"
+    kernaussage: "Für eine Robotersimulation wird laut Autoren eine Dynamik-Engine benötigt, die die zeitliche Entwicklung der Roboter in teils unstrukturierten, zeitlich veränderlichen Umgebungen abbildet; außerdem ist Sensorsimulation nötig."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L3); Teilmodelle Dynamik und Sensorik; Satz im Original fortgesetzt (Umgebung, Mensch, Kommunikation)"
+  - id: Choi2021.09
+    seite: "4"
+    zitat: "However, the gaming platforms are not designed to accurately simulate the physics governing the behavior of robots and their interactions with the environment."
+    kernaussage: "Spiele-Plattformen sind laut Autoren nicht dafür ausgelegt, die Physik des Roboterverhaltens und seiner Wechselwirkung mit der Umgebung genau zu simulieren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L3, L10); Abgrenzung Robotiksimulator vs. Spiele-Engine; im folgenden Satz: 'emphasis on plausibility rather than accuracy'"
+  - id: Choi2021.10
+    seite: "4"
+    zitat: "Presently, by and large, robot models that use only rigid bodies run in real time as long as the number of bodies is in the neighborhood of 10 to 15 and the number of collisions with friction and contact is low (25, 35, 36)."
+    kernaussage: "Roboter-Modelle nur aus Starrkörpern laufen laut Autoren (Stand 2020) in Echtzeit, solange die Zahl der Körper bei etwa 10 bis 15 liegt und wenige Kollisionen mit Reibung und Kontakt auftreten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L3, L6); Sekundaeraussage, verweist auf [25, 35, 36] (u. a. PyBullet, MuJoCo, Chrono); Stand 2020, nicht auf aktuelle Hardware/Humanoide uebertragbar"
+  - id: Choi2021.11
+    seite: "5"
+    zitat: "Friction, impact, contact, actuator noise, wear and tear, uncertain external loads, complex and unstructured environments, etc., are a few of the many sources of uncertainty that mar the operation of a robot. These sources of uncertainty must also be present in simulation."
+    kernaussage: "Reibung, Stoß, Kontakt, Aktorrauschen, Verschleiß, unsichere äußere Lasten und komplexe Umgebungen nennen die Autoren als Unsicherheitsquellen im Roboterbetrieb, die auch in der Simulation vorhanden sein müssen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4); Unsicherheitsquellen, keine Definition der Sim-to-Real-Luecke"
+  - id: Choi2021.12
+    seite: "5"
+    zitat: "Populating a model with correct parameters is time consuming and most often an ad hoc, one-off, process."
+    kernaussage: "Ein Modell mit korrekten Parametern zu füllen ist laut Autoren zeitaufwendig und meist ein Ad-hoc-Einzelvorgang."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4, L5); Modellkalibrierung (Issue 6)"
+  - id: Choi2021.13
+    seite: "5"
+    zitat: "When experimental data for the robot are available, classic identification methods are effective provided the parameter space is not large (40)."
+    kernaussage: "Klassische Identifikationsverfahren sind laut Autoren wirksam, wenn Versuchsdaten des Roboters vorliegen und der Parameterraum nicht groß ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Voraussetzung/Grenze der Systemidentifikation; Sekundaeraussage, verweist auf [40]"
+  - id: Choi2021.14
+    seite: "5"
+    zitat: "It is not uncommon that lack of good parameters in these models leads to worse results that take longer to produce than what can be obtained using simpler models."
+    kernaussage: "Komplexe Modelle liefern laut Autoren bei fehlenden guten Parametern nicht selten schlechtere Ergebnisse, die länger zu berechnen sind, als mit einfacheren Modellen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4, L6); Modellkomplexitaet vs. Parametergueete (Issue 8)"
+  - id: Choi2021.15
+    seite: "5"
+    zitat: "In a “domain randomization” approach, simple and therefore expeditious models are repeatedly used to canvas broad model parameter spaces via expeditious simulation to improve control policy robustness (5)."
+    kernaussage: "Beim Domain-Randomization-Ansatz werden laut Autoren einfache, schnelle Modelle wiederholt über breite Parameterbereiche simuliert, um die Robustheit von Regelungsstrategien zu verbessern."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5); Sekundaeraussage, verweist auf [5] (Tobin et al.); Autoren: Beispiel nicht verallgemeinerbar"
+  - id: Choi2021.16
+    seite: "5"
+    zitat: "Choosing a simple model for a complex problem might produce misleading results; conversely, choosing too complex of a model for a simple problem might take an unreasonable amount of effort to set up and lead to prohibitively long simulation times."
+    kernaussage: "Ein zu einfaches Modell für ein komplexes Problem kann laut Autoren irreführende Ergebnisse liefern; ein zu komplexes Modell für ein einfaches Problem kann unverhältnismäßigen Aufwand und sehr lange Simulationszeiten verursachen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L1 Grenzen, L3)"
+  - id: Choi2021.17
+    seite: "5"
+    zitat: "A perspective that might be useful is a statistical one, in which confidence bounds gauge the extent to which one can rely on simulation results (39)."
+    kernaussage: "Eine statistische Sichtweise, bei der Konfidenzgrenzen angeben, wie weit man sich auf Simulationsergebnisse verlassen kann, könnte laut Autoren nützlich sein."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.3 (L6); Vorschlag, keine etablierte Kennzahl; Sekundaeraussage [39]"
+  - id: Choi2021.18
+    seite: "6"
+    zitat: "Finally, it is also imperative to identify new ways in which models can be validated. Fresh perspectives are needed in this regard, particularly when the robots simulated have not yet been realized (52)."
+    kernaussage: "Laut Autoren müssen neue Wege zur Validierung von Modellen gefunden werden, besonders wenn der simulierte Roboter noch nicht realisiert ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.3 (L6); Validierung als offenes Problem; Sekundaeraussage [52]"
+  - id: Choi2021.19
+    seite: "4"
+    zitat: "Presently, the Gazebo simulation-in-robotics ontology does not include concepts such as fluid viscosity, material dissipation model, soil plasticity, Drucker–Prager yield, etc., since none of the Gazebo-exposed physics engines supports fluid dynamics, plasticity in soils, finite-element analysis, etc."
+    kernaussage: "Laut Autoren (Stand 2020) fehlen in Gazebos Modellierungsansatz Konzepte wie Fluidviskosität oder Bodenplastizität, weil keine der über Gazebo angebundenen Physik-Engines Fluiddynamik, Bodenplastizität oder Finite-Elemente-Analyse unterstützt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L10); Gazebo; Stand 2020; Gazebo bindet laut Text ODE, Bullet, DART, Simbody an"
+  - id: Choi2021.20
+    seite: "8"
+    zitat: "our near-term hopes are pinned on nimbler and more focused platforms, e.g., Bullet (25), Chrono (36), DART (26), Drake (55), MuJoCo (35), ODE (24), and SOFA (56)."
+    kernaussage: "Die Autoren setzen ihre kurzfristigen Hoffnungen auf schlankere, fokussiertere Plattformen, darunter Bullet, Chrono, DART, Drake, MuJoCo, ODE und SOFA."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L10); Aufzaehlung, kein Vergleich; Satzanfang im Original 'While established commercial ... are anticipated to gradually address the needs of the robotics community,'"

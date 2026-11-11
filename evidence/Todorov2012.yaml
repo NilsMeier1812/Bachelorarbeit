@@ -1,0 +1,190 @@
+citekey: Todorov2012
+zotero_key: 8KPR3KK9            # aus zotero-map.json
+# IROS 2012 (IEEE Xplore, Verlagsfassung; Seitenlabel = gedruckte Seiten 5026-5033). Vorstellung von MuJoCo durch die Entwickler; Stand 2012 (MuJoCo 1.0), spätere Versionen (Löser, Aktoren, Modellformat) weichen ab.
+belege:
+  - id: Todorov2012.01
+    seite: "5026"
+    zitat: "Multi-joint dynamics are represented in generalized coordinates and computed via recursive algorithms. Contact responses are computed via efficient new algorithms we have developed, based on the modern velocity-stepping approach which avoids the difficulties with spring-dampers."
+    kernaussage: "Laut Autoren stellt MuJoCo Mehrkörperdynamik in generalisierten Koordinaten dar und berechnet sie rekursiv; Kontaktreaktionen werden mit eigenen Algorithmen nach dem Velocity-Stepping-Ansatz berechnet, der die Schwierigkeiten von Feder-Dämpfer-Modellen vermeidet."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7). Aussage der Autoren über das eigene System, Stand 2012."
+  - id: Todorov2012.02
+    seite: "5026"
+    zitat: "Models are specified using either a high-level C++ API or an intuitive XML file format. A built-in compiler transforms the user model into an optimized data structure used for runtime computation."
+    kernaussage: "Modelle werden laut Autoren entweder über eine C++-API oder ein XML-Dateiformat beschrieben; ein eingebauter Compiler wandelt das Nutzermodell in eine für die Laufzeit optimierte Datenstruktur um."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L9). Stand 2012; \"intuitive\" ist Selbsteinschätzung der Autoren."
+  - id: Todorov2012.03
+    seite: "5026"
+    zitat: "Existing physics engines can be used to test controllers that are already designed. However they lack the speed, accuracy and overall feature sets needed to automate the controller design process itself."
+    kernaussage: "Laut Autoren eignen sich bestehende Physik-Engines zum Testen bereits entworfener Regler, es fehlen ihnen aber Geschwindigkeit, Genauigkeit und Funktionsumfang, um den Reglerentwurf selbst zu automatisieren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, Designziele). Einschätzung der Autoren, Stand 2012."
+  - id: Todorov2012.04
+    seite: "5026"
+    zitat: "With a time-step of 15 msec (at which our simulations are stable) this is roughly 5 000 times faster than real-time."
+    kernaussage: "Mit einem Zeitschritt von 15 ms, bei dem die Simulationen der Autoren stabil sind, ist die Berechnung etwa 5000-mal schneller als Echtzeit."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L8). Kontext: Synthese menschlicher Laufbewegungen (Humanoid, Ref. [3]), 12-Kern-Rechner, Stand 2012; Zeitschrittwert gilt für dortige Simulationen, nicht allgemein."
+  - id: Todorov2012.05
+    seite: "5026"
+    zitat: "one order of magnitude is due to higher accuracy and stability allowing larger time-steps; for comparison, ODE requires time-steps below 1 msec to achieve stable locomotion [5]."
+    kernaussage: "Laut Autoren erlauben höhere Genauigkeit und Stabilität größere Zeitschritte; zum Vergleich benötige ODE Zeitschritte unter 1 ms für stabile Fortbewegung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L8, L7). Sekundäraussage zu ODE, verweist auf [5]; Teil der Aufschlüsselung eines Geschwindigkeitsvorteils um drei Größenordnungen (Ausschnitt, Satz beginnt mit Kleinbuchstabe)."
+  - id: Todorov2012.06
+    seite: "5027"
+    zitat: "This is sensible when simulating a large number of mostly disconnected bodies with few joint constraints, however it becomes both inaccurate and inefficient when simulating elaborate multi-joint systems such as humanoids."
+    kernaussage: "Laut Autoren ist die Darstellung in Cartesischen Koordinaten mit numerisch erzwungenen Gelenkbedingungen sinnvoll für viele weitgehend unverbundene Körper, aber ungenau und ineffizient bei komplexen Mehrgelenksystemen wie Humanoiden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7); \"This\" bezieht sich auf überbestimmte Cartesische Koordinaten bei ODE, PhysX, Bullet (Satz davor steht auf S. 5026). Aussage der Autoren, Stand 2012."
+  - id: Todorov2012.07
+    seite: "5027"
+    zitat: "Another issue with game engines lies in the contact dynamics, formulated as (approximations to) linear complementarity problems or LCPs [8]. Although this approach is a significant improvement over earlier spring-damper models of contact, it still requires manual tuning and small time steps."
+    kernaussage: "Laut Autoren formulieren Spiele-Engines Kontaktdynamik als (Näherungen von) LCPs; das sei eine deutliche Verbesserung gegenüber Feder-Dämpfer-Kontaktmodellen, erfordere aber weiterhin manülles Abstimmen und kleine Zeitschritte."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L8). Einschätzung der Autoren zu Spiele-Engines, Stand 2012."
+  - id: Todorov2012.08
+    seite: "5027"
+    zitat: "However the latter engines either ignore contacts, or use spring-dampers resulting in large penetrations or in stiff dynamics."
+    kernaussage: "Laut Autoren ignorieren Engines wie SD/FAST und OpenSim (Rechnung in Gelenkkoordinaten) Kontakte oder nutzen Feder-Dämpfer-Modelle, was zu großen Durchdringungen oder steifer Dynamik führt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7). \"the latter engines\" = SD/FAST und OpenSim (Satz davor). Einschätzung der Autoren, Stand 2012."
+  - id: Todorov2012.09
+    seite: "5027"
+    zitat: "This is why we have decided to provide multiple mechanisms for modeling contact dynamics, and allow the user to select the one most suitable for a given system."
+    kernaussage: "Laut Autoren bietet MuJoCo mehrere Mechanismen zur Modellierung der Kontaktdynamik an, aus denen der Nutzer den für sein System geeignetsten wählen kann."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L8). Stand 2012; Begründung der Autoren: Kontaktsimulation sei ein aktives Forschungsgebiet."
+  - id: Todorov2012.10
+    seite: "5027"
+    zitat: "XML model files in other formats (e.g. URDF) can be converted to the native MuJoCo format."
+    kernaussage: "XML-Modelldateien in anderen Formaten (z. B. URDF) lassen sich laut Autoren in das native MuJoCo-Format konvertieren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L9). Stand 2012; spätere MuJoCo-Versionen laden URDF teils direkt."
+  - id: Todorov2012.11
+    seite: "5028"
+    zitat: "MuJoCo provides two integrators. One is the semi-implicit Euler method:"
+    kernaussage: "MuJoCo stellt laut Autoren zwei Integratoren bereit; einer ist das semi-implizite Euler-Verfahren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L8). Stand 2012; Formel folgt im Original (nicht zitierbar)."
+  - id: Todorov2012.12
+    seite: "5028"
+    zitat: "Semi-implicit refers to the fact that we are using the nextstep velocity. This approach tends to be more accurate than explicit integration, and is key to velocity-stepping schemes."
+    kernaussage: "Semi-implizit bedeutet laut Autoren, dass die Geschwindigkeit des nächsten Schritts verwendet wird; das Vorgehen sei tendenziell genaür als explizite Integration und zentral für Velocity-Stepping-Verfahren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L8). \"tends to be\": Tendenzaussage, keine Garantie."
+  - id: Todorov2012.13
+    seite: "5028"
+    zitat: "The other integrator is 4th -order RungeKutta, modified to work with next-step velocities rather than accelerations."
+    kernaussage: "Der zweite Integrator in MuJoCo ist laut Autoren ein Runge-Kutta-Verfahren 4. Ordnung, angepasst auf Geschwindigkeiten des nächsten Schritts statt Beschleunigungen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L8). Stand 2012; Integratorangebot späterer Versionen kann abweichen."
+  - id: Todorov2012.14
+    seite: "5029"
+    zitat: "A favorable trade-off between speed and accuracy is obtained by replacing the nonlinear complementarity constraints (4, 5) with a convex optimization problem, whose solution is very similar in practice [1] yet it can be computed more efficiently."
+    kernaussage: "Laut Autoren ergibt das Ersetzen der nichtlinearen Komplementaritätsbedingungen durch ein konvexes Optimierungsproblem einen guten Kompromiss zwischen Geschwindigkeit und Genauigkeit; die Lösung sei in der Praxis sehr ähnlich, aber effizienter berechenbar."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L8). Konvexer Löser; Aussage der Autoren, stützt sich auf [1] (Drumwright/Shell); Stand 2012."
+  - id: Todorov2012.15
+    seite: "5029"
+    zitat: "the convex solver is well suited for numerical optimization because it smooths the dynamics while still producing phenomenologically hard contacts."
+    kernaussage: "Der konvexe Löser glättet laut Autoren die Dynamik und erzeugt dennoch phänomenologisch harte Kontakte."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7). Satz beginnt mit Kleinbuchstabe (Ausschnitt); Begründung dort: Regularisierungsterm erlaubt auch Kontaktwechselwirkung aus der Distanz; Stand 2012."
+  - id: Todorov2012.16
+    seite: "5029"
+    zitat: "The most accurate of the solvers provided in MuJoCo is based on [11]. It aims to find an exact solution to (3, 4, 5)."
+    kernaussage: "Der genaüste der in MuJoCo bereitgestellten Löser (implizit, komplementaritätsbasiert) zielt laut Autoren auf eine exakte Lösung der Kontaktgleichungen (3, 4, 5)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L8). Stand 2012; Abschnitt II.C 'Implicit complementarity solver'."
+  - id: Todorov2012.17
+    seite: "5030"
+    zitat: "The least accurate but fastest contact solver is a diagonal solver, which can be thought of as a mass-aware springdamper."
+    kernaussage: "Der Diagonal-Löser ist laut Autoren der ungenaüste, aber schnellste Kontaktlöser und lässt sich als massenbewusster Feder-Dämpfer auffassen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L8). Stand 2012; Abschnitt II.E."
+  - id: Todorov2012.18
+    seite: "5030"
+    zitat: "The difficulty with traditional spring-damper models is that, if the contact-space inertia is too large the contact will be springy and result in large penetration and subsequent oscillation, while if the inertia is too small the dynamics will be stiff and very difficult to integrate numerically."
+    kernaussage: "Laut Autoren führt bei klassischen Feder-Dämpfer-Kontaktmodellen eine zu große Kontaktraum-Trägheit zu federndem Kontakt mit großer Durchdringung und Schwingung, eine zu kleine zu steifer, numerisch schwer integrierbarer Dynamik."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L8). Begründung für weiche Kontakte mit angepassten Parametern; Stand 2012."
+  - id: Todorov2012.19
+    seite: "5030"
+    zitat: "Thus the performance of physics engines such as MuJoCo tends to be dominated by cache misses more than traditional computational complexity considerations, and the only way to assess performance reliably is to run extensive timing tests."
+    kernaussage: "Die Leistung von Physik-Engines wie MuJoCo wird laut Autoren tendenziell eher von Cache-Misses als von klassischer Komplexität bestimmt; verlässlich beurteilen lasse sie sich nur durch ausgiebige Zeitmessungen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L8). Stand 2012; Einschätzung der Autoren."
+  - id: Todorov2012.20
+    seite: "5031"
+    zitat: "The MJCF file is an intuitive text description written by the user. The built-in parser loads the MJCF file and creates a runtime C++ object describing the entire model."
+    kernaussage: "Die MJCF-Datei ist eine vom Nutzer geschriebene Textbeschreibung; der eingebaute Parser lädt sie und erzeugt ein C++-Laufzeitobjekt, das das gesamte Modell beschreibt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L9). MJCF (XML-basiert) als Modellformat; Stand 2012 (MuJoCo 1.0)."
+  - id: Todorov2012.21
+    seite: "5031"
+    zitat: "They create motion degrees of freedom between the body and its parent; in the absence of joints the parent and child bodies are welded together."
+    kernaussage: "Gelenke erzeugen Bewegungsfreiheitsgrade zwischen einem Körper und seinem Elternkörper; ohne Gelenke sind beide starr verbunden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7). Satz beginnt mit 'They' = Joints (Abschnitt III.B b). Gegensatz zu ODE, wo Gelenke Bewegung einschränken."
+  - id: Todorov2012.22
+    seite: "5031"
+    zitat: "MuJoCo has four primitive joint types: slide, hinge, ball which is represented with a quaternion, and free joint which is a 3D translation followed by a 3D quaternion rotation."
+    kernaussage: "MuJoCo kennt vier primitive Gelenktypen: Schiebe-, Dreh- (hinge), Kugelgelenk (als Quaternion) und freies Gelenk (3D-Translation gefolgt von 3D-Quaternionrotation)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L9). Stand 2012; freies Gelenk dient laut Text für eine bewegliche Basis (Satz im Original mit OCR-Fehler, daher nicht zitiert)."
+  - id: Todorov2012.23
+    seite: "5031"
+    zitat: "DOFs have damping, maximum velocity, armature inertia."
+    kernaussage: "Freiheitsgraden (DOFs) können in MuJoCo Dämpfung, Maximalgeschwindigkeit und Armature-Trägheit zugeordnet werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L9): Gelenkdämpfung und Rotorträgheit (armature). Stand 2012; Satz setzt sich mit Reibung fort (Abschnitt III.B c), Bedeutung von 'armature' wird hier nicht erläutert."
+  - id: Todorov2012.24
+    seite: "5032"
+    zitat: "Collision detection uses dedicated pair-wise functions when possible, and otherwise defaults to a general-purpose convex collider (implemented by libccd). Non-convex meshes can be rendered but are not used in collision detection; instead the user should decompose them into convex meshes."
+    kernaussage: "Die Kollisionserkennung nutzt wo möglich spezielle paarweise Funktionen, sonst einen allgemeinen konvexen Kollisionsalgorithmus (libccd); nicht konvexe Meshes werden nicht zur Kollisionserkennung verwendet und sollen in konvexe Meshes zerlegt werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L9). Stand 2012, versionsabhängig."
+  - id: Todorov2012.25
+    seite: "5032"
+    zitat: "Constraints can be used to create loop joints or impose any other kinematic equality constraint (i.e. a constraint that only depends on position)."
+    kernaussage: "Mit Constraints lassen sich Schleifengelenke erzeugen oder beliebige andere kinematische Gleichheitsbedingungen (nur von der Position abhängig) auferlegen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, equality constraints). Stand 2012; Beschreibung von Abschnitt III.B f."
+  - id: Todorov2012.26
+    seite: "5032"
+    zitat: "MuJoCo has several predefined types of constraints: 3D position constraint forcing two points on two bodies to coincide (effectively creating another ball joint), joint angle constraint allowing joint angles to be coupled through polynomial functions, tendon length constraint specifying that the length of a given tendon must remain constant, as well as arbitrary userdefined constraints implemented via callbacks."
+    kernaussage: "MuJoCo bietet vordefinierte Constraint-Typen: 3D-Positionsbedingung (zwei Punkte zweier Körper fallen zusammen), Gelenkwinkelbedingung (Kopplung über Polynome), Sehnenlängenbedingung sowie benutzerdefinierte Bedingungen per Callback."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, equality constraints). Stand 2012; heutige Typen können abweichen."
+  - id: Todorov2012.27
+    seite: "5032"
+    zitat: "Actuators have control inputs, optional activation states (used to model muscles and pneumatic cylinders) with suitable first-order dynamics, gains that can be fixed or depend on position and velocity (so as to model the force-length-velocity properties of muscles)."
+    kernaussage: "Aktuatoren haben Steuereingänge, optionale Aktivierungszustände (für Muskeln und pneumatische Zylinder) mit Dynamik erster Ordnung sowie Verstärkungen, die fest oder von Position und Geschwindigkeit abhängig sein können."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L9). Stand 2012. Drehmoment-Aktuatoren mit externem PD-Regler werden im Paper nicht explizit beschrieben."
+  - id: Todorov2012.28
+    seite: "5032"
+    zitat: "They can transmit forces to the multi-joint mechanism by acting directly on the joints, pulling on tendons, or acting via slidercrank mechanisms converting linear to angular motion."
+    kernaussage: "Aktuatoren können Kräfte direkt auf Gelenke wirken lassen, an Sehnen ziehen oder über Kurbelschleifen-Mechanismen (linear zu angular) übertragen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L9). 'They' = Actuators (Abschnitt III.B h). Stand 2012."
+  - id: Todorov2012.29
+    seite: "5032"
+    zitat: "They are used in the engine to route tendons and apply certain types of forces, but can also be used by the user’s program to encode sensor locations etc."
+    kernaussage: "Sites (Punkte mit 3D-Koordinatensystem in den Körperframes) dienen zum Führen von Sehnen und Anlegen bestimmter Kräfte und können auch Sensorpositionen kodieren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L9). Einzige Stelle zu Sensoren; ein eigenes Sensormodell wird im Paper (2012) nicht beschrieben. 'They' = Sites."
+  - id: Todorov2012.30
+    seite: "5026"
+    zitat: "Around 400,000 dynamics evaluations per second are possible on a 12-core machine, for a 3D homanoid with 18 dofs and 6 active contacts."
+    kernaussage: "Laut Autoren sind auf einem 12-Kern-Rechner rund 400.000 Dynamikauswertungen pro Sekunde möglich, für einen 3D-Humanoiden mit 18 Freiheitsgraden und 6 aktiven Kontakten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L8). Zahl nur mit Kontext (Rechner, Modell, Stand 2012, parallel ausgewertet); 'homanoid' ist Tippfehler im Original; Tab. 3 auf S. 5033."
+  - id: Todorov2012.31
+    seite: "5033"
+    zitat: "The accuracy of the contact dynamics has not yet been validated, however our implicit complementarity method has a built-in accuracy check – when the residual is 0 we know that the problem has been solved exactly."
+    kernaussage: "Die Genauigkeit der Kontaktdynamik war laut Autoren noch nicht validiert; die implizite Komplementaritätsmethode besitze aber eine eingebaute Genauigkeitsprüfung (Residuum 0 bedeutet exakte Lösung)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, Grenzen). Stand 2012; bezieht sich auf die Kontaktdynamik der damaligen Implementierung."

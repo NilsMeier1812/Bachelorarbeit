@@ -1,0 +1,58 @@
+citekey: Collins2019
+zotero_key: R4FIFV9V
+# ICRA 2019, arXiv-Preprint v2 vom 08.11.2018 (nicht Verlagsfassung; Seitenzahlen = Preprint-Seiten 1-7). Studie zu Manipulation (Kinova Mico2, 6 Achsen), nicht zu Laufrobotern; Simulatoren V-Rep, MuJoCo (mujoco-py), PyBullet.
+belege:
+  - id: Collins2019.01
+    seite: "1"
+    zitat: "However, these benefits come with downsides; primarily that there are discrepancies between simulations and the real world brought about by the necessity to abstract, approximate, or remove certain physical phenomena, which prevents control systems created in simulation from performing to the same standard in reality."
+    kernaussage: "Laut Autoren bestehen zwischen Simulation und Realität Abweichungen, weil physikalische Phänomene abstrahiert, angenähert oder weggelassen werden müssen, sodass in Simulation erstellte Regelungen in der Realität nicht denselben Standard erreichen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4); allgemeine Einordnung der Lücke"
+  - id: Collins2019.02
+    seite: "1"
+    zitat: "Gaps mainly relate to actuators (i.e. torque characteristics, gear backlash, ...), sensors (i.e. sensor noise, latencies, and faults), temporal dynamics, and the physics that govern interactions between robots and objects in their environment (i.e. deformable objects, fluid dynamics, ...)."
+    kernaussage: "Laut Autoren betreffen die Lücken hauptsächlich Aktoren (Drehmomentkennlinie, Getriebespiel), Sensoren (Rauschen, Latenzen, Ausfälle), zeitliche Dynamik und die Physik der Interaktion zwischen Roboter und Umgebung (deformierbare Objekte, Fluiddynamik)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4); Ursachenliste laut Autoren (mit \"mainly\")"
+  - id: Collins2019.03
+    seite: "2"
+    zitat: "We simulate the same scenarios across a range of popular simulators and physics engines, and compare the data from the simulation runs to the real movements of the manipulator as recorded by a highly accurate motion capture setup, which we use as a ground truth (Fig. 1)."
+    kernaussage: "Dieselben Szenarien werden in mehreren Simulatoren und Physik-Engines simuliert und die Simulationsdaten mit den realen Bewegungen des Manipulators verglichen, die ein hochgenaues Motion-Capture-System als Ground Truth aufzeichnet."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.3 (L6); Versuchsaufbau; Roboter ist ein 6-Achs-Manipulator Kinova Mico2"
+  - id: Collins2019.04
+    seite: "4"
+    zitat: "The motion capture system once calibrated provides accuracy to within 1 millimetre and records 100% “measured” data without the need for interpolation. We therefore consider the motion capture an accurate approximation of the ground truth in our real-world experiments, and the baseline we compare the simulators to."
+    kernaussage: "Das kalibrierte Motion-Capture-System liefert laut Autoren eine Genauigkeit von 1 Millimeter und zu 100 % gemessene Daten ohne Interpolation; es gilt als Näherung der Ground Truth und als Referenz für den Simulatorvergleich."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.3 (L6); Referenzmessung"
+  - id: Collins2019.05
+    seite: "4"
+    zitat: "All other parameters of the simulations were kept to each simulator’s defaults, unless otherwise stated. These include friction models, inertia properties, actuator settings, simulation step sizes, integrators, solvers, etc. The majority of settings are left to their default value as we want to see how well a generic scene can perform without the knowledge of an expert."
+    kernaussage: "Alle übrigen Simulationsparameter (u. a. Reibmodelle, Trägheit, Aktoreinstellungen, Zeitschritte, Integratoren, Löser) blieben auf den Voreinstellungen des jeweiligen Simulators, um zu sehen, wie gut eine generische Szene ohne Expertenwissen funktioniert."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2/3.1.3 (L6, L8); Einschränkung: Ergebnisse gelten für Standardparameter, ausgenommen explizit genannte Änderungen"
+  - id: Collins2019.06
+    seite: "4"
+    zitat: "Fig. 4 presents the results for Scene 1 data as a graph where each plot is the euclidean distance error (Eq. 1) plotted over time. Where px,y,z are the mean position of the motion capture/physics engine at each time step and gx,y,z is the goal position of the wrist at 100 degrees."
+    kernaussage: "Als Kennzahl dient der euklidische Abstandsfehler der Handgelenkposition zur Zielposition über der Zeit, berechnet aus der mittleren Position von Motion Capture bzw. Physik-Engine und der Zielposition des Handgelenks bei 100 Grad."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.3 (L6); Kennzahl Szene 1 (Eq. 1); später als über Zeitschritte akkumulierter Fehler in Tab. I (S. 6) angegeben; 20 Wiederholungen je Versuch (S. 4)"
+  - id: Collins2019.07
+    seite: "5"
+    zitat: "The total column from Table I shows a vast difference between the two simulators, with PyBullet drastically better at simulating the chosen scenes with a cumulative position error of ±45.5 metres while V-Rep’s implementations of Bullet both attained ±131 metres. This could be due to several effects, the first being the default values being set differently (i.e. we set the timestep of PyBullet to be 0.01 seconds while V-Rep generically uses 0.05 seconds), the second could be the underlying implementation between the V-Rep simulator and the physics engine at a scale inaccessible to the user."
+    kernaussage: "Die Summenspalte der Tab. I zeigt einen großen Unterschied zwischen PyBullet (kumulierter Positionsfehler ±45,5 m) und den beiden Bullet-Varianten in V-Rep (jeweils ±131 m); mögliche Gründe nennen die Autoren in unterschiedlichen Standardwerten (z. B. Zeitschritt) und der Implementierung zwischen V-Rep und Physik-Engine."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.3/3.2.3 (L6, L11); Ursachen sind Vermutungen der Autoren (\"could be due to\"); gleiche Physik-Engine (Bullet) liefert je nach Simulator-Umgebung sehr unterschiedliche Fehler"
+  - id: Collins2019.08
+    seite: "5"
+    zitat: "For the control of the manipulator Newton, Bullet (PyBullet implementation) and Vortex were considerably and consistently better. For interaction between objects there was no physics engine that modelled the collision well."
+    kernaussage: "Für die Regelung des Manipulators waren Newton, Bullet (PyBullet) und Vortex deutlich und durchgängig besser; für die Interaktion zwischen Objekten modellierte keine Physik-Engine die Kollision gut."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3/3.1.3 (L11); Ergebnis für Manipulator Kinova mit Würfelschieben, 20 Wiederholungen; Tab. I S. 6"
+  - id: Collins2019.09
+    seite: "6"
+    zitat: "We show the simulation of the kinematic model and control of manipulators is largely solved when compared to the real world, however there are considerable developments necessary for interactions between simulated objects."
+    kernaussage: "Laut Autoren ist die Simulation von kinematischem Modell und Regelung von Manipulatoren im Vergleich zur Realität weitgehend gelöst, für Interaktionen zwischen simulierten Objekten seien jedoch erhebliche Weiterentwicklungen nötig."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.3 (L6, L11); zentrales Ergebnis, nur Manipulator-Szenarien mit Standardparametern"
