@@ -44,3 +44,27 @@ belege:
     kernaussage: "Die Genauigkeit des digitalen Zwillings wird durch Vergleich mit der Choregraphe-Umgebung und einem realen Pepper bewertet."
     quelle: exzerpt
     kommentar: "Kap. 4.4/8 – Vorbild für Sim-Real-Vergleich"
+  - id: Sekkat2024.08
+    seite: "3"
+    zitat: "The use of accurate simulations in robotics helps in the development, programming, testing, and validation of robotic projects, reducing development time and cost."
+    kernaussage: "Laut den Autoren unterstützt präzise Simulation Entwicklung, Programmierung, Test und Validierung von Robotikprojekten und verringert Entwicklungszeit und -kosten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 (L1)"
+  - id: Sekkat2024.09
+    seite: "3"
+    zitat: "While simulation environments provide a cost-effective and safe means to test and design robotic solutions, they also present significant challenges, particularly in accurately simulating the complex dynamics of real-world interactions [1]."
+    kernaussage: "Simulationsumgebungen sind kostengünstig und sicher, haben aber Schwierigkeiten, die komplexe Dynamik realer Interaktionen genau abzubilden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1/3.1.2 (L1, L4); Sekundäraussage, verweist auf [1]"
+  - id: Sekkat2024.10
+    seite: "4"
+    zitat: "While no overall best software exists, Gazebo Sim and Webots consistently demonstrate higher stability. Regarding resource usage, PyBullet and CoppeliaSim outperform competitors in terms of efficiency."
+    kernaussage: "Nach der von den Autoren wiedergegebenen Vergleichsstudie gibt es keinen insgesamt besten Simulator; Gazebo Sim und Webots zeigen höhere Stabilität, PyBullet und CoppeliaSim sind beim Ressourcenbedarf effizienter."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10, L11) – Sekundäraussage zu Audonnet et al. [54], Vergleich für Roboterarm-Manipulation mit ROS 2; Table 2 (S. 4/5) vergleicht Simulatoren (nicht exzerpiert)"
+  - id: Sekkat2024.11
+    seite: "3"
+    zitat: "Moreover, the evolving landscape of ROS distributions reinforces the transition to ROS 2, marked by major up-dates and enhancements since 2017. While the last ROS1 distribution, Noetic, is officially supported until May 2025, the community is expected to shift to ROS 2 for its improved architecture, signaling a forward-looking choice for robotic applications [47]."
+    kernaussage: "Laut den Autoren ist ROS 1 Noetic nur bis Mai 2025 offiziell unterstützt, und die Community soll wegen der verbesserten Architektur zu ROS 2 wechseln."
+    quelle: exzerpt
+    kommentar: "Kap. 3.3.1 (L12) – Sekundäraussage, verweist auf [47]"

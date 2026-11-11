@@ -1,0 +1,46 @@
+citekey: Tunyasuvunakool2020
+zotero_key: 5AIT64ZH            # aus zotero-map.json
+# Software Impacts 6 (2020) 100022, Verlagsfassung, kurze Softwarebeschreibung (4 Seiten + Literatur); Autoren sind DeepMind-Entwickler, ausführliche Beschreibung steht im verlinkten Tech Report (nicht in dieser Quelle).
+belege:
+  - id: Tunyasuvunakool2020.01
+    seite: "1"
+    zitat: "The dm_control software package is a collection of Python libraries and task suites for reinforcement learning agents in an articulated-body simulation. Infrastructure includes a wrapper for the MuJoCo physics engine and libraries for procedural model manipulation and task authoring."
+    kernaussage: "dm_control ist laut Autoren eine Sammlung von Python-Bibliotheken und Aufgabensammlungen für Reinforcement-Learning-Agenten in einer Simulation gelenkiger Körper; die Infrastruktur umfasst einen Wrapper für die MuJoCo-Engine sowie Bibliotheken zur prozeduralen Modellmanipulation und Aufgabenerstellung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L9). Abstract; Stand 2020."
+  - id: Tunyasuvunakool2020.02
+    seite: "3"
+    zitat: "It is written in Python, exploiting the agile workflow of a dynamic language, while relying on the C-based MuJoCo physics library, a fast and accurate simulator [5], itself designed to facilitate research [6]."
+    kernaussage: "dm_control ist in Python geschrieben und nutzt die in C geschriebene MuJoCo-Physikbibliothek, die laut Autoren ein schneller und genaür Simulator ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L9). Sekundäraussage zu MuJoCo, verweist auf [5] (Erez2015) und [6] (Todorov2012); Einschätzung der Autoren."
+  - id: Tunyasuvunakool2020.03
+    seite: "3"
+    zitat: "The ctypes-based MuJoCo wrapper that provides full access to the simulator, conveniently exposing quantities with named indexing."
+    kernaussage: "Der ctypes-basierte MuJoCo-Wrapper von dm_control bietet vollen Zugriff auf den Simulator und stellt Größen beqüm mit benannter Indizierung bereit."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L9). Python-Anbindung an MuJoCo; Stand 2020, 'full access' ist Aussage der Autoren."
+  - id: Tunyasuvunakool2020.04
+    seite: "3"
+    zitat: "The PyMJCF library that can procedurally assemble model elements and allows the user to configure or randomize parameters and initial states."
+    kernaussage: "Die PyMJCF-Bibliothek kann Modellelemente prozedural zusammensetzen und erlaubt, Parameter und Anfangszustände zu konfigurieren oder zu randomisieren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L9). MJCF = MuJoCo-Modellformat; Erklärung des Formats selbst steht nicht in dieser Quelle."
+  - id: Tunyasuvunakool2020.05
+    seite: "3"
+    zitat: "Amongst other things, it provides a model-variation module for robustification, and an ‘‘observable’’ module for filtered, delayed, corrupted, and stacked sensor data."
+    kernaussage: "Das Composer-Framework bietet unter anderem ein Modul für Modellvariation zur Robustifizierung und ein 'observable'-Modul für gefilterte, verzögerte, gestörte und gestapelte Sensordaten."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L9). 'it' = Composer (Satz davor); Sensormodell hier nur als Beobachtungsmodul auf Software-Ebene."
+  - id: Tunyasuvunakool2020.06
+    seite: "3"
+    zitat: "The DeepMind Control Suite, first introduced in [7], built directly with the MuJoCo wrapper, provides a set of standard benchmarks for continuous control problems."
+    kernaussage: "Die DeepMind Control Suite, direkt mit dem MuJoCo-Wrapper gebaut, stellt standardisierte Benchmarks für kontinuierliche Regelungsprobleme bereit."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L9). Einsatz von MuJoCo in der RL-Forschung; Ref. [7] = Tassa et al. 2018."
+  - id: Tunyasuvunakool2020.07
+    seite: "3"
+    zitat: "In the last three years, dm_control has been used extensively in DeepMind, serving as a fundamental component of continuous control research."
+    kernaussage: "dm_control wurde laut Autoren in den letzten drei Jahren bei DeepMind umfangreich eingesetzt und diente als grundlegende Komponente der Forschung zu kontinuierlicher Regelung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L9). Einsatz, Stand 2020; Aussage der Entwickler über die eigene Software."

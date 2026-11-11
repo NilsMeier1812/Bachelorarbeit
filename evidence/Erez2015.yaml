@@ -1,0 +1,184 @@
+citekey: Erez2015
+zotero_key: WKQSWUPD            # aus zotero-map.json
+# ICRA 2015 (IEEE Xplore, Verlagsfassung; Seitenlabel 4397-4404). Vergleichsstudie von Bullet, Havok, MuJoCo, ODE, PhysX; Autoren sind zugleich MuJoCo-Entwickler (Interessenkonflikt, selbst offengelegt). Stand 2015, Windows 8.1, i7-3930K.
+belege:
+  - id: Erez2015.01
+    seite: "4397"
+    zitat: "Overall we find that each engine performs best on the type of system it was designed and optimized for: MuJoCo wins the robotics-related tests, while the gaming engines win the gaming-related tests without a clear leader among them."
+    kernaussage: "Laut Autoren schneidet jede Engine bei dem Systemtyp am besten ab, für den sie entworfen wurde: MuJoCo gewinnt die Robotik-Tests, die Spiele-Engines die Spiele-Tests ohne klaren Führenden."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L11). Gesamtergebnis der Studie, Stand 2015; Autoren sind MuJoCo-Entwickler."
+  - id: Erez2015.02
+    seite: "4397"
+    zitat: "These engines use a Cartesian representation, maintaining 6 degrees of freedom (DOF) for each body, and imposing joints as equality constraints in 6N -dimensional space where N is the number of bodies."
+    kernaussage: "Aus dem Spiele-/Mehrkörperbereich stammende Engines nutzen eine kartesische Darstellung mit 6 Freiheitsgraden je Körper und erzwingen Gelenke als Gleichheitsbedingungen im 6N-dimensionalen Raum."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L3, L10). Unterschied der Koordinatendarstellung; 'These engines' = Engines der Mehrkörperdynamik und Spiele (Satz davor)."
+  - id: Erez2015.03
+    seite: "4397"
+    zitat: "Thus the preferred approach in robotics is to work in generalized/joint coordinates – which is both more efficient computationally, and more accurate because joint constraints cannot be violated."
+    kernaussage: "Laut Autoren ist in der Robotik die Arbeit in generalisierten Gelenkkoordinaten bevorzugt, weil sie rechnerisch effizienter und genaür ist, da Gelenkbedingungen nicht verletzt werden können."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L3, L10). Aussage der Autoren; Begründung: Roboter mit N Gliedern hat Konfigurationsraum der Dimension nahe N statt 6N."
+  - id: Erez2015.04
+    seite: "4397"
+    zitat: "Spring-damper models of contact dynamics were replaced by impulse-based velocitystepping methods [4], [5], [6], [7], different flavors of which lie at the core of most physics engines used today."
+    kernaussage: "Feder-Dämpfer-Kontaktmodelle wurden durch impulsbasierte Velocity-Stepping-Verfahren abgelöst, die in verschiedenen Ausprägungen den Kern der meisten heutigen Physik-Engines bilden."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L3, L7). Stand 2015; Sekundäraussage, verweist auf [4]-[7]."
+  - id: Erez2015.05
+    seite: "4397"
+    zitat: "Simulating contact dynamics with a velocity-stepping method is in itself problematic because it calls for solving NP-hard problems at each simulation step. Consequently much recent effort in this area has focused on developing convex approximations that yield similar contact behavior while being more tractable computationally [8], [9], [10], [11], further complicating the question of physical accuracy."
+    kernaussage: "Kontaktsimulation per Velocity-Stepping erfordert laut Autoren in jedem Schritt das Lösen NP-schwerer Probleme; daher werden konvexe Näherungen mit ähnlichem Kontaktverhalten entwickelt, was die Frage der physikalischen Genauigkeit weiter verkompliziert."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L3, L7). Sekundäraussage, verweist auf [8]-[11]."
+  - id: Erez2015.06
+    seite: "4397"
+    zitat: "This category includes MuJoCo [12] and DART [13] (formerly RTQL8), as well as additions to PhysX [14], Bullet [15] and Havok [16] that utilize some form of joint-space representations. ODE [17] is the only engine in our comparison that does not yet have such functionality."
+    kernaussage: "Zu den Simulatoren, die Rekursionsalgorithmen im Gelenkraum mit Velocity-Stepping für Kontakte verbinden, zählen MuJoCo und DART sowie Erweiterungen von PhysX, Bullet und Havok; ODE ist die einzige verglichene Engine ohne solche Funktion."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L10, L11). Stand 2015; 'This category' = neue Simulatoren-Generation (Satz davor)."
+  - id: Erez2015.07
+    seite: "4398"
+    zitat: "DARPA Virtual Robotics Challenge (VRC), where a realtime simulation of the Atlas robot was implemented in ODE and accessed by the research teams through Gazebo."
+    kernaussage: "In der DARPA Virtual Robotics Challenge wurde eine Echtzeitsimulation des Roboters Atlas in ODE umgesetzt, auf die die Teams über Gazebo zugriffen."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L10). Satzanfang auf S. 4397 ('The most extensive usability test in this regard was the'); Stand 2015."
+  - id: Erez2015.08
+    seite: "4398"
+    zitat: "While the VRC was eventually a success, it is notable that for at least 6 months out of the 9-month program the simulation was borderline usable."
+    kernaussage: "Obwohl die VRC letztlich erfolgreich war, war die Simulation laut Autoren in mindestens 6 von 9 Monaten Programmlaufzeit nur grenzwertig nutzbar."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L10, L11). Einschätzung der Autoren zur ODE/Gazebo-Simulation, Stand 2015."
+  - id: Erez2015.09
+    seite: "4398"
+    zitat: "It should be noted that we are the developers of the MuJoCo engine which is included in the comparisons, and indeed a secondary goal of this paper is to identify the strengths and weaknesses of MuJoCo."
+    kernaussage: "Die Autoren weisen darauf hin, dass sie die Entwickler von MuJoCo sind, das in den Vergleich einbezogen ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L11). Einschränkung bei der Bewertung der Ergebnisse (möglicher Interessenkonflikt); Autoren betonen Objektivität und reproduzierbare Messungen."
+  - id: Erez2015.10
+    seite: "4398"
+    zitat: "We chose MuJoCo and its native MJCF file format to provide this service since it has a simple and compact data representation format. But a different format such as URDF could have also been used to obtain identical results."
+    kernaussage: "Die Autoren nutzten MuJoCo und das MJCF-Format, um Modelle für alle Engines bereitzustellen, weil es ein einfaches, kompaktes Datenformat hat; ein anderes Format wie URDF hätte identische Ergebnisse geliefert."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L9). 'this service' = Modellbeschreibung in XML einmal erstellen und in allen Engines nutzen (Satz davor)."
+  - id: Erez2015.11
+    seite: "4398"
+    zitat: "Multibody Dynamics: The only forces that act on the bodies are gravity, joint constraint forces, actuation torques applied at the joints, and joint stiffness and damping."
+    kernaussage: "In den Vergleichsmodellen wirken auf die Körper nur Gravitation, Gelenkzwangskräfte, an den Gelenken angreifende Aktuatormomente sowie Gelenksteifigkeit und -dämpfung."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L3, L11). Einschränkung der Testmodelle (Vereinheitlichung zwischen Engines); Schnittstelle: Zeitschritt mit Gelenkmomenten als Eingabe."
+  - id: Erez2015.12
+    seite: "4399"
+    zitat: "Unfortunately gaming engines are known for sacrificing physical accuracy to gain stability – by introducing artificial damping, or even more drastic measures such as ignoring Coriolis forces as in Havok and PhysX."
+    kernaussage: "Spiele-Engines opfern laut Autoren physikalische Genauigkeit für Stabilität, etwa durch künstliche Dämpfung oder das Ignorieren von Corioliskräften wie bei Havok und PhysX."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L6, L8, L11). Aussage der Autoren (Stand 2015); Begründung, warum Stabilität allein kein Genauigkeitsmaß ist."
+  - id: Erez2015.13
+    seite: "4399"
+    zitat: "A simulation can deviate from reality for two types of reasons: numerical integration errors, and model errors."
+    kernaussage: "Eine Simulation kann laut Autoren aus zwei Arten von Gründen von der Realität abweichen: numerische Integrationsfehler und Modellfehler."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L6). Autoren behandeln nur Integrationsfehler; Modellfehler (Systemidentifikation) liegen außerhalb ihres Vergleichs."
+  - id: Erez2015.14
+    seite: "4399"
+    zitat: "Numerical integrators become exact in the limit h → 0 where h is the timestep. Therefore we can integrate the system with very small h, in our case 1/64 msec, and obtain an engine-specific reference trajectory. Then we can increase h and check how much the results deviate from this reference."
+    kernaussage: "Zur Messung der Konsistenz wird das System mit sehr kleinem Zeitschritt h (hier 1/64 ms) als engine-spezifische Referenztrajektorie integriert; dann wird h vergrößert und die Abweichung von dieser Referenz geprüft."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L6, L8, L11). Kennzahl 'consistency violation' (Abb. 1, S. 4399): Mittel der Abweichungen über kurze Integrationsintervalle; kein Vergleich mit realem System."
+  - id: Erez2015.15
+    seite: "4399"
+    zitat: "Velocity-stepping schemes for contact simulation, implemented in all the engines we are comparing, rely on Euler integration which has fixed order n = 1. Nevertheless we can improve accuracy by reducing h"
+    kernaussage: "Die verglichenen Engines nutzen für Velocity-Stepping eine Euler-Integration fester Ordnung n = 1; die Genauigkeit lässt sich dennoch durch kleineres h verbessern."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L8). Zitat endet vor einem Semikolon (Satz läuft im Original weiter: bei MuJoCo auch höhere Ordnung per Runge-Kutta)."
+  - id: Erez2015.16
+    seite: "4399"
+    zitat: "In addition some engines have iterative contact solvers with a user-adjustable number of iterations. All these parameters have the same general effect: improved accuracy at the expense of simulation speed."
+    kernaussage: "Manche Engines haben iterative Kontaktlöser mit einstellbarer Iterationszahl; alle genannten Parameter (Zeitschritt, Integrationsordnung, Iterationen) verbessern die Genauigkeit zulasten der Simulationsgeschwindigkeit."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L8). Abwägung Genauigkeit/Geschwindigkeit (Pareto-Front, Abb. 2, S. 4399)."
+  - id: Erez2015.17
+    seite: "4399"
+    zitat: "Some controllers such as the SIMBICON [24] walking controller are so robust that the choice of engine makes little difference [25]."
+    kernaussage: "Manche Regler wie der SIMBICON-Laufregler sind so robust, dass die Wahl der Engine kaum einen Unterschied macht."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L11). Sekundäraussage, verweist auf [24], [25]; Autoren folgern, dass solche Regler kein gutes Engine-Testkriterium sind."
+  - id: Erez2015.18
+    seite: "4399"
+    zitat: "Our grasping controller is simply a PD controller with constant reference positions for the finger joints."
+    kernaussage: "Der Greifregler im Vergleichstest ist ein einfacher PD-Regler mit konstanten Sollpositionen für die Fingergelenke."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L3, L11). Testaufbau Greifen; Messgröße siehe Erez2015.19."
+  - id: Erez2015.19
+    seite: "4401"
+    zitat: "The quantitative measure of performance is straightforward: for each engine we find the largest timestep h for which the object remains in the hand during the entire simulation."
+    kernaussage: "Als Leistungsmaß des Greiftests dient je Engine der größte Zeitschritt h, bei dem das Objekt während der gesamten Simulation in der Hand bleibt."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L6, L8, L11). Kennzahl Grasp-Stabilität; Zeitschritte logarithmisch gestuft, Genauigkeit nur bis Faktor 2 (Tabelle S. 4401)."
+  - id: Erez2015.20
+    seite: "4401"
+    zitat: "We see that on systems relevant to robotics, MuJoCo is the fastest engine in the comparison, sometimes by a wide margin. In the gaming scenario however (i.e. the capsule test) ODE wins by a large margin, while MuJoCo is the slowest."
+    kernaussage: "Bei robotikrelevanten Systemen ist MuJoCo laut Studie die schnellste Engine, teils deutlich; beim Spiele-Szenario (Kapseltest) gewinnt ODE deutlich, MuJoCo ist die langsamste."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L11). Rohgeschwindigkeit (Abb. 3, Mitte, S. 4400); i7-3930K, Windows 8.1, Stand 2015; Aussage der MuJoCo-Entwickler."
+  - id: Erez2015.21
+    seite: "4401"
+    zitat: "The speed-accuracy curve for each engine is obtained by running the simulation at many different values of the timestep h, from 1/64 msec to 32 msec increasing by a factor of 2."
+    kernaussage: "Die Geschwindigkeits-Genauigkeits-Kurve jeder Engine entsteht durch Simulation mit vielen Zeitschritten h von 1/64 ms bis 32 ms in Zweierpotenz-Schritten."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L6, L8, L11). Versuchsaufbau der Konsistenzmessung; Mittelung über 10 Trajektorienstücke (Satz danach)."
+  - id: Erez2015.22
+    seite: "4401"
+    zitat: "MuJoCo outperforms all other engines by orders of magnitude (note the log scale), even on the capsule test where it is the slowest."
+    kernaussage: "Laut Studie ist MuJoCo in der Konsistenz allen anderen Engines um Größenordnungen überlegen, selbst im Kapseltest, in dem es am langsamsten ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L11). Konsistenzergebnis (Abb. 3, rechts, S. 4400); Autoren sind MuJoCo-Entwickler, Stand 2015, Modelle mit Einschränkungen (nur Hinge-Gelenke, Kugel/Kapsel-Kollision)."
+  - id: Erez2015.23
+    seite: "4401"
+    zitat: "Note the grasp model where ODE and Bullet have partial speed-accuracy curves. This is because for larger timesteps they go unstable on this system, and therefore we could not measure consistency in a meaningful way."
+    kernaussage: "Im Greifmodell haben ODE und Bullet nur Teilkurven, weil sie bei größeren Zeitschritten in diesem System instabil werden und die Konsistenz dort nicht sinnvoll messbar war."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L8, L11). Zeitschritt und Stabilität; Greifmodell mit 35 Freiheitsgraden, Spring-Damper-Parameter K = 0,4 Nm/rad, B = 0,005 Nms/rad (S. 4401)."
+  - id: Erez2015.24
+    seite: "4402"
+    zitat: "Note that all engines manage to complete the test at small timesteps – so their underlying physics model indeed predicts that the object should remain in the hand. But as the timestep increases they effectively simulate a different physics model which can no longer hold the object."
+    kernaussage: "Alle Engines schaffen den Greiftest bei kleinen Zeitschritten; mit wachsendem Zeitschritt simulieren sie laut Autoren effektiv ein anderes physikalisches Modell, das das Objekt nicht mehr halten kann."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L8, L11). Einfluss des Zeitschritts auf das effektive Modell; Autoren-Interpretation."
+  - id: Erez2015.25
+    seite: "4402"
+    zitat: "The experience with grasping in the VRC suggests that at least for ODE, it will be difficult to go above 1 msec even with the implicit damping implemented by OSRF (which is not yet part of the official ODE codebase and so is not used in our tests)."
+    kernaussage: "Die VRC-Erfahrung legt laut Autoren nahe, dass es zumindest bei ODE schwierig ist, über 1 ms Zeitschritt zu gehen, selbst mit der impliziten Dämpfung von OSRF."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L8, L10). Vermutung der Autoren (Stand 2015), kein gemessenes Ergebnis; Grasping-Test."
+  - id: Erez2015.26
+    seite: "4403"
+    zitat: "None of the engines being compared was uniformly better than all others. MuJoCo was both the fastest and the most accurate on constrained systems relevant to robotics, and was capable of stable grasping at a much larger time step."
+    kernaussage: "Keine verglichene Engine war durchgehend besser als alle anderen; MuJoCo war bei eingeschränkten, robotikrelevanten Systemen am schnellsten und genaüsten und konnte mit deutlich größerem Zeitschritt stabil greifen."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L11). Zusammenfassung, Stand 2015, Autoren sind MuJoCo-Entwickler; Zahlen zur Greifstabilität: Tabelle S. 4401 (MuJoCo 16 ms, ODE 1/4 ms, Bullet 1/32 ms, PhysX 2 ms)."
+  - id: Erez2015.27
+    seite: "4403"
+    zitat: "Runge-Kutta integration (in MuJoCo) outperformed semi-implicit Euler integration by orders of magnitude for smooth dynamics, but its advantages were lost in the presence of contact dynamics."
+    kernaussage: "Die Runge-Kutta-Integration in MuJoCo übertraf bei glatter Dynamik das semi-implizite Euler-Verfahren um Größenordnungen, ihre Vorteile gingen aber bei Kontaktdynamik verloren."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L8, L11). Integratorvergleich, Stand 2015; gilt für die getesteten Modelle."
+  - id: Erez2015.28
+    seite: "4403"
+    zitat: "Simulation in Cartesian coordinates yielded better linear momentum conservation compared to joint coordinates."
+    kernaussage: "Simulation in kartesischen Koordinaten lieferte eine bessere Erhaltung des linearen Impulses als in Gelenkkoordinaten."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L11). Gegenbeispiel zum Vorteil von Gelenkkoordinaten, getestet am schwebenden Humanoiden ('astronaut'); Stand 2015."
+  - id: Erez2015.29
+    seite: "4404"
+    zitat: "MuJoCo has a built-in implementation of Hinge PD controllers that uses implicit damping."
+    kernaussage: "MuJoCo hat laut Autoren eine eingebaute Implementierung von PD-Reglern für Drehgelenke, die implizite Dämpfung nutzt."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L3, L8). Stand 2015; Aussage der Autoren zum eigenen System. Bei Bullet: Erez2015.30."
+  - id: Erez2015.30
+    seite: "4404"
+    zitat: "Impulse-based damping is likely to be more numerically stable and robust than explicit force-based damping; however, in order to maintain uniformity with the other engines, we implemented a PD controller using explicit damping torques."
+    kernaussage: "Impulsbasierte Dämpfung ist laut Autoren wahrscheinlich numerisch stabiler und robuster als explizite kraftbasierte Dämpfung; für die Vergleichbarkeit wurde in Bullet dennoch ein PD-Regler mit expliziten Dämpfungsmomenten implementiert."
+    quelle: exzerpt
+    kommentar: "Kap. 3 (L3, L8). Vermutung der Autoren ('likely'), keine Messung; Kontext: Bullet-Implementierung (Anhang)."

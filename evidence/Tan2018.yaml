@@ -1,0 +1,88 @@
+citekey: Tan2018
+zotero_key: FEB75CS6
+# RSS 2018 (Preprint-Seitenzählung 1-9, Quadrupeder Minitaur, PyBullet). Seiten = Label im PDF.
+belege:
+  - id: Tan2018.01
+    seite: "1"
+    zitat: "This reality gap [7, 8] is caused by model discrepancies between the simulated and the real physical system. Many factors, including unmodeled dynamics, wrong simulation parameters, and numerical errors, contribute to this gap."
+    kernaussage: "Laut den Autoren entsteht die reality gap durch Modellabweichungen zwischen simuliertem und realem physikalischen System; dazu tragen u. a. nicht modellierte Dynamik, falsche Simulationsparameter und numerische Fehler bei."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4), Ursachen der Lücke."
+  - id: Tan2018.02
+    seite: "1"
+    zitat: "Even worse, this gap is greatly amplified in locomotion tasks. When a robot performs agile motion with frequent contact changes, the switches of contact situations break the control space into fragmented pieces. Any small model discrepancy can be magnified and generate bifurcated consequences."
+    kernaussage: "Die Autoren führen an, dass die Lücke bei Fortbewegungsaufgaben stark verstärkt wird: Bei agiler Bewegung mit häufigen Kontaktwechseln kann jede kleine Modellabweichung vergrößert werden und zu verzweigten Folgen führen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4), Kontakt als Verstärker. Aussage der Autoren zu Laufrobotern."
+  - id: Tan2018.03
+    seite: "2"
+    zitat: "In addition to system identification, we identify that inaccurate actuator models and lack of latency modeling are two major causes of the reality gap."
+    kernaussage: "Neben Systemidentifikation nennen die Autoren ungenaue Aktormodelle und fehlende Latenzmodellierung als zwei Hauptursachen der reality gap."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4, L5). Befund der Autoren für ihren Quadrupeden."
+  - id: Tan2018.04
+    seite: "3"
+    zitat: "Bullet solves the equations of motion for articulated rigid bodies in generalized coordinates while simultaneously satisfying physical constraints including contact, joint limits and actuator models. Then the state of the system is numerically integrated over time using a semi-implicit scheme."
+    kernaussage: "Bullet löst die Bewegungsgleichungen gelenkig verbundener Starrkörper in generalisierten Koordinaten unter gleichzeitiger Erfüllung von Zwangsbedingungen (Kontakt, Gelenkgrenzen, Aktormodelle); der Systemzustand wird anschließend semi-implizit über der Zeit integriert."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L3), Teilmodelle einer Robotersimulation. Beschreibt Bullet/PyBullet, nicht MuJoCo."
+  - id: Tan2018.05
+    seite: "4"
+    zitat: "As a result, if large gains are used, the motors can remain stable in simulation but oscillate in reality."
+    kernaussage: "Bei großen Reglerverstärkungen können die Motoren in der Simulation stabil bleiben, in der Realität aber schwingen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4, Aktormodell). Bezogen auf Bullets Standard-Positionsregelung (Constraint-Formulierung) im Vergleich zu einem PD-Servo."
+  - id: Tan2018.06
+    seite: "4"
+    zitat: "This is because the linear torque-current relation only holds for ideal motors. In reality, the torque saturates as the current increases."
+    kernaussage: "Die lineare Drehmoment-Strom-Beziehung gilt nur für ideale Motoren; in der Realität sättigt das Drehmoment bei steigendem Strom."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4, L5, Aktormodell). Begründung der Autoren für das Abweichen des realen Minitaur vom idealen DC-Motormodell."
+  - id: Tan2018.07
+    seite: "5"
+    zitat: "In Bullet, the motor commands take effect immediately and the sensors report back the state instantaneously. This instantaneous feedback makes the stability region of a feedback controller in simulation much larger than its implementation on hardware."
+    kernaussage: "In Bullet wirken Motorbefehle sofort und Sensoren melden den Zustand ohne Verzögerung; dadurch ist der Stabilitätsbereich eines Regelkreises in der Simulation deutlich größer als in der Hardware-Umsetzung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4, Latenz). Aussage bezogen auf Bullet."
+  - id: Tan2018.08
+    seite: "5"
+    zitat: "To model latency, we keep a history of observations and their measurement time"
+    kernaussage: "Zur Latenzmodellierung halten die Autoren eine Historie der Beobachtungen samt Messzeitpunkten vor."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5, Latenzmodell). Zitat nennt nur den Anfang des Verfahrens; die Beobachtung wird laut Folgetext aus der Historie linear interpoliert."
+  - id: Tan2018.09
+    seite: "5"
+    zitat: "At the beginning of each training episode, we randomly sample a set of physical parameters and use them in the simulation."
+    kernaussage: "Zu Beginn jeder Trainingsepisode ziehen die Autoren zufällig einen Satz physikalischer Parameter und verwenden ihn in der Simulation."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5, Randomisierung). Parameter und Bereiche in Tab. I (S. 5: u. a. Masse 80-120 %, Kontaktreibung 0,5-1,25, Latenz 0-40 ms)."
+  - id: Tan2018.10
+    seite: "5"
+    zitat: "Performing accurate identification for contact parameters is challenging."
+    kernaussage: "Laut den Autoren ist eine genaue Identifikation der Kontaktparameter schwierig."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L4). Die Autoren randomisieren daher nur die Seitenreibung (0,5 bis 1,25), übrige Bullet-Kontaktparameter bleiben auf Standardwerten."
+  - id: Tan2018.11
+    seite: "5"
+    zitat: "If the observation space is high dimensional, the learned policy can easily overfit the simulated environment, which makes it difficult to transfer to the real robots."
+    kernaussage: "Laut den Autoren kann eine Policy bei hochdimensionalem Beobachtungsraum leicht an die simulierte Umgebung überanpassen, was die Übertragung auf reale Roboter erschwert."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5, kompakte Beobachtungen)."
+  - id: Tan2018.12
+    seite: "7"
+    zitat: "We compute the expected return from eq. (2), both in simulation and in the real experiments. Their difference measures the reality gap."
+    kernaussage: "Die Autoren messen die reality gap als Differenz des erwarteten Return, jeweils in der Simulation und im realen Experiment berechnet."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L6), Kennzahl für die Lücke. Gleichung (2) ist die Belohnung (Vorwärtsstrecke minus Energieaufwand); Maß wird auf Koos et al. zurückgeführt."
+  - id: Tan2018.13
+    seite: "7"
+    zitat: "We also found that both accurate actuator model and latency simulation are important. Without either of them, the learned controllers do not work on the real robot."
+    kernaussage: "Laut den Autoren sind sowohl ein genaues Aktormodell als auch die Latenzsimulation wichtig; ohne eines von beiden funktionieren die gelernten Regler auf dem realen Roboter nicht."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5). Befund für Minitaur/Trab-Gangart der Autoren."
+  - id: Tan2018.14
+    seite: "8"
+    zitat: "These results demonstrate a clear trade-off between robustness and optimality when randomization is used. Since randomization is not a free meal, we should use it only when necessary."
+    kernaussage: "Laut den Autoren zeigt sich bei Randomisierung ein klarer Zielkonflikt zwischen Robustheit und Optimalität; Randomisierung solle nur eingesetzt werden, wenn nötig."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1 (L5, Grenzen der Randomisierung). Auf Basis ihrer Experimente (Abb. 7, 8)."
