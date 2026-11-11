@@ -25,14 +25,18 @@ for name,u in [("inspire","g1_29dof_inspire_ftp.urdf"),("haken","g1_29dof_hand_h
         C.append(np.array(T.rotation)@c+np.array(T.translation)); R.append(r)
     # Mesh-Punkte der Handgeometrien im wrist_yaw-Frame
     subtree=set(model.subtrees[jids[6]])|set(model.subtrees[jids[5]])
-    polys=[]
+    polys=[]; meshes=[]
     for go in ik.collision_model.geometryObjects:
         if go.parentJoint not in subtree: continue
         pts=_geometry_points(go.geometry)
         if pts is None: continue
         T=data.oMi[jids[6]].inverse()*data.oMi[go.parentJoint]*go.placement
         P=pts@np.array(T.rotation).T+np.array(T.translation)
-        polys.append(P.tolist())
-    out[name]={"c":np.array(C).tolist(),"r":R,"polys":polys,"tcp":sp["tcp"].tolist(),"n":int(sel.sum())}
+        tris=[]
+        if type(go.geometry).__name__=="Convex":
+            g=go.geometry
+            tris=[[int(g.polygons(i)[j]) for j in range(3)] for i in range(int(g.num_polygons))]
+        polys.append(P.tolist()); meshes.append({"v":P.tolist(),"f":tris})
+    out[name]={"c":np.array(C).tolist(),"r":R,"polys":polys,"tcp":sp["tcp"].tolist(),"n":int(sel.sum()),"meshes":meshes}
     print(name,"Kugeln",int(sel.sum()),"Geometrien",len(polys))
 json.dump(out,open(sys.argv[1],"w"))

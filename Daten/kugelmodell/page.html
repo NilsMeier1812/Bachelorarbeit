@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#fff}</style></head><body>
+<script src="three.min.js"></script>
+<script>
+window.render = function(data, view){
+  const W=view.w, H=view.h;
+  const renderer=new THREE.WebGLRenderer({antialias:true, preserveDrawingBuffer:true});
+  renderer.setPixelRatio(view.dpr||1); renderer.setSize(W,H); renderer.setClearColor(0xffffff,1);
+  document.body.appendChild(renderer.domElement);
+  const scene=new THREE.Scene();
+  scene.add(new THREE.AmbientLight(0xffffff,0.55));
+  const dl=new THREE.DirectionalLight(0xffffff,0.6); dl.position.set(0.4,-0.8,1.0); scene.add(dl);
+  const dl2=new THREE.DirectionalLight(0xffffff,0.25); dl2.position.set(-0.5,0.6,0.3); scene.add(dl2);
+  const grp=new THREE.Group();
+  const matM=new THREE.MeshLambertMaterial({color:0x97C139, side:THREE.DoubleSide});
+  for(const m of data.meshes){ if(!m.f.length) continue;
+    const g=new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(m.v.flat(),3));
+    g.setIndex(m.f.flat()); g.computeVertexNormals();
+    grp.add(new THREE.Mesh(g,matM));
+    const e=new THREE.LineSegments(new THREE.EdgesGeometry(g,25), new THREE.LineBasicMaterial({color:0x5f7d22, transparent:true, opacity:0.12}));
+    grp.add(e);
+  }
+  const sg=new THREE.SphereGeometry(1,32,20);
+  const matS=new THREE.MeshLambertMaterial({color:0x72A3CD, transparent:true, opacity:0.16, depthWrite:false});
+  for(let i=0;i<data.c.length;i++){ const s=new THREE.Mesh(sg,matS); s.position.set(...data.c[i]); s.scale.setScalar(data.r[i]); s.renderOrder=2; grp.add(s);
+    const ring=new THREE.Mesh(sg,new THREE.MeshBasicMaterial({color:0x04316A, wireframe:false, transparent:true, opacity:0.0}));
+  }
+  // Umrisse der Kugeln: Silhouette über Rückseiten-Trick
+  const matO=new THREE.MeshBasicMaterial({color:0x04316A, side:THREE.BackSide, transparent:true, opacity:0.18, depthWrite:false});
+  for(let i=0;i<data.c.length;i++){ const s=new THREE.Mesh(sg,matO); s.position.set(...data.c[i]); s.scale.setScalar(data.r[i]*1.03); s.renderOrder=1; grp.add(s);}
+  scene.add(grp);
+  const S=view.halfw, A=W/H;
+  const cam=new THREE.OrthographicCamera(-S,S,S/A,-S/A,-10,10);
+  cam.up.set(0,0,1);
+  cam.position.set(...view.eye); cam.lookAt(new THREE.Vector3(...view.target));
+  renderer.render(scene,cam);
+  return renderer.domElement.toDataURL('image/png');
+};
+</script></body></html>
