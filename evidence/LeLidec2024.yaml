@@ -1,0 +1,58 @@
+citekey: LeLidec2024
+zotero_key: NNMB4PIV
+# IEEE Transactions on Robotics 2024, arXiv-Preprint v3 vom 21.07.2024 (nicht Verlagsfassung; Seitenzahlen = Preprint-Seiten 1-17). Zweispaltiger Satz: Textextrakt verschränkt teils Spalten, daher nur Passagen aus lesbaren Bereichen exzerpiert. Experimente mit Solo, Talos, Allegro und eigener Neuimplementierung (ContactBench), nicht mit dem Original-MuJoCo.
+belege:
+  - id: LeLidec2024.01
+    seite: "1"
+    zitat: "Our results demonstrate that some approximations or algorithms commonly used in robotics can severely widen the reality gap and impact target applications."
+    kernaussage: "Laut Autoren können einige in der Robotik häufig verwendete Näherungen oder Algorithmen die Realitätslücke erheblich vergrößern und Zielanwendungen beeinträchtigen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2/3.2.1 (L4, L11): Befund der Autoren zur Realitätslücke durch Kontaktmodelle"
+  - id: LeLidec2024.02
+    seite: "2"
+    zitat: "Numerical integration schemes for non-smooth systems fall into two main categories: event-driven and time-stepping methods [28]. Most modern robotics simulators are part of the latter category because predicting collisions is intractable due to the complexity of the scenes."
+    kernaussage: "Laut Autoren zerfallen Integrationsverfahren für nichtglatte Systeme in ereignisgesteuerte und Zeitschrittverfahren, und die meisten modernen Robotiksimulatoren gehören zur zweiten Kategorie, weil die Vorhersage von Kollisionen bei komplexen Szenen nicht handhabbar ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.1 (L3): Zeitintegration mit Kontakt; Einordnung (Sekundäraussage, verweist auf [28])"
+  - id: LeLidec2024.03
+    seite: "2"
+    zitat: "To lower the computational burden, alternative simulators rooted in generalized coordinates, like DART [31] and MuJoCo [32], appeared shortly after. Since then, Bullet also made this choice the default one. In practice, these simulators are rarely used to tackle engineering problems but rather as physics engines for graphical purposes (Bullet) or research in the RL community (MuJoCo)."
+    kernaussage: "Laut Autoren entstanden zur Verringerung des Rechenaufwands Simulatoren auf Basis verallgemeinerter Koordinaten wie DART und MuJoCo (später auch Bullet als Standard), die in der Praxis selten für Ingenieurprobleme, sondern als Physik-Engines für Grafikzwecke (Bullet) bzw. in der RL-Forschung (MuJoCo) genutzt werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2/3.2.3 (L7, L10): Einordnung von MuJoCo; Bewertung der Autoren"
+  - id: LeLidec2024.04
+    seite: "2"
+    zitat: "More recently, RaiSim [33] and Drake [34] were developed as robotic-driven software. RaiSim [33] emerged as one of the first simulators enabling RL policies to transfer to real quadrupedal robots."
+    kernaussage: "Laut Autoren wurden RaiSim und Drake als robotikgetriebene Software entwickelt, wobei RaiSim als einer der ersten Simulatoren die Übertragung von RL-Strategien auf reale Vierbeiner ermöglicht haben soll."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10): RaiSim, Drake"
+  - id: LeLidec2024.05
+    seite: "2"
+    zitat: "In a parallel line of work, Isaac Gym [40] and Brax [41] simulators use elementary contact models and rather focus on exploiting the parallelization abilities from GPUs or TPUs for batch computation."
+    kernaussage: "Laut Autoren verwenden Isaac Gym und Brax elementare Kontaktmodelle und konzentrieren sich auf die Parallelisierung auf GPUs oder TPUs für Batch-Berechnungen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10): GPU-parallele Simulatoren"
+  - id: LeLidec2024.06
+    seite: "9"
+    zitat: "aims at partially correcting the drawbacks from the CCP contact model exploited in MuJoCo [32] and Drake [34]. As explained earlier, the CCP formulation relaxes the Signorini condition for sliding contacts, leading to positive power from normal contact forces."
+    kernaussage: "Laut Autoren nutzen MuJoCo und Drake das Kegel-Komplementaritätsmodell (CCP), das die Signorini-Bedingung für gleitende Kontakte relaxiert und dadurch positive Leistung aus Normalkräften erzeugt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7): Einordnung von MuJoCo als CCP-Modell; Satz beginnt mitten in der Beschreibung des RaiSim-Modells"
+  - id: LeLidec2024.07
+    seite: "8"
+    zitat: "However, MuJoCo arbitrarily sets this to the diagonal of αG, where α ∈ [0, 1] is close to 0. This choice has no physical justification (at least, without making strong assumptions that are not met in practice), and its only intent is to improve the conditioning of the problem to ease the solving and artificially make the solution unique."
+    kernaussage: "Laut Autoren setzt MuJoCo die Nachgiebigkeit R willkürlich auf die Diagonale von alpha mal G mit alpha nahe 0, ohne physikalische Rechtfertigung, nur um die Konditionierung zu verbessern und die Lösung künstlich eindeutig zu machen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7, L8): weiche Kontakte in MuJoCo; Bewertung der Autoren (Neuimplementierung/Analyse, kein Test des Original-MuJoCo)"
+  - id: LeLidec2024.08
+    seite: "14"
+    zitat: "Fig. 15. Self-consistency w.r.t. time-stepping when simulating a cube dragged on a plane by a growing tangential force. The CCP contact model appears to be more sensitive to the time step ∆t. This sensitivity can also be observed through the evolution of mechanical energy."
+    kernaussage: "Laut Autoren erwies sich im Test eines von einer wachsenden Tangentialkraft gezogenen Würfels das CCP-Kontaktmodell als empfindlicher gegenüber dem Zeitschritt, was auch im Verlauf der mechanischen Energie sichtbar ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L8): Zeitschritt und Genauigkeit; Abbildungsunterschrift Fig. 15, Neuimplementierung der Autoren (ContactBench), nicht Original-MuJoCo; MuJoCo gehört laut S. 9 zur CCP-Klasse"
+  - id: LeLidec2024.09
+    seite: "15"
+    zitat: "Our experiments show that there is no fully satisfactory approach at the moment, as all existing solutions compromise either accuracy, robustness, or efficiency."
+    kernaussage: "Laut Autoren gibt es derzeit keinen vollständig zufriedenstellenden Ansatz, da alle bestehenden Lösungen bei Genauigkeit, Robustheit oder Effizienz Kompromisse eingehen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.1/3.2.2 (L11): Zielkonflikt Genauigkeit/Robustheit/Effizienz; Schlussfolgerung der Autoren"

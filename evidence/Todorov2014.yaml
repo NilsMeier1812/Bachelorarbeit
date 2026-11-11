@@ -1,0 +1,58 @@
+citekey: Todorov2014
+zotero_key: VCPG8PE5
+# ICRA 2014, Autorenfassung (Manuskript) ohne gedruckte Seitenzahlen; verwendet wird das Label laut Seitenmarker (1-8 = Seiten der Autorenfassung). Das Zeichen epsilon fehlt im PDF-Text und in den Zitaten an einzelnen Stellen. Beschreibt das MuJoCo-Kontaktmodell von 2014 (GPGS-Löser), nicht die heutige MuJoCo-Dokumentation.
+belege:
+  - id: Todorov2014.01
+    seite: "1"
+    zitat: "We describe a full-featured simulation pipeline implemented in the MuJoCo physics engine. It includes multi-joint dynamics in generalized coordinates, holonomic constraints, dry joint friction, joint and tendon limits, frictionless and frictional contacts that can have sliding, torsional and rolling friction."
+    kernaussage: "Laut Autor umfasst die in MuJoCo implementierte Simulationspipeline Mehrgelenkdynamik in verallgemeinerten Koordinaten, holonome Zwangsbedingungen, trockene Gelenkreibung, Gelenk- und Sehnenlimits sowie reibungsfreie und reibungsbehaftete Kontakte mit Gleit-, Torsions- und Rollreibung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7): Umfang des Modells, generalisierte Koordinaten"
+  - id: Todorov2014.02
+    seite: "1"
+    zitat: "The forward dynamics of a 27-dof humanoid with 10 contacts are evaluated in 0.1 msec. Since the simulation is stable at 10 msec timesteps, it can run 100 times faster than real-time on a single core of a desktop processor."
+    kernaussage: "Laut Autor wird die Vorwärtsdynamik eines Humanoiden mit 27 Freiheitsgraden und 10 Kontakten in 0,1 ms berechnet, und die Simulation ist bei 10 ms Zeitschritt stabil, sodass sie auf einem Kern eines Desktop-Prozessors 100-mal schneller als in Echtzeit läuft."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L8): Rechenzeit, Zeitschritt und Stabilität; Messung der Autoren 2014 (Intel i7-3930K, S. 7), keine Übertragung auf heutige Version/G1"
+  - id: Todorov2014.03
+    seite: "1"
+    zitat: "We soften all constraints, in a way that avoids instabilities and unrealistic penetrations associated with earlier spring-damper methods and yet is sufficient to allow inversion."
+    kernaussage: "Laut Autor werden alle Zwangsbedingungen so aufgeweicht, dass Instabilitäten und unrealistische Durchdringungen früherer Feder-Dämpfer-Verfahren vermieden werden und die Aufweichung zugleich eine Invertierung der Dynamik erlaubt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7): weicher Kontakt, Invertierbarkeit"
+  - id: Todorov2014.04
+    seite: "1"
+    zitat: "The shortcomings of the now-standard complementarity approach motivated complementarity-free methods, developed independently in [4] and [5]. The idea is to relax the strict complementarity condition and instead enforce it approximately. This relaxation transforms the NP-hard problem into a convex optimization problem: a conic program when the friction cone is treated exactly, and a quadratic program when the cone is approximated with a pyramid."
+    kernaussage: "Laut Autor relaxieren komplementaritätsfreie Verfahren die strikte Komplementaritätsbedingung und erzwingen sie nur näherungsweise, wodurch das NP-schwere Problem zu einem konvexen Optimierungsproblem wird (Kegelprogramm bei exaktem Reibkegel, quadratisches Programm bei Pyramidennäherung)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7): konvexe Formulierung; Einordnung von MuJoCo"
+  - id: Todorov2014.05
+    seite: "1"
+    zitat: "All contact models presently used in rigidbody simulations are phenomenological, and the only way to validate them is to measure the contact interactions between real robots and their environment – which is rarely done."
+    kernaussage: "Laut Autor sind alle in Starrkörpersimulationen verwendeten Kontaktmodelle phänomenologisch und lassen sich nur durch Messung der Kontaktwechselwirkung realer Roboter mit ihrer Umgebung validieren, was selten geschieht."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2/3.2.2 (L7, Realitätsnähe); Stand 2014"
+  - id: Todorov2014.06
+    seite: "2"
+    zitat: "Multiple friction coefficients are needed to handle tangential, torsional and rolling friction; thus d can be up to 5."
+    kernaussage: "Laut Autor sind mehrere Reibungskoeffizienten für Tangential-, Torsions- und Rollreibung nötig, wobei die Zahl d der Reibungsdimensionen bis zu 5 betragen kann."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7/L8): Parameter des Kontaktmodells; Koeffizienten mu_1..mu_d siehe Notation S. 2"
+  - id: Todorov2014.07
+    seite: "7"
+    zitat: "To summarize, the user specifies the impulse regularization scaling \u000f and the error reduction time constant κ, and then the solver parameters R, RE , v∗ , v∗E are computed automatically"
+    kernaussage: "Laut Autor gibt der Nutzer die Impuls-Regularisierungsskalierung (epsilon) und die Fehlerabbau-Zeitkonstante kappa vor, die Löserparameter werden daraus automatisch berechnet."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7/L8): Nutzerparameter des Kontaktmodells; epsilon fehlt im Textextrakt, Bezeichnung aus S. 6/7 und Schlussfolgerung (\"two parameters\")"
+  - id: Todorov2014.08
+    seite: "8"
+    zitat: "The inversion is possible because our formulation allows a certain amount of softness. One can think of the impulses as being generated by smart spring-dampers, which are aware of each other and furthermore scale their stiffness and damping automatically with inertia."
+    kernaussage: "Laut Autor ist die Invertierung möglich, weil die Formulierung ein gewisses Maß an Weichheit zulässt; die Impulse lassen sich als von intelligenten Feder-Dämpfern erzeugt auffassen, die einander kennen und Steifigkeit und Dämpfung automatisch mit der Trägheit skalieren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L7): weiches Kontaktmodell, Invertierbarkeit"
+  - id: Todorov2014.09
+    seite: "8"
+    zitat: "Small values of these parameters make the forward dynamics harder to simulate (requiring smaller timesteps or larger number of solver iterations)."
+    kernaussage: "Laut Autor erschweren kleine Werte der Weichheitsparameter die Vorwärtssimulation, sodass kleinere Zeitschritte oder mehr Löseriterationen nötig sind."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2 (L8): Zusammenhang Kontaktparameter/Zeitschritt/Iterationen; \"these parameters\" = epsilon und kappa (vorheriger Satz, S. 8)"

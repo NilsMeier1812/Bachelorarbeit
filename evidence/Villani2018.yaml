@@ -1,0 +1,65 @@
+citekey: Villani2018
+zotero_key: IRICPFK9
+# Überblicksartikel (Mechatronics, 2018), Manuskriptfassung (peer-reviewed version); Seitenlabel im Text = Manuskriptseite, PDF-Seite 1 = Seite 0; Zeilennummern des Manuskripts stehen teils im PDF-Text.
+# Normenstand im Artikel: ISO 10218-1/2:2011 und ISO/TS 15066:2016 (spätere Revisionen nicht berücksichtigt).
+belege:
+- id: Villani2018.01
+  seite: '12'
+  zitat: certification with respect to Machinery Directive, which is the main European 225 legislations for health and safety requirements for machinery [19].
+  kernaussage: Laut Artikel ist die Maschinenrichtlinie die wichtigste europäische Rechtsvorschrift für Gesundheits- und Sicherheitsanforderungen an Maschinen; die Konformität bzw. Zertifizierung bezieht sich darauf.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L18); Satz beginnt mitten im Satz; Zeilennummer 225 des Manuskripts steht im Zitat; Sekundäraussage, verweist auf [19]
+- id: Villani2018.02
+  seite: '12'
+  zitat: ISO 12100 and IEC 61508 are the Type A standards that respectively define basic terminology and methodology used in achieving safety of machinery, i.e. risk assess- 235 ment and risk reduction, and functional safety of electrical, electronic, and programmable electronic equipment;
+  kernaussage: Laut Artikel sind ISO 12100 und IEC 61508 Typ-A-Normen, die Grundbegriffe und Methodik zur Maschinensicherheit (Risikobeurteilung und Risikominderung) bzw. die funktionale Sicherheit elektrischer, elektronischer und programmierbarer elektronischer Einrichtungen festlegen.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L18); Zeilennummer 235 und Trennstrich im Zitat (Manuskript); Normenhierarchie Typ A/B/C, siehe Fig. 4 (Seite 14)
+- id: Villani2018.03
+  seite: '14'
+  zitat: The specifications of Type C category have priority over the other two categories.
+  kernaussage: Laut Artikel haben die Festlegungen der Typ-C-Normen Vorrang vor den beiden anderen Kategorien.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L18); Bildunterschrift Fig. 4 (Normenkategorien, Seite 14), als Vorlage für eigene Darstellung geeignet; ISO 10218-1/-2 und ISO TS 15066 sind dort als Typ C eingeordnet
+- id: Villani2018.04
+  seite: '14'
+  zitat: ISO 10218-1/2 [40, 41] identify four collaborative modes, which are summarized in Fig. 5 and described as follows.
+  kernaussage: Laut Artikel nennen ISO 10218-1/2 vier kollaborative Betriebsarten, die in Fig. 5 zusammengefasst sind.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L19); Fig. 5 (Seite 15) zeigt die vier Modi SMS, HG, SSM, PFL; Stand 10218:2011
+- id: Villani2018.05
+  seite: '16'
+  zitat: Compared to traditional safety stop functions, SMS requires the additional retaining stopping function named “Stop Category 2”, which is a safety-rated 275 monitored stop leaving power available to the machine actuators after the movement ends [43].
+  kernaussage: Laut Artikel erfordert der sicherheitsbewertete überwachte Halt (SMS) gegenüber herkömmlichen Sicherheitshaltfunktionen zusätzlich die Haltefunktion „Stop Category 2“, einen sicherheitsbewerteten überwachten Halt, bei dem nach Ende der Bewegung die Energie an den Aktoren anliegt.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L19); Zeilennummer 275 im Zitat; Sekundäraussage, verweist auf [43]
+- id: Villani2018.06
+  seite: '16'
+  zitat: The second mode is “Hand Guiding” - HG. Also known as “direct 285 teach”, in this collaborative mode the operator can teach the robot positions by moving the robot without the need of an intermediate interface, e.g. robot teach pendant.
+  kernaussage: Laut Artikel kann der Bediener in der Betriebsart Handführung (HG, auch „direct teach“) Roboterpositionen durch direktes Bewegen des Roboters einlernen, ohne eine zwischengeschaltete Schnittstelle wie ein Programmierhandgerät.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L19); Zeilennummer 285 im Zitat
+- id: Villani2018.07
+  seite: '17'
+  zitat: Also indicated as “Speed and Position Monitoring” (SPM) [50], it allows the human presence within the robot’s space through safety-rated monitoring sensors. With reference to Fig. 5, the robot operates at full speed when the human is in the green zone, at reduced speed in the yellow zone,
+  kernaussage: Laut Artikel erlaubt die Geschwindigkeits- und Abstandsüberwachung (SSM) die Anwesenheit des Menschen im Roboterraum mithilfe sicherheitsbewerteter Überwachungssensoren; der Roboter arbeitet mit voller Geschwindigkeit, wenn der Mensch in der grünen Zone ist, und mit verringerter Geschwindigkeit in der gelben Zone.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L19); Zitat endet vor dem Halt in der roten Zone (Satz geht weiter); Fig. 5 (Seite 15)
+- id: Villani2018.08
+  seite: '18'
+  zitat: This collaborative approach prescribes the limitation of motor power and force so that 350 a human worker can work side-by-side with the robot.
+  kernaussage: Laut Artikel schreibt die Leistungs- und Kraftbegrenzung (PFL) die Begrenzung von Motorleistung und -kraft vor, damit ein Werker Seite an Seite mit dem Roboter arbeiten kann.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L19); Zeilennummer 350 im Zitat
+- id: Villani2018.09
+  seite: '20'
+  zitat: Assuming as fundamental requirement a maximum safe reduced speed of 250 mm/s over the collaborative operations [40], it presents the acceptable physical quantities for the collaborative modes of SSM and PFL, such as allowable minimum separation distances and limits of mechanical loadings over the human body.
+  kernaussage: Laut Artikel legt ISO TS 15066 unter der Grundannahme einer maximal sicheren reduzierten Geschwindigkeit von 250 mm/s bei kollaborativen Operationen zulässige physikalische Größen für SSM und PFL fest, etwa Mindesttrennabstände und Belastungsgrenzen für den menschlichen Körper.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L19); Sekundäraussage, verweist auf [40] (ISO 10218-1:2011); Stand ISO TS 15066:2016
+- id: Villani2018.10
+  seite: '24'
+  zitat: ISO TS 15066 collects the admissible pressures and forces for 29 areas of human body for both the transient and quasi-static contact types.
+  kernaussage: Laut Artikel enthält ISO TS 15066 zulässige Drücke und Kräfte für 29 Körperbereiche, jeweils für transiente und quasistatische Kontakte.
+  quelle: exzerpt
+  kommentar: Kap. 3.4 (L19); Sekundäraussage über ISO TS 15066:2016

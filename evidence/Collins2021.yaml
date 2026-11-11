@@ -1,0 +1,100 @@
+citekey: Collins2021
+zotero_key: Q5UIDI9U
+# IEEE Access 9, 2021 (Verlagsfassung, gedruckte Seiten 51416-51427; Seitenlabel = Zählung der Zeitschrift). Übersichtsartikel; Tabellen 1-8 sind Bilder und im Text nicht enthalten, Drake und Isaac Sim/Gym werden praktisch nicht behandelt (Isaac nur als Flex-Host genannt).
+belege:
+  - id: Collins2021.01
+    seite: "51416"
+    zitat: "Physics simulators enable the vast majority of robotics research. It is commonplace to test and prove theoretical methods initially or solely in a simulator as robots themselves are oftentimes expensive, fragile and scarce."
+    kernaussage: "Laut Autoren ermöglichen Physiksimulatoren den Großteil der Robotikforschung; theoretische Methoden werden üblicherweise zunächst oder ausschließlich im Simulator getestet, da Roboter häufig teuer, empfindlich und knapp sind."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 (L1): Nutzen der Simulation (Kosten, Verfügbarkeit)"
+  - id: Collins2021.02
+    seite: "51417"
+    zitat: "phenomenon, (ii) collision detection and friction models, (iii) Graphical User Interface (GUI), (iv) import capability for scenes and meshes, (v) API especially for programming language used by the robotics community (c++/Python), and (vi) models for an array of joints, actuators and sensors readily available."
+    kernaussage: "Laut Autoren umfasst ein Robotiksimulator mindestens Kollisionserkennung und Reibungsmodelle, GUI, Import von Szenen und Netzen, eine API für C++/Python und verfügbare Modelle für Gelenke, Aktoren und Sensoren; Punkt (i), eine Physik-Engine, steht am Ende der Vorseite."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.1/3.2.3 (L3, L10): Definition Robotiksimulator; Satz beginnt auf S. 51416 mit \"(i) physics engine for realistic modelling of physical\" und läuft hier weiter"
+  - id: Collins2021.03
+    seite: "51417"
+    zitat: "Additionally, this review focuses on robotics simulators and not physics engines. Physics engines are integral to every robotics simulator, but a physics engine alone does not constitute a robotics simulator unless it satisfies all criteria we use to define what a robotics simulator is."
+    kernaussage: "Laut Autoren sind Physik-Engines Bestandteil jedes Robotiksimulators, ein Robotiksimulator ist eine Physik-Engine allein aber nur, wenn alle von den Autoren genannten Kriterien erfüllt sind."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.1 (L3): Abgrenzung Physik-Engine/Simulator"
+  - id: Collins2021.04
+    seite: "51417"
+    zitat: "We suggest first that a user has some idea of the particular robot platform(s) they wish to simulate (e.g. UR10, Husky, etc.), the method of actuation of the robotic platform(s), the sensors they intend to use and the physical operating environment (e.g. air, underwater, sand, city streets, etc.)."
+    kernaussage: "Die Autoren empfehlen für die Simulatorwahl, zuerst die zu simulierende Roboterplattform, die Aktuierung, die verwendeten Sensoren und die Betriebsumgebung festzulegen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10/L11): Auswahlkriterien laut Autoren"
+  - id: Collins2021.05
+    seite: "51418"
+    zitat: "Gazebo is a popular robotics simulator used in a wide range of mobile ground robot state-of-the-art (SOTA) research, for both legged [15], [16] and wheeled [17] robots. The Robot Operating System (ROS) interface provided by Gazebo contributes to the simulator’s popularity, and simplifies the"
+    kernaussage: "Laut Autoren wird Gazebo in vielen Arbeiten zu mobilen Bodenrobotern, darunter Laufroboter, eingesetzt; die ROS-Schnittstelle trägt zu seiner Beliebtheit bei."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10): Satz endet am Seitenende (Fortsetzung S. 51419: Test von Steuerungssoftware in Simulation und Übertragung auf das physische System); Gazebo, Laufroboter"
+  - id: Collins2021.06
+    seite: "51419"
+    zitat: "Gazebo provides capability to import environments from digital elevation models, SDF meshes, and OpenStreetMap. It is also possible to import robot models from the Universal Robot Description Format (URDF) files. Being a rigid body simulator, the simulator runs quickly and can simulate multiple robots in real-time."
+    kernaussage: "Laut Autoren kann Gazebo Umgebungen aus Höhenmodellen, SDF-Netzen und OpenStreetMap sowie Robotermodelle im URDF-Format importieren und simuliert als Starrkörpersimulator schnell mehrere Roboter in Echtzeit."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10): Gazebo, Modellformat URDF, Echtzeitfähigkeit"
+  - id: Collins2021.07
+    seite: "51419"
+    zitat: "Webots is another popular alternative, and is used in SOTA research to investigate, e.g., the performance of non-holonomic robot trajectory tracking [21], and to evolve bipedal robot gaits [22]. Webots has a large model database of mobile robots, environments and sensors."
+    kernaussage: "Laut Autoren wird Webots in Arbeiten zur Trajektorienverfolgung und zur Evolution zweibeiniger Gangarten eingesetzt und besitzt eine große Modelldatenbank mobiler Roboter, Umgebungen und Sensoren."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10): Webots, Bezug zu Zweibeinern (Sekundäraussage, verweist auf [21], [22])"
+  - id: Collins2021.08
+    seite: "51419"
+    zitat: "Raisim [7] is a rigid-body physics simulator developed by ETH Zurich, used in research into learning dynamic policies for legged platforms [23]. Raisim allows uneven terrain to be imported using height-map images. Raisim is not as full featured as other reviewed mobile robot simulators but instead is developed to provide high fidelity contact dynamics models which are needed for transferring controllers from simulation to reality."
+    kernaussage: "Laut Autoren ist RaiSim ein an der ETH Zürich entwickelter Starrkörpersimulator für das Lernen dynamischer Strategien von Laufplattformen, im Funktionsumfang kleiner als andere Simulatoren, dafür auf hochwertige Kontaktdynamik zur Übertragung von Reglern in die Realität ausgelegt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10): RaiSim, Laufroboter, Sim-to-Real (Sekundäraussage, verweist auf [7], [23])"
+  - id: Collins2021.09
+    seite: "51419"
+    zitat: "SOTA work into transferring locomotion policies for quadrupeds from simulation to real-world platforms was conducted using the PyBullet simulator [24] along with research into visual navigation on the turtlebot platform [25]. Pybullet is applicable to most mobile robotics applications as it supports rigid-body simulation with the possibility of faster than real-time simulation of multiple robots."
+    kernaussage: "Laut Autoren wurde PyBullet für die Übertragung von Laufstrategien von Vierbeinern aus der Simulation auf reale Plattformen verwendet und ist für die meisten Anwendungen mobiler Roboter geeignet, da es Starrkörpersimulation mit möglicherweise schneller-als-Echtzeit-Simulation mehrerer Roboter unterstützt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10): PyBullet, Laufroboter (Sekundäraussage, verweist auf [24])"
+  - id: Collins2021.10
+    seite: "51420"
+    zitat: "MuJoCo [37] is a simulator commonly employed within research, with notable contact stability being a reason for its popularity [38]."
+    kernaussage: "Laut Autoren wird MuJoCo in der Forschung häufig eingesetzt, wobei die bemerkenswerte Kontaktstabilität ein Grund für die Beliebtheit ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.2/3.2.3 (L10): MuJoCo, Manipulation (Tab. 3 vergleicht Simulatoren für Manipulation, S. 51420); Sekundäraussage, verweist auf [38]"
+  - id: Collins2021.11
+    seite: "51424"
+    zitat: "Due to the sample inefficiency of current Reinforcement Learning (RL) algorithms as well as the need to explore the state-action space that may lead to robot failure 51424 or damage during training, the majority of works on deep RL are first learned in simulation before being deployed on hardware."
+    kernaussage: "Laut Autoren werden wegen der Stichprobenineffizienz von RL-Algorithmen und des Risikos von Ausfällen oder Schäden beim Training die meisten Arbeiten zu Deep RL zuerst in der Simulation gelernt und dann auf Hardware eingesetzt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.1 (L1), 3.2.3 (L10): Lernen; Abschnitt VIII (Tab. 8 vergleicht Simulatoren für Lernen, S. 51426)"
+  - id: Collins2021.12
+    seite: "51425"
+    zitat: "Because simulation is an abstraction of real-world conditions, policies learned in simulation typically degrade when transferred onto hardware. Overcoming this reality gap is one of the most important considerations for researchers in the learning community to address when selecting a simulator."
+    kernaussage: "Laut Autoren verschlechtern sich in der Simulation gelernte Strategien typischerweise bei der Übertragung auf Hardware; das Überwinden dieser Realitätslücke gehört zu den wichtigsten Gesichtspunkten bei der Simulatorwahl für Lernanwendungen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L4/L11): Realitätslücke; \"typically\" beachten"
+  - id: Collins2021.13
+    seite: "51425"
+    zitat: "Randomising object mass and inertia, as well as friction coefficients, is another method of performing domain randomisation common to many of the simulators considered."
+    kernaussage: "Laut Autoren ist die Randomisierung von Masse, Trägheit und Reibungskoeffizienten von Objekten eine bei vielen der betrachteten Simulatoren übliche Form der Domain Randomization."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2 (L5): Domain Randomization als Gegenmaßnahme"
+  - id: Collins2021.14
+    seite: "51425"
+    zitat: "Gazebo, V-Rep, and Pybullet support multiple back-end physics engines, whereas some other simulators such as Raisim and MuJoCo do not."
+    kernaussage: "Laut Autoren unterstützen Gazebo, V-Rep und PyBullet mehrere Physik-Engines als Back-End, einige andere Simulatoren wie RaiSim und MuJoCo dagegen nicht."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10): Unterscheidungsmerkmal; Stand 2021"
+  - id: Collins2021.15
+    seite: "51425"
+    zitat: "Due to the GPU-based physics engine of Nvidia Flex – which is available to use as a physics engine in the NVidia Isaac robotic simulator – a walking policy for humanoid robots could be learned in 16 minutes on a single CPU and GPU."
+    kernaussage: "Laut Autoren konnte mit der GPU-basierten Physik-Engine Nvidia Flex, die im Simulator Nvidia Isaac nutzbar ist, eine Laufstrategie für humanoide Roboter in 16 Minuten auf einer einzelnen CPU und GPU gelernt werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2.3 (L10): Isaac/GPU-Parallelisierung, Humanoide (Sekundäraussage, verweist auf [130]; Flex, nicht Isaac Gym/Sim im heutigen Sinn)"
+  - id: Collins2021.16
+    seite: "51426"
+    zitat: "The most prolific phenomenon to model well is contacts with large improvements likely to be seen with improved methods for collision detection and resolution. Collision detection is very resource intensive and is often a source of instability within simulators."
+    kernaussage: "Laut Autoren sind Kontakte das am wichtigsten gut zu modellierende Phänomen, wobei die Kollisionserkennung sehr rechenintensiv und oft eine Quelle von Instabilität in Simulatoren ist."
+    quelle: exzerpt
+    kommentar: "Kap. 3.1.2/3.2.1 (L3, L4): Kontakte als Genauigkeits- und Stabilitätsproblem; Ausblick der Autoren"

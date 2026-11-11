@@ -1,0 +1,100 @@
+citekey: DGUV2015
+zotero_key: 94ZGHZDZ
+# DGUV Information 209-074 "Industrieroboter", Januar 2015 (Herausgeber DGUV; Praxisschrift, keine Rechtsvorschrift, ersetzt BGI 5123). Stand der Normen/Richtlinien: Maschinenrichtlinie 2006/42/EG, EN ISO 10218-1/-2:2011; ISO/TS 15066 war bei Drucklegung in Vorbereitung. Seitenlabel = gedruckte Seitenzahl (Umschlag U1/U2).
+belege:
+  - id: DGUV2015.01
+    seite: "17"
+    zitat: "Die EN ISO 10218-1 gilt für Industrieroboter, d. h. automatisch gesteuerte, frei programmierbare Mehrzweck-Manipulatoren, die in drei oder mehr Achsen programmierbar sind und zur Verwendung in der Automatisierungstechnik entweder an einem festen Ort oder beweglich angeordnet sein können [5]."
+    kernaussage: "Laut DGUV gilt EN ISO 10218-1 für Industrieroboter, d. h. automatisch gesteuerte, frei programmierbare Mehrzweck-Manipulatoren, die in drei oder mehr Achsen programmierbar sind und in der Automatisierungstechnik an einem festen Ort oder beweglich angeordnet sein können."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Abschnitt 2.1.2 (Harmonisierte Normen, C-Norm für Industrieroboter). Wiedergabe der Norm durch die DGUV (verweist auf [5]), Sekundäraussage. Der Folgeabsatz (nicht zitiert) sagt, die Norm gelte nicht für Roboter außerhalb des industriellen Bereichs, könne aber darauf angewendet werden, wenn keine anderen spezifischen Normen vorliegen (vgl. Beleg .02)."
+  - id: DGUV2015.02
+    seite: "11"
+    zitat: "Die für Industrieroboter geltenden Produktsicherheitsnormen gelten hier nicht. Solange aber keine entsprechenden Normen für den nichtindustriellen Bereich zur Verfügung stehen, dürfen die in der Norm für Industrieroboter festgelegten Anforderungen auch auf nichtindustrielle Applikationen angewendet werden."
+    kernaussage: "Für nichtindustrielle Roboteranwendungen gelten die Produktsicherheitsnormen für Industrieroboter nicht; solange keine entsprechenden Normen für den nichtindustriellen Bereich zur Verfügung stehen, dürfen die Anforderungen der Industrieroboter-Norm aber auch auf nichtindustrielle Applikationen angewendet werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Abschnitt 1.2 (Nichtindustrielle Roboteranwendungen), Seite 11, steht neben Abb. 11 'Schreitroboter'. Zitat nennt keine humanoiden Roboter; Stand Januar 2015 (Normen zu Servicerobotern, z. B. ISO 13482, werden nicht erwähnt)."
+  - id: DGUV2015.03
+    seite: "27"
+    zitat: "Nach EN ISO 10218-1 müssen Industrieroboter über die in Tabelle 1 gezeigten Betriebsarten verfügen. Für die Betriebsarten T1 und T2 sowie für Sonderbetriebsarten muss geschultes Personal eingesetzt werden. Zur Umschaltung der Betriebsarten muss ein abschließbarer Betriebsartenwahlschalter vorgesehen werden, der in jeder Position abziehbar ist (Abbildung 26)."
+    kernaussage: "Nach EN ISO 10218-1 müssen Industrieroboter über die Betriebsarten aus Tabelle 1 verfügen; für T1, T2 und Sonderbetriebsarten ist geschultes Personal einzusetzen; zur Umschaltung muss ein abschließbarer, in jeder Position abziehbarer Betriebsartenwahlschalter vorgesehen werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Abschnitt 4.1.1 (Betriebsarten für Roboter ohne Peripherie), Seite 27. Alternative Wahlvorrichtungen (z. B. Zugangscodes) sind laut Folgesatz zulässig, wenn sie gleiche Sicherheit bieten (nicht zitiert)."
+  - id: DGUV2015.04
+    seite: "28"
+    zitat: "Manuell reduzierte Geschwindigkeit (T1) z. B. zum Einrichten und Programmieren Schutzeinrichtungen dürfen geöffnet bzw. unwirksam sein • Gesonderte Stellung des Betriebsartenwahlschalters und • Reduzierte Geschwindigkeit*) (≤ 250 mm/s) in Verbindung mit Zustimmungsschalter und Tippschaltung"
+    kernaussage: "Tabelle 1: In der Betriebsart manuell reduzierte Geschwindigkeit (T1), z. B. zum Einrichten und Programmieren, dürfen Schutzeinrichtungen geöffnet bzw. unwirksam sein; Schutzmaßnahmen sind eine gesonderte Stellung des Betriebsartenwahlschalters und reduzierte Geschwindigkeit (≤ 250 mm/s) in Verbindung mit Zustimmungsschalter und Tippschaltung."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Tab. 1 'Betriebsarten' (Seite 28) – als Vorlage für eigene Tabelle geeignet. Text auf Seite 27: 250 mm/s bezieht sich auf die Bewegung, gemessen an der Werkzeugaufnahme des Roboters (nicht zitiert). Fußnote zur Tabelle: sicher reduzierte Geschwindigkeit in T1 sollte nach heutigem Stand der Technik wo immer möglich zum Einsatz kommen (Abschnitt 4.1.3)."
+  - id: DGUV2015.05
+    seite: "28"
+    zitat: "Manuell hohe Geschwindigkeit (T2) z. B. zum Testen mit Arbeitsgeschwindigkeit Schutzeinrichtungen dürfen geöffnet bzw. unwirksam sein • Gesonderte Stellung des Betriebsartenwahlschalters oder zusätzlicher Betriebsartenwahlschalter und • Verfahrgeschwindigkeit bis zur vollen Arbeitsgeschwindigkeit und • Tippschaltung in Verbindung mit Zustimmungsschalter und • Geschützter Standort für den Einrichter, d. h. mind. 0,5 m großer Abstand zw. Umzäunung und Roboter, z. B. durch eingeschränkten Bewegungsraum (siehe auch Abschnitt 4.2.1.3) Automatik Schutzeinrichtungen müssen geschlossen bzw. wirksam sein • Gesonderte Stellung des Betriebsartenwahlschalters"
+    kernaussage: "Tabelle 1: In der Betriebsart manuell hohe Geschwindigkeit (T2), z. B. zum Testen mit Arbeitsgeschwindigkeit, dürfen Schutzeinrichtungen geöffnet bzw. unwirksam sein (Verfahren bis zur vollen Arbeitsgeschwindigkeit mit Tippschaltung in Verbindung mit Zustimmungsschalter, geschützter Standort für den Einrichter); in der Betriebsart Automatik müssen Schutzeinrichtungen geschlossen bzw. wirksam sein."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Tab. 1 (Seite 28), Zeilen T2 ('Testbetrieb' = Testen mit Arbeitsgeschwindigkeit) und Automatik. Zitat enthält die Tabellenzeilen im Fließtext des PDF-Extrakts."
+  - id: DGUV2015.06
+    seite: "29"
+    zitat: "Eine Zustimmungseinrichtung (Zustimmungsschalter) ist ein zusätzliches handbetätigtes Befehlsgerät, das in Verbindung mit einer Startsteuerung verwendet wird und, falls es ständig betätigt wird, eine Maschinenfunktion erlaubt. Allein durch Betätigung der Zustimmungseinrichtung darf keine Bewegung gestartet werden."
+    kernaussage: "Eine Zustimmungseinrichtung (Zustimmungsschalter) ist ein zusätzliches handbetätigtes Befehlsgerät, das mit einer Startsteuerung verwendet wird und bei ständiger Betätigung eine Maschinenfunktion erlaubt; allein durch ihre Betätigung darf keine Bewegung gestartet werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Abschnitt 4.1.2 (Zustimmungseinrichtung), Seite 29. Tab. 2 'Ausführungsformen von Zustimmungseinrichtungen' (Seite 29) mit 2-stufig/3-stufig, als Vorlage geeignet."
+  - id: DGUV2015.07
+    seite: "29"
+    zitat: "Für Industrieroboter, die nach Inkrafttreten von EN ISO 10218-1 (Feb. 2007) produziert wurden, dürfen nur noch dreistufige Zustimmungsschalter zum Einsatz kommen."
+    kernaussage: "Für Industrieroboter, die nach Inkrafttreten von EN ISO 10218-1 (Feb. 2007) produziert wurden, dürfen nur noch dreistufige Zustimmungsschalter zum Einsatz kommen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Abschnitt 4.1.2, Seite 29. Für Altbestand/Nachrüstungen existieren laut Folgesatz keine europäischen Vorschriften (nicht zitiert). Stellungen der dreistufigen Ausführung (Ruhe, Freigabe, Panik) stehen in Tab. 2 (Seite 29)."
+  - id: DGUV2015.08
+    seite: "32"
+    zitat: "Jeder Industrieroboter muss eine Möglichkeit für den Anschluss externer Schutzeinrichtungen haben, z. B. zum Anschluss von Lichtvorhängen und Schutztürschaltern. Dieses Interface wird als Sicherheitshalt-Eingang bezeichnet. Es muss zusätzlich zum Not-Halt-Eingang physikalisch vorhanden sein, z. B. durch zusätzliche Klemmen. Die Stoppreaktion des Roboters bei einem Sicherheitshalt muss entsprechend EN 60204-1 in Stoppkategorie 0 oder 1 erfolgen [9]. Stoppkategorie 2 darf zusätzlich verwendet werden, wenn der Stillstand sicher überwacht wird."
+    kernaussage: "Jeder Industrieroboter muss einen Sicherheitshalt-Eingang für externe Schutzeinrichtungen haben, der zusätzlich zum Not-Halt-Eingang physikalisch vorhanden ist; die Stoppreaktion bei einem Sicherheitshalt muss nach EN 60204-1 in Stoppkategorie 0 oder 1 erfolgen, Stoppkategorie 2 darf zusätzlich verwendet werden, wenn der Stillstand sicher überwacht wird."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Abschnitt 4.1.5 (Sicherheitshalt), Seite 32. Begriff 'Schutzhalt' im Auftrag entspricht hier 'Sicherheitshalt' (Schutzeinrichtungen z. B. Lichtvorhänge, Schutztürschalter). Fußnotenverweis [9] im Zitat."
+  - id: DGUV2015.09
+    seite: "33"
+    zitat: "Industrieroboter müssen mit einer oder mehreren NotHalt-Einrichtung(en) ausgerüstet sein. Gleichzeitig muss eine Möglichkeit für den Anschluss der externen NotHalt-Einrichtungen vorgesehen sein, z. B. Klemme."
+    kernaussage: "Industrieroboter müssen mit einer oder mehreren Not-Halt-Einrichtungen ausgerüstet sein, und es muss eine Möglichkeit zum Anschluss externer Not-Halt-Einrichtungen (z. B. Klemme) vorgesehen sein."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Abschnitt 4.1.6 (Not-Halt), Seite 33. Folgeabsätze (nicht zitiert): Not-Aus-Bezeichnung nicht mehr für Neuanlagen; Not-Halt-Einrichtungen gut sichtbar, mindestens an jedem Bedienplatz; kein unmittelbarer Wiederanlauf nach Entriegelung."
+  - id: DGUV2015.10
+    seite: "35"
+    zitat: "Stoppkategorie 0 Stillsetzen durch sofortiges Abschalten der Energie zu den Maschinen-Antriebselementen ja Stoppkategorie 1 Gesteuertes Stillsetzen, wobei die Energie zu den Maschinen-Antriebselementen beibehalten wird, um das Stillsetzen zu erzielen. Die Energie wird erst dann unterbrochen, wenn der Stillstand erreicht ist. ja Stoppkategorie 2 Gesteuertes Stillsetzen, wobei die Energie zu den Maschinen-Antriebselementen beibehalten wird ja, jedoch mit zusätzlichen Maßnahmen"
+    kernaussage: "Tabelle 3 (Stoppfunktionen nach EN 60204-1): Stoppkategorie 0 ist Stillsetzen durch sofortiges Abschalten der Energie zu den Maschinen-Antriebselementen, Stoppkategorie 1 gesteuertes Stillsetzen mit Energieabschaltung erst bei Stillstand, Stoppkategorie 2 gesteuertes Stillsetzen mit beibehaltener Energie; Kategorie 0 und 1 sind für Sicherheitsfunktionen geeignet, Kategorie 2 nur mit zusätzlichen Maßnahmen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Tab. 3 (Seite 35), Definitionen laut EN 60204-1 (Sekundäraussage der DGUV). Zitat umfasst die drei Tabellenzeilen inkl. Spalte 'Eignung für Sicherheitsfunktionen'; als Vorlage für eigene Tabelle geeignet. Erläuterung Kat. 0/1 im Fließtext Abschnitt 4.1.9 (Seite 34)."
+  - id: DGUV2015.11
+    seite: "52"
+    zitat: "Nach Definition aus EN ISO 10218-1 ist der kollaborierende Betrieb ein Zustand, in dem hierfür konstruierte Roboter innerhalb eines festgelegten Arbeitsraums direkt mit dem Menschen zusammen arbeiten, d. h. sich einen Arbeitsraum teilen. Kollaborierende Roboter werden oft auch als assistierende Roboter bezeichnet."
+    kernaussage: "Nach der in der DGUV wiedergegebenen Definition aus EN ISO 10218-1 ist der kollaborierende Betrieb ein Zustand, in dem hierfür konstruierte Roboter innerhalb eines festgelegten Arbeitsraums direkt mit dem Menschen zusammenarbeiten und sich einen Arbeitsraum teilen; kollaborierende Roboter werden oft auch als assistierende Roboter bezeichnet."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18/L19); Abschnitt 5 (Kollaborierende Robotersysteme), Seite 52. Sekundäraussage (Definition der Norm). Abschnitt behandelt laut Text nur kollaborierende Industrieroboter, nicht Service- oder Medizinroboter."
+  - id: DGUV2015.12
+    seite: "52"
+    zitat: "Wenn der Roboter für Handführung vorgesehen ist, muss eine Handführungseinrichtung nahe am Endeffektor angebracht sein. Dies kann z. B. ein Kraft-/Momentensensor sein, wodurch der Roboter ähnlich einem Manipulator manuell geführt werden kann. Der Roboter muss dabei mit sicher reduzierter Geschwindigkeit betrieben werden."
+    kernaussage: "Ist ein Roboter für Handführung vorgesehen, muss nahe am Endeffektor eine Handführungseinrichtung (z. B. ein Kraft-/Momentensensor) angebracht sein, und der Roboter muss dabei mit sicher reduzierter Geschwindigkeit betrieben werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Abschnitt 5.2 (Handführung), Seite 52. Eine der Kollaborationsarten in Abschnitt 5 (5.2 Handführung, 5.3 Kraft-/Leistungsbegrenzung, 5.4 Geschwindigkeits- und Abstandsüberwachung, 5.5 Sicherheitsgerichteter Stopp); die Quelle formuliert keinen Satz 'vier Arten', die Gliederung ergibt sich aus den Abschnittsüberschriften. Folgesätze (nicht zitiert): Höhe der Geschwindigkeit nicht vorgeschrieben, aus der Risikobeurteilung abgeleitet; Zustimmungsschalter und Not-Halt-Einrichtung leicht erreichbar und sicherheitsgerichtet."
+  - id: DGUV2015.13
+    seite: "54"
+    zitat: "Die Anforderungen nach EN ISO 10218-1 und EN ISO 10218-2 gelten auch für kollaborierende Roboter. Neben den darin festgelegten obligatorischen Sicherheitsfunktionen wie Not-Halt, Sicherheitshalt und Zustimmungsschalter muss ein Roboter in der Funktion Leistungs- und Kraftbegrenzung (Power and Force Limiting) in der Regel mindestens über die folgenden zusätzlichen Sicherheitsfunktionen verfügen:"
+    kernaussage: "Neben den obligatorischen Sicherheitsfunktionen Not-Halt, Sicherheitshalt und Zustimmungsschalter muss ein Roboter in der Funktion Leistungs- und Kraftbegrenzung (Power and Force Limiting) in der Regel mindestens über weitere, im Text folgende Sicherheitsfunktionen verfügen."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Abschnitt 5.3.3 (Sicherheitsfunktionen), Seite 54. Folgeabsatz: sichere Überwachung von Drehmoment/Kraft und Geschwindigkeit, Kategorie 3/PLd (nicht zitiert). Grenzwerte lagen laut Abschnitt 5.3.1 (Seite 53) bei Drucklegung nicht vor."
+  - id: DGUV2015.14
+    seite: "55"
+    zitat: "Bei der Geschwindigkeits- und Abstandsüberwachung werden nichttrennende Schutzeinrichtungen so eingesetzt, dass sich Personen jederzeit dem Roboter nähern können, ohne gefährdet zu werden."
+    kernaussage: "Bei der Geschwindigkeits- und Abstandsüberwachung werden nichttrennende Schutzeinrichtungen so eingesetzt, dass sich Personen jederzeit dem Roboter nähern können, ohne gefährdet zu werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Abschnitt 5.4, Seite 55. Folgeabsatz (nicht zitiert): Laserscanner/3D-Kameras, Verlangsamen oder Stoppen, Geschwindigkeit sicher überwacht, PLd mit Kategorie 3. Abb. 54 (Seite 55) zum minimalen Sicherheitsabstand."
+  - id: DGUV2015.15
+    seite: "55"
+    zitat: "Beim sicherheitsgerichteten Stopp handelt es sich um einen Sonderfall der Geschwindigkeits- und Abstandsüberwachung. Bei Zutritt zum Kollaborationsraum werden die Antriebe sofort gestoppt und in einen sicheren Betriebshalt nach EN 61800-5-2 überführt (Safe Operating Stop/SOS). Bei Verlassen des Kollaborationsraums setzt der Roboter seine Bewegung ohne Quittierung fort."
+    kernaussage: "Beim sicherheitsgerichteten Stopp werden bei Zutritt zum Kollaborationsraum die Antriebe sofort gestoppt und in einen sicheren Betriebshalt nach EN 61800-5-2 (Safe Operating Stop/SOS) überführt; bei Verlassen des Kollaborationsraums setzt der Roboter seine Bewegung ohne Quittierung fort."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L19); Abschnitt 5.5, Seite 55; laut Text ein Sonderfall der Geschwindigkeits- und Abstandsüberwachung."
+  - id: DGUV2015.16
+    seite: "77"
+    zitat: "DIN EN ISO 10218-1 Industrieroboter – Sicherheitanforderungen – Teil 1: Roboter (ISO 102181:2011); Deutsche Fassung EN ISO 10218-1:2011 [5]"
+    kernaussage: "Das Literaturverzeichnis nennt DIN EN ISO 10218-1 \"Industrieroboter – Sicherheitanforderungen – Teil 1: Roboter\" (ISO 10218-1:2011) in der Deutschen Fassung EN ISO 10218-1:2011."
+    quelle: exzerpt
+    kommentar: "Kap. 3.4 (L18); Normbezug Ausgabe 2011; Teil 2 (Robotersysteme und Integration) steht direkt darunter als DIN EN ISO 10218-2 (ISO 10218-2:2011). Schreibweise 'Sicherheitanforderungen' im Original. Die DGUV-Schrift selbst (Januar 2015) referenziert die Ausgaben von 2011; ob neuere Ausgaben gelten, ist hier nicht belegt."

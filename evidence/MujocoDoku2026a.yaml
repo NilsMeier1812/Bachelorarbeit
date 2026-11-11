@@ -1,0 +1,58 @@
+citekey: MujocoDoku2026a
+zotero_key: WZNB3CVH
+# MuJoCo-Dokumentation, Kapitel Overview, Version 4.0.0 (Webseite als PDF gedruckt, Abruf 11.11.2026); Herstellerdokumentation
+belege:
+  - id: MujocoDoku2026a.01
+    seite: "1"
+    zitat: "MuJoCo stands for Multi-Joint dynamics with Contact. It is a general purpose physics engine that aims to facilitate research and development in robotics, biomechanics, graphics and animation, machine learning, and other areas that demand fast and accurate simulation of articulated structures interacting with their environment."
+    kernaussage: "MuJoCo (Multi-Joint dynamics with Contact) ist eine Physik-Engine für allgemeine Zwecke, die laut Dokumentation Forschung und Entwicklung in Robotik, Biomechanik, Grafik, maschinellem Lernen u. a. durch schnelle und genaue Simulation gelenkiger Strukturen unterstützen soll."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L9); Selbstbeschreibung der Entwickler"
+  - id: MujocoDoku2026a.02
+    seite: "1"
+    zitat: "Initially developed by Roboti LLC, it was acquired and made freely available by Google DeepMind in October 2021, and open sourced in May 2022."
+    kernaussage: "MuJoCo wurde zunächst von Roboti LLC entwickelt, im Oktober 2021 von Google DeepMind erworben und frei verfügbar gemacht und im Mai 2022 als Open Source veröffentlicht."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L9)"
+  - id: MujocoDoku2026a.03
+    seite: "2"
+    zitat: "MuJoCo pioneered the combination of simulation in generalized coordinates with optimization-based contact dynamics."
+    kernaussage: "Laut Dokumentation hat MuJoCo die Kombination aus Simulation in verallgemeinerten Koordinaten und optimierungsbasierter Kontaktdynamik eingeführt."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L7); Selbsteinschätzung der Entwickler (\"pioneered\")"
+  - id: MujocoDoku2026a.04
+    seite: "1"
+    zitat: "The user defines models in the native MJCF scene description language – an XML file format designed to be as human readable and editable as possible. URDF model files can also be loaded."
+    kernaussage: "Modelle werden in der nativen Szenenbeschreibungssprache MJCF (XML-Format, möglichst les- und editierbar) definiert; URDF-Modelldateien können ebenfalls geladen werden."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 / 4.x (L9)"
+  - id: MujocoDoku2026a.05
+    seite: "3"
+    zitat: "mjModel contains the model description and is expected to remain constant."
+    kernaussage: "mjModel enthält die Modellbeschreibung und soll konstant bleiben."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L9)"
+  - id: MujocoDoku2026a.06
+    seite: "3"
+    zitat: "mjData contains all dynamic variables and intermediate results."
+    kernaussage: "mjData enthält alle dynamischen Variablen und Zwischenergebnisse."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 (L9); Trennung mjModel/mjData"
+  - id: MujocoDoku2026a.07
+    seite: "5"
+    zitat: "First-class Python bindings provide access to the full C API."
+    kernaussage: "Python-Bindings (laut Dokumentation \"first-class\") bieten Zugriff auf die gesamte C-API."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 / 4.x (L9); Kontext: Satz steht im Abschnitt zu GPU-Backends (MJX, MuJoCo Warp); weitere Angaben zu Bindings fehlen in dieser Quelle"
+  - id: MujocoDoku2026a.08
+    seite: "15"
+    zitat: "Available sensor types include touch sensors, inertial measurement units (IMUs), force-torque sensors, joint and tendon position and velocity sensors, actuator sensors, body frame sensors, rangefinders, and many others;"
+    kernaussage: "Verfügbare Sensortypen sind u. a. Berührungssensoren, IMUs, Kraft-Momenten-Sensoren, Gelenk- und Sehnen-Positions- und -Geschwindigkeitssensoren, Aktuator- und Körper-Frame-Sensoren und Entfernungsmesser."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 / 4.x (L3, L9); einzelne Sensornamen (jointpos, framequat, gyro, accelerometer) stehen in der XML-Referenz, nicht in dieser Quelle"
+  - id: MujocoDoku2026a.09
+    seite: "22"
+    zitat: "The position data is 7 numbers (3D position followed by unit quaternion) while the velocity data is 6 numbers (3D linear velocity followed by 3D angular velocity)."
+    kernaussage: "Bei freien Gelenken umfassen die Positionsdaten 7 Zahlen (3D-Position, Einheitsquaternion), die Geschwindigkeitsdaten 6 Zahlen (lineare und Winkelgeschwindigkeit)."
+    quelle: exzerpt
+    kommentar: "Kap. 3.2 / 4.x (L7, L9); Floating Base des Humanoiden"

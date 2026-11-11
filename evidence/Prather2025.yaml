@@ -1,0 +1,52 @@
+citekey: Prather2025
+zotero_key: B2Z5Q8QA
+# Technischer Bericht der IEEE Humanoid Study Group (September 2025), graue Literatur, nicht begutachtet. ACHTUNG: Seitenlabel in den Belegen = PDF-Index; die gedruckte Berichtsseite ("n of 95") ist Label minus 1 und steht im Kommentar.
+belege:
+- id: Prather2025.01
+  seite: '4'
+  zitat: The current standards framework is not designed for them. Most existing robot standards assume fixed or statically stable systems and do not consider the dynamic, inherently unstable nature of a humanoid’s locomotion.
+  kernaussage: Laut Bericht ist das aktuelle Normenwerk nicht für Humanoide ausgelegt; die meisten bestehenden Robotiknormen setzen feste oder statisch stabile Systeme voraus und berücksichtigen die dynamische, inhärent instabile Fortbewegung eines Humanoiden nicht.
+  quelle: exzerpt
+  kommentar: 'Kap. 3.4 (L18, L20); Einleitung des Berichts (Autor: Studiengruppenleiter) (gedruckte Berichtsseite: 3)'
+- id: Prather2025.02
+  seite: '36'
+  zitat: Risk assessment for machines is guided by ISO 12100, with other standards covering individual classes of risks, such as those derived from electrical hazards (IEC 60204-1). The fundamental hazards for machinery in ISO 12100 are extended in product-specific safety standards like industrial robots (ISO 10218-1 and -2, recently revised), personal care robots (ISO 13482), and others.
+  kernaussage: Laut Bericht orientiert sich die Risikobeurteilung für Maschinen an ISO 12100; die dort behandelten Grundgefährdungen werden in produktspezifischen Sicherheitsnormen, etwa für Industrieroboter (ISO 10218-1 und -2, kürzlich überarbeitet) und Personal-Care-Roboter (ISO 13482), erweitert.
+  quelle: exzerpt
+  kommentar: 'Kap. 3.4 (L18); Überblick der Normenstruktur (gedruckte Berichtsseite: 35)'
+- id: Prather2025.03
+  seite: '37'
+  zitat: of these specialized safety standards apply to humanoids. For humanoids, even with all the joints braked and powered off, which is a very conventional safe state for fixed manipulators, the robot is not necessarily in a safe state.
+  kernaussage: Laut Bericht gelten die spezialisierten Sicherheitsnormen nicht für Humanoide; selbst mit gebremsten und abgeschalteten Gelenken, einem für feste Manipulatoren üblichen sicheren Zustand, befindet sich ein Humanoide nicht notwendig in einem sicheren Zustand.
+  quelle: exzerpt
+  kommentar: 'Kap. 3.4 (L18, L20); Satz beginnt auf der Vorseite ("Due to this, none"); Aussage des Berichts, nicht normativ (gedruckte Berichtsseite: 36)'
+- id: Prather2025.04
+  seite: '37'
+  zitat: stating, for instance, that robots should ensure “that loss of power does not lead to loss of load, unexpected motion, or other hazards”. This might be straightforward for fixed-base manipulator robot arms or whenever the reaction energy is completely absorbed or balanced by a stable base, but humanoids do not follow this rule, as losing power at any time could result in falling over.
+  kernaussage: Laut Bericht fordert ISO/TR 20218-1, dass ein Energieverlust nicht zu Lastverlust, unerwarteter Bewegung oder anderen Gefährdungen führt; für Humanoide gelte diese Regel nicht, da ein Energieverlust jederzeit zum Sturz führen könne.
+  quelle: exzerpt
+  kommentar: 'Kap. 3.4 (L19, L20); Sekundäraussage über ISO/TR 20218-1 (Zitat im Zitat); Satz beginnt mit "stating" (gedruckte Berichtsseite: 36)'
+- id: Prather2025.05
+  seite: '52'
+  zitat: The main clear mismatch for humanoids is that the scope of the standard is limited to robots fixed on the ground, or mounted on constrained tracks, or part of an integration onto statically stable bases.
+  kernaussage: Laut Bericht besteht die wesentliche Unstimmigkeit von ISO/TS 15066 für Humanoide darin, dass der Anwendungsbereich auf am Boden fixierte Roboter, Roboter auf begrenzten Schienen oder Integrationen auf statisch stabilen Basen beschränkt ist.
+  quelle: exzerpt
+  kommentar: 'Kap. 3.4 (L18, L19); Aussage zu ISO/TS 15066:2016 (gedruckte Berichtsseite: 51)'
+- id: Prather2025.06
+  seite: '41'
+  zitat: Those standards cannot be applied directly to humanoids, where the problem of stability affects all safety-critical functions and the degree of successful resolution to safe states.
+  kernaussage: Laut Bericht lassen sich die bestehenden Normen nicht direkt auf Humanoide anwenden, weil das Stabilitätsproblem alle sicherheitskritischen Funktionen und die erfolgreiche Überführung in sichere Zustände betrifft.
+  quelle: exzerpt
+  kommentar: 'Kap. 3.4 (L18); Fazit des Normenüberblicks im Bericht (gedruckte Berichtsseite: 40)'
+- id: Prather2025.07
+  seite: '41'
+  zitat: Currently, it is part of the mission for the newly created working group in the ISO Technical Committee 299 tasked to develop a safety standard (ISO/AWI 25785-1) for industrial mobile robots with actively controlled stability, notably including humanoids.
+  kernaussage: Laut Bericht entwickelt eine neu gegründete Arbeitsgruppe im ISO-Technischen Komitee 299 eine Sicherheitsnorm (ISO/AWI 25785-1) für industrielle mobile Roboter mit aktiv geregelter Stabilität, ausdrücklich einschließlich Humanoiden.
+  quelle: exzerpt
+  kommentar: 'Kap. 3.4 (L18); Normprojekt im Arbeitsstand (AWI), Stand der Berichtsveröffentlichung 2025 (gedruckte Berichtsseite: 40)'
+- id: Prather2025.08
+  seite: '56'
+  zitat: a bipedal robot may fall over as well. This means that standards for fault handling, fall response, and handling of all other errors must also be presented.
+  kernaussage: Laut Bericht kann auch ein zweibeiniger Roboter stürzen; daher müssten Normen auch Fehlerbehandlung, Sturzreaktion und den Umgang mit allen sonstigen Fehlern enthalten.
+  quelle: exzerpt
+  kommentar: 'Kap. 3.4 (L20); Satz beginnt auf der Vorseite („Just as humans sometimes will fall over …“) (gedruckte Berichtsseite: 55)'
