@@ -329,7 +329,10 @@ Beleg-IDs. **Befunde** = Tatsachen über das eigene System mit Fundstelle im G1-
 ## 6 Anforderungen A1–A7 (Steckbriefe)
 
 Die Steckbriefe sind die Vorlage für `tab:anforderungen` und die Absätze in 5.2. **Wortlaut und Zielwerte sind
-Vorschläge**; alles mit [N?] entscheidet Nils (→ N2). Bedeutung und Reihenfolge von A1–A7 entsprechen dem Gerüst und
+Vorschläge**. Nils hat am 16.11. keine eigenen Werte (N2: „keine Ahnung“); die mit **[V]** markierten Werte
+schlägt Claude vor, sie gelten vorläufig und werden so ausgearbeitet. Im LaTeX steht hinter jedem [V]-Wert ein
+Kommentar `% Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A<n>`; die Begründung im Text ist eine Setzung
+(Art S) ohne Literaturbeleg, außer wo eine Quelle genannt ist. Widerspricht Nils, gilt sein Wert. Bedeutung und Reihenfolge von A1–A7 entsprechen dem Gerüst und
 den Plänen zu Kap. 6 und 7 und dürfen sich nicht verschieben.
 
 Nachweisarten: An = Analyse, T = Test, M = Messung, D = Demonstration.
@@ -368,9 +371,10 @@ Nachweisarten: An = Analyse, T = Test, M = Messung, D = Demonstration.
   Rechenbeschleuniger in Echtzeit.
 - Herleitung: Die Bedienung in der Simulation soll sich zeitlich wie am Roboter verhalten (sonst ist D2 nicht
   prüfbar); niedrige Einstiegshürde (D3). Für „handelsüblich“ und den Zielwert gibt es keinen Literaturbeleg (L18).
-- Kriterien: **K3.1** Echtzeitfaktor (simulierte Zeit je verstrichener Zeit), Zielwert [N?] (Vorschlag: im Mittel
-  mindestens 0,95). **K3.2** Takttreue je Regelkreis (erreichte Rate je Sollrate, dazu Streuung der Zykluszeit),
-  Zielwert [N?] (Vorschlag: mindestens 95 % der Sollrate). Die Sollraten sind Auslegungswerte aus Kap. 7.
+- Kriterien: **K3.1** Echtzeitfaktor (simulierte Zeit je verstrichener Zeit), Zielwert [V] im Mittel mindestens 0,95
+  (Begründung: Die Bedienung in der Simulation soll sich zeitlich nicht merklich vom Roboter unterscheiden; ein
+  kleiner Abschlag lässt kurze Lastspitzen des PCs zu). **K3.2** Takttreue je Regelkreis (erreichte Rate je Sollrate, dazu Streuung der Zykluszeit),
+  Zielwert [V] mindestens 95 % der Sollrate (Begründung wie K3.1). Die Sollraten sind Auslegungswerte aus Kap. 7.
 - Nachweis: M → V4 (8.2.1). Konzept: 6.2.2; Umsetzung 7.2.2, 7.4.1.
 - Hinweis: Die G1-Doku beschreibt, dass die Simulation ihren Takt an die Regelung koppelt und nach oben auf
   Echtzeit begrenzt (`docs/40-T-Simulation.md` „Lockstep“). Der Echtzeitfaktor kann deshalb 1 nicht überschreiten;
@@ -385,7 +389,9 @@ Nachweisarten: An = Analyse, T = Test, M = Messung, D = Demonstration.
   benannte Größen eingegrenzt.
 - Kriterien: **K4.1** Abweichung der Gelenkwinkel der Arme zwischen Simulation und Realbetrieb bei gleicher
   Bewegungsfolge (Verlauf über der Zeit, mittlere und größte Abweichung). **K4.2** daraus berechnete Abweichung der
-  Handposition am Ende jeder Bewegung, Zielwert [N?] (aus der Toleranz der Greifaufgabe ableiten). **K4.3**
+  Handposition am Ende jeder Bewegung, Zielwert [V] höchstens 2 cm (Begründung: Ein in der Simulation eingelerntes
+  Greifziel soll am Roboter ohne Nachkorrektur erreichbar sein; der Wert ist eine Setzung und wird nach den ersten
+  Durchläufen von V6 und V7 auf Plausibilität geprüft, ohne ihn nachträglich an das Ergebnis anzupassen). **K4.3**
   Fortbewegung: Verhältnis von erreichter zu vorgegebener Geschwindigkeit in Simulation und Realbetrieb
   nebeneinander, **ohne Zielwert** (Charakterisierung).
 - Nachweis: M → V7 (8.2.3), V5 (8.2.2). Konzept: 6.2.2, 6.2.3.
@@ -405,8 +411,12 @@ Nachweisarten: An = Analyse, T = Test, M = Messung, D = Demonstration.
 - Kriterien: **K5.1** größte Geschwindigkeit der Hand im Realbetrieb, Zielwert: höchstens 250 mm/s (Orientierung an
   Villani2018.09, DGUV2015.04). **K5.2** Verfügbarkeit des Not-Halts: Anteil der Kombinationen aus Bedienweg und
   Betriebszustand, in denen er auslösbar ist, Zielwert: alle. **K5.3** Reaktionszeit vom Auslösen des Not-Halts bis
-  zum geänderten Befehl an der Herstellerschnittstelle, Zielwert [N?]. **K5.4** Zeit vom Ausfall eines Bedienwegs
-  oder der Verbindung bis zum Halt der Bewegung, Zielwert [N?]. **K5.5** Anteil bestandener sicherheitsrelevanter
+  zum geänderten Befehl an der Herstellerschnittstelle, Zielwert [V] höchstens 100 ms (Begründung: Setzung; der
+  Halt soll gegenüber der Reaktion der Bedienperson nicht ins Gewicht fallen; Bezugswert aus der Literatur fehlt, Q6).
+  **K5.4** Zeit vom Ausfall eines Bedienwegs oder der Verbindung bis zum Halt der Bewegung, Zielwert [V] höchstens
+  1 s (Begründung: Setzung; bei begrenzter Geschwindigkeit der Hand bleibt der Weg bis zum Halt klein). Die
+  Auslegungswerte der Zeitüberwachungen in `tab:schutzmechanismen` liegen darunter; das ist gewollt, die Anforderung
+  prüft die Wirkung der ganzen Kette. **K5.5** Anteil bestandener sicherheitsrelevanter
   Tests, Zielwert: alle, kein Test übersprungen. **K5.6** Der Roboter bleibt nach einem Not-Halt der Arme stehen
   (Demonstration).
 - Nachweis: T, M → V8 (8.3.1); D → V2 (8.1.2). Konzept: 6.3.
@@ -420,8 +430,10 @@ Nachweisarten: An = Analyse, T = Test, M = Messung, D = Demonstration.
   Grundfähigkeiten aus, ohne Programmcode zu schreiben.
 - Herleitung: D3; Ajaykumar2021.01, .03; Pot2009.03, .04.
 - Kriterien: **K6.1** Inbetriebnahme: Anzahl der Schritte und Zeit von einem frisch eingerichteten PC bis zur ersten
-  Bewegung in der Simulation, Zielwert [N?]. **K6.2** Bedienung: Anzahl der Bedienhandlungen von der gestarteten
-  Umgebung bis zur ersten Arm- und zur ersten Gehbewegung, Zielwert [N?]. **K6.3** Grundfähigkeiten ohne
+  Bewegung in der Simulation, Zielwert [V] höchstens 60 min einschließlich Bau der Container (Begründung: Setzung;
+  Inbetriebnahme innerhalb einer Arbeitsstunde ohne fremde Hilfe). **K6.2** Bedienung: Anzahl der Bedienhandlungen
+  von der gestarteten Umgebung bis zur ersten Arm- und zur ersten Gehbewegung, Zielwert [V] je höchstens 5
+  (Begründung: Setzung; wenige, eindeutige Schritte als Gegenstück zur Forderung nach Vorwissen, UnitreeXRTeleop.02). **K6.3** Grundfähigkeiten ohne
   Programmierung und ohne Befehlszeile nach dem Start ausführbar (ja/nein je Fähigkeit). **K6.4** (nur mit
   Nutzerstudie, → N3) Bewertung durch Probanden, etwa mit der System Usability Scale, und Anzahl der Bedienfehler
   (Ajaykumar2021.09, .11).
@@ -455,7 +467,9 @@ A1, A7), damit die Tabelle zur Gliederung von Kap. 8 passt.
 ### 7.2 Inhalt von `tab:versuchsplan`
 
 Spalten: Versuch · Gegenstand · Prüfebene (Attrappe / Simulation / Roboter) · Kennzahlen · Umfang · Auswertung in.
-„Umfang“ (Anzahl Wiederholungen, Dauer) ist überall [N?] und hängt an N1.
+„Umfang“ [V] (Vorschlag 16.11., nach N1 mit ständigem Zugang zum Roboter ab etwa 23.11.): Simulation und Attrappe je
+10 Wiederholungen, Versuche am Roboter je 3 Wiederholungen; V4 je Lauf 10 min; V9 dreimal auf frisch eingerichtetem
+System. Auswertung jeweils Mittelwert und Spannweite.
 
 | Versuch | Gegenstand | Ebene | Kennzahlen | Auswertung in | Mittel am Stand `25d5c1a` |
 |---|---|---|---|---|---|
@@ -555,10 +569,13 @@ Empfehlung: Vor dem Schreiben nur Q2 schließen. Q1 und Q6 nach Nils' Entscheidu
 
 Reihenfolge nach Gewicht. Zu jeder Frage steht, wie der Plan ohne Antwort weiterläuft.
 
-- **N1 Realversuche:** Bis wann ist Abgabe, und wie oft kommst du bis dahin noch an den G1? Davon hängt ab, ob V2, V7
+- **N1 Realversuche:** *Beantwortet 16.11.: ab etwa 23.11. quasi ständiger Zugang zum G1.* V2, V7, V11 finden statt;
+  die Messmittel aus 7.3 (N11) müssen bis dahin stehen. Ursprüngliche Frage: Bis wann ist Abgabe, und wie oft kommst
+  du bis dahin noch an den G1? Davon hängt ab, ob V2, V7
   und V11 stattfinden. Ohne Antwort: Die Versuche stehen im Plan; fällt einer aus, wird die Anforderung in 8.5.1 als
   „nicht nachgewiesen“ geführt und in 8.5.3 als Grenze genannt.
-- **N2 Zielwerte:** Passen Wortlaut und Zielwerte in Abschnitt 6? Offen sind A3 (Echtzeitfaktor, Takttreue), A4
+- **N2 Zielwerte:** *16.11.: Nils hat keine Vorgabe; Claudes Vorschläge [V] in Abschnitt 6 gelten vorläufig.*
+  Passen Wortlaut und Zielwerte in Abschnitt 6? Offen sind A3 (Echtzeitfaktor, Takttreue), A4
   (Toleranz an der Hand), A5 (Reaktionszeit, Ausfallzeit) und A6 (Schritte, Zeit). Außerdem: Bist du einverstanden,
   dass A2 „gleicher Programmstand, Unterschiede gezählt und begründet“ heißt statt „identischer Code“? Ohne Antwort:
   `\pruefen` an jedem offenen Zielwert.
@@ -605,8 +622,9 @@ kleinste Modell geben.
 > 2. Wertungen (Art W): immer mit Geltungsbereich („unter den in Abschnitt~\ref{…} betrachteten Arbeiten“), nie
 >    „es gibt kein …“. Vor dem Absatz ein Kommentar `% Basis: …`. Arbeiten nicht abwerten; sie verfolgen andere Ziele.
 > 3. Setzungen (Art S): Jede Anforderung und jeder Zielwert braucht im Text eine Begründung. Zielwerte, die der Plan
->    mit [N?] markiert und zu denen keine Antwort von Nils vorliegt: `\pruefen{Zielwert für … festlegen}`. Keinen
->    Wert erfinden, auch keinen „typischen“.
+>    mit [N?] markiert und zu denen keine Antwort von Nils vorliegt: `\pruefen{Zielwert für … festlegen}`. Werte mit
+>    [V] (Vorschlag vom 16.11., gilt vorläufig) übernimmst du genau so, mit der Begründung aus Abschnitt 6 und dem
+>    Kommentar `% Zielwert: Vorschlag 16.11.`. Keinen weiteren Wert erfinden, auch keinen „typischen“.
 > 4. Eigenleistung (Art E): kein `\cite`, vor dem Absatz `% Basis: G1@25d5c1a <Pfad>, <Abschnitt>`. Jede Zahl am
 >    Code-Stand nachzählen. Angaben zum Referenz-PC und zum Roboter liefert Nils: `\pruefen{…}`.
 > 5. Kap. 5 enthält **kein Messergebnis** und **keine Lösung**: keine Komponenten, Bedienwege, Dateinamen,
@@ -658,7 +676,7 @@ kleinste Modell geben.
 
 > Rahmenprompt. Erstelle `review/kap5-entwurf/tabellen.tex` mit `tab:anforderungen`, `tab:kennzahlen`,
 > `tab:versuchsplan`, `tab:testumgebung` und (Kann) `tab:defizite` nach Abschnitt 6, 7 und 8 des Plans. Zielwerte
-> mit [N?] als `\pruefen{}`. In `tab:anforderungen` die Spalte „Nachweis in“ mit `\ref` auf die Labels `sec:eval_*`
+> mit [V] eintragen (Kommentar wie in Abschnitt 6), offene [N?] als `\pruefen{}`. In `tab:anforderungen` die Spalte „Nachweis in“ mit `\ref` auf die Labels `sec:eval_*`
 > aus `Kapitel/08_Evaluation.tex`. Keine Tabelle länger als eine Seite. Baue außerdem
 > `Bilder/tikz/bewertungslogik.tex` nach der Spezifikation in Abschnitt 8 (Muster: `Bilder/tikz/dds-domains.tex`,
 > Stile aus `ba-grafik.tex`). Lege `review/kap5-entwurf/abbildungen.tex` mit `figure`-Umgebung, Caption-Vorschlag

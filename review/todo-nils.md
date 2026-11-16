@@ -11,11 +11,13 @@ Regel seit 16.11.2026: Gesamtarbeit 60–80 Seiten, beim Ausarbeiten lieber zu v
 Plan: `review/plan-kap5.md` (Fragen in Abschnitt 10). Wichtigstes zuerst.
 
 **Entscheidungen**
-- [ ] **N1 Realversuche:** Abgabetermin und wie oft du bis dahin noch an den G1 kommst. Davon hängen V2, V7, V11 ab
-      (ohne V7 bleibt F2 nur für die Simulation beantwortet).
-- [ ] **N2 Zielwerte der Anforderungen** (Plan Abschnitt 6): A3 Echtzeitfaktor und Takttreue (Vorschlag 0,95 bzw.
-      95 %), A4 Toleranz an der Hand, A5 Reaktionszeit Not-Halt und Zeit bis Halt bei Ausfall, A6 Schritte und Zeit bis
-      zur ersten Bewegung. Dazu: A2 als „gleicher Programmstand, Unterschiede gezählt und begründet“ einverstanden?
+- [x] **N1 Realversuche:** Abgabetermin und wie oft du bis dahin noch an den G1 kommst. → *Nils 16.11.: ab etwa
+      23.11. quasi ständig.* Folge: V2, V7, V11 sind fest eingeplant; die Messmittel (N11) sollten bis dahin fertig sein.
+- [ ] **N2 Zielwerte der Anforderungen:** *Nils 16.11.: „keine Ahnung“.* → Claude hat Vorschläge mit Begründung in
+      `review/plan-kap5.md` Abschnitt 6 eingetragen (gelten vorläufig, die Ausarbeitung schreibt sie so). Bitte nur
+      noch widersprechen, wenn dir ein Wert falsch vorkommt: A3 Echtzeitfaktor ≥ 0,95, Takttreue ≥ 95 % ·
+      A4 Abweichung der Hand ≤ 2 cm · A5 Not-Halt ≤ 100 ms, Halt nach Ausfall ≤ 1 s · A6 Inbetriebnahme ≤ 60 min,
+      erste Bewegung mit ≤ 5 Bedienhandlungen. A2 als „gleicher Programmstand, Unterschiede gezählt und begründet“.
 - [ ] **N3 Nutzerstudie** mit 3–5 Personen ohne Robotikerfahrung: ja oder nein?
 - [ ] **N7 Tabellen:** Merkmalstabelle der Stacks in 4.4 und in 5.1 nur Auswertung (Empfehlung)? Kernbild in 5.3.1?
 - [ ] **N11 Messmittel** im G1-Repo bauen lassen (Echtzeitfaktor, Not-Halt-Zeit, Aufzeichnung der Gelenkwinkel,

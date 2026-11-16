@@ -68,7 +68,7 @@ Bachelorarbeit/           # Repo-Root = Overleaf-Projekt (Hauptdokument main.tex
 ├── evidence/             # Belegdateien, eine pro Quelle: <citekey>.yaml
 ├── sources-text/         # GENERIERT, gitignored: PDF-Text mit Seitenmarkern
 ├── .zotero-cache/        # GENERIERT, gitignored: über die Web-API geladene PDFs
-├── review/               # Kapitelpläne und Verifier-Berichte
+├── review/               # Kapitelpläne, Verifier-Berichte, todo-nils.md (Nachreich-Liste für Nils)
 ├── requirements.txt
 └── scripts/
     ├── zot.py            # bib | text | annotations
@@ -132,6 +132,20 @@ werden zu `\qf{}`, nicht zu Text. **Stopp:** Nils liest den Entwurf.
 **5. Verifizieren** – Phase 4 (unten) für das Kapitel.
 
 Am Ende jedes Schritts kurzer Bericht an Nils: was erledigt ist, was offen ist, welche Entscheidung ansteht.
+
+### Nachreich-Liste für Nils (seit 16.11.2026)
+
+Alles, was Nils liefern, entscheiden oder durchführen muss, steht gesammelt in **`review/todo-nils.md`** auf `main`
+(Wunsch Nils). Jeder Thread, der eine offene Frage an Nils hat oder auf Material von ihm wartet:
+- vorher pullen, dann **nur den eigenen Abschnitt** `## Kapitel N – …` ergänzen oder anlegen; fremde Abschnitte
+  nicht umschreiben,
+- je Punkt eine Checkbox mit dem Kürzel aus dem Kapitelplan (z. B. `N2`, `E4`), was genau gebraucht wird und wofür,
+- Dopplungen mit anderen Kapiteln als Verweis eintragen („siehe Kap. 5, N5“), nicht doppelt,
+- beantwortete Punkte abhaken (`[x]`) und die Antwort kurz dahinterschreiben,
+- vor dem Arbeiten nachsehen, ob Nils dort schon etwas beantwortet hat.
+
+Umfang (Nils, 16.11.2026): Gesamtarbeit 60–80 Seiten. Beim Ausarbeiten lieber zu viel als zu wenig, Nils kürzt
+selbst; Seitenangaben in den Kapitelplänen sind Richtwerte.
 
 ### Quellenbeschaffung durch Nils
 
