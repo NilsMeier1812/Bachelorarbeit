@@ -1,6 +1,8 @@
 # Kapitelplan Kap. 6 – Konzept der Umgebung
 
 Stand 16.11.2026 (Claude, Kapitel-Workflow Schritt 1). **Nur Plan, kein Fließtext.** Wartet auf Nils' Prüfung.
+**Arbeitsfassung zum Bearbeiten und Kommentieren (seit 16.11.):** Claude-Dokument https://claude.ai/artifact/WMSov4954nNSCRqM8VPr5Y .
+Nils' Änderungen dort werden vor dem Start der Arbeitspakete in diese Datei übertragen; die Subagents lesen diese Datei.
 Code-Stand der Befunde: Repo `NilsMeier1812/G1`, `main` @ `25d5c1a` (11.11.2026), derselbe Stand wie in `review/plan-kap7.md`.
 Abgrenzung zu Kap. 7 ist mit dem Thread „Kapitel 7 konzipieren und planen“ abgestimmt (Abschnitt 2).
 
@@ -94,7 +96,7 @@ Anforderung → Alternativen → Entscheidung mit Begründung → Kern der Lösu
 |---|---|---|---|---|---|---|
 | Kapiteleinleitung | 6–8 Sätze | Kern | A1–A7 | 5.2 | – | **neu:** drei Entwurfsgrundsätze + optional `tab:konzept_uebersicht` (→ N2) |
 | **6.1 Ausgangsbasis und Abgrenzung** | ~2 S. | | | | | |
-| 6.1.1 Auswahl der Ausgangsbasis | 0,6 S. | Kern | A2, A7 | 4.4 (Merkmalstabelle der Stacks), 2.3 | – | Argument über die Tabelle in 4.4, **keine** zweite Vergleichstabelle |
+| 6.1.1 Auswahl der Ausgangsbasis | 0,3 S. | Kern | A2, A7 | 4.4 (Merkmalstabelle der Stacks), 2.3 | – | Argument über die Tabelle in 4.4, **keine** zweite Vergleichstabelle |
 | 6.1.2 Übernommener Funktionsumfang und Defizite | 0,6 S. | Kern | A1–A7 | 5.2 | – | Defizite **je Anforderung** statt als Funktionsliste; leitet 6.2–6.5 her |
 | 6.1.3 Abgrenzung der Eigenleistung | 0,8 S. | Kern | – | – | 8.1.1 | `tab:eigenleistung` mit drei Stufen übernommen / erweitert / neu |
 | **6.2 Gesamtarchitektur** | ~3 S. | | F1 | | | |
@@ -181,7 +183,7 @@ muss (Art F/G), mit Status *abgedeckt / teilweise / offen* und passenden Beleg-I
   (eigene Zählung 16.11.; vor Verwendung neu zählen, → `\pruefen`).
 - `tab:eigenleistung` (Gitter, Spalten Funktionsbereich · Stufe · Bemerkung), Zeilenvorschlag:
   Roboterzustand – übernommen · Navigation (Simulation) – übernommen, eingebunden · Armregelung und IK – erweitert ·
-  Onboard-Anbindung – erweitert · Kollisionsmodell und Bahnplaner – neu · Simulationskopplung – erweitert
+  Onboard-Anbindung – erweitert · Kollisionsmodell und Bahnplaner – neu · Simulationskopplung – neu
   (Basis unitree_mujoco) · Ersatzregler Fortbewegung – neu, Policies übernommen · Sicherheitsfunktionen – neu ·
   Hände (Inspire, eigene Profile) – neu · Bedienoberfläche, Gamepad, Smartphone – neu · Posen und Abläufe – neu ·
   Arm-API – neu · Bereitstellung und Startmenü – neu · Tests und Dokumentation – neu.
@@ -575,7 +577,7 @@ Antworten von Nils vom 16.11.2026 sind eingearbeitet. Was noch fehlt, steht in `
 
 Reihenfolge: AP0 (optional) → AP1 und AP2 parallel → AP3–AP7 parallel → AP8 → AP9. Jedes Paket schreibt in eine
 eigene Datei, damit sich parallele Aufträge nicht überschreiben; erst AP8 fasst zusammen.
-Empfohlene Modelle: Sonnet für AP1, AP2; Opus für AP3–AP7 und AP9; Prüfung des Ergebnisses von AP8 durch Fable oder Nils.
+Empfohlene Modelle: Sonnet für AP1, AP2; Opus für AP3–AP7 und AP9; Prüfung des Ergebnisses von AP8 durch Opus oder Nils.
 
 ### Rahmenprompt (jedem Auftrag voranstellen)
 
@@ -602,8 +604,9 @@ Empfohlene Modelle: Sonnet für AP1, AP2; Opus für AP3–AP7 und AP9; Prüfung 
 >    endet mit einem Satz, der auf den Nachweis in Kap. 8 verweist (`Abschnitt~\ref{…}`).
 > 7. Jede Abbildung und Tabelle wird im Absatz davor mit `\ref` eingeführt und danach erläutert; Umgebung mit
 >    `[htbp]` direkt nach diesem Absatz.
-> 8. Schreibe nur in die Datei, die dein Auftrag nennt. Ändere keine generierten Dateien und nichts in Zotero.
-> 9. Bericht am Ende: was geschrieben ist, Liste aller `\qf` und `\pruefen` mit Grund, jede Abweichung vom Plan.
+> 8. Lieber zu viel als zu wenig schreiben (Richtlinien §3.2); Kürzungskandidaten mit `% Kann` markieren.
+> 9. Schreibe nur in die Datei, die dein Auftrag nennt. Ändere keine generierten Dateien und nichts in Zotero.
+> 10. Bericht am Ende: was geschrieben ist, Liste aller `\qf` und `\pruefen` mit Grund, jede Abweichung vom Plan.
 
 ### AP0 – Recherche zu den Lücken (optional, nur nach Nils' Freigabe)
 
