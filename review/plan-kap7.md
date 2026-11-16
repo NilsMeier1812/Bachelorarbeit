@@ -1,5 +1,9 @@
 # Kapitelplan Kap. 7 – Umsetzung
 
+> **Maßgebliche Fassung seit 16.11.2026: Claude-Dokument „Kapitelplan Kap. 7 – Umsetzung“**
+> (https://claude.ai/artifact/TTAF3ZjZz9Esuakvih5DzC). Nils bearbeitet und kommentiert dort. Diese Datei ist der
+> Stand vom 16.11. und wird nicht mehr parallel gepflegt; Arbeitspakete lesen das Dokument.
+
 Stand 16.11.2026 (Claude, Kapitel-Workflow Schritt 1 und Schritt 2 für die klaren Lücken). Auftrag Nils vom 16.11.:
 nur planen, noch kein Fließtext. Die Ausarbeitung übernehmen danach schwächere Modelle anhand der Arbeitspakete in §9.
 **Wartet auf Nils:** Entscheidungen in §8, gesammelt auch in `review/todo-nils.md` (Abschnitt Kap. 7).
