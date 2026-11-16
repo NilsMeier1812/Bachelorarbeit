@@ -58,8 +58,8 @@ Plan: `review/plan-kap6.md` (Fragen in Abschnitt 8).
 
 ## Kapitel 7 – Umsetzung
 
-Plan: `review/plan-kap7.md` (Fragen in Abschnitt 8, „E“). Liegt noch auf Branch `claude/project-thread-jepdj5`;
-sag „auf main“, dann übernehme ich ihn.
+Plan zum Bearbeiten und Kommentieren: [Claude-Dokument Kapitelplan Kap. 7](https://claude.ai/artifact/TTAF3ZjZz9Esuakvih5DzC),
+Entscheidungen ganz oben (Antwort direkt unter den Punkt). Markdown-Stand vom 16.11. auf Branch `claude/project-thread-jepdj5`.
 
 **Entscheidungen** (zu jeder gibt es eine Empfehlung, „wie empfohlen“ genügt)
 - [ ] **E1 Gliederung:** 7.5 „Roboterhände“ mit eigenen Händen (7.5.2), `tab:bedienwege` nach 6.4.2, kein eigener
