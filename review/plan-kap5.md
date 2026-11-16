@@ -39,9 +39,11 @@ Was der Leser nach Kap. 5 wissen muss: welche Lücke die Arbeit schließt, woran
 dieser Maßstab vor den Ergebnissen feststand. Das ist der Teil, der die Entwicklungsarbeit zu einer wissenschaftlichen
 Arbeit macht (Nils' Vorgabe vom 29.10.: „kein Handbuch“).
 
-Zielumfang: **6 Seiten** (Gerüst: ca. 5). Begründung: vier Tabellen, auf die Kap. 6, 8 und 9 verweisen, brauchen
-zusammen etwa 2 Seiten. Obergrenze 6,5 Seiten; die Gesamtarbeit liegt mit den Plänen zu Kap. 6 (11–12 S.) und Kap. 7
-(15–16 S.) schon am oberen Rand von 80 Seiten. → Frage N6.
+Zielumfang: **etwa 6 Seiten** (Gerüst: ca. 5). Begründung: vier Tabellen, auf die Kap. 6, 8 und 9 verweisen, brauchen
+zusammen etwa 2 Seiten. **Regel seit 16.11.2026 (Nils, über den Koordinator):** Die Gesamtarbeit hat 60–80 Seiten;
+beim Ausarbeiten lieber zu viel als zu wenig, Nils kürzt selbst. Die Seitenangaben in diesem Plan sind deshalb
+Richtwerte, keine Obergrenzen. Alle Kann-Darstellungen werden gebaut; die Streichreihenfolge in Abschnitt 8 ist nur
+ein Vorschlag für Nils' Kürzung.
 
 ## 2 Abgrenzung
 
@@ -491,14 +493,14 @@ Eigene Darstellungen ohne Quellenangabe in der Caption; Belege in Tabellenzellen
 
 | Label | Abschnitt | Stufe | Inhalt und Spezifikation |
 |---|---|---|---|
-| `tab:defizite` | 5.1 | Kann | Vier Zeilen D1–D4. Spalten: Defizit · Befund in den betrachteten Arbeiten (mit `\cite{}\ev{}` und Abschnittsverweis) · Forschungsfrage. Entfällt, wenn 5.1 sonst über 1,5 Seiten geht; dann trägt `tab:stacks` aus 4.4 allein. |
+| `tab:defizite` | 5.1 | Kann | Vier Zeilen D1–D4. Spalten: Defizit · Befund in den betrachteten Arbeiten (mit `\cite{}\ev{}` und Abschnittsverweis) · Forschungsfrage. Wird gebaut; Nils entscheidet beim Kürzen, ob sie neben `tab:stacks` aus 4.4 bleibt. |
 | `tab:anforderungen` | 5.2 | **Kern** | Sieben Zeilen A1–A7 in Nummernfolge. Spalten: Nr. · Anforderung (ein Satz) · Prüfkriterium · Zielwert · Frage · Nachweis in (`\ref` auf `sec:eval_*`). Höchstens eine Seite. Kap. 6, 7, 8 und 9 verweisen darauf. |
 | `fig:bewertungslogik` | 5.3.1 | **Kern, Kernbild** | Datei `Bilder/tikz/bewertungslogik.tex`. Fünf Spalten von links nach rechts: Defizite D1–D4 → Forschungsfragen F1–F4 → Anforderungen A1–A7 → Versuche V1–V11 → Abschnitte 8.1–8.4, rechts außen ein Block „Abgleich 8.5.1“. Blöcke als `ba block`, Verbindungen als `ba pfeil`; die Zuordnung F→A als Linien (F1–A2, F2–A3/A4, F3–A5/A6, F4–A1/A7). Anforderungen in der Reihenfolge der Fragen anordnen, damit sich keine Linien kreuzen. Kennzahlen nicht einzeln zeichnen. Keine Farbe als einziger Bedeutungsträger, Breite höchstens 16 cm, nicht skalieren. |
 | `tab:kennzahlen` | 5.3.1 | **Kern** | siehe 7.1. |
 | `tab:versuchsplan` | 5.3.2 | **Kern** | siehe 7.2, ohne die Spalte „Mittel am Stand“ (die ist nur Planungshilfe). |
 | `tab:testumgebung` | 5.3.3 | **Kern** | siehe Abschnitt 5, 5.3.3. Schlichter Stil (booktabs), zwei Spalten. |
 
-Fünf Tabellen auf sechs Seiten sind viel. Reihenfolge beim Streichen: `tab:defizite`, dann `tab:kennzahlen` in
+Fünf Tabellen auf sechs Seiten sind viel. Alle werden gebaut (Regel 16.11.: lieber zu viel). Vorschlag für Nils, falls er kürzt: `tab:defizite`, dann `tab:kennzahlen` in
 `tab:anforderungen` aufgehen lassen (Spalte „Prüfkriterium“ trägt dann die K-Nummern). `tab:anforderungen`,
 `tab:versuchsplan` und die Abbildung bleiben.
 
@@ -567,7 +569,7 @@ Reihenfolge nach Gewicht. Zu jeder Frage steht, wie der Plan ohne Antwort weiter
   einen zweiten, schwächeren PC für A3? Ohne Antwort: `\pruefen` in `tab:testumgebung`.
 - **N5 Externes Projekt:** Welches Projekt wird für V10 angebunden (gleiche Frage wie N10 im Plan zu Kap. 6)? Ohne
   Antwort: A7 bleibt konzeptionell.
-- **N6 Umfang:** 6 Seiten statt ca. 5? Ohne Antwort: 6 Seiten, `tab:defizite` entfällt.
+- **N6 Umfang:** erledigt durch die Regel vom 16.11. (60–80 Seiten gesamt, lieber zu viel, Nils kürzt). Alle Darstellungen werden gebaut.
 - **N7 Tabellen und Kernbild:** Merkmalstabelle der Stacks in 4.4 und in 5.1 nur die Auswertung (Empfehlung), oder
   eine Bewertungstabelle in 5.1? Soll `fig:bewertungslogik` in 5.3.1 stehen (Empfehlung) oder schon in der
   Kapiteleinleitung?
@@ -666,7 +668,7 @@ kleinste Modell geben.
 
 ### AP4 – Abschnitt 5.1
 
-> Rahmenprompt. Schreibe 5.1 nach Abschnitt 5 des Plans nach `review/kap5-entwurf/5-1.tex` (höchstens 1,5 Seiten,
+> Rahmenprompt. Schreibe 5.1 nach Abschnitt 5 des Plans nach `review/kap5-entwurf/5-1.tex` (etwa 1,5 Seiten, lieber mehr als weniger,
 > sechs Absätze in der Reihenfolge der Kette). Jeder Defizit-Absatz beginnt mit dem Defizit als Kernsatz, belegt
 > die Tatsachen mit den IDs aus L1–L13 und der Belegprüfung aus AP2, verweist auf den Abschnitt in Kap. 2–4 und
 > endet mit der Forschungsfrage, die daraus folgt (`Abschnitt~\ref{sec:zielsetzung}`). Die Lücke im letzten Absatz
@@ -675,7 +677,7 @@ kleinste Modell geben.
 
 ### AP5 – Abschnitt 5.2
 
-> Rahmenprompt. Schreibe 5.2 nach `review/kap5-entwurf/5-2.tex` (höchstens 2 Seiten einschließlich
+> Rahmenprompt. Schreibe 5.2 nach `review/kap5-entwurf/5-2.tex` (etwa 2 Seiten einschließlich
 > `tab:anforderungen` aus AP3). Aufbau: Herleitung, Tabelle, je Forschungsfrage ein Absatz, Randbedingungen,
 > Zielkonflikte. Halte dich an die Steckbriefe in Abschnitt 6 des Plans, auch an die dort genannten Grenzen
 > (A1: feste Bewegungsfolgen; A2: Unterschiede werden gezählt, nicht geleugnet; A4: Fortbewegung nur
@@ -685,7 +687,7 @@ kleinste Modell geben.
 
 ### AP6 – Abschnitt 5.3
 
-> Rahmenprompt. Schreibe 5.3 mit 5.3.1–5.3.3 nach `review/kap5-entwurf/5-3.tex` (höchstens 2,5 Seiten
+> Rahmenprompt. Schreibe 5.3 mit 5.3.1–5.3.3 nach `review/kap5-entwurf/5-3.tex` (etwa 2,5 Seiten
 > einschließlich der Darstellungen aus AP3). Kurze Einleitung des Abschnitts vor 5.3.1. In 5.3.1 die Auswahl der
 > Kennzahlen gegenüber Abschnitt 3.1.3 der Arbeit begründen, auch was nicht anwendbar ist, und die Grenzen der
 > Aussagekraft nennen. In 5.3.2 die drei Prüfebenen und die Grundsätze, dann die Tabelle; „Umfang“ je Versuch als
@@ -700,7 +702,7 @@ kleinste Modell geben.
 > die Kapiteleinleitung und den Überleitungssatz zu Kap. 6. Prüfe: (a) Jedes Defizit führt zu einer Frage, jede
 > Frage zu mindestens einer Anforderung, jede Anforderung zu mindestens einer Kennzahl, jede Kennzahl zu einem
 > Versuch, jeder Versuch zu einem Label in Kap. 8; (b) Kürzel und Zielwerte sind in Text, Tabellen und Abbildung
-> identisch; (c) kein Auslegungswert, kein Messergebnis, kein Komponentenname; (d) Umfang höchstens 6,5 Seiten.
+> identisch; (c) kein Auslegungswert, kein Messergebnis, kein Komponentenname; (d) Umfang notieren (Richtwert etwa 6 Seiten; nichts streichen, Nils kürzt selbst).
 > Erledige die „Folgen für andere Kapiteldateien“ aus Abschnitt 9 des Plans, soweit sie nur Kommentare und Labels
 > betreffen. Führe `python3 scripts/zot.py text` und `python3 scripts/check.py` aus (0 Fehler Pflicht), kompiliere
 > mit `latexmk` und sieh das PDF durch. Bericht: Seitenzahl, Liste aller `\qf` und `\pruefen`, offene Verweise („??“).
@@ -727,4 +729,4 @@ kleinste Modell geben.
   statt Roboter, wenige Wiederholungen am Roboter).
 - `check.py` 0 Fehler; alle `\qf` und `\pruefen` sind im Bericht einzeln begründet.
 - Die Storyline ist allein über die Kernsätze und allein über die Darstellungen lesbar (Richtlinien §3.3).
-- Umfang höchstens 6,5 Seiten.
+- Umfang etwa 6 Seiten oder mehr; gekürzt wird nur durch Nils.
