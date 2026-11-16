@@ -48,10 +48,11 @@ Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/a
 - [ ] **N10 Werbevideo** (Box von A nach B, Datenbasis V3): drei Sätze – wann gedreht, welche Funktionen genutzt, was angepasst werden musste.
 - [x] **N9 Realtests Oktober:** *nur „alle Funktionen funktionieren“, kein Protokoll* → V2 wird neu mit Protokoll gemacht.
 
-- [ ] **PDFs Recherche Kap. 5** (in `_Vorschläge`, Tag `Kap5-Recherche`), ins Quellen-Repo `pdf/` hochladen und Eintrag nach „Bachelorarbeit“ verschieben = Freigabe:
-      Pitonakova 2018 (Q2, frei: uwe-repository.worktribe.com/output/863950) · Valori 2021 (Q6, frei: doi.org/10.3390/robotics10020065) ·
-      Pahl/Beitz Konstruktionslehre 2013, nur Kapitel Anforderungsliste (Q1, SpringerLink über FAU) · Afzal 2021 (Q5, IEEE über FAU) ·
-      DIN EN ISO 13850:2015 (Q6, über UB/Perinorm).
+- [x] **PDFs Recherche Kap. 5** – alle fünf geliefert und am 16.11. im Quellen-Repo `pdf/` abgelegt, in Zotero verlinkt
+      (Pitonakova 2018 = Kapitel S. 357–368 aus dem TAROS-Band · Valori 2021 · Afzal 2021 · Pahl/Beitz **9. Aufl. 2021**, ganzes Buch ·
+      DIN EN ISO 13850:2016-05, deutsche Fassung, am ISO-Eintrag 3RN96K4E).
+      **Offen für dich:** Einträge (alle in `_Vorschläge`, Tag `Kap5-Recherche`) nach „Bachelorarbeit“ verschieben = Freigabe.
+      Pahl/Beitz: neuer Eintrag GX54798N (9. Aufl.); der alte Eintrag U2VWN4IQ (8. Aufl., ohne PDF) kann bei Bedarf gelöscht werden (das darf ich nicht).
 
 **Durchführen**
 - [ ] Messmittel mit dem Build-Prompt aus dem Dokument bauen lassen, vor dem 23.11.
