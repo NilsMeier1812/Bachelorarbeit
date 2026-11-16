@@ -48,11 +48,9 @@ Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/a
 - [ ] **N10 Werbevideo** (Box von A nach B, Datenbasis V3): drei Sätze – wann gedreht, welche Funktionen genutzt, was angepasst werden musste.
 - [x] **N9 Realtests Oktober:** *nur „alle Funktionen funktionieren“, kein Protokoll* → V2 wird neu mit Protokoll gemacht.
 
-- [x] **PDFs Recherche Kap. 5** – alle fünf geliefert und am 16.11. im Quellen-Repo `pdf/` abgelegt, in Zotero verlinkt
-      (Pitonakova 2018 = Kapitel S. 357–368 aus dem TAROS-Band · Valori 2021 · Afzal 2021 · Pahl/Beitz **9. Aufl. 2021**, ganzes Buch ·
-      DIN EN ISO 13850:2016-05, deutsche Fassung, am ISO-Eintrag 3RN96K4E).
-      **Offen für dich:** Einträge (alle in `_Vorschläge`, Tag `Kap5-Recherche`) nach „Bachelorarbeit“ verschieben = Freigabe.
-      Pahl/Beitz: neuer Eintrag GX54798N (9. Aufl.); der alte Eintrag U2VWN4IQ (8. Aufl., ohne PDF) kann bei Bedarf gelöscht werden (das darf ich nicht).
+- [x] **PDFs Recherche Kap. 5:** *hochgeladen 16.11.* Claude hat die fünf Einträge mit Nils' Erlaubnis nach „Bachelorarbeit“ verschoben,
+      Citation Keys gesetzt und exzerpiert (Pitonakova2018, Bender2021, Afzal2021, DINENISO13850, Valori2021); Norm-Eintrag auf DIN-Fassung 2016-05 umgestellt.
+- [ ] **Overleaf:** `zotero.bib` → *Aktualisieren* und pushen, sonst kennt LaTeX die fünf neuen Keys nicht.
 
 **Durchführen**
 - [ ] Messmittel mit dem Build-Prompt aus dem Dokument bauen lassen, vor dem 23.11.
