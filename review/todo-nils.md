@@ -50,6 +50,7 @@ Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/a
 
 - [x] **PDFs Recherche Kap. 5:** *hochgeladen 16.11.* Claude hat die fünf Einträge mit Nils' Erlaubnis nach „Bachelorarbeit“ verschoben,
       Citation Keys gesetzt und exzerpiert (Pitonakova2018, Bender2021, Afzal2021, DINENISO13850, Valori2021); Norm-Eintrag auf DIN-Fassung 2016-05 umgestellt.
+- [ ] **Optional ISO 13855:2024** (Gesamtreaktionszeit T, Sicherheitsabstand; `_Vorschläge` G3SXHFSB): PDF über FAU/UB (DIN Media), ins Quellen-Repo, freigeben. Nur nötig, wenn 5.2 die Norm direkt zitieren soll; die Kernaussage ist über DGUV2015 schon belegt.
 - [ ] **Overleaf:** `zotero.bib` → *Aktualisieren* und pushen, sonst kennt LaTeX die fünf neuen Keys nicht.
 
 **Durchführen**

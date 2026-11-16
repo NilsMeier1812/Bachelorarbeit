@@ -621,6 +621,13 @@ Testen, SITL/HIL), DINENISO13850.01–.03 (Q6/L15–L16: Verfügbarkeit, Halt oh
 **keine Zahlenwerte** für Reaktionszeiten → Zielwert K5.3 bleibt Setzung), Valori2021.01 (fehlende Nachweisverfahren, Cobots).
 Status: L18, L22, L31, L32 jetzt abgedeckt; L17 bleibt offen (kein Bezugswert für die Reaktionszeit in der Norm).
 
+**Nachrecherche Not-Halt-Zeit (16.11.2026, Wunsch Nils):** Keine der gefundenen Normen schreibt eine feste Höchstzeit vor. Die
+Normen verlangen, die Zeit zu **bestimmen und anzugeben**: DGUV2015.17–.19 (EN ISO 10218-1 Anhang B fordert vom Hersteller Angaben
+zu Anhaltezeit und Anhalteweg; Anhaltezeit = Einleiten des Stopps bis Stillstand = Reaktionszeit + Bremszeit). ISO 13855:2024
+(in `_Vorschläge`, G3SXHFSB, PDF fehlt) definiert die Gesamtreaktionszeit T des Systems und nutzt sie zur Berechnung des
+Sicherheitsabstands. Folge für A5: K5.3/K5.4 bleiben Setzungen [V]; im Text begründen, dass die Normen eine gemessene und
+angegebene Anhaltezeit verlangen statt eines Grenzwerts (L17 damit teilweise abgedeckt).
+
 ## 11 Arbeitspakete
 
 Reihenfolge: AP0 (optional) → AP1 und AP2 parallel → AP3 → AP4, AP5, AP6 parallel → AP7 → AP8. Jedes Paket schreibt
