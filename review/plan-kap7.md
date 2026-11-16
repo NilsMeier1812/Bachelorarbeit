@@ -2,7 +2,7 @@
 
 Stand 16.11.2026 (Claude, Kapitel-Workflow Schritt 1 und Schritt 2 für die klaren Lücken). Auftrag Nils vom 16.11.:
 nur planen, noch kein Fließtext. Die Ausarbeitung übernehmen danach schwächere Modelle anhand der Arbeitspakete in §9.
-**Wartet auf Nils:** Entscheidungen in §8.
+**Wartet auf Nils:** Entscheidungen in §8, gesammelt auch in `review/todo-nils.md` (Abschnitt Kap. 7).
 
 - Code-Stand, auf den sich alle Angaben beziehen: Repo `NilsMeier1812/G1`, `main` @ `25d5c1a` (11.11.2026).
   Fundstellen in diesem Plan stammen aus der Technik-Doku `g1pilot/docs/*-T-*.md` und aus Stichproben im Code.
@@ -80,7 +80,9 @@ Zusätzlich zu `CLAUDE.md` und `Richtlinien-BA.md`:
 
 ## 2 Gliederung
 
-Zielumfang **15 bis 16 Seiten** (Gerüst: ca. 14; Mehrbedarf durch 7.5.2 und die Abbildungen, siehe Entscheidung E2).
+Zielumfang **15 bis 16 Seiten** (Gerüst: ca. 14; Mehrbedarf durch 7.5.2 und die Abbildungen). **Regel seit 16.11.2026
+(Nils):** Gesamtarbeit 60–80 Seiten, beim Ausarbeiten lieber zu viel, Nils kürzt selbst. Die Seitenangaben sind deshalb
+Untergrenzen; Arbeitspakete schreiben vollständig und kürzen nicht vorab.
 „Kern“ = muss hinein, „Kann“ = zuerst streichen.
 
 | Abschnitt | Label | Umfang | Anf. / Frage | Rückbezug | Nachweis | Änderung ggü. Gerüst vom 30.10. |
@@ -860,7 +862,8 @@ Jede mit Empfehlung; „wie empfohlen“ genügt als Antwort.
 - **E1 Gliederung.** Änderungen gegenüber dem Gerüst: 7.5 heißt „Roboterhände“ mit 7.5.1 und 7.5.2 (eigene Hände neu);
   `tab:bedienwege` nach 6.4.2; kein eigener Sicherheitsabschnitt; Posen/Abläufe in 7.6.1; Streamdeck entfällt in 7.6.4.
   *Empfehlung: so übernehmen.*
-- **E2 Umfang.** 15–16 statt 14 Seiten. *Empfehlung: zulassen; sonst Streichreihenfolge aus §2.*
+- **E2 Umfang.** Erledigt durch die Regel vom 16.11. (lieber zu viel, Nils kürzt). Die Streichreihenfolge in §2 bleibt
+  als Hilfe für Nils' Kürzung.
 - **E3 Bezug zum Quelltext.** *Empfehlung:* keine Programm- und Dateinamen im Fließtext, dafür Anhangtabelle TA.1
   (Abschnitt → Programm/Datei) und im LaTeX-Quelltext die `% DB:`-Kommentare. Alternative: Programmnamen in
   Schreibmaschinenschrift im Text.
@@ -993,7 +996,7 @@ Pakete: **4a** 7.1 · **4b** 7.2 · **4c** 7.3 · **4d** 7.4 · **4e** 7.5 · **
 > ihrer Umgebung im Text einführen und danach erläutern; Gleichungen in den Satz einbinden, Variablen erklären,
 > `\formeleintrag{}`.
 > Abschluss: Liste aller `\qf{}`/`\pruefen{}` und aller Stellen, an denen du vom Plan abgewichen bist, mit Grund.
-> Abnahme: Umfang ±15 %, jede Leitfrage beantwortet oder markiert, kein Absatz ohne `% DB:` oder Beleg.
+> Abnahme: Umfang mindestens wie geplant (lieber mehr), jede Leitfrage beantwortet oder markiert, kein Absatz ohne `% DB:` oder Beleg.
 
 Zusätze je Paket:
 - **4b (7.2):** G7.1–G7.3 ausformulieren; B7.2 und B7.3 tragen den Abschnitt. Das PD-Gesetz als das der
