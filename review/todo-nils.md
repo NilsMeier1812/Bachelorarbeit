@@ -8,7 +8,7 @@ Regel seit 16.11.2026: Gesamtarbeit 60–80 Seiten, beim Ausarbeiten lieber zu v
 
 ## Kapitel 5 – Handlungsbedarf, Anforderungen, Bewertungsmethodik
 
-Plan: `review/plan-kap5.md` (Fragen in Abschnitt 10). Wichtigstes zuerst.
+Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/artifact/1yNxU5TiVguZ9tJTpF8xFd (Fragen ganz oben, Antwort in die letzte Spalte). Wichtigstes zuerst.
 
 **Entscheidungen**
 - [x] **N1 Realversuche:** Abgabetermin und wie oft du bis dahin noch an den G1 kommst. → *Nils 16.11.: ab etwa

@@ -1,5 +1,7 @@
 # Kapitelplan Kap. 5 – Handlungsbedarf, Anforderungen und Bewertungsmethodik
 
+**Bearbeitbare Fassung (seit 16.11.2026, Wunsch Nils):** Claude-Dokument https://claude.ai/artifact/1yNxU5TiVguZ9tJTpF8xFd – dort editiert und kommentiert Nils. Bei Abweichungen gilt das Dokument; Claude überträgt Änderungen in diese Datei.
+
 Stand 16.11.2026 (Claude, Kapitel-Workflow Schritt 1). **Nur Plan, kein Fließtext.** Wartet auf Nils' Prüfung.
 Code-Stand der Befunde: Repo `NilsMeier1812/G1`, `main` @ `25d5c1a` (11.11.2026), derselbe Stand wie in
 `review/plan-kap6.md` und `review/plan-kap7.md`.
