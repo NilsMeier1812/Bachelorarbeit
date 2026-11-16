@@ -26,8 +26,9 @@ Was der Leser nach Kap. 6 wissen muss:
 Kap. 6 ist das einzige Kapitel des Eigenteils, das **werten und begründen** darf, ohne Messwerte zu nennen.
 Messwerte gehören nach Kap. 8, Algorithmen und Parameter nach Kap. 7.
 
-Zielumfang: **11–12 Seiten** (Gerüst: ca. 10). Begründung: acht Kern-Darstellungen, davon vier Tabellen, die die
-Arbeit an anderer Stelle entlasten (Eigenleistung, Halt-Stufen, Schutzmechanismen, Bedienwege). → Frage N1.
+Zielumfang: **11–12 Seiten** als Richtwert (Gerüst: ca. 10). **Nils, 16.11.:** Der Entwurf darf länger werden;
+Nils kürzt selbst (Regel in `Richtlinien-BA.md` §3.2). Schreibaufträge streichen also nichts vorsorglich, auch
+Kann-Teile werden geschrieben und mit `% Kann` markiert.
 
 ## 2 Abgrenzung
 
@@ -138,17 +139,19 @@ muss (Art F/G), mit Status *abgedeckt / teilweise / offen* und passenden Beleg-I
 - Kette: Neuentwicklung gegen Aufbau auf einem vorhandenen Stack → Kandidaten aus 4.4 → Auswahlkriterien aus
   A2/A7 → Entscheidung für g1pilot → Preis der Entscheidung (kein Simulationspfad, Forschungs-Bedienung).
 - Befunde: Herkunft und Abzweigstand in `NOTICE.md` (hucebot/g1pilot, BSD-3-Clause, Upstream `455e287`/`efc5e7c`,
-  Okt./Nov. 2025). **Achtung:** Der erste Commit im G1-Repo (`6c0f331`, 12.06.2026) enthält bereits
-  `Dockerfile.sim`, `Dockerfile.mujoco` und `bringup_sim.launch.py`. Ob das Upstream-Stand oder Nils' Vorarbeit
-  ist, ist aus dem Repo nicht zu erkennen → N3.
+  Okt./Nov. 2025). **Nils, 16.11. (N3):** Das Original-g1pilot war nur für den Realbetrieb gedacht; **alles, was
+  Simulation ist, ist Nils' Werk**, auch die Sim-Dateien, die schon im ersten Commit `6c0f331` (12.06.2026) liegen.
 - Leitfragen:
   - L1 Was bietet g1pilot laut eigener Beschreibung? – **abgedeckt**: HucebotG1Pilot.01–.04 (ROS-2-Paket,
     Unterkörper beim Unitree-Regler, Oberkörpersteuerung und Teleoperation, Docker, Navigation).
   - L2 Was bieten die Alternativen (Unitree-SDK mit unitree_mujoco, xr_teleoperate, GR00T-WBC, OpenWBT, LeRobot)?
     – **teilweise**: UnitreeMujoco.01/.02, UnitreeSDK2Py.01, UnitreeXRTeleop.01/.02, NvidiaGR00TWBC.01/.02,
     GalbotOpenWBT.01/.02; LeRobot (Cadene2024) ohne Belege. Tiefe nur so weit, wie 4.4 sie schon liefert.
-  - L3 Nach welchen Kriterien wurde gewählt? – Art E, **[N?]** → N4. Kandidaten aus dem Repo: ROS-2-Anbindung,
-    kartesische Armsteuerung vorhanden, Onboard-Regler für den Unterkörper wird weiterverwendet, permissive Lizenz.
+  - L3 Nach welchen Kriterien wurde gewählt? – Art E. **Nils, 16.11. (N4):** Einzige echte Alternative war die
+    Neuentwicklung; g1pilot passte zum Vorhaben. Für den Text reichen **zwei bis drei Sätze**: Neuentwicklung gegen
+    Aufbau auf g1pilot, Grund = vorhandene Bausteine, die zum Vorhaben passen (ROS 2, kartesische Armsteuerung,
+    Unterkörper beim Onboard-Regler, BSD-Lizenz; jeden Punkt mit HucebotG1Pilot.01–.03 bzw. eigener Analyse belegen).
+    Keine ausführliche Bewertung der anderen Stacks, die steht in 4.4. 6.1.1 schrumpft auf ca. 0,3 Seiten.
 - Darstellung: keine. Verweis auf die Merkmalstabelle in 4.4 (dort noch `\pruefen`, Label abstimmen → D3).
 - Stil: Hier ist ein wertender Vergleich erlaubt. Die Fakten über die Alternativen tragen Belege, das Urteil nicht.
 
@@ -164,6 +167,7 @@ muss (Art F/G), mit Status *abgedeckt / teilweise / offen* und passenden Beleg-I
   Realbetrieb der Arme fehlen (Übergabe, Begrenzungen, gestufter Halt) · A6 Bedienung für Entwickler, alle Funktionen
   gleichzeitig sichtbar · A1/A7 keine Schnittstelle für Projekte ohne ROS, keine Abläufe, keine Inspire-Hände.
   Jede dieser Zeilen muss am Commit des übernommenen Stands geprüft werden; was sich nicht prüfen lässt → `\pruefen`.
+  Laut Nils (N3) gab es im Original **keinen** Simulationsbetrieb; das ist das erste und größte Defizit für A2.
 - Leitfrage L4 Dokumentiert g1pilot einen Simulationsbetrieb? – **offen** (README-Beleg nennt keinen; ein
   Negativbefund ist kein Zitat, sondern eigene Analyse).
 
@@ -290,8 +294,9 @@ muss (Art F/G), mit Status *abgedeckt / teilweise / offen* und passenden Beleg-I
   - Unterschied Simulation: Not-Halt dämpft dort auch die Beine. Das gehört in `tab:sim_real` bzw. als Fußnote der
     Tabelle, nicht verschweigen.
 - Leitfragen:
-  - L16 Welche Zustände hat der Onboard-Regler (gedämpft, vorbereitet, Gehen mit/ohne Taille)? – **offen**,
-    Herstellerdoku als PDF fehlt (vgl. `\qf` am Ende von 3.4.3) → D2, N8.
+  - L16 Welche Zustände hat der Onboard-Regler (gedämpft, vorbereitet, Gehen mit/ohne Taille)? – **teilweise**:
+    Benutzerhandbuch G1 (von Nils am 16.11. geliefert, Zotero-Freigabe steht aus, siehe Abschnitt 7 Q1) beschreibt
+    Nullmoment-Zustand, Dämpfung, Bereitschaft und Bewegungszustand über die Fernbedienung. Entwicklerdoku fehlt.
   - L17 Welche Stoppkategorien kennt die Maschinensicherheit? – **abgedeckt**: DGUV2015.10; Ding2026.02. Die
     Zuordnung der eigenen Stufen zu Kategorien ist eine **Analogie**, als solche formulieren.
   - L18 Not-Halt als Pflichtfunktion bei Industrierobotern? – **abgedeckt**: DGUV2015.09 (gilt für
@@ -337,9 +342,13 @@ muss (Art F/G), mit Status *abgedeckt / teilweise / offen* und passenden Beleg-I
     DGUV2015.02; Rückverweis 3.4.1.
   - L22 Kann Standard-Hardware sicherheitsbewertete Funktionen tragen? – **abgedeckt**: Ding2026.05 (Bordrechner
     des G1 sind Standardhardware). Stützt die Einordnung „nicht sicherheitsbewertet“.
-  - L23 Welche Hinweise gibt der Hersteller (Dämpfungsmodus, Fernbedienung)? – **offen** (wie L16).
-- Offene Punkte: Gibt es am Lehrstuhl eine Gefährdungsbeurteilung für den G1? Die G1-Doku erwähnt eine
-  Sicherheitsanalyse zur Smartphone-Bedienung außerhalb des Repos → N9.
+  - L23 Welche Hinweise gibt der Hersteller (Dämpfungsmodus, Fernbedienung)? – **teilweise**, sobald das
+    Benutzerhandbuch freigegeben ist: Not-Halt der Fernbedienung = Dämpfung, der Roboter sinkt langsam zu Boden;
+    beim Abschalten im Stand fällt er; Befehle der Fernbedienung gelten auch bei eigener High-Level-Entwicklung
+    weiter und werden dann parallel ausgeführt, bei Low-Level-Entwicklung nicht; Stehen über längere Zeit nur am
+    Schutzgestell. Der vorletzte Punkt stützt die Halt-Stufe „Fernbedienung des Herstellers“ und ihre Grenze.
+- **Nils, 16.11. (N9):** Eine offizielle Gefährdungsbeurteilung gibt es nicht. Der Text erwähnt keine und behauptet
+  keine; die Einordnung „nicht sicherheitsbewertet“ in 6.3.2 bleibt, die Lücke wird in 8.5.3 (Limitierungen) genannt.
 
 ### 6.3.3 Übergabe der Arme an den Onboard-Regler
 
@@ -452,8 +461,8 @@ muss (Art F/G), mit Status *abgedeckt / teilweise / offen* und passenden Beleg-I
 - Leitfragen:
   - L33 Was sagt die Literatur zu Modularität und austauschbaren Komponenten? – **abgedeckt**: Macenski2022.05, .11.
   - L34 Können mit dem SDK entwickelte Programme in der Simulation laufen? – **abgedeckt**: UnitreeMujoco.01.
-- Offene Punkte: Welches externe Projekt dient in 8.4.1 als Nachweis? Ohne ein tatsächlich angebundenes Projekt
-  bleibt A7 nur konzeptionell belegt → N10.
+- **Nils, 16.11. (N10):** Bisher ist kein externes Projekt angebunden. 6.5.1 beschreibt die Andockpunkte deshalb
+  rein konzeptionell und behauptet keine erfolgte Anbindung. Wie 8.4.1 nachweist, steht auf `review/todo-nils.md`.
 
 ### 6.5.2 Modularisierung über Container-Profile
 
@@ -520,7 +529,7 @@ Westervelt2018.15 stützen den Sturz als Gefährdung zusätzlich.
 
 | Nr. | Lücke | betrifft | Dringlichkeit | Suchhinweis |
 |---|---|---|---|---|
-| Q1 | Herstellerdoku G1: Zustände des Onboard-Reglers, Überblendung der Arme per Gewicht und Wirkung auf die Taille, Dämpfungsmodus, Fernbedienung | 6.2.3, 6.3.1, 6.3.3 (L7, L16, L23, L24), Kap. 2.3 | **hoch** | Unitree-Entwicklerdoku (support.unitree.com) blockt Abrufe; Nils druckt die Seiten als PDF |
+| Q1 | Herstellerdoku G1: Zustände des Onboard-Reglers, Überblendung der Arme per Gewicht und Wirkung auf die Taille, Dämpfungsmodus, Fernbedienung | 6.2.3, 6.3.1, 6.3.3 (L7, L16, L23, L24), Kap. 2.3 | **hoch** | **Teilweise geschlossen 16.11.:** Benutzerhandbuch G1 V1.0 (2024) von Nils geliefert; Kopie von manualslib.com, besser die Originaldatei von Unitree. Deckt Fernbedienung, Dämpfung, Not-Halt, Start und Sicherheitshinweise, **nicht** arm_sdk, FSM-IDs, LocoClient. Entwicklerdoku: Nils druckt die Seiten als PDF (`review/todo-nils.md`) |
 | Q2 | WBC-AGILE: Herkunft und Training der beiden Policies | 6.2.3 (L14) | mittel | Zhao2026 liegt in `_Vorschläge` (Q4ACNEZH), Freigabe fehlt |
 | Q3 | ISO 10218-1 (Grenze der Geschwindigkeit, Betriebsarten) als Primärquelle | 6.3.2 (L19) | mittel | Normen liegen ohne PDF in `_Vorschläge`; über die UB (Normendatenbank) |
 | Q4 | Modusbasierte Bedienoberflächen, Modusfehler, reduzierte Auswahl | 6.4.1 (L27) | niedrig | Stichworte „mode error“, „mode awareness“, Mensch-Maschine-Schnittstelle, Robotik oder Automatisierung |
@@ -546,29 +555,21 @@ in einer Rechercherunde (Arbeitspaket AP0) bearbeiten.
 
 ## 8 Fragen an Nils
 
-Reihenfolge nach Gewicht. Zu jeder Frage steht, wie der Plan ohne Antwort weiterläuft.
+Antworten von Nils vom 16.11.2026 sind eingearbeitet. Was noch fehlt, steht in `review/todo-nils.md`.
 
-- **N1 Umfang:** 11–12 Seiten statt ca. 10? Ohne Antwort: 11 Seiten, Kann-Darstellungen entfallen.
-- **N2 Entwurfsgrundsätze und Übersichtstabelle:** Passen die drei Grundsätze (eine Schnittstelle, Logik an einer
-  Stelle, Simulation zuerst), und soll `tab:konzept_uebersicht` in die Kapiteleinleitung? Ohne Antwort: Grundsätze
-  ja, Tabelle nein.
-- **N3 Ausgangsstand:** War der Simulations-Container im ersten Commit vom 12.06.2026 schon dein Werk, oder kam er
-  aus dem Original? Davon hängt ab, was in 6.1.2 als Defizit und in `tab:eigenleistung` als neu gilt.
-- **N4 Auswahl der Basis:** Welche Alternativen hast du tatsächlich erwogen, und was gab den Ausschlag für g1pilot?
-  Der Text darf nur deine Gründe nennen. Ohne Antwort: `\pruefen` an der Stelle.
-- **N5 Lauf-Policies:** Die Liste der gefundenen und verworfenen Policies (zugesagt am 09.11.) und die Kriterien.
-- **N6 Realtests als Begründung:** Darf der Text Beobachtungen aus deinen Realtests nennen (z. B. Verhalten mit
-  schlaffer Taille am 15.10.), und wo sind sie dokumentiert? Sonst begründet der Text nur konstruktiv.
-- **N7 Zustandsdiagramm:** Bist du mit einem abstrakten Diagramm einverstanden, das die vier Zustandsmaschinen
-  zusammenfasst, oder soll das Diagramm nur den Realbetrieb zeigen?
-- **N8 Herstellerdoku:** Kannst du die Unitree-Seiten zu Onboard-Regler, arm_sdk und Sicherheit als PDF drucken und
-  ins Quellen-Repo legen (Lücke Q1)? Das braucht auch Kap. 2.3.
-- **N9 Sicherheit am Lehrstuhl:** Gibt es eine Gefährdungsbeurteilung oder Betriebsanweisung für den G1, und darf
-  die Sicherheitsanalyse zur Smartphone-Bedienung (liegt außerhalb des Repos) als Datenbasis genannt werden?
-- **N10 Nachweis Erweiterbarkeit:** Welches externe Projekt wird in 8.4.1 angebunden? Kap. 6.5.1 sollte genau die
-  Ebene hervorheben, die dort gezeigt wird.
-- **N11 Verweis auf den eigenen Code:** Wie wird das G1-Repo im Text genannt? Vorschlag: nicht als Literaturquelle,
-  sondern als Anhang „Inhalt des Datenträgers“ mit Stand (Commit), auf den Kap. 6 und 7 verweisen.
+| Nr. | Frage | Stand |
+|---|---|---|
+| N1 | Umfang | **beantwortet:** 60–80 Seiten gesamt, Entwurf darf länger sein, Nils kürzt (Abschnitt 1, Richtlinien §3.2) |
+| N2 | Drei Entwurfsgrundsätze in der Kapiteleinleitung, Übersichtstabelle | **offen**, Nils hat nachgefragt, Erklärung im Thread am 16.11. Bis zur Antwort: Grundsätze ja, Tabelle als `% Kann` |
+| N3 | Ausgangsstand des Simulations-Containers | **beantwortet:** alles, was Simulation ist, ist Nils' Werk (6.1.1, 6.1.2, `tab:eigenleistung`) |
+| N4 | Auswahlgründe für g1pilot | **beantwortet:** einzige Alternative war Neuentwicklung, g1pilot passte; 6.1.1 kurz halten |
+| N5 | Liste der Lauf-Policies | **offen**, steht auf `review/todo-nils.md`; bis dahin `\pruefen` in 6.2.3 |
+| N6 | Realtests als Begründung | **beantwortet: ja.** Doku der Realtests steht auf `review/todo-nils.md`; ohne Doku `\pruefen` statt Datum |
+| N7 | Abstraktes Zustandsdiagramm `fig:betriebszustaende` | **beantwortet: vermutlich ja** (Nils, nach Erklärung im Thread final bestätigen) |
+| N8 | Herstellerdoku | **teilweise:** Benutzerhandbuch G1 geliefert (Abschnitt 7, Q1); Entwicklerdoku als PDF steht auf `review/todo-nils.md` |
+| N9 | Gefährdungsbeurteilung | **beantwortet:** keine offizielle (6.3.2) |
+| N10 | Externes Projekt für 8.4.1 | **beantwortet:** bisher keins angebunden; 6.5.1 nur konzeptionell, Entscheidung auf `review/todo-nils.md` |
+| N11 | Verweis auf das eigene Repo | **beantwortet:** kein eigener Name nötig. Umsetzung: Anhang „Inhalt des Datenträgers“ mit Commit-Stand, Text spricht von „der Umgebung“ und verweist auf den Anhang; nicht im Literaturverzeichnis |
 
 ## 9 Arbeitspakete
 

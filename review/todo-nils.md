@@ -33,3 +33,23 @@ Plan: `review/plan-kap5.md` (Fragen in Abschnitt 10). Wichtigstes zuerst.
 - [ ] Versuche am realen G1 nach `review/plan-kap5.md` Abschnitt 7.2: V2 Funktionsprüfung mit Protokoll, V7 gleiche
       Posenfolge in Simulation und am Roboter aufzeichnen, V11 neue Aufgabe am Roboter, optional V5/V8/V9 am Roboter.
 - [ ] Festen Code-Stand im G1-Repo markieren (Tag), an dem alle Messungen laufen (gleich mit Kap. 7, E4).
+
+## Kapitel 6 – Konzept der Umgebung
+
+Plan: `review/plan-kap6.md` (Fragen in Abschnitt 8).
+
+**Angaben und Material**
+- [ ] **N5 Liste der Lauf-Policies**, die du gefunden und verworfen hast, je Policy kurz: Herkunft, warum genommen
+      oder nicht (Lizenz, lief in MuJoCo, Arme frei, …). Für 6.2.3 und `tab:policies` in 4.1 (zugesagt seit 09.11.).
+- [ ] **N8 Unitree-Entwicklerdoku als PDF** (support.unitree.com blockt automatische Abrufe): Seiten zu den Zuständen
+      des Onboard-Reglers (FSM, Damp/Preparation/Walk), zur Arm-Schnittstelle `arm_sdk` (Gewicht, Wirkung auf die
+      Taille), zum Laufdienst (LocoClient) und zur Fernbedienung. Im Browser „Drucken → als PDF“, ins Quellen-Repo
+      `pdf/` hochladen. Für Kap. 2.3, 3.4.3, 6.2.3, 6.3.1, 6.3.3.
+- [ ] **N8 Benutzerhandbuch G1:** die hochgeladene Fassung ist eine Kopie von manualslib.com. Besser die Originaldatei
+      von Unitree laden; dann lege ich den Zotero-Eintrag an.
+- [ ] **N6 Doku deiner Realtests** (Datum, was getestet, was beobachtet, Fotos/Videos), z. B. Test mit schlaffer Taille
+      am 15.10. Für 6.3.3 und Kap. 8 (gleich mit Kap. 5, N9).
+
+**Entscheidungen**
+- [ ] **N2 Entwurfsgrundsätze** in der Kapiteleinleitung (Erklärung im Thread): einverstanden?
+- [ ] **N10 Nachweis der Erweiterbarkeit (8.4.1):** siehe Kap. 5, N5.
