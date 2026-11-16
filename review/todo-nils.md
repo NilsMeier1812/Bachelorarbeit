@@ -6,6 +6,29 @@ Kürzel verweisen auf die Fragen im jeweiligen Plan unter `review/plan-kap<N>.md
 
 Regel seit 16.11.2026: Gesamtarbeit 60–80 Seiten, beim Ausarbeiten lieber zu viel, Nils kürzt selbst.
 
+## Kapitel 4 – Fähigkeiten humanoider Roboter und verwandte Arbeiten
+
+Entwurf: `Kapitel/04_Faehigkeiten_Verwandte_Arbeiten.tex`, Plan `review/plan-kap4.md`.
+
+**Lesen und entscheiden**
+- [ ] **K1 Entwurf Kap. 4 lesen.** Danach folgt die inhaltliche Prüfung aller Sätze gegen die Belege (Schritt 5).
+- [ ] **K2 MuJoCo-Dokumentation als Quelle** (als PDF ins Quellen-Repo) für „MuJoCo kollidiert Meshes nur über ihre
+      konvexe Hülle“: einverstanden?
+- [ ] **K3 Freigaben in `_Vorschläge`** für `tab:policies`: Zhao2026 (AGILE, gleich mit Kap. 7, E8), Zhang2025 (R2S2),
+      Cadene2026 (LeRobot).
+- [ ] **K4 Recherche freigeben** für die offenen Lücken: Grenzen der Greifkraft (z. B. ISO/TS 15066), Bedienung über
+      Gamepad/Smartphone.
+
+**PDFs über die FAU** (ins Quellen-Repo `pdf/`, Name `Nachname_Jahr_Kurztitel.pdf`, dann kurz Bescheid)
+- [ ] **K5 Piazza2019** (Überblick Roboterhände) – am wichtigsten, für 4.2.4: Abwägung vielseitige Hand vs. einfacher,
+      aufgabenspezifischer Greifer (Nils 16.11.). Ergänzend Billard2019, Controzzi2014.
+- [ ] **K6 Taktile Sensorik:** Dahiya2010, Kappassov2015.
+- [ ] **K7 Trochez2026** (PDF fehlt). Ma2017 und Mamou2009 siehe Kap. 7.
+
+**Angaben und Material**
+- [ ] **K8 Foto** von Rubber Hands, Inspire FTP und gedruckter Hand nebeneinander (eigene Aufnahme) für 4.2.4.
+- [ ] **K9 Kenndaten Hände:** Gewicht der Rubber Hands (Datenblatt/Quelle) und der Haken gewogen (bisher 0,15 kg geschätzt).
+
 ## Kapitel 5 – Handlungsbedarf, Anforderungen, Bewertungsmethodik
 
 Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/artifact/1yNxU5TiVguZ9tJTpF8xFd (Fragen ganz oben, Antwort in die letzte Spalte). Wichtigstes zuerst.
