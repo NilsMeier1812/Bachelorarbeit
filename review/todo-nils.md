@@ -53,3 +53,30 @@ Plan: `review/plan-kap6.md` (Fragen in Abschnitt 8).
 **Entscheidungen**
 - [ ] **N2 Entwurfsgrundsätze** in der Kapiteleinleitung (Erklärung im Thread): einverstanden?
 - [ ] **N10 Nachweis der Erweiterbarkeit (8.4.1):** siehe Kap. 5, N5.
+
+## Kapitel 7 – Umsetzung
+
+Plan: `review/plan-kap7.md` (Fragen in Abschnitt 8, „E“). Liegt noch auf Branch `claude/project-thread-jepdj5`;
+sag „auf main“, dann übernehme ich ihn.
+
+**Entscheidungen** (zu jeder gibt es eine Empfehlung, „wie empfohlen“ genügt)
+- [ ] **E1 Gliederung:** 7.5 „Roboterhände“ mit eigenen Händen (7.5.2), `tab:bedienwege` nach 6.4.2, kein eigener
+      Sicherheitsabschnitt, Streamdeck entfällt. Einverstanden?
+- [ ] **E3 Bezug zum Quelltext:** keine Programm- und Dateinamen im Fließtext, dafür Zuordnungstabelle im Anhang?
+- [ ] **E4 Fester Code-Stand:** Ändert sich bis zur Abgabe noch etwas an Planer, Händen oder Bedienwegen? Dann Tag im
+      G1-Repo setzen (gleich mit Kap. 5).
+- [ ] **E6 Messwerte** aus der Technik-Doku nicht in Kap. 7, sondern für Kap. 8 neu messen?
+- [ ] **E8 Freigaben in `_Vorschläge`:** Zhao2026 (AGILE) und Mamou2009 (V-HACD) freigeben; die vier optionalen vom
+      16.11. (Lloyd 1982, RFC 2104 HMAC, Dijkstra 1959, Nocedal/Wright 2006) nur, wenn die Verfahrensnamen im Text
+      stehen sollen.
+- [ ] **E9 Smartphone:** nur das Prinzip (Kopplung, Prüfcode, Rollen, Zeitgrenzen), kein Protokolldetail?
+
+**Angaben und Material**
+- [ ] **E5 Unitree-Entwicklerdoku als PDF:** siehe Kap. 6, N8 (gleiche Seiten). Für 7.2.1, 7.3.2, 7.4.1.
+- [ ] **E5 Szenen-Editor:** README des fremden Projekts `mujoco-scene-editor`, auf dem der eigene Editor aufbaut, als
+      PDF ins Quellen-Repo; dann lege ich einen Software-Eintrag an.
+- [ ] **PDFs über die FAU:** Mamou2009 (V-HACD, IEEE) und Ma2017 (OpenHand, IEEE, schon freigegeben, PDF fehlt).
+- [ ] **E7 Bildschirmfotos** in hoher Auflösung nach `Bilder/`: Demo-Oberfläche (Pflicht) und eine Arbeitsplatz-Szene
+      in MuJoCo neben RViz (optional).
+- [ ] **Szenen:** Welche mitgelieferte Szene (A5, AP_1 bis AP_3) bildet welchen realen Arbeitsplatz ab?
+- [ ] **Haken-Hand wiegen:** Masse im Hand-Profil ist mit 0,15 kg nur geschätzt.
