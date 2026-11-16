@@ -532,12 +532,12 @@ Empfehlung: Vor dem Schreiben nur Q1 und Q2 schließen. Q3–Q7 als `\qf` stehen
 in einer Rechercherunde (Arbeitspaket AP0) bearbeiten.
 
 **Abhängigkeiten von anderen Kapiteln:**
-- **D1 Kap. 5:** A1–A7 müssen mit endgültigem Wortlaut und Kennzahlen feststehen, Label `tab:anforderungen`. Kap. 5
+- **D1 Kap. 5 (Stand 16.11., `review/plan-kap5.md`):** Label `tab:anforderungen` und Reihenfolge A1–A7 bestätigt. A2 lautet dort „gleicher Programmstand, Wechsel nur über Konfiguration, Unterschiede gezählt und begründet“ (passt zu `tab:sim_real`). Einzige Zahl in `tab:anforderungen` ist die Geschwindigkeit der Hand (250 mm/s); alle übrigen Grenzwerte bleiben in `tab:schutzmechanismen`. Ursprünglicher Stand: A1–A7 müssen mit endgültigem Wortlaut und Kennzahlen feststehen, Label `tab:anforderungen`. Kap. 5
   ist noch Gerüst. Kap. 6 kann mit den Kürzeln aus dem Gerüst geschrieben werden, die Kapiteleinleitung und 6.1.2
   erst danach endgültig.
 - **D2 Kap. 2.3:** `sec:g1_sdk`, `sec:g1_onboard`, `sec:g1_armsdk` sind Rückverweis-Ziele für 6.2.1, 6.2.3, 6.3.1,
   6.3.3 und noch leer. Hängt an Q1.
-- **D3 Kap. 4.4:** Merkmalstabelle der Stacks ist noch `\pruefen`; 6.1.1 verweist darauf (Label abstimmen).
+- **D3 Kap. 4.4:** Merkmalstabelle der Stacks ist noch `\pruefen`; 6.1.1 verweist darauf. Label laut Plan zu Kap. 5: `tab:stacks`.
 - **D4 Kap. 7:** `tab:bedienwege` in `Kapitel/07_Umsetzung.tex` löschen, wenn sie in 6.4.2 steht. Labels
   `sec:hand_profile`, `sec:hand_schnittstelle` vergibt Kap. 7.
 - **D5 Kap. 8:** Jeder Nachweis-Verweis setzt voraus, dass der Versuch existiert. Stand heute liegen im G1-Repo
