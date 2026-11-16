@@ -614,6 +614,13 @@ Reihenfolge nach Gewicht. Zu jeder Frage steht, wie der Plan ohne Antwort weiter
 
 VDI 2221 Blatt 1 nicht vorgeschlagen: Eintrag beim Herausgeber in der Cloud nicht abrufbar, also nicht verifiziert. Q3 (Fragebogen SUS) erst, wenn N3 = ja.
 
+**Freigabe und Exzerpt (16.11.2026, abends, mit Nils' Erlaubnis):** Die fünf Einträge sind freigegeben und exzerpiert:
+Pitonakova2018.01–.02 (Q2/L18: Echtzeitfaktor R = simulierte/reale Zeit), Bender2021.01–.05 (Q1/L22: Muss/Soll, Messbarkeit,
+Verifizierbarkeit, lösungsneutral, Grenzwert statt Punktwert), Afzal2021.01–.03 (Q5/L31–L32: Feldtest vs. simulationsbasiertes
+Testen, SITL/HIL), DINENISO13850.01–.03 (Q6/L15–L16: Verfügbarkeit, Halt ohne zusätzliche Gefährdung, Stopp-Kategorie 1;
+**keine Zahlenwerte** für Reaktionszeiten → Zielwert K5.3 bleibt Setzung), Valori2021.01 (fehlende Nachweisverfahren, Cobots).
+Status: L18, L22, L31, L32 jetzt abgedeckt; L17 bleibt offen (kein Bezugswert für die Reaktionszeit in der Norm).
+
 ## 11 Arbeitspakete
 
 Reihenfolge: AP0 (optional) → AP1 und AP2 parallel → AP3 → AP4, AP5, AP6 parallel → AP7 → AP8. Jedes Paket schreibt
