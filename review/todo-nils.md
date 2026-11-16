@@ -31,32 +31,26 @@ Entwurf: `Kapitel/04_Faehigkeiten_Verwandte_Arbeiten.tex`, Plan `review/plan-kap
 
 ## Kapitel 5 – Handlungsbedarf, Anforderungen, Bewertungsmethodik
 
-Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/artifact/1yNxU5TiVguZ9tJTpF8xFd (Fragen ganz oben, Antwort in die letzte Spalte). Wichtigstes zuerst.
+Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/artifact/1yNxU5TiVguZ9tJTpF8xFd (Fragen ganz oben, Antwort in die letzte Spalte; Claudes Rückfragen direkt darunter). Wichtigstes zuerst.
 
 **Entscheidungen**
-- [x] **N1 Realversuche:** Abgabetermin und wie oft du bis dahin noch an den G1 kommst. → *Nils 16.11.: ab etwa
-      23.11. quasi ständig.* Folge: V2, V7, V11 sind fest eingeplant; die Messmittel (N11) sollten bis dahin fertig sein.
-- [ ] **N2 Zielwerte der Anforderungen:** *Nils 16.11.: „keine Ahnung“.* → Claude hat Vorschläge mit Begründung in
-      `review/plan-kap5.md` Abschnitt 6 eingetragen (gelten vorläufig, die Ausarbeitung schreibt sie so). Bitte nur
-      noch widersprechen, wenn dir ein Wert falsch vorkommt: A3 Echtzeitfaktor ≥ 0,95, Takttreue ≥ 95 % ·
-      A4 Abweichung der Hand ≤ 2 cm · A5 Not-Halt ≤ 100 ms, Halt nach Ausfall ≤ 1 s · A6 Inbetriebnahme ≤ 60 min,
-      erste Bewegung mit ≤ 5 Bedienhandlungen. A2 als „gleicher Programmstand, Unterschiede gezählt und begründet“.
-- [ ] **N3 Nutzerstudie** mit 3–5 Personen ohne Robotikerfahrung: ja oder nein?
-- [ ] **N7 Tabellen:** Merkmalstabelle der Stacks in 4.4 und in 5.1 nur Auswertung (Empfehlung)? Kernbild in 5.3.1?
-- [ ] **N11 Messmittel** im G1-Repo bauen lassen (Echtzeitfaktor, Not-Halt-Zeit, Aufzeichnung der Gelenkwinkel,
-      Planer-Messreihe, Code-Vergleich)? Nötig vor den Realversuchen.
-- [ ] **N12 Recherche** zu den Lücken Q1 (Anforderungsliste), Q2 (Echtzeitfaktor, dringend), Q5, Q6 freigeben?
+- [x] **N1 Realversuche:** *ab etwa 23.11. quasi ständig.* V2, V7, V11 fest eingeplant.
+- [x] **N2 Zielwerte:** *„keine Ahnung“* → Claudes Vorschläge gelten (A3 ≥ 0,95 / ≥ 95 % · A4 ≤ 2 cm · A5 ≤ 100 ms / ≤ 1 s · A6 ≤ 60 min / ≤ 5). Nur widersprechen, wenn ein Wert falsch wirkt.
+- [ ] **N3 Nutzerstudie** (3–5 Personen, Aufgabe + Fragebogen SUS, ca. 1 h je Person): Erklärung im Dokument, Empfehlung ja. Bitte nur ja/nein.
+- [x] **N5 Externes Projekt:** *keins, A7 bleibt Konzept.* Optional kleines Beispielprogramm (Punkt 6 im Build-Prompt).
+- [x] **N7 Tabellen:** *wie empfohlen.*
+- [x] **N8 Aufgabenstellung:** *keine.* Herleitung nur aus den Defiziten.
+- [x] **N11 Messmittel:** *ja, Nils baut mit eigenem Agenten.* Prompt im Dokument (inkl. ausführlicher Armplaner-Messreihe).
+- [x] **N12 Recherche:** *ja.* Claude recherchiert Q2, Q1, Q5, Q6 (Q3 falls N3 ja).
 
 **Angaben und Material**
-- [ ] **N4 Referenz-PC:** Prozessor, Arbeitsspeicher, Grafik, Betriebssystem; gibt es einen zweiten, schwächeren PC?
-- [ ] **N5 Externes Projekt** für den Nachweis der Erweiterbarkeit (gleich mit Kap. 6, N10).
-- [ ] **N8 Aufgabenstellung** des Lehrstuhls, falls schriftlich vorhanden (als PDF oder Text).
-- [ ] **N9 Realtests Oktober:** Gibt es Aufzeichnungen, Videos, Notizen? Dürfen sie als Datenbasis dienen?
-- [ ] **N10 Werbevideo:** wann, welche Funktionen, was musste angepasst werden.
+- [ ] **N4 Referenz-PC:** nur Prozessor, Arbeitsspeicher, Grafikkarte, Betriebssystem des PCs, auf dem die Simulation läuft (kein Benchmark, kein zweiter PC).
+- [ ] **N10 Werbevideo** (Box von A nach B, Datenbasis V3): drei Sätze – wann gedreht, welche Funktionen genutzt, was angepasst werden musste.
+- [x] **N9 Realtests Oktober:** *nur „alle Funktionen funktionieren“, kein Protokoll* → V2 wird neu mit Protokoll gemacht.
 
-**Durchführen (nach N1, N11)**
-- [ ] Versuche am realen G1 nach `review/plan-kap5.md` Abschnitt 7.2: V2 Funktionsprüfung mit Protokoll, V7 gleiche
-      Posenfolge in Simulation und am Roboter aufzeichnen, V11 neue Aufgabe am Roboter, optional V5/V8/V9 am Roboter.
+**Durchführen**
+- [ ] Messmittel mit dem Build-Prompt aus dem Dokument bauen lassen, vor dem 23.11.
+- [ ] Realversuche ab 23.11.: fünf Punkte im Dokument (V7, V2, V11, V5, V9, je dreimal); Protokollblätter kommen vorher von Claude.
 - [ ] Festen Code-Stand im G1-Repo markieren (Tag), an dem alle Messungen laufen (gleich mit Kap. 7, E4).
 
 ## Kapitel 6 – Konzept der Umgebung

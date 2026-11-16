@@ -601,6 +601,8 @@ Reihenfolge nach Gewicht. Zu jeder Frage steht, wie der Plan ohne Antwort weiter
   nicht; die betroffenen Versuche bleiben offen.
 - **N12 Recherche:** Sollen die Lücken Q1, Q2, Q5, Q6 recherchiert werden (Arbeitspaket AP0)? Ohne Antwort: nur Q2.
 
+**Antworten Nils im Claude-Dokument (16.11., 12:38):** N3 offen (Erklärung gegeben, Empfehlung ja). N4 nur Angaben zum PC der Simulation, kein zweiter PC. N5 kein externes Projekt, A7 bleibt Konzept (optional Beispielprogramm). N7 wie empfohlen. N8 keine Aufgabenstellung. N9 nur „alle Funktionen funktionieren“ → V2 neu mit Protokoll; Werbevideo (Box von A nach B) = Datenbasis V3. N11 ja, Nils baut mit eigenem Agenten (Prompt im Dokument, erweiterte Armplaner-Messreihe). N12 ja. Realversuche ab 23.11.: V7, V2, V11, V5, V9 je dreimal.
+
 ## 11 Arbeitspakete
 
 Reihenfolge: AP0 (optional) → AP1 und AP2 parallel → AP3 → AP4, AP5, AP6 parallel → AP7 → AP8. Jedes Paket schreibt
