@@ -48,6 +48,11 @@ Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/a
 - [ ] **N10 Werbevideo** (Box von A nach B, Datenbasis V3): drei Sätze – wann gedreht, welche Funktionen genutzt, was angepasst werden musste.
 - [x] **N9 Realtests Oktober:** *nur „alle Funktionen funktionieren“, kein Protokoll* → V2 wird neu mit Protokoll gemacht.
 
+- [ ] **PDFs Recherche Kap. 5** (in `_Vorschläge`, Tag `Kap5-Recherche`), ins Quellen-Repo `pdf/` hochladen und Eintrag nach „Bachelorarbeit“ verschieben = Freigabe:
+      Pitonakova 2018 (Q2, frei: uwe-repository.worktribe.com/output/863950) · Valori 2021 (Q6, frei: doi.org/10.3390/robotics10020065) ·
+      Pahl/Beitz Konstruktionslehre 2013, nur Kapitel Anforderungsliste (Q1, SpringerLink über FAU) · Afzal 2021 (Q5, IEEE über FAU) ·
+      DIN EN ISO 13850:2015 (Q6, über UB/Perinorm).
+
 **Durchführen**
 - [ ] Messmittel mit dem Build-Prompt aus dem Dokument bauen lassen, vor dem 23.11.
 - [ ] Realversuche ab 23.11.: fünf Punkte im Dokument (V7, V2, V11, V5, V9, je dreimal); Protokollblätter kommen vorher von Claude.

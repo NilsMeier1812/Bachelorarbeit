@@ -603,6 +603,17 @@ Reihenfolge nach Gewicht. Zu jeder Frage steht, wie der Plan ohne Antwort weiter
 
 **Antworten Nils im Claude-Dokument (16.11., 12:38):** N3 offen (Erklärung gegeben, Empfehlung ja). N4 nur Angaben zum PC der Simulation, kein zweiter PC. N5 kein externes Projekt, A7 bleibt Konzept (optional Beispielprogramm). N7 wie empfohlen. N8 keine Aufgabenstellung. N9 nur „alle Funktionen funktionieren“ → V2 neu mit Protokoll; Werbevideo (Box von A nach B) = Datenbasis V3. N11 ja, Nils baut mit eigenem Agenten (Prompt im Dokument, erweiterte Armplaner-Messreihe). N12 ja. Realversuche ab 23.11.: V7, V2, V11, V5, V9 je dreimal.
 
+## Recherche (Schritt 2, 16.11.2026, nach N12)
+
+| Lücke | Ergebnis | Titel · DOI/ISBN | Frei verfügbar | Zotero |
+|---|---|---|---|---|
+| Q2 Echtzeitfaktor | **teilweise geschlossen ohne neue Quelle:** neuer Beleg Ayala2020.08 (S. 3) definiert den Echtzeitfaktor als sim_t/real_t (Sekundärzitat). Primärquelle vorgeschlagen. | Pitonakova et al. 2018, Feature and Performance Comparison of the V-REP, Gazebo and ARGoS Robot Simulators · 10.1007/978-3-319-96728-8_30 | ja (Autorenfassung UWE-Repositorium, Bot-Schutz → Nils lädt im Browser) | `_Vorschläge` 23VED573 |
+| Q1 Anforderungsliste | Vorschlag | Feldhusen/Grote (Hrsg.) 2013, Pahl/Beitz Konstruktionslehre, 8. Aufl. · ISBN 978-3-642-29568-3, 10.1007/978-3-642-29569-0 | nein, SpringerLink über FAU (nur Kapitel Anforderungsliste) | `_Vorschläge` U2VWN4IQ |
+| Q5 Testen gegen Simulation | vorhandener Vorschlag genügt | Afzal et al. 2021, Simulation for Robotics Test Automation · 10.1109/ICST49551.2021.00036 | nein, IEEE über FAU | `_Vorschläge` DF5GV737 (schon da) |
+| Q6 Stopp-/Reaktionszeiten | vorhandene Vorschläge genügen | DIN EN ISO 13850:2015 (Not-Halt) · Valori et al. 2021, Validating Safety in Human–Robot Collaboration · 10.3390/robotics10020065 | Norm nein (UB/Perinorm); Valori ja (MDPI, Bot-Schutz → Browser) | `_Vorschläge` 3RN96K4E, FUG3BW6N (schon da) |
+
+VDI 2221 Blatt 1 nicht vorgeschlagen: Eintrag beim Herausgeber in der Cloud nicht abrufbar, also nicht verifiziert. Q3 (Fragebogen SUS) erst, wenn N3 = ja.
+
 ## 11 Arbeitspakete
 
 Reihenfolge: AP0 (optional) → AP1 und AP2 parallel → AP3 → AP4, AP5, AP6 parallel → AP7 → AP8. Jedes Paket schreibt
