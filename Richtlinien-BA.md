@@ -87,7 +87,7 @@ Gliederung seit 2026-10-30 (mit Nils erarbeitet, Muster [BA-K]): Anforderungen A
 
 ### 3.2 Umfang [GS 5.2, LF 3]
 - BA gesamt: **ca. 60–80 Seiten** ohne Verzeichnisse und Anhang.
-- **Arbeitsregel Nils (2026-11-16):** 80 Seiten Text sind die harte Obergrenze. Beim Entwerfen darf ein Kapitel aber ausdrücklich **länger** werden als sein Seitenbudget; Nils kürzt danach selbst (Kürzen ist leichter als Ergänzen). Agents schreiben deshalb vollständig und streichen nicht vorsorglich Inhalte, sondern markieren Kürzungskandidaten (z. B. `% Kann`-Kommentar über dem Absatz).
+- **Arbeitsregel Nils (2026-11-16, präzisiert 2026-11-17):** 80 Seiten Text sind die harte Obergrenze. Ein Entwurf darf **maßvoll** länger sein als der Endumfang, etwa **Endumfang ÷ 0,6** (Beispiel: 6 Seiten Endfassung → 10–12 Seiten Entwurf); Nils kürzt dann ca. 40 %. **Nicht** ein Vielfaches (ein Entwurf mit 28 statt 10–12 Seiten ist zu lang). Agents halten das Entwurfsbudget ein und markieren Kürzungskandidaten (z. B. `% Kann`-Kommentar über dem Absatz).
 - Stand der Technik ≈ **1/3** der Arbeit (bei praktischer Arbeit) [GS].
 - Methodik + Ergebnisse + Diskussion ≈ **2/3** der Arbeit [LF 3.7].
 - Einleitung: i. d. R. **2 Seiten, max. 3** [LF 3.2].
@@ -384,6 +384,7 @@ Dimensions, FAU-Katalog (VPN), Google Scholar (+ Alerts), Scopus, Web of Science
 
 ## 12. Projektspezifische Absprachen (von Nils/Betreuer, hier ergänzen)
 - 2026-11-16 Umfang: 60–80 Seiten Text, 80 ist Obergrenze. Entwürfe dürfen länger sein, Nils kürzt selbst (siehe §3.2).
+- 2026-11-17 Präzisierung: Entwurf ≈ Endumfang ÷ 0,6, Nils kürzt ca. 40 %; nicht das Mehrfache (§3.2).
 - 2026-11-16 Gemeinsame To-do-Liste für Nils: `review/todo-nils.md` (was Nils nachreichen oder entscheiden muss, aus allen Kapitel-Threads).
 - Offene Fragen an Betreuer (nach Praxisabgleich §13 nur noch nötig, falls Nils sicher gehen will): K1 Tempus, K2 Aktiv/Passiv, K9 Zotero/.bib statt Citavi. K3/K4/K5/K10 durch Referenz-BAs praktisch geklärt.
 

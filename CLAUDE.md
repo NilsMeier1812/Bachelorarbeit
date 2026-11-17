@@ -144,8 +144,8 @@ Alles, was Nils liefern, entscheiden oder durchführen muss, steht gesammelt in 
 - beantwortete Punkte abhaken (`[x]`) und die Antwort kurz dahinterschreiben,
 - vor dem Arbeiten nachsehen, ob Nils dort schon etwas beantwortet hat.
 
-Umfang (Nils, 16.11.2026): Gesamtarbeit 60–80 Seiten. Beim Ausarbeiten lieber zu viel als zu wenig, Nils kürzt
-selbst; Seitenangaben in den Kapitelplänen sind Richtwerte.
+Umfang (Nils, 16./17.11.2026): Gesamtarbeit 60–80 Seiten, 80 ist harte Obergrenze. Entwürfe maßvoll länger als der
+Endumfang, etwa Endumfang ÷ 0,6 (6 S. → 10–12 S.); Nils kürzt dann ca. 40 %. Nicht das Mehrfache schreiben.
 
 ### Quellenbeschaffung durch Nils
 

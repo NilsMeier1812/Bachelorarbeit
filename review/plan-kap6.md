@@ -28,9 +28,10 @@ Was der Leser nach Kap. 6 wissen muss:
 Kap. 6 ist das einzige Kapitel des Eigenteils, das **werten und begründen** darf, ohne Messwerte zu nennen.
 Messwerte gehören nach Kap. 8, Algorithmen und Parameter nach Kap. 7.
 
-Zielumfang: **11–12 Seiten** als Richtwert (Gerüst: ca. 10). **Nils, 16.11.:** Der Entwurf darf länger werden;
-Nils kürzt selbst (Regel in `Richtlinien-BA.md` §3.2). Schreibaufträge streichen also nichts vorsorglich, auch
-Kann-Teile werden geschrieben und mit `% Kann` markiert.
+Zielumfang (Präzisierung Nils, 17.11.): Der **Entwurf** hat **11–12 Seiten** und nicht mehr. Nils kürzt danach etwa
+40 % auf rund **7 Seiten** Endfassung (Faustregel Entwurf ≈ Endumfang ÷ 0,6, `Richtlinien-BA.md` §3.2). Die
+Seitenangaben in Abschnitt 4 sind Entwurfsumfänge. Schreibaufträge halten ihr Budget ein und markieren
+Kürzungskandidaten mit `% Kann`, statt darüber hinaus zu schreiben.
 
 ## 2 Abgrenzung
 
@@ -561,7 +562,7 @@ Antworten von Nils vom 16.11.2026 sind eingearbeitet. Was noch fehlt, steht in `
 
 | Nr. | Frage | Stand |
 |---|---|---|
-| N1 | Umfang | **beantwortet:** 60–80 Seiten gesamt, Entwurf darf länger sein, Nils kürzt (Abschnitt 1, Richtlinien §3.2) |
+| N1 | Umfang | **beantwortet:** 60–80 Seiten gesamt; Entwurf 11–12 S., Nils kürzt ca. 40 % auf rund 7 S. (Präzisierung 17.11., Abschnitt 1, Richtlinien §3.2) |
 | N2 | Drei Entwurfsgrundsätze in der Kapiteleinleitung, Übersichtstabelle | **offen**, Nils hat nachgefragt, Erklärung im Thread am 16.11. Bis zur Antwort: Grundsätze ja, Tabelle als `% Kann` |
 | N3 | Ausgangsstand des Simulations-Containers | **beantwortet:** alles, was Simulation ist, ist Nils' Werk (6.1.1, 6.1.2, `tab:eigenleistung`) |
 | N4 | Auswahlgründe für g1pilot | **beantwortet:** einzige Alternative war Neuentwicklung, g1pilot passte; 6.1.1 kurz halten |
@@ -604,7 +605,8 @@ Empfohlene Modelle: Sonnet für AP1, AP2; Opus für AP3–AP7 und AP9; Prüfung 
 >    endet mit einem Satz, der auf den Nachweis in Kap. 8 verweist (`Abschnitt~\ref{…}`).
 > 7. Jede Abbildung und Tabelle wird im Absatz davor mit `\ref` eingeführt und danach erläutert; Umgebung mit
 >    `[htbp]` direkt nach diesem Absatz.
-> 8. Lieber zu viel als zu wenig schreiben (Richtlinien §3.2); Kürzungskandidaten mit `% Kann` markieren.
+> 8. Seitenbudget des Auftrags einhalten, höchstens 10 % darüber (Richtlinien §3.2: Entwurf ≈ Endumfang ÷ 0,6,
+>    Nils kürzt ca. 40 %); Kürzungskandidaten mit `% Kann` markieren.
 > 9. Schreibe nur in die Datei, die dein Auftrag nennt. Ändere keine generierten Dateien und nichts in Zotero.
 > 10. Bericht am Ende: was geschrieben ist, Liste aller `\qf` und `\pruefen` mit Grund, jede Abweichung vom Plan.
 
@@ -679,7 +681,7 @@ Empfohlene Modelle: Sonnet für AP1, AP2; Opus für AP3–AP7 und AP9; Prüfung 
 > `Kapitel/06_Konzept.tex` zusammen; Labels und Überschriften aus dem Gerüst unverändert. Schreibe die
 > Kapiteleinleitung (Plan Abschnitt 5) und je Abschnitt einen Überleitungssatz. Entferne `tab:bedienwege` aus
 > `Kapitel/07_Umsetzung.tex`, falls sie dort noch steht. Prüfe: einheitliche Begriffe, keine Wiederholung zwischen
-> den Abschnitten, jede Darstellung vor ihrem Float eingeführt, Umfang 11–12 Seiten. Führe
+> den Abschnitten, jede Darstellung vor ihrem Float eingeführt, Umfang 11–12 Seiten, nicht mehr (Kürzungskandidaten für ca. 40 % mit `% Kann` markiert). Führe
 > `python3 scripts/zot.py text` und `python3 scripts/check.py` aus (0 Fehler Pflicht), kompiliere mit `latexmk`
 > und sieh das PDF durch. Bericht: Seitenzahl, Liste aller `\qf` und `\pruefen`, offene Verweise („??“).
 > Arbeite auf einem eigenen Branch und öffne einen Pull Request; nicht direkt auf `main`.
