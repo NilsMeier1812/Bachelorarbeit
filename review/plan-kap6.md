@@ -43,7 +43,7 @@ Schutzmechanismen (Grenzwerte) stehen **nur** in Kap. 6, Tabelle `tab:schutzmech
 **Anhang mit der Bedienungsdokumentation (Nils, 17.11.):** Die komplette README-Doku des G1-Repos kommt als
 Anhang an die Arbeit. Der Haupttext ist keine Anleitung: Bedienschritte, Tastenbelegungen, Befehle, Dateiformate
 und Konfigurationsdetails stehen dort, Kap. 6 verweist bei Bedarf mit einem Halbsatz darauf
-(`Anhang~\ref{anh:dokumentation}`, Label vorläufig, mit Kap. 7 abstimmen). Das ersetzt keine Begründung im Text und
+(`Anhang~\ref{anh:dokumentation}`, Label mit Kap. 7 abgestimmt). Das ersetzt keine Begründung im Text und
 ist kein Beleg im Sinne von `\cite`; die `% Basis:`-Kommentare bleiben.
 
 | Thema | Kap. 6 | Kap. 7 |
