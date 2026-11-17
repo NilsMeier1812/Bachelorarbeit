@@ -34,9 +34,9 @@ Entwurf: `Kapitel/04_Faehigkeiten_Verwandte_Arbeiten.tex`, Plan `review/plan-kap
 Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/artifact/1yNxU5TiVguZ9tJTpF8xFd (Fragen ganz oben, Antwort in die letzte Spalte; Claudes Rückfragen direkt darunter). Wichtigstes zuerst.
 
 **Entscheidungen**
-- [x] **N1 Realversuche:** *ab etwa 23.11. quasi ständig.* V2, V7, V11 fest eingeplant.
+- [x] **N1 Realversuche:** *ab etwa 23.11. quasi ständig; Abgabe 15.12.2026.* V2, V7, V11 fest eingeplant.
 - [x] **N2 Zielwerte:** *„keine Ahnung“* → Claudes Vorschläge gelten (A3 ≥ 0,95 / ≥ 95 % · A4 ≤ 2 cm · A5 ≤ 100 ms / ≤ 1 s · A6 ≤ 60 min / ≤ 5). Nur widersprechen, wenn ein Wert falsch wirkt.
-- [ ] **N3 Nutzerstudie** (3–5 Personen, Aufgabe + Fragebogen SUS, ca. 1 h je Person): Erklärung im Dokument, Empfehlung ja. Bitte nur ja/nein.
+- [x] **N3 Nutzerstudie:** *Nils 17.11.: „werd es versuchen“, Zeit unsicher.* → geplant als Kann-Versuch (V9 mit K6.4); fällt sie aus, Ausblick. Claude liefert Ablauf und Fragebogen.
 - [x] **N5 Externes Projekt:** *keins, A7 bleibt Konzept.* Optional kleines Beispielprogramm (Punkt 6 im Build-Prompt).
 - [x] **N7 Tabellen:** *wie empfohlen.*
 - [x] **N8 Aufgabenstellung:** *keine.* Herleitung nur aus den Defiziten.
