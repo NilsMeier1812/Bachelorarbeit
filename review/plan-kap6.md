@@ -40,6 +40,12 @@ Kap. 7 = *wie*: Algorithmen, Regler, Takte, Datenformate, Parameter. In Kap. 6 s
 Knoten-/Topic-Namen in Code-Schreibweise, Taktraten oder Bedienschritte. Ausnahme: Auslegungswerte der
 Schutzmechanismen (Grenzwerte) stehen **nur** in Kap. 6, Tabelle `tab:schutzmechanismen`; Kap. 7 verweist darauf.
 
+**Anhang mit der Bedienungsdokumentation (Nils, 17.11.):** Die komplette README-Doku des G1-Repos kommt als
+Anhang an die Arbeit. Der Haupttext ist keine Anleitung: Bedienschritte, Tastenbelegungen, Befehle, Dateiformate
+und Konfigurationsdetails stehen dort, Kap. 6 verweist bei Bedarf mit einem Halbsatz darauf
+(`Anhang~\ref{anh:dokumentation}`, Label vorläufig, mit Kap. 7 abstimmen). Das ersetzt keine Begründung im Text und
+ist kein Beleg im Sinne von `\cite`; die `% Basis:`-Kommentare bleiben.
+
 | Thema | Kap. 6 | Kap. 7 |
 |---|---|---|
 | Sim/Real | Prinzip: ein Schalter, getrennte DDS-Domains, was gleich bleibt und was nicht (6.2.2) | Bridge MuJoCo↔DDS, Befehls-Merge, Zeitschritt, Lockstep (7.2.1, 7.2.2) |
@@ -596,6 +602,8 @@ Empfohlene Modelle: Sonnet für AP1, AP2; Opus für AP3–AP7 und AP9; Prüfung 
 > 3. Wo der Plan **[N?]** oder eine Frage N… nennt und keine Antwort von Nils vorliegt: `\pruefen{…}`.
 > 4. Kap. 6 enthält keine Dateinamen, keine Knoten- oder Topic-Namen, keine Taktraten, keine Bedienschritte, keine
 >    Messwerte und keine Entwicklungsgeschichte. Grenzwerte stehen nur in `tab:schutzmechanismen`.
+>    Wer Bedienung oder Details nachlesen soll, bekommt einen Verweis auf den Anhang mit der Bedienungsdokumentation
+>    (`Anhang~\ref{anh:dokumentation}`), keine Anleitung im Text.
 > 5. Stil: Präsens, kein ich/wir/man, kein Konjunktiv, Sach-Subjekte, keine Autorennamen als Satzsubjekt
 >    (Stilregel vom 11.11.), ein Argument je Absatz mit Kernsatz zuerst, mindestens zwei Sätze je Absatz. Keine
 >    Aussagen wie „normgerecht“ oder „stellt sicher, dass“ über das Ergebnis. Deutsche Fachbegriffe, einheitlich:
