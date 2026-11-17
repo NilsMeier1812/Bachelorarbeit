@@ -26,3 +26,9 @@ belege:
     kernaussage: "Das System stützt sich für die Stabilität auf niedriger Ebene auf die Onboard-Servoregler des G1."
     quelle: exzerpt
     kommentar: "Kap. 4.4 – wie G1Pilot real: Unitree-Onboard-Regelung"
+  - id: Durrani2026.05
+    seite: "4"
+    zitat: "This stage allowed us to verify retargeting correctness, identify pathological joint configurations, and confirm motion stability across the full range of tested behaviors."
+    kernaussage: "Laut den Autoren diente die Simulationsstufe (MuJoCo, Sim2Sim) dazu, die Korrektheit des Retargetings zu prüfen, problematische Gelenkkonfigurationen zu finden und die Bewegungsstabilität über die getesteten Verhalten zu bestätigen."
+    quelle: exzerpt
+    kommentar: "Kap. 5.1 / 5.3.1 (L7, AP2): Validierungsweg ist die Prüfung in der Simulation vor dem Einsatz am Roboter; kein quantitativer Vergleich der Abweichung Simulation/Roboter im Beleg"

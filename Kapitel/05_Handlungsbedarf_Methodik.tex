@@ -1,30 +1,347 @@
-% Gliederung Stand 30.10.2026. ~5 Seiten.
+% Kapitel 5 – Handlungsbedarf, Anforderungen und Bewertungsmethodik.
+% KOMPRIMIERTE FASSUNG (17.11.2026, Claude, Auftrag Nils: 10–12 Seiten). Die lange Fassung (28 S.) steht vollständig in
+% review/kap5-entwurf/05_lang_28S.tex; was weggefallen ist: review/kap5-kuerzung-2026-11-17.md.
+% Zusammengeführt in AP7 aus review/kap5-entwurf/; Plan: review/plan-kap5.md. Labels und Kürzel unverändert;
+% tab:kennzahlen ist in tab:anforderungen aufgegangen (Plan Abschnitt 8), tab:defizite entfällt.
+% Zielwerte mit Kommentar „Vorschlag 16.11.“ sind Claudes Vorschläge [V], von Nils am 16.11. vorläufig angenommen (N2).
+
+% Hilfsdefinition für die Tabellen dieses Kapitels (aus AP3, bewusst hier statt in ba-grafik.tex):
+% linksbündige Spalte fester Breite mit Silbentrennung, passend zur Spalte L aus ba-grafik.tex.
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash\hspace{0pt}}p{#1}}
+
 \chapter{Handlungsbedarf, Anforderungen und Bewertungsmethodik}
 \label{chap:handlungsbedarf}
-% Kurze Kapiteleinleitung vor 5.1.
+% Kapiteleinleitung: Anknüpfung an Kap. 2–4, Vorschau, Kette D -> F -> A -> K -> V. Keine Belege nötig.
+Die Kapitel~\ref{chap:humanoide} bis~\ref{chap:faehigkeiten} beschreiben den Roboter, die Werkzeuge für Simulation und Betrieb sowie die verwandten Arbeiten, ohne sie zu werten.
+Dieses Kapitel wertet sie am Ziel der Arbeit, legt den Maßstab fest, an dem die Umgebung gemessen wird, und plant die Prüfung, bevor Kapitel~\ref{chap:evaluation} Ergebnisse zeigt.
+Die Kette führt von den Defiziten D1 bis D4 (Abschnitt~\ref{sec:handlungsbedarf}) über die Forschungsfragen F1 bis F4 zu den Anforderungen A1 bis A7 mit Kennzahlen und Zielwerten (Abschnitt~\ref{sec:anforderungen}) und zu den Versuchen V1 bis V11 (Abschnitt~\ref{sec:bewertungsmethodik}); Abbildung~\ref{fig:bewertungslogik} fasst sie zusammen.
 
 \section{Handlungsbedarf}
 \label{sec:handlungsbedarf}
-% Wertung der Literatur aus Kap. 3 und 4; Lücke: kein Stack verbindet gleichen Code Sim/Real,
-% Laienbedienung, Sicherheit und Erweiterbarkeit. Kandidaten: Yu2026 (G1-Studie ohne Realversuch), Tong2024 (sicherer Sim-Real-Übergang offen).
+% Basis: Zielsetzung und Forschungsfragen F1–F4 laut Gerüst Kapitel/01_Einleitung.tex (Abschnitt 1.2);
+% Betrachtungsumfang: in Kap. 3 und 4 dargestellte Arbeiten, Recherche Stand November 2026 (review/plan-sdt-verwandte-arbeiten.md).
+Maßstab der folgenden Wertung ist das Ziel der Arbeit aus Abschnitt~\ref{sec:zielsetzung}: eine aufgabenunabhängige Umgebung, in der Anwender ohne Robotikerfahrung den Nutzen eines Humanoiden prüfen, indem sie Funktionen des Unitree G1 zuerst in der Simulation und anschließend am realen Roboter erproben.
+Laut einer Übersichtsarbeit begrenzen hohe Entwicklungs- und Wartungskosten die kommerzielle Verbreitung humanoider Roboter \cite{Tong2024}\ev{Tong2024.09}.
+\qf{Hemmnisse beim Einstieg in humanoide Robotik aus Sicht von Unternehmen (Kosten, Risiko, fehlendes Fachwissen) – Acatech2020 und FAPS2024 sind freigegeben, haben aber kein PDF}
+Aus dem Ziel folgen vier Gesichtspunkte der Wertung, einer je Forschungsfrage: die Durchgängigkeit von der Simulation zum Roboter (F1), die Aussagekraft der Simulation (F2), Bedienung und Sicherheit für Personen ohne Robotikerfahrung (F3) sowie die Offenheit für vorab nicht bekannte Aufgaben (F4).
+Gewertet werden die in den Kapiteln~\ref{chap:simulation} und~\ref{chap:faehigkeiten} dargestellten Arbeiten und Werkzeuge nach dem Stand der Recherche im November~2026; die Defizite D1 bis D4 gelten nur für diesen Betrachtungsumfang.
+
+% Basis: Kap. 4.4 (sec:verwandte_arbeiten), Belege L2–L5 in review/kap5-entwurf/belegpruefung.md;
+% Negativbefund G1Pilot: Suche im README-Text vom 09.11.2026 (Commit 5346e52) ohne Treffer für sim/gazebo/mujoco (AP2, HucebotG1Pilot.05);
+% Negativbefund OpenWBT: README (Commit a0154ca) nennt Simulation, aber nicht, ob derselbe Programmstand läuft.
+% TODO: Sobald tab:stacks in Abschnitt 4.4 steht, hier „(Tabelle~\ref{tab:stacks})“ ergänzen.
+Das erste Defizit~(D1), aus dem F1 folgt, betrifft die Durchgängigkeit: Unter den in Abschnitt~\ref{sec:verwandte_arbeiten} betrachteten Arbeiten deckt eine gemeinsame Ausführung in Simulation und Realbetrieb jeweils nur einen Teil des Funktionsumfangs des G1 ab.
+Der Simulator unitree\_mujoco des Herstellers bindet nach dessen Angabe mit dem Hersteller-SDK entwickelte Steuerprogramme ein und soll so einen nahtlosen Übergang von der Simulation zur Entwicklung am Roboter ermöglichen \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}, unterstützt in der ausgewerteten Fassung der Projektbeschreibung jedoch nur die Entwicklung auf niedriger Ebene \cite{UnitreeMujoco}\ev{UnitreeMujoco.02}.
+Der Onboard-Regler, der am realen G1 die Fortbewegung regelt (Abschnitt~\ref{sec:fortbewegung_sdt}), ist nicht quelloffen, sodass eine Vergleichsarbeit ihm keine inneren Mechanismen zuschreibt \cite{Hu2026}\ev{Hu2026.02}.
+Ein in einem nicht begutachteten Preprint beschriebenes Teleoperationssystem für den G1 führt denselben Retargeting-Code unverändert in Simulation und am Roboter aus \cite{Durrani2026}\ev{Durrani2026.03}; durchgängig ist damit nur diese eine Funktion.
+Andere Arbeiten bleiben in einer der beiden Umgebungen: Eine Studie zum G1 nennt Versuche am realen G1 zur Verifikation ihrer Simulationsergebnisse als notwendig \cite{Yu2026}\ev{Yu2026.04}, und die Projektbeschreibung von G1Pilot nennt eine Visualisierung des realen Roboters \cite{HucebotG1Pilot}\ev{HucebotG1Pilot.05}, beschreibt aber keinen Simulationsbetrieb.
+
+% Basis: Kap. 3.1.2 (sec:sim2real), 3.1.3 (sec:abbildungsguete), Belege L6–L7 in review/kap5-entwurf/belegpruefung.md;
+% Wertung „keine Bewertung für einen Bedien-Stack“: eigene Auswertung (review/plan-sdt-verwandte-arbeiten.md).
+Das zweite Defizit~(D2), aus dem F2 folgt, betrifft die Aussagekraft der Simulation: Die betrachtete Literatur bewertet sie für gelernte Regelungsstrategien und einzelne Systeme, nicht für eine Bedienumgebung als Ganzes.
+Im Zusammenhang mit dem Transfer gelernter Ganzkörperbewegungen auf den G1 ist die Sim-to-Real-Lücke laut den Autoren ausgeprägter als die Abweichung zwischen zwei Simulatoren, unter anderem wegen verrauschter Sensoreingaben, ungenauer Robotermodelle und Unterschieden der Aktoren \cite{He2025}\ev{He2025.07} (Abschnitt~\ref{sec:sim2real}).
+Physisches Testen vor dem Einsatz bleibt laut einer Übersichtsarbeit zwingend \cite{Choi2021}\ev{Choi2021.02}.
+Für eine Umgebung, die am realen G1 den nicht quelloffenen Onboard-Regler nutzt und in der Simulation folglich einen anderen Regler für die Fortbewegung einsetzen muss, liegt unter den betrachteten Arbeiten keine Bewertung der Abbildungsgüte vor.
+
+% Basis: Kap. 4.3.1 (sec:teleoperation_teil), 4.3.2 (sec:laienbedienung_sdt), 3.4.1 (sec:normen), 3.4.3 (sec:sicherheit_zweibeiner);
+% Belege L8–L11 in review/kap5-entwurf/belegpruefung.md. Wertung „Werkzeug für Personen ohne Programmiererfahrung nur für Nao“:
+% unter den in Kap. 4.3.2 betrachteten Arbeiten ist Choregraphe das einzige humanoid-spezifische Werkzeug (eigene Auswertung).
+Das dritte Defizit~(D3), aus dem F3 folgt, betrifft Bedienung und Sicherheit: Die betrachteten Bedienkonzepte für den G1 setzen Spezialhardware oder Vorwissen voraus, ein Werkzeug für Personen ohne Programmiererfahrung liegt nur für einen anderen Humanoiden vor, und der bestehende Normenrahmen ist nicht auf zweibeinige Roboter ausgelegt.
+Die Teleoperation des Herstellers steuert den G1 über XR-Brillen, und Neueinsteigern empfiehlt ihre Projektbeschreibung, vorher die offizielle Dokumentation mindestens bis zum Kapitel zur Anwendungsentwicklung zu lesen \cite{UnitreeXRTeleop}\ev{UnitreeXRTeleop.01,UnitreeXRTeleop.02} (Abschnitt~\ref{sec:teleoperation_teil}).
+Die End-User-Roboter\-pro\-gram\-mie\-rung hat dagegen zum Ziel, die Komplexität der Roboterprogrammierung in auch ohne umfangreiche Robotikerfahrung zugängliche Methoden zu überführen \cite{Ajaykumar2021}\ev{Ajaykumar2021.03} (Abschnitt~\ref{sec:laienbedienung_sdt}); für einen Humanoiden ist Choregraphe ein solches Werkzeug, eine grafische Programmierumgebung für den Roboter Nao \cite{Pot2009}\ev{Pot2009.01}, nicht für den G1.
+Für den sicheren Betrieb setzen die meisten Robotiknormen laut einem nicht begutachteten Bericht der IEEE Humanoid Study Group feste oder statisch stabile Systeme voraus \cite{Prather2025}\ev{Prather2025.01} und lassen sich nicht direkt auf Humanoide anwenden \cite{Prather2025}\ev{Prather2025.06} (Abschnitt~\ref{sec:normen}).
+Nach einem nicht begutachteten Preprint erzeugt der Energieentzug bei einem laufenden Zweibeiner zudem einen unkontrollierten Sturz, der selbst eine Gefährdung ist \cite{Ding2026}\ev{Ding2026.03} (Abschnitt~\ref{sec:sicherheit_zweibeiner}).
+
+% Basis: Kap. 4.1 (tab:policies), 4.3.1, 4.4, 3.3.1 (sec:ros2); Belege L12–L13 in review/kap5-entwurf/belegpruefung.md.
+% Wertung „keine gemeinsame Grundlage zum Andocken eigener Aufgaben“: kein Beleg möglich (L12 teilweise), eigene Auswertung.
+Das vierte Defizit~(D4), aus dem F4 folgt, betrifft die Zweckbindung: Die betrachteten Werkzeuge sind jeweils auf einen Zweck zugeschnitten, auf Datensammlung, Training von Reglern oder Teleoperation.
+Teleoperation dient in der Forschung als Methode, um Daten am Roboter für das Lernen aus Demonstrationen zu sammeln \cite{Cheng2024}\ev{Cheng2024.01}.
+GR00T-WholeBodyControl stellt Checkpoints und Skripte für Training, Bewertung und Einsatz von Ganzkörperreglern für Humanoide bereit \cite{NvidiaGR00TWBC}\ev{NvidiaGR00TWBC.01} (Tabelle~\ref{tab:policies}).
+Unter den betrachteten Werkzeugen für den G1 ist eine gemeinsame Grundlage, an die ein Anwender eigene, vorab nicht bekannte Aufgaben und Folgeprojekte andocken kann, nicht Gegenstand.
+
+% Basis: Zusammenführung D1–D4; Eingrenzung laut Kapitel/01_Einleitung.tex (Abschnitt 1.2);
+% Nutzerstudie: Frage N3 in review/plan-kap5.md; Nils 17.11.: „werd es versuchen“ (Kann-Versuch, siehe todo-nils.md).
+Zusammengefasst verbindet keine der betrachteten Arbeiten den durchgängigen Weg von der Simulation zum realen G1 mit einer Bedienung für Personen ohne Robotikerfahrung, Schutzmechanismen für den Realbetrieb eines Zweibeiners und einer offenen Grundlage für eigene Aufgaben; die Lücke entsteht erst aus dem Anspruch, die vier Gesichtspunkte in einer Umgebung zu vereinen.
+Daraus präzisiert sich das Ziel der Arbeit: eine Umgebung für den G1, die denselben Programmstand in Simulation und Realbetrieb ausführt, deren Abbildungsgüte für die bereitgestellten Funktionen bewertet ist, die ohne Robotikerfahrung bedienbar ist, im Realbetrieb Schutzmechanismen bereitstellt und für neue Aufgaben erweiterbar ist.
+Nicht Gegenstand sind das Training und die Übertragung einer eigenen Regelungsstrategie, weil D1 bis D4 die Umgebung um vorhandene Regler betreffen, die Navigation am realen Roboter (Abschnitt~\ref{sec:zielsetzung}) sowie eine sicherheitstechnische Bewertung: Die Arbeit stellt Schutzmechanismen für den Versuchsbetrieb bereit, keinen Sicherheitsnachweis.
 
 \section{Anforderungen}
 \label{sec:anforderungen}
-% Tabelle A1–A7 mit Kennzahlen (Startwerte, Herleitung hier begründen):
-% A1 aufgabenunabhängig (F4) | A2 gleicher Code Sim/Real (F1) | A3 echtzeitfähig auf Standard-PC (F2)
-% A4 realitätsnahe Simulation (F2) | A5 sicher im Realbetrieb (F3) | A6 bedienbar ohne Vorerfahrung (F3)
-% A7 erweiterbar (F4)
+% --- Herleitung und Maßstab der Formulierung (Art S; Methodik Art T)
+Die Anforderungen übersetzen die Defizite D1 bis D4 in Eigenschaften, die die Umgebung nachweisbar besitzen muss; aus jedem Defizit folgt mindestens eine Anforderung, und jede Anforderung ist genau einer Forschungsfrage zugeordnet.
+Zwischen operationaler und lösungsneutraler Formulierung einer Anforderung besteht ein Zielkonflikt, weil ein zu starkes Beharren auf eindeutigen, detaillierten Anforderungen den Lösungsfreiraum einschränkt \cite{Bender2021}\ev{Bender2021.04}.
+Die Arbeit trennt deshalb jede Anforderung in einen lösungsneutralen Satz und Kennzahlen mit Zielwert als Mindest- oder Höchstwert; wie die Umgebung die Anforderung erfüllt, legt erst Kapitel~\ref{chap:konzept} fest.
+
+% --- Verbindlichkeit (Art S)
+A1 bis A7 sind Forderungen; eine Anforderung ist verfehlt, sobald eine ihrer Kennzahlen den Zielwert nicht erreicht, und Kennzahlen ohne Zielwert beschreiben nur das Verhalten.
+Fehlt ein Bezugswert in den Quellen, ist der Zielwert eine Setzung; alle Zielwerte stehen vor der Evaluation fest und werden nicht an die Ergebnisse angepasst (Abschnitt~\ref{sec:abgleich}).
+Tabelle~\ref{tab:anforderungen} stellt die Anforderungen mit ihren Kennzahlen, Zielwerten, Forschungsfragen, Versuchen und dem Abschnitt des Nachweises zusammen; die Kennzahlen tragen die Nummer ihrer Anforderung, sodass K2.1 die erste Kennzahl zu A2 bezeichnet.
+
+% ----------------------------------------------------------------------
+% tab:anforderungen  (Abschnitt 5.2, Kern) – enthält seit der Kürzung 17.11. auch den Inhalt von tab:kennzahlen
+% (Größe, Einheit, Nachweisart je Kennzahl). Setzungen (Art S). Zielwerte mit [V] sind Vorschläge vom 16.11.
+% Basis: review/plan-kap5.md Abschnitt 6 (A1-A7) und 7.1. Lösungsneutral: keine Komponenten, Bedienwege oder
+% Auslegungswerte der Schutzmechanismen. Reihenfolge A1-A7 (Nummernfolge).
+% ----------------------------------------------------------------------
+% Mehrseitig (xltabular, CLAUDE.md „Tabellen“): als Gleitobjekt war die Tabelle zu hoch für eine Seite.
+\begingroup
+    \setstretch{1.0}\tabstil\setlength{\tabcolsep}{3pt}\setlength{\LTpre}{\medskipamount}\footnotesize
+    \begin{xltabular}{\textwidth}{|P{0.6cm}|L|P{2.3cm}|P{1.9cm}|}
+    \caption[Anforderungen A1 bis A7 mit Kennzahlen und Zielwerten]{Anforderungen A1 bis A7 (fett) mit Kennzahlen, Zielwert (nach dem Pfeil), Nachweisart, Forschungsfrage F, Versuchen V (Tabelle~\ref{tab:versuchsplan}) und Abschnitt des Nachweises. Die Zielwerte sind Setzungen; die Handgeschwindigkeit orientiert sich an \cite{Villani2018}\ev{Villani2018.09} und \cite{DGUV2015}\ev{DGUV2015.04}, ohne Normerfüllung.}
+    \label{tab:anforderungen}\\
+    \hline
+        \tabkopfzeile \tabkopf{Nr.} & \tabkopf{Kennzahlen (Größe, Einheit) $\rightarrow$ Zielwert} & \tabkopf{Nachweisart} & \tabkopf{F; V; Nachweis}\\\hline
+    \endfirsthead
+    \hline
+        \tabkopfzeile \tabkopf{Nr.} & \tabkopf{Kennzahlen (Größe, Einheit) $\rightarrow$ Zielwert} & \tabkopf{Nachweisart} & \tabkopf{F; V; Nachweis}\\\hline
+    \endhead
+
+        \textbf{A1} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Gehen, Armbewegung und Greifen stehen einzeln und kombiniert bereit; eine neue Aufgabe erfordert keine Änderung des Programmcodes.}}\\\cline{2-4}
+        & K1.1 Abdeckung der Grundfähigkeiten (Anzahl) $\rightarrow$~\textbf{vollständig}; K1.2 geänderte Zeilen Programmcode für eine Beispielaufgabe (Anzahl) $\rightarrow$~\textbf{0}; K1.3 Zeit für das Einrichten der Beispielaufgabe, ohne Zielwert &
+        Demonstration, Analyse & F4; V2, V11; \ref{sec:eval_aufgaben}, \ref{sec:eval_realtests}\\\hline
+        \textbf{A2} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Derselbe Programmstand steuert Simulation und realen G1; der Wechsel ändert nur die Konfiguration.}}\\\cline{2-4}
+        & K2.1 geänderte Zeilen Programmcode beim Wechsel (Anzahl) $\rightarrow$~\textbf{0}; K2.2 Stellen mit unterschiedlichem Verhalten (Anzahl, Art, Begründung) $\rightarrow$~\textbf{vollständig erfasst und begründet}; K2.3 Funktionen mit derselben Bedienung in Simulation und Realbetrieb (Anteil) $\rightarrow$~\textbf{alle außer den in Abschnitt~\ref{sec:sim_real_schalter} ausgewiesenen} &
+        Analyse (K2.1, K2.2), Demonstration (K2.3) & F1; V1, V2, V3; \ref{sec:eval_code}, \ref{sec:eval_realtests}, \ref{sec:eval_video}\\\hline
+        \textbf{A3} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Simulation und Regelkreise laufen auf einem handelsüblichen PC ohne Rechenbeschleuniger in Echtzeit.}}\\\cline{2-4}
+        & K3.1 Echtzeitfaktor: simulierte Zeit je verstrichener Zeit (Verhältnis) $\rightarrow$~\textbf{im Mittel mindestens 0,95}; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A3
+        K3.2 Takttreue: erreichte Rate je Sollrate (\%), Streuung der Zykluszeit (ms) $\rightarrow$~\textbf{mindestens 95\,\% der Sollrate} % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A3
+        &
+        Messung & F2; V4; \ref{sec:eval_echtzeit}\\\hline
+        \textbf{A4} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Eine in der Simulation eingerichtete Armbewegung bleibt am realen Roboter innerhalb einer Toleranz; die Abweichungen der Fortbewegung sind benannt.}}\\\cline{2-4}
+        & K4.1 Abweichung der Gelenkwinkel der Arme über der Zeit (Grad), ohne Zielwert; K4.2 Abweichung der Handposition am Ende jeder Bewegung (cm) $\rightarrow$~\textbf{höchstens 2\,cm}; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A4
+        K4.3 erreichte je vorgegebener Geschwindigkeit in Simulation und Realbetrieb (Verhältnis), ohne Zielwert &
+        Messung & F2; V5, V6, V7; \ref{sec:eval_fortbewegung}, \ref{sec:eval_manipulation}\\\hline
+        \textbf{A5} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Bedienfehler und Ausfall eines Bedienwegs führen nicht zu unbegrenzter Bewegung; ein Halt ist jederzeit auslösbar und bringt den stehenden Roboter nicht zum Sturz.}}\\\cline{2-4}
+        & K5.1 größte Geschwindigkeit der Hand im Realbetrieb (mm/s) $\rightarrow$~\textbf{höchstens 250\,mm/s}; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
+        K5.2 Not-Halt auslösbar je Kombination aus Bedienweg und Betriebszustand (Anteil) $\rightarrow$~\textbf{alle}; K5.3 Zeit vom Auslösen des Not-Halts bis zum geänderten Befehl an der Herstellerschnittstelle (ms) $\rightarrow$~\textbf{höchstens 100\,ms}; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
+        K5.4 Zeit vom Ausfall eines Bedienwegs oder der Verbindung bis zum Halt der Bewegung (s) $\rightarrow$~\textbf{höchstens 1\,s}; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
+        K5.5 bestandene sicherheitsrelevante Tests (Anteil) $\rightarrow$~\textbf{alle bestanden, keiner übersprungen}; K5.6 Roboter bleibt nach Not-Halt der Arme stehen (ja/nein) $\rightarrow$~\textbf{bleibt stehen} &
+        Messung (K5.1, K5.3, K5.4), Test (K5.2, K5.5), Demonstration (K5.6) & F3; V2, V8; \ref{sec:eval_sicherheit}, \ref{sec:eval_realtests}\\\hline
+        \textbf{A6} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Eine Person ohne Robotik- und Programmiererfahrung nimmt die Umgebung in Betrieb und führt die Grundfähigkeiten ohne Programmcode aus.}}\\\cline{2-4}
+        & K6.1 Zeit (min) und Schritte der Inbetriebnahme vom frisch eingerichteten PC bis zur ersten Bewegung in der Simulation $\rightarrow$~\textbf{höchstens 60\,min einschließlich Installation}; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A6
+        K6.2 Bedienhandlungen vom Start bis zur ersten Arm- und Gehbewegung (Anzahl) $\rightarrow$~\textbf{je höchstens 5}; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A6
+        K6.3 Grundfähigkeiten nach dem Start ohne Programmierung und Befehlszeile ausführbar (ja/nein) $\rightarrow$~\textbf{ja}; K6.4 Bewertung durch Probanden, sofern eine Nutzerstudie durchgeführt wird, ohne Zielwert &
+        Messung (K6.1, K6.2), Demonstration (K6.3) & F3; V9; \ref{sec:eval_bedienaufwand}\\\hline
+        \textbf{A7} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Ein externes Projekt lässt sich über dokumentierte Schnittstellen anbinden, ohne den Kern der Umgebung zu ändern.}}\\\cline{2-4}
+        & K7.1 geänderte Zeilen im Kern der Umgebung (Anzahl) $\rightarrow$~\textbf{0}; K7.2 Aufwand der Anbindung (Zeilen Programmcode, Arbeitszeit), ohne Zielwert; K7.3 gezeigte Schnittstellen (Anzahl) $\rightarrow$~\textbf{mindestens eine} &
+        Demonstration, Analyse & F4; V10; \ref{sec:eval_extern}\\\hline
+    \end{xltabular}
+\endgroup
+
+% --- F1 -> A2 (Art S; Übertragungsargument Art T)
+Die folgenden Absätze begründen die Zeilen der Tabelle nach Forschungsfragen geordnet.
+Für A2 (F1) spricht die Übertragbarkeit von Prüfergebnissen: Läuft derselbe Retargeting-Code unverändert in Simulation und am realen Roboter, gilt in einer der betrachteten Arbeiten eine bestandene Sim-to-Sim-Prüfung als starkes Indiz für die erfolgreiche Übertragung auf die Hardware \cite{Durrani2026}\ev{Durrani2026.03}.
+Stellen mit unterschiedlichem Verhalten sind zulässig, werden aber nach K2.2 erfasst und begründet, damit sichtbar bleibt, wo ein Simulationsergebnis nicht unmittelbar für den Realbetrieb gilt.
+
+% --- F2 -> A3 (Art S; Definition Echtzeitfaktor Art T)
+F2 stützt sich auf A3 und A4. A3 verlangt Echtzeit, weil sich die Bedienung sonst zeitlich anders verhält als im Realbetrieb und der Vergleich nach A4 seine Grundlage verliert.
+Als Maß dient der Echtzeitfaktor~$R$, den ein Leistungsvergleich von Robotiksimulatoren als Verhältnis von simulierter zu realer Zeit definiert; bei $R > 1$ kann eine Simulation schneller als Echtzeit laufen und umgekehrt \cite{Pitonakova2018}\ev{Pitonakova2018.01}.
+% Basis: G1@25d5c1a unitree_mujoco/simulate_python/unitree_mujoco.py:166-178 (SIM_REALTIME_FACTOR nur Soll-Deckel),
+% config.py:102 (Lockstep), docker-compose.yml (SIM_REALTIME_FACTOR=1.0); fakten-testumgebung.md (d), (e) V4. Kein Messwert.
+Da die Simulation in der verwendeten Konfiguration nach oben auf Echtzeit begrenzt ist (Abschnitt~\ref{sec:zeitschritt}), bestimmt K3.1, wie weit der Echtzeitfaktor im Mittel unter~1 liegt; als Erfüllung gilt nur der schmale Bereich zwischen 0,95 und~1, dessen Abschlag kurze Lastspitzen des PCs zulässt.
+Die Sollraten für K3.2 nennt Kapitel~\ref{chap:umsetzung}.
+
+% --- F2 -> A4 (Art S)
+A4 grenzt „realitätsnah“ auf benannte Größen ein: Für die Arme vergleicht K4.1 die Gelenkwinkel derselben Bewegungsfolge in Simulation und Realbetrieb über der Zeit, und K4.2 die daraus berechnete Handposition am Ende jeder Bewegung, wie Abbildung~\ref{fig:handtoleranz} schematisch zeigt.
+Der Zielwert von 2\,cm ist eine Setzung: Ein in der Simulation eingelerntes Greifziel soll am Roboter ohne Nachkorrektur erreichbar sein.
+
+% Eigene Darstellung (Erweiterung Abbildungen, 17.11.2026); schematisch, keine Messwerte.
+\begin{figure}[!htbp]
+  \centering
+  \input{Bilder/tikz/handtoleranz}
+  \caption[Prüfkriterien der Arme nach Anforderung A4]{Prüfkriterien der Arme nach Anforderung A4, schematisch und nicht maßstäblich. a)~Gelenkwinkel derselben Bewegungsfolge in Simulation und Realbetrieb und ihre Abweichung über der Zeit (K4.1, ohne Zielwert). b)~Abweichung der aus den Gelenkwinkeln berechneten Handposition am Ende einer Bewegung von der Simulation mit dem Zielwert von höchstens 2\,cm (K4.2).}
+  \label{fig:handtoleranz}
+\end{figure}
+
+K4.1 erfasst damit den gesamten Verlauf, über die Erfüllung entscheidet allein die Handposition am Ende; der Toleranzbereich liegt um die Position in der Simulation, weil die Bewegung dort eingerichtet wird.
+Für die Fortbewegung ist kein Zielwert gesetzt, weil die Implementierung des Onboard-Reglers nicht quelloffen ist \cite{Hu2026}\ev{Hu2026.02}; K4.3 stellt nur das Verhältnis von erreichter zu vorgegebener Geschwindigkeit in beiden Betriebsarten nebeneinander.
+
+% --- F3 -> A5 (Art S; Orientierung an Rechtsrahmen und Normen, Art T)
+F3 führt zu A5 und A6.
+A5 orientiert sich am Rechtsrahmen aus Abschnitt~\ref{sec:schutzfunktionen}, ohne dessen Erfüllung zu beanspruchen: Nach der Maschinenrichtlinie muss die Not-Halt-Funktion unabhängig von der Betriebsart jederzeit verfügbar und betriebsbereit sein \cite{MRL2006}\ev{MRL2006.09}.
+Beim Zweibeiner kann gerade ein zu aggressiver Halt laut dem genannten Preprint eine Störung jenseits der Erholungsgrenze des Balancereglers einbringen und einen Sturz auslösen \cite{Ding2026}\ev{Ding2026.09}; deshalb fordert K5.6, dass der stehende Roboter nach einem Not-Halt der Arme stehen bleibt.
+
+Der Zielwert der Handgeschwindigkeit (K5.1) orientiert sich an zwei Angaben aus Abschnitt~\ref{sec:schutzfunktionen}: In der Betriebsart manuell reduzierte Geschwindigkeit (T1) gilt eine reduzierte Geschwindigkeit von höchstens 250\,mm/s in Verbindung mit Zustimmungsschalter und Tippschaltung \cite{DGUV2015}\ev{DGUV2015.04}, und ISO/TS~15066 legt zulässige Größen für zwei kollaborative Betriebsarten unter der Grundannahme einer sicher reduzierten Geschwindigkeit von höchstens 250\,mm/s fest \cite{Villani2018}\ev{Villani2018.09}.
+Da sich die bestehenden Robotiknormen laut dem in Abschnitt~\ref{sec:handlungsbedarf} genannten Bericht nicht direkt auf Humanoide anwenden lassen \cite{Prather2025}\ev{Prather2025.06}, übernimmt der Zielwert nur den Zahlenwert als Orientierung, ohne die übrigen Schutzmaßnahmen dieser Betriebsarten oder eine Normerfüllung zu fordern.
+
+% Basis: Nachrecherche Not-Halt-Zeit 16.11.2026 (review/plan-kap5.md Abschnitt 9; belegpruefung.md L17); Negativbefund mit Geltungsbereich, nicht zitierbar
+Einen festen Höchstwert für die Anhaltezeit nennen die ausgewerteten Quellen nicht; die beiden Zeitkriterien K5.3 und K5.4 sind deshalb Setzungen, die Abbildung~\ref{fig:schutzzeiten} in den Ablauf eines Halts einordnet.
+Für K5.3 ist das Ziel, dass der Halt gegenüber der Reaktion der Bedienperson nicht ins Gewicht fällt. \qf{Bezugswert für die Reaktionszeit einer Bedienperson, der die Wahl von 100 ms stützt (L17, Q6 offen)}
+
+% Eigene Darstellung (Erweiterung Abbildungen, 17.11.2026); schematisch, keine Auslegungswerte.
+\begin{figure}[!htbp]
+  \centering
+  \input{Bilder/tikz/schutz-zeiten}
+  \caption[Zeitkriterien des Halts nach Anforderung A5]{Zeitkriterien des Halts nach Anforderung A5, schematisch und nicht maßstäblich. a)~Die Anhaltezeit setzt sich aus Reaktionszeit und Bremszeit zusammen \cite{DGUV2015}\ev{DGUV2015.18,DGUV2015.19}; K5.3 erfasst nur den Teil vor der Herstellerschnittstelle. b)~K5.4 bewertet die Kette vom Ausfall eines Bedienwegs bis zum Halt; mit K5.1 bleibt der Weg der Hand begrenzt.}
+  \label{fig:schutzzeiten}
+\end{figure}
+
+Teil~a) der Abbildung zeigt, dass nur der vordere Teil der Anhaltezeit einen Zielwert trägt, Teil~b) das Zusammenwirken von K5.4 und K5.1: Bei höchstens 250\,mm/s legt die Hand in höchstens 1\,s höchstens 250\,mm zurück.
+K5.4 bewertet die Wirkung der gesamten Kette, nicht die einzelnen Auslegungswerte, die Abschnitt~\ref{sec:schutzmechanismen} festlegt.
+
+% --- F3 -> A6 (Art S; Herleitung Art T)
+A6 übernimmt das in Abschnitt~\ref{sec:handlungsbedarf} genannte Ziel der End-User-Roboterprogrammierung und prüft es über den Bedienaufwand vom frisch eingerichteten PC bis zur ersten Arm- und Gehbewegung.
+Beide Grenzwerte sind Setzungen: Eine Person ohne Vorerfahrung soll die Umgebung innerhalb einer Arbeitsstunde ohne fremde Hilfe in Betrieb nehmen, und wenige, eindeutige Schritte bilden das Gegenstück zu einer Bedienung, die das Lesen einer Entwicklerdokumentation voraussetzt.
+
+Eine Bewertung durch Probanden kommt als K6.4 nur hinzu, sofern eine Nutzerstudie durchgeführt wird.
+% K6.4 (nur mit Nutzerstudie). N3: Nils 17.11. „werd es versuchen“, Zeit unsicher -> Studie überall als „sofern durchgeführt“.
+\pruefen{N3: Die Nutzerstudie wird versucht, ist aber nicht sicher. Nach den Versuchen festhalten, ob sie stattfand; falls nicht, die Sätze zur Studie hier, in Abschnitt~\ref{sec:handlungsbedarf} und in Abschnitt~\ref{sec:bewertungsmethodik} auf die Grenze kürzen und die Studie im Ausblick nennen}
+
+% --- F4 -> A1, A7 (Art S; Vorbild Art T)
+F4 führt zu A1 und A7.
+Vorbild für A1 sind vorgefertigte Bausteine, wie sie Choregraphe in einer Bibliothek vorprogrammierter Verhalten von Funktionen wie Gehen und Aufstehen bis zum Auslesen von Sensoren anbietet \cite{Pot2009}\ev{Pot2009.05}.
+Der Begriff „Aufgabe“ ist dabei eng gefasst: Eine Aufgabe ist eine feste Folge von Bewegungen ohne Wahrnehmung der Umgebung; die Beispielaufgabe für K1.2 besteht aus einer neuen Szene und einem neuen Ablauf.
+Vorbild für A7 ist das Designprinzip der Modularität in ROS~2 \cite{Macenski2022}\ev{Macenski2022.05}.
+Was zum Kern der Umgebung gehört, legt Abschnitt~\ref{sec:erweiterungskonzept} vor der Prüfung fest; die Schnittstellen nach K7.3 beschreibt Abschnitt~\ref{sec:andockpunkte}.
+\pruefen{N5: Beispielprojekt für A7 festlegen (laut Antwort vom 16.11. kein externes Projekt, optional ein Beispielprogramm); ohne Beispielprojekt bleibt A7 konzeptionell und gilt in Abschnitt~\ref{sec:abgleich} als nicht nachgewiesen}
+
+% --- Randbedingungen und Zielkonflikte (Art S, Vorverweis auf Kap. 6)
+Als Randbedingung verwendet die Umgebung ausschließlich quelloffene Werkzeuge, damit Folgeprojekte sie weiterverwenden und ändern können.
+Mehrere Anforderungen stehen zueinander in Konflikt: Die Begrenzung der Armbewegung nach A5 schränkt die Bewegungen ein, die eine Aufgabe nach A1 nutzen kann, eine einfache Bedienung nach A6 verlangt wenige Bedienhandlungen, während A1 alle Grundfähigkeiten einzeln und kombiniert zugänglich machen soll, und offene Schnittstellen nach A7 eröffnen Wege, auf denen Befehle eines externen Projekts die Schutzfunktionen nach A5 umgehen können.
+Kapitel~\ref{chap:konzept} löst diese Konflikte auf, für den Schutz in Abschnitt~\ref{sec:sicherheitskonzept}, für die Bedienung in Abschnitt~\ref{sec:bedienkonzept} und für die Erweiterung in Abschnitt~\ref{sec:erweiterungskonzept}.
 
 \section{Bewertungsmethodik}
 \label{sec:bewertungsmethodik}
+Dieser Abschnitt legt vor der Durchführung der Versuche fest, wie die Erfüllung der Anforderungen geprüft wird: über Nachweisarten und Verfahren (Abschnitt~\ref{sec:kennzahlen}), die Versuche V1 bis V11 (Abschnitt~\ref{sec:versuchsplan}) und die Testumgebung (Abschnitt~\ref{sec:testumgebung}).
 
 \subsection{Zuordnung von Kennzahlen zu Anforderungen und Forschungsfragen}
 \label{sec:kennzahlen}
+Abbildung~\ref{fig:bewertungslogik} stellt diese Kette dar: Jedes Defizit führt zu einer Forschungsfrage, jede Forschungsfrage zu einer oder zwei Anforderungen und jede Anforderung über ihre Kennzahlen zu mindestens einem Versuch.
+
+% Eigene Darstellung, daher keine Quellenangabe in der Caption. Kennzahlen K stehen nicht einzeln in der Grafik,
+% sondern in Tabelle~\ref{tab:anforderungen} (seit der Kürzung 17.11.; vorher tab:kennzahlen).
+\begin{figure}[!htbp]
+  \centering
+  \input{Bilder/tikz/bewertungslogik}
+  \caption[Bewertungslogik von den Defiziten zum Abgleich]{Bewertungslogik von den Defiziten zum Abgleich. Jedes Defizit D führt zu einer Forschungsfrage F, jede Frage zu ihren Anforderungen A, jede Anforderung über ihre Kennzahlen (Tabelle~\ref{tab:anforderungen}) zu Versuchen V und deren Auswertung in Kapitel~\ref{chap:evaluation}; der Abgleich in Abschnitt~\ref{sec:abgleich} fasst die Ergebnisse zusammen. Zusätzlich stützt V2 die Anforderungen A1 und A5.}
+  \label{fig:bewertungslogik}
+\end{figure}
+
+Die Auswertung folgt den Forschungsfragen in den Abschnitten~\ref{sec:eval_f1} bis~\ref{sec:eval_f4}.
+Die Kennzahlen werden mit vier Nachweisarten bestimmt.
+Eine Analyse wertet Programmcode und Konfiguration aus, ein Test prüft automatisiert gegen ein festes Soll-Ergebnis, eine Messung liefert eine Größe mit Einheit aus aufgezeichneten Daten, und eine Demonstration führt eine Funktion nach festem Protokoll aus und hält fest, ob sie gelingt.
+A1, A2 und A7 beschreiben Eigenschaften des Aufbaus der Umgebung und werden deshalb durch Analyse und Demonstration mit zählbaren Größen und vorab festgelegten Erfolgskriterien nachgewiesen.
+
+Aus den in Abschnitt~\ref{sec:abbildungsguete} beschriebenen Verfahren übernimmt die Arbeit den Vergleich derselben Bewegung in Simulation und am realen Roboter über der Zeit.
+Eine Arbeit führt dieselben Szenarien in mehreren Simulatoren aus und vergleicht die Daten mit den realen Bewegungen eines Manipulators, die ein Motion-Capture-System als Referenz aufzeichnet \cite{Collins2019}\ev{Collins2019.03}; Kennzahl ist dort der euklidische Abstand der Handgelenkposition zur Zielposition über der Zeit \cite{Collins2019}\ev{Collins2019.06}.
+K4.1 vergleicht entsprechend die Gelenkwinkel der Arme, und K4.2 schließt mit der daraus berechneten Handposition an das Abstandsmaß des Manipulatorvergleichs an; da kein Motion-Capture-System zur Verfügung steht, sind die Gelenkwinkelgeber des Roboters der Bezug.
+Nicht anwendbar ist der Sim2Real Correlation Coefficient, der die Genauigkeiten mehrerer Navigationsmethoden in Simulation und Realität zueinander in Beziehung setzt \cite{Kadian2020}\ev{Kadian2020.02}, weil die Arbeit nur ein System bewertet.
+
+Bei den Gütekriterien stützt sich die Objektivität auf skriptgestützte Aufzeichnung und Auswertung sowie feste Protokolle, Reliabilität auf festen Code-Stand, Referenz-PC und Wiederholungen.
+Die Validität ist an vier vorab bekannten Stellen begrenzt: Erstens beziehen sich K4.1 und K4.2 auf die Gelenkwinkelgeber und nicht auf eine externe Referenz, und eine Simulation kann wegen numerischer Integrationsfehler und wegen Modellfehlern von der Realität abweichen \cite{Erez2015}\ev{Erez2015.13}; der Vergleich erfasst beide Ursachen gemeinsam und trennt sie nicht.
+Zweitens messen K6.1 bis K6.3 den Bedienaufwand, nicht die Gebrauchstauglichkeit, drittens zeigen Versuche gegen die Attrappe die Logik der Programme, nicht das Verhalten der Mechanik, und viertens erlauben drei Wiederholungen am Roboter keine statistische Absicherung, sodass die Ergebnisse dort als Stichproben gelten.
 
 \subsection{Versuchsplan}
 \label{sec:versuchsplan}
-% Simulation und Realbetrieb, gleiche Kennzahlen wo möglich.
+Geprüft wird auf drei Ebenen mit wachsendem Aufwand und wachsender Aussagekraft: gegen eine Attrappe des Roboters, in der Simulation und am realen Roboter.
+Tests im Feld sind laut einer Arbeit zur Testautomatisierung in der Robotik zeitaufwendig, teuer, nicht skalierbar, fehleranfällig und potenziell gefährlich und erst in späten Entwicklungsphasen möglich \cite{Afzal2021}\ev{Afzal2021.01}.
+Die Attrappe (Abschnitt~\ref{sec:testumgebung}) zeigt die Logik der Schutzmechanismen ohne Gefährdung, auch für Fehlerfälle, die sich am Roboter nicht gefahrlos auslösen lassen, die Simulation das Verhalten mit Physik ohne Risiko und der reale Roboter die Übertragbarkeit.
+
+% Umfang: Vorschlag 16.11. (plan-kap5.md Abschnitt 7.2; Realversuche ab 23.11., V7, V2, V11, V5, V9 je dreimal)
+Jede Funktion wird zuerst in der Simulation und erst danach am Roboter geprüft, auf allen Ebenen mit denselben Skripten, die Rohdaten aufzeichnen (am Roboter nur lesend), und an einem festen Code-Stand.
+In der Simulation und gegen die Attrappe umfasst jeder Versuch zehn Wiederholungen, am Roboter drei; berichtet werden Mittelwert und Spannweite, weil statistische Tests bei drei Wiederholungen nicht aussagekräftig sind.
+Tabelle~\ref{tab:versuchsplan} ordnet jedem Versuch Gegenstand, Prüfebene, Kennzahlen, Umfang und den Abschnitt der Auswertung zu.
+
+% ----------------------------------------------------------------------
+% tab:versuchsplan  (Abschnitt 5.3.2, Kern)
+% Umfang [V]: Vorschlag 16.11. (Simulation und Attrappe je 10 Wiederholungen, Roboter je 3, V4 je Lauf 10 min,
+% V9 dreimal). Spalte „Mittel am Stand“ steht bewusst nicht in der Tabelle (nur Planungshilfe im Plan, Abschnitt 7.2).
+% Basis: review/plan-kap5.md Abschnitt 7.2; Faktenblatt review/kap5-entwurf/fakten-testumgebung.md (e).
+% ----------------------------------------------------------------------
+\begin{table}[!ht]
+    \setstretch{1.0}\tabstil\setlength{\tabcolsep}{4pt}\footnotesize
+    \centering
+    \caption[Versuchsplan]{Versuchsplan mit Prüfebene, Kennzahlen, Umfang (Wiederholungen je Prüfebene) und Auswertung. Ausgewertet werden Mittelwert und Spannweite; „Kann“ kennzeichnet Prüfebenen, die von Zeit und Zugang zum Roboter abhängen.}
+    \label{tab:versuchsplan}
+    \begin{tabularx}{\textwidth}{|P{0.85cm}|L|P{1.9cm}|P{1.75cm}|P{2.3cm}|P{1.25cm}|}\hline
+        \tabkopfzeile \tabkopf{Nr.} & \tabkopf{Gegenstand} & \tabkopf{Prüfebene} & \tabkopf{Kennzahlen} & \tabkopf{Umfang} & \tabkopf{Aus\-wer\-tung in}\\\hline
+        V1 & Programmcode und Konfiguration in Simulation und Realbetrieb im Vergleich & Analyse & K2.1, K2.2 & einmal am festen Code-Stand & \ref{sec:eval_code}\\\hline
+        V2 & Funktionsprüfung am G1 nach festem Protokoll (Verbinden, Arme, Greifen, Gehen, Not-Halt) & Roboter & K2.3, K1.1, K5.6 & 3 Wiederholungen % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_realtests}\\\hline
+        V3 & Anwendungsfall Werbevideo: genutzte Funktionen, nötige Anpassungen & Roboter & K2.3 (qualitativ) & \pruefen{Umfang nach Angaben von Nils} & \ref{sec:eval_video}\\\hline
+        V4 & Echtzeitfaktor und Takttreue auf dem Referenz-PC; Kann: auf schwächerem PC & Simulation, Attrappe & K3.1, K3.2 & je 10 Läufe zu 10\,min % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_echtzeit}\\\hline
+        V5 & Fortbewegung je Lauf-Policy: Geschwindigkeitsfolge, Wechsel Gehen/Stehen, Stöße & Simulation; Kann: Roboter & K4.3 & Simulation 10, Roboter 3 Wiederholungen % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_fortbewegung}\\\hline
+        V6 & Manipulation: Planungserfolg und -zeit, Restfehler der inversen Kinematik, Tippbetrieb & Simulation & stützt A4, A1 & 10 Wiederholungen je Testfall % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_manipulation}\\\hline
+        V7 & Dieselbe Folge gespeicherter Posen in Simulation und am Roboter, Gelenkwinkel aufgezeichnet & Simulation, Roboter & K4.1, K4.2 & Simulation 10, Roboter 3 Wiederholungen % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_manipulation}\\\hline
+        V8 & Schutzmechanismen: Tests, Handgeschwindigkeit bei Zielsprüngen, Reaktionszeit des Not-Halts, Ausfall eines Bedienwegs & Attrappe; Kann: Roboter & K5.1 bis K5.5 & Attrappe 10, Roboter 3 Wiederholungen % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_sicherheit}\\\hline
+        V9 & Bedienaufwand: Inbetriebnahme bis zur ersten Bewegung; Start bis zur ersten Arm- und Gehbewegung & Simulation; Kann: Roboter & K6.1 bis K6.3; K6.4 sofern Nutzerstudie & 3 Durchläufe auf frischem System % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_bedienaufwand}\\\hline
+        V10 & Anbindung eines externen Projekts oder Beispielprogramms über dokumentierte Schnittstellen & Simulation; Kann: Roboter & K7.1 bis K7.3 & \pruefen{Umfang nach Wahl des Projekts (N5)} & \ref{sec:eval_extern}\\\hline
+        V11 & Neue Aufgabe: in der Simulation eingerichtet, am Roboter ausgeführt & Simulation, Roboter & K1.1 bis K1.3 & Einrichtung einmal; Ausführung Simulation 10, Roboter 3 % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_aufgaben}\\\hline
+    \end{tabularx}
+\end{table}
+
+Fest am Roboter geplant sind V2, V3, V7 und V11, als Ergänzung V5, V8, V9 und V10; V6 stützt A4 und A1, ohne eine eigene Kennzahl zu tragen.
+V3 wertet einen realen Anwendungsfall aus, den Transport einer Box für ein Werbevideo \pruefen{Angaben zum Werbevideo (N10): wann gedreht, welche Funktionen genutzt, was angepasst werden musste}.
+Für V10 steht kein externes Projekt zur Verfügung, sodass A7 nur an einem Beispielprogramm gezeigt werden kann und im Übrigen konzeptionell bleibt \pruefen{V10: Wird ein Beispielprogramm gebaut (N5, optional)? Sonst V10 als Analyse der Schnittstellen führen}.
+Fällt ein Versuch aus, führt Abschnitt~\ref{sec:abgleich} die betroffene Anforderung als nicht nachgewiesen.
+
+% Basis: G1@25d5c1a g1pilot/docs/50-A-Echter-Roboter.md, Abschnitt A „Vor dem Einschalten“ und Abschnitt F „Ablauf der ersten Tests“
+Versuche am Roboter finden nur unter Sicherung statt: Der Roboter hängt an einem Kran, eine zweite Person hält die Fernbedienung des Herstellers bereit, die allen anderen Bedienwegen als Not-Halt übergeordnet ist, und erste Versuche mit den Armen finden am hängenden Roboter statt.
+Nicht zum festen Plan gehören eine Nutzerstudie (nur als Ergänzung von V9), das Gangbild des Onboard-Reglers als Gütemaß gegen die Simulation und Dauerläufe.
 
 \subsection{Testumgebung}
 \label{sec:testumgebung}
-% Referenz-PC (Hardware, Softwareversionen), automatisierte Tests, Fake-G1.
+Zeitmessungen hängen vom Rechner ab: Bei Latenzmessungen an Middleware hängt die Latenz stark von der verwendeten Hardware und den Parametern ab \cite{Kronauer2021}\ev{Kronauer2021.12}.
+Tabelle~\ref{tab:testumgebung} beschreibt deshalb Referenz-PC, Softwarestände und Roboter, auf die sich alle Versuche beziehen.
+
+% ----------------------------------------------------------------------
+% tab:testumgebung  (Abschnitt 5.3.3, Kern, schlichter Stil, zwei Spalten)
+% Art E. Basis: G1@25d5c1a, Dockerfiles und docker-compose.yml; Faktenblatt (d).
+% Referenz-PC und Roboterstand liefert Nils (N4), bis dahin \pruefen.
+% ----------------------------------------------------------------------
+\begin{table}[!ht]
+    \setstretch{1.0}\tabstil\setlength{\tabcolsep}{4pt}
+    \centering
+    \caption[Testumgebung]{Testumgebung mit Referenz-PC, Softwareständen und Roboter. Angaben zu den Softwareständen gelten für den festgelegten Code-Stand.}
+    \label{tab:testumgebung}
+    \begin{tabularx}{\textwidth}{P{3.6cm}L}
+        \toprule
+        \tabkopf{Merkmal} & \tabkopf{Wert}\\
+        \midrule
+        Prozessor & \pruefen{Prozessor des Referenz-PCs von Nils}\\
+        Arbeitsspeicher & \pruefen{Arbeitsspeicher des Referenz-PCs von Nils}\\
+        Grafik & \pruefen{Grafikausstattung des Referenz-PCs von Nils}\\
+        Betriebssystem & \pruefen{Betriebssystem und Version des Referenz-PCs von Nils}\\
+        Container-Laufzeit & \pruefen{Version der Container-Laufzeit am Referenz-PC}\\
+        % Basis: G1@25d5c1a docker/Dockerfile.sim:1, docker/Dockerfile.real:7 (Basis-Image ros:humble ohne Prüfsumme)
+        ROS-2-Version & ROS~2 Humble (Basis-Image über Tag, nicht auf eine Prüfsumme festgelegt); Paketstände nicht festgelegt \pruefen{Paketstände im Container auslesen und eintragen}\\
+        % Basis: G1@25d5c1a docker/Dockerfile.mujoco:14 (pip install mujoco ohne Versionsangabe)
+        MuJoCo-Version & nicht festgelegt \pruefen{installierte Version im Container auslesen und eintragen}\\
+        % Basis: G1@25d5c1a docker/Dockerfile.sim:36-39, Dockerfile.real:42-45, Dockerfile.mujoco:16-19 (Commit 7c661d27f4ae)
+        Version des Hersteller-SDK & Python-SDK in einer Abspaltung (Fork), Commit 7c661d2 (in allen drei Images gleich)\\
+        % Basis: G1@25d5c1a docker/Dockerfile.sim:81-82, Dockerfile.real:80-81 (rmw_cyclonedds_cpp, apt ohne Version)
+        DDS-Implementierung & Cyclone~DDS über \texttt{rmw\_cyclonedds\_cpp}; Version nicht festgelegt \pruefen{installierte Version im Container auslesen}\\
+        % Basis: G1@25d5c1a docker/Dockerfile.sim:47-50 (Python folgt dem Basis-Image Ubuntu 22.04)
+        Python & folgt dem Basis-Image; nicht festgelegt \pruefen{installierte Version im Container auslesen}\\
+        % Basis: G1@25d5c1a git log -1 (Commit 25d5c1a vom 11.11.2026)
+        Code-Stand der Umgebung & Repository \texttt{G1}, Commit 25d5c1a vom 11.11.2026 \pruefen{festen Code-Stand vor den Messungen bestätigen}\\
+        Roboter (Modell, Ausführung, Softwarestand) & Unitree G1 \pruefen{Ausführung und Softwarestand des Roboters von Nils}\\
+        Hände & \pruefen{Typ und Ausführung der Hände von Nils}\\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+% Basis: fakten-testumgebung.md (d); G1@25d5c1a docker/Dockerfile.sim, Dockerfile.real, Dockerfile.mujoco, docker-compose.yml
+Die Softwarestände legen die Container-Images der Umgebung fest (Abschnitt~\ref{sec:container}), die die Software bereits installiert, konfiguriert und getestet enthalten \cite{Boettiger2015}\ev{Boettiger2015.06}; die Versionen von MuJoCo und weiteren Python-Paketen sind darin nicht festgelegt und werden aus den gebauten Images ausgelesen \pruefen{installierte Versionen von MuJoCo, CycloneDDS und Pinocchio aus den gebauten Images ablesen und in tab:testumgebung eintragen}.
+% Basis: G1 git log -1 (25d5c1a, 11.11.2026); todo-nils.md Kap. 5 „Festen Code-Stand im G1-Repo markieren“
+Da die Messmittel für V1, V4, V6, V7 und V8 nach dem Stand 25d5c1a hinzukommen, laufen die Versuche an einem später markierten Stand \pruefen{Tag bzw. Commit des Mess-Stands eintragen und die Testzahlen dort neu zählen}.
+
+% Basis: fakten-testumgebung.md (a), (c); G1@25d5c1a g1pilot/test/run_tests.sh:13-51, g1pilot/docs/60-A-Tests.md:21-23, 56-61, 89-93
+Am Stand 25d5c1a umfasst die Testsuite, die ohne Roboter und ohne laufende Simulation läuft, 597 Testfunktionen in 46 Dateien, davon die Gruppe „sicherheit“ 25 Dateien mit 442 Testfunktionen.
+Fehlen Abhängigkeiten, überspringt die Suite Tests ohne Fehlermeldung, und 30 der 46 Dateien setzen solche Abhängigkeiten voraus; für K5.5 zählt deshalb nur ein Lauf ohne übersprungene Tests \pruefen{Testumgebung angeben (Image oder Python-Umgebung mit Version), in der die Suite für K5.5 läuft}.
+
+% Basis: fakten-testumgebung.md (b); G1@25d5c1a g1pilot/test/test_arm_controller_real.py:29-160 (FakeG1),
+% g1pilot/test/test_loco_client_real.py:28-110 (FakeLoco), g1pilot/test/teleop_jitter_probe.py:20-27, 93-130
+Die Attrappe ersetzt in den Tests die Bibliothek der Herstellerschnittstelle, während die Programme des Realbetriebs unverändert laufen; Netzwerk, Beine und Gleichgewicht, Hände und Kollisionen bildet sie nicht nach, sodass Ergebnisse gegen sie die Logik der Programme belegen, nicht die Wirkung am Roboter.
+% Basis: fakten-testumgebung.md (e) V5 (g1pilot/tools/walk_diag.py record, nur lesend); plan-kap5.md Abschnitt 7.3 und N11 (Messmittel baut Nils)
+Für die Fortbewegung am Roboter steht eine nur lesende Aufzeichnung bereit, die übrigen Messmittel einschließlich der Zeitmessungen für V8 ergänzt die Arbeit \pruefen{Messmittel (N11) nach Fertigstellung bestätigen und Ablage für den Anhang nennen}.
+
+% Überleitung zu Kap. 6
+Damit steht der Maßstab für Kapitel~\ref{chap:evaluation} fest; Kapitel~\ref{chap:konzept} beschreibt, wie die Umgebung A1 bis A7 erfüllen soll und die Zielkonflikte auflöst.

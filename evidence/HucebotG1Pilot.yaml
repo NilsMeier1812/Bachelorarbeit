@@ -25,3 +25,9 @@ belege:
   kernaussage: Integrierte Navigation mit MOLA-Odometrie und Pfadplaner.
   quelle: exzerpt
   kommentar: Kap. 4.4/7.7
+- id: HucebotG1Pilot.05
+  seite: '1'
+  zitat: 'RViz‑ready: packaged URDF + RViz config for immediate visualization of the real robot.'
+  kernaussage: Das Paket bringt URDF und RViz-Konfiguration zur sofortigen Visualisierung des realen Roboters mit.
+  quelle: exzerpt
+  kommentar: 'Kap. 5.1 (L4, AP2): README nennt Visualisierung des realen Roboters; Simulationsbetrieb kommt im README nicht vor (Negativbefund, Art W)'

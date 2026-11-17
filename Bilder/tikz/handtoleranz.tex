@@ -1,0 +1,63 @@
+% Prüfkriterien K4.1 und K4.2 der Anforderung A4, SCHEMATISCH: keine Messwerte, nicht maßstäblich.
+% Eigene Darstellung, keine Fremdquelle. Inhalt aus Kapitel 5, Abschnitt sec:anforderungen (A4) und tab:anforderungen
+% (K4.2 höchstens 2 cm, Vorschlag 16.11.). Bezug: Gelenkwinkelgeber des Roboters, Handposition berechnet.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/handtoleranz} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    anm/.style={font=\footnotesize, text=baGrau, align=left},
+    achse/.style={ba normal, baGrau, ->},
+    simlinie/.style={ba dick, baBlau},
+    reallinie/.style={ba dick, baGruen, dash pattern=on 5pt off 2pt},
+  }
+  % ======================= a) Gelenkwinkel über der Zeit =======================
+  \begin{scope}
+    \draw[achse] (0,0) -- (6.0,0) node[below left, text=black, font=\small] {Zeit $t$};
+    \draw[achse] (0,0) -- (0,3.9) node[anchor=south west, xshift=-1mm, text=black, font=\small] {Gelenkwinkel $q$};
+    % schematische Verläufe derselben Bewegungsfolge (keine Messwerte)
+    \draw[simlinie]  (0.2,0.6) .. controls (1.4,0.6) and (1.6,2.9) .. (2.8,2.9)
+                               .. controls (3.8,2.9) and (4.2,1.6) .. (5.6,1.6);
+    \draw[reallinie] (0.2,0.6) .. controls (1.6,0.6) and (1.9,2.6) .. (3.1,2.65)
+                               .. controls (4.1,2.7) and (4.5,1.8) .. (5.6,1.75);
+    % Abweichung zu einem Zeitpunkt
+    \draw[ba doppelpfeil, baAkzent, >={Stealth[length=1.6mm]}] (2.8,2.9) -- (2.8,2.6);
+    \draw[ba duenn, baAkzent] (2.75,2.75) -- (2.0,3.35) node[font=\footnotesize, text=baAkzent, anchor=south] {$\Delta q(t)$};
+    % Legende
+    \draw[simlinie]  (3.7,3.75) -- (4.3,3.75) node[right, text=black, font=\footnotesize] {Simulation};
+    \draw[reallinie] (3.7,3.3) -- (4.3,3.3)  node[right, text=black, font=\footnotesize] {Realbetrieb};
+    \node[anm, anchor=north west] at (0.1,-0.5) {K4.1: Verlauf, mittlere und größte\\Abweichung, ohne Zielwert};
+    \node[ba teiltitel] at (3.0,-1.45) {a) Gelenkwinkel derselben Bewegungsfolge};
+  \end{scope}
+  % Trennlinie
+  \draw[ba trenner] (6.7,-1.6) -- (6.7,4.3);
+  % ======================= b) Handposition am Ende der Bewegung =======================
+  \begin{scope}[xshift=7.4cm]
+    \coordinate (B)  at (0.3,0.2);
+    % Simulation: Endpose
+    \coordinate (S1) at ($(B)+(70:2.2)$);
+    \coordinate (S2) at ($(S1)+(5:2.4)$);
+    \coordinate (SE) at ($(S2)+(-40:1.5)$);
+    % Realbetrieb: Endpose mit leicht abweichenden Gelenkwinkeln
+    \coordinate (R1) at ($(B)+(67:2.2)$);
+    \coordinate (R2) at ($(R1)+(1:2.4)$);
+    \coordinate (RE) at ($(R2)+(-46:1.5)$);
+    % Toleranzbereich um die Handposition der Simulation (Radius nicht maßstäblich)
+    \draw[ba grenzwert, fill=baAkzent!8] (SE) circle (0.6);
+    \draw[simlinie, line width=2.4pt] (B) -- (S1) -- (S2) -- (SE);
+    \draw[reallinie, line width=2.4pt] (B) -- (R1) -- (R2) -- (RE);
+    \node[ba basis] at (B) {};
+    \node[ba gelenk, fill=baBlau] at (S1) {};
+    \node[ba gelenk, fill=baBlau] at (S2) {};
+    \node[ba gelenk] at (R1) {};
+    \node[ba gelenk] at (R2) {};
+    \fill[baBlau] (SE) circle (0.7mm);
+    \node[ba endeffektor, minimum size=2.4mm] at (RE) {};
+    % Beschriftung
+    \node[font=\footnotesize, text=baBlau, anchor=south] at ($(S1)!0.5!(S2)+(0,0.12)$) {Simulation};
+    \node[font=\footnotesize, text=black, anchor=north] at ($(R1)!0.5!(R2)+(0,-0.12)$) {Realbetrieb};
+    \draw[ba doppelpfeil, baAkzent, >={Stealth[length=1.2mm]}, shorten <=0.7mm, shorten >=1.2mm] (SE) -- (RE);
+    \node[font=\footnotesize, text=baAkzent, anchor=north east] at ($(RE)+(-0.12,-0.08)$) {$\Delta p$};
+    \draw[ba duenn, baGrau] ($(SE)+(60:0.6)$) -- ($(SE)+(60:0.6)+(0.35,0.9)$) node[anm, anchor=south, align=center] {Toleranzbereich:\\$\Delta p \le$ 2\,cm (K4.2)};
+    \node[anm, anchor=north west] at (-0.1,-0.25) {Handposition am Ende der Bewegung, aus\\den Gelenkwinkeln berechnet; Bezug Simulation};
+    \node[ba teiltitel] at (3.0,-1.45) {b) Abweichung der Handposition};
+  \end{scope}
+\end{tikzpicture}

@@ -68,3 +68,15 @@ belege:
     kernaussage: "Laut den Autoren ist ROS 1 Noetic nur bis Mai 2025 offiziell unterstützt, und die Community soll wegen der verbesserten Architektur zu ROS 2 wechseln."
     quelle: exzerpt
     kommentar: "Kap. 3.3.1 (L12) – Sekundäraussage, verweist auf [47]"
+  - id: Sekkat2024.12
+    seite: "10"
+    zitat: "In this paper, the precision of the Gazebo Sim model of Pepper was measured carefully with respect to real-world movements, as the movements were recorded through a high-definition video of the robot using high-definition camera at 1080p resolution and 60 fps."
+    kernaussage: "Laut den Autoren wurde die Genauigkeit des Gazebo-Modells des Pepper an realen Bewegungen gemessen, die mit einer HD-Kamera (1080p, 60 fps) aufgezeichnet wurden."
+    quelle: exzerpt
+    kommentar: "Kap. 5.3.1 (L27, AP2): Validierungsweg des digitalen Zwillings (Video plus IMU-Sensoren MPU6050 an den Gelenken); nur Pepper, Gazebo, nicht G1"
+  - id: Sekkat2024.13
+    seite: "12"
+    zitat: "Overall, Fig. 7 demonstrates that the error in each joint angle consistently falls within the narrow range of 0.01–0.02 radians."
+    kernaussage: "Laut den Autoren liegt der Fehler jedes Gelenkwinkels in ihrem Vergleich zwischen Gazebo-Simulation und realem Pepper durchgängig im Bereich von 0,01 bis 0,02 rad."
+    quelle: exzerpt
+    kommentar: "Kap. 5.3.1 (L27, AP2): Kennzahl Gelenkwinkelfehler beim Vergleich Simulation/Roboter; Ergebnis der Autoren, nur Pepper-Arme und Kopf, kein G1; nicht als Zielwert verwenden"
