@@ -244,8 +244,18 @@ A2 wird an drei Prüfkriterien gemessen.
 Die Zahl der beim Wechsel geänderten Zeilen Programmcode muss null betragen. % K2.1
 Die Stellen im Programmcode, an denen sich das Verhalten zwischen Simulation und Realbetrieb unterscheidet, sind vollständig zu erfassen und einzeln zu begründen; eine Höchstzahl ist dafür nicht vorgegeben. % K2.2
 Außerdem müssen alle Funktionen in Simulation und Realbetrieb mit derselben Bedienung ausführbar sein, ausgenommen die Funktionen, die Abschnitt~\ref{sec:sim_real_schalter} vorab als nur in einer Betriebsart verfügbar ausweist. % K2.3
+Abbildung~\ref{fig:programmstand} ordnet die drei Prüfkriterien dem Weg vom Programmstand zu den beiden Betriebsarten zu.
+
+% Eigene Darstellung (Erweiterung Abbildungen, 17.11.2026); Inhalt nur aus diesem Absatz und tab:anforderungen.
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/programmstand-betriebsarten}
+  \caption[Ein Programmstand für Simulation und realen G1]{Ein Programmstand für Simulation und realen G1 nach Anforderung A2. Der Wechsel der Betriebsart ändert nur die Konfiguration (K2.1); Stellen mit unterschiedlichem Verhalten sind zulässig, werden aber erfasst und begründet (K2.2), und alle nicht vorab ausgenommenen Funktionen sind in beiden Betriebsarten gleich bedienbar (K2.3).}
+  \label{fig:programmstand}
+\end{figure}
 
 A2 fordert damit ausdrücklich keinen Programmcode ohne jede Unterscheidung der Betriebsarten.
+In Abbildung~\ref{fig:programmstand} liegen die Stellen mit unterschiedlichem Verhalten deshalb innerhalb des gemeinsamen Programmstands und nicht in einem eigenen Programm je Betriebsart.
 Unterschiede sind zulässig, werden aber gezählt und begründet, damit sichtbar bleibt, an welchen Stellen ein Ergebnis aus der Simulation nicht unmittelbar für den Realbetrieb gilt.
 Verfehlt ist A2, wenn der Wechsel eine Änderung am Programmcode erfordert, wenn die Analyse eine nicht erfasste oder nicht begründete Abweichung findet oder wenn eine nicht ausgenommene Funktion nur in einer Betriebsart bedienbar ist.
 
@@ -277,6 +287,18 @@ Das zweite ist die daraus berechnete Abweichung der Handposition am Ende jeder B
 % ist entfallen, weil er der Festlegung „Zielwerte werden nicht an die Ergebnisse angepasst“ (Absatz Verbindlichkeit) widerspricht.
 Der Wert ist eine Setzung: Ein in der Simulation eingelerntes Greifziel soll am Roboter ohne Nachkorrektur erreichbar sein.
 Verfehlt ist A4, wenn die Handposition am Ende einer Bewegung um mehr als 2\,cm von der Simulation abweicht.
+Abbildung~\ref{fig:handtoleranz} stellt beide Prüfkriterien schematisch dar.
+
+% Eigene Darstellung (Erweiterung Abbildungen, 17.11.2026); schematisch, keine Messwerte.
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/handtoleranz}
+  \caption[Prüfkriterien der Arme nach Anforderung A4]{Prüfkriterien der Arme nach Anforderung A4, schematisch und nicht maßstäblich. a)~Gelenkwinkel derselben Bewegungsfolge in Simulation und Realbetrieb und ihre Abweichung über der Zeit (K4.1, ohne Zielwert). b)~Abweichung der aus den Gelenkwinkeln berechneten Handposition am Ende einer Bewegung von der Simulation mit dem Zielwert von höchstens 2\,cm (K4.2).}
+  \label{fig:handtoleranz}
+\end{figure}
+
+Teil~a) der Abbildung zeigt, dass K4.1 den gesamten Verlauf der Bewegung erfasst, Teil~b), dass über die Erfüllung von A4 allein die Handposition am Ende jeder Bewegung entscheidet.
+Der Toleranzbereich liegt um die Handposition in der Simulation, weil die Bewegung dort eingerichtet wird.
 
 Für die Fortbewegung ist kein Zielwert gesetzt.
 Die Implementierung des Onboard-Reglers ist nicht quelloffen \cite{Hu2026}\ev{Hu2026.02}; A4 fordert deshalb nicht, dass die Simulation sein Gangbild abbildet, sondern nur, dass dieselben Befehle in beiden Betriebsarten wirken, was bereits A2 abdeckt.
@@ -310,6 +332,18 @@ Der Wert ist eine Setzung mit dem Ziel, dass der Halt gegenüber der Reaktion de
 Vom Ausfall eines Bedienwegs oder der Verbindung bis zum Halt der Bewegung dürfen höchstens 1\,s vergehen. % K5.4 – Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
 Bei einer Handgeschwindigkeit von höchstens 250\,mm/s legt die Hand in dieser Zeit höchstens 250\,mm zurück, sodass der Weg bis zum Halt begrenzt bleibt.
 Das Kriterium bewertet die Wirkung der gesamten Kette vom Ausfall bis zum Halt und nicht die einzelnen Auslegungswerte, die Abschnitt~\ref{sec:schutzmechanismen} festlegt.
+Abbildung~\ref{fig:schutzzeiten} ordnet beide Zeitkriterien in den zeitlichen Ablauf eines Halts ein.
+
+% Eigene Darstellung (Erweiterung Abbildungen, 17.11.2026); schematisch, keine Auslegungswerte.
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/schutz-zeiten}
+  \caption[Zeitkriterien des Halts nach Anforderung A5]{Zeitkriterien des Halts nach Anforderung A5, schematisch und nicht maßstäblich. a)~Die Anhaltezeit setzt sich aus Reaktionszeit und Bremszeit zusammen \cite{DGUV2015}\ev{DGUV2015.18,DGUV2015.19}; K5.3 erfasst nur den Teil vor der Herstellerschnittstelle. b)~K5.4 bewertet die Kette vom Ausfall eines Bedienwegs bis zum Halt; mit K5.1 bleibt der Weg der Hand begrenzt.}
+  \label{fig:schutzzeiten}
+\end{figure}
+
+Teil~a) der Abbildung macht sichtbar, dass die Arbeit für den Not-Halt nur den vorderen Teil der Anhaltezeit mit einem Zielwert belegt; der übrige Teil der Reaktionszeit und die Bremszeit tragen keinen eigenen Zielwert.
+Teil~b) zeigt, wie die Zielwerte von K5.4 und K5.1 zusammenwirken und so den Weg der Hand bis zum Halt auf höchstens 250\,mm begrenzen.
 
 Zwei weitere Prüfkriterien ergänzen die Messungen.
 Alle automatisierten sicherheitsrelevanten Tests müssen bestanden sein, und keiner darf übersprungen werden. % K5.5
@@ -331,6 +365,17 @@ Von der gestarteten Umgebung bis zur ersten Armbewegung und bis zur ersten Gehbe
 Auch dieser Wert ist eine Setzung; wenige, eindeutige Schritte bilden das Gegenstück zu einer Bedienung, die das Lesen einer Entwicklerdokumentation voraussetzt.
 Schließlich muss jede Grundfähigkeit nach dem Start ohne Programmierung und ohne Befehlszeile ausführbar sein; für die Inbetriebnahme gilt diese Bedingung nicht, ihren Aufwand erfasst das Zeitkriterium. % K6.3
 Verfehlt ist A6, wenn die Inbetriebnahme länger als 60\,min dauert, eine der beiden ersten Bewegungen mehr als fünf Bedienhandlungen erfordert oder eine Grundfähigkeit nach dem Start nur mit Programmierung oder Befehlszeile ausführbar ist.
+Abbildung~\ref{fig:inbetriebnahme} stellt die drei Prüfkriterien entlang des Ablaufs vom frisch eingerichteten PC bis zur ersten Arm- und Gehbewegung dar.
+
+% Eigene Darstellung (Erweiterung Abbildungen, 17.11.2026); lösungsneutral, keine Befehle oder Bedienwege.
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/inbetriebnahme}
+  \caption[Prüfkriterien des Bedienaufwands nach Anforderung A6]{Prüfkriterien des Bedienaufwands nach Anforderung A6, schematisch und nicht maßstäblich. Die Inbetriebnahme bis zur ersten Bewegung in der Simulation dauert höchstens 60\,min (K6.1); vom Start bis zur ersten Arm- und zur ersten Gehbewegung sind je höchstens fünf Bedienhandlungen zulässig (K6.2), und nach dem Start ist weder Programmierung noch Befehlszeile nötig (K6.3).}
+  \label{fig:inbetriebnahme}
+\end{figure}
+
+Die Abbildung zeigt, dass sich die Kriterien überlappen: Die Zeit nach K6.1 endet erst mit der ersten Bewegung und schließt damit die Bedienhandlungen bis zu dieser Bewegung ein, während K6.3 nur für den Abschnitt nach dem Start gilt.
 
 Zeit und Zahl der Schritte messen den Aufwand, nicht die Gebrauchstauglichkeit.
 Nutzerstudien zur End-User-Roboterprogrammierung messen die Usability am häufigsten mit der System Usability Scale \cite{Ajaykumar2021}\ev{Ajaykumar2021.09}, und Lücken im Verständnis der Nutzer lassen sich über Anzahl, Rate und Art ihrer Fehler beobachten \cite{Ajaykumar2021}\ev{Ajaykumar2021.11}.
@@ -370,6 +415,17 @@ Mehrere Anforderungen stehen zueinander in Konflikt.
 Die Begrenzung der Armbewegung nach A5 schränkt die Bewegungen ein, die eine Aufgabe nach A1 nutzen kann.
 Eine einfache Bedienung nach A6 verlangt wenige Bedienhandlungen, während A1 alle drei Grundfähigkeiten einzeln und kombiniert zugänglich machen soll.
 Offene Schnittstellen nach A7 eröffnen schließlich Wege, auf denen Befehle eines externen Projekts die Schutzfunktionen nach A5 umgehen können.
+Abbildung~\ref{fig:zielkonflikte} stellt die drei Konflikte zusammen.
+
+% Eigene Darstellung (Erweiterung Abbildungen, 17.11.2026); Inhalt nur aus diesem Absatz.
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/zielkonflikte}
+  \caption[Zielkonflikte zwischen den Anforderungen]{Zielkonflikte zwischen den Anforderungen A1, A5, A6 und A7. Gestrichelte Doppelpfeile verbinden Anforderungen, die zueinander in Konflikt stehen; A2, A3 und A4 sind an keinem der benannten Konflikte beteiligt.}
+  \label{fig:zielkonflikte}
+\end{figure}
+
+A1 und A5 sind an je zwei der drei Konflikte beteiligt, A6 und A7 an je einem.
 Kapitel~\ref{chap:konzept} löst diese Konflikte auf, für den Schutz in Abschnitt~\ref{sec:sicherheitskonzept}, für die Bedienung in Abschnitt~\ref{sec:bedienkonzept} und für die Erweiterung in Abschnitt~\ref{sec:erweiterungskonzept}; Kapitel~\ref{chap:evaluation} zeigt, ob dabei eine der beteiligten Anforderungen verfehlt wird.
 
 \section{Bewertungsmethodik}
@@ -453,6 +509,18 @@ Im dort zitierten Leistungsvergleich von Robotersimulatoren ist er eine von drei
 % fakten-testumgebung.md (d) und (e) V4. Kein Messwert.
 In der verwendeten Konfiguration ist die Simulation der Umgebung nach oben auf Echtzeit begrenzt (Abschnitt~\ref{sec:zeitschritt}).
 Ihr Echtzeitfaktor kann deshalb~1 nicht überschreiten, und K3.1 bestimmt, wie weit er im Mittel darunter liegt.
+Abbildung~\ref{fig:echtzeitfaktor} stellt die Definition, die Begrenzung und die Zielwerte nach A3 schematisch dar.
+
+% Eigene Darstellung (Erweiterung Abbildungen, 17.11.2026); schematisch, keine Messwerte.
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/echtzeitfaktor}
+  \caption[Echtzeitfaktor und Zielwerte nach Anforderung A3]{Echtzeitfaktor und Zielwerte nach Anforderung A3, schematisch ohne Messwerte. a)~Der Echtzeitfaktor ist das Verhältnis von simulierter zu realer Zeit \cite{Pitonakova2018}\ev{Pitonakova2018.01} und erscheint hier als Steigung; Werte über~1 schließt die Begrenzung auf Echtzeit aus. b)~Zielwerte für den mittleren Echtzeitfaktor (K3.1) und die Takttreue je Regelkreis (K3.2).}
+  \label{fig:echtzeitfaktor}
+\end{figure}
+
+In Teil~a) der Abbildung entspricht die Gerade mit der Steigung~1 dem Lauf in Echtzeit, und jede flachere Gerade einem langsameren Lauf.
+Teil~b) zeigt, dass für den mittleren Echtzeitfaktor nur ein schmaler Bereich zwischen 0,95 und~1 als Erfüllung gilt.
 Die Takttreue K3.2 ergänzt ihn je Regelkreis um das Verhältnis von erreichter zu vorgesehener Rate und um die Streuung der Zykluszeit.
 Die vorgesehenen Raten sind Auslegungswerte und stehen in Kapitel~\ref{chap:umsetzung}.
 
@@ -525,6 +593,19 @@ In der Simulation und gegen die Attrappe umfasst jeder Versuch zehn Wiederholung
 Ein Lauf von V4 dauert 10\,min, und V9 wird dreimal auf einem frisch eingerichteten System durchgeführt.
 Auch im genannten Simulatorvergleich läuft eine der Messreihen über eine feste Dauer von fünf Minuten und ohne Benutzeroberfläche \cite{Pitonakova2018}\ev{Pitonakova2018.02}.
 Bei drei Wiederholungen sind statistische Tests nicht aussagekräftig; die Arbeit verzichtet deshalb auf sie und gibt neben dem Mittelwert die Spannweite an.
+Abbildung~\ref{fig:versuchsmatrix} zeigt, auf welchen Prüfebenen die Versuche V1 bis V11 laufen und mit welchem Umfang.
+
+% Eigene Darstellung (Erweiterung Abbildungen, 17.11.2026); Daten identisch mit tab:versuchsplan.
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/versuchsmatrix}
+  \caption[Versuche nach Prüfebene und Umfang]{Versuche V1 bis V11 nach Prüfebene und Umfang, gruppiert nach Forschungsfragen. Die Analyse (V1) ist keine Prüfebene und steht deshalb außerhalb des Pfeils; V11 wird zusätzlich einmal eingerichtet. Einzelheiten zu Gegenstand und Kennzahlen enthält Tabelle~\ref{tab:versuchsplan}.}
+  \label{fig:versuchsmatrix}
+\end{figure}
+
+Die Abbildung macht die Verteilung über die Prüfebenen sichtbar.
+Die meisten Versuche laufen in der Simulation; fest am Roboter geplant sind V2, V3, V7 und V11, als Ergänzung V5, V8, V9 und V10.
+Gegen die Attrappe laufen V4 und V8, und V7 sowie V11 führen dieselbe Posenfolge beziehungsweise dieselbe Aufgabe in der Simulation und am Roboter aus.
 
 Tabelle~\ref{tab:versuchsplan} ordnet jedem Versuch seinen Gegenstand, die Prüfebene, die Kennzahlen, den Umfang und den Abschnitt der Auswertung zu.
 Die Versuche sind nach den Forschungsfragen geordnet, und die Kennzahlen tragen dieselben Nummern wie in Tabelle~\ref{tab:kennzahlen}.

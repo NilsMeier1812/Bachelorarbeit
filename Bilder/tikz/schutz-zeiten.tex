@@ -1,0 +1,48 @@
+% Zeitkriterien der Anforderung A5 (K5.3, K5.4) mit Handgeschwindigkeit (K5.1), SCHEMATISCH, nicht maßstäblich.
+% Eigene Darstellung. Gliederung der Anhaltezeit in Reaktions- und Bremszeit nach DGUV2015.18 und .19
+% (Belege in der Caption). Zielwerte aus tab:anforderungen (Vorschlag 16.11.); Weg <= 250 mm aus dem Text zu K5.4.
+% Lösungsneutral: keine Auslegungswerte der Schutzmechanismen, keine Komponenten.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/schutz-zeiten} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    anm/.style={font=\footnotesize, text=baGrau, align=center},
+    zeitachse/.style={ba normal, baGrau, ->},
+    ereignis/.style={circle, fill=baGrau, minimum size=2mm, inner sep=0pt},
+    mass/.style={ba normal, |<->|, >={Stealth[length=1.6mm]}},
+  }
+  % ======================= a) Not-Halt =======================
+  \begin{scope}
+    \draw[zeitachse] (0,0) -- (15.4,0) node[below left, text=black, font=\small] {Zeit $t$};
+    % Ereignisse
+    \node[ereignis] (a0) at (1.5,0) {};
+    \node[ereignis, fill=baAkzent] (a1) at (4.5,0) {};
+    \node[ereignis] (a3) at (12.8,0) {};
+    \draw[ba hilfslinie] (8.9,0) -- (8.9,1.1);
+    \draw[ba hilfslinie] (1.5,0) -- (1.5,1.9);
+    \draw[ba hilfslinie] (12.8,0) -- (12.8,1.9);
+    \node[anm, anchor=north] at (1.5,-0.2) {Auslösen\\des Not-Halts};
+    \node[anm, anchor=north, text=baAkzent] at (4.5,-0.2) {geänderter Befehl an\\der Herstellerschnittstelle};
+    \node[anm, anchor=north] at (12.8,-0.2) {Stillstand der\\Roboterachsen};
+    % Abschnitte der Anhaltezeit
+    \draw[mass, baGrau] (1.5,0.85) -- node[above, font=\footnotesize, text=black] {Reaktionszeit} (8.9,0.85);
+    \draw[mass, baGrau] (8.9,0.85) -- node[above, font=\footnotesize, text=black] {Bremszeit} (12.8,0.85);
+    \draw[mass, baGrau] (1.5,1.65) -- node[above, font=\footnotesize, text=black] {Anhaltezeit} (12.8,1.65);
+    % K5.3
+    \draw[mass, baAkzent, line width=1.2pt] (1.5,0.3) -- node[above, font=\footnotesize, text=baAkzent] {\(\le\)\,100\,ms (K5.3)} (4.5,0.3);
+    \node[ba teiltitel] at (7.8,-1.15) {a) Not-Halt: K5.3 als vorderer Teil der Reaktionszeit};
+  \end{scope}
+  % Trennlinie
+  \draw[ba trenner] (0,-1.85) -- (15.4,-1.85);
+  % ======================= b) Ausfall eines Bedienwegs =======================
+  \begin{scope}[yshift=-4.1cm]
+    \draw[zeitachse] (0,0) -- (15.4,0) node[below left, text=black, font=\small] {Zeit $t$};
+    \node[ereignis] (b0) at (2.0,0) {};
+    \node[ereignis, fill=baAkzent] (b1) at (8.9,0) {};
+    \node[anm, anchor=north] at (2.0,-0.2) {Ausfall eines Bedienwegs\\oder der Verbindung};
+    \node[anm, anchor=north, text=baAkzent] at (8.9,-0.2) {Halt der Bewegung};
+    \draw[mass, baAkzent, line width=1.2pt] (2.0,0.3) -- node[above, font=\footnotesize, text=baAkzent] {\(\le\)\,1\,s (K5.4)} (8.9,0.3);
+    \node[anm, anchor=west, align=left] at (9.4,0.75)
+      {Handgeschwindigkeit \(\le\)\,250\,mm/s (K5.1)\\\(\Rightarrow\) Weg der Hand bis zum Halt \(\le\)\,250\,mm};
+    \node[ba teiltitel] at (7.8,-1.15) {b) Ausfall eines Bedienwegs: Wirkung der gesamten Kette bis zum Halt};
+  \end{scope}
+\end{tikzpicture}

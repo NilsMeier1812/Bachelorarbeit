@@ -1,0 +1,29 @@
+% Ein Programmstand, zwei Betriebsarten: Prüfkriterien K2.1 bis K2.3 der Anforderung A2.
+% Eigene Darstellung, keine Fremdquelle. Inhalt nur aus Kapitel 5, Abschnitt sec:anforderungen (A2)
+% und tab:anforderungen. Lösungsneutral: keine Komponenten, keine Mechanismen des Wechsels.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/programmstand-betriebsarten} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    anm/.style={font=\footnotesize, text=baGrau, align=center},
+    ziel/.style={ba block, minimum width=26mm, minimum height=10mm},
+  }
+  % ---------- Programmstand ----------
+  \node[ba block hervor, minimum width=40mm, minimum height=9mm] (code) at (0,0.75) {gemeinsamer Programmcode};
+  \node[ba block, text width=37mm, align=center, draw=baAkzent, font=\footnotesize] (diff) at (0,-0.85)
+    {Stellen mit\\unterschiedlichem\\Verhalten: erfasst\\und begründet (K2.2)};
+  \node[ba gruppe, fit=(code)(diff), inner sep=2.5mm] (PS) {};
+  \node[anchor=south, font=\small] at (PS.north) {ein Programmstand};
+  % ---------- Konfiguration ----------
+  \node[ba block, minimum width=26mm, minimum height=12mm] (konf) at (4.25,0) {Konfiguration\\(Betriebsart)};
+  \draw[ba pfeil] (PS.east |- konf) -- (konf.west);
+  \node[anm, anchor=south] at (4.25,0.75) {Wechsel ändert nur\\die Konfiguration:\\0 geänderte Zeilen\\Programmcode (K2.1)};
+  % ---------- Betriebsarten ----------
+  \node[ziel] (sim)  at (7.75,0.95)  {Simulation};
+  \node[ziel] (real) at (7.75,-0.95) {realer G1};
+  \draw[ba pfeil] (konf.east) -- ++(0.4,0) |- (sim.west);
+  \draw[ba pfeil] (konf.east) -- ++(0.4,0) |- (real.west);
+  % ---------- Klammer: gleiche Bedienung ----------
+  \draw[ba normal, baGrau] (9.25,1.45) -- (9.45,1.45) -- (9.45,-1.45) -- (9.25,-1.45);
+  \node[anm, anchor=west, align=left] at (9.6,0)
+    {dieselbe Bedienung\\für alle Funktionen\\außer den vorab\\ausgewiesenen (K2.3)};
+\end{tikzpicture}

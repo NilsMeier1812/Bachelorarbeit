@@ -1,0 +1,37 @@
+% Prüfkriterien K6.1 bis K6.3 der Anforderung A6 entlang des Ablaufs, SCHEMATISCH, nicht maßstäblich.
+% Eigene Darstellung, keine Fremdquelle. Inhalt aus Kapitel 5, Abschnitt sec:anforderungen (A6) und tab:anforderungen
+% (60 min, je 5 Bedienhandlungen: Vorschlag 16.11.). Lösungsneutral: keine Befehle, Komponenten oder Bedienwege.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/inbetriebnahme} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    anm/.style={font=\footnotesize, text=baGrau, align=center},
+    stand/.style={ba block, minimum width=26mm, minimum height=10mm, text width=24mm},
+    handlung/.style={circle, draw=baGruen, fill=white, line width=0.8pt, minimum size=3mm, inner sep=0pt},
+    mass/.style={ba normal, |<->|, >={Stealth[length=1.6mm]}},
+  }
+  % ---------- Stationen ----------
+  \node[stand] (pc)    at (1.3,0)    {frisch\\eingerichteter PC};
+  \node[stand] (start) at (6.6,0)    {Umgebung\\gestartet};
+  \node[stand, ba block hervor] (arm)  at (14.0,0.85)  {erste\\Armbewegung};
+  \node[stand, ba block hervor] (geh)  at (14.0,-0.85) {erste\\Gehbewegung};
+  % ---------- Inbetriebnahme ----------
+  \draw[ba pfeil] (pc.east) -- node[above, font=\footnotesize] {Installation} node[below, anm] {Zahl der Schritte\\wird angegeben} (start.west);
+  % ---------- Bedienhandlungen ----------
+  \foreach \y/\z in {0.85/arm, -0.85/geh} {
+    \draw[ba normal, baGrau] (start.east) -- ++(0.3,0) |- (8.6,\y);
+    \foreach \i in {1,...,5} \node[handlung] at ({8.3+0.65*\i},\y) {};
+    \draw[ba pfeil] (11.7,\y) -- (\z.west);
+    \draw[ba normal, baGrau] (8.6,\y) -- (8.8,\y);
+    \foreach \i in {1,...,4} \draw[ba normal, baGrau] ({8.3+0.65*\i+0.15},\y) -- ({8.3+0.65*(\i+1)-0.15},\y);
+  }
+  \node[anm, anchor=south] at (10.25,1.2) {\(\le\)\,5 Bedienhandlungen (K6.2)};
+  \node[anm, anchor=north] at (10.25,-1.2) {\(\le\)\,5 Bedienhandlungen (K6.2)};
+  % ---------- K6.1: bis zur ersten Bewegung in der Simulation ----------
+  \draw[ba hilfslinie] (pc.north west) -- ++(0,1.5);
+  \draw[ba hilfslinie] (12.7,1.35) -- (12.7,2.25);
+  \draw[mass, baAkzent, line width=1.2pt] (pc.north west |- 0,2.05) -- node[above, font=\footnotesize, text=baAkzent]
+    {\(\le\)\,60\,min einschließlich Installation, bis zur ersten Bewegung in der Simulation (K6.1)} (12.7,2.05);
+  % ---------- K6.3: Bereiche ----------
+  \draw[mass, baGrau] (pc.south west |- 0,-2.05) -- node[below, anm] {Inbetriebnahme: K6.3 gilt nicht} (start.south |- 0,-2.05);
+  \draw[mass, baGruen] (start.south |- 0,-2.05) -- node[below, anm, text=black] {nach dem Start: ohne Programmierung, ohne Befehlszeile (K6.3)} (15.3,-2.05);
+\end{tikzpicture}
