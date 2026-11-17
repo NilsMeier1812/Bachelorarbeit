@@ -1,0 +1,197 @@
+% Kap. 5.3 – ENTWURF AP6, 17.11.2026 (Claude). Plan: review/plan-kap5.md (Abschnitte 5, 6, 7, 11 AP6).
+% Grundlagen: review/kap5-entwurf/fakten-testumgebung.md (AP1, einzige Quelle für Angaben zur Testumgebung),
+% review/kap5-entwurf/belegpruefung.md (AP2). Wird von AP7 in Kapitel/05_Handlungsbedarf_Methodik.tex übernommen;
+% die \section-Zeile mit \label{sec:bewertungsmethodik} steht dort.
+% Darstellungen (tab:kennzahlen, tab:versuchsplan, tab:testumgebung, fig:bewertungslogik) baut AP3 in
+% review/kap5-entwurf/tabellen.tex und abbildungen.tex; hier nur Platzhalterkommentare an der Einfügestelle.
+% Code-Stand der Eigenleistungs-Angaben: G1@25d5c1a (11.11.2026), Pfade relativ zu g1pilot/ bzw. Repo-Wurzel.
+
+Die Anforderungen in Abschnitt~\ref{sec:anforderungen} legen fest, was die Umgebung leisten muss; dieser Abschnitt legt fest, wie ihre Erfüllung geprüft wird.
+Die Messbarkeit einer Anforderung ist Voraussetzung dafür, ihre Umsetzung nachzuverfolgen und zu beurteilen \cite{Bender2021}\ev{Bender2021.02}.
+Der Abschnitt ordnet deshalb zunächst jeder Anforderung Kennzahlen und eine Nachweisart zu (Abschnitt~\ref{sec:kennzahlen}), plant anschließend die Versuche V1 bis V11 auf drei Prüfebenen (Abschnitt~\ref{sec:versuchsplan}) und beschreibt schließlich die Testumgebung, auf die sich alle Versuche beziehen (Abschnitt~\ref{sec:testumgebung}).
+Der Plan steht vor der Durchführung der Versuche fest; Kapitel~\ref{chap:evaluation} wendet ihn an und gleicht die Ergebnisse in Abschnitt~\ref{sec:abgleich} mit den Zielwerten ab.
+
+\subsection{Zuordnung von Kennzahlen zu Anforderungen und Forschungsfragen}
+\label{sec:kennzahlen}
+Jede Forschungsfrage wird über ihre Anforderungen und deren Kennzahlen beantwortet, und für jede Kennzahl steht vor den Versuchen fest, wie sie bestimmt wird.
+Abbildung~\ref{fig:bewertungslogik} stellt diese Kette dar: Jedes Defizit D1 bis D4 aus Abschnitt~\ref{sec:handlungsbedarf} führt zu einer Forschungsfrage, jede Forschungsfrage zu einer oder zwei Anforderungen und jede Anforderung über ihre Kennzahlen zu mindestens einem Versuch.
+% hier fig:bewertungslogik aus abbildungen.tex
+Die Versuche sind nach Forschungsfragen den Abschnitten~\ref{sec:eval_f1} bis~\ref{sec:eval_f4} zugeordnet, und Abschnitt~\ref{sec:abgleich} führt alle Anforderungen wieder zusammen.
+Die Kennzahlen erscheinen in der Abbildung nicht einzeln; sie tragen die Nummer ihrer Anforderung, sodass K2.1 die erste Kennzahl zu A2 bezeichnet.
+
+Die Kennzahlen werden mit vier Nachweisarten bestimmt.
+Eine Analyse wertet Programmcode und Konfiguration aus, ein Test prüft automatisiert gegen ein festes Soll-Ergebnis, eine Messung liefert eine Größe mit Einheit aus aufgezeichneten Daten, und eine Demonstration führt eine Funktion nach festem Protokoll aus und hält fest, ob sie gelingt.
+Nicht jede Anforderung lässt sich messen: A1, A2 und A7 beschreiben Eigenschaften des Aufbaus der Umgebung und werden deshalb durch Analyse und Demonstration nachgewiesen.
+Zählbare Größen wie die Anzahl geänderter Zeilen Programmcode machen auch diese Nachweise prüfbar.
+Für Demonstrationen gilt ein vorab festgelegtes Erfolgskriterium; in Nutzerstudien zur Roboterprogrammierung wird der Aufgabenerfolg ebenso daran gemessen, ob ein erstelltes Programm erfolgreich ausgeführt wird oder vorab festgelegte Korrektheitsstandards erfüllt \cite{Ajaykumar2021}\ev{Ajaykumar2021.13}.
+
+Tabelle~\ref{tab:kennzahlen} ordnet jeder Kennzahl ihre Größe mit Einheit, die Nachweisart, die Anforderung und die Forschungsfrage zu.
+Die Zeilen folgen den Forschungsfragen F1 bis F4 und damit der Gliederung von Kapitel~\ref{chap:evaluation}; die Zielwerte stehen in Tabelle~\ref{tab:anforderungen}.
+% hier tab:kennzahlen aus tabellen.tex
+Für F1 bestimmen K2.1 bis K2.3, ob derselbe Programmstand Simulation und Realbetrieb steuert: die Zahl der geänderten Zeilen Programmcode beim Wechsel, die Stellen mit unterschiedlichem Verhalten nach Anzahl und Art sowie die Funktionen, die in beiden Betriebsarten mit derselben Bedienung ausführbar sind.
+Die ersten beiden Kennzahlen ergeben sich aus der Analyse, die dritte aus der Demonstration.
+
+F2 stützt sich auf zwei Gruppen von Kennzahlen.
+K3.1 und K3.2 beschreiben das Zeitverhalten der Simulation auf dem Referenz-PC.
+K4.1 bis K4.3 beschreiben die Abweichung zwischen Simulation und Realbetrieb: den Verlauf der Gelenkwinkel der Arme über der Zeit, die daraus berechnete Position der Hand am Ende jeder Bewegung und für die Fortbewegung das Verhältnis von erreichter zu vorgegebener Geschwindigkeit.
+K4.3 charakterisiert nur und trägt keinen Zielwert, weil in Simulation und Realbetrieb verschiedene Regler die Fortbewegung ausführen (Abschnitt~\ref{sec:anforderungen}).
+
+Der Echtzeitfaktor ist das Verhältnis von simulierter zu verstrichener realer Zeit.
+In einem Leistungsvergleich dreier Robotersimulatoren dient er als eine von drei Leistungskennzahlen; ein Wert über~1 kennzeichnet dort eine Simulation, die schneller als Echtzeit laufen kann, ein Wert unter~1 eine langsamere \cite{Pitonakova2018}\ev{Pitonakova2018.01}.
+% Basis: G1@25d5c1a unitree_mujoco/simulate_python/unitree_mujoco.py:166-178 (SIM_REALTIME_FACTOR nur Soll-Deckel),
+% unitree_mujoco/simulate_python/config.py:102 (Lockstep), docker-compose.yml (SIM_REALTIME_FACTOR=1.0); g1pilot/docs/40-T-Simulation.md „Lockstep“;
+% fakten-testumgebung.md (d) und (e) V4. Kein Messwert.
+In der verwendeten Konfiguration ist die Simulation der Umgebung nach oben auf Echtzeit begrenzt (Abschnitt~\ref{sec:zeitschritt}).
+Ihr Echtzeitfaktor kann deshalb~1 nicht überschreiten, und K3.1 bestimmt, wie weit er im Mittel darunter liegt.
+Die Takttreue K3.2 ergänzt ihn je Regelkreis um das Verhältnis von erreichter zu vorgesehener Rate und um die Streuung der Zykluszeit.
+Die vorgesehenen Raten sind Auslegungswerte und stehen in Kapitel~\ref{chap:umsetzung}.
+
+Für F3 erfassen K5.1 bis K5.6 die Wirkung der Schutzmechanismen im Realbetrieb.
+Bestimmt werden die größte Geschwindigkeit der Hand, die Verfügbarkeit und die Reaktionszeit des Not-Halts, die Zeit bis zum Halt nach dem Ausfall eines Bedienwegs, der Anteil bestandener sicherheitsrelevanter Tests und ob der Roboter nach einem Not-Halt der Arme stehen bleibt.
+K6.1 bis K6.3 messen den Bedienaufwand von der Inbetriebnahme bis zur ersten Bewegung und prüfen, ob die Grundfähigkeiten nach dem Start ohne Programmierung und ohne Befehlszeile ausführbar sind.
+K6.4 ergänzt eine Bewertung durch Probanden, sofern eine Nutzerstudie durchgeführt wird.
+
+F4 wird über K1.1 bis K1.3 und K7.1 bis K7.3 beantwortet.
+Für eine neue Beispielaufgabe werden die Abdeckung der Grundfähigkeiten, die geänderten Zeilen Programmcode und die Zeit für das Einrichten bestimmt, für die Anbindung eines Programms die geänderten Zeilen im Kern der Umgebung, der Aufwand und die Zahl der gezeigten Schnittstellen.
+K1.3 und K7.2 werden nur berichtet und tragen keinen Zielwert.
+
+Aus den in Abschnitt~\ref{sec:abbildungsguete} beschriebenen Verfahren übernimmt die Arbeit den Vergleich derselben Bewegung in Simulation und am realen Roboter über der Zeit.
+Diesem Weg folgt der Vergleich der Bewegungen eines realen Manipulators mit mehreren Simulatoren \cite{Collins2019}\ev{Collins2019.03}, der als Kennzahl den euklidischen Abstand der Handgelenkposition zur Zielposition über der Zeit auswertet \cite{Collins2019}\ev{Collins2019.06}.
+Für den Humanoiden Pepper wird die Genauigkeit eines digitalen Zwillings durch den Vergleich mit dem realen Roboter bewertet \cite{Sekkat2024}\ev{Sekkat2024.07}, wobei der Fehler je Gelenkwinkel ausgewiesen ist \cite{Sekkat2024}\ev{Sekkat2024.13}.
+K4.1 vergleicht entsprechend die Gelenkwinkel der Arme.
+K4.2 berechnet daraus die Position der Hand am Ende jeder Bewegung und schließt damit an das Abstandsmaß des Manipulatorvergleichs an.
+
+Vier weitere Verfahren aus Abschnitt~\ref{sec:abbildungsguete} sind auf die Fragestellung nicht anwendbar.
+Der Sim2Real Correlation Coefficient setzt die Genauigkeiten mehrerer Navigationsmethoden in Simulation und Realität zueinander in Beziehung \cite{Kadian2020}\ev{Kadian2020.02}; die Arbeit bewertet dagegen nur ein System.
+Eine Referenz über ein Motion-Capture-System, das in der genannten Untersuchung nach der Kalibrierung auf 1\,mm genau misst \cite{Collins2019}\ev{Collins2019.04}, steht nicht zur Verfügung; Bezug der Messung sind deshalb die Gelenkwinkelgeber des Roboters.
+Der Vergleich mehrerer Physiksimulationen, mit dem trainierte Policies auf Robustheit und Generalisierung geprüft werden \cite{Gu2024}\ev{Gu2024.02}, entfällt, weil die Umgebung nur einen Simulator nutzt.
+Die Differenz des in Simulation und Realexperiment erwarteten Return \cite{Tan2018}\ev{Tan2018.12} setzt eine gelernte Policy als Untersuchungsgegenstand voraus, und die Arbeit trainiert keine eigene Policy (Abschnitt~\ref{sec:sim2real}).
+
+Die Methodik richtet sich an den Gütekriterien Objektivität, Reliabilität und Validität aus.
+Objektivität stützt sich darauf, dass Skripte die Messdaten aufzeichnen und auswerten, statt dass Werte von Hand abgelesen werden, und dass Demonstrationen einem festen Protokoll mit vorab festgelegten Prüfkriterien folgen.
+Reliabilität stützt sich auf einen festen Code-Stand, einen beschriebenen Referenz-PC und Wiederholungen jedes Versuchs (Abschnitte~\ref{sec:versuchsplan} und~\ref{sec:testumgebung}).
+
+Die Validität ist an vier Stellen begrenzt, die bereits vor den Versuchen feststehen.
+Erstens beziehen sich K4.1 und K4.2 auf die Gelenkwinkelgeber des Roboters und nicht auf eine externe Referenz; eine Abweichung der Geber selbst bleibt unerkannt, und die Position der Hand ist berechnet, nicht gemessen.
+Eine Simulation kann zudem wegen numerischer Integrationsfehler und wegen Modellfehlern von der Realität abweichen \cite{Erez2015}\ev{Erez2015.13}; der gewählte Vergleich erfasst beide Ursachen gemeinsam und trennt sie nicht.
+Zweitens messen K6.1 bis K6.3 den Bedienaufwand, nicht die Gebrauchstauglichkeit.
+Das häufigste Werkzeug zur Messung der Gebrauchstauglichkeit in Nutzerstudien zu Systemen, mit denen Endnutzer Roboter programmieren, ist die System Usability Scale \cite{Ajaykumar2021}\ev{Ajaykumar2021.09}, und Lücken im Verständnis der Nutzer lassen sich über Anzahl, Rate und Art ihrer Fehler beobachten \cite{Ajaykumar2021}\ev{Ajaykumar2021.11}; K6.4 greift beides auf, sofern eine Nutzerstudie durchgeführt wird.
+Auch dann bleibt die Aussage begrenzt, weil subjektive Maße wie die Gebrauchstauglichkeit von Faktoren außerhalb des bewerteten Verfahrens beeinflusst werden können, etwa von unzuverlässiger Hardware oder der Wahrnehmung des Roboters \cite{Ajaykumar2021}\ev{Ajaykumar2021.14}.
+Zudem zeichnen Arbeiten zur Roboterprogrammierung durch Endnutzer wegen fehlender Einsätze und Nutzerstudien außerhalb des Labors möglicherweise nur ein eingeschränktes Bild \cite{Ajaykumar2021}\ev{Ajaykumar2021.12}.
+Drittens zeigen Versuche gegen die Attrappe des Roboters die Logik der Programme, nicht das Verhalten der Mechanik (Abschnitt~\ref{sec:versuchsplan}).
+Viertens erlauben drei Wiederholungen am Roboter keine statistische Absicherung, sodass die Ergebnisse dort als Stichproben gelten.
+
+\subsection{Versuchsplan}
+\label{sec:versuchsplan}
+Geprüft wird auf drei Ebenen mit wachsendem Aufwand und wachsender Aussagekraft: gegen eine Attrappe des Roboters, in der Simulation und am realen Roboter.
+Die Abstufung folgt aus den Eigenschaften der Ebenen.
+Tests im Feld sind laut einer Arbeit zur Testautomatisierung in der Robotik zeitaufwendig, teuer, nicht skalierbar, fehleranfällig und potenziell gefährlich und erst in späten Entwicklungsphasen möglich \cite{Afzal2021}\ev{Afzal2021.01}.
+Das simulationsbasierte Testen, bei dem die Robotersteuerung in einer simulierten Umgebung geprüft wird, gilt dort als vielversprechende Methode, die günstiger, sicherer und besser skalierbar ist als das manuelle Testen im Feld und großes Potenzial für die Testautomatisierung bietet \cite{Afzal2021}\ev{Afzal2021.02}.
+Physische Tests vor dem Einsatz bleiben dennoch zwingend \cite{Choi2021}\ev{Choi2021.02}.
+
+Die Attrappe des Roboters ersetzt die Herstellerschnittstelle durch nachgebildete Antworten, während die Programme des Realbetriebs unverändert laufen (Abschnitt~\ref{sec:testumgebung}).
+Sie zeigt die Logik der Schutzmechanismen ohne Gefährdung, auch für Fehlerfälle, die sich am Roboter nicht gefahrlos auslösen lassen, wie den Ausfall einzelner Aufrufe an den Onboard-Regler.
+Das Verhalten der Mechanik zeigt sie nicht.
+Einordnen lässt sich die Attrappe nur als Analogie zu bekannten Testformen: Beim Software-in-the-Loop-Test läuft die Steuerungssoftware auf demselben Rechner wie der Simulator \cite{Afzal2021}\ev{Afzal2021.03}, und der Hardware-in-the-Loop-Test erlaubt, eingebetteten Code ohne die reale Systemhardware auch unter fehlerhaften Bedingungen zu prüfen, die die Hardware beschädigen könnten \cite{Mihalic2022}\ev{Mihalic2022.08}.
+Mit beiden teilt die Attrappe den Gedanken, Steuerungssoftware ohne den realen Roboter zu prüfen; sie ersetzt jedoch keinen Simulator, sondern bildet nur die Antworten der Herstellerschnittstelle nach.
+
+Die Simulation zeigt das Verhalten der Umgebung mit Physik, wiederholbar und ohne Risiko.
+Wiederholbarkeit auch bei Grenz- und Extremfällen, volle Kontrolle über die Umgebung und fehlendes Risiko für Mensch und Hardware können die Simulation für die Verifikation autonomer Systeme nützlich machen \cite{Choi2021}\ev{Choi2021.05}.
+Der reale Roboter zeigt schließlich die Übertragbarkeit.
+Versuche dort sind aufwendig, erlauben nur wenige Wiederholungen und finden nur unter Sicherung statt.
+
+Für alle Versuche gelten fünf Grundsätze.
+Jede Funktion wird zuerst in der Simulation und erst danach am Roboter geprüft.
+Wird eine Kennzahl auf mehreren Ebenen bestimmt, geschieht das mit denselben Skripten und derselben Auswertung.
+Alle Versuche laufen an einem festen Code-Stand (Abschnitt~\ref{sec:testumgebung}).
+Jede Messung wird von einem Skript aufgezeichnet und mit ihren Rohdaten abgelegt; am Roboter greifen die Messmittel nur lesend zu.
+Schließlich wird jeder Versuch wiederholt, und berichtet werden Mittelwert und Spannweite.
+
+% Umfang: Vorschlag 16.11. (plan-kap5.md Abschnitt 7.2; Realversuche ab 23.11., V7, V2, V11, V5, V9 je dreimal)
+Der Umfang der Wiederholungen richtet sich nach dem Aufwand der Ebene.
+In der Simulation und gegen die Attrappe umfasst jeder Versuch zehn Wiederholungen, am Roboter drei.
+Ein Lauf von V4 dauert 10\,min, und V9 wird dreimal auf einem frisch eingerichteten System durchgeführt.
+Auch im genannten Simulatorvergleich läuft eine der Messreihen über eine feste Dauer von fünf Minuten und ohne Benutzeroberfläche \cite{Pitonakova2018}\ev{Pitonakova2018.02}.
+Bei drei Wiederholungen sind statistische Tests nicht aussagekräftig; die Arbeit verzichtet deshalb auf sie und gibt neben dem Mittelwert die Spannweite an.
+
+Tabelle~\ref{tab:versuchsplan} ordnet jedem Versuch seinen Gegenstand, die Prüfebene, die Kennzahlen, den Umfang und den Abschnitt der Auswertung zu.
+% hier tab:versuchsplan aus tabellen.tex
+Für F1 vergleicht V1 Programmcode und Konfiguration zwischen Simulation und Realbetrieb und bestimmt K2.1 und K2.2.
+V2 prüft am realen Roboter nach festem Protokoll das Verbinden, das Übernehmen und Zurückgeben der Arme, das Greifen, das Gehen und den Not-Halt und liefert K2.3, K1.1 und K5.6.
+V3 wertet einen realen Anwendungsfall aus, den Transport einer Box für ein Werbevideo, und hält fest, welche Funktionen genutzt und welche Anpassungen nötig sind \pruefen{Angaben zum Werbevideo (N10): wann gedreht, welche Funktionen genutzt, was angepasst werden musste}.
+
+Für F2 bestimmt V4 den Echtzeitfaktor und die Takttreue auf dem Referenz-PC in der Simulation; die Takttreue des Armregelkreises wird zusätzlich gegen die Attrappe bestimmt.
+V5 untersucht die Fortbewegung in der Simulation je Lauf-Policy mit einer Folge vorgegebener Geschwindigkeiten, Wechseln zwischen Gehen und Stehen sowie Stößen und ergänzt die Geschwindigkeitsfolge am Roboter; daraus folgt K4.3.
+V6 prüft die Manipulation in der Simulation über feste Testfälle für Planungserfolg und Planungszeit, den Restfehler der inversen Kinematik und die Genauigkeit im Tippbetrieb; der Versuch stützt A4 und A1, ohne eine eigene Kennzahl zu tragen.
+V7 ist der Schlüsselversuch für F2: Dieselbe Folge gespeicherter Posen läuft in der Simulation und am Roboter, und die Aufzeichnung der Gelenkwinkel liefert K4.1 und K4.2.
+
+Für F3 prüft V8 die Schutzmechanismen gegen die Attrappe.
+Der Versuch umfasst die automatisierten sicherheitsrelevanten Tests (K5.5), die größte Geschwindigkeit der Hand bei provozierten Zielsprüngen (K5.1), die Verfügbarkeit und die Reaktionszeit des Not-Halts (K5.2, K5.3) und den Ausfall eines Bedienwegs (K5.4); am Roboter ist er als Ergänzung vorgesehen.
+V9 bestimmt den Bedienaufwand vom frisch eingerichteten PC bis zur ersten Bewegung und von der gestarteten Umgebung bis zur ersten Arm- und Gehbewegung (K6.1 bis K6.3).
+Sofern eine Nutzerstudie durchgeführt wird, ergänzt sie V9 um K6.4.
+
+Für F4 prüft V10 die Anbindung eines Programms über die dokumentierten Schnittstellen (K7.1 bis K7.3).
+Ein externes Projekt steht dafür nicht zur Verfügung, sodass A7 nur an einem Beispielprogramm gezeigt werden kann und im Übrigen konzeptionell bleibt \pruefen{V10: Wird ein Beispielprogramm gebaut (N5, optional)? Sonst V10 als Analyse der Schnittstellen führen}.
+V11 richtet eine neue Aufgabe mit neuer Szene und neuem Ablauf in der Simulation ein und führt sie am Roboter aus (K1.1 bis K1.3).
+Fällt ein Versuch aus, führt Abschnitt~\ref{sec:abgleich} die betroffene Anforderung als nicht nachgewiesen.
+
+% Basis: G1@25d5c1a g1pilot/docs/50-A-Echter-Roboter.md, Abschnitt A „Vor dem Einschalten“ und Abschnitt F „Ablauf der ersten Tests“
+Versuche am Roboter finden nur unter Sicherung statt.
+Der Roboter hängt dabei an einem Kran, und eine zweite Person hält die Fernbedienung des Herstellers bereit, die allen anderen Bedienwegen als Not-Halt übergeordnet ist.
+Erste Versuche mit den Armen finden am hängenden und nicht am stehenden Roboter statt.
+
+Drei Prüfungen gehören nicht zum festen Plan.
+Eine Nutzerstudie ist nur als Ergänzung von V9 vorgesehen; ohne sie bleibt A6 allein über den Bedienaufwand belegt.
+Das Gangbild des Onboard-Reglers wird nicht als Gütemaß gegen die Simulation gemessen, weil in Simulation und Realbetrieb verschiedene Regler die Fortbewegung ausführen.
+Dauerläufe sind nicht Gegenstand der Arbeit.
+
+\subsection{Testumgebung}
+\label{sec:testumgebung}
+Alle Versuche beziehen sich auf einen festen Code-Stand, einen beschriebenen Referenz-PC und einen beschriebenen Roboter, damit sie wiederholbar sind.
+Zeitmessungen hängen dabei vom Rechner ab: Bei Latenzmessungen an Middleware hängt die Latenz stark von der verwendeten Hardware und den Parametern ab \cite{Kronauer2021}\ev{Kronauer2021.12} sowie von Energiesparfunktionen des Betriebssystems und der Hardware \cite{Kronauer2021}\ev{Kronauer2021.13}.
+Die genannte Untersuchung gibt die beiden verglichenen Rechner mit Prozessor und Arbeitsspeicher an \cite{Kronauer2021}\ev{Kronauer2021.05}.
+Tabelle~\ref{tab:testumgebung} fasst die entsprechenden Angaben dieser Arbeit zusammen.
+% hier tab:testumgebung aus tabellen.tex
+
+% Basis: fakten-testumgebung.md (d); G1@25d5c1a docker/Dockerfile.sim, Dockerfile.real, Dockerfile.mujoco, docker-compose.yml
+Die Softwarestände in Tabelle~\ref{tab:testumgebung} legen die Container-Images der Umgebung fest (Abschnitt~\ref{sec:container}).
+Ein solches Image enthält die Software bereits installiert, konfiguriert und getestet \cite{Boettiger2015}\ev{Boettiger2015.06} und bildet damit die Rechenumgebung nach, die das Ausführen fremden Codes voraussetzt \cite{Boettiger2015}\ev{Boettiger2015.02}.
+Die Image-Definitionen legen das Basis-Image, die ROS-2-Distribution und den Stand des Hersteller-SDK fest, die Versionen von MuJoCo und weiteren Python-Paketen dagegen nicht.
+Die tatsächlich installierten Versionen werden deshalb aus den gebauten Images ausgelesen \pruefen{installierte Versionen von MuJoCo, CycloneDDS und Pinocchio aus den gebauten Images ablesen und in tab:testumgebung eintragen}.
+Container legen die Software fest, nicht aber Hardware und Zeitverhalten; deshalb beschreibt die Tabelle zusätzlich den Referenz-PC.
+
+Der Referenz-PC ist der Rechner, auf dem die Simulation für alle Versuche läuft \pruefen{Prozessor, Arbeitsspeicher, Grafikkarte und Betriebssystem des Referenz-PCs (N4)}.
+Die Versuche am Roboter nutzen einen Unitree G1 \pruefen{Ausführung, Softwarestand des Roboters und verwendete Hände}.
+% Basis: G1 git log -1 (25d5c1a, 11.11.2026); todo-nils.md Kap. 5 „Festen Code-Stand im G1-Repo markieren“
+Die Angaben zur Testsuite beziehen sich auf den Stand 25d5c1a des Repositorys der Umgebung vom 11.~November~2026.
+Die Messmittel für V1, V4, V6, V7 und V8 kommen danach hinzu, sodass die Versuche an einem später markierten Stand laufen \pruefen{Tag bzw. Commit des Mess-Stands eintragen und die Testzahlen dort neu zählen}.
+
+% Basis: fakten-testumgebung.md (a), (c); G1@25d5c1a g1pilot/test/run_tests.sh:13-51, g1pilot/docs/60-A-Tests.md:21-23, 56-61, 89-93
+Die automatisierten Tests laufen ohne Roboter und ohne laufende Simulation, Bedienoberflächen dabei ohne Bildschirm.
+Am Stand 25d5c1a umfasst die Testsuite 597 Testfunktionen in 46 Dateien; parametrisierte Tests erhöhen die Zahl der ausgeführten Testfälle darüber hinaus.
+Ein Startskript fasst die Dateien zu teils überlappenden Gruppen zusammen.
+Die Gruppe „sicherheit“ umfasst 25 Dateien mit 442 Testfunktionen, die unter anderem die Anbindung von Armregler und Onboard-Regler im Realbetrieb, die Eingabegeräte, die Prüfung des Bodenkontakts, den externen Not-Halt der Bedienoberfläche und den Armplaner prüfen.
+
+Ein Testlauf ist nur dann ein Nachweis, wenn kein Test übersprungen wird.
+Fehlen in der Testumgebung Abhängigkeiten, überspringt die Suite Tests ohne Fehlermeldung; 30 der 46 Dateien setzen solche Abhängigkeiten voraus.
+Für K5.5 zählt deshalb nur ein Lauf ohne übersprungene Tests, und die Ausgabe des Laufs weist übersprungene Tests mit Grund aus.
+Die Laufzeit-Images enthalten das Testwerkzeug nicht, sodass die Suite in einer eigenen Umgebung läuft \pruefen{Testumgebung angeben (Image oder Python-Umgebung mit Version), in der die Suite für K5.5 läuft}.
+
+Die automatisierten Tests decken laut Dokumentation der Umgebung drei Bereiche nicht ab: den realen Roboter, die echte Funkverbindung zum Smartphone sowie Leuchtanzeige und Vibration realer Gamepads.
+Sie enthalten außerdem keine Zeitmessungen; Reaktionszeiten bestimmen deshalb eigene Messmittel in V8.
+Prüfungen gegen die laufende Simulation und Szenarien direkt im Simulator ohne Middleware liegen außerhalb der Suite und dienen V5 und V6 als Messskripte.
+
+% Basis: fakten-testumgebung.md (b); G1@25d5c1a g1pilot/test/test_arm_controller_real.py:29-160 (FakeG1),
+% g1pilot/test/test_loco_client_real.py:28-110 (FakeLoco), g1pilot/test/teleop_jitter_probe.py:20-27, 93-130
+Die Attrappe des Roboters besteht aus zwei Teilen, die in den Tests die Bibliothek der Herstellerschnittstelle ersetzen; die Programme des Realbetriebs laufen dabei unverändert.
+Für die Arme bildet sie den Zustands- und den Befehlskanal nach, einschließlich der Gewichtung zwischen dem Befehl der Umgebung und der Haltung, die der Onboard-Regler vorgibt, und die gemessenen Gelenkwinkel folgen dem Befehl als einfaches Nachlaufen.
+Für die Fortbewegung zeichnet sie die Aufrufe an den Onboard-Regler auf, führt dessen Zustand als Zahl, wechselt ihn ohne Verzögerung und lässt einzelne Aufrufe gezielt ausfallen.
+Nicht nachgebildet sind die Übertragung über das Netzwerk mit Latenz und Paketverlust, Beine und Gleichgewicht, die Hände, Temperaturen und Fehlermeldungen des Roboters sowie Kollisionen; den Onboard-Regler vertritt nur eine feste Haltung.
+Ergebnisse gegen die Attrappe belegen deshalb die Logik der Programme, nicht ihr Zeitverhalten im Netzwerk und nicht die Wirkung am Roboter.
+
+Für die Takttreue des Armregelkreises steht eine Variante der Attrappe mit einem einfachen Gelenkmodell bereit, die den Befehlsstrom über die reale Zeit des Prozesses misst.
+Ihre Werte eignen sich laut ihrer Beschreibung nur zum Vergleich, nicht als Absolutwerte, und sie liefert keinen Echtzeitfaktor der Simulation.
+% Basis: fakten-testumgebung.md (e) V5 (g1pilot/tools/walk_diag.py record, nur lesend); plan-kap5.md Abschnitt 7.3 und N11 (Messmittel baut Nils)
+Für die Fortbewegung am Roboter steht eine Aufzeichnung bereit, die nur lesend auf den Roboter zugreift.
+Die übrigen Messmittel ergänzt die Arbeit vor den Versuchen am Roboter: ein Auswerteskript für die Abfragen der Betriebsart im Programmcode (V1), eine Messung von Echtzeitfaktor und Takten über eine feste Dauer (V4), feste Testfälle für den Planer mit Erfolg und Rechenzeit (V6), eine nur lesende Aufzeichnung der Gelenkwinkel der Arme mit Zeitstempel, die in Simulation und am Roboter gleich arbeitet (V7), und eine Zeitmessung vom Auslösen des Not-Halts bis zum Befehl an der Herstellerschnittstelle gegen die Attrappe (V8) \pruefen{Messmittel (N11) nach Fertigstellung bestätigen und Ablage für den Anhang nennen}.
+Jedes Messmittel schreibt seine Rohdaten in eine Datei, sodass die Auswertung in Kapitel~\ref{chap:evaluation} nachvollziehbar bleibt.
