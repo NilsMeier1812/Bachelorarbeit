@@ -1,0 +1,37 @@
+% Datenmodell der Posen und Abläufe: Pose und relative Bewegung als Bausteine, Ablauf als Folge, Ausführung über die Planung.
+% Eigene Darstellung (Art E, Kap. 6.4.3). Keine Quelle in der Caption.
+% Basis: G1@25d5c1a g1pilot/docs/23-T-Posen-und-Ablaeufe.md, Abschnitte "Dateiformat" (Pose, relative Bewegung "moves",
+%   Ablauf "sequences" verweist nur auf Posennamen und Bewegungen, dieselbe Pose in mehreren Abläufen, wait_s = Pause,
+%   Verschiebung je Achse höchstens 0,30 m), "Speicherort" (Datei außerhalb des Containers, bind-gemountet) und
+%   "Ablauf-Zustand" (Ausführung am Stück / Schritt für Schritt durch den SequenceRunner der Bedienoberfläche;
+%   der Armregler sieht nur einzelne Ziele, jeder Schritt geplant, mit Kollisionsschutz);
+%   docs/23-A-Posen-und-Ablaeufe.md (Einlernen durch Hinfahren und Speichern; Schritt für Schritt im Realbetrieb voreingestellt);
+%   docs/20-T-Arm-Manipulation.md Abschnitt "Positionsspeicher (plan-execute)" (_start_planned_motion, Planer).
+% Nicht gezeichnet: Grenzwert 0,30 m, Statusfolge accepted/executing/reached, Handy- und Gamepad-Aktionen im Detail.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/posen-ablaeufe} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    bst/.style={ba block, align=center, minimum height=17mm, text width=38mm},
+    klein/.style={font=\footnotesize, text=baGrau},
+    ueb/.style={font=\footnotesize, text=black},
+  }
+  % Datenebene
+  \draw[ba gruppe] (0.2,-0.55) rectangle (10.0,5.5);
+  \node[klein, anchor=south west, align=left] at (0.35,-0.5) {Daten: eine Datei außerhalb des Containers,\\in Simulation und Realbetrieb dieselbe};
+  \node[bst] (P) at (2.5,4.0) {Pose\\{\footnotesize gespeicherte Stellung von Armen und Händen, einzeln wählbar}};
+  \node[bst] (M) at (2.5,1.5) {Relative Bewegung\\{\footnotesize Verschiebung der Hände von der aktuellen Stelle}};
+  \node[bst, ba block hervor] (A) at (7.7,2.75) {Ablauf\\{\footnotesize Folge von Posen und relativen Bewegungen, optional mit Pause}};
+  \draw[ba pfeil] (P.east) -- ++(0.55,0) |- ([yshift=4mm]A.west);
+  \draw[ba pfeil] (M.east) -- ++(0.55,0) |- ([yshift=-4mm]A.west);
+  % Einlernen
+  \node[ba block, align=center, minimum height=10mm, text width=34mm] (E) at (2.5,6.75) {Einlernen\\{\footnotesize Hinfahren und Speichern}};
+  \draw[ba pfeil] (E.south) -- (P.north);
+  % Ausführung
+  \node[bst, text width=34mm] (X) at (13.2,2.75) {Ausführung\\{\footnotesize am Stück oder Schritt für Schritt}};
+  \draw[ba pfeil] (A.east) -- (X.west);
+  \node[ba block, align=center, minimum height=10mm, text width=34mm] (BW) at (13.2,5.7) {Bedienwege\\{\footnotesize Start, Weiter}};
+  \draw[ba pfeil] (BW.south) -- (X.north);
+  % Armregelung
+  \node[bst, ba block hervor, text width=40mm] (AR) at (13.0,-0.9) {Armregelung\\{\footnotesize plant jeden Schritt wie ein einzelnes Ziel, mit Kollisionsprüfung}};
+  \draw[ba pfeil] (X.south) -- node[ueb, right] {Einzelziele} (X.south |- AR.north);
+\end{tikzpicture}

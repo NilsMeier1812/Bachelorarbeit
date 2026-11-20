@@ -1,0 +1,78 @@
+% Entwurf Abschnitt 6.1 (AP3, Plan review/plan-kap6.md Abschnitt 5). Stand 20.11.2026.
+% Umfang Ziel ca. 1,7 S. (6.1.1 ca. 0,3 / 6.1.2 ca. 0,6 / 6.1.3 ca. 0,8).
+% Code-Stand: G1@25d5c1a; übernommener Stand = G1@6c0f331 ohne die Simulationsdateien
+% (docker-compose.sim.yaml, docker/Dockerfile.sim, docker/Dockerfile.mujoco, launch/bringup_sim.launch.py,
+% G1_SIM_MODE-Zweige), die laut Nils (N3, 16.11.2026) Eigenleistung sind.
+% Der Upstream-Stand 455e287/efc5e7c (hucebot/g1pilot) liegt nicht im Repo; die Defizite sind am Code von 6c0f331 geprüft.
+
+\section{Ausgangsbasis und Abgrenzung}
+\label{sec:ausgangsbasis}
+% Basis: G1@25d5c1a g1pilot/NOTICE.md, Abschnitt „g1pilot (Basis dieses Pakets)“
+Die Umgebung baut auf dem quelloffenen ROS-2-Paket G1Pilot auf.
+Dieser Abschnitt begründet diese Wahl, gleicht den übernommenen Funktionsumfang mit den Anforderungen A1 bis A7 ab und grenzt die Eigenleistung ab.
+
+\subsection{Auswahl der Ausgangsbasis}
+\label{sec:auswahl_basis}
+% Basis: Nils, 16.11.2026 (N4 in review/plan-kap6.md): einzige echte Alternative war die Neuentwicklung, g1pilot passte zum Vorhaben.
+% Armregler mit IK: G1@6c0f331 g1pilot/g1pilot/manipulation/arm_controller.py (Klasse ArmController), g1pilot/g1pilot/utils/ik_solver.py.
+% Lizenz: G1@25d5c1a g1pilot/LICENSE und g1pilot/NOTICE.md (BSD-3-Clause).
+Als Ausgangsbasis stehen eine Neuentwicklung oder einer der Softwarestände aus Abschnitt~\ref{sec:verwandte_arbeiten} zur Wahl, die Tabelle~\ref{tab:stacks} gegenüberstellt.
+Die Wahl fällt auf G1Pilot, weil dessen vorhandene Bausteine zum Vorhaben passen und eine Neuentwicklung sie erneut erfordert.
+G1Pilot ist ein quelloffenes ROS-2-Paket für den G1, das den Unterkörper dem Unitree-Regler überlässt und Werkzeuge für die Steuerung des Oberkörpers und die Teleoperation bereitstellt \cite{HucebotG1Pilot}\ev{HucebotG1Pilot.01}.
+Der übernommene Stand enthält zudem einen Armregler für kartesische Zielvorgaben auf Basis inverser Kinematik und steht unter der BSD-3-Clause-Lizenz.
+Den Preis der Entscheidung benennt Abschnitt~\ref{sec:defizite}.
+
+\subsection{Übernommener Funktionsumfang und Defizite}
+\label{sec:defizite}
+% Basis: eigene Analyse G1@6c0f331 (g1pilot/README.md „Nodes Overview“; g1pilot/g1pilot/manipulation/, navigation/,
+% state/, teleoperation/, utils/) und G1@25d5c1a g1pilot/NOTICE.md (Tabelle Original-Anteil, Satz „Entfernt wurden …“).
+Aus G1Pilot übernimmt die Umgebung sechs Bausteine: das Grundgerüst der Armregelung mit dem Löser der inversen Kinematik, die Zielmarker für Handposen in RViz, die Anbindung des Onboard-Reglers für Stehen und Gehen, die Veröffentlichung des Roboterzustands, die Steuerung über einen Joystick und einen Pfadplaner für die Navigation.
+Nicht übernommen sind die Ansteuerung der Dex3-Hand, die tastenbasierte Bedienoberfläche, die Anbindung von LiDAR und Odometrie sowie das Docker-Image des Originals.
+
+% Basis: eigene Analyse G1@6c0f331:
+%  A2: navigation/loco_client.py (Stehen/Gehen nur über LocoClient; use_robot:=false -> self.robot = None, entering_balancing meldet nur „Sim balancing done“);
+%      manipulation/arm_controller.py Docstring Klasse + main_loop-Ende (ohne Roboter nur JointState-Ausgabe); N3 (Nils): Original nur für Realbetrieb.
+%  A5: arm_controller.py main_loop (kNotUsedJoint0.q = 1.0 ab dem ersten Zyklus, keine Rampe; bei arms_enabled=False kein Write mehr);
+%      loco_client.py emergency_callback und Taste 5 (Damp() des Onboard-Reglers, Arme frei); keine Kollisionsprüfung (grep „collision“ ohne Treffer);
+%      Begrenzung nur über Parameter arm_velocity_limit bzw. config.yaml inverse_kinematics.velocity_limit.
+%  A6: teleoperation/ui_interface.py (Schaltflächenraster 5x5, nur Publisher, keine Subscriber -> keine Zustandsanzeige);
+%      README.md „Instructions“ (Start über colcon build, ros2 launch).
+%  A1/A7: keine HTTP-/Socket-Schnittstelle (grep ohne Treffer); Posen nur Grundstellung „home“ in config/config.yaml;
+%      Hände nur manipulation/dx3_hand.py.
+Der Abgleich mit den Anforderungen aus Tabelle~\ref{tab:anforderungen} zeigt vier Defizite des übernommenen Stands, die eine eigene Analyse des Codes belegt:
+\begin{itemize}
+  \item \textbf{A2:} Am schwersten wiegt, dass G1Pilot auf den Realbetrieb ausgelegt ist und keine physikalische Simulation enthält; jede Funktion lässt sich so nur am realen Roboter erproben. Ohne Roboter gibt der Armregler die Sollwinkel nur zur Anzeige aus, Stehen und Gehen sind allein über den Onboard-Regler erreichbar.
+  \item \textbf{A5:} Der Armregler übernimmt die Arme ohne Übergang des Gewichtswerts der Armschnittstelle (Abschnitt~\ref{sec:g1_armsdk}) und gibt sie ohne Rückführung ab. Der Not-Halt ist die einzige Haltstufe und dämpft über den Onboard-Regler auch die Beine. Eine Kollisionsprüfung fehlt; die Armbewegung begrenzt allein ein einstellbarer Höchstwert der Gelenkgeschwindigkeit.
+  \item \textbf{A6:} Die Bedienoberfläche bietet alle Funktionen gleichzeitig als Schaltflächenraster an und zeigt keinen Zustand des Roboters an. Der Start setzt Kenntnisse der ROS-2-Kommandozeile voraus.
+  \item \textbf{A1 und A7:} Für Programme ohne ROS~2 fehlt eine Schnittstelle. Außer einer fest eingestellten Grundstellung lassen sich keine Posen oder Abläufe speichern, und angebunden ist nur die Dex3-Hand statt der Inspire-Hände des eingesetzten Roboters (Abschnitt~\ref{sec:g1_hardware}).
+\end{itemize}
+Aus den vier Defiziten folgen die Handlungsfelder der Abschnitte~\ref{sec:architektur} bis~\ref{sec:erweiterungskonzept}: Architektur mit Simulationspfad, Sicherheit, Bedienung und Erweiterung.
+
+\subsection{Abgrenzung der Eigenleistung}
+\label{sec:eigenleistung}
+% Basis: G1@25d5c1a g1pilot/NOTICE.md (Original-Anteil je Datei; „etwa ein Zehntel der Zeilen“, dort Stand 30.10.2026);
+% Stufen-Zuordnung nach Plan Abschnitt 5, 6.1.3 und tab:eigenleistung (AP2).
+% Eigene Zählung 20.11.2026 an G1@25d5c1a (nicht im Text, bei Bedarf ergänzen): 26.398 Zeilen in g1pilot/g1pilot/**/*.py,
+% 13.367 Zeilen in g1pilot/test/**/*.py, 597 Funktionen „def test_“ in g1pilot/test (deckt sich mit der Zählung vom 16.11. im Plan).
+Die Abgrenzung der Eigenleistung folgt Funktionsbereichen, nicht Codezeilen.
+Nach eigener Auswertung stammt zwar nur noch etwa ein Zehntel der Zeilen aus dem Original, viele Dateien mit Original-Code enthalten aber überwiegend eigene Erweiterungen, sodass eine Zeilenbilanz die Herkunft einzelner Funktionen verdeckt.
+Tabelle~\ref{tab:eigenleistung} ordnet deshalb jedem Funktionsbereich eine von drei Stufen zu: \emph{übernommen} (aus G1Pilot im Kern unverändert), \emph{erweitert} (Grundgerüst aus G1Pilot, wesentliche Teile neu) oder \emph{neu} (in G1Pilot nicht enthalten).
+
+% Basis: G1@25d5c1a g1pilot/NOTICE.md (robot_state.py ~80 %; dijkstra_planner.py, nav2point.py, create_map.py 35–80 %;
+% arm_controller.py Grundgerüst ~20 %; ik_solver.py ~30 %; loco_client.py Grundgerüst ~20 %;
+% interactive_marker.py ~50 %, joystick.py/joy_mux.py 25–80 %); docs/13-A-Alter-Joystick.md „Richtet sich an: Entwickler und Betreuer“.
+Übernommen sind die Veröffentlichung des Roboterzustands und der Pfadplaner, den die Umgebung für die Navigation in der Simulation einbindet; die Zielmarker in RViz und der Joystick-Zugang bleiben als Werkzeuge für Entwickler erhalten.
+Erweitert sind die Armregelung mit der inversen Kinematik und die Anbindung des Onboard-Reglers, deren Grundgerüst aus G1Pilot um die Schutz- und Übergabefunktionen aus Abschnitt~\ref{sec:sicherheitskonzept} ergänzt ist.
+
+% Basis: G1@25d5c1a g1pilot/NOTICE.md, Satz „Alle übrigen Dateien (u. a. Demo-GUI, Arm-Planer, loco_sim mit Lauf-Policies,
+% Inspire-Hände, PS4/Xbox-Teleop, Arm-API, Handy-Zugang, Tests, Doku) sind eigene Arbeit“; N3 (Simulation vollständig Eigenleistung).
+Den größten Teil der Tabelle bilden neue Bereiche: das Kollisionsmodell mit dem Bahnplaner, die Kopplung an die Simulation, der Ersatzregler für Stehen und Gehen und die Sicherheitsfunktionen.
+Neu sind ebenso die Inspire-Hände mit eigenen Hand-Profilen, die Bedienoberfläche, die Gamepad-Bedienung und der Smartphone-Zugang, die Posen und Abläufe, die Schnittstelle für externe Programme, die Bereitstellung mit Startmenü sowie Tests und Dokumentation.
+
+% Basis: G1@25d5c1a g1pilot/NOTICE.md, Tabelle „Weitere Fremdbestandteile“; g1pilot/policies/g1_wholebody/ATTRIBUTION.md,
+% g1pilot/policies/agile_velocity_g1/ATTRIBUTION.md, g1pilot/policies/agile_velocity_height_g1/ATTRIBUTION.md;
+% unitree_mujoco/scene_editor/README.md (Grundlage mujoco-scene-editor).
+Nicht zur Eigenleistung zählen die eingebundenen Fremdbestandteile.
+Die Kopplung an die Simulation baut auf unitree\_mujoco auf, einem Simulator des Herstellers auf Basis von unitree\_sdk2 und MuJoCo \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}.
+Hinzu kommen weitere Herstellerpakete, ein browserbasierter Szenen-Editor für MuJoCo und die Lauf-Policies aus Unitree RL Mjlab, einem Lernprojekt mit MuJoCo als Physik-Backend \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.01}, und aus NVIDIA WBC-AGILE \qf{WBC-AGILE: Zhao2026, Freigabe fehlt}.
+Abschnitt~\ref{sec:eval_code} greift die Abgrenzung auf, wenn er den Programmstand von Simulation und Realbetrieb vergleicht.
