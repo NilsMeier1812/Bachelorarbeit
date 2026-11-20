@@ -1,0 +1,61 @@
+% Betriebszustände und Übergänge der Umgebung (abstrakt, gilt für Simulation und Realbetrieb).
+% Eigene Darstellung (Art E, Kap. 6.3.1). Keine Quelle in der Caption. Fasst vier gekoppelte Zustandsmaschinen
+% des Codes (Onboard-Regler am Roboter, Ersatzregler der Simulation, Armregler, Bedienmodus) zu einem Diagramm zusammen.
+% Basis, je Zustand/Übergang (G1@25d5c1a, Pfade relativ zu g1pilot/):
+%   Gedämpft -> Bereit ("Start"): docs/50-A-Echter-Roboter.md F Schritt 2 (Start quittiert und stellt aus Damp auf
+%     Preparation); docs/30-T-Stehen-und-Gehen.md Zustandsmaschine (/g1pilot/start(True) -> HOLD, Sim) und
+%     Tabelle loco_client (/g1pilot/start).
+%   Bereit -> Balancierend (Bedienmodus wählen): docs/30-T-Stehen-und-Gehen.md (start_balancing -> STAND, start_walking
+%     -> _enter_walk; real: Tabelle loco_client, Bodenkontakt vor "Walk", knee_load_min_nm); docs/10-A-Demo-GUI.md
+%     Abschnitt 1 (genau eine Kachel aktiv); docs/50-A-Echter-Roboter.md E (GREIFEN/LAUFEN nur aus Preparation).
+%   GREIFEN <-> GEHEN: docs/30-T-Stehen-und-Gehen.md (START BALANCING im WALK: Ausbremsen, dann STAND; START WALKING).
+%   Totmann losgelassen: docs/51-A-Notaus.md Stufen ("Gehen stoppen"); docs/30-T loco_client (Deadman/Timeout).
+%   Not-Halt von jedem Zustand, Wirkung: docs/51-T-Notaus.md "Wer was tut" (arm_controller, loco_client, loco_sim,
+%     Inspire-Bridge); Beine bleiben stehen (real), Simulation: DAMP (docs/51-A-Notaus.md "In der Simulation").
+%   Quittieren: docs/51-A-Notaus.md "Quittieren" (Gamepad: geht nicht, absichtlich; danach Arme schlaff bis GREIFEN).
+%   Voll-Notaus -> Gedämpft: docs/51-T-Notaus.md (Damp zuerst, nach Voll-Notaus bleibt Damp), docs/51-A-Notaus.md.
+%   Sturz erkannt -> Gedämpft (nur Simulation): docs/30-T-Stehen-und-Gehen.md Zustandsmaschine (_fallen -> DAMP).
+% Nicht gezeichnet (nicht für beide Welten belegt oder Detail der Tabelle): Damp per Startleiste aus dem Stehen
+%   (nur real), Abfangen und Übergabe WALK->STAND (nur Simulation), zweite Bestätigung vor "Walk" (nur real),
+%   Sperre bei Hüfte nicht in der Mitte, Fernbedienung des Herstellers.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/betriebszustaende} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    zu/.style={ba block, align=center, minimum height=12mm},
+    halt/.style={ba block, draw=baAkzent, line width=1.2pt, align=center, minimum height=12mm},
+    ueb/.style={font=\footnotesize, text=black},
+    klein/.style={font=\footnotesize, text=baGrau},
+  }
+  % Rahmen: Not-Halt und Voll-Notaus gelten von jedem Zustand
+  \draw[ba gruppe] (0.3,1.85) rectangle (15.7,8.95);
+  \node[klein, anchor=south west] at (0.45,1.95) {von jedem Zustand};
+  % Zustände
+  \node[zu, text width=30mm] (G) at (2.3,7.9) {Gedämpft\\{\footnotesize alle Gelenke weich}};
+  \node[zu, text width=44mm] (B) at (8.2,7.9) {Bereit\\{\footnotesize Gelenke gehalten, noch kein Balancieren}};
+  \draw[ba gruppe, draw=baGrau] (4.0,2.3) rectangle (15.3,5.7);
+  \node[font=\small, anchor=north west] at (4.15,5.65) {Balancierend (genau ein Bedienmodus aktiv)};
+  \node[zu, text width=34mm, ba block hervor] (GR) at (6.1,3.95) {GREIFEN\\{\footnotesize Stehen, Arme frei}};
+  \node[zu, text width=40mm, ba block hervor] (GE) at (13.0,3.95) {GEHEN\\{\footnotesize Geschwindigkeitsvorgabe}};
+  % Übergänge
+  \draw[ba pfeil] (G.east) -- node[ueb, above] {Start} (B.west);
+  \draw[ba pfeil] (B.south) -- (8.2,5.7);
+  \node[ueb, anchor=west] at (8.4,6.45) {Modus wählen (real: nur mit Bodenkontakt)};
+  \draw[ba pfeil] ([yshift=2mm]GR.east) -- node[ueb, above] {GEHEN wählen} ([yshift=2mm]GE.west);
+  \draw[ba pfeil] ([yshift=-2mm]GE.west) -- node[ueb, below] {GREIFEN wählen} ([yshift=-2mm]GR.east);
+  \node[klein, anchor=south, align=center] at (13.0,2.38) {Totmann losgelassen:\\Gehen stoppt};
+  % Sturz (nur Simulation)
+  \draw[ba pfeil] (4.0,3.95) -| ([xshift=8mm]G.south);
+  \node[ueb, anchor=west, align=left] at (3.2,6.45) {Sturz erkannt\\(nur Simulation)};
+  % Not-Halt (Sammelübergang vom Rahmen)
+  \node[halt, text width=50mm] (NH) at (6.5,0.1) {Not-Halt (verriegelt)\\{\footnotesize Arme schlaff, Hände halten, Taille gehalten, Beine bleiben stehen}};
+  \draw[ba pfeil, baAkzent] (6.5,1.85) -- (NH.north);
+  \node[ueb, anchor=west, align=left] at (6.65,1.4) {auf jedem\\Bedienweg};
+  % Quittieren
+  \draw[ba pfeil] (NH.east) -| (14.5,2.3);
+  \node[ueb, anchor=south west, text width=47mm] at (9.6,0.35) {Quittieren (nicht am \mbox{Gamepad}); Arme bleiben schlaff, bis GREIFEN gewählt wird};
+  % Voll-Notaus
+  \node[halt, text width=24mm] (VN) at (2.1,0.1) {Voll-Notaus\\{\footnotesize alles gedämpft}};
+  \draw[ba pfeil, baAkzent] (2.1,1.85) -- (VN.north);
+  \node[ueb, anchor=west, text width=30mm] at (2.25,1.4) {Gamepad, Tasten gehalten};
+  \draw[ba pfeil] (VN.west) -- ++(-0.2,0) |- (G.west);
+\end{tikzpicture}

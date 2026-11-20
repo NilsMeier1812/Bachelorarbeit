@@ -1,0 +1,142 @@
+% Entwurf Abschnitt 6.3 (AP5), Stand 20.11.2026. Code-/Doku-Stand: G1@25d5c1a; Pfade in "% Basis:" relativ zu g1pilot/.
+% Darstellungen (fig:betriebszustaende, tab:haltstufen, tab:schutzmechanismen, fig:armuebergabe) baut AP1/AP2;
+% hier nur \ref und Erläuterung, keine Umgebungen. Grenzwerte stehen nur in tab:schutzmechanismen.
+% Umfang Ziel: ca. 3 Seiten (6.3.1 ~1 S., 6.3.2 ~1,3 S., 6.3.3 ~0,7 S.).
+
+\section{Sicherheitskonzept}
+\label{sec:sicherheitskonzept}
+% [A5, F3]
+Das Sicherheitskonzept setzt die Anforderung A5 aus Tabelle~\ref{tab:anforderungen} um: Ein Bedienfehler oder der Ausfall eines Bedienwegs soll am realen Roboter nicht zu einer unbegrenzten Bewegung führen, und ein Halt soll den stehenden Roboter nicht zu Fall bringen.
+Dazu legt Abschnitt~\ref{sec:zustaende} Betriebszustände und Stufen des Halts fest, Abschnitt~\ref{sec:schutzmechanismen} ordnet die Schutzmechanismen, und Abschnitt~\ref{sec:armuebergabe} behandelt den Wechsel der Armregelung zwischen Onboard-Regler und Umgebung.
+
+\subsection{Betriebszustände und Übergänge}
+\label{sec:zustaende}
+
+% Art G: Leitgedanke "aktiver sicherer Zustand", Rückverweis 3.4.3
+Ausgangspunkt des Konzepts ist, dass der sichere Zustand eines balancierenden Zweibeiners ein aktiv geregelter Zustand ist (Abschnitt~\ref{sec:sicherheit_zweibeiner}).
+In der klassischen Maschinensicherheit entzieht ein Schutzstopp die Energie, und die Maschine kommt zu einem ungefährlichen Stillstand \cite{Ding2026}\ev{Ding2026.02}.
+Beim dynamisch balancierenden Humanoiden führt derselbe Energieentzug dagegen zu einem unkontrollierten Sturz, der selbst eine Gefährdung ist \cite{Ding2026}\ev{Ding2026.03}; sein sicherer Zustand ist nach einem nicht begutachteten Preprint ein aktiv geregelter Zustand \cite{Ding2026}\ev{Ding2026.01}.
+Auch mit gebremsten und abgeschalteten Gelenken ist ein Humanoid nicht notwendig sicher \cite{Prather2025}\ev{Prather2025.03}.
+Im Vergleich zu Vier- oder Sechsbeinern liegt sein Schwerpunkt relativ hoch und die konvexe Hülle seiner Füße ist klein, was ihn anfälliger für Stürze macht \cite{Subburaman2023}\ev{Subburaman2023.01}, und ein Sturz kann Roboter, Objekte und Personen schädigen \cite{Subburaman2023}\ev{Subburaman2023.07}.
+
+% Art G (Ding2026.08/.09, DINENISO13850.02) + Art E (Folgerung für die Umgebung)
+% Basis: G1@25d5c1a docs/51-T-Notaus.md, Abschnitt „Wer was tut“; docs/50-A-Echter-Roboter.md, Abschnitt „Notaus-Reflex“
+Daraus folgt ein Halt in Stufen statt eines einzigen Abschaltens.
+Ein zu abrupter Halt kann eine Störung jenseits der Erholungsgrenze des Balancereglers einbringen und einen Sturz auslösen \cite{Ding2026}\ev{Ding2026.09}; die Norm zum Not-Halt verlangt dagegen, gefahrbringende Bewegungen ohne zusätzliche Gefährdungen anzuhalten \cite{DINENISO13850}\ev{DINENISO13850.02}.
+In einer Fallstudie wird deshalb ein kontrollierter Halt im Stand befohlen, bei dem die Regelung zum Balancieren erhalten bleibt \cite{Ding2026}\ev{Ding2026.08}.
+Die Umgebung trennt nach demselben Gedanken zwei Wirkungen: Der Not-Halt entlastet die Arme, von denen bei Kontakt die unmittelbare Gefährdung ausgeht, und lässt die Beine unter der Regelung des Onboard-Reglers stehen.
+
+% Art E: abstrahiertes Zustandsdiagramm (N7: Nils „vermutlich ja“)
+% Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, Abschnitte „Zustandsmaschine“ und „loco_client (echter Roboter)“;
+%        docs/20-T-Arm-Manipulation.md, Abschnitt „Zustandsmaschine“; docs/51-A-Notaus.md, Abschnitte „Stufen“, „In der Simulation“, „Quittieren“;
+%        Code g1pilot/navigation/loco_sim.py (HOLD/STAND/WALK/DAMP, _on_start -> HOLD, Sturzerkennung fall_gz/fall_debounce_s),
+%        g1pilot/navigation/loco_client.py (FSM 1/4/500/501, _waist_blocks_walk, Bodenkontakt knee_load_min_nm),
+%        g1pilot/teleoperation/status_line.py (start_buttons: Rückfrage bei Damp und Walk), gui_base.py (einziger Sender von /g1pilot/start)
+Abbildung~\ref{fig:betriebszustaende} fasst die Betriebszustände in einem Diagramm zusammen, das für Simulation und Realbetrieb gilt.
+Es abstrahiert vier gekoppelte Zustandsautomaten, nämlich Onboard-Regler bzw.\ Ersatzregler, Armregler und Bedienmodus, zu den Zuständen \emph{Gedämpft}, \emph{Bereit} (am Kran hängend bzw.\ in der Simulation am Rumpf gehalten) und \emph{Stehen} mit genau einem der Bedienmodi GREIFEN und GEHEN.
+\qf{Herstellerdokumentation G1: Zustände des Onboard-Reglers (gedämpft, vorbereitet, Gehen), Rückverweis sec:g1\_onboard; Benutzerhandbuch G1 nicht in Zotero (L16)}
+Das Gehen setzt im Realbetrieb voraus, dass der Roboter balanciert, die Hüftdrehung in der Mitte steht und die Knie Last tragen; Dämpfen und Gehen verlangen eine zweite Bestätigung.
+Der Not-Halt ist aus jedem Zustand erreichbar und verriegelt alle Bewegungsbefehle, bis an der Bedienoberfläche oder am Smartphone quittiert wird, bewusst nicht am Gamepad.
+Danach behalten die Beine im Realbetrieb ihren Zustand, die Arme bleiben schlaff, bis die Bedienperson sie im Modus GREIFEN bewusst wieder übernimmt.
+
+% Art E: Halt-Stufen
+% Basis: G1@25d5c1a docs/51-A-Notaus.md, Abschnitte „Stufen“, „In der Simulation“; docs/51-T-Notaus.md, Abschnitt „Wer was tut“;
+%        Code g1pilot/manipulation/arm_controller.py (_on_emergency_stop, _on_full_emergency_stop, _publish_arm_slack),
+%        g1pilot/navigation/loco_client.py (_halt_legs: Geschwindigkeit 0 statt Damp; Damp nur mit estop_damp_legs, Default false)
+Tabelle~\ref{tab:haltstufen} stellt die fünf Stufen des Halts mit ihrer Wirkung auf Arme, Hände, Taille und Beine gegenüber; sie greifen von oben nach unten tiefer ein.
+\emph{Stopp} beendet die laufende Armbewegung, \emph{Gehen stoppen} hält den Roboter beim Loslassen des Totmanns im Stand an.
+Im zentralen \emph{Not-Halt} sinken die Arme drehmomentfrei und gedämpft ab, Hände und Taille halten ihre Stellung, und die Beine erhalten nur einen Haltebefehl, sodass der Onboard-Regler den Roboter stehend weiter balanciert.
+Erst der \emph{Voll-Notaus} dämpft auch die Beine, sodass der Roboter zusammensackt und am Kran gesichert sein muss; die \emph{Fernbedienung des Herstellers} wirkt als letzte Stufe an der Firmware.
+In der Simulation dämpft bereits der Not-Halt die Beine, und eine erkannte Sturzneigung führt dort automatisch in den Zustand Gedämpft.
+
+% Art G (DGUV2015.10) + Art E: Analogie mit genanntem Unterschied
+% Kann
+Die Stufen entsprechen den Stoppkategorien aus Abschnitt~\ref{sec:schutzfunktionen} nur als Analogie.
+Kategorie~0 setzt durch sofortiges Abschalten der Energie still, Kategorie~2 gesteuert und mit beibehaltener Energie \cite{DGUV2015}\ev{DGUV2015.10}.
+Der Not-Halt ähnelt für die Beine der Kategorie~2, endet aber nicht in einem Stillstand, sondern in einem aktiv gehaltenen Gleichgewicht; der Voll-Notaus kommt der Kategorie~0 am nächsten, dämpft die Gelenke jedoch, statt die Energie abzuschalten.
+Ob Zustände und Übergänge wie beschrieben greifen, weist Abschnitt~\ref{sec:eval_sicherheit} nach.
+
+\subsection{Schutzmechanismen}
+\label{sec:schutzmechanismen}
+
+% Art E: betrachtete Gefährdungen (eigene Zusammenstellung, keine Gefährdungsbeurteilung, N9) und Wirkprinzipien
+% Basis: G1@25d5c1a docs/50-A-Echter-Roboter.md, Abschnitt „E · Guarantees, die bereits im Code stehen“; docs/51-A-Notaus.md
+Der Not-Halt allein genügt für A5 nicht, weil er erst wirkt, nachdem eine Person die Gefährdung erkannt hat.
+Betrachtet werden Stoß und Quetschen durch einen Arm, Kollision mit der Umgebung oder dem eigenen Körper, Sturz, unbeabsichtigtes Loslaufen sowie der Ausfall einer Verbindung oder der Bedienperson.
+Die Umgebung staffelt ihre Mechanismen deshalb nach vier Wirkprinzipien: \emph{Begrenzen}, \emph{Vermeiden}, \emph{Überwachen} und \emph{Anhalten}.
+\pruefen{Begründung für die Staffelung nach vier Wirkprinzipien von Nils bestätigen (in der G1-Doku nicht als Begründung dokumentiert)}
+Tabelle~\ref{tab:schutzmechanismen} ordnet ihnen die Mechanismen mit Gefährdung, Auslegungswert, Geltung in Simulation und Realbetrieb und dem Abschnitt der Umsetzung zu.
+
+% Art E + Art G (Orientierung Handgeschwindigkeit)
+% Basis: G1@25d5c1a docs/50-A-Echter-Roboter.md, Abschnitt E („Harte Grenzen nur auf real“, „Sanftes Anfahren und begrenzter Schleppfehler“);
+%        docs/20-T-Arm-Manipulation.md, Abschnitte „main_loop() – pro Tick“ und „Übergabe an den Onboard-Regler“;
+%        Code g1pilot/manipulation/arm_controller.py (REAL_MAX_GAINS, REAL_MAX_ARM_VEL, REAL_MAX_EE_VEL, _apply_real_safety_limits;
+%        Kommentare Z. 167/1586/3888 „reduced speed nach ISO 10218-1 / ISO TS 15066“), launch/bringup_real.launch.py Z. 97–111
+\emph{Begrenzen} wirkt auf jede Armbewegung, gleich von welchem Bedienweg das Ziel kommt.
+Begrenzt sind Gelenkgeschwindigkeit und -beschleunigung der Arme, die Geschwindigkeit der Hand, der Abstand zwischen Sollwert und Messwert, die Reglerverstärkungen und die Gehgeschwindigkeit; der begrenzte Abstand verhindert, dass sich an einem festgehaltenen Arm ein Sprung aufbaut.
+Die harten Grenzen gelten nur im Realbetrieb, abweichende Vorgaben der Konfiguration korrigiert die Umgebung beim Start.
+Die Grenze der Handgeschwindigkeit orientiert sich an der reduzierten Geschwindigkeit, mit der Industrieroboter in der Betriebsart T1 verfahren \cite{DGUV2015}\ev{DGUV2015.04}, und an der Grundannahme einer sicher reduzierten Geschwindigkeit in ISO/TS~15066 \cite{Villani2018}\ev{Villani2018.09}; anders als dort ist sie keine sicher überwachte Geschwindigkeit, sondern eine Sollwertbegrenzung in Software.
+
+% Art E: Vermeiden
+% Basis: G1@25d5c1a docs/20-T-Arm-Manipulation.md, Abschnitt „Laufzeit-Gate“; docs/30-T-Stehen-und-Gehen.md, Abschnitt „loco_client“ (Bodenkontakt vor »Walk«);
+%        docs/50-A-Echter-Roboter.md, Abschnitt E („Kein Auto-Start“, „WALK ist gesperrt, bis balanciert“); start.sh Z. 189–207 (Bestätigung „REAL“)
+\emph{Vermeiden} setzt vor der Bewegung an.
+Eine Kollisionsprüfung zur Laufzeit lässt keine weitere Annäherung der Arme an die Umgebung unter einen Mindestabstand zu und hält bei drohender Selbstkollision an; gespeicherte Posen werden über geplante Bahnen angefahren (Abschnitt~\ref{sec:kollision_sdt}).
+Hinzu kommen die Verriegelungen des Gehens aus Abschnitt~\ref{sec:zustaende}, die Bestätigung beim Start des Realbetriebs und der Grundsatz, dass im Realbetrieb ohne Eingabe keine Bewegung beginnt.
+
+% Art E + Art G (DGUV2015.06/.07): Totmann als Analogie zur Zustimmeinrichtung
+% Basis: G1@25d5c1a docs/51-A-Notaus.md, Abschnitt „Was zusätzlich von selbst anhält“; docs/51-T-Notaus.md, Abschnitt „Zeitgrenzen ohne Notaus-Taste“;
+%        docs/11-T-Controller.md, Abschnitt „Sicherheit“ (Lebendprüfung der Funkverbindung); docs/12-T-Handy.md, Abschnitt „Zeiten“;
+%        Code g1pilot/teleoperation/ps4_walk.py (Docstring: L2 gibt frei, Sticks geben vor; DEADMAN_THRESHOLD 0.5 = gehalten, keine Panikstellung)
+\emph{Überwachen} hält an, sobald eine Voraussetzung der Bewegung entfällt.
+Das Gehen per Gamepad ist nur freigegeben, solange eine Totmanntaste gehalten wird; die Bewegungsvorgabe kommt von den Steuerknüppeln.
+Die Taste ähnelt damit einer Zustimmeinrichtung, die nur bei ständiger Betätigung eine Maschinenfunktion erlaubt und allein keine Bewegung starten darf \cite{DGUV2015}\ev{DGUV2015.06}.
+Anders als die für Industrieroboter vorgeschriebenen dreistufigen Zustimmungsschalter \cite{DGUV2015}\ev{DGUV2015.07} gibt sie das Gehen aber auch bei vollständigem Durchdrücken frei und wird nicht sicherheitsgerichtet ausgewertet.
+Zeitüberwachungen beenden das Gehen, wenn Gamepad-Signal oder Gehbefehle ausbleiben, eine Lebendprüfung erkennt eine eingefrorene Funkverbindung des Gamepads, und das Smartphone sperrt ohne aktuellen Status alles außer dem Not-Halt.
+
+% Art E + Art G (DGUV2015.09, DINENISO13850.01): Anhalten
+% Basis: G1@25d5c1a docs/51-A-Notaus.md, Abschnitte „Stufen“, „Quittieren“, „Was zusätzlich von selbst anhält“ (Handy-NOT-HALT läuft über den PC);
+%        docs/51-T-Notaus.md, Abschnitt „Parameter“ (G1_PHONE_VIEW_ESTOP Default 1)
+\emph{Anhalten} umfasst die Halt-Stufen aus Abschnitt~\ref{sec:zustaende}.
+Der Not-Halt ist an Bedienoberfläche, Gamepad und Smartphone auslösbar, am Smartphone auch in der Rolle „Ansicht“ und am Gamepad auch im gesperrten Zustand.
+Damit orientiert sich die Umgebung an der Forderung, dass die Not-Halt-Funktion jederzeit verfügbar ist und Vorrang vor allen anderen Funktionen hat \cite{DINENISO13850}\ev{DINENISO13850.01}.
+Anders als die für Industrieroboter vorgeschriebene Not-Halt-Einrichtung \cite{DGUV2015}\ev{DGUV2015.09} ist er aber eine Nachricht in der Software; der Not-Halt des Smartphones läuft über den PC und wirkt nicht, wenn dieser hängt.
+
+% Art G (Ding2026.05, Prather2025.06) + Art E: Einordnung, unabhängige Ebene (N9: keine Aussage zu einer Gefährdungsbeurteilung)
+% Basis: G1@25d5c1a docs/50-A-Echter-Roboter.md, Abschnitte „A · Vor dem Einschalten“ (zweite Person mit Fernbedienung, Kran/Traggurt) und „Notaus-Reflex“
+Alle Mechanismen sind Softwarefunktionen auf einem handelsüblichen PC ohne sicherheitstechnische Bewertung.
+Auch die Bordrechner des G1 sind handelsübliche Standardhardware, sodass ein darauf laufender Sicherheitscontroller keine zertifizierte Sicherheitslaufzeit ist \cite{Ding2026}\ev{Ding2026.05}, und die bestehenden Normen lassen sich nicht direkt auf Humanoide anwenden \cite{Prather2025}\ev{Prather2025.06}.
+Die Mechanismen begrenzen deshalb, was ein Bedienfehler auslösen kann, ersetzen aber keine unabhängige Schutzebene.
+Diese bilden im Realbetrieb eine zweite Person mit der Fernbedienung des Herstellers, die unabhängig von PC und Umgebung wirkt, und die Sicherung am Kran oder Traggurt bei den ersten Geh- und Balanceversuchen.
+\qf{Herstellerangaben zur Fernbedienung (Dämpfung als Not-Halt, Wirkung parallel zu eigener Software); Benutzerhandbuch G1 nicht in Zotero (L23)}
+Den Nachweis der Mechanismen führt Abschnitt~\ref{sec:eval_sicherheit}.
+
+\subsection{Übergabe der Arme an den Onboard-Regler}
+\label{sec:armuebergabe}
+
+% Art E (eigene Beobachtung) + Rückverweis 2.3.3; Herstellerbeleg fehlt (L24)
+% Basis: G1@25d5c1a docs/20-T-Arm-Manipulation.md, Abschnitte „rt/arm_sdk-Gewichtsrampe“ und „Übergabe an den Onboard-Regler“
+Im Realbetrieb regelt der Onboard-Regler auch die Arme, solange die Umgebung sie nicht übernimmt; die Herstellerschnittstelle überblendet dazu über ein Gewicht zwischen beiden Sollwerten (Abschnitt~\ref{sec:g1_armsdk}).
+\qf{Herstellerdokumentation zur Überblendung per Gewicht (arm\_sdk) und ihrer Wirkung auf die Taille; nicht in Zotero (L24)}
+Jeder Wechsel des Gewichts zieht den Arm von seiner Stellung in die Pose des anderen Reglers, sodass eine reine Gewichtsrampe einen weit vorn stehenden Arm nach unten schwingen lässt.
+Statt einer einheitlichen Rampe legt die Umgebung deshalb für vier Fälle je eine Regel fest; Abbildung~\ref{fig:armuebergabe} zeigt den Verlauf von Gewicht und Armstellung für die ersten beiden schematisch.
+
+% Art E: vier Fälle
+% Basis: G1@25d5c1a docs/50-A-Echter-Roboter.md, Abschnitt E („Übernehmen ohne Bewegung“, „Zurückgeben ohne Schwung“, „Programmende“);
+%        docs/20-T-Arm-Manipulation.md, Abschnitte „Übergabe an den Onboard-Regler“, „E-Stop-Semantik“;
+%        Code g1pilot/manipulation/arm_controller.py (_record_onboard_pose, _start_release, _finish_release, shutdown_release, _on_emergency_stop)
+Beim \emph{Übernehmen} kommandiert der Armregler genau die gemessene Armstellung des Onboard-Reglers und erhöht erst dann das Gewicht über eine Rampe, sodass sich der Arm nicht bewegt.
+Beim \emph{Zurückgeben} fährt der Arm zuerst geplant und langsam in diese gemerkte Pose, erst dort sinkt das Gewicht; währenddessen werden neue Ziele abgelehnt, und nach einer Zeitgrenze folgt die Rampe aus der erreichten Stellung.
+Im \emph{Not-Halt} bleibt das Gewicht bei eins und die Gelenke erhalten nur Dämpfung, denn bei Gewicht null führe der Onboard-Regler die Arme aktiv in seine Grundpose.
+Am \emph{Programmende} fahren die Arme außerhalb des Not-Halts kurz in Richtung der gemerkten Pose, bevor die Rampe einsetzt, statt dass die Befehle abreißen.
+% Kann
+In der Simulation schaltet das Gewicht ohne Rampe um, die Regeln betreffen daher vor allem den Realbetrieb.
+
+% Art E + N6 (Realtest als Begründung, ohne Datum)
+% Basis: G1@25d5c1a docs/50-A-Echter-Roboter.md, Abschnitt E („Taille wird mitgehalten“); docs/51-T-Notaus.md, Abschnitt „Wer was tut“;
+%        Code g1pilot/manipulation/arm_controller.py (_publish_arm_slack schreibt Taille, estop_waist_hold Default true), launch/bringup_real.launch.py Z. 128.
+%        Hinweis: docs/20-T-Arm-Manipulation.md „Bekannte Einschränkungen“ sagt noch, die Taille werde nie beschrieben – veraltet, Code gilt.
+Das Gewicht nimmt beim G1 nach eigener Beobachtung auch die Taille aus der Regelung des Onboard-Reglers.
+\pruefen{Wirkung des Gewichts auf die Taille als eigene Beobachtung bestätigen, solange kein Herstellerbeleg vorliegt (L24)}
+Die Umgebung hält die Taille deshalb selbst in ihrer gemessenen Stellung, auch im Not-Halt; den Ausschlag gab ein Realtest, in dem eine schlaffe Taille den Oberkörper des balancierenden Roboters kippen ließ und der Roboter loslief \pruefen{Doku des Realtests von Nils}.
+Die Übergaben weisen Abschnitt~\ref{sec:eval_realtests} am Roboter und Abschnitt~\ref{sec:eval_sicherheit} in automatisierten Tests nach.
