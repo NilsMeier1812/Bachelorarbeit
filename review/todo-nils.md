@@ -36,9 +36,10 @@ Entwurf: `Kapitel/04_Faehigkeiten_Verwandte_Arbeiten.tex`, Plan `review/plan-kap
 Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/artifact/1yNxU5TiVguZ9tJTpF8xFd (Fragen ganz oben, Antwort in die letzte Spalte; Claudes Rückfragen direkt darunter). Wichtigstes zuerst.
 
 **Entscheidungen**
+- [ ] **Vorschläge P1–P7 nach dem Betreuergespräch** beantworten: Kap.-5-Dokument https://claude.ai/artifact/Pigwxc4wCMmMQajQLVK75B, Tab „Anpassungen nach Betreuergespräch“, letzte Spalte. Danach passe ich die .tex an.
 - [x] **N1 Realversuche:** *ab etwa 23.11. quasi ständig; Abgabe 15.12.2026.* V2, V7, V11 fest eingeplant.
 - [x] **N2 Zielwerte:** *„keine Ahnung“* → Claudes Vorschläge gelten (A3 ≥ 0,95 / ≥ 95 % · A4 ≤ 2 cm · A5 ≤ 100 ms / ≤ 1 s · A6 ≤ 60 min / ≤ 5). Nur widersprechen, wenn ein Wert falsch wirkt.
-- [x] **N3 Nutzerstudie:** *entfällt (Betreuerin, 23.11.): technische Arbeit ohne Vorher-Vergleich, keine Umfrage.* V9 und Fragebogen fallen weg, Kap. 8 wird kürzer.
+- [x] **N3 Nutzerstudie:** *entfällt (Betreuerin, 23.11.): technische Arbeit ohne Vorher-Vergleich, keine Umfrage.* Fragebogen und K6.4 fallen weg, Kap. 8 wird kürzer; V9 bleibt als technische Messung des Bedienaufwands (Vorschlag P1/P2).
 - [x] **N5 Externes Projekt:** *keins, A7 bleibt Konzept.* Seit 23.11. (Betreuerin): Erweiterbarkeit wird nicht eigens nachgewiesen, sondern als Frage „wie modular?“ mit dem Docker-Container als Lösung geführt.
 - [x] **Video als Ergebnis** (23.11., Betreuerin): erlaubt, aber nur sparsam.
 - [x] **N7 Tabellen:** *wie empfohlen.*
@@ -58,7 +59,7 @@ Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/a
 
 **Durchführen**
 - [ ] Messmittel mit dem Build-Prompt aus dem Dokument bauen lassen, vor dem 23.11.
-- [ ] Realversuche ab 23.11.: Punkte im Dokument (V7, V2, V11, V5, je dreimal; V9 Nutzerstudie entfällt seit 23.11.); Protokollblätter kommen vorher von Claude.
+- [ ] Realversuche ab 23.11.: Punkte im Dokument (V7, V2, V11, V5, je dreimal; Nutzerstudie entfällt seit 23.11.); Protokollblätter kommen vorher von Claude.
 - [ ] Festen Code-Stand im G1-Repo markieren (Tag), an dem alle Messungen laufen (gleich mit Kap. 7, E4).
 
 ## Kapitel 6 – Konzept der Umgebung
