@@ -114,7 +114,6 @@ Tabelle~\ref{tab:eigenleistung} grenzt die Eigenleistung nach Funktionsbereichen
 % loco_sim mit Lauf-Policies, Inspire-Hände, PS4/Xbox-Teleop, Arm-API, Handy-Zugang, Tests, Doku) sind eigene Arbeit“; N3;
 % Tabelle „Weitere Fremdbestandteile“; g1pilot/policies/*/ATTRIBUTION.md; unitree_mujoco/scene_editor/README.md (Grundlage mujoco-scene-editor).
 Fremdbestandteile sind außerdem der Simulator unitree\_mujoco auf Basis von unitree\_sdk2 und MuJoCo \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}, weitere Herstellerpakete, ein Szenen-Editor und die Lauf-Policies aus Unitree RL Mjlab \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.01} und NVIDIA WBC-AGILE \qf{WBC-AGILE: Zhao2026, Freigabe fehlt}.
-Abschnitt~\ref{sec:eval_code} greift die Abgrenzung auf.
 
 \section{Gesamtarchitektur}
 \label{sec:architektur}
@@ -145,7 +144,6 @@ Zweitens gehören Beine und Taille der Fortbewegung, die Arme der Armregelung un
 % „Laufzeit-Topologie (Simulation)“ und Absatz darunter (Inspire-Hände real per Modbus TCP)
 Drittens sind ROS~2 innerhalb der Umgebung und die Herstellerschnittstelle mit den Nachrichten LowCmd für Motorbefehle und LowState für Motorzustände, beim G1 nach der Definition unitree\_hg \cite{UnitreeMujoco}\ev{UnitreeMujoco.05,UnitreeMujoco.06}, getrennt (Abschnitt~\ref{sec:g1_software}).
 Beide laufen auf verschiedenen DDS-Domains, da nur Teilnehmer derselben Domain kommunizieren \cite{OMG2015}\ev{OMG2015.08}.
-Ob die Funktionsknoten in beiden Welten unverändert laufen, weist Abschnitt~\ref{sec:eval_code} nach.
 
 \subsection{Umschaltung zwischen Simulation und Realbetrieb}
 \label{sec:sim_real_schalter}
@@ -220,7 +218,6 @@ Tabelle~\ref{tab:sim_real} zeigt die verbleibenden Unterschiede, vor allem in Fo
 
 % Basis: wie oben; docs/40-T-Simulation.md, „Lockstep“ („Nach oben ist das auf Echtzeit gedeckelt“)
 In der Simulation hängt das Zeitverhalten vom Takt des Simulators ab (A3, Abschnitt~\ref{sec:zeitschritt}).
-Nachweise folgen in den Abschnitten~\ref{sec:eval_realtests} und~\ref{sec:eval_echtzeit}.
 
 \subsection{Fortbewegungspfade in Simulation und Realbetrieb}
 \label{sec:fortbewegungspfade}
@@ -239,14 +236,15 @@ Der Standregler ergänzt die Policy, weil diese im Stand Ausgleichsschritte mach
 
 % Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, „Bekannte Einschränkungen“ (Sim-Stellvertreter; Abweichung der AGILE-Policy vom Isaac-Lab-Training)
 Aussagen über das Gehen in der Simulation gelten nur für den Ersatzregler, nicht für den Onboard-Regler, dessen innere Mechanismen nicht bekannt sind \cite{Hu2026}\ev{Hu2026.02}.
-Abschnitt~\ref{sec:eval_fortbewegung} misst sein Verhalten.
 
 % Code-/Doku-Stand 6.3: G1@25d5c1a; Pfade in "% Basis:" relativ zu g1pilot/. Grenzwerte stehen nur in tab:schutzmechanismen.
 \section{Sicherheitskonzept}
 \label{sec:sicherheitskonzept}
 % [A5, F3]
-Nach A5 soll ein Bedienfehler am realen Roboter keine unbegrenzte Bewegung auslösen, und ein Halt soll den stehenden Roboter nicht zu Fall bringen.
-Dazu dienen Halt-Stufen, gestaffelte Schutzmechanismen und Regeln für die Übergabe der Arme.
+Nach A5 soll keine Eingabe am realen Roboter eine Bewegung auslösen, die zu schnell ist oder den Roboter mit sich selbst kollidieren lässt.
+Dazu prüft die Umgebung jedes Ziel, bevor sie es ausführt.
+Außerdem soll ein Halt den stehenden Roboter nicht zu Fall bringen.
+Das Konzept dafür besteht aus Halt-Stufen, gestaffelte Schutzmechanismen und Regeln für die Übergabe der Arme.
 
 \subsection{Betriebszustände und Übergänge}
 \label{sec:zustaende}
@@ -268,6 +266,9 @@ Nach demselben Gedanken hält die Umgebung in Stufen an: Der Not-Halt entlastet 
 Abbildung~\ref{fig:betriebszustaende} zeigt die Halt-Stufen.
 Stopp und Gehen stoppen beenden nur die laufende Bewegung und brauchen keine Quittierung.
 Der Not-Halt ist auf jedem Bedienweg auslösbar und verriegelt alle Bewegungsbefehle bis zur Quittierung, erst der Voll-Notaus dämpft auch die Beine.
+% Basis: G1@25d5c1a g1pilot/docs/51-A-Notaus.md, Tabelle „Stufen“ (Voll-Notaus: „ganzer G1 in Damp, auch Beine und Taille: er sackt zusammen“); Rückmeldung Nils 23.11.2026, P13
+Am nächsten am klassischen Not-Halt \cite{Ding2026}\ev{Ding2026.02} liegt der Voll-Notaus.
+Er schaltet die Energie nicht ab, dämpft aber alle Gelenke, sodass der Roboter zusammensackt.
 
 \begin{figure}[htbp]
   \centering
@@ -390,7 +391,6 @@ Der Not-Halt auf jedem Bedienweg folgt der Forderung, dass die Not-Halt-Funktion
 Alle Mechanismen sind Softwarefunktionen auf einem handelsüblichen PC ohne sicherheitstechnische Bewertung, und die bestehenden Normen lassen sich nicht direkt auf Humanoide anwenden \cite{Prather2025}\ev{Prather2025.06}.
 Die unabhängige Schutzebene bilden deshalb im Realbetrieb eine zweite Person, die den Roboter an der Fernbedienung des Herstellers unabhängig vom PC dämpfen kann, und die Sicherung am Kran.
 \qf{Herstellerangaben zur Fernbedienung (Dämpfung als Not-Halt, Wirkung parallel zu eigener Software); Benutzerhandbuch G1 nicht in Zotero (L23)}
-Den Nachweis führt Abschnitt~\ref{sec:eval_sicherheit}.
 
 \subsection{Übergabe der Arme an den Onboard-Regler}
 \label{sec:armuebergabe}
@@ -442,7 +442,6 @@ Zweitens wird der Zustand sichtbar, bevor eine Eingabe wirkt, und drittens läss
 % docs/12-A-Handy.md (Hinweis Handy-NOT-HALT über den PC, Rollen); docs/50-A-Echter-Roboter.md E („Kein Auto-Start“);
 % docs/10-A-Demo-GUI.md „Seite ARME“ (Abbruch eines Ablaufs); docs/40-T-Simulation.md „Auto-Start (GREIFEN)“
 Viertens wirkt der Not-Halt auf jedem Bedienweg, und fünftens bewegt sich im Realbetrieb nichts von selbst, auch nicht nach einem quittierten Not-Halt oder einem abgebrochenen Ablauf.
-Ob die Leitgedanken tragen, untersucht Abschnitt~\ref{sec:eval_bedienaufwand}.
 
 \subsection{Bedienwege und geteilter Bedienzustand}
 \label{sec:bedienwege_konzept}
@@ -529,7 +528,7 @@ Eine Pose wird eingelernt, indem Arme und Hände über einen Bedienweg in Stellu
 Ein Ablauf umgeht keinen Schutzmechanismus und wird in der Simulation eingerichtet.
 % Basis: G1@25d5c1a docs/23-T-Posen-und-Ablaeufe.md (keine Bedingungen im Dateiformat); docs/23-A-Posen-und-Ablaeufe.md
 % „Fehlerbehebung“ (Roboter steht anders als beim Speichern), Beispiel-Abläufe „gelten genau an der jeweiligen Station“
-Die Grenze sind feste Folgen ohne Verzweigungen oder Sensorbedingungen, deren Posen nur bei gleicher Aufstellung gelten (Nachweis in Abschnitt~\ref{sec:eval_aufgaben}).
+Die Grenze sind feste Folgen ohne Verzweigungen oder Sensorbedingungen, deren Posen nur bei gleicher Aufstellung gelten.
 
 % Code-Stand 6.5: G1@25d5c1a. Pfade in % Basis: relativ zu g1pilot/ bzw. Repo-Root.
 % N10 (Nils, 16.11.): Bisher ist kein externes Projekt angebunden; 6.5.1 ist rein konzeptionell.
@@ -596,8 +595,7 @@ Je tiefer ein Projekt andockt, desto freier ist es und desto weniger Schutz wirk
 % docs/12-T-Handy.md „Aktionen und Rechte“; docs/21-T-Arm-API.md „Ohne eigenen HTTP-Client: direkt über DDS“; docs/02-T-Architektur.md „Sim ↔ Real: Ein Schalter“
 Auf der untersten Ebene laufen mit dem SDK entwickelte Programme auch in unitree\_mujoco \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}, gegen die Simulation der Umgebung aber ohne deren Schutz.
 % Basis: Plan Kap. 6, Abschnitt 5, 6.5.1 (N10)
-Ob die Andockpunkte ein externes Projekt tragen, ist in Abschnitt~\ref{sec:eval_extern} nachzuweisen.
-\pruefen{N10: bisher kein externes Projekt angebunden, Entscheidung zu 8.4.1 offen}
+% N10 (externes Projekt, Nachweis) gehört nach Kap. 8; Verweise auf Kap. 8 entfernt (Rückmeldung Nils 23.11.2026, P6).
 % Umsetzung: sec:entwickler_api, sec:szenen, sec:ersatzregler; sec:hand_profile ergänzen, sobald Kap. 7 es vergibt.
 
 \subsection{Modularisierung über Container-Profile}
