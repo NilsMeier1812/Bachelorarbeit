@@ -164,8 +164,9 @@ Verbindlich für alle Kapitel-Threads (Details in `Richtlinien-BA.md` §12):
   Bedienschritte weiter auf den Anhang verweisen.
 - **Web- und GitHub-Quellen** sind erlaubt (siehe unten). Die Betreuerin hat selbst keinen Zugang zur
   Unitree-Entwicklerdoku.
-- Noch offen (am 23.11. nicht besprochen): Tempus (K1), Aktiv/Passiv (K2), Zotero/.bib statt Citavi (K9).
-  Bis dahin gelten die Defaults in `Richtlinien-BA.md` §1.
+- **Geklärt (Nils, 23.11.):** Tempus (K1) und Aktiv/Passiv (K2) bleiben wie bisher (Defaults in
+  `Richtlinien-BA.md` §1). Zotero statt Citavi (K9) ist in Ordnung. Weiter kein „ich“/„wir“, auch nicht beim
+  Beschreiben des Videodrehs oder der eigenen Arbeitsschritte („ich habe …“, „wir haben dann …“).
 
 ### Websites und GitHub-Repos als Quelle (seit 23.11.2026)
 
