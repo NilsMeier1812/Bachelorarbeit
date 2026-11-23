@@ -10,73 +10,70 @@
 %   technisch im selben Container wie die Funktionsknoten, steht hier als Bedienweg oben.
 % Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/architektur-gesamt} in einer figure-Umgebung. Nicht skalieren.
 \begin{tikzpicture}[ba]
-  % Layout für 12pt-Grundschrift der Arbeit geprüft (Vorschau immer im Arbeits-PDF ansehen, nicht in 10pt-standalone).
+  % Raster (Nils, 23.11.2026): Container 0..15,6 cm, Innenabstand und Spaltenabstand 0,3 cm.
+  %   Spalten: Roboterzustand 0,3..2,7 | Armregelung 3,0..6,0 | Fortbewegung 6,3..12,6 | Hände 12,9..15,3
+  %   Schutzmechanismen bündig von Armregelung links bis Hände rechts; DDS unter Spalten 1-3, Modbus unter Hände,
+  %   beide gleich hoch; ROS-2-Leitung mittig zwischen Bedienwegen und Container. Geprüft im 12pt-Build.
   \tikzset{
-    bw/.style={ba block, text width=31mm, minimum height=10mm},
-    fk/.style={ba block hervor, minimum height=17mm, minimum width=0pt},
-    sub/.style={ba block, font=\footnotesize, minimum height=9mm, minimum width=0pt, inner sep=3pt},
+    bw/.style={ba block, minimum width=36mm, minimum height=10mm, anchor=north},
+    fk/.style={ba block hervor, minimum height=19mm, anchor=north west},
+    sub/.style={ba block, font=\footnotesize, minimum width=28mm, minimum height=9.5mm, inner sep=2pt},
+    schnitt/.style={ba block, fill=baHellgrau!40, minimum height=11mm, anchor=north west},
     ziel/.style={ba pfeil},
     zust/.style={ba pfeil, dash pattern=on 3pt off 2pt},
     klein/.style={font=\footnotesize, text=baGrau},
   }
-  % ---------------- Ebene 1: Bedienwege ----------------
-  \node[klein, anchor=south west] at (1.3,11.45) {Bedienwege (rechnen keine Bewegung, senden Ziele und lesen Zustände)};
-  \node[bw] (B1) at (3.0,10.65) {Bedien-\\oberfläche};
-  \node[bw] (B2) at (6.6,10.65) {Gamepad};
-  \node[bw] (B3) at (10.2,10.65) {Smartphone};
-  \node[bw] (B4) at (13.8,10.65) {Externe\\Programme};
-  % Sammelleitung ROS 2
-  \draw[ba normal] (3.0,9.95) -- (13.8,9.95);
-  \foreach \x in {3.0,6.6,10.2,13.8} {\draw[ba normal] (\x,10.15) -- (\x,9.95);}
-  \node[klein, fill=white, inner sep=1.5pt] at (4.0,9.95) {ROS 2};
-  % ---------------- Container Umgebung ----------------
-  % durchgezogen, damit er sich von den gestrichelten Zustandspfeilen abhebt (Nils, 23.11.2026)
-  \draw[draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt] (1.2,5.15) rectangle (15.7,9.35);
-  % Beschriftung oben zwischen den Pfeilen, damit kein Pfeil sie kreuzt
-  \node[klein, anchor=north west, align=left, inner sep=1pt] at (2.7,9.28) {Container\\Umgebung};
-  % Ebene 2: Funktionsknoten
-  \node[fk, text width=19mm] (RZ) at (2.5,7.4) {Roboter-\\zustand};
-  \node[fk, text width=25mm] (AR) at (5.4,7.4) {Armregelung\\mit Planung};
-  % Fortbewegung so hoch wie die anderen Knoten (17 mm) (Nils, 23.11.2026)
-  \node[fk, minimum width=60mm, minimum height=17mm] (FB) at (10.2,7.4) {};
-  \node[font=\small, anchor=north, inner sep=1pt] at (10.2,8.2) {Fortbewegung};
-  \node[sub, align=center] (ER) at (8.75,7.05) {Ersatzregler\\(Simulation)};
-  \node[sub, align=center] (OA) at (11.65,7.05) {Onboard-Regler\\(Realbetrieb)};
-  \node[fk, text width=15mm] (HA) at (14.55,7.4) {Hände};
-  % Pfeile Bedienwege -> Funktionsknoten (Ziele nach unten, Zustände nach oben)
-  \draw[zust] (2.5,8.25) -- (2.5,9.95);
-  \draw[ziel] (5.1,9.95) -- (5.1,8.25);
-  \draw[zust] (5.7,8.25) -- (5.7,9.95);
-  \draw[ziel] (7.6,9.95) -- (7.6,8.25);
-  \draw[zust] (12.8,8.25) -- (12.8,9.95);
-  \draw[ziel] (14.25,9.95) -- (14.25,8.25);
-  \draw[zust] (14.85,8.25) -- (14.85,9.95);
-  % Schutzmechanismen
-  \node[ba block hervor, minimum height=6mm, minimum width=110mm, font=\footnotesize] (SM) at (10.05,5.8)
+  % ---------------- Ebene 1: Bedienwege (4 x 3,6 cm, Abstand 0,4 cm) ----------------
+  \node[klein, anchor=south west, inner sep=0pt] at (0,11.35) {Bedienwege (rechnen keine Bewegung, senden Ziele und lesen Zustände)};
+  \node[bw] (B1) at (1.8,11.15) {Bedien-\\oberfläche};
+  \node[bw] (B2) at (5.8,11.15) {Gamepad};
+  \node[bw] (B3) at (9.8,11.15) {Smartphone};
+  \node[bw] (B4) at (13.8,11.15) {Externe\\Programme};
+  % ROS-2-Leitung mittig zwischen Unterkante Bedienwege (10,15) und Oberkante Container (9,35)
+  \draw[ba normal] (1.5,9.75) -- (14.4,9.75);
+  \foreach \x in {1.8,5.8,9.8,13.8} {\draw[ba normal] (\x,10.15) -- (\x,9.75);}
+  \node[klein, fill=white, inner sep=1.5pt] at (3.3,9.75) {ROS 2};
+  % ---------------- Container Umgebung (durchgezogen, Nils 23.11.2026) ----------------
+  \draw[draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt] (0,5.05) rectangle (15.6,9.35);
+  \node[klein, anchor=north west, align=left, inner sep=0pt] at (1.75,9.25) {Container\\Umgebung};
+  % Funktionsknoten (Oberkante 8,3, Höhe 1,9)
+  \node[fk, minimum width=24mm] (RZ) at (0.3,8.3) {Roboter-\\zustand};
+  \node[fk, minimum width=30mm] (AR) at (3.0,8.3) {Armregelung\\mit Planung};
+  \node[fk, minimum width=63mm] (FB) at (6.3,8.3) {};
+  \node[fk, minimum width=24mm] (HA) at (12.9,8.3) {Hände};
+  % Fortbewegung: Titel mit fester Höhe 8,2..7,8; Unterkästen mittig im Rest (7,8..6,4), gleiche Abstände
+  \node[font=\small, anchor=north, inner sep=0pt, text height=3mm, text depth=1mm] at (9.45,8.2) {Fortbewegung};
+  \node[sub] (ER) at (7.933,7.1) {Ersatzregler\\(Simulation)};
+  \node[sub] (OA) at (10.967,7.1) {Onboard-Regler\\(Realbetrieb)};
+  % Pfeile Bedienwege <-> Funktionsknoten (je Paar +-0,3 cm um die Spaltenmitte)
+  \draw[zust] (1.5,8.3) -- (1.5,9.75);
+  \draw[ziel] (4.2,9.75) -- (4.2,8.3);
+  \draw[zust] (4.8,8.3) -- (4.8,9.75);
+  \draw[ziel] (9.5,9.75) -- (9.5,8.3);
+  \draw[zust] (10.1,8.3) -- (10.1,9.75);
+  \draw[ziel] (13.8,9.75) -- (13.8,8.3);
+  \draw[zust] (14.4,8.3) -- (14.4,9.75);
+  % Schutzmechanismen: links bündig mit Armregelung (3,0), rechts bündig mit Händen (15,3)
+  \node[ba block hervor, minimum width=123mm, minimum height=6mm, font=\footnotesize, anchor=north west] (SM) at (3.0,5.95)
     {Schutzmechanismen: begrenzen \textperiodcentered{} vermeiden \textperiodcentered{} überwachen \textperiodcentered{} anhalten};
-  \draw[ba duenn, color=baGruen] (5.4,6.55) -- (5.4,6.1);
-  \draw[ba duenn, color=baGruen] (10.2,6.55) -- (10.2,6.1);
-  \draw[ba duenn, color=baGruen] (14.55,6.55) -- (14.55,6.1);
-  % ---------------- Ebene 3: Herstellerschnittstelle ----------------
-  \node[ba block, fill=baHellgrau!40, minimum height=8mm, minimum width=117mm] (DDS) at (7.1,4.2)
-    {Herstellerschnittstelle (Unitree-DDS)};
-  % Hände real: eigener Anschluss per Modbus TCP, als Block wie die DDS-Schnittstelle (Nils, 23.11.2026);
-  % in der Simulation laufen die Hände über die Herstellerschnittstelle (siehe fig:sim_real_schalter)
-  \node[ba block, fill=baHellgrau!40, minimum height=10mm, minimum width=25mm, font=\footnotesize, align=center,
-        anchor=north] (MB) at (14.45,4.6) {Modbus TCP\\(Realbetrieb)};
-  % Befehle nach unten, Zustände nach oben zwischen Funktionsknoten und Schnittstelle
-  \draw[zust] (2.5,4.6) -- (2.5,6.55);
-  \draw[ziel] (5.1,5.5) -- (5.1,4.6);
-  \draw[zust] (5.7,4.6) -- (5.7,5.5);
-  \draw[ziel] (8.45,5.5) -- (8.45,4.6);
-  \draw[zust] (9.05,4.6) -- (9.05,5.5);
-  \draw[ziel] (11.35,5.5) -- (11.35,4.6);
-  \draw[zust] (11.95,4.6) -- (11.95,5.5);
-  \draw[ziel] (14.15,5.5) -- (14.15,4.6);
-  \draw[zust] (14.75,4.6) -- (14.75,5.5);
+  \foreach \x in {4.5,9.45,14.1} {\draw[ba duenn, color=baGruen] (\x,6.4) -- (\x,5.95);}
+  % ---------------- Ebene 3: Herstellerschnittstelle und Modbus, gleich hoch ----------------
+  \node[schnitt, minimum width=123mm] (DDS) at (0.3,4.45) {Herstellerschnittstelle (Unitree-DDS)};
+  % Hände real über Modbus TCP; in der Simulation über die Herstellerschnittstelle (siehe fig:sim_real_schalter)
+  \node[schnitt, minimum width=24mm, font=\footnotesize] (MB) at (12.9,4.45) {Modbus TCP\\(Realbetrieb)};
+  % Pfeile Schutzmechanismen <-> Schnittstellen
+  \draw[zust] (1.5,4.45) -- (1.5,6.4);
+  \draw[ziel] (4.2,5.35) -- (4.2,4.45);
+  \draw[zust] (4.8,4.45) -- (4.8,5.35);
+  \draw[ziel] (7.633,5.35) -- (7.633,4.45);
+  \draw[zust] (8.233,4.45) -- (8.233,5.35);
+  \draw[ziel] (10.667,5.35) -- (10.667,4.45);
+  \draw[zust] (11.267,4.45) -- (11.267,5.35);
+  \draw[ziel] (13.8,5.35) -- (13.8,4.45);
+  \draw[zust] (14.4,4.45) -- (14.4,5.35);
   % Legende
-  \draw[ziel] (1.3,2.75) -- (2.2,2.75);
-  \node[klein, anchor=west] at (2.3,2.75) {Ziele und Befehle};
-  \draw[zust] (6.0,2.75) -- (6.9,2.75);
-  \node[klein, anchor=west] at (7.0,2.75) {Zustände und Meldungen};
+  \draw[ziel] (0.3,2.75) -- (1.2,2.75);
+  \node[klein, anchor=west] at (1.3,2.75) {Ziele und Befehle};
+  \draw[zust] (5.0,2.75) -- (5.9,2.75);
+  \node[klein, anchor=west] at (6.0,2.75) {Zustände und Meldungen};
 \end{tikzpicture}

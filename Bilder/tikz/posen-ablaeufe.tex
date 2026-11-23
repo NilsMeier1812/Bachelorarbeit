@@ -10,28 +10,32 @@
 % Nicht gezeichnet: Grenzwert 0,30 m, Statusfolge accepted/executing/reached, Handy- und Gamepad-Aktionen im Detail.
 % Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/posen-ablaeufe} in einer figure-Umgebung. Nicht skalieren.
 \begin{tikzpicture}[ba]
+  % Raster (Nils, 23.11.2026): drei Spalten mit gleich breiten Kästen (4,2 cm), Mitten x = 2,4 | 7,5 | 13,2;
+  % Datenrahmen 0..9,9 mit 0,3 cm Innenabstand, durchgezogen wie die Container in fig:architektur.
+  % Rechte Spalte symmetrisch: je 0,9 cm Abstand über und unter der Ausführung. Geprüft im 12pt-Build.
   \tikzset{
-    bst/.style={ba block, align=center, minimum height=17mm, text width=38mm},
+    bst/.style={ba block, align=center, text width=38mm, minimum width=42mm, minimum height=20mm},
+    kurz/.style={ba block, align=center, text width=38mm, minimum width=42mm, minimum height=12mm},
     klein/.style={font=\footnotesize, text=baGrau},
     ueb/.style={font=\footnotesize, text=black},
+    rahmen/.style={draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt},
   }
   % Datenebene
-  \draw[ba gruppe] (0.2,-0.55) rectangle (10.0,5.5);
-  \node[klein, anchor=south west, align=left] at (0.35,-0.5) {Daten: eine Datei außerhalb des Containers,\\in Simulation und Realbetrieb dieselbe};
-  \node[bst] (P) at (2.5,4.0) {Pose\\{\footnotesize gespeicherte Stellung von Armen und Händen, einzeln wählbar}};
-  \node[bst] (M) at (2.5,1.5) {Relative Bewegung\\{\footnotesize Verschiebung der Hände von der aktuellen Stelle}};
-  \node[bst, ba block hervor] (A) at (7.7,2.75) {Ablauf\\{\footnotesize Folge von Posen und relativen Bewegungen, optional mit Pause}};
-  \draw[ba pfeil] (P.east) -- ++(0.55,0) |- ([yshift=4mm]A.west);
-  \draw[ba pfeil] (M.east) -- ++(0.55,0) |- ([yshift=-4mm]A.west);
-  % Einlernen
-  \node[ba block, align=center, minimum height=10mm, text width=34mm] (E) at (2.5,6.75) {Einlernen\\{\footnotesize Hinfahren und Speichern}};
+  \draw[rahmen] (0,0) rectangle (9.9,6.2);
+  \node[klein, anchor=south west, inner sep=0pt, align=left] at (0.3,0.3) {Daten: eine Datei außerhalb des Containers,\\in Simulation und Realbetrieb dieselbe};
+  \node[bst] (P) at (2.4,4.9) {Pose\\{\footnotesize gespeicherte Stellung von Armen und Händen, einzeln wählbar\par}};
+  \node[bst] (M) at (2.4,2.4) {Relative Bewegung\\{\footnotesize Verschiebung der Hände von der aktuellen Stelle\par}};
+  \node[bst, ba block hervor] (A) at (7.5,3.65) {Ablauf\\{\footnotesize Folge von Posen und relativen Bewegungen, optional mit Pause\par}};
+  \draw[ba pfeil] (P.east) -- (4.95,4.9) |- ([yshift=3mm]A.west);
+  \draw[ba pfeil] (M.east) -- (4.95,2.4) |- ([yshift=-3mm]A.west);
+  % Einlernen (über der Pose, Abstand zum Rahmen 0,6 cm)
+  \node[kurz] (E) at (2.4,7.4) {Einlernen\\{\footnotesize Hinfahren und Speichern\par}};
   \draw[ba pfeil] (E.south) -- (P.north);
-  % Ausführung
-  \node[bst, text width=34mm] (X) at (13.2,2.75) {Ausführung\\{\footnotesize am Stück oder Schritt für Schritt}};
+  % Ausführung, Bedienwege und Armregelung in der rechten Spalte
+  \node[bst] (X) at (13.2,3.65) {Ausführung\\{\footnotesize am Stück oder Schritt für Schritt\par}};
   \draw[ba pfeil] (A.east) -- (X.west);
-  \node[ba block, align=center, minimum height=10mm, text width=34mm] (BW) at (13.2,5.7) {Bedienwege\\{\footnotesize Start, Weiter}};
+  \node[kurz] (BW) at (13.2,6.15) {Bedienwege\\{\footnotesize Start, Weiter\par}};
   \draw[ba pfeil] (BW.south) -- (X.north);
-  % Armregelung
-  \node[bst, ba block hervor, text width=40mm] (AR) at (13.0,-0.9) {Armregelung\\{\footnotesize plant jeden Schritt wie ein einzelnes Ziel, mit Kollisionsprüfung}};
-  \draw[ba pfeil] (X.south) -- node[ueb, right] {Einzelziele} (X.south |- AR.north);
+  \node[bst, ba block hervor] (AR) at (13.2,0.75) {Armregelung\\{\footnotesize plant jeden Schritt wie ein einzelnes Ziel, mit Kollisionsprüfung\par}};
+  \draw[ba pfeil] (X.south) -- node[ueb, right] {Einzelziele} (AR.north);
 \end{tikzpicture}
