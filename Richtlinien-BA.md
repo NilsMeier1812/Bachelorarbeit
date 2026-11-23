@@ -79,14 +79,14 @@ Systematische Vorgehensweise dokumentiert · Einsatz von Methoden/Werkzeugen · 
 | `Kapitel/05_Handlungsbedarf_Methodik.tex` | 5 Handlungsbedarf, Anforderungen und Bewertungsmethodik | Handlungsbedarf (eigenes Kapitel wie [BA-L]) + Methodik |
 | `Kapitel/06_Konzept.tex` | 6 Konzept der Umgebung | Methodik (Konzept) |
 | `Kapitel/07_Umsetzung.tex` | 7 Umsetzung | Methodik (Umsetzung) |
-| `Kapitel/08_Evaluation.tex` | 8 Evaluation | Ergebnisse + Diskussion (8.5), gegliedert nach F1–F4 |
+| `Kapitel/08_Evaluation.tex` | 8 Evaluation | Ergebnisse + Diskussion (8.5), gegliedert nach F1–F4; seit 2026-11-23 kürzer (keine Nutzerstudie, §12) |
 | `Kapitel/09_Zusammenfassung.tex` | 9 Zusammenfassung und Ausblick | Schlussteil |
 | `Kapitel/Anhang_*.tex` | Anhang A, B, … | [LF 4.5] |
 
 Gliederung seit 2026-10-30 (mit Nils erarbeitet, Muster [BA-K]): Anforderungen A1–A7 und Forschungsfragen F1–F4 stehen als Kommentare in den Kapiteldateien 01 und 05.
 
 ### 3.2 Umfang [GS 5.2, LF 3]
-- BA gesamt: **ca. 60–80 Seiten** ohne Verzeichnisse und Anhang.
+- BA gesamt: **60–80 Seiten inklusive Abbildungen und Tabellen**, gezählt vom ersten Wort der Einleitung bis zum letzten Wort vor dem Literaturverzeichnis; Verzeichnisse, Literaturverzeichnis und Anhang zählen nicht (Betreuerin, 2026-11-23). **80 ist hart, Ziel 70–75 Seiten.**
 - **Arbeitsregel Nils (2026-11-16, präzisiert 2026-11-17):** 80 Seiten Text sind die harte Obergrenze. Ein Entwurf darf **maßvoll** länger sein als der Endumfang, etwa **Endumfang ÷ 0,6** (Beispiel: 6 Seiten Endfassung → 10–12 Seiten Entwurf); Nils kürzt dann ca. 40 %. **Nicht** ein Vielfaches (ein Entwurf mit 28 statt 10–12 Seiten ist zu lang). Agents halten das Entwurfsbudget ein und markieren Kürzungskandidaten (z. B. `% Kann`-Kommentar über dem Absatz).
 - Stand der Technik ≈ **1/3** der Arbeit (bei praktischer Arbeit) [GS].
 - Methodik + Ergebnisse + Diskussion ≈ **2/3** der Arbeit [LF 3.7].
@@ -234,6 +234,7 @@ Gliederung seit 2026-10-30 (mit Nils erarbeitet, Muster [BA-K]): Anforderungen A
 
 ### 5.2 Anhang [LF 4.5]
 - Technische Zeichnungen, große Tabellen/Diagramme, ergänzende Dokumente. Jeder Anhang auf neuer Seite, Großbuchstaben: „Anhang A – Name des Anhangs“.
+- Bedienanleitung (README des G1-Repos): **nur die relevanten Teile** in den Anhang, nicht die ganze README (Betreuerin, 2026-11-23). Der Haupttext ist keine Anleitung; für Bedienschritte auf den Anhang verweisen.
 - Abbildungen im Anhang: „Anhang A – Abbildung 1“ usw., NICHT im Abbildungsverzeichnis [LF 4.4.1]. [ANNAHME/TODO LaTeX: im Anhang Zähler/Caption-Präfix umstellen und `\caption[]{}`-Einträge aus LOF ausschließen, z. B. `\captionsetup{list=no}`; Vorlage prüfen.]
 
 ### 5.3 Eidesstattliche Erklärung [LF 4.6, GS 3.4]
@@ -318,6 +319,7 @@ Kriterien: **zitierfähig** (öffentlich auffindbar; graue Literatur wie BA/MA, 
 | ✗ (nur wenn selbst Untersuchungsgegenstand / keine Alternative) | Internetquellen ohne Qualitätssicherung, Zeitungen (nur aktuelle Meldungen), Social Media, Blogs, Wikipedia, Schülerduden/Brockhaus, hausarbeiten.de, GRIN |
 
 - Internetquellen nur, wenn keine aktuelle Literatur in anderen Medien (z. B. Softwareentwicklung); Seriosität prüfen.
+- **Projektregel (Betreuerin, 2026-11-23):** GitHub-Repos und offizielle Websites (z. B. Unitree-Support) sind ausdrücklich erlaubt, **immer mit Abrufdatum**, bei GitHub zusätzlich mit **Commit-Hash** des zitierten Stands. Blogs, Foren, Wikipedia bleiben ✗. Umsetzung in Zotero und im Belegsystem: `CLAUDE.md`, „Websites und GitHub-Repos als Quelle“.
 - Elektronische Quelle beantwortet **Wer? Was? Wo? Wann?**: kein Autor → Herausgeber/Organisation, sonst „o. V.“; ohne Titel → Beschreibung in `[ ]`; Medium in `[ ]` ([Podcast], [Film]); DOI bevorzugt, sonst vollständige URL + Abrufdatum (URL nie mit Bindestrich trennen); unsicheres Datum → „o. J.“/„o. D.“. Schema: `Nachname, Vorname (Jahr): Titel. [Angaben]. DOI oder online unter: URL (Abrufdatum).` Kein Punkt nach DOI.
 - biblatex-Felder dafür: `doi`, `url`, `urldate`, `howpublished`, `organization`.
 
@@ -386,7 +388,14 @@ Dimensions, FAU-Katalog (VPN), Google Scholar (+ Alerts), Scopus, Web of Science
 - 2026-11-16 Umfang: 60–80 Seiten Text, 80 ist Obergrenze. Entwürfe dürfen länger sein, Nils kürzt selbst (siehe §3.2).
 - 2026-11-17 Präzisierung: Entwurf ≈ Endumfang ÷ 0,6, Nils kürzt ca. 40 %; nicht das Mehrfache (§3.2).
 - 2026-11-16 Gemeinsame To-do-Liste für Nils: `review/todo-nils.md` (was Nils nachreichen oder entscheiden muss, aus allen Kapitel-Threads).
-- Offene Fragen an Betreuer (nach Praxisabgleich §13 nur noch nötig, falls Nils sicher gehen will): K1 Tempus, K2 Aktiv/Passiv, K9 Zotero/.bib statt Citavi. K3/K4/K5/K10 durch Referenz-BAs praktisch geklärt.
+- **2026-11-23 Betreuertreffen (verbindlich, überschreibt ältere Einträge):**
+  - **Umfang:** 60–80 Seiten inkl. Abbildungen und Tabellen, vom ersten Wort der Einleitung bis zum letzten Wort vor dem Literaturverzeichnis. 80 ist hart, **Ziel 70–75 Seiten** (§3.2). Entwürfe weiter ≈ Endumfang ÷ 0,6.
+  - **Keine Nutzerstudie.** Die Arbeit ist technisch, nicht psychologisch. Eine Umfrage wäre nur sinnvoll, wenn ein bestehender Stand verbessert und der Gewinn an Nutzerfreundlichkeit gemessen würde; die Arbeit startet aber bei null, es gibt keinen Vergleich. Dass die Umgebung existiert und funktioniert, ist bereits der Erfolg. Folge: Kap. 8 schrumpft; keine Fragebögen, keine Zufriedenheitsmessung, keine Vorher-Nachher-Bewertung.
+  - **Video** (Videodreh) darf als Ergebnis verwendet werden, aber sparsam: ergänzend, nicht als Hauptnachweis.
+  - **Erweiterbarkeit nicht direkt belegen.** Als Entwurfsfrage führen („Wie wird die Umgebung modular?“); die Lösung bzw. das Ergebnis ist der Docker-Container. Kein eigener Erweiterbarkeitsnachweis in Kap. 8.
+  - **Anhang:** nur relevante Teile der README; im Haupttext für Bedienung auf den Anhang verweisen (§5.2).
+  - **Quellen:** GitHub-Repos und offizielle Websites (z. B. Unitree-Support) erlaubt, mit Abrufdatum, bei GitHub mit Commit-Hash (§7.4). Die Betreuerin hat keinen Zugang zur Unitree-Entwicklerdoku.
+- Offene Fragen an Betreuer (am 2026-11-23 nicht besprochen, weiter offen; bis zur Klärung gelten die DEFAULTs aus §1): K1 Tempus, K2 Aktiv/Passiv, K9 Zotero/.bib statt Citavi. K3/K4/K5/K10 durch Referenz-BAs praktisch geklärt.
 
 ---
 

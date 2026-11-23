@@ -4,7 +4,9 @@ Gemeinsame Liste aller Kapitel-Threads (Wunsch Nils, 16.11.2026). Jeder Thread p
 vorher pullen. Abhaken mit `[x]`; die Antwort kann direkt in die Zeile oder in den Thread.
 Kürzel verweisen auf die Fragen im jeweiligen Plan unter `review/plan-kap<N>.md`.
 
-Regel seit 16.11.2026: Gesamtarbeit 60–80 Seiten, beim Ausarbeiten lieber zu viel, Nils kürzt selbst.
+Umfang (Betreuerin, 23.11.2026): 60–80 Seiten inkl. Abbildungen und Tabellen, von der Einleitung bis vor das
+Literaturverzeichnis; 80 ist hart, Ziel 70–75. Entwürfe etwa Endumfang ÷ 0,6, Nils kürzt.
+Weitere Ergebnisse des Betreuertreffens vom 23.11.: `Richtlinien-BA.md` §12.
 
 ## Kapitel 4 – Fähigkeiten humanoider Roboter und verwandte Arbeiten
 
@@ -36,8 +38,9 @@ Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/a
 **Entscheidungen**
 - [x] **N1 Realversuche:** *ab etwa 23.11. quasi ständig; Abgabe 15.12.2026.* V2, V7, V11 fest eingeplant.
 - [x] **N2 Zielwerte:** *„keine Ahnung“* → Claudes Vorschläge gelten (A3 ≥ 0,95 / ≥ 95 % · A4 ≤ 2 cm · A5 ≤ 100 ms / ≤ 1 s · A6 ≤ 60 min / ≤ 5). Nur widersprechen, wenn ein Wert falsch wirkt.
-- [x] **N3 Nutzerstudie:** *Nils 17.11.: „werd es versuchen“, Zeit unsicher.* → geplant als Kann-Versuch (V9 mit K6.4); fällt sie aus, Ausblick. Claude liefert Ablauf und Fragebogen.
-- [x] **N5 Externes Projekt:** *keins, A7 bleibt Konzept.* Optional kleines Beispielprogramm (Punkt 6 im Build-Prompt).
+- [x] **N3 Nutzerstudie:** *entfällt (Betreuerin, 23.11.): technische Arbeit ohne Vorher-Vergleich, keine Umfrage.* V9 und Fragebogen fallen weg, Kap. 8 wird kürzer.
+- [x] **N5 Externes Projekt:** *keins, A7 bleibt Konzept.* Seit 23.11. (Betreuerin): Erweiterbarkeit wird nicht eigens nachgewiesen, sondern als Frage „wie modular?“ mit dem Docker-Container als Lösung geführt.
+- [x] **Video als Ergebnis** (23.11., Betreuerin): erlaubt, aber nur sparsam.
 - [x] **N7 Tabellen:** *wie empfohlen.*
 - [x] **N8 Aufgabenstellung:** *keine.* Herleitung nur aus den Defiziten.
 - [x] **N11 Messmittel:** *ja, Nils baut mit eigenem Agenten.* Prompt im Dokument (inkl. ausführlicher Armplaner-Messreihe).
@@ -55,7 +58,7 @@ Plan: `review/plan-kap5.md`, bearbeitbar als Claude-Dokument https://claude.ai/a
 
 **Durchführen**
 - [ ] Messmittel mit dem Build-Prompt aus dem Dokument bauen lassen, vor dem 23.11.
-- [ ] Realversuche ab 23.11.: fünf Punkte im Dokument (V7, V2, V11, V5, V9, je dreimal); Protokollblätter kommen vorher von Claude.
+- [ ] Realversuche ab 23.11.: Punkte im Dokument (V7, V2, V11, V5, je dreimal; V9 Nutzerstudie entfällt seit 23.11.); Protokollblätter kommen vorher von Claude.
 - [ ] Festen Code-Stand im G1-Repo markieren (Tag), an dem alle Messungen laufen (gleich mit Kap. 7, E4).
 
 ## Kapitel 6 – Konzept der Umgebung
@@ -65,7 +68,11 @@ Plan: `review/plan-kap6.md` (Fragen in Abschnitt 8).
 **Angaben und Material**
 - [ ] **N5 Liste der Lauf-Policies**, die du gefunden und verworfen hast, je Policy kurz: Herkunft, warum genommen
       oder nicht (Lizenz, lief in MuJoCo, Arme frei, …). Für 6.2.3 und `tab:policies` in 4.1 (zugesagt seit 09.11.).
-- [ ] **N8 Unitree-Entwicklerdoku als PDF** (support.unitree.com blockt automatische Abrufe): Seiten zu den Zuständen
+- [x] **N8 Unitree-Entwicklerdoku:** *erledigt (Betreuerin, 23.11.): die Unitree-Support-Website darf mit Abrufdatum
+      zitiert werden, ein offizielles Doku-PDF ist nicht nötig.* Für den wörtlichen Beleg braucht es nur noch einen
+      Ausdruck der Seiten (Browser „Drucken → als PDF“, Datum im Dateinamen) im Quellen-Repo, siehe CLAUDE.md
+      „Websites und GitHub-Repos als Quelle“. Alte Beschreibung zur Orientierung:
+      Seiten zu den Zuständen
       des Onboard-Reglers (FSM, Damp/Preparation/Walk), zur Arm-Schnittstelle `arm_sdk` (Gewicht, Wirkung auf die
       Taille), zum Laufdienst (LocoClient) und zur Fernbedienung. Im Browser „Drucken → als PDF“, ins Quellen-Repo
       `pdf/` hochladen. Für Kap. 2.3, 3.4.3, 6.2.3, 6.3.1, 6.3.3.
@@ -81,7 +88,7 @@ Plan: `review/plan-kap6.md` (Fragen in Abschnitt 8).
 
 **Entscheidungen**
 - [ ] **N2 Entwurfsgrundsätze** in der Kapiteleinleitung (Erklärung im Thread): einverstanden?
-- [ ] **N10 Nachweis der Erweiterbarkeit (8.4.1):** siehe Kap. 5, N5.
+- [x] **N10 Nachweis der Erweiterbarkeit (8.4.1):** *entfällt in dieser Form (Betreuerin, 23.11.):* kein Nachweis, sondern Frage „wie modular?“ mit dem Docker-Container als Lösung. Siehe Kap. 5, N5.
 - [ ] **Voll-Notaus in der Bedienoberfläche** (23.11.): Text und Abb. 6.3 sind angepasst. Sobald der Code im G1-Repo ist, kurz Bescheid geben (Commit), damit die Datenbasis im Kommentar stimmt.
 
 ## Kapitel 7 – Umsetzung
@@ -102,7 +109,7 @@ Entscheidungen ganz oben (Antwort direkt unter den Punkt). Markdown-Stand vom 16
 - [ ] **E9 Smartphone:** nur das Prinzip (Kopplung, Prüfcode, Rollen, Zeitgrenzen), kein Protokolldetail?
 
 **Angaben und Material**
-- [ ] **E5 Unitree-Entwicklerdoku als PDF:** siehe Kap. 6, N8 (gleiche Seiten). Für 7.2.1, 7.3.2, 7.4.1.
+- [x] **E5 Unitree-Entwicklerdoku als PDF:** *Website mit Abrufdatum genügt (23.11.)*, siehe Kap. 6, N8 (gleiche Seiten). Für 7.2.1, 7.3.2, 7.4.1.
 - [ ] **E5 Szenen-Editor:** README des fremden Projekts `mujoco-scene-editor`, auf dem der eigene Editor aufbaut, als
       PDF ins Quellen-Repo; dann lege ich einen Software-Eintrag an.
 - [ ] **PDFs über die FAU:** Mamou2009 (V-HACD, IEEE) und Ma2017 (OpenHand, IEEE, schon freigegeben, PDF fehlt).

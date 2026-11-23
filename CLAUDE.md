@@ -23,6 +23,8 @@ Wenn du etwas nicht belegen kannst, **markierst du die Lücke**, statt sie zu f�
    mit `Citation Key`), existiert für den Text nicht.
    Websuche ist **nur im Recherche-Modus** erlaubt, und nur um Quellen zu *finden* – nie, um Inhalte daraus
    direkt in den Text zu übernehmen. Inhalte kommen ausschließlich aus PDFs in Zotero.
+   Offizielle Websites und GitHub-Repos sind seit 23.11.2026 als Quelle erlaubt, aber nur als gespeicherter
+   Stand mit Abrufdatum in Zotero (siehe „Websites und GitHub-Repos als Quelle“).
 2. **Jede Sachaussage trägt Zitat + Beleg-ID:** `\cite{Mueller2021}\ev{Mueller2021.03}`.
    Ohne passenden Beleg schreibst du `\qf{was fehlt}` (Quelle fehlt) und formulierst die Aussage nicht aus.
 3. **Zitate in `evidence/` sind wörtlich** aus `sources-text/<key>.txt` kopiert – nie aus dem Gedächtnis,
@@ -144,8 +146,43 @@ Alles, was Nils liefern, entscheiden oder durchführen muss, steht gesammelt in 
 - beantwortete Punkte abhaken (`[x]`) und die Antwort kurz dahinterschreiben,
 - vor dem Arbeiten nachsehen, ob Nils dort schon etwas beantwortet hat.
 
-Umfang (Nils, 16./17.11.2026): Gesamtarbeit 60–80 Seiten, 80 ist harte Obergrenze. Entwürfe maßvoll länger als der
-Endumfang, etwa Endumfang ÷ 0,6 (6 S. → 10–12 S.); Nils kürzt dann ca. 40 %. Nicht das Mehrfache schreiben.
+Umfang (Betreuerin, 23.11.2026; vorher Nils 16./17.11.): 60–80 Seiten **inklusive Abbildungen und Tabellen**, gezählt
+vom ersten Wort der Einleitung bis zum letzten Wort vor dem Literaturverzeichnis. 80 ist harte Obergrenze,
+**Ziel 70–75 Seiten**. Entwürfe maßvoll länger als der Endumfang, etwa Endumfang ÷ 0,6 (6 S. → 10–12 S.); Nils kürzt
+dann ca. 40 %. Nicht das Mehrfache schreiben.
+
+### Absprachen mit der Betreuerin (23.11.2026)
+
+Verbindlich für alle Kapitel-Threads (Details in `Richtlinien-BA.md` §12):
+- **Keine Nutzerstudie.** Die Arbeit ist technisch und startet bei null, es gibt keinen Vorher-Zustand zum
+  Vergleichen; dass die Umgebung existiert und funktioniert, ist das Ergebnis. Kap. 8 (Evaluation) wird
+  entsprechend kürzer. Keine Fragebögen oder Zufriedenheitsmessungen planen.
+- **Video** (Videodreh) darf als Ergebnis dienen, aber nur sparsam (ergänzend, nicht als Hauptnachweis).
+- **Erweiterbarkeit nicht eigens nachweisen.** Stattdessen als Entwurfsfrage führen („Wie wird die Umgebung
+  modular?“), Antwort und Ergebnis ist der Docker-Container. Kein eigener Erweiterbarkeitsversuch in Kap. 8.
+- **Anhang:** nur die relevanten Teile der README, nicht die ganze. Der Haupttext ist keine Anleitung; für
+  Bedienschritte weiter auf den Anhang verweisen.
+- **Web- und GitHub-Quellen** sind erlaubt (siehe unten). Die Betreuerin hat selbst keinen Zugang zur
+  Unitree-Entwicklerdoku.
+- Noch offen (am 23.11. nicht besprochen): Tempus (K1), Aktiv/Passiv (K2), Zotero/.bib statt Citavi (K9).
+  Bis dahin gelten die Defaults in `Richtlinien-BA.md` §1.
+
+### Websites und GitHub-Repos als Quelle (seit 23.11.2026)
+
+Die Betreuerin erlaubt offizielle Websites (z. B. Unitree-Support, Herstellerseiten, Software-Dokumentationen)
+und GitHub-Repos als Quelle, **immer mit Abrufdatum**, bei GitHub zusätzlich mit **Commit-Hash** des zitierten
+Stands. Nicht erlaubt bleiben Blogs, Foren, Wikipedia und Werbeseiten. Für wissenschaftliche Aussagen weiter
+Paper und Bücher; Websites und Repos für Produkt-, Schnittstellen- und Softwareangaben.
+- **Zotero-Eintrag:** Website als „Webseite“ (Autor = Organisation, z. B. Unitree Robotics), GitHub als „Software“
+  mit Version = Commit-Hash (kurz, 7–10 Zeichen) und URL auf genau diesen Stand
+  (`https://github.com/<owner>/<repo>/tree/<hash>` bzw. `/blob/<hash>/<datei>`). In beiden Fällen
+  *Zugriffsdatum* setzen (landet als `urldate` in der `zotero.bib`).
+- **Beleggrundlage bleibt ein PDF:** Die Seite bzw. README im abgerufenen Stand als PDF ins Quellen-Repo
+  (`pdf/Organisation_Jahr_Kurztitel_JJJJ-MM-TT.pdf`), Link-Anhang per `zot.py link`. Belege daraus wie gewohnt;
+  `seite` ist die Seitenzahl des Ausdrucks. GitHub-Dateien kannst du selbst am Commit abrufen
+  (`raw.githubusercontent.com/<owner>/<repo>/<hash>/<datei>`) und als PDF ablegen; Seiten, die automatische Abrufe
+  blocken (support.unitree.com), speichert Nils im Browser mit „Drucken → als PDF“.
+- Abrufdatum und Commit-Hash des PDFs müssen mit dem Zotero-Eintrag übereinstimmen.
 
 ### Quellenbeschaffung durch Nils
 
