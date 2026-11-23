@@ -1,7 +1,7 @@
 % Entwurf 20.11.2026 (Plan review/plan-kap6.md, AP1–AP8), gekürzt auf höchstens 12 PDF-Seiten (Auftrag kap6-kuerzen).
 % Langfassung: review/kap6-entwurf/06_Konzept_Langfassung.tex; was weggefallen ist: review/kap6-kuerzungen.md.
 % Teilentwürfe und Fundstellen: review/kap6-entwurf/.
-% Schema je Unterkapitel: Anforderung -> Alternativen -> begründete Entscheidung -> Kern der Lösung -> Verweis auf Nachweis in Kap. 8.
+% Schema je Unterkapitel: Anforderung -> Alternativen -> begründete Entscheidung -> Kern der Lösung (keine Verweise auf Kap. 8, Nils 23.11.2026).
 \chapter{Konzept der Umgebung}
 \label{chap:konzept}
 % Basis: Plan review/plan-kap6.md Abschnitt 5 „Kapiteleinleitung“; Grundsätze abgeleitet aus G1@25d5c1a
@@ -534,10 +534,13 @@ Die Grenze sind feste Folgen ohne Verzweigungen oder Sensorbedingungen, deren Po
 
 % Code-Stand 6.5: G1@25d5c1a. Pfade in % Basis: relativ zu g1pilot/ bzw. Repo-Root.
 % N10 (Nils, 16.11.): Bisher ist kein externes Projekt angebunden; 6.5.1 ist rein konzeptionell.
-\section{Erweiterungskonzept}
+\section{Modularer Aufbau}
 \label{sec:erweiterungskonzept}
+% Umstrukturiert nach Betreuergespräch (Nils, 23.11.2026): Erweiterbarkeit wird nicht nachgewiesen,
+% sondern als Frage „Wie wird die Umgebung modular?“ gestellt; Antwort sind Container-Profile und Andockpunkte.
 Nach A7 soll die Umgebung als Grundlage weiterer Projekte dienen.
-Dazu bietet sie Andockpunkte an und gliedert sich selbst in austauschbare Container.
+Daraus folgt die Frage, wie sie sich modular aufbauen lässt, sodass Teile ausgetauscht oder ergänzt werden können, ohne den Rest anzupassen.
+Die Umgebung beantwortet sie auf zwei Wegen: Sie bietet externen Projekten Andockpunkte auf mehreren Ebenen, und sie gliedert sich selbst in Container, die sich zu Profilen zusammenstellen lassen.
 
 \subsection{Andockpunkte für externe Projekte}
 \label{sec:andockpunkte}
@@ -597,7 +600,7 @@ Je tiefer ein Projekt andockt, desto freier ist es und desto weniger Schutz wirk
 % docs/12-T-Handy.md „Aktionen und Rechte“; docs/21-T-Arm-API.md „Ohne eigenen HTTP-Client: direkt über DDS“; docs/02-T-Architektur.md „Sim ↔ Real: Ein Schalter“
 Auf der untersten Ebene laufen mit dem SDK entwickelte Programme auch in unitree\_mujoco \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}, gegen die Simulation der Umgebung aber ohne deren Schutz.
 % Basis: Plan Kap. 6, Abschnitt 5, 6.5.1 (N10)
-% N10 (externes Projekt, Nachweis) gehört nach Kap. 8; Verweise auf Kap. 8 entfernt (Rückmeldung Nils 23.11.2026, P6).
+% N10 entfällt (Betreuergespräch 23.11.2026): Erweiterbarkeit wird nicht nachgewiesen; Andockpunkte bleiben Konzept.
 % Umsetzung: sec:entwickler_api, sec:szenen, sec:ersatzregler; sec:hand_profile ergänzen, sobald Kap. 7 es vergibt.
 
 \subsection{Modularisierung über Container-Profile}
