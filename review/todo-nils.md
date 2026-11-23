@@ -82,6 +82,7 @@ Plan: `review/plan-kap6.md` (Fragen in Abschnitt 8).
 **Entscheidungen**
 - [ ] **N2 Entwurfsgrundsätze** in der Kapiteleinleitung (Erklärung im Thread): einverstanden?
 - [ ] **N10 Nachweis der Erweiterbarkeit (8.4.1):** siehe Kap. 5, N5.
+- [ ] **Voll-Notaus in der Bedienoberfläche** (23.11.): Text und Abb. 6.3 sind angepasst. Sobald der Code im G1-Repo ist, kurz Bescheid geben (Commit), damit die Datenbasis im Kommentar stimmt.
 
 ## Kapitel 7 – Umsetzung
 
