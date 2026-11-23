@@ -69,10 +69,15 @@ Plan: `review/plan-kap6.md` (Fragen in Abschnitt 8).
       des Onboard-Reglers (FSM, Damp/Preparation/Walk), zur Arm-Schnittstelle `arm_sdk` (Gewicht, Wirkung auf die
       Taille), zum Laufdienst (LocoClient) und zur Fernbedienung. Im Browser „Drucken → als PDF“, ins Quellen-Repo
       `pdf/` hochladen. Für Kap. 2.3, 3.4.3, 6.2.3, 6.3.1, 6.3.3.
+      Suchhinweis (23.11., P16): auf support.unitree.com im G1-Entwicklerteil nach „arm_sdk“ suchen. Belegt werden muss,
+      dass die Arme über `rt/arm_sdk` mit einem Gewicht zwischen Onboard-Regler und eigener Steuerung übergeblendet
+      werden und dass das auch die Taille betrifft. Notlösung: offizielles Beispiel `g1_arm_sdk_dds_example.cpp`.
 - [ ] **N8 Benutzerhandbuch G1:** die hochgeladene Fassung ist eine Kopie von manualslib.com. Besser die Originaldatei
       von Unitree laden; dann lege ich den Zotero-Eintrag an.
+      Suchhinweis (23.11., P15): auf unitree.com bzw. support.unitree.com nach „G1 User Manual“ suchen. Gebraucht für
+      die Fernbedienung als unabhängige Dämpfung (6.3.2). Notfalls geht die manualslib-Kopie.
 - [ ] **N6 Doku deiner Realtests** (Datum, was getestet, was beobachtet, Fotos/Videos), z. B. Test mit schlaffer Taille
-      am 15.10. Für 6.3.3 und Kap. 8 (gleich mit Kap. 5, N9).
+      am 15.10. Für Kap. 8 (gleich mit Kap. 5, N9); in 6.3.3 steht der Realtest seit 23.11. nicht mehr (P17).
 
 **Entscheidungen**
 - [ ] **N2 Entwurfsgrundsätze** in der Kapiteleinleitung (Erklärung im Thread): einverstanden?

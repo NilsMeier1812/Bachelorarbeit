@@ -42,12 +42,11 @@ Der Stand enthält zudem einen Armregler mit inverser Kinematik und steht unter 
 %      README.md „Instructions“ (Start über colcon build, ros2 launch).
 %  A1/A7: keine HTTP-/Socket-Schnittstelle (grep ohne Treffer); Posen nur Grundstellung „home“ in config/config.yaml;
 %      Hände nur manipulation/dx3_hand.py.
-Übernommen sind Armregelung, Zielmarker, die Anbindung des Onboard-Reglers, Roboterzustand, Joystick und ein Pfadplaner, die nach eigener Analyse vier Defizite gegenüber A1 bis A7 aufweisen:
+Übernommen sind Armregelung, Zielmarker, die Anbindung des Onboard-Reglers, Roboterzustand, Joystick und ein Pfadplaner.
+Gemessen an A1 bis A7 zeigt die eigene Analyse Mängel am Vorhandenen und fehlende Funktionen:
 \begin{itemize}
-  \item \textbf{A2:} Eine physikalische Simulation fehlt; Stehen und Gehen bietet allein der Onboard-Regler.
-  \item \textbf{A5:} Die Arme werden ohne Übergang übernommen und abgegeben, eine Kollisionsprüfung fehlt, und der einzige Not-Halt dämpft auch die Beine.
-  \item \textbf{A6:} Die Oberfläche zeigt alle Funktionen zugleich und keinen Roboterzustand.
-  \item \textbf{A1, A7:} Es fehlen eine Schnittstelle ohne ROS~2, ein Posenspeicher und die Anbindung der Inspire-Hände (Abschnitt~\ref{sec:g1_hardware}).
+  \item \textbf{Mängel (A2, A5, A6):} Eine physikalische Simulation fehlt, und Stehen und Gehen bietet allein der Onboard-Regler. Die Arme werden ohne Übergang übernommen und abgegeben, eine Kollisionsprüfung fehlt, und der einzige Not-Halt dämpft auch die Beine. Die Oberfläche zeigt alle Funktionen zugleich und keinen Roboterzustand.
+  \item \textbf{Fehlende Funktionen (A1, A7):} Es fehlen eine Schnittstelle ohne ROS~2, ein Posenspeicher und die Anbindung der Inspire-Hände (Abschnitt~\ref{sec:g1_hardware}).
 \end{itemize}
 Daraus folgen die Handlungsfelder der Abschnitte~\ref{sec:architektur} bis~\ref{sec:erweiterungskonzept}.
 
@@ -57,8 +56,7 @@ Daraus folgen die Handlungsfelder der Abschnitte~\ref{sec:architektur} bis~\ref{
 % Stufen-Zuordnung nach Plan Abschnitt 5, 6.1.3 und tab:eigenleistung (AP2).
 % Eigene Zählung 20.11.2026 an G1@25d5c1a (nicht im Text, bei Bedarf ergänzen): 26.398 Zeilen in g1pilot/g1pilot/**/*.py,
 % 13.367 Zeilen in g1pilot/test/**/*.py, 597 Funktionen „def test_“ in g1pilot/test (deckt sich mit der Zählung vom 16.11. im Plan).
-Die Eigenleistung wird nach Funktionsbereichen abgegrenzt, da viele Dateien mit Original-Code überwiegend eigene Erweiterungen enthalten und eine Zeilenbilanz die Herkunft einzelner Funktionen verdeckt.
-Tabelle~\ref{tab:eigenleistung} ordnet jeden Bereich einer der Stufen \emph{übernommen}, \emph{erweitert} (Grundgerüst aus G1Pilot) oder \emph{neu} zu.
+Tabelle~\ref{tab:eigenleistung} grenzt die Eigenleistung nach Funktionsbereichen ab und ordnet jeden Bereich einer der Stufen \emph{übernommen}, \emph{erweitert} (Grundgerüst aus G1Pilot) oder \emph{neu} zu.
 
 % ----------------------------------------------------------------------
 % Tabelle 1: Abgrenzung der Eigenleistung (Abschnitt 6.1.3)
@@ -115,7 +113,7 @@ Tabelle~\ref{tab:eigenleistung} ordnet jeden Bereich einer der Stufen \emph{übe
 % arm_controller.py Grundgerüst ~20 %; ik_solver.py ~30 %; loco_client.py Grundgerüst ~20 %); Satz „Alle übrigen Dateien (u. a. Demo-GUI, Arm-Planer,
 % loco_sim mit Lauf-Policies, Inspire-Hände, PS4/Xbox-Teleop, Arm-API, Handy-Zugang, Tests, Doku) sind eigene Arbeit“; N3;
 % Tabelle „Weitere Fremdbestandteile“; g1pilot/policies/*/ATTRIBUTION.md; unitree_mujoco/scene_editor/README.md (Grundlage mujoco-scene-editor).
-Fremdbestandteile sind der Simulator unitree\_mujoco auf Basis von unitree\_sdk2 und MuJoCo \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}, weitere Herstellerpakete, ein Szenen-Editor und die Lauf-Policies aus Unitree RL Mjlab \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.01} und NVIDIA WBC-AGILE \qf{WBC-AGILE: Zhao2026, Freigabe fehlt}.
+Fremdbestandteile sind außerdem der Simulator unitree\_mujoco auf Basis von unitree\_sdk2 und MuJoCo \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}, weitere Herstellerpakete, ein Szenen-Editor und die Lauf-Policies aus Unitree RL Mjlab \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.01} und NVIDIA WBC-AGILE \qf{WBC-AGILE: Zhao2026, Freigabe fehlt}.
 Abschnitt~\ref{sec:eval_code} greift die Abgrenzung auf.
 
 \section{Gesamtarchitektur}
@@ -130,12 +128,12 @@ Eine Ausnahme bildet die Fortbewegung.
 Weil nach A2 und A7 mehrere Bedienwege und Projekte dieselbe Steuerung nutzen sollen, ist die Umgebung in funktional getrennte Knoten zerlegt, statt die Logik in der Bedienoberfläche zu bündeln.
 Sie folgt dem Prinzip, Anforderungen in funktional unabhängige Komponenten zu trennen \cite{Macenski2022}\ev{Macenski2022.04}.
 \pruefen{Logik in der Bedienoberfläche als gedankliche Alternative bestätigen (Plan 6.2.1)}
-Abbildung~\ref{fig:architektur} zeigt die vier Ebenen.
+Abbildung~\ref{fig:architektur} zeigt die Bedienwege, die Funktionsknoten und die Herstellerschnittstelle.
 
 \begin{figure}[htbp]
   \centering
   \input{Bilder/tikz/architektur-gesamt}
-  \caption[Gesamtarchitektur der Umgebung]{Gesamtarchitektur der Umgebung. Die Bedienwege senden Ziele an die Funktionsknoten, die über die Herstellerschnittstelle wahlweise die Simulation oder den realen Roboter ansprechen.}
+  \caption[Komponenten der Umgebung]{Komponenten der Umgebung. Die Bedienwege senden Ziele an die Funktionsknoten, die über die Herstellerschnittstelle Befehle ausgeben; was unterhalb der Schnittstelle liegt, zeigt Abbildung~\ref{fig:sim_real_schalter}.}
   \label{fig:architektur}
 \end{figure}
 
@@ -145,27 +143,38 @@ Drei Regeln tragen den Aufbau: Erstens senden Bedienwege nur Ziele und lesen Zus
 Zweitens gehören Beine und Taille der Fortbewegung, die Arme der Armregelung und die Finger dem Hand-Knoten (Ausnahme in Abschnitt~\ref{sec:armuebergabe}).
 % Basis: G1@25d5c1a docs/02-T-Architektur.md, „Zwei Kommunikationsebenen“; g1pilot/utils/common.py:6-23 (Kommentar zur Domain-Paarung);
 % „Laufzeit-Topologie (Simulation)“ und Absatz darunter (Inspire-Hände real per Modbus TCP)
-Drittens sind ROS~2 innerhalb der Umgebung und die Herstellerschnittstelle mit den Nachrichten LowCmd für Motorbefehle und LowState für Motorzustände, beim G1 nach der Definition unitree\_hg \cite{UnitreeMujoco}\ev{UnitreeMujoco.05,UnitreeMujoco.06}, getrennt.
-\qf{Herstellerdoku G1: High-Level-Schnittstelle und Arm-Schnittstelle (L7, Abschnitt~\ref{sec:g1_software})}
+Drittens sind ROS~2 innerhalb der Umgebung und die Herstellerschnittstelle mit den Nachrichten LowCmd für Motorbefehle und LowState für Motorzustände, beim G1 nach der Definition unitree\_hg \cite{UnitreeMujoco}\ev{UnitreeMujoco.05,UnitreeMujoco.06}, getrennt (Abschnitt~\ref{sec:g1_software}).
 Beide laufen auf verschiedenen DDS-Domains, da nur Teilnehmer derselben Domain kommunizieren \cite{OMG2015}\ev{OMG2015.08}.
 Ob die Funktionsknoten in beiden Welten unverändert laufen, weist Abschnitt~\ref{sec:eval_code} nach.
 
 \subsection{Umschaltung zwischen Simulation und Realbetrieb}
 \label{sec:sim_real_schalter}
-% Basis: G1@25d5c1a docs/02-T-Architektur.md, „Gesamtbild“ („derselbe Code, dieselbe Nachrichten-API“) und „Sim ↔ Real: Ein Schalter“
-Nach A2 unterscheiden sich Simulation und Realbetrieb nur in der Konfiguration, was getrennte Programme ausschließt.
-Eine eigene Abstraktionsschicht verschiebt den Unterschied in zwei getrennt zu pflegende Umsetzungen.
-\pruefen{Abwägung getrennte Programme und Abstraktionsschicht gegen nachgebildete Schnittstelle bestätigen}
-Stattdessen bildet die Simulation die Herstellerschnittstelle nach und tritt an die Stelle des Roboters.
+% Basis: G1@25d5c1a docs/02-T-Architektur.md, „Gesamtbild“ („derselbe Code, dieselbe Nachrichten-API“) und „Sim ↔ Real: Ein Schalter“;
+% Abwägung von Nils bestätigt (23.11.2026, Rückmeldung P7: eine Abstraktionsschicht war nie erwogen).
+Simulation und Realbetrieb unterscheiden sich nur in der Konfiguration, nicht im Programm (A2).
+Dazu bildet die Simulation die Herstellerschnittstelle des Roboters nach.
+Die Funktionsknoten senden dieselben Befehle und können nicht unterscheiden, ob die Simulation oder der Roboter antwortet.
+Zwei getrennte Programme müssten dagegen doppelt gepflegt werden.
 
 % Basis: G1@25d5c1a docs/02-T-Architektur.md, Verzeichnisbaum (unitree_mujoco „Unitree-Original, angepasst“)
 Das bestimmt die Wahl von MuJoCo, denn unitree\_mujoco ist darauf ausgelegt, mit dem SDK entwickelte Steuerprogramme einzubinden und so den Übergang zum realen Roboter zu erleichtern \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}.
 Zudem nutzt Humanoid-Gym MuJoCo wegen seiner als genau bekannten Dynamik zur Sim-to-Sim-Validierung \cite{Gu2024}\ev{Gu2024.03}.
-\pruefen{Grund gegen GPU-parallele Simulatoren von Nils; naheliegend: kein eigenes Training (Abschnitt~\ref{sec:zielsetzung})}
+% Grund gegen GPU-parallele Simulatoren: Nils, 23.11.2026 (Rückmeldung P8).
+GPU-parallele Simulatoren sind darauf ausgelegt, durch Parallelisierung schnell Policies zu trainieren \cite{Rudin2021}\ev{Rudin2021.01} \cite{Mittal2023}\ev{Mittal2023.02}.
+Die Umgebung trainiert nicht, sondern simuliert einen einzelnen Roboter in Echtzeit und stellt ihn dar.
 
 % Basis: G1@25d5c1a docs/02-T-Architektur.md, „Sim ↔ Real: Ein Schalter“ (Tabelle, „einzige Stelle“); g1pilot/utils/common.py:21-55 (resolve_dds, init_dds);
 % „Sim ↔ Real“ (Locomotion); docs/20-T-Arm-Manipulation.md, „rt/arm_sdk-Gewichtsrampe“; docs/50-A-Echter-Roboter.md, Abschnitt E „Kein Auto-Start“
-Den Wechsel trägt ein einziger Schalter, ausgewertet an genau einer Stelle (Abbildung~\ref{fig:dds_domains}, Abschnitt~\ref{sec:bridge}).
+Den Wechsel trägt ein einziger Schalter, ausgewertet an genau einer Stelle (Abschnitt~\ref{sec:bridge}, Abbildung~\ref{fig:dds_domains}).
+Abbildung~\ref{fig:sim_real_schalter} zeigt, was unterhalb der Herstellerschnittstelle umgeschaltet wird: In der Simulation spricht die Umgebung über eine eigene DDS-Domain auf der Loopback-Schnittstelle mit der Simulation, im Realbetrieb über die Netzwerkkarte mit dem Roboter.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/sim-real-umschaltung}
+  \caption[Umschaltung zwischen Simulation und Realbetrieb]{Umschaltung zwischen Simulation und Realbetrieb unterhalb der Herstellerschnittstelle. Die Inspire-Hände sind im Realbetrieb über einen eigenen Anschluss angebunden.}
+  \label{fig:sim_real_schalter}
+\end{figure}
+
 Tabelle~\ref{tab:sim_real} zeigt die verbleibenden Unterschiede, vor allem in Fortbewegung und Schutzfunktionen.
 
 % ----------------------------------------------------------------------
@@ -183,10 +192,10 @@ Tabelle~\ref{tab:sim_real} zeigt die verbleibenden Unterschiede, vor allem in Fo
         Fortbewegung & Ersatzregler (Standregler, Lauf-Policy) & Onboard-Regler\\\hline
         Armübergabe & ohne Rampe, keine Rückfahrt & Rampe, geplante Rückfahrt\\\hline
         Hände & simuliert; Inspire, Gummihand oder eigenes Profil & Inspire-Hände über Modbus TCP\\\hline
-        Grenzwerte & Voreinstellung, nicht durchgesetzt & durchgesetzt (Tabelle~\ref{tab:schutzmechanismen})\\\hline
+        Grenzwerte & Voreinstellung, nicht durchgesetzt & durchgesetzt (Abschnitt~\ref{sec:regelkette})\\\hline
         Start & selbsttätig in GREIFEN & Sicherheitsbestätigung, kein Selbststart\\\hline
         Navigation & Karte und Position aus dem Simulator & nicht verfügbar\\\hline
-        Not-Halt (Beine) & gedämpft, der Roboter fällt & bleiben stehen (Tabelle~\ref{tab:haltstufen})\\\hline
+        Not-Halt (Beine) & gedämpft, der Roboter fällt & bleiben stehen (Abbildung~\ref{fig:betriebszustaende})\\\hline
     \end{tabularx}
 \end{table}
 % Fundstellen je Zeile (Doku / Code):
@@ -217,10 +226,10 @@ Nachweise folgen in den Abschnitten~\ref{sec:eval_realtests} und~\ref{sec:eval_e
 \label{sec:fortbewegungspfade}
 % Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, „Warum zwei völlig verschiedene Implementierungen?“
 Am realen G1 übernimmt der eingebaute, nicht quelloffene Laufregler des Herstellers \cite{Hu2026}\ev{Hu2026.01,Hu2026.02}, der Onboard-Regler, Stehen und Gehen.
-Der Simulator unitree\_mujoco unterstützt dagegen nur die Low-Level-Entwicklung \cite{UnitreeMujoco}\ev{UnitreeMujoco.02}, sodass dieser Regler in der Simulation fehlt, obwohl A2 und A4 Stehen und Gehen dort verlangen.
+Der Simulator unitree\_mujoco unterstützt dagegen nur die Low-Level-Entwicklung \cite{UnitreeMujoco}\ev{UnitreeMujoco.02}, sodass dieser Regler in der Simulation fehlt.
 
 % Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, „Warum zwei völlig verschiedene Implementierungen?“ und „loco_client“ („Bildet dieselben GUI-Topics wie loco_sim … ab“); docs/40-T-Simulation.md, „Feste Voreinstellungen“ (alte Arm-only-Sim mit festgeschweißtem Oberkörper)
-Ein festgehaltener Rumpf lässt weder Gehen noch Balancieren prüfen, und eigenes Training schließt die Eingrenzung der Arbeit aus (Abschnitt~\ref{sec:zielsetzung}).
+Damit Stehen und Gehen trotzdem in der Simulation prüfbar sind (A2, A4), braucht es einen Ersatz: Ein festgehaltener Rumpf lässt weder Gehen noch Balancieren prüfen, und eigenes Training schließt die Eingrenzung der Arbeit aus (Abschnitt~\ref{sec:zielsetzung}).
 Gewählt ist ein Ersatzregler aus veröffentlichter Lauf-Policy und eigenem Standregler, der dieselben Befehle annimmt wie der Onboard-Regler.
 % Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, „Zwei kombinierte Regler“ (Grund für die Kombination) und „Bekannte Einschränkungen“ (reserve[], „nicht für den Realeinsatz gedacht“);
 % Tabelle „Beteiligte Dateien“ (policies/*)
@@ -248,71 +257,24 @@ Sein sicherer Zustand ist nach einem nicht begutachteten Preprint ein aktiv gere
 
 % Art G (Ding2026.08/.09, DINENISO13850.02) + Art E (Folgerung für die Umgebung)
 % Basis: G1@25d5c1a docs/51-T-Notaus.md, Abschnitt „Wer was tut“; docs/50-A-Echter-Roboter.md, Abschnitt „Notaus-Reflex“
-Statt abzuschalten, befiehlt eine Fallstudie deshalb einen kontrollierten Halt im Stand, bei dem die Regelung zum Balancieren erhalten bleibt \cite{Ding2026}\ev{Ding2026.08}.
+In einer Fallstudie mit dem G1 schalten die Autoren deshalb nicht ab, sondern befehlen einen kontrollierten Halt im Stand, bei dem die Regelung zum Balancieren erhalten bleibt \cite{Ding2026}\ev{Ding2026.05,Ding2026.08}.
 Nach demselben Gedanken hält die Umgebung in Stufen an: Der Not-Halt entlastet die Arme und lässt die Beine unter der Regelung des Onboard-Reglers stehen.
 
-% Art E: abstrahiertes Zustandsdiagramm (N7: Nils „vermutlich ja“)
-% Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, Abschnitte „Zustandsmaschine“ und „loco_client (echter Roboter)“;
-%        docs/20-T-Arm-Manipulation.md, Abschnitt „Zustandsmaschine“; docs/51-A-Notaus.md, Abschnitte „Stufen“, „In der Simulation“, „Quittieren“;
-%        Code g1pilot/navigation/loco_sim.py (HOLD/STAND/WALK/DAMP, _on_start -> HOLD, Sturzerkennung fall_gz/fall_debounce_s),
-%        g1pilot/navigation/loco_client.py (FSM 1/4/500/501, _waist_blocks_walk, Bodenkontakt knee_load_min_nm),
-%        g1pilot/teleoperation/status_line.py (start_buttons: Rückfrage bei Damp und Walk), gui_base.py (einziger Sender von /g1pilot/start)
-Abbildung~\ref{fig:betriebszustaende} fasst die gekoppelten Zustandsautomaten zu den Zuständen \emph{Gedämpft}, \emph{Bereit} und \emph{Stehen} mit den Bedienmodi GREIFEN und GEHEN zusammen.
-\qf{Herstellerdokumentation G1: Zustände des Onboard-Reglers (gedämpft, vorbereitet, Gehen), Rückverweis sec:g1\_onboard; Benutzerhandbuch G1 nicht in Zotero (L16)}
-Der Not-Halt ist aus jedem Zustand erreichbar und verriegelt alle Bewegungsbefehle bis zur Quittierung.
+% Art E: Halt-Stufen als Diagramm (vereinfacht nach Rückmeldung Nils 23.11.2026, P12/P13; ersetzt Zustandsdiagramm und tab:haltstufen).
+% Basis: G1@25d5c1a docs/51-A-Notaus.md, Abschnitte „Stufen“, „In der Simulation“, „Quittieren“; docs/51-T-Notaus.md, Abschnitt „Wer was tut“;
+%        Code g1pilot/manipulation/arm_controller.py (_on_emergency_stop, _on_full_emergency_stop, _publish_arm_slack),
+%        g1pilot/navigation/loco_client.py (_halt_legs: Geschwindigkeit 0 statt Damp; Damp nur mit estop_damp_legs, Default false)
+%        Fundstellen je Stufe: review/kap6-entwurf/06_Konzept_Langfassung.tex (Tabelle tab:haltstufen und Kommentare).
+Abbildung~\ref{fig:betriebszustaende} zeigt die Halt-Stufen.
+Stopp und Gehen stoppen beenden nur die laufende Bewegung und brauchen keine Quittierung.
+Der Not-Halt ist auf jedem Bedienweg auslösbar und verriegelt alle Bewegungsbefehle bis zur Quittierung, erst der Voll-Notaus dämpft auch die Beine.
 
 \begin{figure}[htbp]
   \centering
   \input{Bilder/tikz/betriebszustaende}
-  \caption[Betriebszustände und Übergänge]{Betriebszustände und Übergänge der Umgebung. Das abstrakte Diagramm gilt für Simulation und Realbetrieb; in der Simulation dämpft der Not-Halt auch die Beine, und der Voll-Notaus wirkt wie der Not-Halt.}
+  \caption[Halt-Stufen der Umgebung]{Halt-Stufen der Umgebung im Realbetrieb mit Auslöser, Wirkung und Rückkehr in den Normalbetrieb. In der Simulation dämpfen Not-Halt und Voll-Notaus beide auch die Beine.}
   \label{fig:betriebszustaende}
 \end{figure}
-
-% Art E: Halt-Stufen
-% Basis: G1@25d5c1a docs/51-A-Notaus.md, Abschnitte „Stufen“, „In der Simulation“; docs/51-T-Notaus.md, Abschnitt „Wer was tut“;
-%        Code g1pilot/manipulation/arm_controller.py (_on_emergency_stop, _on_full_emergency_stop, _publish_arm_slack),
-%        g1pilot/navigation/loco_client.py (_halt_legs: Geschwindigkeit 0 statt Damp; Damp nur mit estop_damp_legs, Default false)
-Tabelle~\ref{tab:haltstufen} stellt die fünf Halt-Stufen gegenüber; erst der Voll-Notaus dämpft auch die Beine.
-Den Nachweis führt Abschnitt~\ref{sec:eval_sicherheit}.
-
-% ----------------------------------------------------------------------
-% Tabelle 3: Halt-Stufen (Abschnitt 6.3.1)
-% Beschriftung der Auslöser nach Bedienweg, ohne Tastennamen (siehe Anhang).
-% ----------------------------------------------------------------------
-\begin{table}[htbp]
-    \tabstil
-    \setlength{\tabcolsep}{3pt}
-    \centering
-    \caption[Halt-Stufen]{Halt-Stufen mit Auslöser und Wirkung auf die Gelenkgruppen im Realbetrieb; \enquote{--} bedeutet unverändert. In der Simulation dämpft der Not-Halt zusätzlich die Beine.}
-    \label{tab:haltstufen}
-    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{1.9cm}|>{\hsize=1.2\hsize}L|>{\hsize=0.9\hsize}L|>{\hsize=0.9\hsize}L|>{\hsize=0.8\hsize}L|>{\hsize=1.2\hsize}L|>{\hsize=1.0\hsize}L|}\hline
-        \tabkopfzeile \tabkopf{Stufe} & \tabkopf{Auslöser} & \tabkopf{Arme} & \tabkopf{Hände} & \tabkopf{Taille} & \tabkopf{Beine} & \tabkopf{Quittierung}\\\hline
-        Stopp & jeder Bedienweg & Bewegung endet & -- & -- & -- & nicht nötig\\\hline
-        Gehen stoppen & Totmann los, Gehbefehl bleibt aus & -- & -- & -- & stehen, balanciert & nicht nötig\\\hline
-        Not-Halt & jeder Bedienweg & schlaff, gedämpft & halten & gehalten & Stopp, Onboard-Regler balanciert & Bedienoberfläche, Smartphone\\\hline
-        Voll-Notaus & Gamepad, 2\,s halten & schlaff, gedämpft & halten & passiv & gedämpft, sackt zusammen & nur Sperre\\\hline
-        Fern\-bedienung des Herstellers & Dämpfen an der Fernbedienung & \multicolumn{4}{p{7.7cm}|}{Dämpfung durch die Firmware, unabhängig vom PC. \pruefen{Wirkung auf die Inspire-Hände klären}} & an der Fernbedienung\\\hline
-    \end{tabularx}
-\end{table}
-% Fundstellen je Zeile (Doku / Code):
-% Stopp:        Doku docs/51-A-Notaus.md Stufen-Tabelle ("Stopp ... Hand steht sofort, geplante Bewegung bricht ab. Roboter bleibt, wie er ist"),
-%               docs/12-T-Handy.md Aktionstabelle (`cancel` = Bewegung stoppen), docs/10-A-Demo-GUI.md ("Bewegung stoppen").
-%               Code teleoperation/ps4_arm_teleop.py (Kreuz = Stopp, Kopfkommentar :45-58), manipulation/arm_controller.py (pose_store/cancel).
-%               "Hände unverändert" ist Schluss aus "Roboter bleibt, wie er ist" (Doku nennt Finger nicht) -> bei Bedarf mit Nils prüfen.
-%               "jeder Bedienweg" = Gamepad, Bedienoberfläche, Smartphone (Langfassung).
-% Gehen stoppen: Doku docs/51-A-Notaus.md ("L2 loslassen (Totmann), GUI-Gehknopf loslassen ... G1 bleibt stehen, balanciert weiter"),
-%               docs/10-A-Demo-GUI.md ("loslassen = sofort 0"); Code teleoperation/ps4_walk.py:47-52 (Deadman), navigation/loco_client.py:716-760 (_cmd_vel_tick, StopMove genau einmal), :148 cmd_vel_timeout.
-% Not-Halt:     Doku docs/51-A-Notaus.md Stufen und "Quittieren" (Tabelle Sim/Echt: Demo-GUI Startleiste / Handy Start; Controller "geht nicht, absichtlich"),
-%               docs/51-T-Notaus.md "Wer was tut", docs/50-A-Echter-Roboter.md "Was EMERGENCY STOP konkret bewirkt".
-%               Code manipulation/arm_controller.py:1840-1850 (_publish_arm_slack, kp 0, kd = estop_arm_kd :221), Taille estop_waist_hold :227 (Default true),
-%               launch/bringup_real.launch.py:128; navigation/loco_client.py:438-454 (_halt_legs, estop_damp_legs :157 False), manipulation/inspire_ftp/bridge.py:251-256 (set_enabled(False)).
-%               Smartphone-Quittieren: teleoperation/phone/gateway.py:64 ("ack": Bediener, Steuerhoheit); Not-Halt auch in Rolle Ansicht: gateway.py:60 ("estop": Ansicht), link.py:68 estop_for_view.
-% Voll-Notaus:  Doku docs/51-A-Notaus.md ("R1 + L1 + PS 2 s ... ganzer G1 in Damp ... sackt zusammen"; "Nach dem Voll-Notaus quittiert Start nur; der G1 bleibt in Damp"),
-%               docs/51-T-Notaus.md (arm_controller: "wie NOT-HALT, zusätzlich Taille passiv"; loco_client: "Damp zuerst, dann StopMove").
-%               Code teleoperation/ps4_arm_teleop.py:736 (full_estop_hold_s 2.0), arm_controller.py:1916 (_on_full_emergency_stop), loco_client.py:555-581 (Damp immer, Quittieren bleibt Damp).
-%               Hände: der Voll-Notaus beginnt mit dem Not-Halt des PS-Drucks (51-A: "der NOT-HALT vom PS-Druck bleibt aber bestehen").
-% Fernbedienung: Doku docs/51-A-Notaus.md ("Unitree-Fernbedienung: Damp an der Fernbedienung; wirkt an der Firmware, unabhängig von PC und Stack").
-%               Wirkung auf die Inspire-Hände ist nirgends dokumentiert (Hände hängen per Modbus an eigenem Netz, docs/02-T-Architektur.md) -> \pruefen.
 
 \subsection{Schutzmechanismen}
 \label{sec:schutzmechanismen}
@@ -329,32 +291,25 @@ Gegen Stoß, Kollision, Sturz, Loslaufen und Ausfälle staffelt die Umgebung ihr
 % Gekürzt von 16 auf 12 Zeilen (zusammengefasst: Armtempo+Rampe+Schleppfehler, Kollisionsprüfung+Bahnen,
 % Startbestätigung+zweite Bestätigung, Totmann+Zeitüberwachung); entfallen: Spalte Gefährdung, Trichter 15 cm, Sim-Tempowerte 1,5 rad/s / 0,5 m/s.
 % ----------------------------------------------------------------------
-\begin{table}[!ht]
+\begin{table}[htbp]
     \tabstil
-    \setlength{\tabcolsep}{3pt}
     \centering
-    \caption[Schutzmechanismen mit Auslegungswerten]{Schutzmechanismen mit Auslegungswert und Geltungsbereich, nach Wirkprinzip geordnet. Es sind Softwarefunktionen ohne Sicherheitsbewertung.}
+    \caption[Schutzmechanismen]{Schutzmechanismen nach Wirkprinzip. Es sind Softwarefunktionen ohne Sicherheitsbewertung; die Auslegungswerte stehen in Kapitel~\ref{chap:umsetzung}.}
     \label{tab:schutzmechanismen}
-    \begin{tabularx}{\textwidth}{|>{\hsize=0.9\hsize\raggedright\arraybackslash}X|>{\hsize=1.1\hsize\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}p{1.35cm}|}\hline
-    \tabkopfzeile \tabkopf{Mechanismus} & \tabkopf{Auslegungswert} & \tabkopf{Sim/Real} & \tabkopf{Abschn.}\\\hline
-    \multicolumn{4}{|l|}{\cellcolor{baHellgrau}\textbf{Begrenzen}}\\\hline
-    Armtempo, Anfahrrampe, Schleppfehler & 1,5\,rad/s, Hand 0,25\,m/s; 3,0\,rad/s$^2$; 0,3\,rad & real & \ref{sec:regelkette}\\\hline
-    Reglerverstärkung (kp/kd) & Arm 80/3, Handgelenk 50/3, Taille 250/6 & real & \ref{sec:regelkette}\\\hline
-    Gewichtsrampe & 2,0\,s, mindestens 1\,s & real & \ref{sec:regelkette}\\\hline
-    Gehgeschwindigkeit & 0,4\,m/s vor, 0,3\,m/s seitlich, 0,4\,rad/s & real & \ref{sec:onboard_anbindung}\\\hline
-    \multicolumn{4}{|l|}{\cellcolor{baHellgrau}\textbf{Vermeiden}}\\\hline
-    Kollisionsprüfung, geplante Bahnen & Hand 0\,cm, Arm 1\,cm, langsamer unter 5\,cm, Selbstkollision 3\,cm; Bahn 5\,cm (mind. 1,5\,cm) & beide & \ref{sec:kollisionsmodell}\\\hline
-    Gehfreigabe (Bodenkontakt, Verriegelung) & Knielast mindestens 10\,Nm & Kontakt real & \ref{sec:onboard_anbindung}\\\hline
-    Bestätigungen, kein Selbststart & zweites Tippen innerhalb 4\,s & real; Schieber beide & \ref{sec:bedienwege}\\\hline
-    Geplante Rückgabe der Arme & 12\,s; Programmende 2,5\,s, 0,8\,rad/s & real & \ref{sec:regelkette}\\\hline
-    \multicolumn{4}{|l|}{\cellcolor{baHellgrau}\textbf{Überwachen}}\\\hline
-    Totmann, Zeitüberwachung & halb gedrückt; Gehen 0,3\,s, Hand 0,5\,s, Funk 0,3\,s; Gehbefehl 0,5\,s, gültig 1,0\,s & beide & \ref{sec:onboard_anbindung}\\\hline
-    Smartphone: Statusalter, Herzschlag & Sperre 1,5\,s; Steuerhoheit 2,0\,s, Sitzung 4,0\,s & beide & \ref{sec:bedienwege}\\\hline
-    Sturzerkennung & über etwa 60$^\circ$ länger als 0,3\,s & Sim & \ref{sec:ersatzregler}\\\hline
-    \multicolumn{4}{|l|}{\cellcolor{baHellgrau}\textbf{Anhalten}}\\\hline
-    Halt-Stufen, Not-Halt überall, Quittieren nicht am Gamepad & Voll-Notaus 2,0\,s halten & beide & \ref{sec:bedienwege}\\\hline
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.2cm}|L|L|>{\raggedright\arraybackslash}p{1.6cm}|}\hline
+    \tabkopfzeile \tabkopf{Wirkprinzip} & \tabkopf{Mechanismus} & \tabkopf{Wogegen} & \tabkopf{Sim/Real}\\\hline
+    Begrenzen & Grenzen für Tempo, Beschleunigung, Schleppfehler und Reglerverstärkung der Arme; Gewichtsrampe & Stoß, Ruck beim Übernehmen der Arme & real\\\hline
+    Begrenzen & Begrenzte Gehgeschwindigkeit, Gehen nur bei Bodenkontakt & Sturz, Loslaufen & real\\\hline
+    Vermeiden & Kollisionsprüfung und geplante Bahnen & Kollision mit dem eigenen Körper und Objekten der Szene & beide\\\hline
+    Vermeiden & Bestätigungen, kein Selbststart, geplante Rückgabe der Arme & unerwartete Bewegung & real\\\hline
+    Überwachen & Totmann und Zeitüberwachung der Steuersignale & Weiterlaufen bei Ausfall der Eingabe oder Verbindung & beide\\\hline
+    Überwachen & Statusalter und Herzschlag am Smartphone & Bedienung nach veraltetem Zustand & beide\\\hline
+    Überwachen & Sturzerkennung & Weiterregeln nach einem Sturz & Sim\\\hline
+    Anhalten & Halt-Stufen, Not-Halt auf jedem Bedienweg & erkannte Gefährdung & beide\\\hline
     \end{tabularx}
 \end{table}
+% Gekürzt nach Rückmeldung Nils 23.11.2026 (P14): Zahlenwerte und Spalte Abschnitt entfallen, die Werte gehören nach Kap. 7 (mit Kap.-7-Thread abzustimmen).
+% Bisherige Fassung mit Auslegungswerten: Commit 9bc95b0 bzw. review/kap6-entwurf/06_Konzept_Langfassung.tex; Fundstellen der Werte unten bleiben als Quelle für Kap. 7.
 % Fundstellen je Zeile (Doku UND Code; bei Abweichung gilt der Code, Abweichungen stehen im Bericht). Nummern der Langfassung (16 Zeilen):
 % 1 Arm-Tempo:
 %     Doku: docs/04-T-Umgebungsvariablen.md "Arme (echter Roboter)": G1_ARM_VEL_LIMIT 1.5 rad/s, G1_EE_VEL_LIMIT 0.25 m/s; docs/50-A-Echter-Roboter.md E "Harte Grenzen nur auf real ... Gelenkgeschwindigkeit <= 1,5 rad/s, Hand <= 0,25 m/s";
@@ -433,7 +388,7 @@ Der Not-Halt auf jedem Bedienweg folgt der Forderung, dass die Not-Halt-Funktion
 % Art G (Ding2026.05, Prather2025.06) + Art E: Einordnung, unabhängige Ebene (N9: keine Aussage zu einer Gefährdungsbeurteilung)
 % Basis: G1@25d5c1a docs/50-A-Echter-Roboter.md, Abschnitte „A · Vor dem Einschalten“ (zweite Person mit Fernbedienung, Kran/Traggurt) und „Notaus-Reflex“
 Alle Mechanismen sind Softwarefunktionen auf einem handelsüblichen PC ohne sicherheitstechnische Bewertung, und die bestehenden Normen lassen sich nicht direkt auf Humanoide anwenden \cite{Prather2025}\ev{Prather2025.06}.
-Die unabhängige Schutzebene bilden deshalb im Realbetrieb eine zweite Person mit der Fernbedienung des Herstellers und die Sicherung am Kran.
+Die unabhängige Schutzebene bilden deshalb im Realbetrieb eine zweite Person, die den Roboter an der Fernbedienung des Herstellers unabhängig vom PC dämpfen kann, und die Sicherung am Kran.
 \qf{Herstellerangaben zur Fernbedienung (Dämpfung als Not-Halt, Wirkung parallel zu eigener Software); Benutzerhandbuch G1 nicht in Zotero (L23)}
 Den Nachweis führt Abschnitt~\ref{sec:eval_sicherheit}.
 
@@ -463,10 +418,9 @@ Im \emph{Not-Halt} bleibt das Gewicht bei eins und die Gelenke werden nur gedäm
 % Art E + N6 (Realtest als Begründung, ohne Datum)
 % Basis: G1@25d5c1a docs/50-A-Echter-Roboter.md, Abschnitt E („Taille wird mitgehalten“); docs/51-T-Notaus.md, Abschnitt „Wer was tut“;
 %        Code g1pilot/manipulation/arm_controller.py (_publish_arm_slack schreibt Taille, estop_waist_hold Default true), launch/bringup_real.launch.py Z. 128.
-%        Hinweis: docs/20-T-Arm-Manipulation.md „Bekannte Einschränkungen“ sagt noch, die Taille werde nie beschrieben – veraltet, Code gilt.
-Das Gewicht nimmt beim G1 nach eigener Beobachtung auch die Taille aus der Regelung des Onboard-Reglers.
-\pruefen{Wirkung des Gewichts auf die Taille als eigene Beobachtung bestätigen, solange kein Herstellerbeleg vorliegt (L24)}
-Die Umgebung hält die Taille deshalb selbst, nachdem in einem Realtest eine schlaffe Taille den Oberkörper kippen ließ \pruefen{Doku des Realtests von Nils} (Nachweis in Abschnitt~\ref{sec:eval_realtests}).
+%        Hinweis: docs/20-T-Arm-Manipulation.md „Bekannte Einschränkungen“ sagt noch, die Taille werde nie beschrieben – veraltet, Code gilt
+%        (waist_hold.py; offizielle Unitree-Beispiele führen die Taillengelenke in der arm_sdk-Liste). Realtest kommt nur in Kap. 8 vor (Nils, P17).
+Da das Gewicht beim G1 auch die Taille aus der Regelung des Onboard-Reglers nimmt, hält die Umgebung die Taille selbst.
 
 % Code-Stand 6.4: G1@25d5c1a. Pfade in % Basis: relativ zu g1pilot/ bzw. Repo-Root.
 \section{Bedienkonzept}
@@ -483,7 +437,7 @@ Für Personen ohne Vorerfahrung setzt die Umgebung deshalb auf eine Bedienoberfl
 % docs/03-A-Startmenue.md „Optionen“ (Zeile Sicherheit); docs/04-T-Umgebungsvariablen.md (G1_REAL_CONFIRM)
 Erstens trifft die bedienende Person jeweils nur eine Entscheidung: Von den Bedienmodi GEHEN und GREIFEN ist genau einer aktiv und nur dessen Funktionen sind sichtbar.
 \qf{Beleg zu Modusfehlern bzw. reduzierter Auswahl in Bedienoberflächen (Lücke Q4)}
-Zweitens wird der Zustand sichtbar, bevor eine Eingabe wirkt, und drittens wird jede Bedienung zuerst in der Simulation geübt.
+Zweitens wird der Zustand sichtbar, bevor eine Eingabe wirkt, und drittens lässt sich jede Bedienung vorher gefahrlos in der Simulation üben.
 % Basis: G1@25d5c1a docs/51-A-Notaus.md „Stufen“, „Was zusätzlich von selbst anhält“;
 % docs/12-A-Handy.md (Hinweis Handy-NOT-HALT über den PC, Rollen); docs/50-A-Echter-Roboter.md E („Kein Auto-Start“);
 % docs/10-A-Demo-GUI.md „Seite ARME“ (Abbruch eines Ablaufs); docs/40-T-Simulation.md „Auto-Start (GREIFEN)“
@@ -494,7 +448,7 @@ Ob die Leitgedanken tragen, untersucht Abschnitt~\ref{sec:eval_bedienaufwand}.
 \label{sec:bedienwege_konzept}
 % Basis: G1@25d5c1a docs/10-T-Demo-GUI.md „Grundsatz“; docs/12-A-Handy.md (Kopf: „Der PC rechnet weiter alles“)
 Schnittstellen sind das Mittel der Interaktion zwischen Nutzer und Roboter \cite{Darvish2023}\ev{Darvish2023.04}; die Umgebung bietet mehrere an, die nur Ziele senden, sodass die Schutzmechanismen für alle gleich gelten.
-Tabelle~\ref{tab:bedienwege} ordnet sie den Funktionen zu \pruefen{Zielgruppe je Bedienweg (Zeile Einsatz) von Nils bestätigen}.
+Tabelle~\ref{tab:bedienwege} nennt je Bedienweg den Einsatz und die Einschränkungen \pruefen{Zielgruppe je Bedienweg (Spalte Einsatz) von Nils bestätigen}; die einzelnen Bedienschritte stehen in Anhang~\ref{anh:dokumentation}.
 
 % ----------------------------------------------------------------------
 % Tabelle 5: Bedienwege (Abschnitt 6.4.2); ersetzt die Entwurfstabelle in Kapitel/07_Umsetzung.tex
@@ -502,21 +456,19 @@ Tabelle~\ref{tab:bedienwege} ordnet sie den Funktionen zu \pruefen{Zielgruppe je
 % ----------------------------------------------------------------------
 \begin{table}[htbp]
     \tabstil
-    \setlength{\tabcolsep}{3pt}
     \centering
-    \caption[Bedienwege und ihre Funktionen]{Bedienwege und ihre Funktionen. \enquote{ja} bedeutet, dass der Bedienweg die Funktion selbst auslöst; die Logik liegt stets in den Funktionsknoten. Alle Bedienwege stehen in Simulation und Realbetrieb zur Verfügung.}
+    \caption[Bedienwege mit Einsatz und Einschränkungen]{Bedienwege mit Einsatz und Einschränkungen. Alle Bedienwege senden nur Ziele, die Logik liegt in den Funktionsknoten; alle stehen in Simulation und Realbetrieb zur Verfügung.}
     \label{tab:bedienwege}
-    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{1.7cm}|L|L|L|L|L|}\hline
-        \tabkopfzeile & \tabkopf{Bedien\-oberfläche} & \tabkopf{Gamepad} & \tabkopf{Smartphone} & \tabkopf{RViz-Marker} & \tabkopf{Arm-API}\\\hline
-        Einsatz & Standard, Vorführung & am Roboter & Zusatz & Entwicklung & Programme ohne ROS\\\hline
-        Arme & Hand, Grundstellung & Hand, Arm spiegeln & nur Posen & Zielmarker & Winkel, Zielpose\\\hline
-        Hände & ja & ja & ja & nein & ja\\\hline
-        Gehen & Totmann; Navigation (Sim) & Totmann & nein & Navigation (Sim) & nein\\\hline
-        Posen, Abläufe & alle & weiter, Stopp & ohne Zusammenstellen & nein & nur Speichern\\\hline
-        Not-Halt & ja & ja & ja, auch Ansicht & nein & nur Abbrechen\\\hline
-        Quittieren & ja & nein & Rolle Bediener & nein & nein\\\hline
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.8cm}|>{\raggedright\arraybackslash}p{4.2cm}|L|}\hline
+        \tabkopfzeile \tabkopf{Bedienweg} & \tabkopf{Einsatz} & \tabkopf{Einschränkungen}\\\hline
+        Bedienoberfläche & Standard am PC, Vorführung & Navigation nur in der Simulation\\\hline
+        Gamepad & direkt am Roboter & kein Quittieren des Not-Halts; Abläufe nur weiterschalten oder stoppen\\\hline
+        Smartphone & Zusatz zur Bedienoberfläche & kein Gehen, Arme nur über gespeicherte Posen; Befehle nur in der Rolle \enquote{Bediener}\\\hline
+        RViz-Marker & Entwicklung & nur Zielmarker und Navigation (Simulation); kein Not-Halt\\\hline
+        Arm-API & Programme ohne ROS~2 & kein Gehen; Posen nur speichern; Not-Halt nur als Abbrechen\\\hline
     \end{tabularx}
 \end{table}
+% Gekürzt nach Rückmeldung Nils 23.11.2026 (P19): Funktionsmatrix -> Einsatz und Einschränkungen; Details im Anhang. Bisherige Matrix: Commit 9bc95b0.
 % Fundstellen je Zeile (Doku / Code); Bedienwege nur soweit zum Stand 25d5c1a vorhanden. Entfernt seit 30.10.2026: Stream-Deck-Oberfläche (NOTICE.md); alter Joystick-Modus (docs/13) ist ein Rückfall,
 % kein Bedienweg des Konzepts (Plan 6.4.2 nennt ihn nicht).
 % Zielgruppe:   Doku docs/1-Bedienung.md Tabelle "Möglichkeit/Wofür" (Demo-GUI "Standard am PC und für Vorführungen"; Controller "direkt am Roboter"; Handy "Zusatz zur Demo-GUI");
@@ -548,8 +500,8 @@ Gegen konkurrierende Befehle teilen sich Bedienoberfläche und Gamepad einen Bed
 Am Smartphone sendet nur die Rolle „Bediener“ Befehle, und nur mit der Steuerhoheit, die die Bedienoberfläche jederzeit zurückholt.
 
 % Basis: G1@25d5c1a docs/51-A-Notaus.md „Quittieren“; docs/11-A-Controller.md „NOT-HALT und Quittieren“
-Quittiert wird der Not-Halt nur an Geräten mit Zustandsanzeige.
-\pruefen{Begründung der Asymmetrie bestätigen; die Doku nennt nur die Doppelbelegung der Start-Taste am Gamepad}
+% Begründung bestätigt von Nils, 23.11.2026 (P20): Zustand sehen ist der Grund.
+Quittiert wird der Not-Halt nur an Geräten mit Zustandsanzeige, damit die bedienende Person vor dem Quittieren den Zustand des Roboters sieht.
 Die Anbindung beschreibt Abschnitt~\ref{sec:bedienwege}.
 
 \subsection{Posen und Abläufe als aufgabenunabhängige Bausteine}
@@ -652,9 +604,11 @@ Ob die Andockpunkte ein externes Projekt tragen, ist in Abschnitt~\ref{sec:eval_
 \label{sec:container_profile}
 % Basis: G1@25d5c1a docker-compose.yml (Dienste, Profile, gemeinsame Basis-Konfiguration); docs/40-T-Simulation.md „Container“
 Nach A6 und A7 soll die Umgebung auf neuen PCs laufen; eine native Installation setzt aber voraus, dass die Rechenumgebung der ursprünglichen Entwickler nachgebildet werden kann \cite{Boettiger2015}\ev{Boettiger2015.02}, und eine virtuelle Maschine gilt Kritikern als zu sehr eine Black Box \cite{Boettiger2015}\ev{Boettiger2015.05} (Abschnitt~\ref{sec:container}).
-Die Umgebung nutzt deshalb statt eines gemeinsamen Images getrennte Container je Aufgabe, die zwei Profile zusammenstellen.
-\pruefen{Begründung gegen ein gemeinsames Image von Nils}
+% Begründung: Nils, 23.11.2026 (P21); Container laut docker-compose.yml: Profil sim = mujoco-sim + g1pilot-sim, Profil real = g1pilot-real.
+Die Umgebung läuft deshalb in Containern, die zwei Profile zusammenstellen.
+Im Simulationsprofil laufen ein Container mit der Simulation und einer mit der Umgebung.
+Im Realprofil entfällt der Simulationscontainer, sodass die im Realbetrieb nicht benötigte Simulation auch keine Rechenleistung belegt.
 % Basis: G1@25d5c1a docker-compose.yml (profiles sim/real, x-g1pilot-base: network_mode host, Quellstand als Volume);
 % docs/40-T-Simulation.md „Container“ (Simulationscontainer ohne ROS); docs/04-T-Umgebungsvariablen.md (Kopf);
 % docs/23-T-Posen-und-Ablaeufe.md „Speicherort“; unitree_mujoco/scene_editor/README.md (scenes/)
-Im Simulationsprofil nimmt ein Simulationscontainer die Stelle des Roboters ein (Umsetzung in Abschnitt~\ref{sec:bereitstellung}).
+Der reale Roboter nimmt dort die Stelle der Simulation ein (Umsetzung in Abschnitt~\ref{sec:bereitstellung}).

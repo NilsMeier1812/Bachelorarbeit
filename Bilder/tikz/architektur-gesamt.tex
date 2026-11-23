@@ -1,4 +1,5 @@
-% Gesamtarchitektur der Umgebung: Bedienwege, Funktionsknoten, Herstellerschnittstelle, Simulation oder Roboter.
+% Komponenten der Umgebung: Bedienwege, Funktionsknoten, Herstellerschnittstelle (oberer Teil der früheren Gesamtarchitektur;
+% Teilung auf Wunsch Nils 23.11.2026, unterer Teil: Bilder/tikz/sim-real-umschaltung.tex).
 % Eigene Darstellung (Art E, Kap. 6.2.1). Keine Quelle in der Caption.
 % Basis: G1@25d5c1a g1pilot/docs/02-T-Architektur.md (Gesamtbild, Laufzeit-Topologie, Zwei Kommunikationsebenen,
 %   Sim <-> Real: Ein Schalter, Joint-Layout/Zuständigkeit der Gelenke), docs/05-T-Nodes-und-Topics.md,
@@ -47,47 +48,30 @@
   \draw[zust] (14.65,8.6) -- (14.65,9.95);
   \draw[zust] (2.5,8.25) -- (2.5,9.95);
   % Schutzmechanismen
-  \node[ba block hervor, minimum height=6mm, minimum width=108mm, font=\footnotesize] (SM) at (10.1,5.95)
+  \node[ba block hervor, minimum height=6mm, minimum width=108mm, font=\footnotesize] (SM) at (10.1,5.8)
     {Schutzmechanismen: begrenzen \textperiodcentered{} vermeiden \textperiodcentered{} überwachen \textperiodcentered{} anhalten};
-  \draw[ba duenn, color=baGruen] (5.9,6.55) -- (5.9,6.25);
-  \draw[ba duenn, color=baGruen] (10.55,6.55) -- (10.55,6.25);
-  \draw[ba duenn, color=baGruen] (14.35,6.55) -- (14.35,6.25);
+  \draw[ba duenn, color=baGruen] (5.9,6.55) -- (5.9,6.1);
+  \draw[ba duenn, color=baGruen] (10.55,6.55) -- (10.55,6.1);
+  \draw[ba duenn, color=baGruen] (14.35,6.55) -- (14.35,6.1);
   % ---------------- Ebene 3: Herstellerschnittstelle ----------------
   \node[ba block, fill=baHellgrau!40, minimum height=8mm, minimum width=143mm] (DDS) at (8.4,4.2)
     {Herstellerschnittstelle (Unitree-DDS)};
   % Befehle nach unten, Zustände nach oben zwischen Funktionsknoten und Schnittstelle
   \draw[zust] (2.5,4.6) -- (2.5,6.55);
-  \draw[ziel] (5.6,5.65) -- (5.6,4.6);
-  \draw[zust] (6.2,4.6) -- (6.2,5.65);
-  \draw[ziel] (9.5,5.65) -- (9.5,4.6);
-  \draw[zust] (10.1,4.6) -- (10.1,5.65);
-  \draw[ziel] (11.5,5.65) -- (11.5,4.6);
-  \draw[zust] (12.1,4.6) -- (12.1,5.65);
-  \draw[ziel] (14.05,5.65) -- (14.05,4.6);
-  \draw[zust] (14.65,4.6) -- (14.65,5.65);
-  % ---------------- Umschalter ----------------
-  \node[draw=baAkzent, ba normal, fill=white, rounded corners=1.5pt, text=black, align=center,
-        minimum height=9mm, inner sep=3pt] (SW) at (8.4,2.75) {Umschalter\\Simulation / Realbetrieb};
-  \draw[baAkzent, ba normal] (8.4,3.8) -- (SW.north);
-  % ---------------- Ebene 4: Simulation oder Roboter ----------------
-  \draw[ba gruppe] (1.3,-1.1) rectangle (7.0,1.5);
-  \node[klein, anchor=north west] at (1.4,1.5) {Container Simulation};
-  \node[ba block, minimum width=0pt, text width=22mm] (SIM) at (2.9,-0.1) {MuJoCo-Simulation};
-  \node[ba block, minimum width=0pt, text width=22mm] (SH) at (5.5,-0.1) {Simulierte Hände};
-  \draw[ba gruppe] (9.8,-1.1) rectangle (15.5,1.5);
-  \node[klein, anchor=north west] at (9.9,1.5) {Realbetrieb};
-  \node[ba block, minimum width=0pt, text width=22mm] (RB) at (11.4,-0.1) {Unitree G1 mit Onboard-Regler};
-  \node[ba block, minimum width=0pt, text width=22mm] (RH) at (14.0,-0.1) {Inspire-Hände};
-  \draw[baAkzent, ba normal, <->] (SW.west) -| (4.15,1.5);
-  \draw[baAkzent, ba normal, <->] (SW.east) -| (12.65,1.5);
-  \node[font=\footnotesize, anchor=east, align=right] at (4.05,2.1) {Domain 1,\\Schnittstelle Loopback};
-  \node[font=\footnotesize, anchor=west, align=left] at (12.75,2.1) {Domain 0,\\Netzwerkkarte};
-  % Hände real: eigener Anschluss neben der Herstellerschnittstelle
-  \draw[ba normal, dash pattern=on 1pt off 2pt, <->] (HA.east) -- (15.85,7.4) -- (15.85,-0.1) -- (RH.east);
-  \node[klein, anchor=east, align=right, fill=white, inner sep=1pt] at (15.8,3.2) {eigener Anschluss,\\nur Realbetrieb};
+  \draw[ziel] (5.6,5.5) -- (5.6,4.6);
+  \draw[zust] (6.2,4.6) -- (6.2,5.5);
+  \draw[ziel] (9.5,5.5) -- (9.5,4.6);
+  \draw[zust] (10.1,4.6) -- (10.1,5.5);
+  \draw[ziel] (11.5,5.5) -- (11.5,4.6);
+  \draw[zust] (12.1,4.6) -- (12.1,5.5);
+  \draw[ziel] (14.05,5.5) -- (14.05,4.6);
+  \draw[zust] (14.65,4.6) -- (14.65,5.5);
+  % Hände real: eigener Anschluss neben der Herstellerschnittstelle (Fortsetzung in fig:sim_real)
+  \draw[ba normal, dash pattern=on 1pt off 2pt, ->] (HA.east) -- (15.85,7.4) -- (15.85,3.3);
+  \node[klein, anchor=north east, align=right] at (15.85,3.25) {zu den Inspire-Händen,\\nur Realbetrieb};
   % Legende
-  \draw[ziel] (1.3,-1.75) -- (2.2,-1.75);
-  \node[klein, anchor=west] at (2.3,-1.75) {Ziele und Befehle};
-  \draw[zust] (6.0,-1.75) -- (6.9,-1.75);
-  \node[klein, anchor=west] at (7.0,-1.75) {Zustände und Meldungen};
+  \draw[ziel] (1.3,2.75) -- (2.2,2.75);
+  \node[klein, anchor=west] at (2.3,2.75) {Ziele und Befehle};
+  \draw[zust] (6.0,2.75) -- (6.9,2.75);
+  \node[klein, anchor=west] at (7.0,2.75) {Zustände und Meldungen};
 \end{tikzpicture}
