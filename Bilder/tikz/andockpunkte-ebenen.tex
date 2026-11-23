@@ -11,25 +11,25 @@
 % Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/andockpunkte-ebenen} in einer figure-Umgebung. Nicht skalieren.
 \begin{tikzpicture}[ba]
   \tikzset{
-    ebene/.style={ba block, align=left, text width=58mm, minimum height=19mm, anchor=west},
-    schutz/.style={ba block hervor, font=\footnotesize, align=center, text width=31mm, minimum height=19mm, anchor=west},
-    keinschutz/.style={ba block, font=\footnotesize, draw=baAkzent, line width=1.2pt, align=center, text width=31mm, minimum height=19mm, anchor=west},
+    ebene/.style={ba block, align=left, text width=58mm, minimum height=21mm, anchor=west},
+    schutz/.style={ba block hervor, font=\footnotesize, align=center, text width=31mm, minimum height=21mm, anchor=west},
+    keinschutz/.style={ba block, font=\footnotesize, draw=baAkzent, line width=1.2pt, align=center, text width=31mm, minimum height=21mm, anchor=west},
     klein/.style={font=\footnotesize, text=baGrau},
   }
   % Pfeil: mehr Freiheit, weniger Schutz
   \draw[baAkzent, line width=1.6pt, ->] (0.3,7.1) -- (0.3,-0.6);
   \node[font=\footnotesize, rotate=90, anchor=south] at (0.35,3.25) {mehr Freiheit \textperiodcentered{} weniger Schutz};
   % Ebene 1: Arm-API
-  \node[ebene] (E1) at (1.0,6.0) {\textbf{Arm-API}\\{\footnotesize Zielposen und Gelenkwinkel als Daten über HTTP, kein ROS nötig}};
+  \node[ebene] (E1) at (1.0,6.0) {\textbf{Arm-API}\\{\footnotesize Zielposen und Gelenkwinkel als Daten über HTTP, kein ROS nötig\par}};
   \node[schutz] (S1) at (E1.east) [xshift=2mm] {Schutzmechanismen wirken};
   % Ebene 2: ROS-2-Topics
-  \node[ebene] (E2) at (1.0,3.4) {\textbf{ROS-2-Topics}\\{\footnotesize Ziele über dieselben Kanäle wie die Bedienwege, z.\,B. die Navigation}};
+  \node[ebene] (E2) at (1.0,3.4) {\textbf{ROS-2-Topics}\\{\footnotesize Ziele über dieselben Kanäle wie die Bedienwege, z.\,B. die Navigation\par}};
   \node[schutz] (S2) at (E2.east) [xshift=2mm] {Schutzmechanismen wirken};
   % Ebene 3: Herstellerschnittstelle direkt
-  \node[ebene] (E3) at (1.0,0.8) {\textbf{Herstellerschnittstelle direkt}\\{\footnotesize Projekt spricht den Roboter über das Unitree-SDK an, ohne Änderung auch gegen die Simulation}};
-  \node[keinschutz] (S3) at (E3.east) [xshift=2mm] {keine Schutzmechanismen der Umgebung};
+  \node[ebene] (E3) at (1.0,0.8) {\textbf{Herstellerschnittstelle direkt}\\{\footnotesize Projekt spricht den Roboter über das Unitree-SDK an, ohne Änderung auch gegen die Simulation\par}};
+  \node[keinschutz] (S3) at (E3.east) [xshift=2mm] {keine Schutz-\\mechanismen\\der Umgebung};
   % Datenebene
-  \node[ba block hervor, anchor=north west, text width=40mm, minimum height=71mm, align=left] (D) at (11.2,6.95)
-    {\textbf{Daten}\\{\footnotesize unabhängig von der Ebene, als Daten statt Code:}\\[1mm]
-     {\footnotesize Szenen\\Hand-Profile\\\hspace*{2mm}(nur Simulation)\\Lauf-Policies\\Posen und Abläufe}};
+  \node[ba block hervor, anchor=north west, text width=40mm, minimum height=73mm, align=left] (D) at (11.2,7.05)
+    {\textbf{Daten}\\{\footnotesize unabhängig von der\\Ebene, als Daten\\statt Code:\\[1mm]
+     Szenen\\Hand-Profile\\\hspace*{2mm}(nur Simulation)\\Lauf-Policies\\Posen und Abläufe\par}};
 \end{tikzpicture}

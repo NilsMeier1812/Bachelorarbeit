@@ -7,27 +7,31 @@
 %   Voll-Notaus bleibt Damp), teleoperation/ps4_arm_teleop.py (full_estop_hold_s 2.0), teleoperation/phone/gateway.py:64 (ack).
 % Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/betriebszustaende} in einer figure-Umgebung. Nicht skalieren.
 \begin{tikzpicture}[ba]
+  % Layout für 12pt-Grundschrift der Arbeit geprüft; Pfeile hängen an den Knotenkanten, damit sie keine Schrift kreuzen.
   \tikzset{
     zu/.style={ba block, align=center, minimum height=14mm},
     halt/.style={ba block, draw=baAkzent, line width=1.2pt, align=center, minimum height=20mm},
-    ueb/.style={font=\footnotesize, text=black, align=left},
+    ueb/.style={font=\footnotesize, text=black},
     klein/.style={font=\footnotesize, text=baGrau},
   }
   % Normalbetrieb
-  \node[zu, ba block hervor, text width=62mm] (N) at (8.2,6.6) {Normalbetrieb\\{\footnotesize Roboter steht oder geht, Arme geregelt}};
-  % Halt-Stufen
-  \node[zu, text width=38mm, minimum height=20mm] (S) at (2.3,1.6) {Stopp / Gehen stoppen\\{\footnotesize Bewegung endet, Roboter bleibt balanciert stehen}};
-  \node[halt, text width=44mm] (NH) at (8.2,1.6) {Not-Halt (verriegelt)\\{\footnotesize Arme schlaff und gedämpft, Hände und Taille gehalten, Beine stehen balanciert}};
-  \node[halt, text width=34mm] (VN) at (13.9,1.6) {Voll-Notaus (verriegelt)\\{\footnotesize alle Gelenke gedämpft, Roboter sackt zusammen}};
+  \node[zu, ba block hervor, text width=66mm] (N) at (8.0,6.8) {Normalbetrieb\\{\footnotesize Roboter steht oder geht, Arme geregelt}};
+  % Halt-Stufen (Oberkanten bündig bei y = 3,0)
+  \node[zu, text width=36mm, minimum height=20mm, anchor=north] (S) at (2.2,3.0) {Stopp /\\Gehen stoppen\\{\footnotesize Bewegung endet,\\Roboter bleibt\\balanciert stehen\par}};
+  \node[halt, text width=44mm, anchor=north] (NH) at (8.0,3.0) {Not-Halt (verriegelt)\\{\footnotesize Arme schlaff und gedämpft,\\Hände und Taille gehalten,\\Beine stehen balanciert\par}};
+  \node[halt, text width=36mm, anchor=north] (VN) at (13.8,3.0) {Voll-Notaus\\(verriegelt)\\{\footnotesize alle Gelenke\\gedämpft, Roboter\\sackt zusammen\par}};
   % Stopp: auslösen und ohne Quittierung zurück
-  \draw[ba pfeil] ([yshift=3mm]N.west) -| node[ueb, pos=0.25, above] {jeder Bedienweg} (1.4,2.6);
-  \draw[ba pfeil, dash pattern=on 3pt off 2pt] (3.2,2.6) |- node[ueb, pos=0.25, right] {ohne\\Quittierung} ([yshift=-3mm]N.west);
+  \draw[ba pfeil] ([yshift=3mm]N.west) -| node[ueb, pos=0.3, above] {jeder Bedienweg} (1.3,3.0);
+  \draw[ba pfeil, dash pattern=on 3pt off 2pt] (3.1,3.0) |- ([yshift=-3mm]N.west);
+  \node[ueb, anchor=west, align=left] at (3.2,4.4) {ohne\\Quittierung};
   % Not-Halt
-  \draw[ba pfeil, baAkzent] (7.4,5.9) -- node[ueb, left, align=right] {jeder\\Bedienweg} (7.4,2.6);
-  \draw[ba pfeil, dash pattern=on 3pt off 2pt] (9.0,2.6) -- node[ueb, right, text width=30mm] {Quittieren an Bedien\-oberfläche oder Smartphone} (9.0,5.9);
+  \draw[ba pfeil, baAkzent] (7.3,6.8 |- N.south) -- (7.3,3.0);
+  \node[ueb, anchor=east, align=right] at (7.2,4.4) {jeder\\Bedienweg};
+  \draw[ba pfeil, dash pattern=on 3pt off 2pt] (8.7,3.0) -- (8.7,6.8 |- N.south);
+  \node[ueb, anchor=west, align=left] at (8.8,4.4) {Quittieren an\\Bedienoberfläche\\oder Smartphone};
   % Voll-Notaus
-  \draw[ba pfeil, baAkzent] (N.east) -| node[ueb, pos=0.3, above] {Gamepad, 2\,s halten} (13.9,2.6);
-  \node[ueb, anchor=north, text width=38mm, align=center] at (13.9,0.4) {Quittieren hebt nur die Sperre auf, danach erneuter Start};
-  % Hinweis Simulation
-  \node[klein, anchor=north west] at (0.3,-0.6) {In der Simulation dämpfen Not-Halt und Voll-Notaus auch die Beine.};
+  \draw[ba pfeil, baAkzent] (N.east) -| (13.8,3.0);
+  \node[ueb, anchor=east, align=right] at (13.7,4.4) {Gamepad,\\2\,s halten};
+  \node[ueb, anchor=north, align=center] at ([yshift=-1.5mm]VN.south) {Quittieren hebt nur\\die Sperre auf, danach\\erneuter Start};
+  % Hinweis zur Simulation steht nur in der Caption (doppelt wäre überflüssig)
 \end{tikzpicture}

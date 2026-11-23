@@ -5,32 +5,35 @@
 %   g1pilot/utils/common.py:21-23 (Domain 1/lo gegen 0/Netzwerkkarte), docs/22-T-Inspire-Haende.md (Hände real über Modbus TCP).
 % Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/sim-real-umschaltung} in einer figure-Umgebung. Nicht skalieren.
 \begin{tikzpicture}[ba]
+  % Layout für 12pt-Grundschrift der Arbeit geprüft (Vorschau immer im Arbeits-PDF ansehen).
   \tikzset{
     klein/.style={font=\footnotesize, text=baGrau},
   }
-  % Herstellerschnittstelle (Verbindungsstück zu Abbildung fig:komponenten)
-  \node[ba block, fill=baHellgrau!40, minimum height=8mm, minimum width=143mm] (DDS) at (8.4,4.2)
-    {Herstellerschnittstelle (Unitree-DDS), dieselben Nachrichten in beiden Fällen};
+  % Herstellerschnittstelle und Modbus-Block wie in fig:architektur (Nils, 23.11.2026)
+  \node[ba block, fill=baHellgrau!40, minimum height=11mm, minimum width=117mm, anchor=north] (DDS) at (7.1,4.6)
+    {Herstellerschnittstelle (Unitree-DDS)\\{\footnotesize dieselben Nachrichten in Simulation und Realbetrieb}};
+  \node[ba block, fill=baHellgrau!40, minimum height=11mm, minimum width=25mm, font=\footnotesize, align=center,
+        anchor=north] (MB) at (14.45,4.6) {Modbus TCP\\(Realbetrieb)};
   % Umschalter
   \node[draw=baAkzent, ba normal, fill=white, rounded corners=1.5pt, text=black, align=center,
-        minimum height=9mm, inner sep=3pt] (SW) at (8.4,2.75) {Umschalter\\Simulation / Realbetrieb};
-  \draw[baAkzent, ba normal] (DDS.south) -- (SW.north);
+        minimum height=9mm, inner sep=3pt] (SW) at (7.6,2.6) {Umschalter\\Simulation / Realbetrieb};
+  \draw[baAkzent, ba normal] (7.6,3.5) -- (SW.north);
   % Simulation
-  \draw[draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt] (1.3,-1.1) rectangle (7.0,1.5);
-  \node[klein, anchor=north west] at (1.4,1.5) {Container Simulation};
-  \node[ba block, minimum width=0pt, text width=22mm] (SIM) at (2.9,-0.1) {MuJoCo-Simulation};
-  \node[ba block, minimum width=0pt, text width=22mm] (SH) at (5.5,-0.1) {Simulierte Hände};
+  \draw[draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt] (1.2,-1.55) rectangle (7.0,1.05);
+  \node[klein, anchor=north west] at (1.3,1.0) {Container Simulation};
+  \node[ba block, minimum width=0pt, text width=22mm] (SIM) at (2.75,-0.6) {MuJoCo-Simulation};
+  \node[ba block, minimum width=0pt, text width=22mm] (SH) at (5.45,-0.6) {Simulierte Hände};
   % Realbetrieb
-  \draw[draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt] (9.8,-1.1) rectangle (15.5,1.5);
-  \node[klein, anchor=north west] at (9.9,1.5) {Realbetrieb};
-  \node[ba block, minimum width=0pt, text width=22mm] (RB) at (11.4,-0.1) {Unitree G1 mit Onboard-Regler};
-  \node[ba block, minimum width=0pt, text width=22mm] (RH) at (14.0,-0.1) {Inspire-Hände};
-  % Verbindungen
-  \draw[baAkzent, ba normal, <->] (SW.west) -| (4.15,1.5);
-  \draw[baAkzent, ba normal, <->] (SW.east) -| (12.65,1.5);
-  \node[font=\footnotesize, anchor=east, align=right] at (4.05,2.1) {Domain 1,\\Schnittstelle Loopback};
-  \node[font=\footnotesize, anchor=west, align=left] at (12.75,2.1) {Domain 0,\\Netzwerkkarte};
-  % Hände real: eigener Anschluss vom Hand-Knoten, an der Herstellerschnittstelle vorbei
-  \draw[ba normal, dash pattern=on 1pt off 2pt, <->] (15.85,4.9) -- (15.85,-0.1) -- (RH.east);
-  \node[klein, anchor=east, align=right, fill=white, inner sep=1pt] at (15.75,3.0) {vom Hand-Knoten:\\eigener Anschluss\\(Modbus TCP),\\nur Realbetrieb};
+  \draw[draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt] (9.3,-1.55) rectangle (15.7,1.05);
+  \node[klein, anchor=north west] at (9.4,1.0) {Realbetrieb};
+  \node[ba block, minimum width=0pt, text width=30mm] (RB) at (11.4,-0.6) {Unitree G1 mit\\Onboard-Regler};
+  \node[ba block, minimum width=0pt, text width=20mm] (RH) at (14.45,-0.6) {Inspire-\\Hände};
+  % Verbindungen über den Umschalter
+  \draw[baAkzent, ba normal, <->] (SW.west) -| (3.6,1.05);
+  \draw[baAkzent, ba normal, <->] (SW.east) -| (12.4,1.05);
+  % Beschriftungen innen neben den senkrechten Pfeilen, unterhalb des Umschalters (kreuzen nichts)
+  \node[font=\footnotesize, anchor=north west, align=left, inner sep=1pt] at (3.75,2.05) {Domain 1,\\Loopback};
+  \node[font=\footnotesize, anchor=north east, align=right, inner sep=1pt] at (12.25,2.05) {Domain 0,\\Netzwerkkarte};
+  % Hände real: eigener Anschluss über Modbus TCP, an der Herstellerschnittstelle vorbei
+  \draw[ba normal, <->] (MB.south) -- (RH.north);
 \end{tikzpicture}
