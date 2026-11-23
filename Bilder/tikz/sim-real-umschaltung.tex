@@ -16,12 +16,12 @@
         minimum height=9mm, inner sep=3pt] (SW) at (8.4,2.75) {Umschalter\\Simulation / Realbetrieb};
   \draw[baAkzent, ba normal] (DDS.south) -- (SW.north);
   % Simulation
-  \draw[ba gruppe] (1.3,-1.1) rectangle (7.0,1.5);
+  \draw[draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt] (1.3,-1.1) rectangle (7.0,1.5);
   \node[klein, anchor=north west] at (1.4,1.5) {Container Simulation};
   \node[ba block, minimum width=0pt, text width=22mm] (SIM) at (2.9,-0.1) {MuJoCo-Simulation};
   \node[ba block, minimum width=0pt, text width=22mm] (SH) at (5.5,-0.1) {Simulierte Hände};
   % Realbetrieb
-  \draw[ba gruppe] (9.8,-1.1) rectangle (15.5,1.5);
+  \draw[draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt] (9.8,-1.1) rectangle (15.5,1.5);
   \node[klein, anchor=north west] at (9.9,1.5) {Realbetrieb};
   \node[ba block, minimum width=0pt, text width=22mm] (RB) at (11.4,-0.1) {Unitree G1 mit Onboard-Regler};
   \node[ba block, minimum width=0pt, text width=22mm] (RH) at (14.0,-0.1) {Inspire-Hände};
