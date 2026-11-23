@@ -14,8 +14,8 @@ Entwurf: `Kapitel/04_Faehigkeiten_Verwandte_Arbeiten.tex`, Plan `review/plan-kap
 
 **Lesen und entscheiden**
 - [ ] **K1 Entwurf Kap. 4 lesen.** Danach folgt die inhaltliche Prüfung aller Sätze gegen die Belege (Schritt 5).
-- [ ] **K2 MuJoCo-Dokumentation als Quelle** (als PDF ins Quellen-Repo) für „MuJoCo kollidiert Meshes nur über ihre
-      konvexe Hülle“: einverstanden?
+- [x] **K2 MuJoCo-Dokumentation als Quelle** (als PDF ins Quellen-Repo) für „MuJoCo kollidiert Meshes nur über ihre
+      konvexe Hülle“: einverstanden? → *Betreuerin 23.11.: offizielle Websites und GitHub-Repos sind als Quelle erlaubt, mit Abrufdatum (GitHub zusätzlich Commit-Hash).*
 - [ ] **K3 Freigaben in `_Vorschläge`** für `tab:policies`: Zhao2026 (AGILE, gleich mit Kap. 7, E8), Zhang2025 (R2S2),
       Cadene2026 (LeRobot).
 - [ ] **K4 Recherche freigeben** für die offenen Lücken: Grenzen der Greifkraft (z. B. ISO/TS 15066), Bedienung über
