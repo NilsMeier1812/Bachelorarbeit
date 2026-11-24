@@ -45,7 +45,7 @@ Zum ersten Weg zählen gelernte Aktormodelle: Ein neuronales Netz bildet am real
 Den zweiten Weg verfolgt Domain Randomization, die die Simulation stark randomisiert, um die reale Datenverteilung trotz der Abweichung zwischen Modell und Realität abzudecken \cite{Zhao2020}\ev{Zhao2020.08}.
 Sie wirkt am besten, wenn der randomisierte Parameterbereich klein und die übrige Dynamik genau ist \cite{Acosta2022}\ev{Acosta2022.02}.
 
-% Eigenleistung, Datenbasis: G1-Repo g1pilot/utils/common.py:21-55; review/plan-kap3.md (Code-Befunde: keine Domain Randomization, keine Systemidentifikation)
+% Eigenleistung, Datenbasis: G1@6a40e47 (BA-Stable) g1pilot/g1pilot/utils/common.py:21-55; review/plan-kap3.md (Code-Befunde: keine Domain Randomization, keine Systemidentifikation)
 Die vorliegende Arbeit trainiert und überträgt keine eigene Policy.
 Sie führt denselben Steuerungscode in der Simulation und am realen G1 aus und wechselt nur die Kommunikationsverbindung (Abschnitt~\ref{sec:sim_real_schalter}).
 Die beschriebenen Ursachen bestimmen deshalb, wie weit ein in der Simulation beobachtetes Verhalten auf den realen Roboter übertragbar ist.
@@ -101,7 +101,7 @@ Die Zwangsbedingung \texttt{weld} verschweißt zwei Körper und unterdrückt all
 Als Sensoren stehen unter anderem Berührungssensoren, inertiale Messeinheiten (IMU), Kraft-Momenten-Sensoren sowie Positions- und Geschwindigkeitssensoren für Gelenke zur Verfügung \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.08}.
 Eigene Software bindet MuJoCo über Python-Bindings mit Zugriff auf die gesamte C-Pro\-gram\-mier\-schnitt\-stelle an \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.07}, und für den G1 stellt Unitree in unitree\_mujoco MJCF-Dateien sowie einen C++- und einen Python-Simulator bereit \cite{UnitreeMujoco}\ev{UnitreeMujoco.04}.
 
-% Eigenleistung, Datenbasis: G1-Repo unitree_mujoco/simulate_python/config.py:61-66 und unitree_sdk2py_bridge.py:305-307; review/plan-kap3.md (Code-Befunde)
+% Eigenleistung, Datenbasis: G1@6a40e47 (BA-Stable) unitree_mujoco/simulate_python/config.py:61-66, unitree_sdk2py_bridge.py:305-307, unitree_robots/g1/g1_23dof.xml (<motor>); review/plan-kap3.md (Code-Befunde)
 Die Simulationsumgebung dieser Arbeit nutzt MuJoCo über das Python-Binding mit einem Zeitschritt von 1\,ms.
 Die Körpergelenke werden über Drehmoment-Aktuatoren (\texttt{motor}) mit einem PD-Regler außerhalb des Simulators angesteuert (Abschnitt~\ref{sec:bridge}).
 
@@ -140,7 +140,7 @@ Einen insgesamt besten Simulator gibt es nach einer weiteren Vergleichsstudie ni
 % ======================================================================
 \section{Middleware und Bereitstellung}
 \label{sec:middleware}
-% Eigenleistung, Datenbasis: review/plan-kap3.md (Code-Befunde: ROS 2 Humble, DDS über das Unitree SDK, Docker-Compose)
+% Eigenleistung, Datenbasis: review/plan-kap3.md (Code-Befunde: ROS 2 Humble, DDS über das Unitree SDK, Docker-Compose); geprüft an G1@6a40e47 g1pilot/docker/Dockerfile.sim:1, Dockerfile.real:7
 Simulation und realer G1 werden in dieser Arbeit über dieselbe DDS-basierte Schnittstelle angesprochen, und die gesamte Software läuft in Containern.
 Beides beruht auf ROS~2, dem Data Distribution Service und Docker.
 
@@ -151,7 +151,7 @@ Sie baut auf dem Data Distribution Service (DDS) auf, einem offenen Kommunikatio
 Die Kommunikation organisiert ROS~2 in Knoten (Nodes) mit den Mustern Topics, Services und Actions \cite{Macenski2022}\ev{Macenski2022.07}.
 Topics sind das häufigste Muster und übertragen Nachrichten asynchron \cite{Macenski2022}\ev{Macenski2022.08}, Services folgen dem Anfrage-Antwort-Prinzip \cite{Macenski2022}\ev{Macenski2022.09}, und Actions sind zielorientierte, asynchrone Schnittstellen mit periodischer Rückmeldung und Abbruchmöglichkeit \cite{Macenski2022}\ev{Macenski2022.10}.
 Unter der Client-Bibliothek liegt die Abstraktionsschicht rmw (ROS Middleware), deren Implementierungen ohne Codeänderung austauschbar sind \cite{Macenski2022}\ev{Macenski2022.11}.
-% Eigenleistung, Datenbasis: review/plan-kap3.md (Code-Befunde: ROS 2 Humble, rmw_cyclonedds_cpp, nur Topics)
+% Eigenleistung, Datenbasis: review/plan-kap3.md (Code-Befunde: ROS 2 Humble, rmw_cyclonedds_cpp, nur Topics); geprüft an G1@6a40e47 g1pilot/docker-compose.yml:93,179
 Die Arbeit nutzt ROS~2 Humble mit der Implementierung \texttt{rmw\_cyclonedds\_cpp} und ausschließlich Topics (Abschnitt~\ref{sec:komponenten}).
 
 \subsection{Data Distribution Service}
@@ -169,7 +169,7 @@ Auch das Unitree SDK kommuniziert über DDS und setzt in seiner Python-Schnittst
 Für die Low-Level-Kommunikation nutzt der G1 die Nachrichten LowCmd für Motorbefehle und LowState für Motorzustände \cite{UnitreeMujoco}\ev{UnitreeMujoco.05}.
 Der Simulator unitree\_mujoco verwendet die Domain~1 und empfiehlt, sie vom realen Roboter mit seiner Voreinstellung Domain~0 zu unterscheiden \cite{UnitreeMujoco}\ev{UnitreeMujoco.07}.
 Als Netzwerkschnittstelle der Simulation empfiehlt er das lokale Loopback \texttt{lo} \cite{UnitreeMujoco}\ev{UnitreeMujoco.08}.
-% Eigenleistung, Datenbasis: G1-Repo g1pilot/utils/common.py:21-55
+% Eigenleistung, Datenbasis: G1@6a40e47 (BA-Stable) g1pilot/g1pilot/utils/common.py:21-55
 Der Steuerungsprozess dieser Arbeit nutzt diese Trennung, wie Abbildung~\ref{fig:dds_domains} zeigt.
 
 \begin{figure}[htbp]
@@ -194,7 +194,7 @@ Ein Container ist die laufende Instanz eines Images \cite{Boettiger2015}\ev{Boet
 Aus Laufzeitsicht ist ein Container eine Menge ressourcenbegrenzter Prozesse, die über die Linux-Kernelfunktionen Namespaces und Control Groups vom restlichen System isoliert sind \cite{Struhar2020}\ev{Struhar2020.02}.
 Anders als eine virtuelle Maschine teilt ein Docker-Image den Linux-Kernel mit dem Host \cite{Boettiger2015}\ev{Boettiger2015.07}, und für Docker wurde kein zusätzlicher Overhead für Scheduling und Ein- und Ausgabe gemessen \cite{Struhar2020}\ev{Struhar2020.06}.
 Docker erleichtert zudem die modulare Wiederverwendung, indem ein Container auf einem anderen aufbaut \cite{Boettiger2015}\ev{Boettiger2015.11}.
-% Eigenleistung, Datenbasis: review/plan-kap3.md (Code-Befunde: drei Images, Compose-Datei mit Profilen sim/real, Host-Netzwerk)
+% Eigenleistung, Datenbasis: review/plan-kap3.md (Code-Befunde: drei Images, Compose-Datei mit Profilen sim/real, Host-Netzwerk); geprüft an G1@6a40e47 g1pilot/docker-compose.yml:27,69,162, docker/Dockerfile.{mujoco,sim,real}
 Die Arbeit stellt ihre Software in drei Images bereit, die eine Compose-Datei mit den Profilen \texttt{sim} und \texttt{real} startet (Abschnitt~\ref{sec:bereitstellung}).
 
 % ======================================================================

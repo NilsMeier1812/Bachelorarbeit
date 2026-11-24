@@ -104,6 +104,8 @@ Status: **abgedeckt** (Belege vorhanden) / **teilweise** / **offen**. Stand vor 
 
 ## Befunde aus dem Code (Repo G1, Stand bae3420, Sichtung 11.11.2026)
 
+> **Bezugsstand ab 24.11.2026:** G1-Branch `BA-Stable` @ `6a40e47`. Die im Text genutzten Befunde (1-ms-Zeitschritt, `motor`-Aktuatoren mit externem PD, Domain-Umschaltung 1/lo vs. 0/NIC, ROS 2 Humble mit `rmw_cyclonedds_cpp`, drei Images, Compose-Profile `sim`/`real`, Host-Netzwerk) sind an diesem Stand nachgeprüft und unverändert.
+
 Bestimmt, was Kap. 3 erklären muss (Rückverweis-Regel) und was nicht.
 
 **Wird benutzt, braucht also Grundlagen:**
