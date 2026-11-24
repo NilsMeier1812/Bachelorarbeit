@@ -8,6 +8,12 @@ MuJoCo-Simulation, Sim-to-Real; Code und Experimente im Repo `NilsMeier1812/G1`)
 Zusätzlich gilt `Richtlinien-BA.md` (Schreibregeln des Lehrstuhls, vor jeder Textarbeit lesen). Bei Widerspruch
 gilt für Quellen und Belege diese Datei, für Stil, Aufbau und Zitierform die Richtlinien.
 
+**Code-Bezugsstand (seit 24.11.2026, Nils):** Alle Aussagen über den eigenen Code (Datenbasis, Parameter, `% DB:`-Kommentare)
+beziehen sich auf den Branch `BA-Stable` im Repo `NilsMeier1812/G1`, Stand `6a40e47` (= `main` vom 23.11.2026). Ältere
+Pläne nennen noch `25d5c1a` (11.11.). Seitdem neu: Demo-GUI und Startmenü umgebaut (PyQt6, Netzwerk-Assistent), Voll-Notaus
+in der Demo-GUI, Pose-Schnellwahl am Controller, Dialog „Neue Hand anlegen“; Planer, IK, Bridge und Lauf-Client unverändert.
+Bewegt Nils `BA-Stable` weiter, den neuen Hash hier eintragen.
+
 ## Grundprinzip
 
 Du arbeitest **ausschließlich quellenbasiert**. Jede inhaltliche Aussage im Text muss auf eine konkrete,
