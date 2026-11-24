@@ -91,7 +91,7 @@ Plan: `review/plan-kap6.md` (Fragen in Abschnitt 8).
 **Entscheidungen**
 - [ ] **N2 Entwurfsgrundsätze** in der Kapiteleinleitung (Erklärung im Thread): einverstanden?
 - [x] **N10 Nachweis der Erweiterbarkeit (8.4.1):** *entfällt in dieser Form (Betreuerin, 23.11.):* kein Nachweis, sondern Frage „wie modular?“ mit dem Docker-Container als Lösung. Siehe Kap. 5, N5.
-- [ ] **Voll-Notaus in der Bedienoberfläche** (23.11.): Text und Abb. 6.3 sind angepasst. Sobald der Code im G1-Repo ist, kurz Bescheid geben (Commit), damit die Datenbasis im Kommentar stimmt.
+- [x] **Voll-Notaus in der Bedienoberfläche** (23.11.): Text und Abb. 6.3 sind angepasst. → Code ist in BA-Stable @ 6a40e47 (Knopf VOLL-NOTAUS 1,5 s halten), Datenbasis-Kommentar nachgetragen (24.11.).
 
 ## Kapitel 7 – Umsetzung
 
