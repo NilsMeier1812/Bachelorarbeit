@@ -1,21 +1,21 @@
-% Kap. 3 – GEKÜRZTE FASSUNG 24.11.2026 (Claude, Ziel ca. 10 S. Entwurf, Endfassung 8 S. laut review/seitenbudget.md).
+% Kap. 3 – GEKÜRZTE FASSUNG 24.11.2026, Einstiegssätze nach Richtlinien §4.2 ergänzt (Claude, Ziel ca. 10 S. Entwurf, Endfassung 8 S. laut review/seitenbudget.md).
 % Vorige Fassung (ca. 14 S.): Git-Commit 2c27066. Plan: review/plan-kap3.md. Belege: evidence/*.yaml.
 % Eigenleistung nur mit Kommentar "% Eigenleistung, Datenbasis: ..." in der Zeile davor.
 \chapter{Simulation und Software-Infrastruktur}
 \label{chap:simulation}
 % Eigenleistung, Datenbasis: Zielsetzung der Arbeit (Abschnitt 1.2)
-Die Umgebung dieser Arbeit erprobt Funktionen des Unitree G1 zuerst in der Simulation und führt sie anschließend am realen Roboter aus (Abschnitt~\ref{sec:zielsetzung}).
-Dieses Kapitel stellt die Grundlagen dafür vor: die Simulation als Werkzeug der Robotik (Abschnitt~\ref{sec:sim_robotik}), den Physiksimulator (Abschnitt~\ref{sec:physiksimulatoren}), die Kommunikations- und Bereitstellungsschicht (Abschnitt~\ref{sec:middleware}) sowie die Sicherheit beim Betrieb von Robotern (Abschnitt~\ref{sec:sicherheit_grundlagen}).
+Die Umgebung dieser Arbeit erprobt Funktionen des Unitree G1 zuerst in der Simulation, bevor sie am realen Roboter laufen, und braucht dafür einen Physiksimulator, eine gemeinsame Kommunikations- und Bereitstellungsschicht sowie Schutzfunktionen für den Realbetrieb (Abschnitt~\ref{sec:zielsetzung}).
+Abschnitt~\ref{sec:sim_robotik} ordnet zunächst die Simulation als Werkzeug der Robotik ein, die Abschnitte~\ref{sec:physiksimulatoren} bis~\ref{sec:sicherheit_grundlagen} behandeln die drei Bausteine.
 
 % ======================================================================
 \section{Simulation in der Robotik}
 \label{sec:sim_robotik}
+In der Simulation lassen sich Robotikfunktionen wiederholbar und ohne Risiko für Mensch und Hardware erproben \cite{Choi2021}\ev{Choi2021.05}; wie weit sich ihre Ergebnisse auf reale Roboter übertragen lassen, begrenzen die Unterschiede zwischen Simulation und realem System \cite{Tobin2017}\ev{Tobin2017.04}.
 
 \subsection{Einsatzzwecke der Simulation}
 \label{sec:sim_zwecke}
 Physiksimulatoren tragen den Großteil der Robotikforschung: Neue Methoden werden zunächst oder ausschließlich im Simulator erprobt, weil Roboter oft teuer, empfindlich und knapp sind \cite{Collins2021}\ev{Collins2021.01}.
 Die Simulation bietet unter anderem die Chancen, Trainingsdaten für maschinelles Lernen schnell und günstig zu erzeugen, den Entwicklungszyklus zu beschleunigen und zu verbilligen sowie eine sichere und vollständig kontrollierte virtuelle Test- und Verifikationsumgebung bereitzustellen \cite{Choi2021}\ev{Choi2021.03}.
-Für die Verifikation zählen die Wiederholbarkeit auch bei Grenz- und Extremfällen, die volle Kontrolle über die Umgebung und das fehlende Risiko für Mensch und Hardware \cite{Choi2021}\ev{Choi2021.05}.
 Beim Lernen von Regelungsstrategien (Policies) mit Reinforcement Learning (RL) führen die Stichprobenineffizienz der Algorithmen und das Risiko von Schäden beim Training dazu, dass die meisten Arbeiten zuerst in der Simulation lernen und erst danach auf Hardware wechseln \cite{Collins2021}\ev{Collins2021.11}.
 
 Die Simulation ersetzt den Versuch am realen Roboter jedoch nicht: Physisches Testen vor dem Einsatz bleibt zwingend \cite{Choi2021}\ev{Choi2021.02}.
@@ -127,6 +127,8 @@ Einen insgesamt besten Simulator gibt es nach einer weiteren Vergleichsstudie ni
 % ======================================================================
 \section{Middleware und Bereitstellung}
 \label{sec:middleware}
+% Eigenleistung, Datenbasis: review/plan-kap3.md (Code-Befunde: ROS 2 Humble, DDS über das Unitree SDK, Docker-Compose)
+Simulation und realer G1 werden in dieser Arbeit über dieselbe DDS-basierte Schnittstelle angesprochen, und die gesamte Software läuft in Containern; beides beruht auf ROS~2, dem Data Distribution Service und Docker.
 
 \subsection{Robot Operating System 2}
 \label{sec:ros2}
@@ -165,13 +167,13 @@ Da die Domains isoliert sind \cite{OMG2015}\ev{OMG2015.09}, kann ein für die Si
 
 \subsection{Containerisierung}
 \label{sec:container}
-Forschungssoftware lässt sich häufig nicht ohne Weiteres auf einem anderen Rechner ausführen, denn dafür muss die Rechenumgebung der ursprünglichen Entwickler nachgebildet werden \cite{Boettiger2015}\ev{Boettiger2015.02}.
+Container überführen Quellcode-Repositories in ausführbare Images, die isoliert und ohne aufwendige Integration ins Hostsystem laufen \cite{Cervera2019}\ev{Cervera2019.01}.
+Ohne sie muss für die Ausführung auf einem anderen Rechner die Rechenumgebung der ursprünglichen Entwickler nachgebildet werden \cite{Boettiger2015}\ev{Boettiger2015.02}.
 Von 30 Veröffentlichungen der ICRA~2017 mit Quellcode \cite{Cervera2019}\ev{Cervera2019.03} ließen sich acht Repositories nicht bauen, und nur bei einem von drei Repositories lief ein dokumentiertes Beispiel fehlerfrei \cite{Cervera2019}\ev{Cervera2019.08}.
 
 Ein Docker-Image enthält die gesamte Software bereits installiert, konfiguriert und getestet, ähnlich dem Abbild einer virtuellen Maschine \cite{Boettiger2015}\ev{Boettiger2015.06}; ein Container ist die laufende Instanz eines Images \cite{Boettiger2015}\ev{Boettiger2015.08}.
 Aus Laufzeitsicht ist ein Container eine Menge ressourcenbegrenzter Prozesse, die über die Linux-Kernelfunktionen Namespaces und Control Groups vom restlichen System isoliert sind \cite{Struhar2020}\ev{Struhar2020.02}.
 Anders als eine virtuelle Maschine teilt ein Docker-Image den Linux-Kernel mit dem Host \cite{Boettiger2015}\ev{Boettiger2015.07}, und für Docker wurde kein zusätzlicher Overhead für Scheduling und Ein- und Ausgabe gemessen \cite{Struhar2020}\ev{Struhar2020.06}.
-In der Robotikforschung dient Docker dazu, Quellcode-Repositories in ausführbare Images zu überführen, die isoliert und ohne aufwendige Integration ins Hostsystem laufen \cite{Cervera2019}\ev{Cervera2019.01}.
 Docker erleichtert zudem die modulare Wiederverwendung, indem ein Container auf einem anderen aufbaut \cite{Boettiger2015}\ev{Boettiger2015.11}.
 % Eigenleistung, Datenbasis: review/plan-kap3.md (Code-Befunde: drei Images, Compose-Datei mit Profilen sim/real, Host-Netzwerk)
 Die Arbeit stellt ihre Software in drei Images bereit, die eine Compose-Datei mit den Profilen \texttt{sim} und \texttt{real} startet (Abschnitt~\ref{sec:bereitstellung}).
@@ -179,6 +181,7 @@ Die Arbeit stellt ihre Software in drei Images bereit, die eine Compose-Datei mi
 % ======================================================================
 \section{Sicherheit beim Betrieb von Robotern}
 \label{sec:sicherheit_grundlagen}
+Für den sicheren Betrieb von Robotern gelten das europäische Maschinenrecht und eine Reihe von Normen, doch die meisten Robotiknormen setzen laut einem nicht begutachteten Bericht der IEEE Humanoid Study Group feste oder statisch stabile Systeme voraus und berücksichtigen die inhärent instabile Fortbewegung eines Humanoiden nicht \cite{Prather2025}\ev{Prather2025.01}.
 
 \subsection{Rechtsrahmen und Normen}
 \label{sec:normen}
@@ -208,7 +211,6 @@ Normen konkretisieren diese Anforderungen; Tabelle~\ref{tab:normen} fasst die f�
 
 Die ersten beiden Zeilen der Tabelle~\ref{tab:normen} bilden den Rechtsrahmen, die folgenden gelten für Industrieroboter, kollaborative Anwendungen und Personal-Care-Roboter.
 \qf{ISO 10218-1/-2 in der Ausgabe 2025 – Inhalt der Neuausgabe liegt nicht als Quelle vor}
-Für Humanoide fehlt eine eigene Norm: Die meisten Robotiknormen setzen laut einem nicht begutachteten Bericht der IEEE Humanoid Study Group feste oder statisch stabile Systeme voraus und berücksichtigen die inhärent instabile Fortbewegung eines Humanoiden nicht \cite{Prather2025}\ev{Prather2025.01}.
 Erst das Normprojekt ISO/AWI~25785-1 in der letzten Zeile adressiert Humanoide \cite{Prather2025}\ev{Prather2025.07}.
 
 \subsection{Schutzfunktionen}
@@ -222,13 +224,12 @@ Für den kollaborativen Betrieb legt ISO/TS~15066 unter der Grundannahme einer s
 
 \subsection{Besonderheiten zweibeiniger Roboter}
 \label{sec:sicherheit_zweibeiner}
-Im Vergleich zu Vier- oder Sechsbeinern liegt der Schwerpunkt eines Humanoiden relativ hoch und die konvexe Hülle seiner Füße ist klein \cite{Subburaman2023}\ev{Subburaman2023.01}.
+Einen dynamisch balancierenden Humanoiden setzt der Entzug der Energie nicht sicher still, sondern erzeugt einen unkontrollierten Sturz, der selbst eine Gefährdung ist \cite{Ding2026}\ev{Ding2026.03}.
+Im Vergleich zu Vier- oder Sechsbeinern liegt der Schwerpunkt eines Humanoiden relativ hoch und die konvexe Hülle seiner Füße ist klein, was ihn anfälliger für Stürze macht \cite{Subburaman2023}\ev{Subburaman2023.01}.
 Strategien zur Sturzvermeidung haben nur begrenzten Erfolg, sodass das Sturzproblem unvermeidbar und ungelöst bleibt \cite{Subburaman2023}\ev{Subburaman2023.02}; befinden sich Menschen um den Roboter, kann ein Sturz auf sie schwere Verletzungen verursachen \cite{Subburaman2023}\ev{Subburaman2023.10}.
 
-Daraus folgt ein Widerspruch zum klassischen Stillsetzen.
-In der klassischen Maschinensicherheit entzieht ein Schutzstopp die Energie, und die Maschine läuft aus oder bremst bis zu einem ungefährlichen Stillstand \cite{Ding2026}\ev{Ding2026.02}.
 % Ding2026 ist ein nicht begutachteter Preprint (Kennzeichnung im Literaturverzeichnis über den Eintragstyp).
-Bei einem dynamisch balancierenden Humanoiden erzeugt der Energieentzug dagegen einen unkontrollierten Sturz, der selbst eine Gefährdung ist \cite{Ding2026}\ev{Ding2026.03}.
+Dass ein Energieentzug den Humanoiden stürzen lässt, widerspricht der klassischen Maschinensicherheit, in der ein Schutzstopp die Energie entzieht und die Maschine ausläuft oder bis zu einem ungefährlichen Stillstand bremst \cite{Ding2026}\ev{Ding2026.02}.
 Der sichere Zustand muss von der Regelung aktiv gehalten werden, sodass deren Ausfall während oder nach dem Stopp eine eigene Gefährdung darstellt \cite{Ding2026}\ev{Ding2026.10}; zugleich kann ein zu abrupter Halt eine Störung jenseits der Erholungsgrenze des Balancereglers einbringen und einen Sturz auslösen \cite{Ding2026}\ev{Ding2026.09}.
 Eine Fallstudie mit dem G1 schaltet die Energie deshalb nicht ab, sondern befiehlt einen kontrollierten Halt im Stand \cite{Ding2026}\ev{Ding2026.08}.
 Die Bordrechner des G1 sind handelsübliche Standardhardware, sodass ein darauf laufender Sicherheitscontroller keine zertifizierte Sicherheitslaufzeit ist \cite{Ding2026}\ev{Ding2026.05}.
