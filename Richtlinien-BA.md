@@ -161,6 +161,7 @@ Gliederung seit 2026-10-30 (mit Nils erarbeitet, Muster [BA-K]): Anforderungen A
 ### 4.2 Absätze [CS 1.2, LF 4.3.1, CS 1.8]
 - Ein Absatz = **genau ein Argument** (atomar).
 - **Topic Sentence** zuerst (enthält das Argument), Folgesätze stützen es.
+- **Einstiegssatz (Nils, 2026-11-24):** Der erste Satz eines Kapitels oder Abschnitts (alle Ebenen) fasst nach Möglichkeit in einem Satz zusammen, worum es dort geht, als inhaltliche Aussage, die zum Thema hinführt. Muster (6.2.1): „Weil nach A2 und A7 mehrere Bedienwege und Projekte dieselbe Steuerung nutzen sollen, ist die Umgebung in funktional getrennte Knoten zerlegt, statt die Logik in der Bedienoberfläche zu bündeln.“ Nie als Ankündigung („Im folgenden Kapitel geht es um …“, „In diesem Abschnitt wird … erläutert“). Nie erzwingen: Wo sich kein natürlicher Zusammenfassungssatz anbietet, normal einsteigen.
 - Absatz alleinstehend verständlich; jeder Satz baut logisch auf dem vorherigen auf; keine logischen Sprünge zwischen Absätzen.
 - **Mind. 2 Sätze** pro Absatz; kein Ein-Satz-Absatz.
 - Keine „Wall of Text“.
@@ -397,6 +398,7 @@ Dimensions, FAU-Katalog (VPN), Google Scholar (+ Alerts), Scopus, Web of Science
   - **Quellen:** GitHub-Repos und offizielle Websites (z. B. Unitree-Support) erlaubt, mit Abrufdatum, bei GitHub mit Commit-Hash (§7.4). Die Betreuerin hat keinen Zugang zur Unitree-Entwicklerdoku.
 - **2026-11-23 Nils, Restpunkte geklärt:** K1 Tempus und K2 Aktiv/Passiv bleiben wie die DEFAULTs in §1. K9: Zotero/.bib statt Citavi ist in Ordnung. H3 gilt unverändert, auch beim Videodreh und bei eigenen Arbeitsschritten kein „ich habe …“ oder „wir haben dann …“. K3/K4/K5/K10 durch Referenz-BAs praktisch geklärt. Damit keine offenen Fragen an die Betreuerin.
 - 2026-11-11 (Nils): Autorennamen als Satzsubjekt im Fließtext („Collins et al. vergleichen …“, „laut Ayala et al. …“) **möglichst vermeiden**, weil sie den Lesefluss stören. Aussagen sachlich formulieren, die Quelle steht im `\cite{}`. **Nicht verboten:** An einzelnen Stellen, wo die Nennung wirklich Sinn macht (z. B. ein Ansatz wird als Arbeit einer Gruppe eingeführt, Abgrenzung zweier Positionen, Selbstaussage der Entwickler), ist sie in Ordnung – nur nicht als Standardmuster.
+- **2026-11-24 Nils, Einstiegssatz:** Erster Satz jedes Kapitels/Abschnitts fasst den Inhalt in einem Satz als Aussage zusammen, wo es sich natürlich anbietet; nie „Im folgenden Kapitel geht es um …“, nie erzwungen (§4.2).
 
 ---
 
@@ -462,10 +464,10 @@ Gemeinsame Muster (übernehmen):
 
 ### 13.6 Sprache in der Praxis (realistische Messlatte)
 - Beide schreiben überwiegend Präsens + Vorgangspassiv („wird … erläutert“, „werden … gemessen“); Versuchsdurchführung im Perfekt/Präteritum Passiv („sind … durchgeführt worden“, „wurden … gesetzt“). → K1-Default bestätigt.
-- Kapitel- und Abschnittseinleitungen mit Vorschau („Im Folgenden wird zunächst … und anschließend … eingegangen.“) und Überleitungssätze am Kapitelende zum nächsten Kapitel ([BA-K] durchgehend). Gutes Muster für den roten Faden.
+- Kapitel- und Abschnittseinleitungen mit Vorschau („Im Folgenden wird zunächst … und anschließend … eingegangen.“) und Überleitungssätze am Kapitelende zum nächsten Kapitel ([BA-K] durchgehend). Überleitungen am Kapitelende übernehmen; für den Einstieg gilt aber Nils' Regel aus §4.2: inhaltlicher Zusammenfassungssatz statt Ankündigung.
 - Querverweise sehr häufig („vgl. Abbildung 3.3“, „siehe Kapitel 2.2.5“, „wie in Kapitel 2.3 erläutert“). → Mit `\ref` großzügig verknüpfen.
 - Anschauliche Analogien in Grundlagen erlaubt ([BA-K]: menschliche Navigation durch eine Stadt als Analogie zu globalem/lokalem Pfadfinder).
-- Formulierungen „Im Folgenden soll … erläutert werden“ ([BA-L], sehr häufig) sind akzeptiert, aber „wird … erläutert“ ist knapper → bevorzugen.
+- Formulierungen „Im Folgenden soll … erläutert werden“ ([BA-L], sehr häufig) sind akzeptiert, aber „wird … erläutert“ ist knapper → bevorzugen. Als erster Satz eines Kapitels/Abschnitts nicht verwenden (§4.2, Einstiegssatz).
 - Fehler, die trotzdem durchgingen (nicht nachmachen): Tippfehler im Abkürzungsverzeichnis, uneinheitliche Zitierreihenfolge „[10] [9]“, „essentiell“/„extrem“-Wertungen, Beispiel-Aufzählungen statt MECE.
 
 ### 13.7 Umfang & Gewichtung (Referenzwerte)

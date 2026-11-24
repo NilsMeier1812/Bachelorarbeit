@@ -294,6 +294,8 @@ GitHub empfiehlt Repos unter ca. 1–5 GB; bei großen Mengen Nils auf die Grö�
 ### Phase 2 – Schreiben
 1. Erst passende Belege suchen (`grep -ri "begriff" evidence/`), dann formulieren.
 2. Jede Aussage bekommt Zitat + `\ev{}`. Fehlt ein Beleg: `\qf{}`. Nicht ausweichen auf Eigenwissen.
+   Erster Satz jedes Kapitels/Abschnitts: wo es passt, den Inhalt in einem Satz als Aussage zusammenfassen,
+   nie „Im folgenden Kapitel geht es um …“, nie erzwingen (Nils, 24.11.; `Richtlinien-BA.md` §4.2).
 3. Liste am Ende auf, welche `\qf{}`/`\pruefen{}` du gesetzt hast und welche Literatur fehlen könnte
    (als Suchhinweis für Nils, **nicht** als konkrete Quellenangabe).
 
