@@ -23,6 +23,8 @@ Regeln (Nils, 24.11.):
 - Entwürfe bewusst etwas länger als das Ziel (etwa +20–40 %, bei 7 S. mindestens 8–9), damit Nils
   auswählen kann; beim Schreiben das Gesamtziel 70 S. trotzdem im Blick behalten.
 - Seitenzahlen sind Richtwerte, keine harte Obergrenze je Kapitel.
+- Gliederung und Budget sind Orientierung: Noch nicht fertig geschriebene Kapitel dürfen sich ändern, auch
+  grundlegend (Nils, 24.11.); das Budget wird dann angepasst.
 - Grundlagen (Kap. 2–4) eher knapp halten (ca. 29 %), alles Notwendige bleibt drin.
 - Kap. 3: Kapitel-Thread legt eine gekürzte Fassung vor, eher noch etwas zu lang.
 - Kap. 8: Erweiterbarkeit nur als kurzer Punkt (Aufgabenunabhängigkeit), kein eigener Versuch.

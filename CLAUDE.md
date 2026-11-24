@@ -151,6 +151,9 @@ vom ersten Wort der Einleitung bis zum letzten Wort vor dem Literaturverzeichnis
 **Ziel ca. 70 Seiten**. Budget je Kapitel: `review/seitenbudget.md` (Nils, 24.11.). Entwürfe bewusst etwas länger als
 das Kapitelziel (etwa +20–40 %, bei 7 S. mindestens 8–9), damit Nils auswählt; Gesamtziel trotzdem im Blick. Richtwerte,
 keine harte Grenze je Kapitel. Nicht das Mehrfache schreiben.
+**Gliederung ist Orientierung (Nils, 24.11.):** Alles, was noch nicht fertig geschrieben ist, darf sich ändern, auch
+grundlegend (Inhaltsverzeichnis, Zuschnitt und Reihenfolge der Kapitel, Seitenbudget). Kein Auftrag zum Umbauen, aber
+ausdrücklich erlaubt; größere Umbauten mit kurzer Begründung Nils vorschlagen.
 
 ### Absprachen mit der Betreuerin (23.11.2026)
 
