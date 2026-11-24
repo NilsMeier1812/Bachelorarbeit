@@ -71,16 +71,16 @@ Tabelle~\ref{tab:eigenleistung} grenzt die Eigenleistung nach Funktionsbereichen
     \label{tab:eigenleistung}
     \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{4.0cm}|>{\raggedright\arraybackslash}p{2.2cm}|L|}\hline
         \tabkopfzeile \tabkopf{Funktionsbereich} & \tabkopf{Stufe} & \tabkopf{Bemerkung}\\\hline
-        Roboterzustand, Navigation & übernommen & Original 35 bis 80\,\%; Navigation nur in der Simulation.\\\hline
-        Armregelung, inverse Kinematik & erweitert & Original 20 bis 50\,\%; neu: Überblendung, Begrenzer.\\\hline
-        Anbindung des Onboard-Reglers & erweitert & Original etwa 20\,\%; neu: Bodenkontakt, Halt-Wege.\\\hline
+        Roboterzustand, Navigation & übernommen & Original 35 bis 80\,\%. Navigation nur in der Simulation.\\\hline
+        Armregelung, inverse Kinematik & erweitert & Original 20 bis 50\,\%, neu: Überblendung, Begrenzer.\\\hline
+        Anbindung des Onboard-Reglers & erweitert & Original etwa 20\,\%, neu: Bodenkontakt, Halt-Wege.\\\hline
         Kollisionsmodell, Bahnplaner, Sicherheit & neu & Kugelmodell, Laufzeitprüfung, Bahnplaner, Halt-Stufen.\\\hline
         Simulationskopplung & neu & Kopplung, Zeitführung, Szenen. \pruefen{Herkunft und Lizenz des Szenen-Editors ergänzen}\\\hline
-        Ersatzregler Fortbewegung & neu & Standregler; Policies von Unitree und NVIDIA übernommen.\\\hline
+        Ersatzregler Fortbewegung & neu & Standregler. Policies von Unitree und NVIDIA übernommen.\\\hline
         Hände & neu & Inspire-Hände, Hand-Profile. \pruefen{Herkunft der Modbus-Referenzskripte klären}\\\hline
         Bedienoberfläche, Gamepad, Smartphone & neu & Original: Basisklasse, Joystick, Umschalter (25 bis 80\,\%).\\\hline
         Posen, Abläufe, Arm-API & neu & Posenspeicher, Abläufe, Editor, HTTP-Schnittstelle.\\\hline
-        Bereitstellung, Tests, Dokumentation & neu & Container, Startmenü, 597 Tests; von 26.400 Zeilen etwa ein Zehntel original.\\\hline
+        Bereitstellung, Tests, Dokumentation & neu & Container, Startmenü, 597 Tests. Von 26.400 Zeilen etwa ein Zehntel original.\\\hline
     \end{tabularx}
 \end{table}
 % Fundstellen je Zeile (Stand G1@25d5c1a, Pfade relativ zu g1pilot/; Nummern der Langfassung, dort 14 Zeilen):
@@ -191,7 +191,7 @@ Tabelle~\ref{tab:sim_real} zeigt die verbleibenden Unterschiede, vor allem in Fo
         Verbindung & DDS-Domain 1 über Loopback & Domain 0 über Netzwerkkarte\\\hline
         Fortbewegung & Ersatzregler (Standregler, Lauf-Policy) & Onboard-Regler\\\hline
         Armübergabe & ohne Rampe, keine Rückfahrt & Rampe, geplante Rückfahrt\\\hline
-        Hände & simuliert; Inspire, Gummihand oder eigenes Profil & Inspire-Hände über Modbus TCP\\\hline
+        Hände & simuliert: Inspire, Gummihand oder eigenes Profil & Inspire-Hände über Modbus TCP\\\hline
         Grenzwerte & Voreinstellung, nicht durchgesetzt & durchgesetzt (Abschnitt~\ref{sec:regelkette})\\\hline
         Start & selbsttätig in GREIFEN & Sicherheitsbestätigung, kein Selbststart\\\hline
         Navigation & Karte und Position aus dem Simulator & nicht verfügbar\\\hline
@@ -233,7 +233,7 @@ Damit Stehen und Gehen trotzdem in der Simulation prüfbar sind (A2, A4), brauch
 Gewählt ist ein Ersatzregler aus veröffentlichter Lauf-Policy und eigenem Standregler, der dieselben Befehle annimmt wie der Onboard-Regler.
 % Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, „Zwei kombinierte Regler“ (Grund für die Kombination) und „Bekannte Einschränkungen“ (reserve[], „nicht für den Realeinsatz gedacht“);
 % Tabelle „Beteiligte Dateien“ (policies/*)
-Der Standregler ergänzt die Policy, weil diese im Stand Ausgleichsschritte macht, die Füße beim Greifen aber stehen bleiben sollen; zur Wahl stehen drei Policies (Tabelle~\ref{tab:policies}).
+Der Standregler ergänzt die Policy, weil diese im Stand Ausgleichsschritte macht, die Füße beim Greifen aber stehen bleiben sollen. Zur Wahl stehen drei Policies (Tabelle~\ref{tab:policies}).
 \qf{Herkunft und Training der WBC-AGILE-Policies (L14, Zhao2026 noch in \_Vorschläge)}
 \pruefen{Auswahlkriterien und verworfene Policies von Nils (N5)}
 
@@ -245,7 +245,7 @@ Aussagen über das Gehen in der Simulation gelten nur für den Ersatzregler, nic
 \label{sec:sicherheitskonzept}
 % [A5, F3]
 Das Sicherheitskonzept besteht aus Halt-Stufen, gestaffelten Schutzmechanismen und Regeln für die Übergabe der Arme.
-Nach A5 soll keine Eingabe am realen Roboter eine Bewegung auslösen, die zu schnell ist oder den Roboter mit sich selbst kollidieren lässt; dazu prüft die Umgebung jedes Ziel, bevor sie es ausführt.
+Nach A5 soll keine Eingabe am realen Roboter eine Bewegung auslösen, die zu schnell ist oder den Roboter mit sich selbst kollidieren lässt. Dazu prüft die Umgebung jedes Ziel, bevor sie es ausführt.
 Außerdem soll ein Halt den stehenden Roboter nicht zu Fall bringen.
 
 \subsection{Betriebszustände und Übergänge}
@@ -300,11 +300,11 @@ Der Not-Halt allein genügt für A5 nicht, weil er erst wirkt, nachdem eine Pers
 \begin{table}[htbp]
     \tabstil
     \centering
-    \caption[Schutzmechanismen]{Schutzmechanismen nach Wirkprinzip. Es sind Softwarefunktionen ohne Sicherheitsbewertung; die Auslegungswerte stehen in Kapitel~\ref{chap:umsetzung}.}
+    \caption[Schutzmechanismen]{Schutzmechanismen nach Wirkprinzip. Es sind Softwarefunktionen ohne Sicherheitsbewertung. Die Auslegungswerte stehen in Kapitel~\ref{chap:umsetzung}.}
     \label{tab:schutzmechanismen}
     \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.2cm}|L|L|>{\raggedright\arraybackslash}p{1.6cm}|}\hline
     \tabkopfzeile \tabkopf{Wirkprinzip} & \tabkopf{Mechanismus} & \tabkopf{Wogegen} & \tabkopf{Sim/Real}\\\hline
-    Begrenzen & Grenzen für Tempo, Beschleunigung, Schleppfehler und Reglerverstärkung der Arme; Gewichtsrampe & Stoß, Ruck beim Übernehmen der Arme & real\\\hline
+    Begrenzen & Grenzen für Tempo, Beschleunigung, Schleppfehler und Reglerverstärkung der Arme, Gewichtsrampe & Stoß, Ruck beim Übernehmen der Arme & real\\\hline
     Begrenzen & Begrenzte Gehgeschwindigkeit, Gehen nur bei Bodenkontakt & Sturz, Loslaufen & real\\\hline
     Vermeiden & Kollisionsprüfung und geplante Bahnen & Kollision mit dem eigenen Körper und Objekten der Szene & beide\\\hline
     Vermeiden & Bestätigungen, kein Selbststart, geplante Rückgabe der Arme & unerwartete Bewegung & real\\\hline
@@ -405,12 +405,12 @@ Die unabhängige Schutzebene bilden deshalb im Realbetrieb eine zweite Person, d
 Für die Übergabe der Arme zwischen Onboard-Regler und Umgebung legt die Umgebung vier Regeln fest.
 Im Realbetrieb regelt der Onboard-Regler die Arme, bis die Umgebung sie über ein Überblendgewicht übernimmt (Abschnitt~\ref{sec:g1_armsdk}).
 \qf{Herstellerdokumentation zur Überblendung per Gewicht (arm\_sdk) und ihrer Wirkung auf die Taille; nicht in Zotero (L24)}
-Die Regeln sind nötig, weil jeder Wechsel des Gewichts den Arm in die Pose des anderen Reglers zieht; Abbildung~\ref{fig:armuebergabe} zeigt die ersten beiden schematisch.
+Die Regeln sind nötig, weil jeder Wechsel des Gewichts den Arm in die Pose des anderen Reglers zieht. Abbildung~\ref{fig:armuebergabe} zeigt die ersten beiden schematisch.
 
 \begin{figure}[htbp]
   \centering
   \input{Bilder/tikz/armuebergabe}
-  \caption[Übernahme und Rückgabe der Arme]{Schematischer Zeitverlauf der Übernahme und der Rückgabe der Arme am realen Roboter. Das Gewicht blendet zwischen dem Onboard-Regler und der eigenen Armregelung über; die Verläufe sind qualitativ und enthalten keine Messwerte.}
+  \caption[Übernahme und Rückgabe der Arme]{Schematischer Zeitverlauf der Übernahme und der Rückgabe der Arme am realen Roboter. Das Gewicht blendet zwischen dem Onboard-Regler und der eigenen Armregelung über. Die Verläufe sind qualitativ und enthalten keine Messwerte.}
   \label{fig:armuebergabe}
 \end{figure}
 
@@ -418,8 +418,8 @@ Die Regeln sind nötig, weil jeder Wechsel des Gewichts den Arm in die Pose des 
 % Basis: G1@25d5c1a docs/50-A-Echter-Roboter.md, Abschnitt E („Übernehmen ohne Bewegung“, „Zurückgeben ohne Schwung“, „Programmende“);
 %        docs/20-T-Arm-Manipulation.md, Abschnitte „Übergabe an den Onboard-Regler“, „E-Stop-Semantik“;
 %        Code g1pilot/manipulation/arm_controller.py (_record_onboard_pose, _start_release, _finish_release, shutdown_release, _on_emergency_stop)
-Beim \emph{Übernehmen} wird zuerst die gemessene Armstellung kommandiert, dann das Gewicht erhöht; beim \emph{Zurückgeben} fährt der Arm erst in diese gemerkte Pose.
-Im \emph{Not-Halt} bleibt das Gewicht bei eins und die Gelenke werden nur gedämpft, da sonst der Onboard-Regler die Arme in seine Grundpose führe; am \emph{Programmende} fahren sie kurz zur gemerkten Pose.
+Beim \emph{Übernehmen} wird zuerst die gemessene Armstellung kommandiert, dann das Gewicht erhöht. Beim \emph{Zurückgeben} fährt der Arm erst in diese gemerkte Pose.
+Im \emph{Not-Halt} bleibt das Gewicht bei eins und die Gelenke werden nur gedämpft, da sonst der Onboard-Regler die Arme in seine Grundpose führe. Am \emph{Programmende} fahren sie kurz zur gemerkten Pose.
 
 % Art E + N6 (Realtest als Begründung, ohne Datum)
 % Basis: G1@25d5c1a docs/50-A-Echter-Roboter.md, Abschnitt E („Taille wird mitgehalten“); docs/51-T-Notaus.md, Abschnitt „Wer was tut“;
@@ -452,8 +452,8 @@ Viertens wirkt der Not-Halt auf jedem Bedienweg, und fünftens bewegt sich im Re
 \subsection{Bedienwege und geteilter Bedienzustand}
 \label{sec:bedienwege_konzept}
 % Basis: G1@25d5c1a docs/10-T-Demo-GUI.md „Grundsatz“; docs/12-A-Handy.md (Kopf: „Der PC rechnet weiter alles“)
-Die Umgebung bietet mehrere Bedienwege an, die nur Ziele senden, sodass die Schutzmechanismen für alle gleich gelten; als Schnittstellen sind sie das Mittel der Interaktion zwischen Nutzer und Roboter \cite{Darvish2023}\ev{Darvish2023.04}.
-Tabelle~\ref{tab:bedienwege} nennt je Bedienweg den Einsatz und die Einschränkungen \pruefen{Zielgruppe je Bedienweg (Spalte Einsatz) von Nils bestätigen}; die einzelnen Bedienschritte stehen in Anhang~\ref{anh:dokumentation}.
+Die Umgebung bietet mehrere Bedienwege an, die nur Ziele senden, sodass die Schutzmechanismen für alle gleich gelten. Als Schnittstellen sind sie das Mittel der Interaktion zwischen Nutzer und Roboter \cite{Darvish2023}\ev{Darvish2023.04}.
+Tabelle~\ref{tab:bedienwege} nennt je Bedienweg den Einsatz und die Einschränkungen \pruefen{Zielgruppe je Bedienweg (Spalte Einsatz) von Nils bestätigen}. Die einzelnen Bedienschritte stehen in Anhang~\ref{anh:dokumentation}.
 
 % ----------------------------------------------------------------------
 % Tabelle 5: Bedienwege (Abschnitt 6.4.2); ersetzt die Entwurfstabelle in Kapitel/07_Umsetzung.tex
@@ -462,15 +462,15 @@ Tabelle~\ref{tab:bedienwege} nennt je Bedienweg den Einsatz und die Einschränku
 \begin{table}[htbp]
     \tabstil
     \centering
-    \caption[Bedienwege mit Einsatz und Einschränkungen]{Bedienwege mit Einsatz und Einschränkungen. Alle Bedienwege senden nur Ziele, die Logik liegt in den Funktionsknoten; alle stehen in Simulation und Realbetrieb zur Verfügung.}
+    \caption[Bedienwege mit Einsatz und Einschränkungen]{Bedienwege mit Einsatz und Einschränkungen. Alle Bedienwege senden nur Ziele, die Logik liegt in den Funktionsknoten, und alle stehen in Simulation und Realbetrieb zur Verfügung.}
     \label{tab:bedienwege}
     \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.8cm}|>{\raggedright\arraybackslash}p{4.2cm}|L|}\hline
         \tabkopfzeile \tabkopf{Bedienweg} & \tabkopf{Einsatz} & \tabkopf{Einschränkungen}\\\hline
         Bedienoberfläche & Standard am PC, Vorführung & Navigation nur in der Simulation\\\hline
-        Gamepad & direkt am Roboter & kein Quittieren des Not-Halts; Abläufe nur weiterschalten oder stoppen\\\hline
-        Smartphone & Zusatz zur Bedienoberfläche & kein Gehen, Arme nur über gespeicherte Posen; Befehle nur in der Rolle \enquote{Bediener}\\\hline
-        RViz-Marker & Entwicklung & nur Zielmarker und Navigation (Simulation); kein Not-Halt\\\hline
-        Arm-API & Programme ohne ROS~2 & kein Gehen; Posen nur speichern; Not-Halt nur als Abbrechen\\\hline
+        Gamepad & direkt am Roboter & kein Quittieren des Not-Halts, Abläufe nur weiterschalten oder stoppen\\\hline
+        Smartphone & Zusatz zur Bedienoberfläche & kein Gehen, Arme nur über gespeicherte Posen, Befehle nur in der Rolle \enquote{Bediener}\\\hline
+        RViz-Marker & Entwicklung & nur Zielmarker und Navigation (Simulation), kein Not-Halt\\\hline
+        Arm-API & Programme ohne ROS~2 & kein Gehen, Posen nur speichern, Not-Halt nur als Abbrechen\\\hline
     \end{tabularx}
 \end{table}
 % Gekürzt nach Rückmeldung Nils 23.11.2026 (P19): Funktionsmatrix -> Einsatz und Einschränkungen; Details im Anhang. Bisherige Matrix: Commit 9bc95b0.
@@ -525,7 +525,7 @@ Eine Pose wird eingelernt, indem Arme und Hände über einen Bedienweg in Stellu
 \begin{figure}[htbp]
   \centering
   \input{Bilder/tikz/posen-ablaeufe}
-  \caption[Datenmodell der Posen und Abläufe]{Datenmodell der Posen und Abläufe. Posen und relative Bewegungen sind die Bausteine eines Ablaufs; jeder Schritt der Ausführung durchläuft wie ein einzelnes Ziel die Planung und die Kollisionsprüfung der Armregelung.}
+  \caption[Datenmodell der Posen und Abläufe]{Datenmodell der Posen und Abläufe. Posen und relative Bewegungen sind die Bausteine eines Ablaufs. Jeder Schritt der Ausführung durchläuft wie ein einzelnes Ziel die Planung und die Kollisionsprüfung der Armregelung.}
   \label{fig:posen_ablaeufe}
 \end{figure}
 
@@ -556,7 +556,7 @@ Je tiefer ein Projekt andockt, desto freier ist es und desto weniger Schutz wirk
 \begin{figure}[!ht]
   \centering
   \input{Bilder/tikz/andockpunkte-ebenen}
-  \caption[Ebenenmodell der Andockpunkte]{Ebenenmodell der Andockpunkte für externe Projekte. Je tiefer ein Projekt andockt, desto mehr Freiheit hat es und desto weniger Schutzmechanismen der Umgebung wirken; Daten lassen sich unabhängig von der Ebene ergänzen.}
+  \caption[Ebenenmodell der Andockpunkte]{Ebenenmodell der Andockpunkte für externe Projekte. Je tiefer ein Projekt andockt, desto mehr Freiheit hat es und desto weniger Schutzmechanismen der Umgebung wirken. Daten lassen sich unabhängig von der Ebene ergänzen.}
   \label{fig:andockpunkte}
 \end{figure}
 
@@ -572,7 +572,7 @@ Je tiefer ein Projekt andockt, desto freier ist es und desto weniger Schutz wirk
     \label{tab:andockpunkte}
     \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{3.2cm}|L|L|>{\raggedright\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}p{1.6cm}|}\hline
         \tabkopfzeile \tabkopf{Andockpunkt} & \tabkopf{Projekt liefert} & \tabkopf{Schutz wirkt} & \tabkopf{Sim/Real} & \tabkopf{Abschn.}\\\hline
-        Daten (Szenen, Hände, Policies, Posen, Abläufe) & Dateien nach festem Format & vollständig & Sim; Posen beide & \ref{sec:szenen}, \ref{sec:haende}\\\hline
+        Daten (Szenen, Hände, Policies, Posen, Abläufe) & Dateien nach festem Format & vollständig & Sim, Posen beide & \ref{sec:szenen}, \ref{sec:haende}\\\hline
         HTTP-Schnittstelle der Arme & Zielposen, Gelenkwinkel (JSON) & Prüfungen im Armregler & beide, lokal & \ref{sec:entwickler_api}\\\hline
         ROS-2-Kanäle & Ziele auf den Kanälen der Bedienwege & nur in den Funktionsknoten & beide & \ref{sec:navigation}\\\hline
         Hersteller\-schnittstelle & eigenes Programm (Unitree-SDK) & nein & beide & \ref{sec:bridge}\\\hline
