@@ -148,8 +148,9 @@ Alles, was Nils liefern, entscheiden oder durchführen muss, steht gesammelt in 
 
 Umfang (Betreuerin, 23.11.2026; vorher Nils 16./17.11.): 60–80 Seiten **inklusive Abbildungen und Tabellen**, gezählt
 vom ersten Wort der Einleitung bis zum letzten Wort vor dem Literaturverzeichnis. 80 ist harte Obergrenze,
-**Ziel 70–75 Seiten**. Entwürfe maßvoll länger als der Endumfang, etwa Endumfang ÷ 0,6 (6 S. → 10–12 S.); Nils kürzt
-dann ca. 40 %. Nicht das Mehrfache schreiben.
+**Ziel ca. 70 Seiten**. Budget je Kapitel: `review/seitenbudget.md` (Nils, 24.11.). Entwürfe bewusst etwas länger als
+das Kapitelziel (etwa +20–40 %, bei 7 S. mindestens 8–9), damit Nils auswählt; Gesamtziel trotzdem im Blick. Richtwerte,
+keine harte Grenze je Kapitel. Nicht das Mehrfache schreiben.
 
 ### Absprachen mit der Betreuerin (23.11.2026)
 
