@@ -1,0 +1,79 @@
+% Komponenten der Umgebung: Bedienwege, Funktionsknoten, Herstellerschnittstelle (oberer Teil der früheren Gesamtarchitektur;
+% Teilung auf Wunsch Nils 23.11.2026, unterer Teil: Bilder/tikz/sim-real-umschaltung.tex).
+% Eigene Darstellung (Art E, Kap. 6.2.1). Keine Quelle in der Caption.
+% Basis: G1@25d5c1a g1pilot/docs/02-T-Architektur.md (Gesamtbild, Laufzeit-Topologie, Zwei Kommunikationsebenen,
+%   Sim <-> Real: Ein Schalter, Joint-Layout/Zuständigkeit der Gelenke), docs/05-T-Nodes-und-Topics.md,
+%   docs/10-T-Demo-GUI.md (Grundsatz), docs/30-T-Stehen-und-Gehen.md (Warum zwei Implementierungen),
+%   docs/21-T-Arm-API.md (Arm-API als eigener Knoten), docs/50-A-Echter-Roboter.md Abschnitt E und
+%   docs/22-T-Inspire-Haende.md (Hände real getrennter Anschluss, Sim über Simulation).
+% Vereinfachungen: Navigation (nur Simulation) und Hand-Profile nicht gezeichnet; die Bedienoberfläche läuft
+%   technisch im selben Container wie die Funktionsknoten, steht hier als Bedienweg oben.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/architektur-gesamt} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  % Raster (Nils, 23.11.2026): Container 0..15,6 cm, Innenabstand und Spaltenabstand 0,3 cm.
+  %   Spalten: Roboterzustand 0,3..2,7 | Armregelung 3,0..6,0 | Fortbewegung 6,3..12,6 | Hände 12,9..15,3
+  %   Schutzmechanismen bündig von Armregelung links bis Hände rechts; DDS unter Spalten 1-3, Modbus unter Hände,
+  %   beide gleich hoch; ROS-2-Leitung mittig zwischen Bedienwegen und Container. Geprüft im 12pt-Build.
+  \tikzset{
+    bw/.style={ba block, minimum width=36mm, minimum height=10mm, anchor=north},
+    fk/.style={ba block hervor, minimum height=19mm, anchor=north west},
+    sub/.style={ba block, font=\footnotesize, minimum width=28mm, minimum height=9.5mm, inner sep=2pt},
+    schnitt/.style={ba block, fill=baHellgrau!40, minimum height=11mm, anchor=north west},
+    ziel/.style={ba pfeil},
+    zust/.style={ba pfeil, dash pattern=on 3pt off 2pt},
+    klein/.style={font=\footnotesize, text=baGrau},
+  }
+  % ---------------- Ebene 1: Bedienwege (4 x 3,6 cm, Abstand 0,4 cm) ----------------
+  \node[klein, anchor=south west, inner sep=0pt] at (0,11.35) {Bedienwege (rechnen keine Bewegung, senden Ziele und lesen Zustände)};
+  \node[bw] (B1) at (1.8,11.15) {Bedien-\\oberfläche};
+  \node[bw] (B2) at (5.8,11.15) {Gamepad};
+  \node[bw] (B3) at (9.8,11.15) {Smartphone};
+  \node[bw] (B4) at (13.8,11.15) {Externe\\Programme};
+  % ROS-2-Leitung mittig zwischen Unterkante Bedienwege (10,15) und Oberkante Container (9,35)
+  \draw[ba normal] (1.5,9.75) -- (14.4,9.75);
+  \foreach \x in {1.8,5.8,9.8,13.8} {\draw[ba normal] (\x,10.15) -- (\x,9.75);}
+  \node[klein, fill=white, inner sep=1.5pt] at (3.3,9.75) {ROS 2};
+  % ---------------- Container Umgebung (durchgezogen, Nils 23.11.2026) ----------------
+  \draw[draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt] (0,5.05) rectangle (15.6,9.35);
+  \node[klein, anchor=north west, align=left, inner sep=0pt] at (1.75,9.25) {Container\\Umgebung};
+  % Funktionsknoten (Oberkante 8,3, Höhe 1,9)
+  \node[fk, minimum width=24mm] (RZ) at (0.3,8.3) {Roboter-\\zustand};
+  \node[fk, minimum width=30mm] (AR) at (3.0,8.3) {Armregelung\\mit Planung};
+  \node[fk, minimum width=63mm] (FB) at (6.3,8.3) {};
+  \node[fk, minimum width=24mm] (HA) at (12.9,8.3) {Hände};
+  % Fortbewegung: Titel mit fester Höhe 8,2..7,8; Unterkästen mittig im Rest (7,8..6,4), gleiche Abstände
+  \node[font=\small, anchor=north, inner sep=0pt, text height=3mm, text depth=1mm] at (9.45,8.2) {Fortbewegung};
+  \node[sub] (ER) at (7.933,7.1) {Ersatzregler\\(Simulation)};
+  \node[sub] (OA) at (10.967,7.1) {Onboard-Regler\\(Realbetrieb)};
+  % Pfeile Bedienwege <-> Funktionsknoten (je Paar +-0,3 cm um die Spaltenmitte)
+  \draw[zust] (1.5,8.3) -- (1.5,9.75);
+  \draw[ziel] (4.2,9.75) -- (4.2,8.3);
+  \draw[zust] (4.8,8.3) -- (4.8,9.75);
+  \draw[ziel] (9.5,9.75) -- (9.5,8.3);
+  \draw[zust] (10.1,8.3) -- (10.1,9.75);
+  \draw[ziel] (13.8,9.75) -- (13.8,8.3);
+  \draw[zust] (14.4,8.3) -- (14.4,9.75);
+  % Schutzmechanismen: links bündig mit Armregelung (3,0), rechts bündig mit Händen (15,3)
+  \node[ba block hervor, minimum width=123mm, minimum height=6mm, font=\footnotesize, anchor=north west] (SM) at (3.0,5.95)
+    {Schutzmechanismen: begrenzen \textperiodcentered{} vermeiden \textperiodcentered{} überwachen \textperiodcentered{} anhalten};
+  \foreach \x in {4.5,9.45,14.1} {\draw[ba duenn, color=baGruen] (\x,6.4) -- (\x,5.95);}
+  % ---------------- Ebene 3: Herstellerschnittstelle und Modbus, gleich hoch ----------------
+  \node[schnitt, minimum width=123mm] (DDS) at (0.3,4.45) {Herstellerschnittstelle (Unitree-DDS)};
+  % Hände real über Modbus TCP; in der Simulation über die Herstellerschnittstelle (siehe fig:sim_real_schalter)
+  \node[schnitt, minimum width=24mm, font=\footnotesize] (MB) at (12.9,4.45) {Modbus TCP\\(Realbetrieb)};
+  % Pfeile Schutzmechanismen <-> Schnittstellen
+  \draw[zust] (1.5,4.45) -- (1.5,6.4);
+  \draw[ziel] (4.2,5.35) -- (4.2,4.45);
+  \draw[zust] (4.8,4.45) -- (4.8,5.35);
+  \draw[ziel] (7.633,5.35) -- (7.633,4.45);
+  \draw[zust] (8.233,4.45) -- (8.233,5.35);
+  \draw[ziel] (10.667,5.35) -- (10.667,4.45);
+  \draw[zust] (11.267,4.45) -- (11.267,5.35);
+  \draw[ziel] (13.8,5.35) -- (13.8,4.45);
+  \draw[zust] (14.4,4.45) -- (14.4,5.35);
+  % Legende
+  \draw[ziel] (0.3,2.75) -- (1.2,2.75);
+  \node[klein, anchor=west] at (1.3,2.75) {Ziele und Befehle};
+  \draw[zust] (5.0,2.75) -- (5.9,2.75);
+  \node[klein, anchor=west] at (6.0,2.75) {Zustände und Meldungen};
+\end{tikzpicture}

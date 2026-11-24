@@ -1,0 +1,136 @@
+% Entwurf Abschnitt 6.4 (AP6), Stand 20.11.2026. Budget ca. 2,5 Seiten (0,8 / 1 / 0,7).
+% Code-Stand aller Befunde: G1@25d5c1a. Pfade in % Basis: relativ zu g1pilot/ bzw. Repo-Root.
+% Darstellungen (baut ein anderer Auftrag, hier nur referenziert): tab:bedienwege, fig:posen_ablaeufe.
+\section{Bedienkonzept}
+\label{sec:bedienkonzept}
+Das Bedienkonzept setzt die Anforderung~A6 um, die Umgebung ohne Vorerfahrung zu bedienen, und verbindet sie mit
+dem sicheren Realbetrieb nach A5 (Tabelle~\ref{tab:anforderungen}).
+Auf fünf Leitgedanken (Abschnitt~\ref{sec:leitgedanken}) folgen die Bedienwege und ihr Zusammenwirken
+(Abschnitt~\ref{sec:bedienwege_konzept}) sowie das Einrichten von Aufgaben ohne Programmierung
+(Abschnitt~\ref{sec:posen_ablaeufe}); einzelne Bedienschritte stehen in Anhang~\ref{anh:dokumentation}.
+
+\subsection{Leitgedanken}
+\label{sec:leitgedanken}
+Die Zielgruppe nach A6 sind Personen ohne Erfahrung in Robotik und Programmierung.
+Für sie passen die Teleoperationssysteme aus Abschnitt~\ref{sec:teleoperation_teil} nur bedingt, weil
+Motion-Capture-Systeme, VR-Brillen und Exoskelette teuer und an bestimmte Einsatzorte gebunden sind
+\cite{Fu2024}\ev{Fu2024.01} und das System des Herstellers vorab das Lesen der offiziellen Dokumentation verlangt
+\cite{UnitreeXRTeleop}\ev{UnitreeXRTeleop.02}.
+Die Umgebung setzt deshalb auf eine Bedienoberfläche am PC und Standard-Eingabegeräte, deren Gestaltung fünf
+Leitgedanken folgt.
+
+% Basis: G1@25d5c1a docs/10-A-Demo-GUI.md „Ziel“, „1 · Modus (oben)“, „2 · Steuerung (Mitte)“
+Der erste Leitgedanke verlangt, dass die bedienende Person zu jedem Zeitpunkt nur eine Entscheidung trifft.
+Von den zwei Bedienmodi, GEHEN für die Fortbewegung und GREIFEN für Arme und Hände, ist genau einer aktiv, und
+angezeigt wird nur, was im aktiven Modus sinnvoll ist.
+Eine Oberfläche mit allen Funktionen zugleich eignet sich für die Entwicklung, lässt aber offen, in welchem Zustand
+der Roboter ist und welche Eingabe gerade wirkt.
+\qf{Beleg zu Modusfehlern bzw. reduzierter Auswahl in Bedienoberflächen (Lücke Q4)}
+
+% Basis: G1@25d5c1a docs/10-A-Demo-GUI.md „1 · Modus (oben)“ (Zustände der Kacheln, Startleiste, Bodenkontakt);
+% docs/03-A-Startmenue.md „Optionen“ (Zeile Sicherheit); docs/04-T-Umgebungsvariablen.md (G1_REAL_CONFIRM)
+Der zweite Leitgedanke macht den Zustand sichtbar, bevor eine Eingabe wirkt.
+Jeder Bedienmodus erscheint unterscheidbar als aktiv, wechselnd oder inaktiv, und im Realbetrieb zeigt die
+Bedienoberfläche den gemeldeten Zustand des Onboard-Reglers und das Ergebnis der Bodenkontaktprüfung, bevor das
+Gehen freigegeben wird.
+Nach dem dritten Leitgedanken „Simulation zuerst“ sind Bedienoberfläche und Bedienwege in beiden Welten dieselben
+(Abschnitt~\ref{sec:sim_real_schalter}), sodass jede Bedienung zuerst gefahrlos geübt wird; der Start des
+Realbetriebs verlangt zusätzlich die Bestätigung der Sicherheitshinweise.
+
+% Basis: G1@25d5c1a docs/51-A-Notaus.md „Stufen“, „Was zusätzlich von selbst anhält“, „Altes Verhalten zurückholen“;
+% docs/12-A-Handy.md (Hinweis Handy-NOT-HALT über den PC, Rollen); docs/50-A-Echter-Roboter.md E („Kein Auto-Start“);
+% docs/10-A-Demo-GUI.md „Seite ARME“ (Abbruch eines Ablaufs); docs/40-T-Simulation.md „Auto-Start (GREIFEN)“
+Der vierte Leitgedanke hält den Halt immer erreichbar: Der Not-Halt liegt auf Bedienoberfläche, Gamepad und
+Smartphone und wirkt unabhängig vom Bedienmodus, von einer Sperre des Gamepads und in der Grundeinstellung auch aus
+der Rolle, die das Smartphone nur zur Ansicht berechtigt.
+Weil der Not-Halt des Smartphones über den PC läuft, bleibt die Fernbedienung des Herstellers die vom PC
+unabhängige Halt-Stufe (Abschnitt~\ref{sec:zustaende}).
+Nach dem fünften Leitgedanken bewegt sich im Realbetrieb nichts von selbst: Ohne Eingabe sendet die Umgebung keinen
+Bewegungsbefehl, nach einem quittierten Not-Halt bleiben die Arme schlaff, bis sie bewusst übernommen werden, und
+ein abgebrochener Ablauf setzt sich nie selbsttätig fort.
+Ob die Leitgedanken die Bedienung ohne Vorerfahrung tragen, untersucht Abschnitt~\ref{sec:eval_bedienaufwand}.
+
+\subsection{Bedienwege und geteilter Bedienzustand}
+\label{sec:bedienwege_konzept}
+% Basis: G1@25d5c1a docs/10-T-Demo-GUI.md „Grundsatz“; docs/12-A-Handy.md (Kopf: „Der PC rechnet weiter alles“)
+Mehrere Bedienwege bedienen unterschiedliche Personen und Situationen, ohne die Logik zu vervielfachen.
+Die Schnittstellen sind das Mittel der Interaktion zwischen Nutzer und Roboter \cite{Darvish2023}\ev{Darvish2023.04};
+statt einer einzigen bietet die Umgebung mehrere an, die nach Abschnitt~\ref{sec:komponenten} keine Bewegung
+berechnen, sondern Ziele an die Funktionsknoten senden.
+Dadurch gelten die Schutzmechanismen aus Abschnitt~\ref{sec:schutzmechanismen} für jeden Bedienweg gleich.
+Tabelle~\ref{tab:bedienwege} ordnet die Bedienwege den Funktionen zu.
+
+% Basis: G1@25d5c1a docs/10-A-Demo-GUI.md; docs/11-A-Controller.md (Kopf, „Echter Roboter“); docs/12-A-Handy.md
+% (Kopf, „Was das Handy nicht kann“, Hinweis „Zusammenstellen geht nur am PC“); docs/21-A-Arm-API.md „Überblick“;
+% docs/02-T-Architektur.md „Projektstruktur — Node-Übersicht“ (interactive_marker)
+Die Bedienoberfläche deckt alle Funktionen ab und ist der einzige Ort, an dem Abläufe zusammengestellt werden.
+Das Gamepad dient der unmittelbaren Führung der Hände und dem Gehen mit Totmann-Prinzip, während das Smartphone den
+Zustand der Bedienoberfläche spiegelt und deren Funktionen mit denselben Prüfungen aufruft, Gehen und unmittelbare
+Führung der Hände aber bewusst nicht anbietet.
+Zielmarker in RViz und die Programmierschnittstelle der Arme richten sich an Entwickler und externe Programme
+(Abschnitt~\ref{sec:andockpunkte}); alle Bedienwege stehen in Simulation und Realbetrieb zur Verfügung.
+
+% Basis: G1@25d5c1a g1pilot/teleoperation/shared_state.py (Modulkommentar); docs/50-A-Echter-Roboter.md E
+% („Ein Ziel ersetzt das andere“); docs/23-A-Posen-und-Ablaeufe.md „Pose anfahren“ (manueller Vorrang)
+Gleichzeitig aktive Bedienwege bergen widersprüchliche Anzeigen und konkurrierende Befehle.
+Bedienoberfläche und Gamepad teilen sich deshalb einen Bedienzustand aus Bedienmodus, Auswahl der Hand und
+Tempostufen, in dem je Feld die jüngste Änderung gilt; Fahrbefehle enthält er nicht, und jede Tempostufe begrenzt
+jeder Bedienweg auf sein eigenes Maximum.
+Für Bewegungsziele ersetzt ein neues Ziel das vorige, gleich von welchem Bedienweg es stammt, und eine manuelle
+Eingabe bricht eine laufende geplante Bewegung ab.
+
+% Basis: G1@25d5c1a docs/12-T-Handy.md „Aktionen und Rechte“; g1pilot/teleoperation/phone/gateway.py (Modulkommentar,
+% ACTIONS); docs/12-A-Handy.md „Rollen“
+Für das drahtlos angebundene Smartphone kommen Rollen und eine Steuerhoheit hinzu.
+Die Rolle „Ansicht“ zeigt nur den Zustand, die Rolle „Bediener“ sendet Befehle, sobald das Gerät die Steuerhoheit
+übernommen hat, die die Bedienoberfläche jederzeit zurückholen kann.
+Es besteht nur eine Sitzung, und ein bewegender Befehl gilt nur mit Bezug auf einen aktuellen Zustand, sodass ein
+verspätet eintreffender Befehl wirkungslos bleibt.
+
+% Basis: G1@25d5c1a docs/51-A-Notaus.md „Quittieren“; docs/11-A-Controller.md „NOT-HALT und Quittieren“
+Zwischen Auslösen und Aufheben eines Not-Halts besteht eine bewusste Asymmetrie: Ausgelöst wird er an Bedienoberfläche,
+Gamepad und Smartphone, quittiert nur an Bedienoberfläche oder Smartphone, die den Zustand anzeigen, am Gamepad
+dagegen nicht.
+\pruefen{Begründung der Asymmetrie bestätigen; die Doku nennt nur die Doppelbelegung der Start-Taste am Gamepad}
+Die Anbindung der Bedienwege beschreibt Abschnitt~\ref{sec:bedienwege}, den Bedienaufwand bewertet
+Abschnitt~\ref{sec:eval_bedienaufwand}.
+
+\subsection{Posen und Abläufe als aufgabenunabhängige Bausteine}
+\label{sec:posen_ablaeufe}
+% Basis (Alternativen und Entscheidung): Plan Kap. 6, Abschnitt 5, 6.4.3; Umsetzung G1@25d5c1a docs/23-T-Posen-und-Ablaeufe.md
+Nach A1 soll sich eine neue Aufgabe ohne Programmierung einrichten lassen.
+Ein Skript scheidet aus, weil Roboterprogrammierung neben Programmierkenntnissen Wissen aus mehreren Disziplinen
+erfordert \cite{Ajaykumar2021}\ev{Ajaykumar2021.02}; weitere Alternativen sind grafische Umgebungen wie Choregraphe,
+die ohne Kompilieren von C++ auskommen \cite{Pot2009}\ev{Pot2009.06}, und Lernen aus Demonstrationen auf Basis von
+Teleoperationsdaten \cite{Cheng2024}\ev{Cheng2024.01}.
+Die Umgebung beschreibt eine Aufgabe stattdessen als Daten aus wenigen festen Bausteinen, ähnlich der Bibliothek
+vorprogrammierter Verhalten in Choregraphe \cite{Pot2009}\ev{Pot2009.05}.
+\pruefen{Gründe gegen grafische Programmierung und Lernen aus Demonstrationen von Nils}
+
+% Basis: G1@25d5c1a docs/23-A-Posen-und-Ablaeufe.md „Überblick“, „Pose speichern“; docs/23-T-Posen-und-Ablaeufe.md
+% „Dateiformat“ (moves: je Achse begrenzt, Pause je Schritt); g1pilot/manipulation/pose_store.py (MAX_MOVE_M, MAX_WAIT_S)
+Abbildung~\ref{fig:posen_ablaeufe} zeigt die drei Bausteine des Datenmodells.
+Eine Pose ist eine benannte Stellung von Armen und Händen, eine relative Bewegung verschiebt die Hände von ihrer
+aktuellen Stelle um einen je Achse begrenzten Betrag, und ein Ablauf ist eine Folge von Verweisen auf beide mit
+optionaler Pause, sodass dieselbe Pose in mehreren Abläufen stehen kann.
+Eingelernt wird eine Pose, indem Arme und Hände über einen Bedienweg in Stellung gefahren und gespeichert werden,
+anders als bei der Handführung, in der der Bediener den Roboter dafür direkt bewegt \cite{Villani2018}\ev{Villani2018.06}.
+
+% Basis: G1@25d5c1a docs/23-A-Posen-und-Ablaeufe.md „Ablauf abfahren“; docs/23-T-Posen-und-Ablaeufe.md „Dateiformat“,
+% „Speicherort“; g1pilot/teleoperation/demo_gui.py default_sequence_mode() (Sim fortlaufend, real schrittweise)
+Abläufe laufen fortlaufend oder schrittweise mit Bestätigung je Schritt, im Realbetrieb ist schrittweise
+voreingestellt.
+Jeder Schritt mit Armbewegung wird wie eine einzelne Zielvorgabe geplant und auf Kollisionen geprüft; der Ablauf
+selbst enthält keine Bewegungslogik und umgeht keinen Schutzmechanismus.
+Weil die Abläufe außerhalb der Container liegen und in beiden Welten dieselben sind, wird eine Aufgabe in der
+Simulation eingerichtet und am Roboter ausgeführt.
+% Kann
+Offline-Programmierung an einer virtuellen Simulation \cite{Ajaykumar2021}\ev{Ajaykumar2021.07} kann Nutzeraufwand,
+Kosten und Wartezeiten auf einen verfügbaren Roboter verringern \cite{Ajaykumar2021}\ev{Ajaykumar2021.08}.
+
+% Basis: G1@25d5c1a docs/23-T-Posen-und-Ablaeufe.md (keine Bedingungen im Dateiformat); docs/23-A-Posen-und-Ablaeufe.md
+% „Fehlerbehebung“ (Roboter steht anders als beim Speichern), Beispiel-Abläufe „gelten genau an der jeweiligen Station“
+Die Grenze des Konzepts sind feste Folgen ohne Verzweigungen, Bedingungen an Sensorwerte oder Objekterkennung.
+Zudem gelten die Posen nur, solange der Roboter so zum Arbeitsplatz steht wie beim Einlernen.
+Wie weit sich Aufgaben dennoch einrichten lassen, zeigt Abschnitt~\ref{sec:eval_aufgaben}; die Grenze greift
+Abschnitt~\ref{sec:limitierungen} auf.

@@ -7,6 +7,10 @@
     "titel": "Validating Robotics Simulators on Real-World Impacts",
     "zotero_key": "NV36N3N8"
   },
+  "Afzal2021": {
+    "titel": "Simulation for Robotics Test Automation: Developer Perspectives",
+    "zotero_key": "V4SMZ6N6"
+  },
   "Ajaykumar2021": {
     "titel": "A Survey on End-User Robot Programming",
     "zotero_key": "V27QC36D"
@@ -26,6 +30,10 @@
   "Ayala2020": {
     "titel": "A Comparison of Humanoid Robot Simulators: A Quantitative Approach",
     "zotero_key": "92835K6P"
+  },
+  "Bender2021": {
+    "titel": "Pahl/Beitz Konstruktionslehre: Methoden und Anwendung erfolgreicher Produktentwicklung",
+    "zotero_key": "GX54798N"
   },
   "Billard2019": {
     "titel": "Trends and challenges in robot manipulation",
@@ -82,6 +90,10 @@
   "DGUV2015": {
     "titel": "Industrieroboter",
     "zotero_key": "94ZGHZDZ"
+  },
+  "DINENISO13850": {
+    "titel": "Sicherheit von Maschinen – Not-Halt-Funktion – Gestaltungsleitsätze (ISO 13850:2015); Deutsche Fassung EN ISO 13850:2015",
+    "zotero_key": "3RN96K4E"
   },
   "DSouza2001": {
     "titel": "Learning inverse kinematics",
@@ -255,6 +267,10 @@
     "titel": "A Century of Robotic Hands",
     "zotero_key": "7N743NGQ"
   },
+  "Pitonakova2018": {
+    "titel": "Feature and Performance Comparison of the V-REP, Gazebo and ARGoS Robot Simulators",
+    "zotero_key": "8U3WRZEK"
+  },
   "Pot2009": {
     "titel": "Choregraphe: a graphical tool for humanoid robot programming",
     "zotero_key": "PQ262WZH"
@@ -346,6 +362,10 @@
   "UnitreeXRTeleop": {
     "titel": "XR-Teleoperate: An Open-Source Teleoperation Framework and Data Collection Toolkit for Embodied Intelligence",
     "zotero_key": "4Q6MHIFB"
+  },
+  "Valori2021": {
+    "titel": "Validating Safety in Human–Robot Collaboration: Standards and New Perspectives",
+    "zotero_key": "8I9MK9BM"
   },
   "Villani2018": {
     "titel": "Survey on human–robot collaboration in industrial settings: Safety, intuitive interfaces and applications",

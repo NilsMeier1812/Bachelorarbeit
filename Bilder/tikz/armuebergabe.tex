@@ -1,0 +1,81 @@
+% Übernahme und Rückgabe der Arme (Überblendung per Gewicht), schematisch. Keine Messwerte, keine Skalen.
+% Eigene Darstellung (Art E, Kap. 6.3.3). Keine Quelle in der Caption.
+% Basis: G1@25d5c1a g1pilot/docs/20-T-Arm-Manipulation.md, Abschnitte "rt/arm_sdk-Gewichtsrampe" (Gewicht 0..1,
+%   Rampe über arm_weight_ramp_up_s, real 2,0 s, "beim DISABLE symmetrisch zurück") und "Übergabe an den
+%   Onboard-Regler" (_record_onboard_pose merkt die gemessene Armpose; DISABLE -> geplante Bahn in die gemerkte
+%   Pose, erst bei Ankunft Rampe 1->0; Zeitgrenze release_timeout_s 12 s, hier nicht gezeichnet);
+%   docs/50-A-Echter-Roboter.md E ("Übernehmen ohne Bewegung": gemessene Pose = Pose des Onboard-Reglers,
+%   kommandiert genau diese, Gewicht 0->1 über 2,0 s).
+% a) Übernehmen: Gewicht 0 -> 1, Abstand der kommandierten Pose zur gemerkten Onboard-Pose bleibt 0.
+% b) Zurückgeben: Gewicht bleibt 1 während der geplanten Rückfahrt (Abstand sinkt auf 0), danach Rampe 1 -> 0.
+% Nicht gezeichnet: Not-Halt (Gewicht bleibt 1, Steifigkeit 0) und Programmende (kurze Rückfahrt, dann Rampe).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/armuebergabe} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    achse/.style={ba normal, ->, color=baGrau},
+    gew/.style={color=baGruen, line width=1.6pt},
+    abst/.style={color=baBlau, line width=1.6pt, dash pattern=on 5pt off 2pt},
+    ereig/.style={ba hilfslinie},
+    elabel/.style={font=\footnotesize, anchor=south, align=center},
+    klein/.style={font=\footnotesize, text=baGrau},
+    tick/.style={font=\footnotesize, anchor=east},
+  }
+  % Layout für 12pt-Grundschrift der Arbeit geprüft (Achsen 5,4 cm, Teilbilder weit genug auseinander, damit
+  % die Achsenbeschriftung von b) nicht in a) ragt).
+  % ======================== a) Übernehmen ========================
+  \begin{scope}[shift={(1.35,0)}]
+    % Gewicht
+    \draw[achse] (0,4.1) -- (0,6.0);
+    \draw[achse] (0,4.1) -- (5.4,4.1);
+    \node[tick] at (-0.1,4.1) {0};
+    \node[tick] at (-0.1,5.7) {1};
+    \draw[ba duenn, color=baGrau] (-0.05,5.7) -- (0.05,5.7);
+    \node[font=\footnotesize, rotate=90, anchor=south] at (-0.75,5.05) {Gewicht};
+    \draw[gew] (0,4.1) -- (1.0,4.1) -- (3.0,5.7) -- (5.2,5.7);
+    \node[klein, anchor=west] at (2.6,4.5) {Rampe über 2\,s};
+    % Abstand
+    \draw[achse] (0,1.0) -- (0,2.9);
+    \draw[achse] (0,1.0) -- (5.4,1.0) node[font=\footnotesize, anchor=north east] {Zeit};
+    \node[tick] at (-0.1,1.0) {0};
+    \node[font=\footnotesize, rotate=90, anchor=south, align=center] at (-0.75,1.95) {Abstand zur\\Onboard-Pose};
+    \draw[abst] (0,1.0) -- (5.2,1.0);
+    \node[klein, anchor=west, align=left] at (1.3,1.65) {kommandiert wird die\\gemessene Pose};
+    % Ereignis
+    \draw[ereig] (1.0,0.85) -- (1.0,6.2);
+    \node[elabel] at (1.0,6.25) {Übernehmen};
+  \end{scope}
+  % Trenner
+  \draw[ba trenner] (7.1,0.0) -- (7.1,6.9); % mittig zwischen Achsende a) und Beschriftung b)
+  % ======================== b) Zurückgeben ========================
+  \begin{scope}[shift={(9.0,0)}]
+    % Gewicht
+    \draw[achse] (0,4.1) -- (0,6.0);
+    \draw[achse] (0,4.1) -- (5.4,4.1);
+    \node[tick] at (-0.1,4.1) {0};
+    \node[tick] at (-0.1,5.7) {1};
+    \draw[ba duenn, color=baGrau] (-0.05,5.7) -- (0.05,5.7);
+    \node[font=\footnotesize, rotate=90, anchor=south] at (-0.75,5.05) {Gewicht};
+    \draw[gew] (0,5.7) -- (3.3,5.7) -- (5.0,4.1);
+    \node[klein, anchor=west] at (4.3,5.3) {Rampe};
+    % Abstand
+    \draw[achse] (0,1.0) -- (0,2.9);
+    \draw[achse] (0,1.0) -- (5.4,1.0) node[font=\footnotesize, anchor=north east] {Zeit};
+    \node[tick] at (-0.1,1.0) {0};
+    \node[font=\footnotesize, rotate=90, anchor=south, align=center] at (-0.75,1.95) {Abstand zur\\Onboard-Pose};
+    \draw[abst] (0,2.6) -- (0.8,2.6) .. controls (1.7,2.6) and (2.2,1.0) .. (3.3,1.0) -- (5.0,1.0);
+    \node[klein, anchor=west, align=left] at (3.4,2.05) {geplante,\\langsame\\Rückfahrt};
+    % Ereignisse
+    \draw[ereig] (0.8,0.85) -- (0.8,6.2);
+    \node[elabel] at (0.8,6.25) {Zurückgeben};
+    \draw[ereig] (3.3,0.85) -- (3.3,6.2);
+    \node[elabel] at (3.3,6.25) {Pose erreicht};
+  \end{scope}
+  % Teiltitel
+  \node[ba teiltitel] at (4.05,0.2) {a) Übernehmen};
+  \node[ba teiltitel] at (11.7,0.2) {b) Zurückgeben};
+  % Legende
+  \draw[gew] (1.35,-0.75) -- (2.15,-0.75);
+  \node[klein, anchor=west] at (2.25,-0.75) {Gewicht der eigenen Armregelung};
+  \draw[abst] (9.0,-0.75) -- (9.8,-0.75);
+  \node[klein, anchor=west] at (9.9,-0.75) {Abstand zur Onboard-Pose};
+\end{tikzpicture}

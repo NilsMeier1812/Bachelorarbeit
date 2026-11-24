@@ -1,0 +1,22 @@
+citekey: DINENISO13850
+zotero_key: 3RN96K4E
+# DIN EN ISO 13850:2016-05 (deutsche Fassung EN ISO 13850:2015). Seiten = Seitenzahlen der EN-Fassung (nationales Deckblatt/Vorwort nicht gezählt). Nennt keine Zahlenwerte für Reaktions- oder Stoppzeiten.
+belege:
+  - id: DINENISO13850.01
+    seite: "9"
+    zitat: "Die Not-Halt-Funktion muss jederzeit verfügbar und funktionsfähig sein. Sie muss Vorrang vor allen anderen Funktionen und Arbeitsgängen in allen Betriebsarten der Maschine haben, ohne andere Schutzfunktionen zu beeinträchtigen"
+    kernaussage: "Die Norm verlangt, dass die Not-Halt-Funktion jederzeit verfügbar und funktionsfähig ist und in allen Betriebsarten Vorrang vor allen anderen Funktionen hat, ohne andere Schutzfunktionen zu beeinträchtigen."
+    quelle: exzerpt
+    kommentar: "Kap. 5.2 A5/K5.2 (L15): nur Orientierung, Roboter ist nicht normbewertet"
+  - id: DINENISO13850.02
+    seite: "10"
+    zitat: "Die Not-Halt-Funktion muss so konzipiert sein, dass nach Betätigung des Not-Halt-Gerätes gefahrbringende Bewegungen angehalten und der Betrieb der Maschine in geeigneter Weise verhindert wird, ohne zusätzliche Gefährdungen zu verursachen und ohne jeden weiteren Eingriff."
+    kernaussage: "Die Norm verlangt, dass nach Betätigung gefahrbringende Bewegungen angehalten werden, ohne zusätzliche Gefährdungen zu verursachen und ohne weiteren Eingriff."
+    quelle: exzerpt
+    kommentar: "Kap. 5.2 A5/K5.6 (L16): Halt darf keine neue Gefährdung erzeugen (beim Zweibeiner: Sturz)"
+  - id: DINENISO13850.03
+    seite: "13"
+    zitat: "Stillsetzen von Bewegungen und Funktionen mit beibehaltener Energiezufuhr zu dem (den) MaschinenAntriebselement(en), um das Stillsetzen zu erzielen, und anschließende (nach dem erreichten Stillstand) Unterbrechung der Energiezufuhr."
+    kernaussage: "Stopp-Kategorie 1 ist laut Norm das Stillsetzen mit beibehaltener Energiezufuhr und erst nach erreichtem Stillstand die Unterbrechung der Energiezufuhr."
+    quelle: exzerpt
+    kommentar: "Kap. 6.3 / 5.2 A5: Vergleich zum Halt in Stufen (Energie bleibt beim Zweibeiner an); Zitat = Definition Stopp-Kategorie 1"

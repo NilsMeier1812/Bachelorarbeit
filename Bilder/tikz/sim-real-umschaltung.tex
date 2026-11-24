@@ -1,0 +1,40 @@
+% Umschaltung zwischen Simulation und Realbetrieb unterhalb der Herstellerschnittstelle
+% (unterer Teil der früheren Gesamtarchitektur; Teilung auf Wunsch Nils 23.11.2026).
+% Eigene Darstellung (Art E, Kap. 6.2.2). Keine Quelle in der Caption.
+% Basis: G1@25d5c1a g1pilot/docs/02-T-Architektur.md („Sim <-> Real: Ein Schalter“, Laufzeit-Topologie),
+%   g1pilot/utils/common.py:21-23 (Domain 1/lo gegen 0/Netzwerkkarte), docs/22-T-Inspire-Haende.md (Hände real über Modbus TCP).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/sim-real-umschaltung} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  % Raster wie fig:architektur (Nils, 23.11.2026): DDS 0,3..12,6 und Modbus 12,9..15,3, gleich hoch.
+  %   Rahmen Simulation 0..6,6 und Realbetrieb 9,0..15,6, je zwei Kästen (3,3 und 2,4 cm) mit 0,3 cm Abstand,
+  %   Inspire-Hände genau unter dem Modbus-Block; Umschalter mittig zwischen den Rahmen. Geprüft im 12pt-Build.
+  \tikzset{
+    klein/.style={font=\footnotesize, text=baGrau},
+    schnitt/.style={ba block, fill=baHellgrau!40, minimum height=11mm, anchor=north west},
+    teil/.style={ba block, minimum height=12mm, anchor=north west},
+    rahmen/.style={draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt},
+  }
+  \node[schnitt, minimum width=123mm] (DDS) at (0.3,4.6)
+    {Herstellerschnittstelle (Unitree-DDS)\\{\footnotesize dieselben Nachrichten in Simulation und Realbetrieb\par}};
+  \node[schnitt, minimum width=24mm, font=\footnotesize] (MB) at (12.9,4.6) {Modbus TCP\\(Realbetrieb)};
+  % Umschalter mittig zwischen den Rahmen (x = 7,8)
+  \node[draw=baAkzent, ba normal, fill=white, rounded corners=1.5pt, text=black, align=center,
+        minimum height=10mm, inner sep=3pt] (SW) at (7.8,2.75) {Umschalter\\Simulation / Realbetrieb};
+  \draw[baAkzent, ba normal] (7.8,3.5) -- (SW.north);
+  % Rahmen (Oberkante 1,05, Unterkante -1,25; Abstand Titel-Kasten = Kasten-Rahmen = 0,3); Titelzeile 1,05..0,55, Kästen mittig darunter
+  \draw[rahmen] (0,-1.25) rectangle (6.6,1.05);
+  \node[klein, anchor=north west, inner sep=0pt, text height=3mm, text depth=1mm] at (0.3,0.95) {Container Simulation};
+  \node[teil, minimum width=33mm] (SIM) at (0.3,0.25) {MuJoCo-\\Simulation};
+  \node[teil, minimum width=24mm] (SH) at (3.9,0.25) {Simulierte\\Hände};
+  \draw[rahmen] (9.0,-1.25) rectangle (15.6,1.05);
+  \node[klein, anchor=north west, inner sep=0pt, text height=3mm, text depth=1mm] at (9.3,0.95) {Realbetrieb};
+  \node[teil, minimum width=33mm] (RB) at (9.3,0.25) {Unitree G1 mit\\Onboard-Regler};
+  \node[teil, minimum width=24mm] (RH) at (12.9,0.25) {Inspire-\\Hände};
+  % Verbindungen über den Umschalter zu den Rahmenmitten
+  \draw[baAkzent, ba normal, <->] (SW.west) -| (3.3,1.05);
+  \draw[baAkzent, ba normal, <->] (SW.east) -| (12.3,1.05);
+  \node[font=\footnotesize, anchor=north west, align=left, inner sep=0pt] at (3.45,2.0) {Domain 1,\\Loopback};
+  \node[font=\footnotesize, anchor=north east, align=right, inner sep=0pt] at (12.15,2.0) {Domain 0,\\Netzwerkkarte};
+  % Hände real: eigener Anschluss über Modbus TCP, senkrecht unter dem Block
+  \draw[ba normal, <->] (14.1,3.5) -- (RH.north);
+\end{tikzpicture}

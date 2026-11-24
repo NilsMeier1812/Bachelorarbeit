@@ -1,0 +1,16 @@
+citekey: Pitonakova2018
+zotero_key: 8U3WRZEK
+# TAROS 2018, LNCS 10965, S. 357-368, Verlagsfassung (Kapitel aus dem Tagungsband). Vergleich V-REP, Gazebo, ARGoS; keine Humanoiden, kein MuJoCo.
+belege:
+  - id: Pitonakova2018.01
+    seite: "363"
+    zitat: "Three performance metrics were used to evaluate the simulator performance. Real-time factor, R = simulated time/real time, the amount of CPU usage, C, and the amount of memory usage, M . When R > 1, a simulation could run faster than real time and vice versa."
+    kernaussage: "Laut Autoren wurden drei Leistungskennzahlen verwendet: Echtzeitfaktor R = simulierte Zeit/reale Zeit, CPU-Auslastung und Speicherbedarf; bei R > 1 läuft die Simulation schneller als Echtzeit und umgekehrt."
+    quelle: exzerpt
+    kommentar: "Kap. 5 A3/K3.1 (L18, Q2) und 3.1.3: Primärquelle der Definition des Echtzeitfaktors"
+  - id: Pitonakova2018.02
+    seite: "362"
+    zitat: "The headless benchmark involved running the same simulation as in the GUI benchmark, that lasted ﬁve minutes. The simulators were run from the command line without their user interfaces."
+    kernaussage: "Laut Autoren lief im Headless-Benchmark dieselbe Simulation wie im GUI-Benchmark über fünf Minuten, gestartet über die Befehlszeile ohne Benutzeroberfläche."
+    quelle: exzerpt
+    kommentar: "Kap. 5.3.2 V4: Muster für Messdauer und Messung mit/ohne Oberfläche (nur als Beispiel, kein Zielwert)"

@@ -1,0 +1,34 @@
+citekey: Bender2021
+zotero_key: GX54798N
+# Pahl/Beitz Konstruktionslehre, 9. Aufl. 2021, Hrsg. Bender/Gericke; Kap. 7 „Entwickeln der Anforderungsbasis: Requirements Engineering“ (Autoren Bender, Gericke). Verlagsfassung, ganzes Buch.
+belege:
+  - id: Bender2021.01
+    seite: "187"
+    zitat: "Unterscheidung von Forderungen (Muss-Anforderungen) und Wünschen (SollAnforderungen), wobei die Wünsche zusätzlich in unterschiedlichen Stufen (z. B. 1, 2, 3) priorisiert, d. h. gewichtet werden können."
+    kernaussage: "Anforderungen lassen sich nach Verbindlichkeit in Forderungen (Muss) und Wünsche (Soll) unterscheiden; Wünsche können zusätzlich gewichtet werden."
+    quelle: exzerpt
+    kommentar: "Kap. 5.2 (L22, Q1): Fest-/Wunschforderungen"
+  - id: Bender2021.02
+    seite: "187"
+    zitat: "Die Messbarkeit der Anforderung ist Voraussetzung für die Nachverfolgung und Beurteilung ihrer Umsetzung und damit unabdingbar für die Eigenschaftsabsicherung des Produkts."
+    kernaussage: "Messbarkeit einer Anforderung ist Voraussetzung, um ihre Umsetzung nachzuverfolgen und zu beurteilen."
+    quelle: exzerpt
+    kommentar: "Kap. 5.2 (L22): Begründung für Prüfkriterium und Zielwert je Anforderung"
+  - id: Bender2021.03
+    seite: "198"
+    zitat: "verifizierbar: testbare Merkmale durch Angabe messbarer Ausprägungen (z. B. Breite von 3 m +/- 0,01 m),"
+    kernaussage: "Ein Qualitätskriterium für Anforderungen ist Verifizierbarkeit durch Angabe messbarer Ausprägungen."
+    quelle: exzerpt
+    kommentar: "Kap. 5.2 (L22): Qualitätskriterien nach Pohl und Rupp 2015 (Sekundär)"
+  - id: Bender2021.04
+    seite: "198"
+    zitat: "Operational vs. lösungsneutral: Der kreative Lösungsfreiraum wird durch zu starkes Beharren auf eindeutigen, detaillierten Anforderungen stark eingeschränkt."
+    kernaussage: "Zwischen operationaler und lösungsneutraler Formulierung besteht ein Zielkonflikt: zu detaillierte Anforderungen schränken den Lösungsfreiraum ein."
+    quelle: exzerpt
+    kommentar: "Kap. 5.2: Begründung für lösungsneutrale Anforderungen (nach Eiletz 1999, Sekundär)"
+  - id: Bender2021.05
+    seite: "197"
+    zitat: "Ist ein Spielraum bei der Erreichung von Zielwerten zulässig, muss die Anforderung entsprechend spezifiziert werden, z. B. durch Angabe eines Wertebereiches oder Grenzwertes statt eines festen Punktwertes"
+    kernaussage: "Ist bei Zielwerten Spielraum zulässig, wird die Anforderung mit Wertebereich oder Grenzwert statt festem Punktwert spezifiziert."
+    quelle: exzerpt
+    kommentar: "Kap. 5.2: Zielwerte als Grenzwerte (≥ / ≤)"

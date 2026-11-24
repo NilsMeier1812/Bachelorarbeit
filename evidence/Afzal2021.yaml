@@ -1,0 +1,22 @@
+citekey: Afzal2021
+zotero_key: V4SMZ6N6
+# ICST 2021, S. 263-274, IEEE-Verlagsfassung. Befragung von Robotik-Entwicklern zum simulationsbasierten Testen.
+belege:
+  - id: Afzal2021.01
+    seite: "263"
+    zitat: "However, field testing is time consuming and expensive, not scalable, error-prone and potentially dangerous, and can only be performed at the later stages of development when both the software stack and hardware platform have reached maturity."
+    kernaussage: "Laut Autoren ist das Testen im Feld zeitaufwendig, teuer, nicht skalierbar, fehleranfällig und potenziell gefährlich und erst in späten Entwicklungsphasen möglich."
+    quelle: exzerpt
+    kommentar: "Kap. 5.3.2 (L32, Q5): Begründung, zuerst in Simulation/gegen Attrappe zu prüfen"
+  - id: Afzal2021.02
+    seite: "263"
+    zitat: "Simulation-based testing, in which the robot controller is tested in a simulated environment, such as in Figure 1, is a promising method for testing robotics systems that is cheaper, safer, and more scalable than the manual process of field testing, with significant potential for test automation [14]–[17]."
+    kernaussage: "Laut Autoren ist simulationsbasiertes Testen, bei dem die Robotersteuerung in einer simulierten Umgebung getestet wird, eine vielversprechende Methode, die günstiger, sicherer und besser skalierbar ist als manuelles Testen im Feld und großes Potenzial zur Testautomatisierung hat."
+    quelle: exzerpt
+    kommentar: "Kap. 5.3.2 (L29/L32, Q5)"
+  - id: Afzal2021.03
+    seite: "265"
+    zitat: "SITL, on the other hand, runs the robot controller software on the same machine as the simulator. HIL is typically slower and more expensive than SITL but can be used to test the integration between the robot controller’s software and embedded hardware."
+    kernaussage: "Laut Autoren läuft beim Software-in-the-Loop-Test die Steuerungssoftware auf demselben Rechner wie der Simulator; Hardware-in-the-Loop ist meist langsamer und teurer, kann aber die Integration von Software und eingebetteter Hardware testen."
+    quelle: exzerpt
+    kommentar: "Kap. 5.3.2 (L31, Q5) und 3.1.1: Definition SITL/HIL"

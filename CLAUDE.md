@@ -23,6 +23,8 @@ Wenn du etwas nicht belegen kannst, **markierst du die Lücke**, statt sie zu f�
    mit `Citation Key`), existiert für den Text nicht.
    Websuche ist **nur im Recherche-Modus** erlaubt, und nur um Quellen zu *finden* – nie, um Inhalte daraus
    direkt in den Text zu übernehmen. Inhalte kommen ausschließlich aus PDFs in Zotero.
+   Offizielle Websites und GitHub-Repos sind seit 23.11.2026 als Quelle erlaubt, aber nur als gespeicherter
+   Stand mit Abrufdatum in Zotero (siehe „Websites und GitHub-Repos als Quelle“).
 2. **Jede Sachaussage trägt Zitat + Beleg-ID:** `\cite{Mueller2021}\ev{Mueller2021.03}`.
    Ohne passenden Beleg schreibst du `\qf{was fehlt}` (Quelle fehlt) und formulierst die Aussage nicht aus.
 3. **Zitate in `evidence/` sind wörtlich** aus `sources-text/<key>.txt` kopiert – nie aus dem Gedächtnis,
@@ -68,7 +70,7 @@ Bachelorarbeit/           # Repo-Root = Overleaf-Projekt (Hauptdokument main.tex
 ├── evidence/             # Belegdateien, eine pro Quelle: <citekey>.yaml
 ├── sources-text/         # GENERIERT, gitignored: PDF-Text mit Seitenmarkern
 ├── .zotero-cache/        # GENERIERT, gitignored: über die Web-API geladene PDFs
-├── review/               # Kapitelpläne und Verifier-Berichte
+├── review/               # Kapitelpläne, Verifier-Berichte, todo-nils.md (Nachreich-Liste für Nils)
 ├── requirements.txt
 └── scripts/
     ├── zot.py            # bib | text | annotations
@@ -132,6 +134,57 @@ werden zu `\qf{}`, nicht zu Text. **Stopp:** Nils liest den Entwurf.
 **5. Verifizieren** – Phase 4 (unten) für das Kapitel.
 
 Am Ende jedes Schritts kurzer Bericht an Nils: was erledigt ist, was offen ist, welche Entscheidung ansteht.
+
+### Nachreich-Liste für Nils (seit 16.11.2026)
+
+Alles, was Nils liefern, entscheiden oder durchführen muss, steht gesammelt in **`review/todo-nils.md`** auf `main`
+(Wunsch Nils). Jeder Thread, der eine offene Frage an Nils hat oder auf Material von ihm wartet:
+- vorher pullen, dann **nur den eigenen Abschnitt** `## Kapitel N – …` ergänzen oder anlegen; fremde Abschnitte
+  nicht umschreiben,
+- je Punkt eine Checkbox mit dem Kürzel aus dem Kapitelplan (z. B. `N2`, `E4`), was genau gebraucht wird und wofür,
+- Dopplungen mit anderen Kapiteln als Verweis eintragen („siehe Kap. 5, N5“), nicht doppelt,
+- beantwortete Punkte abhaken (`[x]`) und die Antwort kurz dahinterschreiben,
+- vor dem Arbeiten nachsehen, ob Nils dort schon etwas beantwortet hat.
+
+Umfang (Betreuerin, 23.11.2026; vorher Nils 16./17.11.): 60–80 Seiten **inklusive Abbildungen und Tabellen**, gezählt
+vom ersten Wort der Einleitung bis zum letzten Wort vor dem Literaturverzeichnis. 80 ist harte Obergrenze,
+**Ziel ca. 70 Seiten**. Budget je Kapitel: `review/seitenbudget.md` (Nils, 24.11.). Entwürfe bewusst etwas länger als
+das Kapitelziel (etwa +20–40 %, bei 7 S. mindestens 8–9), damit Nils auswählt; Gesamtziel trotzdem im Blick. Richtwerte,
+keine harte Grenze je Kapitel. Nicht das Mehrfache schreiben.
+
+### Absprachen mit der Betreuerin (23.11.2026)
+
+Verbindlich für alle Kapitel-Threads (Details in `Richtlinien-BA.md` §12):
+- **Keine Nutzerstudie.** Die Arbeit ist technisch und startet bei null, es gibt keinen Vorher-Zustand zum
+  Vergleichen; dass die Umgebung existiert und funktioniert, ist das Ergebnis. Kap. 8 (Evaluation) wird
+  entsprechend kürzer. Keine Fragebögen oder Zufriedenheitsmessungen planen.
+- **Video** (Videodreh) darf als Ergebnis dienen, aber nur sparsam (ergänzend, nicht als Hauptnachweis).
+- **Erweiterbarkeit nicht eigens nachweisen.** Stattdessen als Entwurfsfrage führen („Wie wird die Umgebung
+  modular?“), Antwort und Ergebnis ist der Docker-Container. Kein eigener Erweiterbarkeitsversuch in Kap. 8.
+- **Anhang:** nur die relevanten Teile der README, nicht die ganze. Der Haupttext ist keine Anleitung; für
+  Bedienschritte weiter auf den Anhang verweisen.
+- **Web- und GitHub-Quellen** sind erlaubt (siehe unten). Die Betreuerin hat selbst keinen Zugang zur
+  Unitree-Entwicklerdoku.
+- **Geklärt (Nils, 23.11.):** Tempus (K1) und Aktiv/Passiv (K2) bleiben wie bisher (Defaults in
+  `Richtlinien-BA.md` §1). Zotero statt Citavi (K9) ist in Ordnung. Weiter kein „ich“/„wir“, auch nicht beim
+  Beschreiben des Videodrehs oder der eigenen Arbeitsschritte („ich habe …“, „wir haben dann …“).
+
+### Websites und GitHub-Repos als Quelle (seit 23.11.2026)
+
+Die Betreuerin erlaubt offizielle Websites (z. B. Unitree-Support, Herstellerseiten, Software-Dokumentationen)
+und GitHub-Repos als Quelle, **immer mit Abrufdatum**, bei GitHub zusätzlich mit **Commit-Hash** des zitierten
+Stands. Nicht erlaubt bleiben Blogs, Foren, Wikipedia und Werbeseiten. Für wissenschaftliche Aussagen weiter
+Paper und Bücher; Websites und Repos für Produkt-, Schnittstellen- und Softwareangaben.
+- **Zotero-Eintrag:** Website als „Webseite“ (Autor = Organisation, z. B. Unitree Robotics), GitHub als „Software“
+  mit Version = Commit-Hash (kurz, 7–10 Zeichen) und URL auf genau diesen Stand
+  (`https://github.com/<owner>/<repo>/tree/<hash>` bzw. `/blob/<hash>/<datei>`). In beiden Fällen
+  *Zugriffsdatum* setzen (landet als `urldate` in der `zotero.bib`).
+- **Beleggrundlage bleibt ein PDF:** Die Seite bzw. README im abgerufenen Stand als PDF ins Quellen-Repo
+  (`pdf/Organisation_Jahr_Kurztitel_JJJJ-MM-TT.pdf`), Link-Anhang per `zot.py link`. Belege daraus wie gewohnt;
+  `seite` ist die Seitenzahl des Ausdrucks. GitHub-Dateien kannst du selbst am Commit abrufen
+  (`raw.githubusercontent.com/<owner>/<repo>/<hash>/<datei>`) und als PDF ablegen; Seiten, die automatische Abrufe
+  blocken (support.unitree.com), speichert Nils im Browser mit „Drucken → als PDF“.
+- Abrufdatum und Commit-Hash des PDFs müssen mit dem Zotero-Eintrag übereinstimmen.
 
 ### Quellenbeschaffung durch Nils
 

@@ -1,0 +1,10 @@
+citekey: Valori2021
+zotero_key: 8I9MK9BM
+# Robotics 10(2), Artikel 65, 2021, MDPI-Verlagsfassung (Seiten 1-20). Validierung von Sicherheit in der Mensch-Roboter-Kollaboration.
+belege:
+  - id: Valori2021.01
+    seite: "2"
+    zitat: "This is due to both the limited knowledge about relevant standards and the absence of clear procedures to prove the compliance in these standards [11,12]."
+    kernaussage: "Laut Autoren liegt das (verlangsamte Verbreitung von Cobots) sowohl am begrenzten Wissen über relevante Normen als auch am Fehlen klarer Verfahren zum Nachweis der Normkonformität."
+    quelle: exzerpt
+    kommentar: "Kap. 5.1 D3 / 5.2 A5 (Q6): fehlende Nachweisverfahren; bezieht sich auf Cobots, nicht auf Humanoide"

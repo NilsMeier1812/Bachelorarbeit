@@ -1,0 +1,95 @@
+% Entwurf Abschnitt 6.5 (AP7), Stand 20.11.2026. Budget ca. 1,5 Seiten (0,9 / 0,6).
+% Code-Stand aller Befunde: G1@25d5c1a. Pfade in % Basis: relativ zu g1pilot/ bzw. Repo-Root.
+% Darstellungen (baut ein anderer Auftrag, hier nur referenziert): fig:andockpunkte (Ebenenmodell), tab:andockpunkte.
+% N10 (Nils, 16.11.): Bisher ist kein externes Projekt angebunden; 6.5.1 ist rein konzeptionell.
+\section{Erweiterungskonzept}
+\label{sec:erweiterungskonzept}
+Nach Anforderung~A7 soll die Umgebung als Grundlage weiterer Projekte dienen (Tabelle~\ref{tab:anforderungen}).
+Abschnitt~\ref{sec:andockpunkte} beschreibt, wo ein externes Projekt andockt, Abschnitt~\ref{sec:container_profile},
+wie sich die Umgebung selbst in austauschbare Teile gliedert.
+
+\subsection{Andockpunkte für externe Projekte}
+\label{sec:andockpunkte}
+% Basis: G1@25d5c1a docs/21-A-Arm-API.md „Überblick“; docs/21-T-Arm-API.md „Sicherheit“,
+% „Ohne eigenen HTTP-Client: direkt über DDS“
+Externe Projekte unterscheiden sich im Vorwissen und im Bedarf: Eines will nur eine neue Aufgabe einrichten, ein
+anderes bringt einen eigenen Regler mit und braucht lediglich Zugang zu Roboter oder Simulation.
+Eine einzige Schnittstelle ist für das erste zu anspruchsvoll oder für das zweite zu eng, weshalb die Umgebung
+Andockpunkte auf mehreren Ebenen anbietet.
+Dabei gilt ein Zielkonflikt: Je tiefer ein Projekt andockt, desto größer ist seine Freiheit und desto weniger
+Schutzmechanismen der Umgebung wirken.
+Abbildung~\ref{fig:andockpunkte} ordnet die Ebenen nach diesem Zielkonflikt, Tabelle~\ref{tab:andockpunkte} nennt je
+Ebene Lieferumfang, Vorwissen und wirksamen Schutz.
+
+% Basis: G1@25d5c1a unitree_mujoco/scene_editor/README.md „Konzept: Basis + Umgebung“, „Hindernis vs. Greif-Objekt“;
+% docs/25-T-Eigene-Haende.md „Idee“; docs/30-T-Stehen-und-Gehen.md (Policy-Ordner mit Beschreibungsdatei);
+% docs/23-T-Posen-und-Ablaeufe.md
+Auf der obersten Ebene erweitert ein Projekt die Umgebung nur über Daten: Szenen, in denen eine Namensregel
+Hindernisse von greifbaren Objekten trennt, eigene Hände und weitere Lauf-Policies, die beide nur in der Simulation
+wirken, sowie Posen und Abläufe (Abschnitt~\ref{sec:posen_ablaeufe}).
+Ohne Programmcode bleiben hier alle Schutzmechanismen wirksam, dafür ist ein Projekt auf die vorhandenen Funktionen
+beschränkt.
+
+% Basis: G1@25d5c1a docs/21-A-Arm-API.md „Überblick“; docs/21-T-Arm-API.md „Architektur“, „Sicherheit“, „Parameter“;
+% launch/manipulation_launcher.launch.py (arm_api_host 127.0.0.1, arm_api_token leer)
+Die zweite Ebene ist eine Programmierschnittstelle der Arme, die Zielposen, Gelenkwinkel und Handstellungen im
+JSON-Format über HTTP annimmt, ohne ROS~2 vorauszusetzen, und in der Grundeinstellung nur vom selben Rechner
+erreichbar ist.
+Sie schreibt auf denselben Kanal wie die Bedienwege und kann die Prüfungen der Armregelung deshalb nicht umgehen; als
+eigene Komponente ohne Regelungslogik folgt sie dem Prinzip, Anforderungen in funktional unabhängige Komponenten zu
+trennen \cite{Macenski2022}\ev{Macenski2022.04}.
+
+% Basis: G1@25d5c1a docs/02-T-Architektur.md „Zwei Kommunikationsebenen“; docs/31-T-Navigation.md
+% „joy_mux / joy_to_cmdvel“, „Warum der Umweg über einen Fake-Joystick?“; docs/12-T-Handy.md „Aktionen und Rechte“
+Auf der dritten Ebene nutzt ein Projekt die ROS-2-Kanäle der Umgebung (Abschnitt~\ref{sec:ros2}), über die auch die
+Bedienwege senden; so speist die Navigation der Simulation ihre Fahrbefehle über einen Umschalter in denselben Pfad
+ein wie die manuelle Steuerung.
+Die Schutzmechanismen der Funktionsknoten wirken weiter, Prüfungen einzelner Bedienwege wie Rollen und Steuerhoheit
+des Smartphones dagegen nicht, und das Projekt muss ROS~2 sowie Kanäle und Nachrichten der Umgebung kennen.
+
+% Basis: G1@25d5c1a docs/21-T-Arm-API.md „Ohne eigenen HTTP-Client: direkt über DDS“; docs/02-T-Architektur.md
+% „Sim ↔ Real: Ein Schalter“
+Die unterste Ebene ist die Herstellerschnittstelle.
+Mit dem SDK des Herstellers entwickelte Programme laufen auch in unitree\_mujoco \cite{UnitreeMujoco}\ev{UnitreeMujoco.01},
+und weil die Simulation der Umgebung dieselbe Schnittstelle bereitstellt (Abschnitt~\ref{sec:sim_real_schalter}),
+testet ein vorhandenes SDK-Projekt gegen sie, indem es nur DDS-Domain und Netzwerkschnittstelle umstellt.
+Da hier kein Schutzmechanismus der Umgebung wirkt, eignet sich diese Ebene für Projekte mit vollständigem eigenem
+Regler einschließlich Kollisionsprüfung.
+
+% Basis: Plan Kap. 6, Abschnitt 5, 6.5.1 (N10)
+Ein Projekt dockt daher auf der höchsten Ebene an, die seinen Bedarf deckt.
+Ob die konzeptionell angelegten Andockpunkte ein externes Projekt tragen, ist in Abschnitt~\ref{sec:eval_extern}
+nachzuweisen, die Aufgabenunabhängigkeit auf der Datenebene in Abschnitt~\ref{sec:eval_aufgaben}.
+\pruefen{N10: bisher kein externes Projekt angebunden, Entscheidung zu 8.4.1 offen}
+% Umsetzung: sec:entwickler_api, sec:szenen, sec:ersatzregler; sec:hand_profile ergänzen, sobald Kap. 7 es vergibt.
+Die Umsetzung beschreiben die Abschnitte~\ref{sec:entwickler_api}, \ref{sec:szenen} und \ref{sec:ersatzregler}.
+
+\subsection{Modularisierung über Container-Profile}
+\label{sec:container_profile}
+% Basis: G1@25d5c1a docker-compose.yml (Dienste, Profile, gemeinsame Basis-Konfiguration); docs/40-T-Simulation.md „Container“
+Nach A6 und A7 soll die Umgebung auf einem neu eingerichteten PC in Betrieb gehen und sich in Teilen austauschen
+lassen.
+Eine native Installation setzt voraus, dass die Rechenumgebung der ursprünglichen Entwickler nachgebildet werden kann
+\cite{Boettiger2015}\ev{Boettiger2015.02}, und eine virtuelle Maschine gilt Kritikern als zu sehr eine Black Box
+\cite{Boettiger2015}\ev{Boettiger2015.05} (Abschnitt~\ref{sec:container}).
+Die Umgebung nutzt deshalb Container, und zwar statt eines gemeinsamen Images getrennte Container je Aufgabe, die
+zwei Profile zusammenstellen.
+\pruefen{Begründung gegen ein gemeinsames Image von Nils}
+
+% Basis: G1@25d5c1a docker-compose.yml (profiles sim/real, x-g1pilot-base: network_mode host, Quellstand als Volume);
+% docs/40-T-Simulation.md „Container“ (Simulationscontainer ohne ROS); docs/04-T-Umgebungsvariablen.md (Kopf);
+% docs/23-T-Posen-und-Ablaeufe.md „Speicherort“; unitree_mujoco/scene_editor/README.md (scenes/)
+Der Simulationscontainer kommt ohne ROS~2 aus und nimmt die Stelle des Roboters ein: Das Profil für die Simulation
+startet ihn zusammen mit dem Container der Umgebung, das Profil für den Realbetrieb nur die Umgebung.
+In beiden Profilen bindet der Container der Umgebung denselben Quellstand ein, und alle Container nutzen das Netzwerk
+des Hosts, das die DDS-Kommunikation laut Konfiguration voraussetzt.
+Das Verhalten stellen Umgebungsvariablen ein, deren Änderung einen Neustart, aber keinen Neubau der Images erfordert,
+und Daten wie Posen, Abläufe und Szenen liegen außerhalb der Container.
+Images und Startmenü beschreibt Abschnitt~\ref{sec:bereitstellung}, die Inbetriebnahme bewertet
+Abschnitt~\ref{sec:eval_bedienaufwand}.
+
+% Kann
+Container lösen nicht jede Frage der Reproduzierbarkeit und des Zeitverhaltens.
+Builds eines Dockerfiles sind nicht zwingend bitweise identisch \cite{Boettiger2015}\ev{Boettiger2015.10}, und
+Container werden wie native Anwendungen vom Scheduler des Hosts eingeplant \cite{Struhar2020}\ev{Struhar2020.03},
+dessen Standard-Linux-Kernel keine zeitlichen Garantien gibt \cite{Struhar2020}\ev{Struhar2020.04}.

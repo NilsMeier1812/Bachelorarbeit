@@ -1,0 +1,52 @@
+% ======================================================================
+% Kap. 6 – Abbildungen (AP1). Entwurf für die Zusammenführung in Kapitel/06_Konzept.tex (AP8).
+% Jede Abbildung wird im Fließtext VOR dem Float mit \ref eingeführt und danach erläutert
+% (CLAUDE.md "Nie ohne Textbezug"); die figure-Umgebung steht direkt nach dem Absatz mit dem ersten Verweis.
+% Alle Grafiken: eigene Darstellung (keine Quellenangabe in der Caption), Stil ba-grafik.tex, nicht skaliert.
+% Die Datenbasis jeder Grafik steht als Kommentar am Anfang ihrer Datei in Bilder/tikz/.
+% ======================================================================
+
+% ---- 6.2.1 Komponenten und Datenflüsse (Kern) -------------------------------------------------
+% Text davor: Abbildung~\ref{fig:architektur}, von oben nach unten durchgehen.
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/architektur-gesamt}
+  \caption[Gesamtarchitektur der Umgebung]{Gesamtarchitektur der Umgebung. Die Bedienwege senden Ziele an die Funktionsknoten, die über die Herstellerschnittstelle wahlweise die Simulation oder den realen Roboter ansprechen.}
+  \label{fig:architektur}
+\end{figure}
+
+% ---- 6.3.1 Betriebszustände und Übergänge (Kern) ----------------------------------------------
+% Text davor: Abbildung~\ref{fig:betriebszustaende}, zusammen mit tab:haltstufen.
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/betriebszustaende}
+  \caption[Betriebszustände und Übergänge]{Betriebszustände und Übergänge der Umgebung. Das abstrakte Diagramm gilt für Simulation und Realbetrieb; in der Simulation dämpft der Not-Halt auch die Beine, und der Voll-Notaus wirkt wie der Not-Halt.}
+  \label{fig:betriebszustaende}
+\end{figure}
+
+% ---- 6.3.3 Übergabe der Arme (Kann) -----------------------------------------------------------
+% Text davor: Abbildung~\ref{fig:armuebergabe}, schematisch ohne Messwerte; ein gemessener Verlauf gehört nach Kap. 8.
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/armuebergabe}
+  \caption[Übernahme und Rückgabe der Arme]{Schematischer Zeitverlauf der Übernahme und der Rückgabe der Arme am realen Roboter. Das Gewicht blendet zwischen dem Onboard-Regler und der eigenen Armregelung über; die Verläufe sind qualitativ und enthalten keine Messwerte.}
+  \label{fig:armuebergabe}
+\end{figure}
+
+% ---- 6.4.3 Posen und Abläufe (Kann) -----------------------------------------------------------
+% Text davor: Abbildung~\ref{fig:posen_ablaeufe}.
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/posen-ablaeufe}
+  \caption[Datenmodell der Posen und Abläufe]{Datenmodell der Posen und Abläufe. Posen und relative Bewegungen sind die Bausteine eines Ablaufs; jeder Schritt der Ausführung durchläuft wie ein einzelnes Ziel die Planung und die Kollisionsprüfung der Armregelung.}
+  \label{fig:posen_ablaeufe}
+\end{figure}
+
+% ---- 6.5.1 Andockpunkte für externe Projekte (zusätzlich zum Plan, Ergänzung zu tab:andockpunkte) -----
+% Text davor: Abbildung~\ref{fig:andockpunkte}; rein konzeptionell, bisher ist kein externes Projekt angebunden (N10).
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/andockpunkte-ebenen}
+  \caption[Ebenenmodell der Andockpunkte]{Ebenenmodell der Andockpunkte für externe Projekte. Je tiefer ein Projekt andockt, desto mehr Freiheit hat es und desto weniger Schutzmechanismen der Umgebung wirken; Daten lassen sich unabhängig von der Ebene ergänzen.}
+  \label{fig:andockpunkte}
+\end{figure}

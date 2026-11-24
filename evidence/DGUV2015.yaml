@@ -98,3 +98,21 @@ belege:
     kernaussage: "Das Literaturverzeichnis nennt DIN EN ISO 10218-1 \"Industrieroboter – Sicherheitanforderungen – Teil 1: Roboter\" (ISO 10218-1:2011) in der Deutschen Fassung EN ISO 10218-1:2011."
     quelle: exzerpt
     kommentar: "Kap. 3.4 (L18); Normbezug Ausgabe 2011; Teil 2 (Robotersysteme und Integration) steht direkt darunter als DIN EN ISO 10218-2 (ISO 10218-2:2011). Schreibweise 'Sicherheitanforderungen' im Original. Die DGUV-Schrift selbst (Januar 2015) referenziert die Ausgaben von 2011; ob neuere Ausgaben gelten, ist hier nicht belegt."
+  - id: DGUV2015.17
+    seite: "24"
+    zitat: "Die EN ISO 10218-1 fordert im Anhang B vom Roboterhersteller Angaben zu Anhaltezeit und Anhalteweg. Diese Informationen werden vor allem zur Berechnung des Sicherheitsabstands bei der Anwendung von Schutzeinrichtungen benötigt."
+    kernaussage: "Laut DGUV fordert EN ISO 10218-1 (Anhang B) vom Roboterhersteller Angaben zu Anhaltezeit und Anhalteweg; sie dienen vor allem zur Berechnung des Sicherheitsabstands."
+    quelle: exzerpt
+    kommentar: "Kap. 5.2 A5/K5.3 (L17): Norm fordert Angabe/Messung der Anhaltezeit, keinen Grenzwert; gilt für Industrieroboter"
+  - id: DGUV2015.18
+    seite: "24"
+    zitat: "Als Anhaltezeit wird die Gesamtzeit vom Einleiten eines Stopps bis zum Stillstand der Roboterachsen verstanden."
+    kernaussage: "Anhaltezeit ist die Gesamtzeit vom Einleiten eines Stopps bis zum Stillstand der Roboterachsen."
+    quelle: exzerpt
+    kommentar: "Kap. 5.2 A5 (L17): Definition Anhaltezeit"
+  - id: DGUV2015.19
+    seite: "25"
+    zitat: "Die Anhaltezeit setzt sich zusammen aus der Reaktionszeit und der Bremszeit. Die Reaktionszeit ist abhängig von der Übertragungszeit, der Verarbeitungszeit innerhalb der Steuerung und den Schaltzeiten von Relais, Schützen und Bremslüftern."
+    kernaussage: "Die Anhaltezeit besteht aus Reaktionszeit und Bremszeit; die Reaktionszeit hängt von Übertragungszeit, Verarbeitungszeit in der Steuerung und Schaltzeiten ab."
+    quelle: exzerpt
+    kommentar: "Kap. 5.2 A5 K5.3/K5.4: Aufteilung Reaktionszeit (misst K5.3 bis zum Befehl) und Bremszeit"
