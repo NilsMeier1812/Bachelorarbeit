@@ -187,6 +187,7 @@ Gliederung seit 2026-10-30 (mit Nils erarbeitet, Muster [BA-K]): Anforderungen A
 | „ergibt sich“, „Aus der Betrachtung von xy folgt…“ | „resultieren“, s. K8 |
 | Betonung von „technischen Herausforderungen“/Anwendungsnähe | wissenschaftliche Qualität, allgemeingültige, übertragbare Erkenntnisse betonen |
 | Wörtliche Zitate (häufig) | selten, pointiert; besser Meinungen bewerten und weiterentwickeln |
+| Semikolon (;) und Gedankenstrich (— bzw. `---`, auch – als Satzeinschub) im Fließtext | zwei Sätze, Komma oder Doppelpunkt (Nils, 24.11.2026, §12). Bis-Strich in Bereichen (3–5 S., 6.2–6.5) bleibt |
 
 ### 4.4 Begriffe & Abkürzungen [CS 1.6, 1.9.3, LF 2.3]
 - Fachbegriffe **konsistent** in Wahl und Schreibweise (✗ „3D-Druck“/„3D Druck“/„3-D-Druck“; immer „CAD-Modell“). Kein Ersatz durch unpassende Synonyme.
@@ -400,6 +401,7 @@ Dimensions, FAU-Katalog (VPN), Google Scholar (+ Alerts), Scopus, Web of Science
 - 2026-11-11 (Nils): Autorennamen als Satzsubjekt im Fließtext („Collins et al. vergleichen …“, „laut Ayala et al. …“) **möglichst vermeiden**, weil sie den Lesefluss stören. Aussagen sachlich formulieren, die Quelle steht im `\cite{}`. **Nicht verboten:** An einzelnen Stellen, wo die Nennung wirklich Sinn macht (z. B. ein Ansatz wird als Arbeit einer Gruppe eingeführt, Abgrenzung zweier Positionen, Selbstaussage der Entwickler), ist sie in Ordnung – nur nicht als Standardmuster.
 - **2026-11-24 Nils, Einstiegssatz:** Erster Satz jedes Kapitels/Abschnitts fasst den Inhalt in einem Satz als Aussage zusammen, wo es sich natürlich anbietet; nie „Im folgenden Kapitel geht es um …“, nie erzwungen (§4.2).
 
+- **2026-11-24 Nils, Satzzeichen:** Keine Semikolons und keine Gedankenstriche (Em-Dash, auch Halbgeviertstrich als Einschub) im Fließtext, auch wo ein Semikolon sprachlich passt. Stattdessen zwei Sätze, Komma oder Doppelpunkt. Der Bis-Strich in Zahlen- und Kapitelbereichen bleibt (§4.3). Gilt für neue Texte und beim Überarbeiten bestehender Kapitel.
 ---
 
 ## 13. Praxis aus gut bewerteten FAPS-Bachelorarbeiten ([BA-K], [BA-L])

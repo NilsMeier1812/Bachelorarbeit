@@ -151,6 +151,9 @@ vom ersten Wort der Einleitung bis zum letzten Wort vor dem Literaturverzeichnis
 **Ziel ca. 70 Seiten**. Budget je Kapitel: `review/seitenbudget.md` (Nils, 24.11.). Entwürfe bewusst etwas länger als
 das Kapitelziel (etwa +20–40 %, bei 7 S. mindestens 8–9), damit Nils auswählt; Gesamtziel trotzdem im Blick. Richtwerte,
 keine harte Grenze je Kapitel. Nicht das Mehrfache schreiben.
+**Gliederung ist Orientierung (Nils, 24.11.):** Alles, was noch nicht fertig geschrieben ist, darf sich ändern, auch
+grundlegend (Inhaltsverzeichnis, Zuschnitt und Reihenfolge der Kapitel, Seitenbudget). Kein Auftrag zum Umbauen, aber
+ausdrücklich erlaubt; größere Umbauten mit kurzer Begründung Nils vorschlagen.
 
 ### Absprachen mit der Betreuerin (23.11.2026)
 
@@ -296,6 +299,8 @@ GitHub empfiehlt Repos unter ca. 1–5 GB; bei großen Mengen Nils auf die Grö�
 2. Jede Aussage bekommt Zitat + `\ev{}`. Fehlt ein Beleg: `\qf{}`. Nicht ausweichen auf Eigenwissen.
    Erster Satz jedes Kapitels/Abschnitts: wo es passt, den Inhalt in einem Satz als Aussage zusammenfassen,
    nie „Im folgenden Kapitel geht es um …“, nie erzwingen (Nils, 24.11.; `Richtlinien-BA.md` §4.2).
+   Keine Semikolons und keine Gedankenstriche im Fließtext, stattdessen zwei Sätze, Komma oder Doppelpunkt
+   (Nils, 24.11.; `Richtlinien-BA.md` §4.3, §12). Bis-Strich in Bereichen (3–5 S.) bleibt.
 3. Liste am Ende auf, welche `\qf{}`/`\pruefen{}` du gesetzt hast und welche Literatur fehlen könnte
    (als Suchhinweis für Nils, **nicht** als konkrete Quellenangabe).
 

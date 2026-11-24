@@ -6,8 +6,7 @@
 \label{chap:konzept}
 % Basis: Plan review/plan-kap6.md Abschnitt 5 „Kapiteleinleitung“; Grundsätze abgeleitet aus G1@25d5c1a
 % g1pilot/docs/02-T-Architektur.md („Sim ↔ Real: Ein Schalter“), docs/10-T-Demo-GUI.md („Grundsatz“), docs/20-T-Arm-Manipulation.md („Laufzeit-Gate“).
-Dieses Kapitel begründet, wie die Umgebung angelegt ist, um die Anforderungen A1 bis A7 aus Tabelle~\ref{tab:anforderungen} zu erfüllen.
-Drei Grundsätze ziehen sich durch alle Bausteine \pruefen{Wortlaut der Entwurfsgrundsätze von Nils bestätigen (N2)}: Simulation und Roboter teilen eine Herstellerschnittstelle, Bewegung und Schutz liegen in wenigen Funktionsknoten, die niemand umgeht, und jede Funktion ist zuerst in der Simulation ausführbar.
+Die Umgebung ist entlang der Anforderungen A1 bis A7 aus Tabelle~\ref{tab:anforderungen} nach drei Grundsätzen angelegt, die sich durch alle Bausteine ziehen \pruefen{Wortlaut der Entwurfsgrundsätze von Nils bestätigen (N2)}: Simulation und Roboter teilen eine Herstellerschnittstelle, Bewegung und Schutz liegen in wenigen Funktionsknoten, die niemand umgeht, und jede Funktion ist zuerst in der Simulation ausführbar.
 
 % Code-Stand 6.1: G1@25d5c1a; übernommener Stand = G1@6c0f331 ohne die Simulationsdateien
 % (docker-compose.sim.yaml, docker/Dockerfile.sim, docker/Dockerfile.mujoco, launch/bringup_sim.launch.py,
@@ -42,8 +41,9 @@ Der Stand enthält zudem einen Armregler mit inverser Kinematik und steht unter 
 %      README.md „Instructions“ (Start über colcon build, ros2 launch).
 %  A1/A7: keine HTTP-/Socket-Schnittstelle (grep ohne Treffer); Posen nur Grundstellung „home“ in config/config.yaml;
 %      Hände nur manipulation/dx3_hand.py.
+G1Pilot bringt einen Teil der benötigten Funktionen mit, weist gemessen an A1 bis A7 aber Mängel auf und lässt Funktionen vermissen.
 Übernommen sind Armregelung, Zielmarker, die Anbindung des Onboard-Reglers, Roboterzustand, Joystick und ein Pfadplaner.
-Gemessen an A1 bis A7 zeigt die eigene Analyse Mängel am Vorhandenen und fehlende Funktionen:
+Im Einzelnen zeigt die eigene Analyse:
 \begin{itemize}
   \item \textbf{Mängel (A2, A5, A6):} Eine physikalische Simulation fehlt, und Stehen und Gehen bietet allein der Onboard-Regler. Die Arme werden ohne Übergang übernommen und abgegeben, eine Kollisionsprüfung fehlt, und der einzige Not-Halt dämpft auch die Beine. Die Oberfläche zeigt alle Funktionen zugleich und keinen Roboterzustand.
   \item \textbf{Fehlende Funktionen (A1, A7):} Es fehlen eine Schnittstelle ohne ROS~2, ein Posenspeicher und die Anbindung der Inspire-Hände (Abschnitt~\ref{sec:g1_hardware}).
@@ -56,6 +56,8 @@ Daraus folgen die Handlungsfelder der Abschnitte~\ref{sec:architektur} bis~\ref{
 % Stufen-Zuordnung nach Plan Abschnitt 5, 6.1.3 und tab:eigenleistung (AP2).
 % Eigene Zählung 20.11.2026 an G1@25d5c1a (nicht im Text, bei Bedarf ergänzen): 26.398 Zeilen in g1pilot/g1pilot/**/*.py,
 % 13.367 Zeilen in g1pilot/test/**/*.py, 597 Funktionen „def test_“ in g1pilot/test (deckt sich mit der Zählung vom 16.11. im Plan).
+% Einstiegssatz (24.11.2026): „etwa ein Zehntel“ aus NOTICE.md (s. o.); Stufen-Zählung aus tab:eigenleistung (1x übernommen, 2x erweitert, 7x neu).
+Von den Programmzeilen der Umgebung stammt nur noch etwa ein Zehntel aus G1Pilot, die meisten Funktionsbereiche sind erweitert oder neu.
 Tabelle~\ref{tab:eigenleistung} grenzt die Eigenleistung nach Funktionsbereichen ab und ordnet jeden Bereich einer der Stufen \emph{übernommen}, \emph{erweitert} (Grundgerüst aus G1Pilot) oder \emph{neu} zu.
 
 % ----------------------------------------------------------------------
@@ -118,7 +120,7 @@ Fremdbestandteile sind außerdem der Simulator unitree\_mujoco auf Basis von uni
 \section{Gesamtarchitektur}
 \label{sec:architektur}
 % [A2, F1]
-Dieser Abschnitt zeigt, wodurch derselbe Steuerungscode in der Simulation und am realen G1 läuft (Forschungsfrage F1).
+Derselbe Steuerungscode läuft in der Simulation und am realen G1, weil beide dieselbe Herstellerschnittstelle bedienen (Forschungsfrage F1).
 Eine Ausnahme bildet die Fortbewegung.
 
 \subsection{Komponenten und Datenflüsse}
@@ -222,6 +224,7 @@ In der Simulation hängt das Zeitverhalten vom Takt des Simulators ab (A3, Absch
 \subsection{Fortbewegungspfade in Simulation und Realbetrieb}
 \label{sec:fortbewegungspfade}
 % Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, „Warum zwei völlig verschiedene Implementierungen?“
+Stehen und Gehen laufen in der Simulation und am realen G1 über verschiedene Regler, die dieselben Befehle annehmen.
 Am realen G1 übernimmt der eingebaute, nicht quelloffene Laufregler des Herstellers \cite{Hu2026}\ev{Hu2026.01,Hu2026.02}, der Onboard-Regler, Stehen und Gehen.
 Der Simulator unitree\_mujoco unterstützt dagegen nur die Low-Level-Entwicklung \cite{UnitreeMujoco}\ev{UnitreeMujoco.02}, sodass dieser Regler in der Simulation fehlt.
 
@@ -241,22 +244,22 @@ Aussagen über das Gehen in der Simulation gelten nur für den Ersatzregler, nic
 \section{Sicherheitskonzept}
 \label{sec:sicherheitskonzept}
 % [A5, F3]
-Nach A5 soll keine Eingabe am realen Roboter eine Bewegung auslösen, die zu schnell ist oder den Roboter mit sich selbst kollidieren lässt.
-Dazu prüft die Umgebung jedes Ziel, bevor sie es ausführt.
+Das Sicherheitskonzept besteht aus Halt-Stufen, gestaffelten Schutzmechanismen und Regeln für die Übergabe der Arme.
+Nach A5 soll keine Eingabe am realen Roboter eine Bewegung auslösen, die zu schnell ist oder den Roboter mit sich selbst kollidieren lässt; dazu prüft die Umgebung jedes Ziel, bevor sie es ausführt.
 Außerdem soll ein Halt den stehenden Roboter nicht zu Fall bringen.
-Das Konzept dafür besteht aus Halt-Stufen, gestaffelte Schutzmechanismen und Regeln für die Übergabe der Arme.
 
 \subsection{Betriebszustände und Übergänge}
 \label{sec:zustaende}
 
 % Art G: Leitgedanke "aktiver sicherer Zustand", Rückverweis 3.4.3
+Die Umgebung hält in Stufen an, statt dem Roboter die Energie zu entziehen, und erst die letzte Stufe dämpft auch die Beine.
 Anders als in der klassischen Maschinensicherheit \cite{Ding2026}\ev{Ding2026.02} führt Energieentzug beim balancierenden Humanoiden zu einem unkontrollierten Sturz, der selbst eine Gefährdung ist \cite{Ding2026}\ev{Ding2026.03} (Abschnitt~\ref{sec:sicherheit_zweibeiner}).
 Sein sicherer Zustand ist nach einem nicht begutachteten Preprint ein aktiv geregelter Zustand \cite{Ding2026}\ev{Ding2026.01}.
 
 % Art G (Ding2026.08/.09, DINENISO13850.02) + Art E (Folgerung für die Umgebung)
 % Basis: G1@25d5c1a docs/51-T-Notaus.md, Abschnitt „Wer was tut“; docs/50-A-Echter-Roboter.md, Abschnitt „Notaus-Reflex“
 In einer Fallstudie mit dem G1 schalten die Autoren deshalb nicht ab, sondern befehlen einen kontrollierten Halt im Stand, bei dem die Regelung zum Balancieren erhalten bleibt \cite{Ding2026}\ev{Ding2026.05,Ding2026.08}.
-Nach demselben Gedanken hält die Umgebung in Stufen an: Der Not-Halt entlastet die Arme und lässt die Beine unter der Regelung des Onboard-Reglers stehen.
+Nach demselben Gedanken entlastet der Not-Halt der Umgebung die Arme und lässt die Beine unter der Regelung des Onboard-Reglers stehen.
 
 % Art E: Halt-Stufen als Diagramm (vereinfacht nach Rückmeldung Nils 23.11.2026, P12/P13; ersetzt Zustandsdiagramm und tab:haltstufen).
 % Basis: G1@25d5c1a docs/51-A-Notaus.md, Abschnitte „Stufen“, „In der Simulation“, „Quittieren“; docs/51-T-Notaus.md, Abschnitt „Wer was tut“;
@@ -284,8 +287,8 @@ Ausgelöst wird er an der Bedienoberfläche oder am Gamepad.
 
 % Art E: betrachtete Gefährdungen (eigene Zusammenstellung, keine Gefährdungsbeurteilung, N9) und Wirkprinzipien
 % Basis: G1@25d5c1a docs/50-A-Echter-Roboter.md, Abschnitt „E · Guarantees, die bereits im Code stehen“; docs/51-A-Notaus.md
+Gegen Stoß, Kollision, Sturz, Loslaufen und Ausfälle staffelt die Umgebung ihre Schutzmechanismen nach vier Wirkprinzipien (Tabelle~\ref{tab:schutzmechanismen}).
 Der Not-Halt allein genügt für A5 nicht, weil er erst wirkt, nachdem eine Person die Gefährdung erkannt hat.
-Gegen Stoß, Kollision, Sturz, Loslaufen und Ausfälle staffelt die Umgebung ihre Mechanismen nach vier Wirkprinzipien (Tabelle~\ref{tab:schutzmechanismen}).
 \pruefen{Begründung für die Staffelung nach vier Wirkprinzipien von Nils bestätigen (in der G1-Doku nicht als Begründung dokumentiert)}
 
 % ----------------------------------------------------------------------
@@ -399,9 +402,10 @@ Die unabhängige Schutzebene bilden deshalb im Realbetrieb eine zweite Person, d
 
 % Art E (eigene Beobachtung) + Rückverweis 2.3.3; Herstellerbeleg fehlt (L24)
 % Basis: G1@25d5c1a docs/20-T-Arm-Manipulation.md, Abschnitte „rt/arm_sdk-Gewichtsrampe“ und „Übergabe an den Onboard-Regler“
+Für die Übergabe der Arme zwischen Onboard-Regler und Umgebung legt die Umgebung vier Regeln fest.
 Im Realbetrieb regelt der Onboard-Regler die Arme, bis die Umgebung sie über ein Überblendgewicht übernimmt (Abschnitt~\ref{sec:g1_armsdk}).
 \qf{Herstellerdokumentation zur Überblendung per Gewicht (arm\_sdk) und ihrer Wirkung auf die Taille; nicht in Zotero (L24)}
-Weil jeder Wechsel des Gewichts den Arm in die Pose des anderen Reglers zieht, legt die Umgebung für vier Fälle je eine Regel fest; Abbildung~\ref{fig:armuebergabe} zeigt die ersten beiden schematisch.
+Die Regeln sind nötig, weil jeder Wechsel des Gewichts den Arm in die Pose des anderen Reglers zieht; Abbildung~\ref{fig:armuebergabe} zeigt die ersten beiden schematisch.
 
 \begin{figure}[htbp]
   \centering
@@ -432,8 +436,8 @@ Einzelne Bedienschritte stehen in Anhang~\ref{anh:dokumentation}.
 
 \subsection{Leitgedanken}
 \label{sec:leitgedanken}
-Teleoperation mit Motion-Capture, VR-Brillen oder Exoskeletten ist teuer und ortsgebunden \cite{Fu2024}\ev{Fu2024.01}, das System des Herstellers verlangt das Lesen der Dokumentation \cite{UnitreeXRTeleop}\ev{UnitreeXRTeleop.02}.
-Für Personen ohne Vorerfahrung setzt die Umgebung deshalb auf eine Bedienoberfläche am PC und Standard-Eingabegeräte nach fünf Leitgedanken.
+Für Personen ohne Vorerfahrung setzt die Umgebung auf eine Bedienoberfläche am PC und Standard-Eingabegeräte, gestaltet nach fünf Leitgedanken.
+Teleoperation mit Motion-Capture, VR-Brillen oder Exoskeletten ist dagegen teuer und ortsgebunden \cite{Fu2024}\ev{Fu2024.01}, und das System des Herstellers verlangt das Lesen der Dokumentation \cite{UnitreeXRTeleop}\ev{UnitreeXRTeleop.02}.
 
 % Basis: G1@25d5c1a docs/10-A-Demo-GUI.md „Ziel“, „1 · Modus (oben)“ (Zustände der Kacheln, Startleiste, Bodenkontakt), „2 · Steuerung (Mitte)“;
 % docs/03-A-Startmenue.md „Optionen“ (Zeile Sicherheit); docs/04-T-Umgebungsvariablen.md (G1_REAL_CONFIRM)
@@ -448,7 +452,7 @@ Viertens wirkt der Not-Halt auf jedem Bedienweg, und fünftens bewegt sich im Re
 \subsection{Bedienwege und geteilter Bedienzustand}
 \label{sec:bedienwege_konzept}
 % Basis: G1@25d5c1a docs/10-T-Demo-GUI.md „Grundsatz“; docs/12-A-Handy.md (Kopf: „Der PC rechnet weiter alles“)
-Schnittstellen sind das Mittel der Interaktion zwischen Nutzer und Roboter \cite{Darvish2023}\ev{Darvish2023.04}; die Umgebung bietet mehrere an, die nur Ziele senden, sodass die Schutzmechanismen für alle gleich gelten.
+Die Umgebung bietet mehrere Bedienwege an, die nur Ziele senden, sodass die Schutzmechanismen für alle gleich gelten; als Schnittstellen sind sie das Mittel der Interaktion zwischen Nutzer und Roboter \cite{Darvish2023}\ev{Darvish2023.04}.
 Tabelle~\ref{tab:bedienwege} nennt je Bedienweg den Einsatz und die Einschränkungen \pruefen{Zielgruppe je Bedienweg (Spalte Einsatz) von Nils bestätigen}; die einzelnen Bedienschritte stehen in Anhang~\ref{anh:dokumentation}.
 
 % ----------------------------------------------------------------------
@@ -508,9 +512,9 @@ Die Anbindung beschreibt Abschnitt~\ref{sec:bedienwege}.
 \subsection{Posen und Abläufe als aufgabenunabhängige Bausteine}
 \label{sec:posen_ablaeufe}
 % Basis (Alternativen und Entscheidung): Plan Kap. 6, Abschnitt 5, 6.4.3; Umsetzung G1@25d5c1a docs/23-T-Posen-und-Ablaeufe.md
-Nach A1 soll sich eine Aufgabe ohne Programmierung einrichten lassen; ein Skript scheidet aus, weil Roboterprogrammierung neben Programmierkenntnissen Wissen aus mehreren Disziplinen erfordert \cite{Ajaykumar2021}\ev{Ajaykumar2021.02}.
+Die Umgebung beschreibt eine Aufgabe als Daten aus festen Bausteinen, damit sie sich nach A1 ohne Programmierung einrichten lässt.
+Ein Skript scheidet aus, weil Roboterprogrammierung neben Programmierkenntnissen Wissen aus mehreren Disziplinen erfordert \cite{Ajaykumar2021}\ev{Ajaykumar2021.02}.
 Weitere Alternativen sind grafische Umgebungen wie Choregraphe \cite{Pot2009}\ev{Pot2009.06} und Lernen aus Demonstrationen \cite{Cheng2024}\ev{Cheng2024.01}.
-Die Umgebung beschreibt eine Aufgabe stattdessen als Daten aus festen Bausteinen.
 \pruefen{Gründe gegen grafische Programmierung und Lernen aus Demonstrationen von Nils}
 
 % Basis: G1@25d5c1a docs/23-A-Posen-und-Ablaeufe.md „Überblick“, „Pose speichern“; docs/23-T-Posen-und-Ablaeufe.md
@@ -538,9 +542,8 @@ Die Grenze sind feste Folgen ohne Verzweigungen oder Sensorbedingungen, deren Po
 \label{sec:erweiterungskonzept}
 % Umstrukturiert nach Betreuergespräch (Nils, 23.11.2026): Erweiterbarkeit wird nicht nachgewiesen,
 % sondern als Frage „Wie wird die Umgebung modular?“ gestellt; Antwort sind Container-Profile und Andockpunkte.
-Nach A7 soll die Umgebung als Grundlage weiterer Projekte dienen.
-Daraus folgt die Frage, wie sie sich modular aufbauen lässt, sodass Teile ausgetauscht oder ergänzt werden können, ohne den Rest anzupassen.
-Die Umgebung beantwortet sie auf zwei Wegen: Sie bietet externen Projekten Andockpunkte auf mehreren Ebenen, und sie gliedert sich selbst in Container, die sich zu Profilen zusammenstellen lassen.
+Die Umgebung ist auf zwei Wegen modular: Sie bietet externen Projekten Andockpunkte auf mehreren Ebenen, und sie gliedert sich selbst in Container, die sich zu Profilen zusammenstellen lassen.
+Dahinter steht die Frage, wie sich Teile austauschen oder ergänzen lassen, ohne den Rest anzupassen, denn nach A7 soll die Umgebung als Grundlage weiterer Projekte dienen.
 
 \subsection{Andockpunkte für externe Projekte}
 \label{sec:andockpunkte}
@@ -606,9 +609,9 @@ Auf der untersten Ebene laufen mit dem SDK entwickelte Programme auch in unitree
 \subsection{Modularisierung über Container-Profile}
 \label{sec:container_profile}
 % Basis: G1@25d5c1a docker-compose.yml (Dienste, Profile, gemeinsame Basis-Konfiguration); docs/40-T-Simulation.md „Container“
-Nach A6 und A7 soll die Umgebung auf neuen PCs laufen; eine native Installation setzt aber voraus, dass die Rechenumgebung der ursprünglichen Entwickler nachgebildet werden kann \cite{Boettiger2015}\ev{Boettiger2015.02}, und eine virtuelle Maschine gilt Kritikern als zu sehr eine Black Box \cite{Boettiger2015}\ev{Boettiger2015.05} (Abschnitt~\ref{sec:container}).
+Die Umgebung läuft in Containern, die sich zu zwei Profilen zusammenstellen lassen, weil sie nach A6 und A7 auf neuen PCs laufen soll.
+Eine native Installation setzt dagegen voraus, dass die Rechenumgebung der ursprünglichen Entwickler nachgebildet werden kann \cite{Boettiger2015}\ev{Boettiger2015.02}, und eine virtuelle Maschine gilt Kritikern als zu sehr eine Black Box \cite{Boettiger2015}\ev{Boettiger2015.05} (Abschnitt~\ref{sec:container}).
 % Begründung: Nils, 23.11.2026 (P21); Container laut docker-compose.yml: Profil sim = mujoco-sim + g1pilot-sim, Profil real = g1pilot-real.
-Die Umgebung läuft deshalb in Containern, die zwei Profile zusammenstellen.
 Im Simulationsprofil laufen ein Container mit der Simulation und einer mit der Umgebung.
 Im Realprofil entfällt der Simulationscontainer, sodass die im Realbetrieb nicht benötigte Simulation auch keine Rechenleistung belegt.
 % Basis: G1@25d5c1a docker-compose.yml (profiles sim/real, x-g1pilot-base: network_mode host, Quellstand als Volume);
