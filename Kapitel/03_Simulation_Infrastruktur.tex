@@ -55,7 +55,7 @@ Ein Simulator lässt sich auch danach bewerten, ob eine Methode, die in der Simu
 
 Als Zwischenstufe zwischen Simulation und realem Roboter dient der Vergleich zweier Simulatoren (Sim-to-Sim).
 Humanoid-Gym prüft in Isaac Gym trainierte Policies in einer zweiten Physiksimulation auf Robustheit und Generalisierung \cite{Gu2024}\ev{Gu2024.02}; dazu wird dieselbe Trajektorie in Trainings- und Testumgebung abgespielt und die Abweichung mit Kennzahlen wie dem MPJPE bewertet \cite{He2025}\ev{He2025.09}.
-Läuft derselbe Code unverändert in Simulation und Realität, gilt eine bestandene Sim-to-Sim-Prüfung als starkes Indiz für die Übertragbarkeit auf die Hardware \cite{Durrani2026}\ev{Durrani2026.03}.
+Läuft derselbe Code unverändert in Simulation und Realität, ist eine bestandene Sim-to-Sim-Prüfung nach Einschätzung der Autoren ein starkes Indiz für die Übertragbarkeit auf die Hardware \cite{Durrani2026}\ev{Durrani2026.03}.
 \qf{Definition und Messung des Echtzeitfaktors einer Physiksimulation – kein Beleg vorhanden}
 
 % ======================================================================
@@ -117,7 +117,7 @@ Neben MuJoCo setzt die Forschung zu Lauf- und humanoiden Robotern weitere Simula
 Die Zeilen der Tabelle~\ref{tab:simulatoren} unterscheiden sich vor allem im Einsatzzweck.
 Gazebo in der ersten Zeile verdankt seine Verbreitung auch der Schnittstelle zum Robot Operating System (ROS) \cite{Collins2021}\ev{Collins2021.05}.
 Die GPU-parallelen Simulatoren der fünften Zeile beschleunigen vor allem das Training: Aufgaben der Fortbewegung und Manipulation, die früher Tage auf Mehrrechnersystemen benötigten, lassen sich in Minuten bis Stunden auf einer einzelnen GPU lösen \cite{Zakka2025}\ev{Zakka2025.04,Zakka2025.05}.
-Selbst mit derselben Physik-Engine unterscheiden sich Simulatoren deutlich; als mögliche Gründe gelten unterschiedliche Voreinstellungen wie der Zeitschritt und die Implementierung \cite{Collins2019}\ev{Collins2019.07}.
+Selbst mit derselben Physik-Engine Bullet unterschieden sich in einem Vergleich die Ergebnisse zweier Simulatoren deutlich; als mögliche Gründe gelten unterschiedliche Voreinstellungen wie der Zeitschritt und die Implementierung \cite{Collins2019}\ev{Collins2019.07}.
 
 Für MuJoCo in der letzten Zeile liegen die meisten Vergleichsdaten vor.
 In einem Vergleich aus dem Jahr 2015 war MuJoCo auf robotikrelevanten Systemen am schnellsten und genauesten, wobei keine Engine durchgehend besser als alle anderen war \cite{Erez2015}\ev{Erez2015.26}; die Studie stammt allerdings von den Entwicklern von MuJoCo \cite{Erez2015}\ev{Erez2015.09}.
