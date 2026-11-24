@@ -98,24 +98,37 @@ Plan: `review/plan-kap6.md` (Fragen in Abschnitt 8).
 Plan zum Bearbeiten und Kommentieren: [Claude-Dokument Kapitelplan Kap. 7](https://claude.ai/artifact/TTAF3ZjZz9Esuakvih5DzC),
 Entscheidungen ganz oben (Antwort direkt unter den Punkt). Markdown-Stand vom 16.11. auf Branch `claude/project-thread-jepdj5`.
 
-**Entscheidungen** (zu jeder gibt es eine Empfehlung, „wie empfohlen“ genügt)
-- [ ] **E1 Gliederung:** 7.5 „Roboterhände“ mit eigenen Händen (7.5.2), `tab:bedienwege` nach 6.4.2, kein eigener
-      Sicherheitsabschnitt, Streamdeck entfällt. Einverstanden?
-- [ ] **E3 Bezug zum Quelltext:** keine Programm- und Dateinamen im Fließtext, dafür Zuordnungstabelle im Anhang?
-- [ ] **E4 Fester Code-Stand:** Ändert sich bis zur Abgabe noch etwas an Planer, Händen oder Bedienwegen? Dann Tag im
-      G1-Repo setzen (gleich mit Kap. 5).
-- [ ] **E6 Messwerte** aus der Technik-Doku nicht in Kap. 7, sondern für Kap. 8 neu messen?
-- [ ] **E8 Freigaben in `_Vorschläge`:** Zhao2026 (AGILE) und Mamou2009 (V-HACD) freigeben; die vier optionalen vom
+**Entscheidungen**
+- [x] **E1 Gliederung:** *wie empfohlen (24.11.)*
+- [x] **E2 Umfang:** *Seitenbudget 24.11.: 15 S. Endfassung inkl. Abbildungen, Entwurf 20–40 % darüber*
+- [x] **E3 Bezug zum Quelltext:** *keine Programm- und Dateinamen im Text, Funktionsnamen wie „der Armplaner“ sind ok (24.11.)*
+- [x] **E4 Fester Code-Stand:** *am Planer ändert sich vermutlich nichts, Branch „BA-Stable“ angelegt (24.11.), Abgleich läuft über den Koordinator*
+- [x] **E6 Messwerte:** *wie empfohlen, Kap. 8 misst neu (24.11.)*
+- [ ] **E8 Freigaben in `_Vorschläge`:** Zhao2026 (AGILE) und Mamou2009 (V-HACD) freigeben? Die vier optionalen vom
       16.11. (Lloyd 1982, RFC 2104 HMAC, Dijkstra 1959, Nocedal/Wright 2006) nur, wenn die Verfahrensnamen im Text
-      stehen sollen.
-- [ ] **E9 Smartphone:** nur das Prinzip (Kopplung, Prüfcode, Rollen, Zeitgrenzen), kein Protokolldetail?
+      stehen sollen. *Noch offen.*
+- [x] **E9 Smartphone:** *nur das Prinzip, keine Anleitung, keine echten Bedienschritte (24.11.)*
 
 **Angaben und Material**
-- [x] **E5 Unitree-Entwicklerdoku als PDF:** *Website mit Abrufdatum genügt (23.11.)*, siehe Kap. 6, N8 (gleiche Seiten). Für 7.2.1, 7.3.2, 7.4.1.
+- [ ] **E5 Unitree-Entwicklerdoku als PDF:** Zitieren ginge auch als Website, aber Belege (`\ev{}`) entstehen nur aus PDFs.
+      Deshalb bitte die Seiten als PDF speichern (G1 Basic Services, Arm-Schnittstelle, Sport/Loco-Dienste, gleiche Seiten
+      wie Kap. 6, N8) und ins Quellen-Repo `pdf/` laden. Für 7.2.1, 7.3.2, 7.4.1.
 - [ ] **E5 Szenen-Editor:** README des fremden Projekts `mujoco-scene-editor`, auf dem der eigene Editor aufbaut, als
       PDF ins Quellen-Repo; dann lege ich einen Software-Eintrag an.
 - [ ] **PDFs über die FAU:** Mamou2009 (V-HACD, IEEE) und Ma2017 (OpenHand, IEEE, schon freigegeben, PDF fehlt).
-- [ ] **E7 Bildschirmfotos** in hoher Auflösung nach `Bilder/`: Demo-Oberfläche (Pflicht) und eine Arbeitsplatz-Szene
-      in MuJoCo neben RViz (optional).
-- [ ] **Szenen:** Welche mitgelieferte Szene (A5, AP_1 bis AP_3) bildet welchen realen Arbeitsplatz ab?
-- [ ] **Haken-Hand wiegen:** Masse im Hand-Profil ist mit 0,15 kg nur geschätzt.
+- [x] **Szenen:** *keine Szene bildet einen echten Arbeitsplatz ab, im Text meist AP_1 verwenden, weil am vollständigsten (24.11.)*
+- [x] **Haken-Hand:** *rund 110 g gesamt, nicht ganz sicher (24.11.), im Text als Schätzwert kennzeichnen*
+
+**E7 Bildschirmfotos und Fotos für Kap. 7** (24.11., alles in einem Rutsch). Bitte in hoher Auflösung nach
+`Bilder/kap7/` legen (Bildschirmfotos in voller Größe, Zuschnitt und Beschriftung mache ich), Dateiname wie in Klammern.
+Pflicht wird sicher verwendet, Reserve nur, wenn Platz ist.
+- [ ] **Pflicht: Demo-GUI Gesamtansicht** in der Simulation mit AP_1, Roboter steht (`demo-gui-gesamt.png`). Für 7.6.1.
+- [ ] **Pflicht: Demo-GUI mit Not-Halt und Voll-Notaus** gut sichtbar, gern im Realbetrieb (`demo-gui-notaus.png`). Für 7.6.1.
+- [ ] **Pflicht: MuJoCo-Fenster mit Szene AP_1** und daneben RViz mit demselben Weltmodell (`szene-mujoco-rviz.png`). Für 7.2.3.
+- [ ] **Pflicht: Foto des realen G1 mit Inspire-Hand und mit Haken-Hand** (`hand-inspire.jpg`, `hand-haken.jpg`). Für 7.5.
+- [ ] **Reserve: Startmenü** mit den Umgebungs-Kacheln (`startmenue.png`). Für 7.1.
+- [ ] **Reserve: Demo-GUI Ansicht „Controller“** mit der Gamepad-Belegung (`demo-gui-controller.png`). Für 7.6.2.
+- [ ] **Reserve: Smartphone-Bedienung**, ein Bildschirm mit verbundenem Roboter (`smartphone.png`). Für 7.6.3.
+- [ ] **Reserve: Dialog „Neue Hand anlegen“** mit erkannter Montage (`hand-anlegen.png`). Für 7.5.2.
+- [ ] **Reserve: Szenen-Editor** mit geöffneter Szene AP_1 (`szenen-editor.png`). Für 7.2.3.
+- [ ] **Reserve: Planer in RViz**, Hand fährt um ein Hindernis, geplante Bahn sichtbar (`planer-bahn-rviz.png`). Für 7.4.3.
