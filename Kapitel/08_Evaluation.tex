@@ -97,7 +97,7 @@ Die Zählung selbst zeigt nicht, dass das Verhalten am Roboter dem in der Simula
 Ein festes Protokoll prüft jede Grundfähigkeit nacheinander in der Simulation und am realen G1, jeweils mit derselben Bedienung über die Bedienoberfläche.
 Am Roboter hängt der G1 an einem Kran, und eine zweite Person hält die Fernbedienung des Herstellers \pruefen{Sicherung so durchgeführt? Kran, zweite Person, Fernbedienung bestätigen}.
 Das Protokoll umfasst Verbinden, Übernehmen und Zurückgeben der Arme, Anfahren gespeicherter Posen, Greifen, Gehen, Not-Halt und Voll-Notaus.
-Es wurde dreimal durchlaufen \pruefen{Anzahl und Daten der Durchläufe (Kap. 5: 3 Wiederholungen)}.
+Es wird dreimal durchlaufen \pruefen{Anzahl und Daten der Durchläufe (Kap. 5: 3 Wiederholungen), danach ins Präteritum setzen}.
 
 \paragraph*{Ergebnisse}
 Tabelle~\ref{tab:v2_protokoll} fasst die Durchläufe zusammen.
@@ -131,7 +131,7 @@ Ein Kriterium unterscheidet sich bewusst: Nach dem Not-Halt bleibt der Roboter s
 \subsection{Anwendungsfall Werbevideo}
 \label{sec:eval_video}
 % V3, sparsam (Betreuerin 23.11.): ein Absatz, höchstens ein Standbild, kein Hauptnachweis. Angaben fehlen (Kap. 5 N10, Kap. 8 M5).
-Für ein Werbevideo trug der G1 eine Box von einem Ort zum anderen, eingerichtet und erprobt in der Simulation und anschließend am Roboter ausgeführt \pruefen{N10/M5: wann gedreht, welche Funktionen genutzt (Posen, Ablauf, Gehen, Hände), was für den Dreh angepasst werden musste}.
+Für ein Werbevideo trug der G1 eine Box von einem Ort zum anderen \pruefen{N10/M5: wann gedreht, ob vorher in der Simulation eingerichtet, welche Funktionen genutzt (Posen, Ablauf, Gehen, Hände), was für den Dreh angepasst werden musste}.
 Der Dreh zeigt die Umgebung in einem Einsatz außerhalb eines Prüfprotokolls und ergänzt damit V2, ersetzt aber keine Messung.
 \pruefen{M5/M6: Standbild aus dem Video als Abbildung, ggf. mit QR-Code auf das Video}
 
@@ -398,7 +398,7 @@ Tabelle~\ref{tab:modular} fasst den Aufbau am Code-Stand zusammen.
         \tabkopfzeile \tabkopf{Einheit} & \tabkopf{Inhalt} & \tabkopf{Profil bzw. Ebene}\\\hline
         Container Simulation & Physiksimulation und Nachbildung der Herstellerschnittstelle & Simulation\\\hline
         Container Umgebung (Simulation) & alle Funktionsknoten, Ersatzregler der Fortbewegung & Simulation\\\hline
-        Container Umgebung (Realbetrieb) & alle Funktionsknoten ohne Ersatzregler & Realbetrieb\\\hline
+        Container Umgebung (Realbetrieb) & alle Funktionsknoten, ohne Laufzeitbibliothek des Ersatzreglers & Realbetrieb\\\hline
         Andockpunkt Daten & Szenen, Hände, Policies, Posen, Abläufe & oberste Ebene\\\hline
         Andockpunkt HTTP & Zielposen und Gelenkwinkel der Arme & zweite Ebene\\\hline
         Andockpunkt ROS~2 & Ziele auf den Kanälen der Bedienwege & dritte Ebene\\\hline
@@ -409,8 +409,8 @@ Tabelle~\ref{tab:modular} fasst den Aufbau am Code-Stand zusammen.
 %     docker/Dockerfile.real Kopf („Basis = Dockerfile.sim MINUS onnxruntime (loco_sim laeuft nur in der Sim)“).
 %     Andockpunkte: Kap. 6 tab:andockpunkte (Stand 6a40e47). Zusatz-Compose-Dateien gpu/nvidia/ps4 als Überlagerungen nicht als eigene Einheit gezählt.
 
-Ein Container kann auf einem anderen aufbauen, was die modulare Wiederverwendung erleichtert \cite{Boettiger2015}\ev{Boettiger2015.11}.
-In der Umgebung nutzen beide Container der Umgebung denselben Aufbau, das Image für den Realbetrieb lässt nur den Ersatzregler weg.
+Ein Docker-Image stellt die gesamte benötigte Software bereits installiert bereit und löst so das Problem der Abhängigkeiten \cite{Boettiger2015}\ev{Boettiger2015.06}.
+Die beiden Images der Umgebung sind gleich aufgebaut, dem Image für den Realbetrieb fehlt nur die Laufzeitbibliothek des Ersatzreglers.
 Ob sich ein externes Projekt tatsächlich ohne Änderung am Kern anbinden lässt, ist damit nicht gezeigt, dafür steht kein Projekt zur Verfügung (Abschnitt~\ref{sec:limitierungen}).
 
 % ======================================================================
