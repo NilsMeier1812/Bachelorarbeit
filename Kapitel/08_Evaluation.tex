@@ -1,73 +1,472 @@
-% Gliederung Stand 30.10.2026. ~14 Seiten.
-% Je Unterkapitel unnummeriert: Versuchsaufbau -> Ergebnisse -> Diskussion. Erst Simulation, dann Real, gleiche Kennzahlen.
+% Kap. 8 Evaluation. Entwurf 25.11.2026 (Thread „Kapitel 8“), Plan als Claude-Dokument
+% https://claude.ai/artifact/39C7DTmREcrEFxtpSCXfR2 (Fragen M1–M9).
+% Code-Bezugsstand: G1 Branch BA-Stable @ 6a40e47. Pfade in „% DB:“ relativ zu G1/g1pilot/.
+% Grundlage Versuchsplan: review/plan-kap5.md (Abschnitt 6 Steckbriefe A1–A7, 7.2 V1–V11) und Kap.-5-Entwurf
+% (Branch claude/project-thread-95lh4v) mit den Vorschlägen P1–P5 aus dem Kap.-5-Dokument vom 23.11.
+% (keine Nutzerstudie, V10 entfällt, V6 geht in V7 auf). Antworten von Nils dazu stehen noch aus.
+% Zielwerte mit [V] sind Setzungen aus Kap. 5 (Vorschlag 16.11., Nils N2 „keine Ahnung“ -> gelten vorläufig).
+% Messwerte liegen am 25.11. außer V1 und 8.4.2 nicht vor: alle Ergebniszellen sind \pruefen{}. Nichts davon erfinden.
+% Muster je Versuch: Versuchsaufbau -> Ergebnisse -> Diskussion (Richtlinien §13.3), als \paragraph*.
 \chapter{Evaluation}
 \label{chap:evaluation}
-% Kurze Kapiteleinleitung vor 8.1 (Kap. 6/7 kurz zusammenfassen).
 
+Die Versuche dieses Kapitels prüfen die Anforderungen A1 bis A7 aus Abschnitt~\ref{sec:anforderungen} nach dem Versuchsplan aus Abschnitt~\ref{sec:versuchsplan} und beantworten damit die Forschungsfragen F1 bis F4.
+Abbildung~\ref{fig:eval_ueberblick} ordnet die Versuche nach Forschungsfrage und Prüfebene.
+Die Abschnitte~\ref{sec:eval_f1} bis~\ref{sec:eval_f4} folgen den Forschungsfragen, Abschnitt~\ref{sec:diskussion} gleicht die Ergebnisse mit den Anforderungen ab.
+Alle Versuche beziehen sich auf den Code-Stand und den Referenz-PC aus Abschnitt~\ref{sec:testumgebung} \pruefen{Code-Stand der Messungen: BA-Stable @ 6a40e47 oder späterer Tag mit den Messmitteln (Kap. 5, N11)?}.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/eval-ueberblick}
+  \caption[Versuche nach Forschungsfrage und Prüfebene]{Versuche nach Forschungsfrage und Prüfebene. Hervorgehoben sind die Schlüsselversuche am Roboter, gestrichelt die Ergänzungen am Roboter. Der modulare Aufbau (A7) wird nur am Aufbau analysiert.}
+  \label{fig:eval_ueberblick}
+\end{figure}
+
+% Zur Abbildung: V1–V11 ohne V6 und V10 (Kap.-5-Vorschläge P3, P5). V6 (Planer, IK, Tippbetrieb) ist Teil von V7.
+Die Versuche in der Simulation und an der Attrappe sind wiederholbar und gefahrlos, die Versuche am Roboter zeigen die Übertragbarkeit, aber mit wenigen Wiederholungen.
+Wo es möglich ist, bestimmen Simulation und Roboter dieselben Kennzahlen mit denselben Skripten.
+
+% ======================================================================
 \section{Einheitliche Ausführung in Simulation und Realbetrieb}
 \label{sec:eval_f1}
-% F1, [A2]
+% F1, A2. Kennzahlen K2.1 (geänderte Zeilen beim Wechsel), K2.2 (Unterschiede gezählt und begründet), K2.3 (Funktionen mit gleicher Bedienung).
+Derselbe Programmstand steuert die Simulation und den realen G1, und der Wechsel erfordert nur eine Änderung der Konfiguration (A2).
+Die Analyse des Programmcodes zeigt, wo und wozu sich das Verhalten unterscheidet (V1), die Funktionsprüfung am Roboter, ob alle Funktionen mit derselben Bedienung laufen (V2), und der Anwendungsfall Werbevideo ergänzt das um einen realen Einsatz (V3).
 
 \subsection{Vergleich von Code und Konfiguration}
 \label{sec:eval_code}
 
-\subsection{Realtests am Unitree G1}
+\paragraph*{Versuchsaufbau}
+% DB: Skript Daten/kap8/v1_betriebsart.py (Bachelorarbeit-Repo), Lauf 25.11.2026 auf G1 BA-Stable @ 6a40e47; Ergebnis Daten/kap8/v1_betriebsart.csv.
+Ein Skript durchsucht alle Python-Dateien der Umgebung außer den Tests nach Stellen, an denen die Betriebsart ausgewertet wird.
+Es zählt Aufrufe der Abfragefunktion, Zugriffe auf die gespeicherte Betriebsart und das direkte Lesen des Schalters, nicht aber Kommentare, Beschreibungstexte und Importe.
+Jede Fundstelle ist anschließend von Hand nach ihrem Zweck einer von sieben Gruppen zugeordnet.
+% DB: docker-compose.yml (Dienste mujoco-sim, g1pilot-sim im Profil sim; g1pilot-real im Profil real); docker/Dockerfile.sim und docker/Dockerfile.real;
+%     launch/bringup_sim.launch.py und launch/bringup_real.launch.py.
+Daneben vergleicht der Versuch die Konfiguration: Container-Images und Startdateien für beide Betriebsarten.
+
+\paragraph*{Ergebnisse}
+% DB: v1_betriebsart.py -> „Summe: 60 Stellen in 10 Dateien“, alle 60 zugeordnet. Dateien: manipulation/arm_controller.py (14), teleoperation/demo_gui.py (27),
+%     teleoperation/phone/link.py (8), teleoperation/ps4_arm_teleop.py (2), utils/common.py (3), utils/hand_profile.py (2), tools/sim_*.py (4 Dateien je 1).
+Am Code-Stand werten 60 Stellen in zehn Dateien die Betriebsart aus.
+Keine Stelle muss beim Wechsel geändert werden, denn alle lesen denselben Schalter zur Laufzeit (K2.1 gleich null).
+% DB: utils/common.py:26-28 is_sim_mode() liest G1_SIM_MODE; start.sh:222 und :410 setzen G1_SIM_MODE; docker-compose.yml:84 und :172.
+Den Schalter setzen Startskript und Container-Konfiguration, nicht der Programmcode.
+Abbildung~\ref{fig:betriebsart} zeigt die Verteilung der Stellen auf die sieben Zwecke (K2.2).
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/betriebsart-abfragen}
+  \caption[Abfragen der Betriebsart im Programmcode nach Zweck]{Abfragen der Betriebsart im Programmcode nach Zweck, 60 Stellen in zehn Dateien am Code-Stand der Arbeit. Gezählt sind Auswertungen des Schalters, nicht Kommentare oder Importe.}
+  \label{fig:betriebsart}
+\end{figure}
+
+% DB (Zuordnung je Zeile im Skript, Gruppe G):
+%   Anzeige 22: demo_gui.py Fenstertitel, Kennzeichen SIM/REAL, Sichtbarkeit Temperatur, Onboard-Info, Startleiste, Sim-Knöpfe (Reset, Stoß, Szene), Beschriftung Beenden, Statustexte;
+%     phone/link.py Name, Statusfelder; arm_controller.py:2199 Statusfeld "sim".
+%   Start/Übergabe/Schutz 13: arm_controller.py:1029 (_apply_real_safety_limits nur real), :1467 (Gewicht abrampen nur real), :2018, :2446, :2505 (Sim: Arme automatisch aktivieren);
+%     demo_gui.py:1074/:2545 (started), :1158 (Sim Auto-Start), :2542 (NOT-HALT-Quittung), :2568 (Beenden real); link.py:189, :364; ps4_arm_teleop.py:1197.
+%   Fortbewegung 8: arm_controller.py:2494 (walk_ready), demo_gui.py:1456, :1641, :1886, :1892 (Onboard-Walk), link.py:206 (Startleiste), :376, ps4_arm_teleop.py:851.
+%   Taille 7: arm_controller.py:1160, :1161, :1893, :2006, :2034, :2098, :2155 (Taillenhalt und Hüftdrehung real über arm_sdk-Gewicht).
+%   Verbindung 3: common.py:28, :38, :53. Hände 3: demo_gui.py:448, hand_profile.py:28, :37. Diagnose 4: tools/sim_arm_monitor, sim_arm_wiggle, sim_dds_check, sim_leg_hold.
+Mehr als ein Drittel der Stellen betrifft nur die Anzeige: Die Bedienoberfläche kennzeichnet die Betriebsart und blendet Elemente ein oder aus, die es nur in einer Betriebsart gibt, etwa die Temperaturanzeige des Roboters oder das Zurücksetzen der Szene.
+Die zweitgrößte Gruppe sind Start, Übergabe und Schutz mit 13 Stellen.
+Im Realbetrieb setzt der Armregler seine Grenzwerte durch, nimmt die Arme mit einer Rampe auf und gibt sie geplant zurück, und die Bedienoberfläche verlangt eine Bestätigung vor dem Start und nach einem Not-Halt.
+In der Simulation startet die Umgebung dagegen selbsttätig.
+% DB: docs/24-T-Hueftdrehung.md „Taille halten (real)“ (arm_sdk-Gewicht schaltet neben den Armen auch die Taille um, arm_controller hält sie real); docs/30-T-Stehen-und-Gehen.md.
+Fortbewegung und Taille mit zusammen 15 Stellen folgen aus dem Onboard-Regler: Im Realbetrieb führt er die Beine (Abschnitt~\ref{sec:fortbewegungspfade}), und weil die Armschnittstelle des Herstellers auch die Taille umschaltet, hält der Armregler sie dort selbst.
+Nur drei Stellen wählen die Verbindung, drei die Hände, und vier Diagnosewerkzeuge laufen nur in der Simulation.
+% DB: docker/Dockerfile.real Kopf (Basis = Dockerfile.sim ohne onnxruntime, Real-Umgebungsvariablen); Dockerfile.sim:57 (pip install onnxruntime onnx), :71-74 (ENV G1_SIM_MODE=true, INTERFACE=lo);
+%     launch/bringup_sim.launch.py (236 Zeilen) und bringup_real.launch.py (212 Zeilen) als getrennte Startdateien.
+In der Konfiguration unterscheiden sich die Betriebsarten durch zwei Container-Images und zwei Startdateien.
+Das Image für den Realbetrieb entspricht dem für die Simulation ohne die Laufzeitbibliothek der Lauf-Policy und mit den Umgebungsvariablen für den Roboter.
+
+\paragraph*{Diskussion}
+Der Wechsel kommt ohne Änderung am Programmcode aus, A2 ist für K2.1 erfüllt.
+Die 60 Abfragen zeigen aber, dass „derselbe Programmstand“ nicht „dasselbe Verhalten“ bedeutet.
+Jede Abfrage lässt sich einem der Unterschiede aus Tabelle~\ref{tab:sim_real} zuordnen, keine führt eine Funktion nur für eine Betriebsart ein, die in Tabelle~\ref{tab:sim_real} fehlt \pruefen{Abgleich jeder der 60 Stellen mit tab:sim\_real von Nils bestätigen lassen (Liste im Skript)}.
+Die Unterschiede sitzen dort, wo die Hardware es erzwingt (Verbindung, Onboard-Regler, Hände) oder wo der Realbetrieb vorsichtiger sein muss (Grenzwerte, Bestätigungen).
+Ein Vergleich dieser Art setzt voraus, dass dieselben Programmteile in beiden Betriebsarten laufen, wie es auch Arbeiten mit unverändert übertragenem Code als Indiz für eine erfolgreiche Übertragung werten \cite{Durrani2026}\ev{Durrani2026.03}.
+Die Zählung selbst zeigt nicht, dass das Verhalten am Roboter dem in der Simulation entspricht, das prüfen V2 und V7.
+
+\subsection{Funktionsprüfung am realen G1}
 \label{sec:eval_realtests}
-% Inbetriebnahme, Gehen, Greifen, Übergaben.
+
+\paragraph*{Versuchsaufbau}
+% Basis: plan-kap5.md 7.2 V2 (Kennzahlen K2.3, K1.1, K5.6); Ablauf: G1@6a40e47 docs/50-A-Echter-Roboter.md Abschnitt F; Sicherung: dort Abschnitt F (Kran, zweite Person mit Fernbedienung).
+Ein festes Protokoll prüft jede Grundfähigkeit nacheinander in der Simulation und am realen G1, jeweils mit derselben Bedienung über die Bedienoberfläche.
+Am Roboter hängt der G1 an einem Kran, und eine zweite Person hält die Fernbedienung des Herstellers \pruefen{Sicherung so durchgeführt? Kran, zweite Person, Fernbedienung bestätigen}.
+Das Protokoll umfasst Verbinden, Übernehmen und Zurückgeben der Arme, Anfahren gespeicherter Posen, Greifen, Gehen, Not-Halt und Voll-Notaus.
+Es wurde dreimal durchlaufen \pruefen{Anzahl und Daten der Durchläufe (Kap. 5: 3 Wiederholungen)}.
+
+\paragraph*{Ergebnisse}
+Tabelle~\ref{tab:v2_protokoll} fasst die Durchläufe zusammen.
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Funktionsprüfung in Simulation und am realen G1]{Funktionsprüfung in Simulation und am realen G1 (V2), je Funktion bestandene Durchläufe von drei. Bedienung in beiden Fällen über die Bedienoberfläche.}
+    \label{tab:v2_protokoll}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{4.2cm}|L|>{\raggedright\arraybackslash}p{1.8cm}|>{\raggedright\arraybackslash}p{1.8cm}|}\hline
+        \tabkopfzeile \tabkopf{Funktion} & \tabkopf{Prüfkriterium} & \tabkopf{Simulation} & \tabkopf{Roboter}\\\hline
+        Verbinden & Zustand des Roboters in der Bedienoberfläche sichtbar & \pruefen{x/3} & \pruefen{x/3}\\\hline
+        Arme übernehmen & Arme ohne Ruck übernommen & \pruefen{x/3} & \pruefen{x/3}\\\hline
+        Pose anfahren & gespeicherte Pose ohne Kollision erreicht & \pruefen{x/3} & \pruefen{x/3}\\\hline
+        Greifen & Gegenstand gegriffen und gehalten & \pruefen{x/3} & \pruefen{x/3}\\\hline
+        Gehen & Sollgeschwindigkeit vorwärts und Drehung umgesetzt & \pruefen{x/3} & \pruefen{x/3}\\\hline
+        Arme zurückgeben & Arme in Ausgangslage, Gewicht abgebaut & \pruefen{x/3} & \pruefen{x/3}\\\hline
+        Not-Halt & Arme halten an, Roboter bleibt stehen (K5.6) & \pruefen{x/3} & \pruefen{x/3}\\\hline
+        Voll-Notaus & ganzer Roboter gedämpft & \pruefen{x/3} & \pruefen{x/3}\\\hline
+    \end{tabularx}
+\end{table}
+% Zeilen nach Protokoll von Nils anpassen. Voll-Notaus am Roboter nur, wenn am Kran gesichert (Roboter sackt ab).
+% Kap. 6, tab:sim_real: Not-Halt (Beine) in der Sim gedämpft, der Roboter fällt -> Kriterium „bleibt stehen“ gilt nur real.
+
+\pruefen{Ergebnisse von V2 in zwei bis drei Sätzen: welche Funktionen in allen Durchläufen liefen, welche Auffälligkeiten (Datum, Beobachtung)}
+
+\paragraph*{Diskussion}
+\pruefen{Diskussion nach Vorliegen der Daten: Abweichungen zwischen Simulation und Roboter je Funktion auf die Unterschiede aus Tabelle~\ref{tab:sim_real} zurückführen, nicht erwartete Abweichungen benennen}
+Ein Kriterium unterscheidet sich bewusst: Nach dem Not-Halt bleibt der Roboter stehen, die Simulation dämpft dagegen auch die Beine (Tabelle~\ref{tab:sim_real}).
 
 \subsection{Anwendungsfall Werbevideo}
 \label{sec:eval_video}
-% Kompakt: genutzte Funktionen, was ohne Anpassung lief.
+% V3, sparsam (Betreuerin 23.11.): ein Absatz, höchstens ein Standbild, kein Hauptnachweis. Angaben fehlen (Kap. 5 N10, Kap. 8 M5).
+Für ein Werbevideo trug der G1 eine Box von einem Ort zum anderen, eingerichtet und erprobt in der Simulation und anschließend am Roboter ausgeführt \pruefen{N10/M5: wann gedreht, welche Funktionen genutzt (Posen, Ablauf, Gehen, Hände), was für den Dreh angepasst werden musste}.
+Der Dreh zeigt die Umgebung in einem Einsatz außerhalb eines Prüfprotokolls und ergänzt damit V2, ersetzt aber keine Messung.
+\pruefen{M5/M6: Standbild aus dem Video als Abbildung, ggf. mit QR-Code auf das Video}
 
+% ======================================================================
 \section{Abbildungsgüte der Simulation}
 \label{sec:eval_f2}
-% F2, [A3, A4]
+% F2, A3 (Echtzeit), A4 (realitätsnah). Kennzahlen K3.1, K3.2, K4.1–K4.3.
+Die Simulation soll sich zeitlich wie der Roboter verhalten (A3), und eine in der Simulation eingerichtete Armbewegung soll am Roboter innerhalb einer Toleranz ebenso verlaufen (A4).
+Geprüft werden dazu der Echtzeitfaktor (V4), die Fortbewegung (V5) und der direkte Vergleich der Armbewegung zwischen Simulation und Roboter (V7).
 
 \subsection{Echtzeitfähigkeit}
 \label{sec:eval_echtzeit}
-% Regeltakte, Echtzeitfaktor auf Referenz-PC.
+
+\paragraph*{Versuchsaufbau}
+Der Echtzeitfaktor ist das Verhältnis aus simulierter und realer Zeit \cite{Pitonakova2018}\ev{Pitonakova2018.01}.
+% Basis: G1@6a40e47 docs/40-T-Simulation.md „Lockstep“ („Nach oben ist das auf Echtzeit gedeckelt“), wie Kap. 6 sec:sim_real_schalter.
+Da die Simulation ihren Takt nach oben auf Echtzeit begrenzt, kann der Faktor eins nicht überschreiten, gemessen wird also, wie weit er darunter bleibt.
+Zusätzlich erfasst der Versuch für jeden Regelkreis die erreichte Rate im Verhältnis zur Sollrate aus Kapitel~\ref{chap:umsetzung} und die Streuung der Zykluszeit (K3.2).
+Gemessen wird in der Simulationsszene mit allen Funktionsknoten, im Stand und beim Abfahren eines Ablaufs, in zehn Läufen zu je zehn Minuten \pruefen{Umfang wie Kap. 5 (10 Läufe zu 10 min) durchgeführt? Szene AP\_1?}.
+Weil Latenzen stark von Hardware und Energiesparfunktionen abhängen \cite{Kronauer2021}\ev{Kronauer2021.12,Kronauer2021.13}, gelten die Werte nur für den Referenz-PC aus Abschnitt~\ref{sec:testumgebung} \pruefen{Referenz-PC (Kap. 5 N4, Kap. 8 M4)}.
+
+\paragraph*{Ergebnisse}
+Tabelle~\ref{tab:echtzeit} fasst die zehn Läufe zusammen.
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Echtzeitfaktor und Takttreue auf dem Referenz-PC]{Echtzeitfaktor und Takttreue auf dem Referenz-PC (V4), Mittelwert und Spannweite über zehn Läufe zu je zehn Minuten. Sollraten aus Kapitel~\ref{chap:umsetzung}.}
+    \label{tab:echtzeit}
+    \begin{tabularx}{\textwidth}{Lrrr}
+        \toprule
+        \tabkopf{Größe} & \tabkopf{Sollwert} & \tabkopf{Mittelwert} & \tabkopf{Spannweite}\\
+        \midrule
+        Echtzeitfaktor & $\geq 0{,}95$ & \pruefen{V4} & \pruefen{V4}\\
+        Takttreue Physik der Simulation in \% & $\geq 95$ & \pruefen{V4} & \pruefen{V4}\\
+        Takttreue Armregler in \% & $\geq 95$ & \pruefen{V4} & \pruefen{V4}\\
+        Takttreue Ersatzregler Fortbewegung in \% & $\geq 95$ & \pruefen{V4} & \pruefen{V4}\\
+        Streuung der Zykluszeit Armregler in ms & -- & \pruefen{V4} & \pruefen{V4}\\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+% Zeilen = Regelkreise aus Kap. 7 (sec:zeitschritt, sec:armregelung, sec:ersatzregler); Sollraten dort, nicht hier. Zielwerte K3.1/K3.2 [V].
+
+\pruefen{Ergebnisse V4 in zwei Sätzen: Echtzeitfaktor im Mittel und kleinster Wert, Regelkreis mit der geringsten Takttreue}
+
+\paragraph*{Diskussion}
+\pruefen{Diskussion V4: Zielwert erreicht? Ursachen für Einbrüche (z.\,B. Kollisionsprüfung, Bedienoberfläche, Kontakte beim Greifen)}
+Ein Echtzeitfaktor nahe eins ist Voraussetzung dafür, dass die Bedienung in der Simulation zeitlich der am Roboter entspricht, sagt aber noch nichts über die Genauigkeit der Bewegung, die V7 prüft.
 
 \subsection{Fortbewegung}
 \label{sec:eval_fortbewegung}
-% Geschwindigkeitsfolge, Stöße, Stand-Übergänge, Gangbild der Policies.
 
-\subsection{Manipulation}
+\paragraph*{Versuchsaufbau}
+In der Simulation führt der Ersatzregler die Fortbewegung aus, am Roboter der Onboard-Regler (Abschnitt~\ref{sec:fortbewegungspfade}).
+Der Versuch gibt in beiden Fällen dieselbe Folge von Sollgeschwindigkeiten vor und vergleicht das Verhältnis aus erreichter und vorgegebener Geschwindigkeit (K4.3).
+% Basis: plan-kap5.md 7.2 V5: test_agile_walk_sim.py (Sim), g1pilot/tools/walk_diag.py record (Real, nur lesend).
+In der Simulation läuft die Folge für jede der Lauf-Policies zehnmal, am Roboter dreimal mit einer nur lesenden Aufzeichnung \pruefen{Umfang und Geschwindigkeitsfolge (Vorwärts, seitlich, Drehung, Stufen) von Nils}.
+Zusätzlich prüft die Simulation den Wechsel zwischen Gehen und Stehen und das Verhalten bei einem seitlichen Stoß.
+
+\paragraph*{Ergebnisse}
+Tabelle~\ref{tab:fortbewegung} stellt Simulation und Roboter nebeneinander.
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Folge der Sollgeschwindigkeit in Simulation und am Roboter]{Verhältnis aus erreichter und vorgegebener Geschwindigkeit (V5), Mittelwert und Spannweite. Simulation mit Ersatzregler je Policy, Roboter mit Onboard-Regler.}
+    \label{tab:fortbewegung}
+    \begin{tabularx}{\textwidth}{Lrrrr}
+        \toprule
+        \tabkopf{Regler} & \tabkopf{vorwärts} & \tabkopf{seitlich} & \tabkopf{Drehung} & \tabkopf{Stöße gehalten}\\
+        \midrule
+        Simulation, Policy \pruefen{Name 1} & \pruefen{V5} & \pruefen{V5} & \pruefen{V5} & \pruefen{x/10}\\
+        Simulation, Policy \pruefen{Name 2} & \pruefen{V5} & \pruefen{V5} & \pruefen{V5} & \pruefen{x/10}\\
+        Simulation, Policy \pruefen{Name 3} & \pruefen{V5} & \pruefen{V5} & \pruefen{V5} & \pruefen{x/10}\\
+        Roboter, Onboard-Regler & \pruefen{V5} & \pruefen{V5} & \pruefen{V5} & --\\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+% Policies: tab:policies (Kap. 4). Stöße am Roboter nicht geprüft (Risiko), daher „--“.
+
+\pruefen{Ergebnisse V5 in zwei bis drei Sätzen}
+
+\paragraph*{Diskussion}
+Die Werte charakterisieren zwei verschiedene Regler und sind kein Gütemaß der Simulation, denn die inneren Mechanismen des Onboard-Reglers sind nicht bekannt \cite{Hu2026}\ev{Hu2026.02}.
+Für A4 zählt nur, dass dieselben Befehle in beiden Fällen dieselbe Art von Bewegung auslösen.
+\pruefen{Diskussion V5: Abweichung Sim gegen Real je Richtung, Folgen für das Einrichten von Aufgaben mit Gehen in der Simulation}
+
+\subsection{Armbewegung in Simulation und am Roboter}
 \label{sec:eval_manipulation}
-% Planungserfolg und -zeit, IK-Restfehler, Jog-Genauigkeit Sim vs. Real.
+% V7, Schlüsselversuch für F2. V6 (Planungserfolg, -zeit, IK-Restfehler, Tippbetrieb) ist nach Vorschlag P5 hier eingegangen.
 
+\paragraph*{Versuchsaufbau}
+Abbildung~\ref{fig:v7_ablauf} zeigt den Ablauf: Dieselbe Folge gespeicherter Posen läuft in der Simulation und am Roboter, und beide Male werden die Gelenkwinkel der Arme mit Zeitstempel aufgezeichnet.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/v7-ablauf}
+  \caption[Ablauf des Vergleichs der Armbewegung]{Ablauf des Vergleichs der Armbewegung zwischen Simulation und Roboter (V7). Bezug sind die Gelenkwinkelgeber des Roboters, kein externes Messsystem.}
+  \label{fig:v7_ablauf}
+\end{figure}
+
+Die Literatur vergleicht Simulation und Realität, indem sie dieselbe Trajektorie in beiden Umgebungen abspielt und die Abweichung beim Folgen bewertet \cite{He2025}\ev{He2025.09}, oder über den euklidischen Abstand der Handgelenkposition über der Zeit \cite{Collins2019}\ev{Collins2019.06}.
+V7 übernimmt beide Ideen mit einer Einschränkung: Als Referenz dienen die Gelenkwinkelgeber des Roboters, weil kein Motion-Capture-System zur Verfügung steht \pruefen{bestätigen: kein Motion-Capture am Lehrstuhl verfügbar}.
+Aus den Gelenkwinkeln berechnet die Vorwärtskinematik die Lage der Hand am Ende jeder Pose (K4.2).
+Die Posenfolge umfasst \pruefen{Anzahl Posen, Auswahl (Arbeitsraum vorne, seitlich, über Kopf), Hand} Posen und läuft in der Simulation zehnmal, am Roboter dreimal.
+Weil jeder Schritt der Folge über den Bahnplaner läuft, liefert derselbe Versuch in der Simulation auch Planungserfolg und Planungszeit \pruefen{Planer-Messreihe (Kap. 5 N11) Teil von V7?}.
+
+\paragraph*{Ergebnisse}
+Tabelle~\ref{tab:v7} nennt die Abweichungen je Pose.
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Abweichung der Armbewegung zwischen Simulation und Roboter]{Abweichung der Armbewegung zwischen Simulation und Roboter (V7), Mittelwert über drei Durchläufe am Roboter gegen den Mittelwert über zehn in der Simulation. Zielwert der Handabweichung 2\,cm.}
+    \label{tab:v7}
+    \begin{tabularx}{\textwidth}{Lrrr}
+        \toprule
+        \tabkopf{Pose} & \tabkopf{Gelenkwinkel mittel in °} & \tabkopf{Gelenkwinkel max. in °} & \tabkopf{Hand am Ende in cm}\\
+        \midrule
+        \pruefen{Pose 1} & \pruefen{V7} & \pruefen{V7} & \pruefen{V7}\\
+        \pruefen{Pose 2} & \pruefen{V7} & \pruefen{V7} & \pruefen{V7}\\
+        \pruefen{Pose 3} & \pruefen{V7} & \pruefen{V7} & \pruefen{V7}\\
+        \midrule
+        alle Posen & \pruefen{V7} & \pruefen{V7} & \pruefen{V7}\\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+% Zielwert K4.2 ≤ 2 cm [V] (Setzung Kap. 5, nicht nachträglich an das Ergebnis anpassen). Verlauf über der Zeit als Diagramm ergänzen, sobald Daten da sind
+% (pgfplots, ba plot, Gelenkwinkel Sim und Real eines Gelenks über der Zeit). Vollständige Reihen in Anhang B (Frage M8).
+
+\pruefen{Ergebnisse V7 in drei Sätzen: mittlere und größte Gelenkwinkelabweichung, Handabweichung gegen 2\,cm, Planungserfolg und -zeit in der Simulation}
+
+\paragraph*{Diskussion}
+Abweichungen zwischen Simulation und Realität entstehen vor allem an Aktoren, Sensoren, zeitlicher Dynamik und Kontaktphysik \cite{Collins2019}\ev{Collins2019.02}, und eine Simulation weicht durch numerische Integrationsfehler und durch Modellfehler ab \cite{Erez2015}\ev{Erez2015.13}.
+\pruefen{Diskussion V7: Welche Gelenke weichen am stärksten ab, passt das zu Aktor- oder Modellfehlern? Einfluss der im Realbetrieb niedrigeren Reglerverstärkung (tab:sim\_real, Grenzwerte)?}
+
+% ======================================================================
 \section{Sichere Bedienung ohne Vorerfahrung}
 \label{sec:eval_f3}
-% F3, [A5, A6]
+% F3, A5 (Sicherheit), A6 (Bedienbarkeit, rein technisch, keine Nutzerstudie, Betreuerin 23.11.).
+Ein Bedienfehler oder der Ausfall eines Bedienwegs soll am Roboter zu keiner unbegrenzten Bewegung führen (A5), und die Umgebung soll ohne Robotik- und Programmiererfahrung in Betrieb gehen (A6).
+Die Schutzmechanismen prüft V8 an der Attrappe, den Bedienaufwand misst V9 über Schritte und Zeiten.
 
-\subsection{Sicherheitsfunktionen}
+\subsection{Schutzmechanismen}
 \label{sec:eval_sicherheit}
-% Automatisierte Tests, Limits, Notaus-Reaktion.
+
+\paragraph*{Versuchsaufbau}
+Die Prüfung der Schutzmechanismen läuft überwiegend gegen die Attrappe des Roboters, die die Herstellerschnittstelle nachbildet (Abschnitt~\ref{sec:testumgebung}).
+Das entspricht einem Software-in-the-Loop-Test, bei dem die Steuerungssoftware auf demselben Rechner wie die Nachbildung läuft \cite{Afzal2021}\ev{Afzal2021.03}.
+So lassen sich auch Fehlerfälle prüfen, die am Roboter nicht gefahrlos auslösbar sind.
+% DB: test/run_tests.sh, Gruppe „sicherheit“: 26 Testdateien (Liste in run_tests.sh, Fall sicherheit). Lauf zählt nur ohne übersprungene Tests (Kommentar run_tests.sh).
+Der Versuch umfasst vier Teile: den Lauf der Testgruppe „sicherheit“ mit 26 Testdateien, die größte Geschwindigkeit der Hand bei provozierten Zielsprüngen (K5.1), die Zeit vom Auslösen des Not-Halts bis zum geänderten Befehl an der Herstellerschnittstelle (K5.3) und die Zeit vom Ausfall eines Bedienwegs bis zum Halt (K5.4).
+Ein Testlauf zählt nur, wenn kein Test übersprungen wurde, denn bei fehlenden Abhängigkeiten entfallen ganze Testdateien.
+Die Zeitmessungen laufen zehnmal an der Attrappe und als Ergänzung dreimal am Roboter \pruefen{Messmittel für K5.3/K5.4 (Kap. 5 N11) vorhanden? Ergänzung am Roboter gemacht?}.
+
+\paragraph*{Ergebnisse}
+Tabelle~\ref{tab:sicherheit} stellt die Ergebnisse den Zielwerten aus Kapitel~\ref{chap:handlungsbedarf} gegenüber.
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Ergebnisse der Prüfung der Schutzmechanismen]{Ergebnisse der Prüfung der Schutzmechanismen (V8). Zeiten als Mittelwert und größter Wert über zehn Auslösungen an der Attrappe.}
+    \label{tab:sicherheit}
+    \begin{tabularx}{\textwidth}{Lrrr}
+        \toprule
+        \tabkopf{Kennzahl} & \tabkopf{Zielwert} & \tabkopf{Mittelwert} & \tabkopf{größter Wert}\\
+        \midrule
+        K5.1 Geschwindigkeit der Hand in mm/s & $\leq 250$ & \pruefen{V8} & \pruefen{V8}\\
+        K5.3 Reaktion Not-Halt in ms & $\leq 100$ & \pruefen{V8} & \pruefen{V8}\\
+        K5.4 Halt nach Ausfall Bedienweg in s & $\leq 1$ & \pruefen{V8} & \pruefen{V8}\\
+        \midrule
+        K5.2 Not-Halt auslösbar (Kombinationen) & alle & \multicolumn{2}{r}{\pruefen{x von y}}\\
+        K5.5 Tests bestanden, keiner übersprungen & alle & \multicolumn{2}{r}{\pruefen{x von y}}\\
+        K5.6 Roboter steht nach Not-Halt der Arme & ja & \multicolumn{2}{r}{siehe Tabelle~\ref{tab:v2_protokoll}}\\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+% Zielwerte: K5.1 250 mm/s (Villani2018.09, DGUV2015.04, Kap. 5); K5.3 ≤ 100 ms [V]; K5.4 ≤ 1 s [V]; Auslegungswerte der Zeitüberwachungen stehen in Kap. 7, nicht hier.
+
+\pruefen{Ergebnisse V8 in zwei bis drei Sätzen, inkl. Anzahl Testfunktionen am Mess-Stand}
+
+\paragraph*{Diskussion}
+\pruefen{Diskussion V8: Woraus setzen sich die Zeiten zusammen (Taktrate der Knoten, Zeitüberwachung)? Abstand zu den Auslegungswerten aus Kap. 7}
+Die Schutzmechanismen sind Softwarefunktionen ohne sicherheitstechnische Bewertung (Tabelle~\ref{tab:schutzmechanismen}), die Ergebnisse belegen deshalb ihre Wirkung, nicht die Erfüllung einer Norm.
+Die Attrappe zeigt die Logik der Kette bis zur Herstellerschnittstelle, nicht die Bremszeit der Mechanik danach.
 
 \subsection{Bedienaufwand}
 \label{sec:eval_bedienaufwand}
-% Schritte und Zeit vom frischen PC bis zur ersten Bewegung.
 
-\section{Erweiterbarkeit}
+\paragraph*{Versuchsaufbau}
+Der Bedienaufwand wird technisch gemessen, über Schritte und Zeiten, nicht über eine Befragung.
+% Betreuerin 23.11.: keine Nutzerstudie, kein Vorher-Vergleich (Richtlinien §12).
+Ein Vergleich mit einem früheren Stand ist nicht möglich, weil es vorher keine Umgebung gab.
+Gemessen werden die Schritte und die Zeit von einem frisch eingerichteten PC bis zur ersten Bewegung in der Simulation einschließlich Bau der Container (K6.1) und die Bedienhandlungen von der gestarteten Umgebung bis zur ersten Arm- und zur ersten Gehbewegung (K6.2).
+Außerdem hält der Versuch fest, ob die Grundfähigkeiten nach dem Start ohne Befehlszeile ausführbar sind (K6.3).
+Grundlage ist die Anleitung im Anhang~\ref{anh:dokumentation}, die Schrittfolge selbst steht dort und nicht im Text.
+Der Versuch läuft dreimal auf einem frisch eingerichteten System \pruefen{Wer hat die Durchläufe gemacht (Nils selbst oder eine Person ohne Vorerfahrung)? System und Netzanbindung}.
+
+\paragraph*{Ergebnisse}
+Tabelle~\ref{tab:bedienaufwand} nennt Schritte und Zeiten.
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Bedienaufwand bis zur ersten Bewegung]{Bedienaufwand bis zur ersten Bewegung (V9), Mittelwert und Spannweite über drei Durchläufe.}
+    \label{tab:bedienaufwand}
+    \begin{tabularx}{\textwidth}{Lrrr}
+        \toprule
+        \tabkopf{Kennzahl} & \tabkopf{Zielwert} & \tabkopf{Mittelwert} & \tabkopf{Spannweite}\\
+        \midrule
+        K6.1 Inbetriebnahme, Zeit in min & $\leq 60$ & \pruefen{V9} & \pruefen{V9}\\
+        K6.1 Inbetriebnahme, Schritte & -- & \pruefen{V9} & \pruefen{V9}\\
+        K6.2 Bedienhandlungen bis erste Armbewegung & $\leq 5$ & \pruefen{V9} & \pruefen{V9}\\
+        K6.2 Bedienhandlungen bis erste Gehbewegung & $\leq 5$ & \pruefen{V9} & \pruefen{V9}\\
+        \midrule
+        K6.3 ohne Befehlszeile nach dem Start & ja & \multicolumn{2}{r}{\pruefen{ja/nein je Fähigkeit}}\\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+% Zielwerte K6.1/K6.2 [V] (Kap. 5). K6.4 (Nutzerstudie) entfällt.
+
+\pruefen{Ergebnisse V9 in zwei Sätzen, größter Zeitanteil vermutlich Bau der Container, prüfen}
+
+\paragraph*{Diskussion}
+Schritte und Zeiten messen den Aufwand, nicht die Gebrauchstauglichkeit.
+Auch akademische Arbeiten zur Roboterprogrammierung durch Endnutzer zeigen ohne Einsätze und Nutzerstudien außerhalb des Labors möglicherweise nur ein eingeschränktes Bild \cite{Ajaykumar2021}\ev{Ajaykumar2021.12}.
+\pruefen{Diskussion V9: Wo liegt der Aufwand (Installation gegen Bedienung)? Was ließe sich vereinfachen?}
+
+% ======================================================================
+\section{Aufgabenunabhängigkeit und modularer Aufbau}
 \label{sec:eval_f4}
-% F4, [A1, A7]
+% F4, A1 (V11), A7 (nur Analyse des Aufbaus, Betreuerin 23.11.: Erweiterbarkeit nicht eigens nachweisen, Docker-Container als Lösung).
+Eine neue Aufgabe lässt sich ohne Änderung am Programmcode einrichten (A1), und die Funktionen sind in getrennten Einheiten gekapselt (A7).
+V11 prüft das Erste an einer neuen Aufgabe, für das Zweite genügt eine Analyse des Aufbaus.
 
-\subsection{Anbindung eines externen Projekts}
-\label{sec:eval_extern}
-
-\subsection{Aufgabenunabhängigkeit}
+\subsection{Neue Aufgabe ohne Codeänderung}
 \label{sec:eval_aufgaben}
-% Neue Szene und neuer Ablauf ohne Codeänderung.
 
+\paragraph*{Versuchsaufbau}
+Eine Aufgabe ist in dieser Arbeit eine feste Folge von Bewegungen ohne Wahrnehmung der Umgebung.
+Für V11 wird eine neue Szene im Szenen-Editor angelegt, darin ein neuer Ablauf aus Posen eingelernt, in der Simulation geprüft und anschließend am Roboter ausgeführt \pruefen{welche Aufgabe (Gegenstand, Weg, Hand)?}.
+Gezählt werden die geänderten Zeilen Programmcode (K1.2, Zielwert null) und die Zeit für das Einrichten (K1.3, nur berichtet).
+Die Ausführung läuft in der Simulation zehnmal und am Roboter dreimal.
+
+\paragraph*{Ergebnisse}
+\pruefen{Ergebnisse V11: geänderte Zeilen (Vergleich des Code-Stands vor und nach dem Einrichten), Zeit für Szene und Ablauf, Erfolg je Durchlauf Sim x/10, Real x/3, Grundfähigkeiten einzeln und kombiniert genutzt (K1.1)}
+
+\paragraph*{Diskussion}
+\pruefen{Diskussion V11: Was musste außerhalb des Codes angepasst werden (Posen nachgelernt, Geschwindigkeit)? Grenze: keine Wahrnehmung, Objekt muss an bekannter Stelle liegen}
+
+\subsection{Modularer Aufbau}
+\label{sec:eval_modular}
+\label{sec:eval_extern}% altes Label aus dem Gerüst, bleibt bis Kap. 5 (tab:anforderungen) umgestellt ist
+% Keine eigene Versuchsreihe (Betreuerin 23.11., Seitenbudget 24.11.: nur kurzer Punkt). Eigenleistung (Analyse am Code-Stand).
+Die Umgebung ist in Container gegliedert, die sich zu zwei Profilen zusammenstellen lassen, und bietet externen Projekten vier Andockpunkte (Abschnitt~\ref{sec:erweiterungskonzept}).
+Tabelle~\ref{tab:modular} fasst den Aufbau am Code-Stand zusammen.
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Modularer Aufbau am Code-Stand der Arbeit]{Modularer Aufbau am Code-Stand der Arbeit: Container und Profile sowie Andockpunkte für externe Projekte.}
+    \label{tab:modular}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{3.4cm}|L|>{\raggedright\arraybackslash}p{3.0cm}|}\hline
+        \tabkopfzeile \tabkopf{Einheit} & \tabkopf{Inhalt} & \tabkopf{Profil bzw. Ebene}\\\hline
+        Container Simulation & Physiksimulation und Nachbildung der Herstellerschnittstelle & Simulation\\\hline
+        Container Umgebung (Simulation) & alle Funktionsknoten, Ersatzregler der Fortbewegung & Simulation\\\hline
+        Container Umgebung (Realbetrieb) & alle Funktionsknoten ohne Ersatzregler & Realbetrieb\\\hline
+        Andockpunkt Daten & Szenen, Hände, Policies, Posen, Abläufe & oberste Ebene\\\hline
+        Andockpunkt HTTP & Zielposen und Gelenkwinkel der Arme & zweite Ebene\\\hline
+        Andockpunkt ROS~2 & Ziele auf den Kanälen der Bedienwege & dritte Ebene\\\hline
+        Andockpunkt Herstellerschnittstelle & eigenes Programm mit dem SDK & unterste Ebene\\\hline
+    \end{tabularx}
+\end{table}
+% DB: docker-compose.yml Dienste mujoco-sim (:25, profiles ["sim"]), g1pilot-sim (:67, ["sim"]), g1pilot-real (:159, ["real"]);
+%     docker/Dockerfile.real Kopf („Basis = Dockerfile.sim MINUS onnxruntime (loco_sim laeuft nur in der Sim)“).
+%     Andockpunkte: Kap. 6 tab:andockpunkte (Stand 6a40e47). Zusatz-Compose-Dateien gpu/nvidia/ps4 als Überlagerungen nicht als eigene Einheit gezählt.
+
+Ein Container kann auf einem anderen aufbauen, was die modulare Wiederverwendung erleichtert \cite{Boettiger2015}\ev{Boettiger2015.11}.
+In der Umgebung nutzen beide Container der Umgebung denselben Aufbau, das Image für den Realbetrieb lässt nur den Ersatzregler weg.
+Ob sich ein externes Projekt tatsächlich ohne Änderung am Kern anbinden lässt, ist damit nicht gezeigt, dafür steht kein Projekt zur Verfügung (Abschnitt~\ref{sec:limitierungen}).
+
+% ======================================================================
 \section{Diskussion}
 \label{sec:diskussion}
+Die Ergebnisse zeigen, wie weit die Umgebung die Anforderungen erfüllt, wo sie im Vergleich zu verwandten Arbeiten steht und was die Versuche nicht belegen.
 
 \subsection{Abgleich mit den Anforderungen}
 \label{sec:abgleich}
-% Tabelle A1–A7: erfüllt / teilweise / nicht erfüllt.
+Tabelle~\ref{tab:abgleich} stellt jede Anforderung ihrem Zielwert und dem Ergebnis gegenüber.
+Eine verfehlte Anforderung wird als solche benannt und in Abschnitt~\ref{sec:limitierungen} eingeordnet.
+
+\begin{table}[htbp]
+    \tabstil
+    \setlength{\tabcolsep}{3pt}
+    \centering
+    \caption[Abgleich der Ergebnisse mit den Anforderungen]{Abgleich der Ergebnisse mit den Anforderungen aus Kapitel~\ref{chap:handlungsbedarf}. Bewertung: erfüllt, teilweise, nicht erfüllt.}
+    \label{tab:abgleich}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.6cm}|L|L|>{\raggedright\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{2.2cm}|}\hline
+        \tabkopfzeile \tabkopf{Anforderung} & \tabkopf{Kriterium und Zielwert} & \tabkopf{Ergebnis} & \tabkopf{Abschn.} & \tabkopf{Bewertung}\\\hline
+        A1 Aufgaben\-unabhängigkeit & neue Aufgabe mit 0 geänderten Zeilen & \pruefen{V11} & \ref{sec:eval_aufgaben} & \pruefen{}\\\hline
+        A2 Einheitliche Ausführung & 0 geänderte Zeilen beim Wechsel, Unterschiede erfasst und begründet & 0 Zeilen, 60 Abfragen in 7 Zweckgruppen & \ref{sec:eval_code} & \pruefen{erfüllt nach V2}\\\hline
+        A3 Echtzeit & Echtzeitfaktor $\geq 0{,}95$, Takttreue $\geq 95$\,\% & \pruefen{V4} & \ref{sec:eval_echtzeit} & \pruefen{}\\\hline
+        A4 Realitätsnähe & Hand $\leq 2$\,cm, Fortbewegung beschrieben & \pruefen{V7, V5} & \ref{sec:eval_manipulation}, \ref{sec:eval_fortbewegung} & \pruefen{}\\\hline
+        A5 Sicherheit & Hand $\leq 250$\,mm/s, Not-Halt $\leq 100$\,ms, Halt $\leq 1$\,s, Tests bestanden & \pruefen{V8} & \ref{sec:eval_sicherheit} & \pruefen{}\\\hline
+        A6 Bedienbarkeit & Inbetriebnahme $\leq 60$\,min, $\leq 5$ Bedienhandlungen & \pruefen{V9} & \ref{sec:eval_bedienaufwand} & \pruefen{}\\\hline
+        A7 Modularität & Funktionen in getrennten Einheiten mit dokumentierten Schnittstellen & 3 Container, 2 Profile, 4 Andockpunkte & \ref{sec:eval_modular} & \pruefen{erfüllt, wenn A7 nach Kap.-5-Vorschlag P3 lautet}\\\hline
+    \end{tabularx}
+\end{table}
+% Wortlaut der Kriterien nach plan-kap5.md Abschnitt 6 und Kap.-5-Vorschlag P3 (A7 neu); an die Endfassung von tab:anforderungen angleichen.
+
+\pruefen{Zusammenfassender Absatz nach Vorliegen aller Ergebnisse: welche Forschungsfragen F1 bis F4 voll, welche teilweise beantwortet}
 
 \subsection{Einordnung in den Stand der Technik}
 \label{sec:einordnung}
+Unter den verwandten Arbeiten aus Abschnitt~\ref{sec:verwandte_arbeiten} validiert ein Teleoperationssystem für den G1 zuerst in MuJoCo und setzt es danach ohne Änderung am realen Roboter ein \cite{Durrani2026}\ev{Durrani2026.02}.
+Die Stabilität auf niedriger Ebene übernehmen dort wie hier die Onboard-Regler des G1 \cite{Durrani2026}\ev{Durrani2026.04}.
+Die Umgebung dieser Arbeit geht denselben Weg für Arme, Hände und Bedienung und zählt zusätzlich, an welchen Stellen sich Simulation und Realbetrieb unterscheiden (Abschnitt~\ref{sec:eval_code}).
+Der Simulator des Herstellers unterstützt nur die Entwicklung auf niedriger Ebene und dient vor allem der Prüfung von Reglern \cite{UnitreeMujoco}\ev{UnitreeMujoco.02}.
+Die Umgebung setzt auf ihm auf und ergänzt Fortbewegung, Bedienoberfläche und Schutzmechanismen.
+Für den Roboter Pepper bewertet eine quelloffene Simulationsumgebung die Genauigkeit ihres digitalen Zwillings im Vergleich mit einer weiteren Software und einem realen Roboter \cite{Sekkat2024}\ev{Sekkat2024.07}, V7 vergleicht entsprechend Simulation und G1.
+\pruefen{Einordnung nach Vorliegen der Daten ergänzen: Größenordnung der eigenen Abweichung gegenüber den Arbeiten aus Kap. 3/4, sofern vergleichbar (Collins2019 nutzt Motion Capture, daher nur bedingt)}
 
 \subsection{Limitierungen}
 \label{sec:limitierungen}
-% Kein Policy-Transfer, keine Real-Navigation, Sim-Kenngrößen nur teilweise real validiert.
+% Liste nach Plan Frage M9 (Nils bestätigen).
+Die Versuche belegen die Umgebung nur innerhalb der folgenden Grenzen.
+\begin{itemize}
+  \item \textbf{Fortbewegung:} Simulation und Roboter nutzen verschiedene Regler. Aussagen über das Gehen in der Simulation gelten nur für den Ersatzregler (Abschnitt~\ref{sec:fortbewegungspfade}), und gelernte Policies werden nicht auf den Roboter übertragen.
+  \item \textbf{Navigation:} Die Navigation läuft nur in der Simulation und ist nicht Gegenstand der Versuche.
+  \item \textbf{Referenz:} V7 misst gegen die Gelenkwinkelgeber des Roboters, nicht gegen ein externes Messsystem. Fehler, die Simulation und Gelenkwinkelgeber gleichermaßen betreffen, bleiben unentdeckt.
+  \item \textbf{Fehlerfälle:} Die Schutzmechanismen sind für Fehlerfälle nur an der Attrappe geprüft, die die Mechanik des Roboters nicht abbildet.
+  \item \textbf{Bedienung:} Der Bedienaufwand ist technisch gemessen. Wie Personen ohne Vorerfahrung mit der Umgebung zurechtkommen, ist nicht untersucht.
+  \item \textbf{Modularität:} Die Anbindung eines externen Projekts ist nicht gezeigt, der modulare Aufbau ist nur analysiert.
+  \item \textbf{Umfang:} Am Roboter liegen je Versuch nur drei Wiederholungen vor, daher nennt das Kapitel Mittelwert und Spannweite ohne statistische Tests.
+\end{itemize}
+Physisches Testen vor dem Einsatz bleibt auch mit Simulation zwingend \cite{Choi2021}\ev{Choi2021.02}.
+Ein weiterer Bewertungsweg misst Simulatoren nicht an ihrem visuellen oder physikalischen Realismus, sondern daran, ob ein in der Simulation besseres Verfahren auch in der Realität besser abschneidet \cite{Kadian2020}\ev{Kadian2020.01}.
+Dieser Weg setzt mehrere Verfahren voraus und ist hier nicht anwendbar, weil nur eine Umgebung bewertet wird. Die Arbeit belegt die Übertragbarkeit deshalb direkt, für die Armbewegung über V7 und für die übrigen Funktionen über die Funktionsprüfung V2.

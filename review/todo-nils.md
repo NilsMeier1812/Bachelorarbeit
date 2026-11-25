@@ -148,6 +148,24 @@ Pflicht wird sicher verwendet, Reserve nur, wenn Platz ist.
 - [ ] **Reserve: Szenen-Editor** mit geöffneter Szene AP_1 (`szenen-editor.png`). Für 7.2.3.
 - [ ] **Reserve: Planer in RViz**, Hand fährt um ein Hindernis, geplante Bahn sichtbar (`planer-bahn-rviz.png`). Für 7.4.3.
 
+## Kapitel 8 – Evaluation
+
+Entwurf: `Kapitel/08_Evaluation.tex` (25.11., ca. 12 S. mit leeren Ergebnistabellen). Plan und Fragen M1–M9 zum Bearbeiten:
+[Claude-Dokument Kap. 8 – Plan und Fragen](https://claude.ai/artifact/39C7DTmREcrEFxtpSCXfR2) (Antwort in die letzte Spalte).
+Ohne dich erledigt: V1 (Code-Vergleich, Skript `Daten/kap8/v1_betriebsart.py`) und die Analyse des modularen Aufbaus (8.4.2).
+
+**Messdaten (am wichtigsten)**
+- [ ] **M1 Stand der Versuche:** je V2, V5, V7, V8, V9, V11 kurz: gemacht ja/nein, Datum, Ordner der Rohdaten. Auf BA-Stable (6a40e47) gibt es noch keine Messmittel und keine Daten (gleich Kap. 5 „Durchführen“, N11).
+- [ ] **V3 Werbevideo** (M5, gleich Kap. 5 N10): drei Sätze plus ein Standbild; M6: QR-Code auf das Video ja/nein.
+- [ ] **Referenz-PC** (M4): siehe Kap. 5, N4.
+
+**Entscheidungen**
+- [ ] **M2 Gliederung 8.4** „Aufgabenunabhängigkeit und modularer Aufbau“ ohne Versuch mit externem Projekt; hängt an P3/P5 im Kap.-5-Dokument.
+- [ ] **M3 V1-Zählung** (60 Stellen in 10 Dateien, 7 Zweckgruppen) als Ergebnis übernehmen?
+- [ ] **M7–M9:** verfehlte Zielwerte offen benennen, Messreihen in Anhang B, Liste der Limitierungen in 8.5.3.
+
+**Abhängigkeit:** Kap. 9 (Z-Punkte) übernimmt die Ergebnisse aus 8.1–8.5; V1 ist schon da (Abschnitt 8.1.1).
+
 ## Kapitel 9 – Zusammenfassung und Ausblick
 
 Entwurf: `Kapitel/09_Zusammenfassung.tex` (ca. 4 S.), Plan mit Fragen Z1–Z9 als Claude-Dokument

@@ -1,0 +1,52 @@
+% Überblick der Versuche in Kap. 8: Forschungsfrage (Zeilen) x Prüfebene (Spalten).
+% Eigene Darstellung (Art E). Keine Quelle in der Caption.
+% Basis: Versuchsplan Kap. 5 (review/plan-kap5.md, Abschnitt 7.2; Branch claude/project-thread-95lh4v, tab:versuchsplan)
+%   mit den Vorschlägen P3/P5 aus dem Kap.-5-Dokument (23.11.): V10 entfällt, V6 geht in V7 auf.
+%   Durchgezogen = fest geplant, gestrichelt = Kann-Versuch (Ergänzung am Roboter).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/eval-ueberblick} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  % Raster: Kopfspalte 0..3,0; vier Ebenen-Spalten je 3,2 cm, Mitten x = 4,6 | 7,8 | 11,0 | 14,2.
+  % Kästen 2,6 x 0,6 cm, Zeilenabstand 0,75 cm; Versuche über zwei Ebenen 5,8 cm breit (Mitte 12,6).
+  \tikzset{
+    v/.style={ba block, align=center, minimum width=26mm, minimum height=6mm, inner sep=1pt, font=\footnotesize},
+    vk/.style={v, dash pattern=on 3pt off 2pt},
+    vb/.style={v, ba block hervor, minimum width=58mm},
+    kopf/.style={font=\small\bfseries},
+    zeile/.style={font=\footnotesize, align=left, anchor=west},
+  }
+  % Spaltenköpfe und Linien
+  \foreach \x/\t in {4.6/Analyse, 7.8/Attrappe, 11.0/Simulation, 14.2/Roboter}
+    \node[kopf] at (\x,6.75) {\t};
+  \draw[ba normal, baGrau] (0,6.45) -- (15.8,6.45);
+  \foreach \y in {4.65, 2.25, 0.6}
+    \draw[ba trenner] (0,\y) -- (15.8,\y);
+  % Zeilenköpfe
+  \node[zeile] at (0,5.475) {F1 Einheitliche\\Ausführung (A2)};
+  \node[zeile] at (0,3.45) {F2 Abbildungsgüte\\(A3, A4)};
+  \node[zeile] at (0,1.425) {F3 Sichere Bedienung\\(A5, A6)};
+  \node[zeile] at (0,0.15) {F4 Aufgaben und\\Modularität (A1, A7)};
+  % F1
+  \node[v] at (4.6,5.475) {V1 Code};
+  \node[v, ba block hervor] at (14.2,5.9) {V2 Funktionen};
+  \node[v] at (14.2,5.1) {V3 Werbevideo};
+  % F2
+  \node[v] at (11.0,4.2) {V4 Echtzeit};
+  \node[v] at (11.0,3.45) {V5 Gehen};
+  \node[vk] at (14.2,3.45) {V5 Gehen};
+  \node[vb] at (12.6,2.7) {V7 Arme in Simulation und am Roboter};
+  % F3
+  \node[v] at (7.8,1.8) {V8 Schutz};
+  \node[vk] at (14.2,1.8) {V8 Schutz};
+  \node[v] at (11.0,1.05) {V9 Aufwand};
+  \node[vk] at (14.2,1.05) {V9 Aufwand};
+  % F4
+  \node[v] at (4.6,0.15) {Aufbau};
+  \node[vb] at (12.6,0.15) {V11 Neue Aufgabe};
+  % Legende
+  \node[v, minimum width=8mm, minimum height=4mm] at (3.4,-0.9) {};
+  \node[font=\footnotesize, anchor=west] at (3.9,-0.9) {fest geplant};
+  \node[vk, minimum width=8mm, minimum height=4mm] at (6.6,-0.9) {};
+  \node[font=\footnotesize, anchor=west] at (7.1,-0.9) {Ergänzung};
+  \node[v, ba block hervor, minimum width=8mm, minimum height=4mm] at (9.6,-0.9) {};
+  \node[font=\footnotesize, anchor=west] at (10.1,-0.9) {Schlüsselversuch am Roboter};
+\end{tikzpicture}
