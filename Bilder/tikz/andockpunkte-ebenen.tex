@@ -1,0 +1,37 @@
+% Ebenenmodell der Andockpunkte für externe Projekte: je tiefer ein Projekt andockt, desto mehr Freiheit, desto weniger Schutz.
+% Eigene Darstellung (Art E, Kap. 6.5.1), rein konzeptionell; bisher ist kein externes Projekt angebunden (Nils, N10).
+% Basis: G1@6a40e47 g1pilot/docs/21-T-Arm-API.md (Architektur: Client -> HTTP -> eigener Knoten -> Armregler, Brücke hält keine
+%   Kontrolllogik, Format-Prüfung; Gelenklimits, Kollision und Bereitschaft prüft der Armregler),
+%   docs/31-T-Navigation.md (Navigation speist Fahrbefehle über denselben Kanal wie die manuelle Steuerung, joy_mux),
+%   docs/02-T-Architektur.md (Zwei Kommunikationsebenen; Sim <-> Real: Ein Schalter; Unitree-DDS identisch zum Roboter),
+%   docs/30-T-Stehen-und-Gehen.md und docs/25-T-Eigene-Haende.md (Daten: Lauf-Policies, Hand-Profile nur Simulation),
+%   docs/23-T-Posen-und-Ablaeufe.md (Posen und Abläufe als Daten), unitree_mujoco/scene_editor/README.md (Szenen).
+% Hinweis: "Schutzmechanismen wirken" bei Arm-API und ROS-2-Topics folgt daraus, dass beide auf demselben Kanal wie die
+%   Bedienwege landen (Plan 6.5.1); "wirken nicht" bei der Herstellerschnittstelle direkt: Plan 6.5.1, Befund 3.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/andockpunkte-ebenen} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    ebene/.style={ba block, align=left, text width=58mm, minimum width=60mm, minimum height=21mm, anchor=west},
+    schutz/.style={ba block hervor, font=\footnotesize, align=center, text width=31mm, minimum width=33mm, minimum height=21mm, anchor=west},
+    keinschutz/.style={ba block, font=\footnotesize, draw=baAkzent, line width=1.2pt, align=center, text width=31mm, minimum width=33mm, minimum height=21mm, anchor=west},
+    klein/.style={font=\footnotesize, text=baGrau},
+  }
+  % Raster (Nils, 23.11.2026): Ebenen 1,0..7,0 | Schutz 7,3..10,6 | Daten 10,9..15,3, Abstände je 0,3 cm,
+  % Reihen 2,1 cm hoch mit 0,5 cm Abstand; Daten-Kasten bündig mit oberster und unterster Reihe.
+  % Pfeil: mehr Freiheit, weniger Schutz
+  \draw[baAkzent, line width=1.6pt, ->] (0.3,7.05) -- (0.3,-0.25);
+  \node[font=\footnotesize, rotate=90, anchor=south] at (0.35,3.4) {mehr Freiheit \textperiodcentered{} weniger Schutz};
+  % Ebene 1: Arm-API
+  \node[ebene] (E1) at (1.0,6.0) {\textbf{Arm-API}\\{\footnotesize Zielposen und Gelenkwinkel als Daten über HTTP, kein ROS nötig\par}};
+  \node[schutz] (S1) at (7.3,6.0) {Schutzmechanismen wirken};
+  % Ebene 2: ROS-2-Topics
+  \node[ebene] (E2) at (1.0,3.4) {\textbf{ROS-2-Topics}\\{\footnotesize Ziele über dieselben Kanäle wie die Bedienwege, z.\,B. die Navigation\par}};
+  \node[schutz] (S2) at (7.3,3.4) {Schutzmechanismen wirken};
+  % Ebene 3: Herstellerschnittstelle direkt
+  \node[ebene] (E3) at (1.0,0.8) {\textbf{Herstellerschnittstelle direkt}\\{\footnotesize Projekt spricht den Roboter über das Unitree-SDK an, ohne Änderung auch gegen die Simulation\par}};
+  \node[keinschutz] (S3) at (7.3,0.8) {keine Schutz-\\mechanismen\\der Umgebung};
+  % Datenebene
+  \node[ba block hervor, anchor=north west, text width=40mm, minimum width=44mm, minimum height=73mm, align=left] (D) at (10.9,7.05)
+    {\textbf{Daten}\\{\footnotesize unabhängig von der\\Ebene, als Daten\\statt Code:\\[1mm]
+     Szenen\\Hand-Profile\\\hspace*{2mm}(nur Simulation)\\Lauf-Policies\\Posen und Abläufe\par}};
+\end{tikzpicture}

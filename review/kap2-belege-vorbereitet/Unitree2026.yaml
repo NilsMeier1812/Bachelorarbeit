@@ -1,0 +1,84 @@
+# VORBEREITET, noch nicht freigegeben. Zotero G6NZPHNP in _Vorschläge (Webseite, Abruf 2026-11-25).
+# Nach Freigabe: Citation Key "Unitree2026" setzen, zot.py bib + text, Datei nach evidence/ verschieben, check.py.
+# Seiten = Seiten des Ausdrucks pdf/Unitree_2026_G1-Produktseite_2026-11-25.pdf (Fußzeile "n / 14").
+citekey: Unitree2026
+zotero_key: G6NZPHNP
+belege:
+  - id: Unitree2026.01
+    seite: "12"
+    zitat: "Height, Width and Thickness （Stand） 1320x450x200mm 1320x450x200mm"
+    kernaussage: "Stehend misst der G1 (beide Ausführungen) 1320 × 450 × 200 mm (Höhe, Breite, Tiefe)."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2, tab:g1_kenndaten"
+  - id: Unitree2026.02
+    seite: "12"
+    zitat: "Weight (With Battery) About 35kg About 35kg+"
+    kernaussage: "Masse mit Akku: G1 etwa 35 kg, G1 EDU etwa 35 kg und mehr."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2"
+  - id: Unitree2026.03
+    seite: "12"
+    zitat: "Total Degrees of Freedom （Joint Freedom） 23 23 - 43 Single Leg Degrees of Freedom 6 6 Waist Degrees of Freedom 1 1+(Optional 2 additional waist degrees of freedom) Single Arm Degrees of Freedom 5 5"
+    kernaussage: "Gesamtzahl der Gelenkfreiheitsgrade: G1 23, G1 EDU 23 bis 43; je Bein 6, Taille 1 (EDU optional 2 weitere), je Arm 5."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2"
+  - id: Unitree2026.04
+    seite: "12"
+    zitat: "7（Optional Force control of three-fingered hand）+2(Optional 2 additional wrist degrees of freedom)"
+    kernaussage: "Beim G1 EDU optional je Hand 7 Freiheitsgrade (kraftgeregelte Dreifingerhand) und 2 zusätzliche Handgelenk-Freiheitsgrade."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2 (Herkunft der 7-DoF-Arme)"
+  - id: Unitree2026.05
+    seite: "12"
+    zitat: "Joint motor Low inertia high-speed internal rotor PMSM(permanent magnet synchronous motor,better response speed and heat dissipation)"
+    kernaussage: "Gelenkmotoren: trägheitsarme, schnelldrehende Innenläufer-Permanentmagnet-Synchronmotoren."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2"
+  - id: Unitree2026.06
+    seite: "12"
+    zitat: "Maximum Torque of Knee Joint【1】 90N.m 120N.m Arm Maximum Load【2】 About 2Kg About 3Kg"
+    kernaussage: "Maximales Kniemoment 90 N·m (G1) bzw. 120 N·m (EDU), maximale Armlast etwa 2 kg bzw. 3 kg."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2. Fußnoten [1], [2] beachten (Unitree2026.10, .11)."
+  - id: Unitree2026.07
+    seite: "13"
+    zitat: "Joint Encoder Dual encoder Dual encoder Cooling System Local air cooling Local air cooling Power Supply 13 string lithium battery 13 string lithium battery Basic Computing Power 8-core high-performance CPU 8-core high-performance CPU Sensing Sensor Depth Camera+3D LiDAR Depth Camera+3D LiDAR"
+    kernaussage: "Beide Ausführungen: Doppelencoder je Gelenk, lokale Luftkühlung, Lithium-Akku mit 13 Zellen in Reihe, Achtkern-CPU, Tiefenkamera und 3D-LiDAR."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2"
+  - id: Unitree2026.08
+    seite: "13"
+    zitat: "High Computing Power Module / Multiple brands and models available such as Orin, etc."
+    kernaussage: "Ein Hochleistungs-Rechenmodul gibt es nur für den G1 EDU, in mehreren Ausführungen, z. B. Orin."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2"
+  - id: Unitree2026.09
+    seite: "13"
+    zitat: "Battery Life About 2h About 2h Upgraded Intelligent OTA YES YES Secondary Development【3】 / YES"
+    kernaussage: "Akkulaufzeit etwa 2 h; Sekundärentwicklung (eigene Software) nur beim G1 EDU."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2 / 2.3 (Programmierschnittstelle nur EDU)"
+  - id: Unitree2026.10
+    seite: "13"
+    zitat: "The maximum torque of the joint motors of the whole machine is different. This is the maximum torque of the largest joint motor among them."
+    kernaussage: "Die Gelenkmotoren haben unterschiedliche Maximalmomente; angegeben ist das des größten Motors."
+    quelle: exzerpt
+    kommentar: "Fußnote [1] zu Unitree2026.06"
+  - id: Unitree2026.11
+    seite: "13"
+    zitat: "The maximum load of the arm varies greatly under different arm extension postures."
+    kernaussage: "Die maximale Armlast hängt stark von der Armstellung ab."
+    quelle: exzerpt
+    kommentar: "Fußnote [2] zu Unitree2026.06"
+  - id: Unitree2026.12
+    seite: "13"
+    zitat: "Currently, the global humanoid robot industry is in the early stages of exploration. Individual users are strongly advised to thoroughly understand the limitations of humanoid robots before making a purchase."
+    kernaussage: "Laut Hersteller steht die Humanoiden-Industrie weltweit am Anfang; Nutzern wird geraten, vor dem Kauf die Grenzen humanoider Roboter genau zu verstehen."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.2 Hemmnisse (Herstelleraussage, Fußnote [9])"
+  - id: Unitree2026.13
+    seite: "13"
+    zitat: "The humanoid robot has a complex structure and extremely powerful power. Users are asked to keep a sufficient safe distance between the humanoid robot and people."
+    kernaussage: "Laut Hersteller ist der Humanoide komplex aufgebaut und sehr kraftvoll; zwischen Roboter und Menschen ist ausreichender Sicherheitsabstand zu halten."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.2 / 2.2 (Fußnote [6])"

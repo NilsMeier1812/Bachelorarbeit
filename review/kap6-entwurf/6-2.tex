@@ -1,0 +1,113 @@
+% Entwurf AP4 – Abschnitt 6.2 Gesamtarchitektur (Stand 20.11.2026, Claude)
+% Plan: review/plan-kap6.md, Abschnitte 4, 5 (6.2.1–6.2.3), 6. Code-Stand der Befunde: G1@25d5c1a.
+% Abbildung fig:architektur und Tabelle tab:sim_real baut AP1 bzw. AP2; hier nur \ref und Erläuterung,
+% die Float-Umgebungen setzt AP8 jeweils direkt nach den Absatz mit dem ersten Verweis (markiert mit % FLOAT).
+
+\section{Gesamtarchitektur}
+\label{sec:architektur}
+% [A2, F1]
+Dieser Abschnitt beschreibt, wie die Umgebung aufgebaut ist und wodurch derselbe Steuerungscode in der Simulation und am realen G1 läuft (Forschungsfrage F1).
+Auf die Komponenten und Datenflüsse folgen der Wechsel zwischen den beiden Welten und die Fortbewegung als der Teil, der sich in ihnen grundlegend unterscheidet.
+
+\subsection{Komponenten und Datenflüsse}
+\label{sec:komponenten}
+% Basis: G1@25d5c1a docs/02-T-Architektur.md, „Gesamtbild“ und „Projektstruktur — Node-Übersicht“; docs/10-T-Demo-GUI.md, „Grundsatz“
+Die Umgebung ist in funktional getrennte Knoten zerlegt, statt die Bewegungslogik in einem Programm oder in der Bedienoberfläche zu bündeln.
+Nach A2 und A7 (Tabelle~\ref{tab:anforderungen}) sollen mehrere Bedienwege und externe Projekte dieselbe Steuerung nutzen, die unverändert gegen Simulation und Roboter läuft.
+Die Zerlegung folgt dem Designprinzip der Verteilung, nach dem Anforderungen in funktional unabhängige Komponenten wie Gerätetreiber und Regelung getrennt werden \cite{Macenski2022}\ev{Macenski2022.04} (Abschnitt~\ref{sec:ros2}).
+\pruefen{Logik in der Bedienoberfläche als gedankliche Alternative bestätigen (Plan 6.2.1)}
+Abbildung~\ref{fig:architektur} ordnet die Komponenten in vier Ebenen von der Bedienung bis zum Roboter; Pfeile nach unten tragen Ziele, Pfeile nach oben Zustände, gestrichelte Rahmen kennzeichnen die Container (Abschnitt~\ref{sec:container_profile}).
+% FLOAT: hier fig:architektur (AP1, Bilder/tikz/architektur-gesamt.tex) einfügen
+
+% Basis: G1@25d5c1a docs/10-T-Demo-GUI.md, „Grundsatz“; docs/21-T-Arm-API.md, „Architektur“; docs/31-T-Navigation.md, „Warum der Umweg über einen ‚Fake-Joystick‘?“
+Die oberste Ebene bilden die Bedienwege: Bedienoberfläche, Gamepad, Smartphone und externe Programme.
+Für sie gilt die erste Architekturregel: Bedienwege rechnen keine Bewegung, sondern senden Ziele und lesen Zustände.
+Damit durchläuft jede Vorgabe dieselbe Logik und dieselben Schutzmechanismen, und es entsteht kein zweiter, ungeprüfter Steuerweg zum Roboter.
+Neue Bedienwege und externe Projekte docken an vorhandene Kanäle an, ohne die Regelung zu verändern (Abschnitte~\ref{sec:bedienwege_konzept} und~\ref{sec:andockpunkte}).
+
+% Basis: G1@25d5c1a docs/02-T-Architektur.md, „Joint-Layout (29 DOF)“; docs/30-T-Stehen-und-Gehen.md, „Zuständigkeit der Gelenke“; docs/20-T-Arm-Manipulation.md, „_arms_not_ready_reason() ist die einzige Stelle …“; docs/50-A-Echter-Roboter.md, Abschnitt E „Taille wird mitgehalten“
+Die zweite Ebene enthält die Funktionsknoten Armregelung mit Bahnplanung, Fortbewegung, Hände und Roboterzustand.
+Die zweite Architekturregel trennt dabei die Zuständigkeit je Gelenkgruppe: Beine und Taille gehören der Fortbewegung, die Arme ausschließlich der Armregelung und die Finger dem Hand-Knoten.
+Die Trennung verhindert konstruktiv, dass ein Zustandswechsel der Fortbewegung die Arme verstellt; die einzige Ausnahme, die Taille bei übernommenen Armen im Realbetrieb, behandelt Abschnitt~\ref{sec:armuebergabe}.
+In diesen Knoten liegen auch die Schutzmechanismen; ob eine neue Armbewegung starten darf, prüft die Armregelung an genau einer Stelle (Abschnitt~\ref{sec:schutzmechanismen}).
+
+% Basis: G1@25d5c1a docs/02-T-Architektur.md, „Zwei Kommunikationsebenen“; g1pilot/utils/common.py:6-23 (Kommentar zur Domain-Paarung)
+Die dritte Ebene ist die Herstellerschnittstelle, über die die Funktionsknoten Befehle an den Roboter senden und seinen Zustand lesen.
+Für die Low-Level-Kommunikation stehen die Nachrichten LowCmd für Motorbefehle und LowState für Motorzustände bereit \cite{UnitreeMujoco}\ev{UnitreeMujoco.05}, beim G1 nach der Schnittstellendefinition unitree\_hg \cite{UnitreeMujoco}\ev{UnitreeMujoco.06}.
+\qf{Herstellerdoku G1: High-Level-Schnittstelle und Arm-Schnittstelle (L7, Abschnitt~\ref{sec:g1_software})}
+Die dritte Architekturregel trennt zwei Kommunikationsebenen: die Herstellerschnittstelle zwischen Funktionsknoten und Roboter sowie ROS~2 für den Austausch innerhalb der Umgebung.
+Beide laufen auf verschiedenen DDS-Domains (Abschnitt~\ref{sec:dds}), da nur Teilnehmer derselben Domain miteinander kommunizieren \cite{OMG2015}\ev{OMG2015.08} und ein Knoten, der beide Ebenen nutzt, dieselbe Domain nicht zweimal öffnen kann.
+Die Funktionsknoten kennen damit nur die Herstellerschnittstelle, nicht die Welt dahinter.
+
+% Basis: G1@25d5c1a docs/02-T-Architektur.md, „Laufzeit-Topologie (Simulation)“ und Absatz darunter (Inspire-Hände real per Modbus TCP); docs/22-T-Inspire-Haende.md, „Beteiligte Dateien“ (Backends sim / MuJoCo-DDS / Modbus TCP)
+Auf der untersten Ebene wählt ein Schalter genau eine Welt: die Simulation mit dem Ersatzregler für Stehen und Gehen oder den realen Roboter mit dem Onboard-Regler (Abschnitte~\ref{sec:sim_real_schalter} und~\ref{sec:fortbewegungspfade}).
+Eine Ausnahme bilden die Hände, die der Hand-Knoten am realen Roboter über eine eigene Netzwerkverbindung anspricht statt über die Herstellerschnittstelle.
+Ob die Funktionsknoten in beiden Welten tatsächlich unverändert laufen, weist Abschnitt~\ref{sec:eval_code} nach.
+
+\subsection{Umschaltung zwischen Simulation und Realbetrieb}
+\label{sec:sim_real_schalter}
+% Basis: G1@25d5c1a docs/02-T-Architektur.md, „Gesamtbild“ („derselbe Code, dieselbe Nachrichten-API“) und „Sim ↔ Real: Ein Schalter“
+Anforderung A2 verlangt, dass Simulation und Realbetrieb denselben Programmstand nutzen und sich nur in der Konfiguration unterscheiden (Tabelle~\ref{tab:anforderungen}).
+Dafür kommen drei Entwürfe in Frage: (a) getrennte Programme für Simulation und Roboter, (b) eine eigene Abstraktionsschicht über beiden Welten und (c) eine Simulation, die die Herstellerschnittstelle nachbildet.
+Entwurf (a) widerspricht A2 unmittelbar, und Entwurf (b) verschiebt den Unterschied in zwei getrennt zu pflegende Umsetzungen der Abstraktionsschicht.
+\pruefen{Abwägung (a), (b) gegen (c) bestätigen}
+Die Umgebung folgt deshalb Entwurf (c): Die Simulation tritt an die Stelle des Roboters, und die Funktionsknoten sprechen in beiden Welten dieselbe Schnittstelle an.
+
+% Basis: G1@25d5c1a docs/02-T-Architektur.md, Verzeichnisbaum (unitree_mujoco „Unitree-Original, angepasst“)
+Entwurf (c) setzt einen Simulator voraus, der die Herstellerschnittstelle bereitstellt, und bestimmt damit die Wahl von MuJoCo.
+Der Simulator unitree\_mujoco baut auf dem Unitree-SDK und MuJoCo auf und ist darauf ausgelegt, mit dem SDK entwickelte Steuerprogramme einzubinden und so den Übergang zum realen Roboter zu erleichtern \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}; er bringt zudem MJCF-Modelle des G1 mit \cite{UnitreeMujoco}\ev{UnitreeMujoco.04} (Abschnitt~\ref{sec:mujoco}).
+Die Umgebung übernimmt diesen Simulator und passt ihn an.
+% Kann
+Dasselbe Argument nutzt eine Arbeit zur Teleoperation des G1, die eine bestandene Prüfung in der Simulation als starkes Indiz für die Übertragbarkeit wertet, weil derselbe Code unverändert in beiden Welten läuft \cite{Durrani2026}\ev{Durrani2026.01,Durrani2026.03}.
+Gestützt wird die Wahl dadurch, dass Humanoid-Gym MuJoCo wegen seiner als genau bekannten Dynamik für die Sim-to-Sim-Validierung trainierter Policies einsetzt \cite{Gu2024}\ev{Gu2024.03}; im dort untersuchten Fall liegt die Dynamik in MuJoCo näher an der Realität als in Isaac Gym \cite{Gu2024}\ev{Gu2024.04} (Tabelle~\ref{tab:simulatoren}).
+\pruefen{Grund gegen GPU-parallele Simulatoren von Nils; naheliegend: kein eigenes Training (Abschnitt~\ref{sec:zielsetzung})}
+
+% Basis: G1@25d5c1a docs/02-T-Architektur.md, „Sim ↔ Real: Ein Schalter“ (Tabelle, „einzige Stelle“); g1pilot/utils/common.py:21-55 (resolve_dds, init_dds)
+Den Wechsel trägt ein einziger Schalter in der Konfiguration, der an genau einer Stelle beim Öffnen der Verbindung zur Herstellerschnittstelle ausgewertet wird.
+In der Simulation verbindet er die Funktionsknoten über die Domain~1 und die Loopback-Schnittstelle mit dem Simulator, im Realbetrieb über die Domain~0 und die Netzwerkkarte mit dem Roboter (Abbildung~\ref{fig:dds_domains}); alle übrigen Module arbeiten unabhängig davon.
+Die Kopplung des Simulators beschreibt Abschnitt~\ref{sec:bridge}, die Bedienung Anhang~\ref{anh:dokumentation}.
+
+% Basis: G1@25d5c1a docs/02-T-Architektur.md, „Sim ↔ Real“ (Locomotion) und „Laufzeit-Topologie“ (Hände real per Modbus TCP); docs/20-T-Arm-Manipulation.md, „rt/arm_sdk-Gewichtsrampe“ und „Übergabe an den Onboard-Regler“ (_apply_real_safety_limits nur real); docs/30-T-Stehen-und-Gehen.md, „Zustandsmaschine“ (emergency_stop → DAMP) und „loco_client“ (emergency_stop: StopMove, Damp nur mit estop_damp_legs, Default aus); docs/40-T-Simulation.md, „Auto-Start (GREIFEN)“; docs/50-A-Echter-Roboter.md, Abschnitt E „Kein Auto-Start“; docs/03-A-Startmenue.md, Zeile „Sicherheit“; docs/04-T-Umgebungsvariablen.md, G1_HANDS („Nur Sim“) und G1_ENABLE_NAV („nur Sim“); docs/31-T-Navigation.md, „Nur Simulation“
+Trotz desselben Programmstands sind Simulation und Realbetrieb nicht in allen Punkten gleich; Tabelle~\ref{tab:sim_real} stellt die Unterschiede zeilenweise gegenüber.
+% FLOAT: hier tab:sim_real (AP2, review/kap6-entwurf/tabellen.tex) einfügen
+Gleich sind die Art der Verbindung, die sich nur in Domain und Schnittstelle unterscheidet (erste Zeile), und die Armregelung (dritte Zeile).
+Nicht gleich ist die Fortbewegung in der zweiten Zeile, die in der Simulation ein Ersatzregler und am Roboter der Onboard-Regler übernimmt (Abschnitt~\ref{sec:fortbewegungspfade}).
+Die Hände (vierte Zeile) sind in der Simulation simulierte Finger mit wählbaren eigenen Profilen, am Roboter eigenständige Geräte im Netzwerk.
+Harte Grenzwerte und die Übergabezeit der Arme (fünfte Zeile) gelten nur im Realbetrieb; dort lässt der Not-Halt die Beine stehen, in der Simulation dämpft er sie (Abschnitt~\ref{sec:zustaende}).
+Beim Start (sechste Zeile) fährt die Simulation selbsttätig in die Greifstellung, während der Realbetrieb eine Sicherheitsbestätigung verlangt und ohne Eingabe nichts sendet.
+Die Navigation läuft nur in der Simulation, da am Roboter eine Quelle für die eigene Position fehlt.
+
+% Basis: wie oben; docs/40-T-Simulation.md, „Lockstep“ („Nach oben ist das auf Echtzeit gedeckelt“)
+Die Unterschiede beschränken sich damit auf Verbindung, Fortbewegung, Anbindung der Hände und zusätzliche Schutz- und Komfortfunktionen je Welt.
+Da die Simulation den Roboter ersetzt, hängt das Zeitverhalten der Funktionsknoten dort vom Takt des Simulators ab (Anforderung A3, Abschnitt~\ref{sec:zeitschritt}).
+Nachgewiesen werden die Gleichheit in Abschnitt~\ref{sec:eval_code}, der Betrieb am realen G1 in Abschnitt~\ref{sec:eval_realtests} und die Echtzeitfähigkeit in Abschnitt~\ref{sec:eval_echtzeit}.
+
+\subsection{Fortbewegungspfade in Simulation und Realbetrieb}
+\label{sec:fortbewegungspfade}
+% Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, „Warum zwei völlig verschiedene Implementierungen?“
+Die Fortbewegung ist der einzige Funktionsbereich, für den die Simulation hinter der Herstellerschnittstelle kein Gegenstück bereitstellt.
+Am realen G1 übernimmt der eingebaute, nicht quelloffene Laufregler des Herstellers \cite{Hu2026}\ev{Hu2026.01,Hu2026.02}, im Folgenden Onboard-Regler, Stehen und Gehen (Abschnitt~\ref{sec:g1_onboard}).
+Der Simulator unitree\_mujoco unterstützt dagegen nur die Low-Level-Entwicklung \cite{UnitreeMujoco}\ev{UnitreeMujoco.02}, sodass dieser Regler in der Simulation fehlt, obwohl A2 und A4 Stehen und Gehen auch dort verlangen.
+
+% Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, „Warum zwei völlig verschiedene Implementierungen?“ und „loco_client“ („Bildet dieselben GUI-Topics wie loco_sim … ab“); docs/40-T-Simulation.md, „Feste Voreinstellungen“ (alte Arm-only-Sim mit festgeschweißtem Oberkörper)
+Drei Entwürfe stehen zur Wahl: (a) eine Simulation ohne Fortbewegung mit festgehaltenem Rumpf, (b) das eigene Training einer Lauf-Policy und (c) veröffentlichte Lauf-Policies, ergänzt um einen eigenen Standregler.
+Entwurf (a) lässt weder Gehen noch Balancieren beim Greifen prüfen, und Entwurf (b) schließt die Eingrenzung der Arbeit aus (Abschnitt~\ref{sec:zielsetzung}).
+Gewählt ist Entwurf (c) mit einem Ersatzregler, der dieselben Befehle annimmt wie die Anbindung des Onboard-Reglers: Bedienmodus, Geschwindigkeitsvorgabe und Halt.
+Die Bedienwege unterscheiden deshalb nicht zwischen den Welten, obwohl beide Pfade intern völlig verschieden arbeiten.
+
+% Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, „Zwei kombinierte Regler“ (Grund für die Kombination) und „Bekannte Einschränkungen“ (reserve[], „nicht für den Realeinsatz gedacht“)
+Der Ersatzregler kombiniert eine Lauf-Policy für das Gehen mit einem modellbasierten Standregler für das Stehen.
+Grund für die Kombination ist, dass die Lauf-Policy im Stand kleine Ausgleichsschritte macht, die Füße beim Greifen aber an ihrem Platz bleiben sollen; das gemessene Verhalten beider Teile folgt in Abschnitt~\ref{sec:eval_fortbewegung}.
+Er nutzt Größen, die nur die Simulation liefert, und ist nicht für den realen Roboter bestimmt; die Umsetzung beider Pfade beschreiben die Abschnitte~\ref{sec:ersatzregler} und~\ref{sec:onboard_anbindung}.
+
+% Kann
+% Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, Tabelle „Beteiligte Dateien“ (policies/*) und Tabelle G1_WALK_POLICY („Arme beim Laufen“)
+Für das Gehen stehen drei Lauf-Policies zur Wahl, eine aus unitree\_rl\_mjlab und zwei aus WBC-AGILE (Tabelle~\ref{tab:policies}).
+Die voreingestellte stammt aus einem RL-Projekt mit MuJoCo als Physik-Backend \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.01} und liegt als ONNX-Export vor \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.04}; mit ihr hängen die Arme beim Gehen in fester Haltung, mit den WBC-AGILE-Policies bleiben sie frei.
+\qf{Herkunft und Training der WBC-AGILE-Policies (L14, Zhao2026 noch in \_Vorschläge)}
+\pruefen{Auswahlkriterien und verworfene Policies von Nils (N5)}
+
+% Basis: G1@25d5c1a docs/30-T-Stehen-und-Gehen.md, „Bekannte Einschränkungen“ (Sim-Stellvertreter; Abweichung der AGILE-Policy vom Isaac-Lab-Training)
+Die Grenze dieses Konzepts liegt in der Übertragbarkeit des Gangverhaltens.
+Die Simulation zeigt das Gehen des Ersatzreglers, nicht das des Onboard-Reglers, dessen innere Mechanismen nicht bekannt sind \cite{Hu2026}\ev{Hu2026.02}; die Lauf-Policies laufen nie am realen Roboter, und für den Ersatzregler gelten zusätzlich die Ursachen der Sim-to-Real-Lücke (Abschnitt~\ref{sec:sim2real}).
+Aussagen über das Gehen in der Simulation gelten daher nur für den Ersatzregler; Abschnitt~\ref{sec:eval_fortbewegung} misst sein Verhalten, Abschnitt~\ref{sec:limitierungen} ordnet die Grenze ein.

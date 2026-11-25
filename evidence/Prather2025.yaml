@@ -50,3 +50,51 @@ belege:
   kernaussage: Laut Bericht kann auch ein zweibeiniger Roboter stürzen; daher müssten Normen auch Fehlerbehandlung, Sturzreaktion und den Umgang mit allen sonstigen Fehlern enthalten.
   quelle: exzerpt
   kommentar: 'Kap. 3.4 (L20); Satz beginnt auf der Vorseite („Just as humans sometimes will fall over …“) (gedruckte Berichtsseite: 55)'
+- id: Prather2025.09
+  seite: '5'
+  zitat: Investment in humanoids is accelerating globally, with manufacturers already piloting systems in factories, logistics centers, and healthcare facilities.
+  kernaussage: Laut Bericht wachsen die Investitionen in Humanoide weltweit, und Hersteller erproben Systeme bereits in Pilotprojekten in Fabriken, Logistikzentren und Gesundheitseinrichtungen.
+  quelle: exzerpt
+  kommentar: 'Kap. 2.1.2 Einsatzszenarien (gedruckte Berichtsseite: 4)'
+- id: Prather2025.10
+  seite: '7'
+  zitat: The ROI for humanoid robots remains unclear. Humanoid robots will be able to perform a variety of tasks, with each task having a different value to the robot operator.
+  kernaussage: Laut Bericht bleibt der Return on Investment von Humanoiden unklar, weil sie viele Aufgaben mit jeweils unterschiedlichem Wert für den Betreiber ausführen sollen.
+  quelle: exzerpt
+  kommentar: 'Kap. 2.1.2 Hemmnisse (Nutzen unklar), Kap. 1.1 Motivation (gedruckte Berichtsseite: 6)'
+- id: Prather2025.11
+  seite: '7'
+  zitat: One core measure that has made industrial robots so successful is that there is a clear return on investment (ROI) and a measurable payback period for this autonomous equipment.
+  kernaussage: Laut Bericht beruht der Erfolg von Industrierobotern wesentlich auf einem klaren Return on Investment und einer messbaren Amortisationszeit.
+  quelle: exzerpt
+  kommentar: 'Kap. 2.1.2 (gedruckte Berichtsseite: 6)'
+- id: Prather2025.12
+  seite: '10'
+  zitat: For a widespread shift to occur, the performance-tocost ratio of humanoids must surpass that of purpose-built machines, a potential outcome driven by the scalability of their general-purpose nature.
+  kernaussage: Laut Bericht muss das Leistungs-Kosten-Verhältnis von Humanoiden das zweckgebundener Maschinen übertreffen, damit es zu einem breiten Umstieg kommt.
+  quelle: exzerpt
+  kommentar: 'Kap. 2.1.2 Hemmnisse (Kosten). Silbentrennung "performance-tocost" so im PDF-Text (gedruckte Berichtsseite: 9)'
+- id: Prather2025.13
+  seite: '10'
+  zitat: 'Humanoids have similar characteristics to collaborative robots, with a key difference: they can tip over and potentially harm a person nearby, even if not in direct contact.'
+  kernaussage: Laut Bericht ähneln Humanoide kollaborierenden Robotern, können aber umkippen und dabei auch eine Person in der Nähe ohne direkten Kontakt verletzen.
+  quelle: exzerpt
+  kommentar: 'Kap. 2.1.2 Hemmnisse (Sicherheit), Verweis auf 3.4 (gedruckte Berichtsseite: 9)'
+- id: Prather2025.14
+  seite: '16'
+  zitat: Assembly lines and machine-tending roles require humanoids to work closely with humans, where precision and timing are crucial. Physical safety, reliability, and ergonomic limitations are significant barriers, compounded by the psychosocial impacts of robots supplementing skilled labor. Fine motor control remains a major limit.
+  kernaussage: Laut Bericht verlangen Montage und Maschinenbeschickung enge Zusammenarbeit mit Menschen; physische Sicherheit, Zuverlässigkeit und ergonomische Grenzen sind wesentliche Hürden, die Feinmotorik bleibt eine große Einschränkung.
+  quelle: exzerpt
+  kommentar: 'Kap. 2.1.2 Einsatz in der Produktion (Use Case Manufacturing Support) (gedruckte Berichtsseite: 15)'
+- id: Prather2025.15
+  seite: '92'
+  zitat: Until these elements are developed in tandem, humanoids will remain limited to controlled environments and pilot programs.
+  kernaussage: Laut Bericht bleiben Humanoide auf kontrollierte Umgebungen und Pilotprojekte beschränkt, bis Klassifikation, Stabilitäts- und HRI-Normen gemeinsam entwickelt sind.
+  quelle: exzerpt
+  kommentar: 'Kap. 2.1.2 (gedruckte Berichtsseite: 91). "these elements" = Klassifikation, Stabilität, Mensch-Roboter-Interaktion (Satz davor).'
+- id: Prather2025.16
+  seite: '12'
+  zitat: By mirroring our form and movement, they can utilize our tools, navigate our spaces, and undertake tasks that once required human hands.
+  kernaussage: Laut Bericht können Humanoide durch ihre menschenähnliche Form und Bewegung menschliche Werkzeuge nutzen, sich in menschlichen Räumen bewegen und Aufgaben übernehmen, die bisher menschliche Hände erforderten.
+  quelle: exzerpt
+  kommentar: 'Kap. 2.1 Begriff / 2.1.2 (gedruckte Berichtsseite: 11)'

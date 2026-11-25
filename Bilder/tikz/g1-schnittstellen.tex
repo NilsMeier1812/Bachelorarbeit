@@ -1,0 +1,28 @@
+% Drei Zugriffsebenen der Herstellerschnittstelle des G1 (Lauf-Dienst, arm_sdk, Low-Level).
+% Eigene Darstellung nach unitree_sdk2_python @814556d (g1_loco_client.py, g1_arm7_sdk_dds_example.py,
+% g1_low_level_example.py; Belege UnitreeSDK2PyG1.06-.14, noch nicht freigegeben) und Hu2026.02.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/g1-schnittstellen} in einer figure-Umgebung.
+\begin{tikzpicture}[ba,
+    col/.style={ba block, minimum width=4.6cm, text width=4.4cm, minimum height=21mm, anchor=north, execute at begin node={\hyphenpenalty=10000\relax}},
+    ebene/.style={font=\small\bfseries},
+    lbl/.style={font=\footnotesize, text=baGrau, fill=white, inner sep=1.5pt},
+  ]
+  % Eigene Software
+  \node[ba block hervor, minimum width=15.4cm, minimum height=8mm] (app) at (0,4.2) {Eigene Software (z.\,B. die Plattform dieser Arbeit)};
+  % Drei Ebenen
+  \node[col] (loco) at (-5.4,3.2) {\textbf{Lauf-Dienst}\\[1pt] Zustand und Sollgeschwindigkeit\\[1pt] {\footnotesize Anfrage und Antwort}};
+  \node[col] (arm)  at (0,3.2)    {\textbf{arm\_sdk}\\[1pt] Arme und Taille mit Gewicht\\[1pt] {\footnotesize Topic \texttt{rt/arm\_sdk}}};
+  \node[col] (low)  at (5.4,3.2)  {\textbf{Low-Level}\\[1pt] alle 29 Gelenke ohne Bewegungsmodus\\[1pt] {\footnotesize \texttt{rt/lowcmd}, \texttt{rt/lowstate}}};
+  % Onboard-Regler (über Lauf-Dienst und arm_sdk)
+  \node[ba block, minimum width=10.0cm, minimum height=9mm] (onb) at (-2.7,-0.3) {Onboard-Software mit Laufregler (nicht quelloffen)};
+  % Gelenkregler und Motoren
+  \node[ba block, minimum width=15.4cm, minimum height=9mm] (pd) at (0,-1.9) {Gelenkregler je Motor mit Sollwinkel, Sollgeschwindigkeit, Moment und Verstärkungen};
+  \node[ba block, fill=baHellgrau!40, minimum width=15.4cm, minimum height=8mm] (mot) at (0,-3.3) {29 Gelenkmotoren des G1};
+  % Pfeile
+  \foreach \c in {loco,arm,low} \draw[ba pfeil] (app.south -| \c) -- (\c.north);
+  \draw[ba pfeil] (loco.south) -- (loco.south |- onb.north);
+  \draw[ba pfeil] (arm.south) -- (arm.south |- onb.north) node[lbl, midway] {Gewicht 0 bis 1};
+  \draw[ba pfeil] (onb.south) -- (onb.south |- pd.north) node[lbl, midway] {Sollwerte};
+  \draw[ba pfeil] (low.south) -- (low |- pd.north) node[lbl, pos=0.55] {ohne Laufregler};
+  \draw[ba pfeil] (pd.south) -- (mot.north);
+\end{tikzpicture}

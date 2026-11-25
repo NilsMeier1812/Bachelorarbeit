@@ -1,11 +1,119 @@
-% Gliederung Stand 30.10.2026. Max. ~3 Seiten.
+% Entwurf 25.11.2026 (Kapitelplan: Claude-Dokument https://claude.ai/artifact/XuFk1M5Ke3kRyD95SYhnTv, Fragen Z1–Z9).
+% Seitenbudget 3 S. (review/seitenbudget.md), Entwurf ca. 4 S. Kürzungsreserve: tab:forschungsfragen oder fig:ausblick.
+% Zusammenfassung = Eigenleistung mit Verweis auf Kap. 5–8, ohne neue Quellen. Belege nur im Ausblick, nur vorhandene Belege.
+% Ergebnisse aus Kap. 8 fehlen noch: alle Urteile und Zahlen als \pruefen{} (Z4). Eigenname der Plattform offen (Z9), bis dahin „Umgebung“.
+% Code-Bezugsstand: G1 BA-Stable @ 6a40e47.
 \chapter{Zusammenfassung und Ausblick}
 \label{chap:zusammenfassung}
+Mit dieser Arbeit liegt für den Unitree G1 eine Umgebung vor, in der dieselbe Steuerung zuerst in der Simulation und anschließend am realen Roboter läuft und die Personen ohne Vorerfahrung über eine Bedienoberfläche und Standard-Eingabegeräte bedienen.
+Abschnitt~\ref{sec:zusammenfassung} ordnet dieses Ergebnis den Forschungsfragen F1 bis F4 zu und nennt die Beiträge und Grenzen der Arbeit, Abschnitt~\ref{sec:ausblick} leitet aus den Grenzen Ansatzpunkte für weitere Arbeiten ab.
 
 \section{Zusammenfassung}
 \label{sec:zusammenfassung}
-% Antworten auf F1–F4, Prüfung gegen A1–A7, Beiträge der Arbeit.
+% Basis: Kap. 1.2 (Ziel, Gerüst), Kap. 5.1 (D1–D4, PR #2), Kap. 6.1.3 (Eigenleistung, „etwa ein Zehntel“ aus NOTICE.md).
+Ziel der Arbeit ist eine aufgabenunabhängige Simulations- und Ausführungsumgebung für den G1, die ohne Vorerfahrung nutzbar ist und jede Aufgabe erst in der Simulation und dann am realen Roboter ausführt (Abschnitt~\ref{sec:zielsetzung}).
+Die Analyse in Abschnitt~\ref{sec:handlungsbedarf} zeigt dafür vier Defizite der betrachteten Arbeiten: Die gemeinsame Ausführung in Simulation und Realbetrieb deckt jeweils nur einen Teil des Funktionsumfangs ab, die Aussagekraft der Simulation ist für eine Bedienumgebung als Ganzes nicht bewertet, Bedienkonzepte setzen Spezialhardware oder Vorwissen voraus, und die Werkzeuge sind jeweils auf einen Zweck zugeschnitten.
+Aus den Defiziten folgen die Forschungsfragen F1 bis F4 und die Anforderungen A1 bis A7 mit Kennzahlen und Zielwerten (Abschnitt~\ref{sec:anforderungen}).
+
+Die Umgebung baut auf dem quelloffenen ROS-2-Paket G1Pilot auf, von dessen Programmzeilen nur noch etwa ein Zehntel übernommen ist (Abschnitt~\ref{sec:eigenleistung}).
+Sie besteht aus funktional getrennten Knoten, einer Simulation, die die Herstellerschnittstelle des Roboters nachbildet, einem Sicherheitskonzept mit gestuftem Halt, mehreren Bedienwegen mit gemeinsamem Bedienzustand und einem Aufbau aus Containern (Kapitel~\ref{chap:konzept} und~\ref{chap:umsetzung}).
+Die Antworten auf die Forschungsfragen fasst Tabelle~\ref{tab:forschungsfragen} zusammen, die folgenden Absätze erläutern sie.
+
+% Tabelle: Kernantworten aus Kap. 6 (Konzept) und Kap. 8 (Nachweis, noch offen). Gitterstil (Text-Tabelle).
+\begin{table}[htbp]
+  \tabstil
+  \caption[Forschungsfragen und ihre Antworten]{Forschungsfragen F1 bis F4 mit der Antwort der Arbeit in Kurzform und dem Abschnitt des Nachweises.}
+  \label{tab:forschungsfragen}
+  \begin{tabularx}{\textwidth}{|p{0.6cm}|L|p{2.6cm}|}
+    \hline
+    \tabkopfzeile \tabkopf{F} & \tabkopf{Antwort in Kurzform} & \tabkopf{Nachweis}\\\hline
+    F1 & Die Simulation bildet die Herstellerschnittstelle nach, der Wechsel ändert nur die Konfiguration. Ausnahme ist die Fortbewegung, die in der Simulation ein Ersatzregler übernimmt. & \ref{sec:sim_real_schalter}, \ref{sec:fortbewegungspfade}, \ref{sec:eval_f1}\\\hline
+    F2 & \pruefen{Kernergebnis zu Echtzeit (A3) und Abweichung Simulation zu Roboter (A4) aus Kap.~8 einsetzen}. Aussagen zum Gehen gelten nur für den Ersatzregler. & \ref{sec:eval_f2}\\\hline
+    F3 & Gestufter Halt, gestaffelte Schutzmechanismen, die jedes Ziel vor der Ausführung prüfen, und Bedienwege, die nur Ziele senden. \pruefen{Ergebnis zu A5 und A6 aus Kap.~8 einsetzen} & \ref{sec:sicherheitskonzept}, \ref{sec:bedienkonzept}, \ref{sec:eval_f3}\\\hline
+    F4 & Andockpunkte auf drei Ebenen und Container-Profile. Aufgaben sind Daten aus Posen und Abläufen. Ein externes Projekt ist nicht angebunden. & \ref{sec:erweiterungskonzept}, \ref{sec:bereitstellung}\\\hline
+  \end{tabularx}
+\end{table}
+
+% F1. Basis: Kap. 6.2.2 (sec:sim_real_schalter, Einstiegssatz), 6.2.3 (Ersatzregler aus Policy + Standregler, gleiche Befehle).
+Zu F1 ist die Umgebung so angelegt, dass Simulation und Realbetrieb sich nur in der Konfiguration unterscheiden, weil die Simulation die Herstellerschnittstelle des Roboters nachbildet (Abschnitt~\ref{sec:sim_real_schalter}).
+Armregelung, Bedienwege und Schutzmechanismen laufen damit in beiden Betriebsarten im selben Programmstand \pruefen{Bestätigung durch Code-Vergleich und Realtests (V1, V2) aus Abschnitt~\ref{sec:eval_f1} einsetzen}.
+Eine Ausnahme bildet die Fortbewegung: Am realen G1 regelt der Onboard-Regler des Herstellers Stehen und Gehen, in der Simulation ein Ersatzregler aus veröffentlichter Lauf-Policy und eigenem Standregler, der dieselben Befehle annimmt (Abschnitt~\ref{sec:fortbewegungspfade}).
+
+% F2. Basis: Kap. 5 (A3, A4 mit K3.1, K3.2, K4.1, K4.2), Kap. 8.2 (noch Gerüst).
+Zu F2 bewertet die Arbeit die Abbildungsgüte an zwei Größen, der Echtzeitfähigkeit nach A3 und der Abweichung zwischen Simulation und Roboter nach A4.
+\pruefen{Ergebnis Echtzeitfaktor und Takttreue auf dem Referenz-PC (V4, Abschnitt~\ref{sec:eval_echtzeit}) einsetzen}
+\pruefen{Ergebnis Abweichung der Handposition (K4.2, Zielwert höchstens 2\,cm) und der Fortbewegung (V5 bis V7, Abschnitte~\ref{sec:eval_fortbewegung} und~\ref{sec:eval_manipulation}) einsetzen}
+Aussagen über das Gehen in der Simulation gelten dabei nur für den Ersatzregler, nicht für den Onboard-Regler.
+
+% F3. Basis: Kap. 6.3.1 (Einstiegssatz, Ding2026.02/.03), 6.3.2 (vier Wirkprinzipien, Prüfung jedes Ziels), 6.4.1/6.4.2/6.4.3.
+Zu F3 verbindet die Umgebung ein Sicherheitskonzept mit einem Bedienkonzept.
+Sie hält in Stufen an, statt dem Roboter die Energie zu entziehen, und erst die letzte Stufe dämpft auch die Beine, weil Energieentzug beim balancierenden Humanoiden zu einem unkontrollierten Sturz führt, der selbst eine Gefährdung ist \cite{Ding2026}\ev{Ding2026.03}.
+Gestaffelte Schutzmechanismen prüfen jedes Ziel, bevor die Umgebung es ausführt, und weil alle Bedienwege nur Ziele senden, gelten diese Mechanismen für jeden Bedienweg gleich (Abschnitte~\ref{sec:schutzmechanismen} und~\ref{sec:bedienwege_konzept}).
+Aufgaben entstehen ohne Programmcode als Daten aus Posen und Abläufen (Abschnitt~\ref{sec:posen_ablaeufe}).
+\pruefen{Ergebnisse zu Not-Halt und Ausfall eines Bedienwegs (K5.2 bis K5.4, V8) und zum Bedienaufwand (K6.1, K6.2, V9) aus Abschnitt~\ref{sec:eval_f3} einsetzen}
+
+% F4. Basis: Kap. 6.5 (Einstiegssatz, Andockpunkte 3 Ebenen + Daten, zwei Profile), Betreuertreffen 23.11. (Modularität als Entwurfsfrage,
+% Docker als Lösung, kein Nachweis), Kap. 5 (A7 bleibt konzeptionell, N5).
+Zu F4 beantwortet die Arbeit die Frage, wie sich Teile der Umgebung austauschen oder ergänzen lassen, ohne den Rest anzupassen, über ihren Aufbau.
+Externe Projekte docken auf drei Ebenen an, von der Arm-API über die ROS-2-Topics bis zur Herstellerschnittstelle, und je tiefer ein Projekt andockt, desto freier ist es und desto weniger Schutz wirkt (Abschnitt~\ref{sec:andockpunkte}).
+Die Umgebung selbst läuft in Containern, die sich zu zwei Profilen zusammenstellen lassen (Abschnitt~\ref{sec:container_profile}).
+Ein externes Projekt ist im Rahmen der Arbeit nicht angebunden, sodass A7 konzeptionell bleibt \pruefen{Wortlaut F1 bis F4 mit Kap.~1 abgleichen (neue Fassung nach Betreuertreffen, Frage E1 im Kap.-1-Plan, noch offen)}.
+
+% Abgleich: Kap. 8.4.1 (sec:abgleich, noch Gerüst).
+\pruefen{Abgleich A1 bis A7 aus Abschnitt~\ref{sec:abgleich}: Anzahl erfüllt, teilweise erfüllt, verfehlt, und die verfehlten Anforderungen mit Ursache nennen}
+
+% Beiträge: aus Kap. 6.1.3 (tab:eigenleistung, Stufen „erweitert“ und „neu“). Richtlinien §3: Beiträge ausdrücklich benennen.
+Die Beiträge der Arbeit sind:
+\begin{itemize}
+  \item eine Simulation des G1, die die Herstellerschnittstelle nachbildet und mit einem Ersatzregler für Stehen und Gehen ergänzt ist, sodass derselbe Programmstand Simulation und realen Roboter steuert,
+  \item ein Sicherheitskonzept für den Realbetrieb eines balancierenden Humanoiden aus gestuftem Halt, gestaffelten Schutzmechanismen und Regeln für die Übergabe der Arme an den Onboard-Regler,
+  \item ein Bedienkonzept, das Aufgaben als Daten aus Posen und Abläufen beschreibt und über mehrere Bedienwege mit gemeinsamem Bedienzustand ohne Programmcode zugänglich macht,
+  \item ein modularer Aufbau aus Container-Profilen und Andockpunkten, auf dem weitere Projekte aufsetzen können.
+\end{itemize}
+
+% Grenzen: Eingrenzung Kap. 1.2 (Gerüst: kein eigenes RL-Training, keine Real-Navigation, kein Policy-Transfer), Betreuertreffen 23.11. (keine Nutzerstudie),
+% Kap. 8.4.3 (sec:limitierungen, Gerüst).
+Die Arbeit hat Grenzen, die sich aus ihrer Eingrenzung ergeben.
+Sie trainiert keine eigenen Lauf-Policies und überträgt keine Policy auf den realen Roboter, die Navigation läuft nur in der Simulation, und die Schutzmechanismen orientieren sich am Rechtsrahmen, ohne dessen Erfüllung nachzuweisen.
+Eine Nutzerstudie entfällt, weil die Umgebung neu entsteht und kein früherer Stand zum Vergleich vorliegt.
+\pruefen{Weitere Limitierungen aus Abschnitt~\ref{sec:limitierungen} übernehmen, z.\,B. Umfang der Realversuche}
 
 \section{Ausblick}
 \label{sec:ausblick}
-% Policy-Transfer auf Hardware, Navigation mit Live-Perzeption, weitere Aufgaben, Nutzerstudie.
+% Konjunktiv und Einschätzungen sind hier erlaubt (Richtlinien §3, §4.1). Belege nur aus vorhandenen evidence/-Dateien.
+Aus den Grenzen der Arbeit ergeben sich fünf Ansatzpunkte für weitere Arbeiten, die Abbildung~\ref{fig:ausblick} jeweils der Grenze zuordnet, aus der sie folgen.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/ausblick-ansatzpunkte}
+  \caption[Ansatzpunkte für weitere Arbeiten]{Ansatzpunkte für weitere Arbeiten, je aus einer Grenze dieser Arbeit abgeleitet, mit Bezug auf die Forschungsfragen F und Anforderungen A.}
+  \label{fig:ausblick}
+\end{figure}
+
+% 1 Policy-Transfer. Basis: UnitreeRLMjlab.03, He2025.11, Tong2024.06.
+Der naheliegende nächste Schritt ist der Transfer einer Lauf-Policy auf den realen G1.
+Die Umgebung nutzt veröffentlichte Lauf-Policies bisher nur im Ersatzregler der Simulation, obwohl Projekte wie Unitree RL Mjlab die Übertragung trainierter Policies auf reale Unitree-Roboter vorsehen \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.03}.
+Eine Arbeit berichtet für Sim-to-Real-Aufgaben um bis zu 52,7\,\% geringere Fehler beim Folgen von Bewegungen und setzt verschiedene agile Fähigkeiten auf dem G1 ein \cite{He2025}\ev{He2025.11}. Der sichere Übergang aus der Simulation in die reale Welt gilt jedoch weiterhin als Herausforderung \cite{Tong2024}\ev{Tong2024.06}.
+Eine Folgearbeit könnte eine Policy über dieselbe Herstellerschnittstelle am realen G1 erproben und dabei den gestuften Halt der Umgebung als Rückfallebene nutzen.
+
+% 2 Abgleich mit Realdaten. Basis: He2025.02, Tobin2017.05; Messdaten aus Kap. 8 (A4).
+Die in Kapitel~\ref{chap:evaluation} gemessenen Abweichungen zwischen Simulation und Roboter benennt die Arbeit, gleicht sie aber nicht aus.
+Verfahren der Offline-Systemidentifikation erfassen Realdaten und passen die Parameter der Simulation an, um in genauerer Dynamik zu trainieren \cite{He2025}\ev{He2025.02}.
+Die Messungen dieser Arbeit könnten dafür eine erste Datengrundlage bilden.
+Alternativ ließe sich der Simulator randomisieren, sodass ein Modell im Training vielen verschiedenen Umgebungen statt einer einzelnen ausgesetzt ist \cite{Tobin2017}\ev{Tobin2017.05}.
+
+% 3 Navigation. Basis: Eingrenzung Kap. 1.2, Kap. 7 (sec:navigation, aus G1Pilot übernommen, nur Sim). Eigene Einschätzung, kein Beleg nötig.
+Die Navigation ist aus G1Pilot übernommen und läuft nur in der Simulation, ohne Wahrnehmung der Umgebung (Abschnitt~\ref{sec:navigation}).
+Für den Einsatz am realen G1 bräuchte sie eine Wahrnehmung von Hindernissen und der eigenen Lage, die sich über die ROS-2-Topics als weiteres Modul anbinden ließe, ohne die Bedienwege zu ändern.
+\pruefen{Sensorik des G1 für Navigation nennen, falls gewünscht, mit Beleg aus Kap.~2}
+
+% 4 Externes Projekt und Nutzerstudie. Basis: Kap. 5 (A7 konzeptionell), Betreuertreffen 23.11. (Nutzerstudie nur mit Vergleichsstand sinnvoll).
+Die Andockpunkte sind bisher nur konzeptionell erprobt.
+Ein erstes Folgeprojekt, etwa eine neue Aufgabe über die Arm-API, würde zeigen, ob die Ebenen aus Abschnitt~\ref{sec:andockpunkte} in der Praxis tragen.
+Liegt danach eine zweite Fassung der Umgebung vor, wird auch eine Nutzerstudie sinnvoll, weil sie dann den Gewinn an Bedienbarkeit gegenüber dieser Fassung messen kann.
+
+% 5 Sicherheitsnachweis. Basis: Ding2026.07, Ding2026.05, Tong2024.15.
+Schließlich ist offen, wie sich der Realbetrieb eines balancierenden Humanoiden sicherheitstechnisch nachweisen lässt.
+Eine eigene, harmonisierte Sicherheitsnorm für Industriehumanoide, die die Reaktionskette eines balancierenden Zweibeiners regelt, gibt es nicht \cite{Ding2026}\ev{Ding2026.07}, und ein zertifizierter Sicherheitsanspruch erfordert sicherheitsbewertete Hardware, während die Bordrechner des G1 handelsübliche Standardhardware sind \cite{Ding2026}\ev{Ding2026.05}.
+Mit zunehmender Verbreitung humanoider Roboter wächst der Bedarf an Regulierung und Standardisierung für Sicherheit und Interoperabilität \cite{Tong2024}\ev{Tong2024.15}.
+Weitere Arbeiten könnten die Schutzmechanismen der Umgebung gegen eine solche Norm bewerten, sobald sie vorliegt, und sicherheitsbewertete Hardware für den Halt ergänzen.

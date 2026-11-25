@@ -66,7 +66,7 @@ Die vorliegende Arbeit trainiert und überträgt keine eigene Policy.
 Sie führt denselben Steuerungscode in der Simulation und am realen G1 aus und wechselt nur die Kommunikationsverbindung (Abschnitt~\ref{sec:sim_real_schalter}); Gegenmaßnahmen des Trainings wie Domain Randomization oder Systemidentifikation setzt sie nicht ein.
 Die beschriebenen Ursachen bestimmen deshalb, wie weit ein in der Simulation beobachtetes Verhalten auf den realen Roboter übertragbar ist.
 
-\subsection{Bewertung der Abbildungsgüte}
+\subsection{Bewertung der Abbildungsgüte (noch unsicher)}
 \label{sec:abbildungsguete}
 Die Literatur bewertet die Abbildungsgüte einer Simulation mit unterschiedlichen Bezugsgrößen.
 Eine Simulation kann laut Erez et al.\ aus zwei Gründen von der Realität abweichen: wegen numerischer Integrationsfehler und wegen Modellfehlern \cite{Erez2015}\ev{Erez2015.13}.
@@ -143,7 +143,7 @@ Die Simulationsumgebung dieser Arbeit nutzt MuJoCo über das Python-Binding mit 
 Die Körpergelenke werden über Drehmoment-Aktuatoren (\texttt{motor}) mit einem PD-Regler außerhalb des Simulators angesteuert, die Finger über Positions-Aktuatoren (Abschnitt~\ref{sec:bridge}).
 Kollisionsgruppen, konvex zerlegte Netze, eine \texttt{weld}-Bedingung zum Halten der Basis und die Sensoren beschreibt Abschnitt~\ref{sec:szenen}.
 
-\subsection{Vergleich mit weiteren Simulatoren}
+\subsection{Vergleich mit weiteren Simulatoren (vermutlich nur kurz anschneiden}
 \label{sec:sim_vergleich}
 Neben MuJoCo setzt die Forschung zu Lauf- und humanoiden Robotern weitere Simulatoren ein.
 Für die Auswahl empfehlen Collins et al., zuerst Roboterplattform, Aktuierung, Sensoren und Betriebsumgebung festzulegen \cite{Collins2021}\ev{Collins2021.04}.

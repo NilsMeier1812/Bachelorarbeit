@@ -8,6 +8,12 @@ MuJoCo-Simulation, Sim-to-Real; Code und Experimente im Repo `NilsMeier1812/G1`)
 Zusätzlich gilt `Richtlinien-BA.md` (Schreibregeln des Lehrstuhls, vor jeder Textarbeit lesen). Bei Widerspruch
 gilt für Quellen und Belege diese Datei, für Stil, Aufbau und Zitierform die Richtlinien.
 
+**Code-Bezugsstand (seit 24.11.2026, Nils):** Alle Aussagen über den eigenen Code (Datenbasis, Parameter, `% DB:`-Kommentare)
+beziehen sich auf den Branch `BA-Stable` im Repo `NilsMeier1812/G1`, Stand `6a40e47` (= `main` vom 23.11.2026). Ältere
+Pläne nennen noch `25d5c1a` (11.11.). Seitdem neu: Demo-GUI und Startmenü umgebaut (PyQt6, Netzwerk-Assistent), Voll-Notaus
+in der Demo-GUI, Pose-Schnellwahl am Controller, Dialog „Neue Hand anlegen“; Planer, IK, Bridge und Lauf-Client unverändert.
+Bewegt Nils `BA-Stable` weiter, den neuen Hash hier eintragen.
+
 ## Grundprinzip
 
 Du arbeitest **ausschließlich quellenbasiert**. Jede inhaltliche Aussage im Text muss auf eine konkrete,
@@ -23,6 +29,8 @@ Wenn du etwas nicht belegen kannst, **markierst du die Lücke**, statt sie zu f�
    mit `Citation Key`), existiert für den Text nicht.
    Websuche ist **nur im Recherche-Modus** erlaubt, und nur um Quellen zu *finden* – nie, um Inhalte daraus
    direkt in den Text zu übernehmen. Inhalte kommen ausschließlich aus PDFs in Zotero.
+   Offizielle Websites und GitHub-Repos sind seit 23.11.2026 als Quelle erlaubt, aber nur als gespeicherter
+   Stand mit Abrufdatum in Zotero (siehe „Websites und GitHub-Repos als Quelle“).
 2. **Jede Sachaussage trägt Zitat + Beleg-ID:** `\cite{Mueller2021}\ev{Mueller2021.03}`.
    Ohne passenden Beleg schreibst du `\qf{was fehlt}` (Quelle fehlt) und formulierst die Aussage nicht aus.
 3. **Zitate in `evidence/` sind wörtlich** aus `sources-text/<key>.txt` kopiert – nie aus dem Gedächtnis,
@@ -144,8 +152,48 @@ Alles, was Nils liefern, entscheiden oder durchführen muss, steht gesammelt in 
 - beantwortete Punkte abhaken (`[x]`) und die Antwort kurz dahinterschreiben,
 - vor dem Arbeiten nachsehen, ob Nils dort schon etwas beantwortet hat.
 
-Umfang (Nils, 16.11.2026): Gesamtarbeit 60–80 Seiten. Beim Ausarbeiten lieber zu viel als zu wenig, Nils kürzt
-selbst; Seitenangaben in den Kapitelplänen sind Richtwerte.
+Umfang (Betreuerin, 23.11.2026; vorher Nils 16./17.11.): 60–80 Seiten **inklusive Abbildungen und Tabellen**, gezählt
+vom ersten Wort der Einleitung bis zum letzten Wort vor dem Literaturverzeichnis. 80 ist harte Obergrenze,
+**Ziel ca. 70 Seiten**. Budget je Kapitel: `review/seitenbudget.md` (Nils, 24.11.). Entwürfe bewusst etwas länger als
+das Kapitelziel (etwa +20–40 %, bei 7 S. mindestens 8–9), damit Nils auswählt; Gesamtziel trotzdem im Blick. Richtwerte,
+keine harte Grenze je Kapitel. Nicht das Mehrfache schreiben.
+**Gliederung ist Orientierung (Nils, 24.11.):** Alles, was noch nicht fertig geschrieben ist, darf sich ändern, auch
+grundlegend (Inhaltsverzeichnis, Zuschnitt und Reihenfolge der Kapitel, Seitenbudget). Kein Auftrag zum Umbauen, aber
+ausdrücklich erlaubt; größere Umbauten mit kurzer Begründung Nils vorschlagen.
+
+### Absprachen mit der Betreuerin (23.11.2026)
+
+Verbindlich für alle Kapitel-Threads (Details in `Richtlinien-BA.md` §12):
+- **Keine Nutzerstudie.** Die Arbeit ist technisch und startet bei null, es gibt keinen Vorher-Zustand zum
+  Vergleichen; dass die Umgebung existiert und funktioniert, ist das Ergebnis. Kap. 8 (Evaluation) wird
+  entsprechend kürzer. Keine Fragebögen oder Zufriedenheitsmessungen planen.
+- **Video** (Videodreh) darf als Ergebnis dienen, aber nur sparsam (ergänzend, nicht als Hauptnachweis).
+- **Erweiterbarkeit nicht eigens nachweisen.** Stattdessen als Entwurfsfrage führen („Wie wird die Umgebung
+  modular?“), Antwort und Ergebnis ist der Docker-Container. Kein eigener Erweiterbarkeitsversuch in Kap. 8.
+- **Anhang:** nur die relevanten Teile der README, nicht die ganze. Der Haupttext ist keine Anleitung; für
+  Bedienschritte weiter auf den Anhang verweisen.
+- **Web- und GitHub-Quellen** sind erlaubt (siehe unten). Die Betreuerin hat selbst keinen Zugang zur
+  Unitree-Entwicklerdoku.
+- **Geklärt (Nils, 23.11.):** Tempus (K1) und Aktiv/Passiv (K2) bleiben wie bisher (Defaults in
+  `Richtlinien-BA.md` §1). Zotero statt Citavi (K9) ist in Ordnung. Weiter kein „ich“/„wir“, auch nicht beim
+  Beschreiben des Videodrehs oder der eigenen Arbeitsschritte („ich habe …“, „wir haben dann …“).
+
+### Websites und GitHub-Repos als Quelle (seit 23.11.2026)
+
+Die Betreuerin erlaubt offizielle Websites (z. B. Unitree-Support, Herstellerseiten, Software-Dokumentationen)
+und GitHub-Repos als Quelle, **immer mit Abrufdatum**, bei GitHub zusätzlich mit **Commit-Hash** des zitierten
+Stands. Nicht erlaubt bleiben Blogs, Foren, Wikipedia und Werbeseiten. Für wissenschaftliche Aussagen weiter
+Paper und Bücher; Websites und Repos für Produkt-, Schnittstellen- und Softwareangaben.
+- **Zotero-Eintrag:** Website als „Webseite“ (Autor = Organisation, z. B. Unitree Robotics), GitHub als „Software“
+  mit Version = Commit-Hash (kurz, 7–10 Zeichen) und URL auf genau diesen Stand
+  (`https://github.com/<owner>/<repo>/tree/<hash>` bzw. `/blob/<hash>/<datei>`). In beiden Fällen
+  *Zugriffsdatum* setzen (landet als `urldate` in der `zotero.bib`).
+- **Beleggrundlage bleibt ein PDF:** Die Seite bzw. README im abgerufenen Stand als PDF ins Quellen-Repo
+  (`pdf/Organisation_Jahr_Kurztitel_JJJJ-MM-TT.pdf`), Link-Anhang per `zot.py link`. Belege daraus wie gewohnt;
+  `seite` ist die Seitenzahl des Ausdrucks. GitHub-Dateien kannst du selbst am Commit abrufen
+  (`raw.githubusercontent.com/<owner>/<repo>/<hash>/<datei>`) und als PDF ablegen; Seiten, die automatische Abrufe
+  blocken (support.unitree.com), speichert Nils im Browser mit „Drucken → als PDF“.
+- Abrufdatum und Commit-Hash des PDFs müssen mit dem Zotero-Eintrag übereinstimmen.
 
 ### Quellenbeschaffung durch Nils
 
@@ -255,6 +303,10 @@ GitHub empfiehlt Repos unter ca. 1–5 GB; bei großen Mengen Nils auf die Grö�
 ### Phase 2 – Schreiben
 1. Erst passende Belege suchen (`grep -ri "begriff" evidence/`), dann formulieren.
 2. Jede Aussage bekommt Zitat + `\ev{}`. Fehlt ein Beleg: `\qf{}`. Nicht ausweichen auf Eigenwissen.
+   Erster Satz jedes Kapitels/Abschnitts: wo es passt, den Inhalt in einem Satz als Aussage zusammenfassen,
+   nie „Im folgenden Kapitel geht es um …“, nie erzwingen (Nils, 24.11.; `Richtlinien-BA.md` §4.2).
+   Keine Semikolons und keine Gedankenstriche im Fließtext, stattdessen zwei Sätze, Komma oder Doppelpunkt
+   (Nils, 24.11.; `Richtlinien-BA.md` §4.3, §12). Bis-Strich in Bereichen (3–5 S.) bleibt.
 3. Liste am Ende auf, welche `\qf{}`/`\pruefen{}` du gesetzt hast und welche Literatur fehlen könnte
    (als Suchhinweis für Nils, **nicht** als konkrete Quellenangabe).
 

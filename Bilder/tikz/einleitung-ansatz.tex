@@ -1,0 +1,34 @@
+% Ausgangslage und Lösungsansatz der Arbeit (Kap. 1.1, fig:einleitung_ansatz).
+% Eigene Darstellung, keine Quelle in der Caption. Die Hemmnisse in Teil a) fassen nur zusammen, was der Fließtext
+% in 1.1 belegt (Tong2024.09, Prather2025.01, Ding2026.02/.03, Ajaykumar2021.02). Teil b) zeigt das Ziel aus 1.2.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/einleitung-ansatz} in einer figure-Umgebung. Nicht skalieren.
+% Raster: Spaltenmitten x = 1,5 | 5,1 | 8,9 | 13,8 (rechte Spalte 40 mm, bündig mit 15,8); Blockhöhe 12 mm überall; Teil a) y = 3,9, Teil b) y = 0.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    k/.style={ba block, minimum height=12mm, font=\small},
+    klein/.style={font=\footnotesize, text=baGrau},
+    risiko/.style={draw=baAkzent, ba normal, fill=white, rounded corners=1.5pt, align=left,
+                   minimum height=12mm, inner sep=3pt, font=\footnotesize, text=black},
+  }
+  % ---------------- a) Ausgangslage ----------------
+  \node[k, minimum width=30mm] (A1) at (1.5,3.9) {Anwender ohne\\Robotikerfahrung};
+  \node[k, minimum width=36mm] (A2) at (8.9,3.9) {realer G1};
+  \node[risiko, minimum width=40mm] (AR) at (13.8,3.9)
+    {! hohe Kosten\\! Sturz bei Fehlbedienung\\! Fachwissen nötig};
+  \draw[ba pfeil] (A1.east) -- node[above, klein] {Programmierung} (A2.west);
+  \draw[baAkzent, ba normal, dash pattern=on 3pt off 2pt] (A2.east) -- (AR.west);
+  \node[ba teiltitel] at (7.9,2.95) {a) Ausgangslage: Erprobung direkt am realen Roboter};
+  % Trennlinie zwischen den Teilen
+  \draw[ba trenner] (0,2.2) -- (15.8,2.2);
+  % ---------------- b) Lösungsansatz ----------------
+  \node[k, minimum width=30mm] (B1) at (1.5,0) {Anwender ohne\\Robotikerfahrung};
+  \node[k, minimum width=30mm] (B2) at (5.1,0) {Bedienwege ohne\\Programmierung};
+  \node[ba block hervor, minimum height=12mm, minimum width=36mm] (B3) at (8.9,0) {Umgebung\\(ein Programmstand)};
+  \node[k, minimum width=40mm] (B4) at (13.8,0.85) {1. zuerst: Simulation};
+  \node[k, minimum width=40mm] (B5) at (13.8,-0.85) {2. danach: realer G1};
+  \draw[ba pfeil] (B1.east) -- (B2.west);
+  \draw[ba pfeil] (B2.east) -- (B3.west);
+  \draw[ba pfeil] (B3.east) ++(0,0.2) -- ++(0.35,0) |- (B4.west);
+  \draw[ba pfeil] (B3.east) ++(0,-0.2) -- ++(0.35,0) |- (B5.west);
+  \node[ba teiltitel] at (7.9,-1.75) {b) Lösungsansatz: zuerst in der Simulation, danach am realen G1};
+\end{tikzpicture}

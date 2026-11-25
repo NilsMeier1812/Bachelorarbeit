@@ -1,0 +1,19 @@
+% Abfragen der Betriebsart (Simulation/Realbetrieb) im Python-Code nach Zweck, Versuch V1 (Kap. 8.1.1).
+% Eigene Darstellung (Art E, Eigenleistung). Keine Quelle in der Caption.
+% Daten: Daten/kap8/v1_betriebsart.csv, erzeugt mit Daten/kap8/v1_betriebsart.py am Stand G1 BA-Stable @ 6a40e47
+%   (AST-Zählung, ohne Tests, Kommentare, Docstrings und Importe; Zuordnung zu Zweckgruppen von Hand, Fundstellen im Skript).
+% Stil: ba-grafik.tex (ba plot). Einbinden: \input{Bilder/tikz/betriebsart-abfragen} in einer figure-Umgebung. Nicht skalieren.
+\pgfplotstableread[col sep=semicolon]{Daten/kap8/v1_betriebsart.csv}\betriebsarttab
+\begin{tikzpicture}[ba]
+  \begin{axis}[ba plot, xbar, bar width=9pt,
+      width=9cm, height=6.2cm,
+      xmin=0, xmax=25, xtick={0,5,...,25},
+      xlabel={Anzahl der Stellen},
+      ytick=data, yticklabels from table={\betriebsarttab}{gruppe},
+      y tick label style={font=\small, align=right},
+      enlarge y limits=0.1, ymajorgrids=false,
+      nodes near coords, nodes near coords style={font=\small, color=black},
+      ]
+    \addplot[fill=baGruen, draw=none] table[x=anzahl, y=idx] {\betriebsarttab};
+  \end{axis}
+\end{tikzpicture}

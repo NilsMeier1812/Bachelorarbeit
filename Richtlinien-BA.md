@@ -35,15 +35,15 @@
 
 | ID | Thema | [LF] sagt | [CS] sagt | DEFAULT (bis Klärung) |
 |---|---|---|---|---|
-| K1 | Tempus | Durchgängig Präsens, ergebnisorientiert. Kein Erlebnisaufsatz in Vergangenheit („Im Rahmen der Arbeit wurde untersucht…“ = schlecht) [LF 2.3] | Zeitlose Erkenntnisse/wiederholbare Ergebnisse: Präsens. Zu bestimmtem Zeitpunkt durchgeführte Tätigkeiten (Experimente): Vergangenheit [CS 1.3] | Präsens als Grundform überall. Vergangenheit (Präteritum Passiv, „Die Proben wurden … geprüft“) NUR für konkret durchgeführte, einmalige Versuchsdurchführungen in Methodik/Ergebnisse. Nie für Ergebnisse/Erkenntnisse. |
-| K2 | Aktiv/Passiv | „Passivsätze sparsam verwenden! Formuliere aktiv!“ [LF 2.3] | „Bevorzugt Passiv“; Aktiv für eigenen Beitrag (Kurzfassung, Schlussfolgerungen) [CS 1.4] | Aktivsätze mit Sach-Subjekt („Abbildung 4 zeigt…“, „Das Verfahren reduziert…“, „Die Ergebnisse belegen…“). Passiv, wo der Handelnde irrelevant ist (v. a. Methodik). Nie Personen als Subjekt (H3). Erfüllt beide Dokumente. |
+| K1 | Tempus | Durchgängig Präsens, ergebnisorientiert. Kein Erlebnisaufsatz in Vergangenheit („Im Rahmen der Arbeit wurde untersucht…“ = schlecht) [LF 2.3] | Zeitlose Erkenntnisse/wiederholbare Ergebnisse: Präsens. Zu bestimmtem Zeitpunkt durchgeführte Tätigkeiten (Experimente): Vergangenheit [CS 1.3] | BESTÄTIGT (Nils, 2026-11-23): Präsens als Grundform überall. Vergangenheit (Präteritum Passiv, „Die Proben wurden … geprüft“) NUR für konkret durchgeführte, einmalige Versuchsdurchführungen in Methodik/Ergebnisse. Nie für Ergebnisse/Erkenntnisse. |
+| K2 | Aktiv/Passiv | „Passivsätze sparsam verwenden! Formuliere aktiv!“ [LF 2.3] | „Bevorzugt Passiv“; Aktiv für eigenen Beitrag (Kurzfassung, Schlussfolgerungen) [CS 1.4] | BESTÄTIGT (Nils, 2026-11-23): Aktivsätze mit Sach-Subjekt („Abbildung 4 zeigt…“, „Das Verfahren reduziert…“, „Die Ergebnisse belegen…“). Passiv, wo der Handelnde irrelevant ist (v. a. Methodik). Nie Personen als Subjekt (H3). Erfüllt beide Dokumente. |
 | K3 | Gliederung Hauptteil | Einleitung+Zielstellung, Grundlagen/SdT, **Handlungsbedarf**, Methodik, Ergebnisse, Diskussion, Zusammenfassung+Ausblick [LF 3.1] | **Kurzfassung**, Einleitung, Grundlagen, Stand der Forschung (endet mit Forschungsbedarf), Methoden, Ergebnisse, Diskussion, Schlussfolgerungen (Beiträge + Ausblick) [CS 1.1] | Repo-Struktur (§3.1) beibehalten. Handlungsbedarf als letztes Unterkapitel von Kap. 3 (Stand der Technik); eigenes kurzes Kapitel ist laut [BA-L] auch ok. Kurzfassung: keine der beiden Referenz-BAs hat eine → nicht anlegen, außer Betreuer will es. |
 | K4 | Mehrfachzitate | Getrennte Klammern `[xy] [yz]`, NICHT `[xy; yz]` [LF 5.1] | Beispiel `[27, 28]` [CS 1.7.3] | [LF]: getrennte Klammern → LaTeX `\cite{a} \cite{b}`. Bestätigt: beide Referenz-BAs nutzen `[2] [3]`. Sammelzitate generell vermeiden [CS 1.7.2]. |
 | K5 | Achsbeschriftung Diagramme | DIN 461: Achse mit Pfeil in Anstiegsrichtung, Einheit ersetzt die Zahl am vorletzten Achsenstrich, Rahmen um Diagramm [LF 4.4.2] | „Zeit in s“ [CS 2.4.2] | GEÄNDERT nach Praxisbefund: „Größe in Einheit“ (z. B. „Rechenzeit in ms“) wie [CS] und [BA-K] (gut bewertet, kein DIN 461). DIN 461 nur, wenn Betreuer es ausdrücklich will. Einheitlich über alle Diagramme. |
 | K6 | Formel-Nummerierung | Kapitelweise `(X.Y)` [LF 4.4.4] | `(n)` oder `(X.Y)` [CS 2.5.3] | `(X.Y)` — macht scrreprt automatisch. Kein Konflikt in der Praxis. |
 | K7 | Verweis auf Formel | – | „Gleichung 1“, Identifier ohne Klammer [CS 2.5.4] | `Gleichung~\ref{eq:x}` (nicht `\eqref`). |
 | K8 | „ergibt sich“ | Vermeiden (Reflexivpronomen), stattdessen „resultieren“; keine Sätze „Aus der Betrachtung von xy folgt/ergibt sich…“ [LF 2.4] | Nutzt selbst „ergibt sich zu“ im Formelbeispiel [CS 2.5] | Vermeiden. |
-| K9 | Literaturverwaltung | Citavi empfohlen [LF 5.1] | – | Nils nutzt Zotero online + biblatex/biber (`zotero.bib`). Abgabe verlangt Citavi-Projekt [GS 3.4] → stattdessen Zotero-Export bzw. .bib abgeben; mit Betreuer abklären. |
+| K9 | Literaturverwaltung | Citavi empfohlen [LF 5.1] | – | GEKLÄRT (Nils, 2026-11-23): Zotero ist in Ordnung. Nils nutzt Zotero online + biblatex/biber (`zotero.bib`). Abgabe verlangt Citavi-Projekt [GS 3.4] → stattdessen Zotero-Export bzw. .bib abgeben; mit Betreuer abklären. |
 | K10 | Nummerierung Abb./Tab. | Fortlaufend arabisch (1, 2, 3 …) [LF 4.4.1] | – | Kapitelweise (2.1, 2.2 …), scrreprt-Standard; [BA-K] macht es so, [BA-L] fortlaufend → beides akzeptiert. Nicht umbauen. |
 
 ---
@@ -79,15 +79,15 @@ Systematische Vorgehensweise dokumentiert · Einsatz von Methoden/Werkzeugen · 
 | `Kapitel/05_Handlungsbedarf_Methodik.tex` | 5 Handlungsbedarf, Anforderungen und Bewertungsmethodik | Handlungsbedarf (eigenes Kapitel wie [BA-L]) + Methodik |
 | `Kapitel/06_Konzept.tex` | 6 Konzept der Umgebung | Methodik (Konzept) |
 | `Kapitel/07_Umsetzung.tex` | 7 Umsetzung | Methodik (Umsetzung) |
-| `Kapitel/08_Evaluation.tex` | 8 Evaluation | Ergebnisse + Diskussion (8.5), gegliedert nach F1–F4 |
+| `Kapitel/08_Evaluation.tex` | 8 Evaluation | Ergebnisse + Diskussion (8.5), gegliedert nach F1–F4; seit 2026-11-23 kürzer (keine Nutzerstudie, §12) |
 | `Kapitel/09_Zusammenfassung.tex` | 9 Zusammenfassung und Ausblick | Schlussteil |
 | `Kapitel/Anhang_*.tex` | Anhang A, B, … | [LF 4.5] |
 
 Gliederung seit 2026-10-30 (mit Nils erarbeitet, Muster [BA-K]): Anforderungen A1–A7 und Forschungsfragen F1–F4 stehen als Kommentare in den Kapiteldateien 01 und 05.
 
 ### 3.2 Umfang [GS 5.2, LF 3]
-- BA gesamt: **ca. 60–80 Seiten** ohne Verzeichnisse und Anhang.
-- **Arbeitsregel Nils (2026-11-16):** 80 Seiten Text sind die harte Obergrenze. Beim Entwerfen darf ein Kapitel aber ausdrücklich **länger** werden als sein Seitenbudget; Nils kürzt danach selbst (Kürzen ist leichter als Ergänzen). Agents schreiben deshalb vollständig und streichen nicht vorsorglich Inhalte, sondern markieren Kürzungskandidaten (z. B. `% Kann`-Kommentar über dem Absatz).
+- BA gesamt: **60–80 Seiten inklusive Abbildungen und Tabellen**, gezählt vom ersten Wort der Einleitung bis zum letzten Wort vor dem Literaturverzeichnis; Verzeichnisse, Literaturverzeichnis und Anhang zählen nicht (Betreuerin, 2026-11-23). **80 ist hart, Ziel 70–75 Seiten.**
+- **Arbeitsregel Nils (2026-11-16, präzisiert 2026-11-17):** 80 Seiten Text sind die harte Obergrenze. Ein Entwurf darf **maßvoll** länger sein als der Endumfang, etwa **Endumfang ÷ 0,6** (Beispiel: 6 Seiten Endfassung → 10–12 Seiten Entwurf); Nils kürzt dann ca. 40 %. **Nicht** ein Vielfaches (ein Entwurf mit 28 statt 10–12 Seiten ist zu lang). Agents halten das Entwurfsbudget ein und markieren Kürzungskandidaten (z. B. `% Kann`-Kommentar über dem Absatz).
 - Stand der Technik ≈ **1/3** der Arbeit (bei praktischer Arbeit) [GS].
 - Methodik + Ergebnisse + Diskussion ≈ **2/3** der Arbeit [LF 3.7].
 - Einleitung: i. d. R. **2 Seiten, max. 3** [LF 3.2].
@@ -161,6 +161,7 @@ Gliederung seit 2026-10-30 (mit Nils erarbeitet, Muster [BA-K]): Anforderungen A
 ### 4.2 Absätze [CS 1.2, LF 4.3.1, CS 1.8]
 - Ein Absatz = **genau ein Argument** (atomar).
 - **Topic Sentence** zuerst (enthält das Argument), Folgesätze stützen es.
+- **Einstiegssatz (Nils, 2026-11-24):** Der erste Satz eines Kapitels oder Abschnitts (alle Ebenen) fasst nach Möglichkeit in einem Satz zusammen, worum es dort geht, als inhaltliche Aussage, die zum Thema hinführt. Muster (6.2.1): „Weil nach A2 und A7 mehrere Bedienwege und Projekte dieselbe Steuerung nutzen sollen, ist die Umgebung in funktional getrennte Knoten zerlegt, statt die Logik in der Bedienoberfläche zu bündeln.“ Nie als Ankündigung („Im folgenden Kapitel geht es um …“, „In diesem Abschnitt wird … erläutert“). Nie erzwingen: Wo sich kein natürlicher Zusammenfassungssatz anbietet, normal einsteigen.
 - Absatz alleinstehend verständlich; jeder Satz baut logisch auf dem vorherigen auf; keine logischen Sprünge zwischen Absätzen.
 - **Mind. 2 Sätze** pro Absatz; kein Ein-Satz-Absatz.
 - Keine „Wall of Text“.
@@ -186,6 +187,7 @@ Gliederung seit 2026-10-30 (mit Nils erarbeitet, Muster [BA-K]): Anforderungen A
 | „ergibt sich“, „Aus der Betrachtung von xy folgt…“ | „resultieren“, s. K8 |
 | Betonung von „technischen Herausforderungen“/Anwendungsnähe | wissenschaftliche Qualität, allgemeingültige, übertragbare Erkenntnisse betonen |
 | Wörtliche Zitate (häufig) | selten, pointiert; besser Meinungen bewerten und weiterentwickeln |
+| Semikolon (;) und Gedankenstrich (— bzw. `---`, auch – als Satzeinschub) im Fließtext | zwei Sätze, Komma oder Doppelpunkt (Nils, 24.11.2026, §12). Bis-Strich in Bereichen (3–5 S., 6.2–6.5) bleibt |
 
 ### 4.4 Begriffe & Abkürzungen [CS 1.6, 1.9.3, LF 2.3]
 - Fachbegriffe **konsistent** in Wahl und Schreibweise (✗ „3D-Druck“/„3D Druck“/„3-D-Druck“; immer „CAD-Modell“). Kein Ersatz durch unpassende Synonyme.
@@ -234,6 +236,7 @@ Gliederung seit 2026-10-30 (mit Nils erarbeitet, Muster [BA-K]): Anforderungen A
 
 ### 5.2 Anhang [LF 4.5]
 - Technische Zeichnungen, große Tabellen/Diagramme, ergänzende Dokumente. Jeder Anhang auf neuer Seite, Großbuchstaben: „Anhang A – Name des Anhangs“.
+- Bedienanleitung (README des G1-Repos): **nur die relevanten Teile** in den Anhang, nicht die ganze README (Betreuerin, 2026-11-23). Der Haupttext ist keine Anleitung; für Bedienschritte auf den Anhang verweisen.
 - Abbildungen im Anhang: „Anhang A – Abbildung 1“ usw., NICHT im Abbildungsverzeichnis [LF 4.4.1]. [ANNAHME/TODO LaTeX: im Anhang Zähler/Caption-Präfix umstellen und `\caption[]{}`-Einträge aus LOF ausschließen, z. B. `\captionsetup{list=no}`; Vorlage prüfen.]
 
 ### 5.3 Eidesstattliche Erklärung [LF 4.6, GS 3.4]
@@ -318,6 +321,7 @@ Kriterien: **zitierfähig** (öffentlich auffindbar; graue Literatur wie BA/MA, 
 | ✗ (nur wenn selbst Untersuchungsgegenstand / keine Alternative) | Internetquellen ohne Qualitätssicherung, Zeitungen (nur aktuelle Meldungen), Social Media, Blogs, Wikipedia, Schülerduden/Brockhaus, hausarbeiten.de, GRIN |
 
 - Internetquellen nur, wenn keine aktuelle Literatur in anderen Medien (z. B. Softwareentwicklung); Seriosität prüfen.
+- **Projektregel (Betreuerin, 2026-11-23):** GitHub-Repos und offizielle Websites (z. B. Unitree-Support) sind ausdrücklich erlaubt, **immer mit Abrufdatum**, bei GitHub zusätzlich mit **Commit-Hash** des zitierten Stands. Blogs, Foren, Wikipedia bleiben ✗. Umsetzung in Zotero und im Belegsystem: `CLAUDE.md`, „Websites und GitHub-Repos als Quelle“.
 - Elektronische Quelle beantwortet **Wer? Was? Wo? Wann?**: kein Autor → Herausgeber/Organisation, sonst „o. V.“; ohne Titel → Beschreibung in `[ ]`; Medium in `[ ]` ([Podcast], [Film]); DOI bevorzugt, sonst vollständige URL + Abrufdatum (URL nie mit Bindestrich trennen); unsicheres Datum → „o. J.“/„o. D.“. Schema: `Nachname, Vorname (Jahr): Titel. [Angaben]. DOI oder online unter: URL (Abrufdatum).` Kein Punkt nach DOI.
 - biblatex-Felder dafür: `doi`, `url`, `urldate`, `howpublished`, `organization`.
 
@@ -384,9 +388,19 @@ Dimensions, FAU-Katalog (VPN), Google Scholar (+ Alerts), Scopus, Web of Science
 
 ## 12. Projektspezifische Absprachen (von Nils/Betreuer, hier ergänzen)
 - 2026-11-16 Umfang: 60–80 Seiten Text, 80 ist Obergrenze. Entwürfe dürfen länger sein, Nils kürzt selbst (siehe §3.2).
+- 2026-11-17 Präzisierung: Entwurf ≈ Endumfang ÷ 0,6, Nils kürzt ca. 40 %; nicht das Mehrfache (§3.2).
 - 2026-11-16 Gemeinsame To-do-Liste für Nils: `review/todo-nils.md` (was Nils nachreichen oder entscheiden muss, aus allen Kapitel-Threads).
-- Offene Fragen an Betreuer (nach Praxisabgleich §13 nur noch nötig, falls Nils sicher gehen will): K1 Tempus, K2 Aktiv/Passiv, K9 Zotero/.bib statt Citavi. K3/K4/K5/K10 durch Referenz-BAs praktisch geklärt.
+- **2026-11-23 Betreuertreffen (verbindlich, überschreibt ältere Einträge):**
+  - **Umfang:** 60–80 Seiten inkl. Abbildungen und Tabellen, vom ersten Wort der Einleitung bis zum letzten Wort vor dem Literaturverzeichnis. 80 ist hart, **Ziel 70–75 Seiten** (§3.2). Entwürfe weiter ≈ Endumfang ÷ 0,6.
+  - **Keine Nutzerstudie.** Die Arbeit ist technisch, nicht psychologisch. Eine Umfrage wäre nur sinnvoll, wenn ein bestehender Stand verbessert und der Gewinn an Nutzerfreundlichkeit gemessen würde; die Arbeit startet aber bei null, es gibt keinen Vergleich. Dass die Umgebung existiert und funktioniert, ist bereits der Erfolg. Folge: Kap. 8 schrumpft; keine Fragebögen, keine Zufriedenheitsmessung, keine Vorher-Nachher-Bewertung.
+  - **Video** (Videodreh) darf als Ergebnis verwendet werden, aber sparsam: ergänzend, nicht als Hauptnachweis.
+  - **Erweiterbarkeit nicht direkt belegen.** Als Entwurfsfrage führen („Wie wird die Umgebung modular?“); die Lösung bzw. das Ergebnis ist der Docker-Container. Kein eigener Erweiterbarkeitsnachweis in Kap. 8.
+  - **Anhang:** nur relevante Teile der README; im Haupttext für Bedienung auf den Anhang verweisen (§5.2).
+  - **Quellen:** GitHub-Repos und offizielle Websites (z. B. Unitree-Support) erlaubt, mit Abrufdatum, bei GitHub mit Commit-Hash (§7.4). Die Betreuerin hat keinen Zugang zur Unitree-Entwicklerdoku.
+- **2026-11-23 Nils, Restpunkte geklärt:** K1 Tempus und K2 Aktiv/Passiv bleiben wie die DEFAULTs in §1. K9: Zotero/.bib statt Citavi ist in Ordnung. H3 gilt unverändert, auch beim Videodreh und bei eigenen Arbeitsschritten kein „ich habe …“ oder „wir haben dann …“. K3/K4/K5/K10 durch Referenz-BAs praktisch geklärt. Damit keine offenen Fragen an die Betreuerin.
+- **2026-11-24 Nils, Einstiegssatz:** Erster Satz jedes Kapitels/Abschnitts fasst den Inhalt in einem Satz als Aussage zusammen, wo es sich natürlich anbietet; nie „Im folgenden Kapitel geht es um …“, nie erzwungen (§4.2).
 
+- **2026-11-24 Nils, Satzzeichen:** Keine Semikolons und keine Gedankenstriche (Em-Dash, auch Halbgeviertstrich als Einschub) im Fließtext, auch wo ein Semikolon sprachlich passt. Stattdessen zwei Sätze, Komma oder Doppelpunkt. Der Bis-Strich in Zahlen- und Kapitelbereichen bleibt (§4.3). Gilt für neue Texte und beim Überarbeiten bestehender Kapitel.
 ---
 
 ## 13. Praxis aus gut bewerteten FAPS-Bachelorarbeiten ([BA-K], [BA-L])
@@ -451,10 +465,10 @@ Gemeinsame Muster (übernehmen):
 
 ### 13.6 Sprache in der Praxis (realistische Messlatte)
 - Beide schreiben überwiegend Präsens + Vorgangspassiv („wird … erläutert“, „werden … gemessen“); Versuchsdurchführung im Perfekt/Präteritum Passiv („sind … durchgeführt worden“, „wurden … gesetzt“). → K1-Default bestätigt.
-- Kapitel- und Abschnittseinleitungen mit Vorschau („Im Folgenden wird zunächst … und anschließend … eingegangen.“) und Überleitungssätze am Kapitelende zum nächsten Kapitel ([BA-K] durchgehend). Gutes Muster für den roten Faden.
+- Kapitel- und Abschnittseinleitungen mit Vorschau („Im Folgenden wird zunächst … und anschließend … eingegangen.“) und Überleitungssätze am Kapitelende zum nächsten Kapitel ([BA-K] durchgehend). Überleitungen am Kapitelende übernehmen; für den Einstieg gilt aber Nils' Regel aus §4.2: inhaltlicher Zusammenfassungssatz statt Ankündigung.
 - Querverweise sehr häufig („vgl. Abbildung 3.3“, „siehe Kapitel 2.2.5“, „wie in Kapitel 2.3 erläutert“). → Mit `\ref` großzügig verknüpfen.
 - Anschauliche Analogien in Grundlagen erlaubt ([BA-K]: menschliche Navigation durch eine Stadt als Analogie zu globalem/lokalem Pfadfinder).
-- Formulierungen „Im Folgenden soll … erläutert werden“ ([BA-L], sehr häufig) sind akzeptiert, aber „wird … erläutert“ ist knapper → bevorzugen.
+- Formulierungen „Im Folgenden soll … erläutert werden“ ([BA-L], sehr häufig) sind akzeptiert, aber „wird … erläutert“ ist knapper → bevorzugen. Als erster Satz eines Kapitels/Abschnitts nicht verwenden (§4.2, Einstiegssatz).
 - Fehler, die trotzdem durchgingen (nicht nachmachen): Tippfehler im Abkürzungsverzeichnis, uneinheitliche Zitierreihenfolge „[10] [9]“, „essentiell“/„extrem“-Wertungen, Beispiel-Aufzählungen statt MECE.
 
 ### 13.7 Umfang & Gewichtung (Referenzwerte)

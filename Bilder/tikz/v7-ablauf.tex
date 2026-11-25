@@ -1,0 +1,24 @@
+% Ablauf von Versuch V7: dieselbe Posenfolge in Simulation und am Roboter, Aufzeichnung der Gelenkwinkel, Vergleich.
+% Eigene Darstellung (Art E). Keine Quelle in der Caption.
+% Basis: Versuchsplan Kap. 5 (review/plan-kap5.md, A4 K4.1/K4.2 und Abschnitt 7.2 V7; Kap.-5-Vorschlag P5: V6 geht in V7 auf).
+%   Posen und Abläufe als Daten in einer Datei, in Simulation und Realbetrieb dieselbe: G1@6a40e47 docs/23-T-Posen-und-Ablaeufe.md
+%   (siehe Bilder/tikz/posen-ablaeufe.tex). Aufzeichnungsskript existiert am Stand 6a40e47 noch nicht (\pruefen im Text).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/v7-ablauf} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  % Raster: drei Spalten, Mitten x = 2,0 | 7,4 | 13,0; Zeilen y = 2,2 (Simulation) | 0,0 (Roboter).
+  \tikzset{
+    b/.style={ba block, align=center, text width=34mm, minimum width=38mm, minimum height=14mm},
+    bw/.style={b, text width=44mm, minimum width=48mm},
+    bh/.style={b, ba block hervor},
+    klein/.style={font=\footnotesize},
+  }
+  \node[bh] (P) at (2.0,1.1) {Posenfolge\\{\footnotesize ein Ablauf aus gespeicherten Posen, eine Datei\par}};
+  \node[bw] (S) at (7.6,2.2) {Simulation\\{\footnotesize Ablauf ausführen,\\Gelenkwinkel aufzeichnen\par}};
+  \node[bw] (R) at (7.6,0.0) {Roboter\\{\footnotesize Ablauf ausführen,\\Gelenkwinkel aufzeichnen\par}};
+  \node[bh, text width=40mm, minimum width=44mm, minimum height=36mm] (V) at (13.4,1.1) {Vergleich\\[2pt]{\footnotesize zeitlich ausrichten\\[2pt]Gelenkwinkel: mittlere und\\größte Abweichung (K4.1)\\[2pt]Handlage am Ende jeder\\Pose über die Vorwärts-\\kinematik (K4.2)\par}};
+  \draw[ba pfeil] (P.east) -- ++(0.6,0) |- (S.west);
+  \draw[ba pfeil] (P.east) -- ++(0.6,0) |- (R.west);
+  \draw[ba pfeil] (S.east) -- (S.east -| V.west);
+  \draw[ba pfeil] (R.east) -- (R.east -| V.west);
+  \node[klein, text=baGrau, anchor=north] at (7.6,-0.9) {gleiche Bedienung, gleicher Programmstand};
+\end{tikzpicture}

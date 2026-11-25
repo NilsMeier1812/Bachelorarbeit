@@ -1,22 +1,97 @@
-% Gliederung Stand 30.10.2026 (Vorschlag 1 aus dem Gliederungs-Doc). Kommentare = Inhaltsnotizen, noch kein Text.
+% Kapitel 1 – Einleitung. Entwurf 25.11.2026 (Claude, Thread „Kapitel 1“).
+% Plan als Claude-Dokument: https://claude.ai/artifact/4mAyMppsMTB2uLoj3k4X9D (Fragen E1–E5, Lücken Q1–Q2).
+% Schema Situation -> Komplikation -> Lösungsansatz (Richtlinien §3.4). Seitenbudget: Ziel 3 S., Entwurf ca. 4–4,5 S.
+% Forschungsfragen F3/F4 in der Fassung nach dem Betreuertreffen 23.11. (Vorschlag E1, passend zu P3 im Kap.-5-Dokument).
+% Bezeichnung „die Umgebung“ bis zur Wahl des Eigennamens (Favorit G1-CORVIS).
 \chapter{Einleitung}
 \label{chap:einleitung}
-% Kurze Kapiteleinleitung vor 1.1 (Richtlinien §5.1). ~3 Seiten.
+Humanoide Roboter kommen für Aufgaben in der Produktion in Frage, doch ob sich ein solcher Roboter für eine bestimmte Aufgabe eignet, lässt sich vor einem Einsatz nur mit Aufwand und Risiko prüfen.
+Die vorliegende Arbeit stellt für den humanoiden Roboter Unitree G1 eine Umgebung bereit, in der sich seine Funktionen zuerst in der Simulation und danach am realen Roboter erproben lassen.
+Abschnitt~\ref{sec:motivation} begründet den Bedarf, Abschnitt~\ref{sec:zielsetzung} nennt Ziel, Forschungsfragen und Eingrenzung, und Abschnitt~\ref{sec:aufbau} beschreibt Vorgehen und Aufbau der Arbeit.
 
 \section{Motivation}
 \label{sec:motivation}
-% Humanoide drängen in die Produktion; Unternehmen können Nutzen und Risiko vor dem Kauf kaum prüfen;
-% Simulation als risikoarmer Zugang. Kandidaten: Acatech2020, FAPS2024; Tong2024 (Anwendungspotenzial, Kosten als Hemmnis).
+% Situation
+Humanoide Roboter haben trotz fortbestehender Herausforderungen ein breites Anwendungspotenzial, das neben Militär, Rettung, Gesundheitswesen, Bildung, Assistenz, Unterhaltung und Landwirtschaft auch die Industrie umfasst \cite{Tong2024}\ev{Tong2024.01}.
+Dort können sie repetitive und arbeitsintensive Aufgaben übernehmen und mit Menschen zusammenarbeiten, etwa bei Montage, Verpackung und Materialhandhabung \cite{Tong2024}\ev{Tong2024.08}.
+Ein nicht begutachteter Preprint verweist zudem auf jüngere Pilotprojekte mit humanoiden Robotern in der Industrie \cite{Ding2026}\ev{Ding2026.07}.
+
+% Komplikation: Kosten, unklarer Nutzen, Sicherheit, Fachwissen
+Dem Potenzial stehen Hemmnisse gegenüber, die eine Erprobung am realen Roboter aufwendig machen.
+Hohe Entwicklungs- und Wartungskosten begrenzen die kommerzielle Verbreitung humanoider Roboter \cite{Tong2024}\ev{Tong2024.09}.
+\qf{Beleg, dass Unternehmen Nutzen, Kosten und Risiko eines Humanoiden für eine eigene Aufgabe vor einer Anschaffung schwer abschätzen können (Plan Kap. 1, E2 und Q1)}
+Die Erprobung im Feld ist zudem zeitaufwendig, teuer, fehleranfällig und potenziell gefährlich und erst möglich, wenn Software und Hardware ausgereift sind \cite{Afzal2021}\ev{Afzal2021.01}.
+Für humanoide Roboter verschärft sich die Frage der Sicherheit: Die meisten bestehenden Robotiknormen setzen laut einem nicht begutachteten Bericht feste oder statisch stabile Systeme voraus und berücksichtigen die inhärent instabile Fortbewegung eines Humanoiden nicht \cite{Prather2025}\ev{Prather2025.01}.
+Während ein Schutzstopp eine klassische Maschine durch Energieentzug in einen ungefährlichen Stillstand bringt, stürzt ein laufender Zweibeiner bei Energieentzug unkontrolliert, was selbst eine Gefährdung ist \cite{Ding2026}\ev{Ding2026.02,Ding2026.03}.
+
+% Komplikation: Vorwissen
+Hinzu kommt das nötige Vorwissen.
+Wirksame Roboterprogrammierung setzt neben allgemeinen Programmierkenntnissen Wissen aus mehreren Disziplinen von der Regelungstechnik bis zur Mechatronik voraus \cite{Ajaykumar2021}\ev{Ajaykumar2021.02}.
+Die End-User-Roboterprogrammierung verfolgt deshalb das Ziel, diese Komplexität in Methoden zu überführen, die auch ohne umfangreiche Robotikerfahrung zugänglich sind \cite{Ajaykumar2021}\ev{Ajaykumar2021.03}.
+
+% Lösungsansatz: Simulation, aber nicht allein
+Simulation bietet einen Zugang mit geringerem Risiko.
+Eine gut validierte Simulation kann in vielen Fällen als virtuelles Erprobungsfeld dienen, um sicherer, schneller, kostengünstiger und gründlicher zu verstehen, wie künftige Roboter für einen sicheren Betrieb ausgelegt und geregelt werden sollten \cite{Choi2021}\ev{Choi2021.01}.
+Simulationsbasiertes Testen gilt als vielversprechende Methode, die günstiger, sicherer und besser skalierbar ist als manuelles Testen im Feld \cite{Afzal2021}\ev{Afzal2021.02}.
+Für Endnutzer kann das Programmieren an einer Simulation des Roboters Aufwand, Kosten und die Wartezeit auf einen verfügbaren Roboter verringern \cite{Ajaykumar2021}\ev{Ajaykumar2021.07,Ajaykumar2021.08}.
+
+Die Simulation ersetzt den Versuch am realen Roboter jedoch nicht.
+Physisches Testen vor dem Einsatz bleibt zwingend \cite{Choi2021}\ev{Choi2021.02}, und der sichere Übergang von der Simulation in die reale Welt bleibt trotz der Fortschritte der Simulation eine Herausforderung \cite{Tong2024}\ev{Tong2024.06}.
+Daraus folgt der Ansatz dieser Arbeit, den Abbildung~\ref{fig:einleitung_ansatz} der Ausgangslage gegenüberstellt: Eine Umgebung führt dieselben Funktionen zuerst in der Simulation und danach am realen Roboter aus und verbindet so die risikoarme Erprobung mit dem notwendigen Versuch am realen System.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/einleitung-ansatz}
+  \caption[Ausgangslage und Lösungsansatz der Arbeit]{Ausgangslage und Lösungsansatz der Arbeit. In der Ausgangslage erfordert jede Erprobung den realen Roboter und Programmierkenntnisse. Im Lösungsansatz bedient der Anwender eine Umgebung ohne Programmierung, die mit demselben Programmstand zuerst die Simulation und danach den realen G1 steuert.}
+  \label{fig:einleitung_ansatz}
+\end{figure}
 
 \section{Zielsetzung und Forschungsfragen}
 \label{sec:zielsetzung}
-% Ziel: aufgabenunabhängige Simulations- und Ausführungsumgebung, ohne Vorerfahrung nutzbar, erst Sim, dann Real.
-% F1 Gleicher Steuerungscode ohne Änderung in Simulation und am realen G1?
-% F2 Wie gut bildet die Simulation das Verhalten des G1 ab, wo liegen die Grenzen?
-% F3 Welche Sicherheits- und Bedienmechanismen ermöglichen gefahrlosen Betrieb durch Personen ohne Vorerfahrung?
-% F4 Wie erweiterbar ist die Umgebung für neue, vorab nicht bekannte Aufgaben?
-% Eingrenzung: kein eigenes RL-Training, keine Real-Navigation, kein Policy-Transfer auf Hardware.
+% Ziel = Arbeitstitel (main.tex \Titel) und Nils' Motto vom 29.10.2026 (Memory thesis-outline); Herleitung in Kap. 5.1.
+Ziel der Arbeit ist eine aufgabenunabhängige Simulations- und Ausführungsumgebung für den Unitree G1, in der Personen ohne Robotikerfahrung Funktionen des Roboters ohne Programmierung zuerst in der Simulation und danach am realen Roboter erproben.
+Aufgabenunabhängig bedeutet hier, dass die Umgebung die Grundfähigkeiten Gehen, Armbewegung und Greifen einzeln und kombiniert bereitstellt, statt eine bestimmte Aufgabe fest abzubilden.
+Ausgangsbasis ist das quelloffene ROS-2-Paket G1Pilot, das den Unterkörper dem Regler des Herstellers überlässt und Werkzeuge für die Steuerung des Oberkörpers und die Teleoperation bereitstellt \cite{HucebotG1Pilot}\ev{HucebotG1Pilot.01}.
+Welche Teile übernommen sind und welche die Arbeit ergänzt, grenzt Abschnitt~\ref{sec:eigenleistung} ab.
 
-\section{Aufbau der Arbeit}
+Aus dem Ziel folgen vier Forschungsfragen, die Kapitel~\ref{chap:handlungsbedarf} aus den Defiziten der betrachteten Arbeiten begründet:
+\begin{description}
+  \item[F1] Wie lässt sich erreichen, dass derselbe Programmstand die Simulation und den realen G1 steuert und der Wechsel nur die Konfiguration ändert?
+  \item[F2] Wie gut bildet die Simulation das Verhalten des G1 ab, und wo liegen ihre Grenzen?
+  \item[F3] Welche Bedien- und Schutzmechanismen erlauben es Personen ohne Robotikerfahrung, Funktionen des G1 ohne Programmierung zu erproben, und begrenzen dabei Fehlbedienungen im Realbetrieb?
+  \item[F4] Wie lässt sich die Umgebung modular aufbauen, damit sie für vorab nicht bekannte Aufgaben und Folgeprojekte nutzbar bleibt?
+\end{description}
+
+% Eingrenzung: Kap. 5.1 (Schluss), Kap. 6.2.3 (Ersatzregler), Richtlinien §12 (Betreuerin 23.11.: keine Nutzerstudie, Erweiterbarkeit nicht eigens nachweisen).
+Die Eingrenzung folgt aus dem Ziel, eine Umgebung um vorhandene Regler zu bauen.
+Nicht Gegenstand sind deshalb das Training und die Übertragung einer eigenen Regelungsstrategie für die Fortbewegung: Am realen G1 regelt der Onboard-Regler des Herstellers das Stehen und Gehen, in der Simulation ein Ersatzregler aus einer veröffentlichten Lauf-Policy und einem eigenen Standregler (Abschnitt~\ref{sec:fortbewegungspfade}).
+Die Navigation ist nur in der Simulation umgesetzt.
+Die Arbeit stellt Schutzmechanismen für den Versuchsbetrieb bereit, aber keinen sicherheitstechnischen Nachweis im Sinne der Normen.
+Die Bewertung ist technisch und stützt sich auf Messungen, Tests und Analysen des Programmstands.
+Eine Befragung von Nutzern entfällt, weil die Umgebung neu entsteht und kein Vorher-Zustand vorliegt, mit dem sie sich vergleichen ließe.
+Für F4 genügt die Darstellung des modularen Aufbaus, ein eigener Erweiterungsversuch ist nicht vorgesehen.
+
+\section{Vorgehen und Aufbau der Arbeit}
 \label{sec:aufbau}
-% Je Kapitel 2–4 Sätze mit Kapitelnummer.
+Die Arbeit führt von den Grundlagen über den Handlungsbedarf zur Entwicklung der Umgebung und zu ihrer Bewertung, wie Abbildung~\ref{fig:aufbau} zeigt.
+Die Kapitel~\ref{chap:humanoide} bis~\ref{chap:faehigkeiten} legen die Grundlagen, ohne zu werten.
+Kapitel~\ref{chap:humanoide} beschreibt humanoide Roboter in der Produktion sowie Hardware und Software-Schnittstellen des Unitree G1.
+Kapitel~\ref{chap:simulation} behandelt Simulation in der Robotik mit der Lücke zwischen Simulation und Realität, Physiksimulatoren mit dem Schwerpunkt MuJoCo, die Middleware ROS~2 mit DDS, die Containerisierung und die Sicherheit beim Betrieb von Robotern.
+Kapitel~\ref{chap:faehigkeiten} stellt Verfahren für Fortbewegung, Manipulation und Bedienung humanoider Roboter vor und schließt mit verwandten Arbeiten zum G1.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/aufbau-arbeit}
+  \caption[Vorgehen und Aufbau der Arbeit]{Vorgehen und Aufbau der Arbeit. Hervorgehoben sind die Kapitel, die Ziel, Anforderungen und Lösung der Arbeit tragen. Unter jeder Spalte steht ihr Beitrag zu den Forschungsfragen F1 bis F4.}
+  \label{fig:aufbau}
+\end{figure}
+
+Kapitel~\ref{chap:handlungsbedarf} wertet diese Arbeiten am Ziel der Arbeit.
+Es leitet aus den Defiziten die Forschungsfragen und die Anforderungen an die Umgebung mit Kennzahlen und Zielwerten her und legt den Versuchsplan fest, bevor Ergebnisse vorliegen.
+
+Kapitel~\ref{chap:konzept} entwirft die Umgebung entlang der Anforderungen: Ausgangsbasis und Eigenleistung, Gesamtarchitektur mit der Umschaltung zwischen Simulation und Realbetrieb, Sicherheits- und Bedienkonzept sowie den modularen Aufbau.
+Kapitel~\ref{chap:umsetzung} beschreibt die Umsetzung der Bausteine, von der containerisierten Bereitstellung über Simulation, Fortbewegung, Armregelung und Hände bis zu den Bedienwegen.
+Bedienschritte und Installationsbefehle stehen nicht im Haupttext, sondern in Auszügen im Anhang.
+
+Kapitel~\ref{chap:evaluation} prüft die Umgebung nach dem Versuchsplan in der Simulation und am realen G1, gegliedert nach den Forschungsfragen, und diskutiert die Ergebnisse mit ihren Grenzen.
+Kapitel~\ref{chap:zusammenfassung} fasst die Antworten auf F1 bis F4 und die Beiträge der Arbeit zusammen und gibt einen Ausblick.

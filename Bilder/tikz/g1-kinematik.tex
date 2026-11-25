@@ -1,0 +1,68 @@
+% Kinematisches Schema des Unitree G1 (29 Gelenke) in Vorderansicht mit Gelenkgruppen und Indizes.
+% Eigene Darstellung. Indizes nach unitree_sdk2_python @814556d, example/g1/low_level/g1_low_level_example.py
+% (G1JointIndex, Ausdruck S. 3, Belege UnitreeSDK2PyG1.02-.04, .15-.18, noch nicht freigegeben).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/g1-kinematik} in einer figure-Umgebung.
+\begin{tikzpicture}[ba,
+    gbein/.style={ba gelenk},
+    gtaille/.style={ba gelenk, fill=baGrau},
+    garm/.style={ba gelenk, fill=baBlau},
+    gname/.style={font=\small, text=baGrau},
+  ]
+  % ---------------- Strichfigur (Roboter von vorn, seine linke Seite rechts im Bild) ----------
+  % Rumpf und Becken
+  \coordinate (W)  at (0,0.3);     % Taille
+  \coordinate (P)  at (0,-0.5);       % Becken
+  \coordinate (SR) at (-1.5,3.4);  \coordinate (SL) at (1.5,3.4);   % Schultern
+  \coordinate (HR) at (-0.8,-0.8); \coordinate (HL) at (0.8,-0.8);  % Hüften
+  \coordinate (KR) at (-0.8,-2.9); \coordinate (KL) at (0.8,-2.9);  % Knie
+  \coordinate (AR) at (-0.8,-4.9); \coordinate (AL) at (0.8,-4.9);  % Sprunggelenke
+  \coordinate (ER) at (-1.9,1.6);  \coordinate (EL) at (1.9,1.6);   % Ellbogen
+  \coordinate (GR) at (-2.2,0.3);  \coordinate (GL) at (2.2,0.3);   % Handgelenke
+  \coordinate (TR) at (-2.3,-0.25); \coordinate (TL) at (2.3,-0.25);  % Hände (Endeffektor)
+  % Glieder
+  \draw[ba glied, color=baGrau] (P) -- (W) -- (0,3.4);
+  \draw[ba glied, color=baGrau] (SR) -- (SL);
+  \draw[ba glied, color=baGrau] (HR) -- (HL);
+  \draw[ba glied] (HR) -- (KR) -- (AR);
+  \draw[ba glied] (HL) -- (KL) -- (AL);
+  \draw[ba glied, color=baBlau] (SR) -- (ER) -- (GR) -- (TR);
+  \draw[ba glied, color=baBlau] (SL) -- (EL) -- (GL) -- (TL);
+  % Füße und Kopf
+  \draw[ba glied] (-1.3,-5.25) -- (-0.4,-5.25);
+  \draw[ba glied] (0.4,-5.25) -- (1.3,-5.25);
+  \draw[ba normal, draw=baGrau] (0,4.15) circle (0.5);
+  % Gelenke
+  \foreach \p in {HR,HL,KR,KL,AR,AL} \node[gbein] at (\p) {};
+  \node[gtaille] at (W) {};
+  \foreach \p in {SR,SL,ER,EL,GR,GL} \node[garm] at (\p) {};
+  \node[ba endeffektor, draw=baBlau] at (TR) {};
+  \node[ba endeffektor, draw=baBlau] at (TL) {};
+  % Gelenknamen mit Zahl der Freiheitsgrade (rechte Körperseite = links im Bild)
+  \node[gname, anchor=east] at ($(SR)+(-0.25,0.15)$) {Schulter 3};
+  \node[gname, anchor=east] at ($(ER)+(-0.25,0)$)    {Ellbogen 1};
+  \node[gname, anchor=east] at ($(GR)+(-0.25,0)$)    {Handgelenk 3};
+  \node[gname, anchor=east] at ($(TR)+(-0.25,-0.05)$) {Hand};
+  \node[gname, anchor=east] at ($(HR)+(-0.25,-0.05)$) {Hüfte 3};
+  \node[gname, anchor=east] at ($(KR)+(-0.25,0)$)    {Knie 1};
+  \node[gname, anchor=east] at ($(AR)+(-0.25,0)$)    {Sprunggelenk 2};
+  \node[gname, anchor=west] at ($(W)+(0.25,0.05)$)   {Taille 3};
+  % Seitenangabe
+  \node[gname, anchor=north] at (-0.85,-5.5) {rechts};
+  \node[gname, anchor=north] at (0.85,-5.5)  {links};
+
+  % ---------------- Gruppen mit Indizes (Reihenfolge der Herstellerschnittstelle) ----------
+  \begin{scope}[xshift=6.3cm]
+    \tikzset{grp/.style={ba block, minimum width=5.6cm, minimum height=7mm, align=left, text width=5.2cm}}
+    \node[grp] (g4) at (0,3.0)  {\hspace*{4mm}\textbf{Arm links} \hfill 15--21\quad(7)};
+    \node[grp] (g5) at (0,2.0)  {\hspace*{4mm}\textbf{Arm rechts} \hfill 22--28\quad(7)};
+    \node[grp] (g3) at (0,0.6)  {\hspace*{4mm}\textbf{Taille} \hfill 12--14\quad(3)};
+    \node[grp] (g1) at (0,-0.8) {\hspace*{4mm}\textbf{Bein links} \hfill 0--5\quad(6)};
+    \node[grp] (g2) at (0,-1.8) {\hspace*{4mm}\textbf{Bein rechts} \hfill 6--11\quad(6)};
+    % Farbmarke links am Block (zusätzlich zum Text)
+    \foreach \g/\c in {g4/baBlau,g5/baBlau,g3/baGrau,g1/baGruen,g2/baGruen}
+      \node[ba gelenk, fill=\c] at ($(\g.west)+(0.3,0)$) {};
+    \draw[ba duenn, draw=baGrau] ($(g2.south west)+(0,-0.35)$) -- ($(g2.south east)+(0,-0.35)$);
+    \node[anchor=east, text width=5.2cm, align=left] at ($(g2.south east)+(-0.2,-0.75)$) {\hspace*{4mm}\textbf{Summe} \hfill 0--28\quad(29)};
+    \node[gname, anchor=north, text width=5.6cm, align=center] at (0,-3.6) {Index in der Herstellerschnittstelle\\(Anzahl der Gelenke)};
+  \end{scope}
+\end{tikzpicture}
