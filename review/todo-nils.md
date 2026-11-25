@@ -8,6 +8,21 @@ Umfang (Betreuerin, 23.11.2026): 60–80 Seiten inkl. Abbildungen und Tabellen, 
 Literaturverzeichnis; 80 ist hart, Ziel 70–75. Entwürfe etwa Endumfang ÷ 0,6, Nils kürzt.
 Weitere Ergebnisse des Betreuertreffens vom 23.11.: `Richtlinien-BA.md` §12.
 
+## Kapitel 1 – Einleitung
+
+Entwurf: `Kapitel/01_Einleitung.tex` (25.11.2026). Plan mit Fragen E1–E5 zum Bearbeiten:
+[Claude-Dokument Kapitelplan Kap. 1](https://claude.ai/artifact/4mAyMppsMTB2uLoj3k4X9D), Antwort in die letzte Spalte.
+
+**Entscheidungen**
+- [ ] **E1 Forschungsfragen:** F3 ohne Bezug auf eine Nutzerbefragung, F4 als Entwurfsfrage „Wie lässt sich die Umgebung
+      modular aufbauen?“ (Wortlaut im Plan). Hängt mit Kap. 5, P3 zusammen.
+- [ ] **E2 / Q1 Recherche freigeben:** 1–2 Quellen, dass Unternehmen Nutzen, Kosten und Risiko eines Humanoiden vor einer
+      Anschaffung schwer abschätzen können (einziges „Quelle fehlt“ in Kap. 1). Gleiche Lücke wie in Kap. 5.1.
+- [ ] **E3–E5:** G1Pilot schon in 1.2 nennen (ja), Name der Umgebung erst nach deiner Wahl, Video nicht in der Einleitung.
+
+**Angaben und Material**
+- [ ] Overleaf `zotero.bib` aktualisieren: siehe Kap. 5 (Afzal2021 wird jetzt auch in Kap. 1 zitiert).
+
 ## Kapitel 4 – Fähigkeiten humanoider Roboter und verwandte Arbeiten
 
 Entwurf: `Kapitel/04_Faehigkeiten_Verwandte_Arbeiten.tex`, Plan `review/plan-kap4.md`.
