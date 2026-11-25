@@ -1,8 +1,9 @@
-% Bewertungslogik: Defizite D1-D4 -> Forschungsfragen F1-F4 -> Anforderungen A1-A7 -> Versuche V1-V11
+% Bewertungslogik: Defizite D1-D4 -> Forschungsfragen F1-F4 -> Anforderungen A1-A7 -> Versuche (V1-V5, V7-V9, V11) bzw. Analyse
+% Stand 25.11.2026 (P3/P5): V6 in V7 aufgegangen, V10 entfällt, A7 nur Analyse des Aufbaus (kein Versuch).
 % -> Abschnitte 8.1-8.4 -> Abgleich (Abschnitt 8.5.1). Eigene Darstellung, keine Fremdquelle.
 % Zuordnung nach review/plan-kap5.md Abschnitt 6 und 7.2 (Datenbasis: Planung, kein Messergebnis).
 % Haupt-Zuordnungen sind gezeichnet; V2 stützt zusätzlich A1 (K1.1) und A5 (K5.6) und steht in der Caption.
-% Kennzahlen K stehen nicht einzeln in der Grafik, sondern in tab:kennzahlen.
+% Kennzahlen K stehen nicht einzeln in der Grafik, sondern in tab:anforderungen.
 % Anforderungen in der Reihenfolge der Fragen angeordnet (A2, A3, A4, A5, A6, A1, A7), damit sich keine Linien kreuzen.
 % Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/bewertungslogik} in einer figure-Umgebung. Nicht skalieren.
 \begin{tikzpicture}[ba]
@@ -39,9 +40,9 @@
   \node[klein] (D4) at (0.6,-5.225) {D4};
   % ---------- Versuche und Abschnitte (nach Abschnitten gruppiert) ----------
   \node[vers] (VA) at (8.2,0)      {V1 bis V3};
-  \node[vers, minimum height=16.5mm] (VB) at (8.2,-1.425) {V4 bis V7};
+  \node[vers, minimum height=16.5mm] (VB) at (8.2,-1.425) {V4, V5, V7};
   \node[vers, minimum height=16.5mm] (VC) at (8.2,-3.325) {V8, V9};
-  \node[vers, minimum height=16.5mm] (VD) at (8.2,-5.225) {V10, V11};
+  \node[vers, minimum height=16.5mm, align=center] (VD) at (8.2,-5.225) {V11,\\Analyse};
   \node[absch] (SA) at (11.3,0)      {Abschnitt~\ref{sec:eval_f1}};
   \node[absch, minimum height=16.5mm] (SB) at (11.3,-1.425) {Abschnitt~\ref{sec:eval_f2}};
   \node[absch, minimum height=16.5mm] (SC) at (11.3,-3.325) {Abschnitt~\ref{sec:eval_f3}};
