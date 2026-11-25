@@ -132,3 +132,18 @@ Pflicht wird sicher verwendet, Reserve nur, wenn Platz ist.
 - [ ] **Reserve: Dialog „Neue Hand anlegen“** mit erkannter Montage (`hand-anlegen.png`). Für 7.5.2.
 - [ ] **Reserve: Szenen-Editor** mit geöffneter Szene AP_1 (`szenen-editor.png`). Für 7.2.3.
 - [ ] **Reserve: Planer in RViz**, Hand fährt um ein Hindernis, geplante Bahn sichtbar (`planer-bahn-rviz.png`). Für 7.4.3.
+
+## Kapitel 9 – Zusammenfassung und Ausblick
+
+Entwurf: `Kapitel/09_Zusammenfassung.tex` (ca. 4 S.), Plan mit Fragen Z1–Z9 als Claude-Dokument
+https://claude.ai/artifact/XuFk1M5Ke3kRyD95SYhnTv (Antwort in die letzte Spalte, leer = wie empfohlen).
+Kap. 9 wird als letztes fertig: die `\pruefen{}` in 9.1 lösen sich, sobald Kap. 5 und 8 stehen.
+
+**Entscheidungen**
+- [ ] **Z3 Wortlaut F4:** Modularität als Entwurfsfrage mit Container-Profilen und Andockpunkten als Antwort, ohne Nachweis? Hängt an Kap. 5 (P1–P7).
+- [ ] **Z7 Ausblick-Themen:** Policy-Transfer, Abgleich mit Realdaten, Navigation mit Wahrnehmung, externes Projekt, Sicherheitsnachweis. Gibt es ein konkretes Folgeprojekt am Lehrstuhl?
+- [ ] **Z8 Nutzerstudie im Ausblick** (ein Satz: sinnvoll, sobald eine zweite Fassung verglichen werden kann)?
+- [ ] **Z9 Eigenname der Plattform:** siehe Kap. 6 bzw. Koordinator, Kap. 9 wird danach umbenannt.
+
+**Abhängigkeiten** (kein Material von dir nötig, nur Hinweis)
+- [ ] Ergebnisse Kap. 8 (V1–V9) und Abgleich A1–A7 in 8.4.1, siehe Kap. 5 „Durchführen“.
