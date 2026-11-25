@@ -13,3 +13,15 @@ belege:
   kernaussage: SONIC skaliert Netzgröße (1,2–42 Mio. Parameter), Datenmenge (über 100 Mio. Frames aus 700 h Motion Capture) und Rechenaufwand (21 000 GPU-Stunden).
   quelle: exzerpt
   kommentar: Kap. 4.1
+- id: Luo2026.03
+  seite: '29'
+  zitat: Experiments were conducted on a Unitree G1 platform (29 actuated joints) using the built-in joint-level PD controller. The learned policy output desired joint angles that were passed directly to the PD interface.
+  kernaussage: Die Versuche liefen auf einem G1 mit 29 angetriebenen Gelenken über den eingebauten PD-Regler auf Gelenkebene, dem die Policy Soll-Gelenkwinkel übergab.
+  quelle: exzerpt
+  kommentar: Kap. 2.2 / 2.3.1 (Gelenkregelung auf Gelenkebene)
+- id: Luo2026.04
+  seite: '29'
+  zitat: All components of the inference and management stack ran onboard, leveraging the Jetson Orin GPU to minimize feedback latency and improve timing determinism.
+  kernaussage: Alle Komponenten liefen an Bord des G1 auf einer Jetson-Orin-GPU, um Rückkopplungslatenz zu senken.
+  quelle: exzerpt
+  kommentar: Kap. 2.2 (Rechner, Konfiguration der Autoren)

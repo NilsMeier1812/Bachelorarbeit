@@ -80,3 +80,9 @@ belege:
     kernaussage: "Die beiden Faktoren sind laut den Autoren Ungenauigkeiten in den Robotermodellbeschreibungen und komplexe reale Dynamik, die physikbasierte Simulatoren schwer abbilden."
     quelle: exzerpt
     kommentar: "Kap. 3.1 (L4). Fortsetzung von He2025.01."
+  - id: He2025.14
+    seite: "12"
+    zitat: "Agile whole-body motions exert significant stress on robots, leading to motor overheating and hardware failure during data collection. Two Unitree G1 robots were broken to some extent during our experiments."
+    kernaussage: "Agile Ganzkörperbewegungen belasten die Roboter stark und führten bei der Datenerhebung zu Motorüberhitzung und Hardwareausfällen; zwei Unitree G1 wurden in den Versuchen der Autoren teilweise beschädigt."
+    quelle: exzerpt
+    kommentar: "Kap. 2.1.2 (Risiko Realversuche, Hardwareschäden). Gilt für agile Bewegungen im Versuch der Autoren."

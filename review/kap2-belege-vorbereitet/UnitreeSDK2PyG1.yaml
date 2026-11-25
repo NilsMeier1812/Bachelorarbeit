@@ -1,0 +1,114 @@
+# VORBEREITET, noch nicht freigegeben. Zotero A3G5P4RE in _Vorschläge (Software, Commit 814556d, Abruf 2026-11-25).
+# Nach Freigabe: Citation Key "UnitreeSDK2PyG1" setzen, zot.py bib + text, Datei nach evidence/ verschieben, check.py.
+# Seiten = Seiten des Ausdrucks pdf/Unitree_unitree_sdk2_python_G1-Beispiele_814556d.pdf.
+citekey: UnitreeSDK2PyG1
+zotero_key: A3G5P4RE
+belege:
+  - id: UnitreeSDK2PyG1.01
+    seite: "2"
+    zitat: "idl/unitree_hg is used for Unitree G1/H1-2 robots"
+    kernaussage: "Für G1 und H1-2 gilt die Nachrichtendefinition unitree_hg."
+    quelle: exzerpt
+    kommentar: "Kap. 2.3.1 (Datei example/g1/readme.md)"
+  - id: UnitreeSDK2PyG1.02
+    seite: "3"
+    zitat: "G1_NUM_MOTOR = 29"
+    kernaussage: "Das Low-Level-Beispiel des G1 arbeitet mit 29 Motoren."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2 (g1_low_level_example.py)"
+  - id: UnitreeSDK2PyG1.03
+    seite: "3"
+    zitat: "class G1JointIndex: LeftHipPitch = 0"
+    kernaussage: "Die Gelenkindizes des G1 beginnen mit dem linken Hüftnickgelenk als Index 0."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2, fig:g1_kinematik. Vollständige Liste 0–28 auf S. 3 (Bein links 0–5, rechts 6–11, Taille 12–14, Arm links 15–21, rechts 22–28)."
+  - id: UnitreeSDK2PyG1.04
+    seite: "3"
+    zitat: "WaistYaw = 12 WaistRoll = 13 # NOTE: INVALID for g1 23dof/29dof with waist locked"
+    kernaussage: "Taille: Gierachse Index 12; Rollachse Index 13 ist bei G1 mit 23 Freiheitsgraden oder bei 29 Freiheitsgraden mit gesperrter Taille ungültig."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2"
+  - id: UnitreeSDK2PyG1.05
+    seite: "4"
+    zitat: "self.control_dt_ = 0.002 # [2ms]"
+    kernaussage: "Das Low-Level-Beispiel sendet Befehle im Takt von 2 ms."
+    quelle: exzerpt
+    kommentar: "Kap. 2.3.1 (Beispielwert, keine Herstellerforderung)"
+  - id: UnitreeSDK2PyG1.06
+    seite: "4"
+    zitat: "while result['name']: self.msc.ReleaseMode() status, result = self.msc.CheckMode() time.sleep(1) # create publisher # self.lowcmd_publisher_ = ChannelPublisher(\"rt/lowcmd\", LowCmd_)"
+    kernaussage: "Bevor das Low-Level-Beispiel auf rt/lowcmd schreibt, gibt es über den MotionSwitcherClient den aktiven Bewegungsmodus frei, bis keiner mehr aktiv ist."
+    quelle: exzerpt
+    kommentar: "Kap. 2.3.1 / 2.3.2 (Low-Level schließt Onboard-Regler aus)"
+  - id: UnitreeSDK2PyG1.07
+    seite: "6"
+    zitat: "kNotUsedJoint = 29 # NOTE: Weight"
+    kernaussage: "Im Arm-Beispiel trägt der Index 29 (kNotUsedJoint) das Gewicht."
+    quelle: exzerpt
+    kommentar: "Kap. 2.3.3 (g1_arm7_sdk_dds_example.py)"
+  - id: UnitreeSDK2PyG1.08
+    seite: "7"
+    zitat: "G1JointIndex.WaistYaw, G1JointIndex.WaistRoll, G1JointIndex.WaistPitch ] def Init(self): # create publisher # self.arm_sdk_publisher = ChannelPublisher(\"rt/arm_sdk\", LowCmd_)"
+    kernaussage: "Das Arm-Beispiel kommandiert über rt/arm_sdk (Nachrichtentyp LowCmd_) neben den 14 Armgelenken auch die drei Taillengelenke."
+    quelle: exzerpt
+    kommentar: "Kap. 2.3.3; löst ggf. Kap. 6 L24 (Taille über arm_sdk)"
+  - id: UnitreeSDK2PyG1.09
+    seite: "7"
+    zitat: "self.low_cmd.motor_cmd[G1JointIndex.kNotUsedJoint].q = 1 # 1:Enable arm_sdk, 0:Disable arm_sdk"
+    kernaussage: "Wert 1 im Gewichts-Slot aktiviert arm_sdk, Wert 0 deaktiviert es."
+    quelle: exzerpt
+    kommentar: "Kap. 2.3.3"
+  - id: UnitreeSDK2PyG1.10
+    seite: "8"
+    zitat: "# [Stage 4]: release arm_sdk for i,joint in enumerate(self.arm_joints): ratio = np.clip((self.time_ - self.duration_*6) / (self.duration_), 0.0, 1.0) self.low_cmd.motor_cmd[G1JointIndex.kNotUsedJoint].q = (1 - ratio)"
+    kernaussage: "Zum Freigeben fährt das Beispiel das Gewicht über eine Dauer linear von 1 auf 0 zurück."
+    quelle: exzerpt
+    kommentar: "Kap. 2.3.3 (Rampe)"
+  - id: UnitreeSDK2PyG1.11
+    seite: "10"
+    zitat: "def Damp(self): self.SetFsmId(1) def Start(self): self.SetFsmId(500)"
+    kernaussage: "Der LocoClient setzt für Damp den Zustand 1 und für Start den Zustand 500 der Zustandsmaschine."
+    quelle: exzerpt
+    kommentar: "Kap. 2.3.2, tab:g1_fsm"
+  - id: UnitreeSDK2PyG1.12
+    seite: "10"
+    zitat: "def ZeroTorque(self): self.SetFsmId(0) def StopMove(self): self.SetVelocity(0., 0., 0.)"
+    kernaussage: "ZeroTorque setzt Zustand 0; StopMove setzt die Sollgeschwindigkeit auf null."
+    quelle: exzerpt
+    kommentar: "Kap. 2.3.2"
+  - id: UnitreeSDK2PyG1.13
+    seite: "9"
+    zitat: "def SetVelocity(self, vx: float, vy: float, omega: float, duration: float = 1.0):"
+    kernaussage: "SetVelocity übergibt Längs-, Quer- und Drehgeschwindigkeit sowie eine Dauer (Vorgabe 1,0 s)."
+    quelle: exzerpt
+    kommentar: "Kap. 2.3.2"
+  - id: UnitreeSDK2PyG1.14
+    seite: "12"
+    zitat: "mode: types.uint8 q: types.float32 dq: types.float32 tau: types.float32 kp: types.float32 kd: types.float32"
+    kernaussage: "Ein Motorbefehl (MotorCmd_) enthält Modus, Sollwinkel q, Sollgeschwindigkeit dq, Vorsteuermoment tau sowie die Verstärkungen kp und kd."
+    quelle: exzerpt
+    kommentar: "Kap. 2.3.1, Gleichung des Gelenkreglers nur mit weiterer Quelle"
+  - id: UnitreeSDK2PyG1.15
+    seite: "3"
+    zitat: "RightWristYaw = 28"
+    kernaussage: "Das rechte Handgelenk-Giergelenk hat Index 28 (letzter Gelenkindex)."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2"
+  - id: UnitreeSDK2PyG1.16
+    seite: "3"
+    zitat: "RightHipPitch = 6"
+    kernaussage: "Das rechte Hüftnickgelenk hat Index 6 (erstes Gelenk des rechten Beins)."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2, fig:g1_kinematik"
+  - id: UnitreeSDK2PyG1.17
+    seite: "3"
+    zitat: "LeftShoulderPitch = 15"
+    kernaussage: "Das linke Schulternickgelenk hat Index 15 (erstes Gelenk des linken Arms)."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2, fig:g1_kinematik"
+  - id: UnitreeSDK2PyG1.18
+    seite: "3"
+    zitat: "RightShoulderPitch = 22"
+    kernaussage: "Das rechte Schulternickgelenk hat Index 22 (erstes Gelenk des rechten Arms)."
+    quelle: exzerpt
+    kommentar: "Kap. 2.2, fig:g1_kinematik"

@@ -1,34 +1,212 @@
-% Gliederung Stand 30.10.2026. Grundlagen, ~6 Seiten.
+% Kapitel 2: Grundlagen. Entwurf 25.11.2026 (Kapitel-Thread Kap. 2), Ziel Endfassung 5 S., Entwurf ca. 6,5 S.
+% Plan: Claude-Dokument https://claude.ai/artifact/1t2irkY9H1D4WeYmvxWfaC (Fragen F1–F6).
+% Code-Bezug: G1 Branch BA-Stable @ 6a40e47 (nur für Rückverweise, Kap. 2 beschreibt fremde Hardware und Schnittstellen).
+% Markierungen der Form \qf{Freigabe <Beleg-ID>}: Beleg ist fertig vorbereitet in review/kap2-belege-vorbereitet/,
+% die Quelle (Unitree2026 = Zotero G6NZPHNP, UnitreeSDK2PyG1 = Zotero A3G5P4RE) wartet in _Vorschläge auf Nils' Freigabe.
+% Nach der Freigabe jede Markierung durch \cite{<Key>}\ev{<Beleg-IDs>} ersetzen.
 \chapter{Humanoide Roboter und der Unitree G1}
 \label{chap:humanoide}
-% Kurze Kapiteleinleitung vor 2.1.
+Der Unitree G1 legt mit seinem Körperbau und seinen Herstellerschnittstellen fest, was die Plattform dieser Arbeit steuern kann und auf welchen Wegen.
+Abschnitt~\ref{sec:humanoide_produktion} ordnet humanoide Roboter allgemein ein und zeigt, warum ihr Einsatz in der Produktion bisher über Pilotprojekte kaum hinauskommt.
+Abschnitt~\ref{sec:g1_hardware} beschreibt die Hardware des G1, Abschnitt~\ref{sec:g1_software} die Schnittstellen, an die die Plattform andockt.
 
 \section{Humanoide Roboter in der Produktion}
 \label{sec:humanoide_produktion}
+Humanoide Roboter übertragen den menschlichen Körperbau auf eine Maschine, damit sie dort arbeiten können, wo bisher Menschen arbeiten.
+Sie sind menschenähnlich gebaut und laufen auf zwei Beinen \cite{Saeedvand2019}\ev{Saeedvand2019.01}.
+Durch Form und Bewegung nach menschlichem Vorbild können sie menschliche Werkzeuge nutzen, sich in menschlichen Räumen bewegen und Aufgaben übernehmen, die bisher menschliche Hände erforderten \cite{Prather2025}\ev{Prather2025.16}.
 
 \subsection{Aufbau und Freiheitsgrade humanoider Roboter}
 \label{sec:humanoide_aufbau}
-% Kandidaten: Saeedvand2019 (Körperteile, Roll/Nick/Gier, mind. 20 DoF, DoF vs. Kosten), Westervelt2018 (Begriffe Zweibeiner, voll-/unteraktuiert).
+Ein Humanoider gliedert sich wie der menschliche Körper und braucht dafür deutlich mehr Gelenke als ein Industrieroboter.
+Er besteht aus Rumpf, Hüfte, Kopf, Hals, zwei Armen mit Händen sowie zwei Beinen mit Füßen, und jedes seiner Gelenke dreht um höchstens drei zueinander senkrechte Achsen, die Roll-, Nick- und Gierachse \cite{Saeedvand2019}\ev{Saeedvand2019.04}.
+Kinematisch ist ein Zweibeiner eine offene Kette aus zwei Beinen, die an der Hüfte meist mit einem Rumpf verbunden sind \cite{Westervelt2018}\ev{Westervelt2018.04}.
+
+Nach einer Übersicht realer Humanoider benötigt ein solcher Roboter mindestens 20 Freiheitsgrade, und mit ihrer Zahl wachsen Baugröße, Rechen- und Energiebedarf und damit die Kosten \cite{Saeedvand2019}\ev{Saeedvand2019.05}.
+Die Aufgabe des Gehens selbst hat dagegen nur wenige Freiheitsgrade, denn im Kern bringt der Roboter seinen Schwerpunkt von einem Ort zum anderen \cite{Westervelt2018}\ev{Westervelt2018.10}.
+Die übrigen Freiheitsgrade stehen für Haltung und Handhabung zur Verfügung, beim G1 vor allem in Taille und Armen (Abschnitt~\ref{sec:g1_hardware}).
+Wie sich die redundanten Arme über inverse Kinematik führen lassen, behandelt Abschnitt~\ref{sec:ik}.
+
+Ein mechanisches Modell heißt voll aktuiert, wenn es so viele unabhängige Aktoren wie Freiheitsgrade hat, und unteraktuiert, wenn es weniger hat \cite{Westervelt2018}\ev{Westervelt2018.09}.
+Anders als ein fest montierter Manipulator bewegt sich ein Zweibeiner gegenüber seiner Umgebung, und weil seine Füße klein sind, kann ein großes Knöchelmoment den Fuß abkippen lassen, sodass der Roboter unteraktuiert ist \cite{Westervelt2018}\ev{Westervelt2018.11}.
+Als Herausforderung zweibeiniger Roboter gilt entsprechend die Stabilität beim Gehen in unterschiedlichen Umgebungen \cite{Saeedvand2019}\ev{Saeedvand2019.03}.
+Wie Laufregler diese Aufgabe lösen, zeigt Abschnitt~\ref{sec:fortbewegung_sdt}, die Folgen für das sichere Anhalten Abschnitt~\ref{sec:sicherheit_zweibeiner}.
 
 \subsection{Einsatzszenarien und Hemmnisse bei der Einführung}
 \label{sec:humanoide_einsatz}
-% Kosten, Risiko, fehlendes Know-how. Kandidaten: Tong2024 (Industrie-Einsatz, Kosten, Sicherheit), Saeedvand2019 (Anwendungen, Aktorik als Grenze), Yu2026 (G1 in Unterhaltung/Bühnentanz), Westervelt2018 (Beine in menschengemachten Umgebungen; Stand 2007: kaum Nutzen über Neuheit hinaus).
+% Kann: erster Absatz auf zwei Sätze kürzen, falls Kap. 1 die Einsatzfelder schon nennt.
+Für Humanoide sieht die Literatur ein breites Anwendungsfeld, ihr Einsatz in der Produktion steht aber erst am Anfang.
+Genannt werden unter anderem Industrie, Rettung, Gesundheitswesen, Bildung, Assistenz, Unterhaltung und Landwirtschaft \cite{Tong2024}\ev{Tong2024.01}.
+In der Industrie sollen Humanoide repetitive, arbeitsintensive Aufgaben übernehmen und mit Menschen bei Montage, Verpackung und Materialhandhabung zusammenarbeiten \cite{Tong2024}\ev{Tong2024.08}.
+Beine liegen nahe, wo Umgebungen für menschliches Gehen, Laufen und Klettern gestaltet sind \cite{Westervelt2018}\ev{Westervelt2018.02}, und gegenüber Radrobotern eignen sich Zweibeiner besser für die Navigation in komplexen Arbeitsumgebungen \cite{Saeedvand2019}\ev{Saeedvand2019.02}.
+
+Der Einsatz befindet sich überwiegend in der Erprobung.
+Hersteller testen Humanoide in Pilotprojekten in Fabriken, Logistikzentren und Gesundheitseinrichtungen \cite{Prather2025}\ev{Prather2025.09}.
+Solange Klassifikation, Stabilitäts- und Interaktionsnormen nicht gemeinsam entwickelt sind, bleiben Humanoide auf kontrollierte Umgebungen und Pilotprojekte beschränkt \cite{Prather2025}\ev{Prather2025.15}.
+Der Hersteller des G1 sieht die Branche selbst in einer frühen Phase der Erkundung und rät, die Grenzen humanoider Roboter vor dem Kauf genau zu verstehen \qf{Freigabe Unitree2026.12}.
+Im Jahr 2007 waren Laufmaschinen noch in keinem Bereich angekommen, in dem ihr Nutzen ihren Neuheitswert übersteigt \cite{Westervelt2018}\ev{Westervelt2018.14}.
+
+Tabelle~\ref{tab:hemmnisse} fasst die Hemmnisse zusammen, die die Literatur für den Schritt von der Erprobung in den regulären Einsatz nennt, und ordnet ihnen zu, wo die Plattform dieser Arbeit ansetzt.
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Hemmnisse beim Einsatz humanoider Roboter in der Produktion]{Hemmnisse beim Einsatz humanoider Roboter in der Produktion und Bezug zur Plattform dieser Arbeit. Belege im Text von Abschnitt~\ref{sec:humanoide_einsatz}.}
+    \label{tab:hemmnisse}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.4cm}|L|L|}\hline
+        \tabkopfzeile \tabkopf{Hemmnis} & \tabkopf{Kern laut Literatur} & \tabkopf{Bezug zur Plattform}\\\hline
+        Unklarer Nutzen & Kein klarer Return on Investment, weil der Wert je Aufgabe verschieden ist & Aufgaben lassen sich vor dem Einsatz in der Simulation und dann am realen Roboter erproben (Kapitel~\ref{chap:konzept})\\\hline
+        Kosten & Hohe Entwicklungs- und Wartungskosten, Leistungs-Kosten-Verhältnis unter dem zweckgebundener Maschinen & Nicht adressiert. Erprobung in der Simulation braucht keinen Roboter\\\hline
+        Sicherheit & Umkippen gefährdet auch Personen ohne Kontakt, Normen für Humanoide fehlen & Halt in Stufen und Schutzfunktionen (Abschnitt~\ref{sec:sicherheitskonzept}), keine Zertifizierung\\\hline
+        Technische Reife & Aktorik, Feinmotorik, Hardwareschäden bei Realversuchen & Riskante Bewegungen zuerst in der Simulation, Aktorik und Feinmotorik nicht adressiert\\\hline
+    \end{tabularx}
+\end{table}
+
+Am grundlegendsten ist der unklare Nutzen.
+Industrieroboter verdanken ihren Erfolg wesentlich einem klaren Return on Investment und einer messbaren Amortisationszeit \cite{Prather2025}\ev{Prather2025.11}.
+Für Humanoide bleibt der Return on Investment dagegen unklar, weil sie viele Aufgaben mit jeweils unterschiedlichem Wert für den Betreiber übernehmen sollen \cite{Prather2025}\ev{Prather2025.10}.
+
+Eng damit verbunden sind die Kosten.
+Hohe Entwicklungs- und Wartungskosten begrenzen die kommerzielle Verbreitung \cite{Tong2024}\ev{Tong2024.09}, und für einen breiten Umstieg muss das Leistungs-Kosten-Verhältnis von Humanoiden das zweckgebundener Maschinen übertreffen \cite{Prather2025}\ev{Prather2025.12}.
+Leistung, Sicherheit und Kosten müssen dabei zu den Anforderungen des jeweiligen Einsatzbereichs passen \cite{Tong2024}\ev{Tong2024.10}.
+
+Die Sicherheit unterscheidet Humanoide von bekannten Robotern.
+Sie ähneln kollaborierenden Robotern, können aber umkippen und dabei auch eine Person in der Nähe verletzen, die sie nicht berühren \cite{Prather2025}\ev{Prather2025.13}.
+Für Montage und Maschinenbeschickung gelten physische Sicherheit, Zuverlässigkeit und ergonomische Grenzen als wesentliche Hürden, und die Feinmotorik bleibt eine große Einschränkung \cite{Prather2025}\ev{Prather2025.14}.
+Die Normenlage dazu behandelt Abschnitt~\ref{sec:normen}.
+
+Schließlich ist schon die Erprobung am realen Roboter riskant.
+In Versuchen mit agilen Ganzkörperbewegungen führte die Belastung zu Motorüberhitzung und Hardwareausfällen, und zwei G1 wurden dabei teilweise beschädigt \cite{He2025}\ev{He2025.14}.
+Als Grenze der Humanoidenentwicklung insgesamt gilt die verfügbare Aktortechnik \cite{Saeedvand2019}\ev{Saeedvand2019.12}.
+% Eigenleistung (Argumentation), Bezug Kap. 5.1
+Die Hemmnisse Nutzen und Erprobungsrisiko greift der Handlungsbedarf in Abschnitt~\ref{sec:handlungsbedarf} auf, Kosten, Normen und Aktorik liegen außerhalb dieser Arbeit.
 
 \section{Hardware des Unitree G1}
 \label{sec:g1_hardware}
-% 29 Gelenke, Aktorik, Sensorik (IMU, Lidar), Inspire-FTP-Hände mit Taktilsensorik, Rechner. Kandidat: Saeedvand2019 (IMU als wichtigster Sensor).
+Der Unitree G1 ist ein Humanoide von rund 1,3\,m Größe, den der Hersteller in einer Grundausführung mit 23 und als G1 EDU mit 23 bis 43 Gelenkfreiheitsgraden anbietet \qf{Freigabe Unitree2026.01, Unitree2026.03}.
+Stehend misst er 1320\,×\,450\,×\,200\,mm und wiegt mit Akku etwa 35\,kg \qf{Freigabe Unitree2026.01, Unitree2026.02}.
+Beide Ausführungen haben je Bein sechs Freiheitsgrade, die Grundausführung je Arm fünf und in der Taille einen \qf{Freigabe Unitree2026.03}.
+Der G1 EDU lässt sich um zwei Freiheitsgrade in der Taille und um zwei im Handgelenk erweitern \qf{Freigabe Unitree2026.03, Unitree2026.04}.
+In der Forschung verbreitet ist die Ausführung mit 29 Freiheitsgraden \cite{Ze2025}\ev{Ze2025.02} \cite{Luo2026}\ev{Luo2026.03}, die auch der Laborroboter dieser Arbeit hat \pruefen{F2: Laborroboter = G1 EDU mit 29 Gelenken (Taille 3, Arm je 7)?}.
+
+Abbildung~\ref{fig:g1_kinematik} zeigt die 29 Gelenke in der Reihenfolge, in der die Herstellerschnittstelle sie adressiert.
+Das Low-Level-Beispiel des Herstellers arbeitet mit 29 Motoren \qf{Freigabe UnitreeSDK2PyG1.02}.
+Die Indizes 0 bis 5 gehören zum linken Bein, 6 bis 11 zum rechten, 12 bis 14 zur Taille, 15 bis 21 zum linken und 22 bis 28 zum rechten Arm \qf{Freigabe UnitreeSDK2PyG1.03, .04, .15, .16, .17, .18}.
+Bei gesperrter Taille sind die Taillenindizes für Roll- und Nickachse ungültig \qf{Freigabe UnitreeSDK2PyG1.04}.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/g1-kinematik}
+  \caption[Gelenke des Unitree G1 in der Ausführung mit 29 Freiheitsgraden]{Gelenke des Unitree G1 in der Ausführung mit 29 Freiheitsgraden, Vorderansicht. Links und rechts aus Sicht des Roboters, Zahl hinter dem Gelenknamen = Freiheitsgrade, rechts die Indizes der Herstellerschnittstelle. Eigene Darstellung nach \qf{Freigabe UnitreeSDK2PyG1}.}
+  \label{fig:g1_kinematik}
+\end{figure}
+
+In Abbildung~\ref{fig:g1_kinematik} tragen Beine und Taille zusammen 15 Gelenke, die beim Gehen der Laufregler führt (Abschnitt~\ref{sec:g1_onboard}).
+Die 14 Armgelenke mit je drei Freiheitsgraden in Schulter und Handgelenk bilden zwei redundante Ketten mit sieben Freiheitsgraden, die die Plattform selbst regelt (Abschnitt~\ref{sec:armuebergabe}).
+Die Hände zählen nicht zu den 29 Gelenken.
+
+Tabelle~\ref{tab:g1_kenndaten} stellt die Kenndaten beider Ausführungen und des Laborroboters gegenüber.
+Die Gelenkmotoren sind trägheitsarme Permanentmagnet-Synchronmotoren mit Doppel\-encoder und lokaler Luftkühlung \qf{Freigabe Unitree2026.05, Unitree2026.07}.
+Das Kniegelenk hat den stärksten Motor und erreicht beim G1 EDU 120\,N\,m, die Armlast liegt bei etwa 3\,kg und hängt stark von der Armstellung ab \qf{Freigabe Unitree2026.06, Unitree2026.10, Unitree2026.11}.
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Kenndaten des Unitree G1]{Kenndaten des Unitree G1 nach Herstellerangabe \qf{Freigabe Unitree2026} und Ausstattung des Laborroboters.}
+    \label{tab:g1_kenndaten}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{3.4cm}|L|L|L|}\hline
+        \tabkopfzeile \tabkopf{Merkmal} & \tabkopf{G1} & \tabkopf{G1 EDU} & \tabkopf{Laborroboter}\\\hline
+        Abmessungen stehend & 1320\,×\,450\,×\,200\,mm & 1320\,×\,450\,×\,200\,mm & wie G1 EDU\\\hline
+        Masse mit Akku & etwa 35\,kg & etwa 35\,kg und mehr & \pruefen{F2}\\\hline
+        Freiheitsgrade gesamt & 23 & 23 bis 43 & 29 \pruefen{F2}\\\hline
+        Bein\,/\,Taille\,/\,Arm & 6\,/\,1\,/\,5 & 6\,/\,1 bis 3\,/\,5 bis 7 & 6\,/\,3\,/\,7 \pruefen{F2}\\\hline
+        Max. Kniemoment & 90\,N\,m & 120\,N\,m & wie G1 EDU\\\hline
+        Max. Armlast & etwa 2\,kg & etwa 3\,kg & wie G1 EDU\\\hline
+        Sensorik & Tiefenkamera, 3D-LiDAR & Tiefenkamera, 3D-LiDAR & \pruefen{F2: Modelle}\\\hline
+        Rechner & Achtkern-CPU & Achtkern-CPU, optional Rechenmodul (z.\,B. Orin) & \pruefen{F2: Rechenmodul}\\\hline
+        Akkulaufzeit & etwa 2\,h & etwa 2\,h & wie G1 EDU\\\hline
+        Eigene Software & nein & ja & ja\\\hline
+        Hände & keine & optional Dreifingerhand & Inspire RH56DFTP \pruefen{F2}\\\hline
+    \end{tabularx}
+\end{table}
+
+Zur Wahrnehmung besitzen beide Ausführungen eine Tiefenkamera und ein 3D-LiDAR, zur Berechnung eine Achtkern-CPU \qf{Freigabe Unitree2026.07}.
+Nur der G1 EDU lässt sich um ein Hochleistungs-Rechenmodul wie Orin ergänzen \qf{Freigabe Unitree2026.08}, und nur er unterstützt eigene Software \qf{Freigabe Unitree2026.09}.
+Für die Plattform ist diese Ausführung damit Voraussetzung.
+In Forschungsarbeiten mit dem G1 laufen Policies und ihre Verwaltung vollständig an Bord auf einer Jetson-Orin-GPU \cite{Luo2026}\ev{Luo2026.04}.
+
+Der wichtigste Sensor eines Humanoiden ist wegen des zweibeinigen Gangs die inertiale Messeinheit (IMU) \cite{Saeedvand2019}\ev{Saeedvand2019.06}.
+Beim G1 liefert der Low-Level-Zustand neben den Gelenkwerten auch IMU-Daten und die Akkuspannung \cite{UnitreeSDK2Py}\ev{UnitreeSDK2Py.05}, eine zweite IMU im Rumpf meldet sich auf einem eigenen Topic \cite{UnitreeMujoco}\ev{UnitreeMujoco.05}.
+
+Statt der Grundausführung ohne Hände trägt der Laborroboter Inspire-Hände RH56DFTP \pruefen{F2: beide Seiten Inspire RH56DFTP?}, die über Ethernet, RS485 oder CAN angebunden werden \cite{Inspire2024}\ev{Inspire2024.05}.
+Aufbau, Antrieb und Sensorik dieser Hände beschreibt Abschnitt~\ref{sec:haende_sdt}.
+% Optional (F5): Foto des Laborroboters nach Bilder/kap2/g1-labor.jpg, dann hier als Abbildung einfügen.
 
 \section{Software-Schnittstellen des Unitree G1}
 \label{sec:g1_software}
+Der G1 bietet eigener Software drei Zugriffsebenen, die sich darin unterscheiden, wie viel der eingebaute Laufregler weiterhin selbst übernimmt.
+Abbildung~\ref{fig:g1_schnittstellen} stellt die Ebenen nebeneinander, die folgenden Unterabschnitte beschreiben sie von unten nach oben.
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/g1-schnittstellen}
+  \caption[Zugriffsebenen der Herstellerschnittstelle des G1]{Zugriffsebenen der Herstellerschnittstelle des G1. Lauf-Dienst und arm\_sdk lassen den Onboard-Laufregler aktiv, die Low-Level-Ebene setzt voraus, dass kein Bewegungsmodus aktiv ist. Eigene Darstellung nach \qf{Freigabe UnitreeSDK2PyG1} und \cite{Hu2026}\ev{Hu2026.02}.}
+  \label{fig:g1_schnittstellen}
+\end{figure}
 
 \subsection{Unitree SDK2 und DDS-Kommunikation}
 \label{sec:g1_sdk}
-% LowCmd/LowState.
+Alle drei Ebenen erreicht eigene Software über das Unitree SDK2, das den Roboterzustand über Topics oder über Anfrage und Antwort erfasst und steuert \cite{UnitreeSDK2Py}\ev{UnitreeSDK2Py.01}.
+Die Topics laufen über DDS (Abschnitt~\ref{sec:dds}), beim G1 mit der Nachrichtendefinition unitree\_hg \cite{UnitreeMujoco}\ev{UnitreeMujoco.06}.
+Auf der untersten Ebene sendet eigene Software Motorbefehle der Nachricht LowCmd und empfängt Motorzustände der Nachricht LowState \cite{UnitreeMujoco}\ev{UnitreeMujoco.05}.
+
+Ein Motorbefehl enthält neben einem Modus den Sollwinkel, die Sollgeschwindigkeit, ein Vorsteuermoment sowie die Verstärkungen für Winkel- und Geschwindigkeitsabweichung \qf{Freigabe UnitreeSDK2PyG1.14}.
+Den Regler auf Gelenkebene führt der Roboter selbst aus, eine übergeordnete Policy übergibt ihm nur Soll-Gelenkwinkel \cite{Luo2026}\ev{Luo2026.03}.
+Das Low-Level-Beispiel des Herstellers sendet seine Befehle alle 2\,ms \qf{Freigabe UnitreeSDK2PyG1.05}.
+
+Bevor das Beispiel auf die unterste Ebene schreibt, gibt es den aktiven Bewegungsmodus des Roboters frei, bis keiner mehr aktiv ist \qf{Freigabe UnitreeSDK2PyG1.06}.
+Die unterste Ebene setzt also voraus, dass der eingebaute Bewegungsregler abgeschaltet ist.
+Danach sind auch die Positions- und Geschwindigkeitsdaten des Laufdienstes am realen Roboter nicht mehr lesbar \cite{UnitreeMujoco}\ev{UnitreeMujoco.03}.
+% Eigenleistung, Datenbasis: G1@6a40e47 g1pilot/manipulation/arm_controller.py:1003 (schreibt rt/arm_sdk), rt/lowcmd schreibt nur loco_sim (Simulation)
+Am realen G1 schreibt die Plattform deshalb nicht auf diese Ebene, sondern nutzt nur Lauf-Dienst und arm\_sdk (Abschnitt~\ref{sec:fortbewegungspfade}).
 
 \subsection{Onboard-Regler und Zustandsmaschine}
 \label{sec:g1_onboard}
-% High-Level-API (LocoClient), FSM-Zustände.
+Stehen und Gehen übernimmt beim G1 ein eingebauter Laufregler, den eigene Software nur über Zustände und Sollgeschwindigkeiten anspricht.
+Seine Implementierung ist nicht quelloffen. Arbeiten, die ihn verwenden, treffen daher keine Aussagen über seine inneren Mechanismen und nutzen ihn nur als Referenz \cite{Hu2026}\ev{Hu2026.02}.
+Andere Arbeiten stützen sich für die Stabilität auf niedriger Ebene ausdrücklich auf die Onboard-Regler des G1 \cite{Durrani2026}\ev{Durrani2026.04}.
+
+Angesprochen wird der Laufregler über einen Client, der einen Zustand der Zustandsmaschine über seine Nummer anwählt und Sollgeschwindigkeiten übergibt.
+Tabelle~\ref{tab:g1_fsm} listet die Zustände, die die Plattform verwendet.
+Die Nummern 0, 1 und 500 mit ihren Aufrufen stammen aus dem Client des Herstellers \qf{Freigabe UnitreeSDK2PyG1.11, UnitreeSDK2PyG1.12}, die Zustände 4 und 501 nennt nur die Entwicklerdokumentation \qf{Unitree-Entwicklerdoku, F3}.
+Geschwindigkeiten übergibt der Client als Längs-, Quer- und Drehgeschwindigkeit mit einer Dauer \qf{Freigabe UnitreeSDK2PyG1.13}, das Anhalten setzt alle drei auf null \qf{Freigabe UnitreeSDK2PyG1.12}.
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Verwendete Zustände des Onboard-Reglers]{Verwendete Zustände des Onboard-Reglers mit Nummer und Aufruf im Client.}
+    \label{tab:g1_fsm}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}p{3.2cm}|L|}\hline
+        \tabkopfzeile \tabkopf{Nummer} & \tabkopf{Aufruf} & \tabkopf{Verwendung in der Plattform}\\\hline
+        0 & ZeroTorque & wird erkannt, Aufstehen von dort über Zustand 4\\\hline
+        1 & Damp & Voll-Notaus und Ausgangszustand vor dem Aufstehen\\\hline
+        4 & Preparation & Stand vorbereiten, Roboter noch am Kran\\\hline
+        500 & Start & Gehen\\\hline
+        501 & Walk mit Taille & Gehen mit aktiver Taille, Voreinstellung der Plattform\\\hline
+    \end{tabularx}
+\end{table}
+
+% Eigenleistung, Datenbasis: G1@6a40e47 g1pilot/docs/30-T-Stehen-und-Gehen.md und 51-T-Notaus.md (loco_client: damp -> 1, preparation -> 4 aus Damp/Zero Torque, walk -> 501, Voll-Notaus -> Damp)
+Die Zustände in Tabelle~\ref{tab:g1_fsm} bilden zugleich die Stufen, über die die Plattform den Roboter anhält: Der Voll-Notaus wählt den Zustand 1, der Wiederanlauf führt über den Zustand 4 zurück zum Gehen (Abschnitt~\ref{sec:zustaende}).
+Die Arbeitsteilung zwischen eingebautem Laufregler für das Gehen und eigenem Regler für die Arme übernimmt sie aus ihrem Ausgangsprojekt \cite{HucebotG1Pilot}\ev{HucebotG1Pilot.02}.
 
 \subsection{Oberkörper-Schnittstelle arm\_sdk}
 \label{sec:g1_armsdk}
-% Gewichtsslot zum Überblenden zwischen Onboard-Regler und eigener Armregelung.
+Über die Oberkörper-Schnittstelle arm\_sdk übernimmt eigene Software Arme und Taille, ohne den Laufregler abzuschalten.
+Das offizielle Beispiel sendet dazu Befehle für die 14 Armgelenke und die drei Taillengelenke im Nachrichtentyp LowCmd auf ein eigenes Topic \qf{Freigabe UnitreeSDK2PyG1.08}.
+Den sonst ungenutzten Eintrag mit Index~29 verwendet es als Gewicht \qf{Freigabe UnitreeSDK2PyG1.07}: Der Wert 1 aktiviert arm\_sdk, der Wert 0 deaktiviert es \qf{Freigabe UnitreeSDK2PyG1.09}.
+Zum Freigeben fährt das Beispiel das Gewicht über eine feste Dauer linear von 1 auf 0 zurück \qf{Freigabe UnitreeSDK2PyG1.10}.
+
+Wie die Firmware Zwischenwerte des Gewichts mit den Sollwerten des Laufreglers verrechnet, geht aus dem Beispiel nicht hervor \qf{Unitree-Entwicklerdoku: Wirkung des Gewichts, F3}.
+Die Plattform nutzt die Schnittstelle für die Übergabe der Arme zwischen Laufregler und eigener Armregelung (Abschnitt~\ref{sec:armuebergabe}).
+Weil das Beispiel auch die Taille über arm\_sdk führt, wirkt ein Befehl auf dieser Schnittstelle zugleich auf den Oberkörper als Ganzes, was beim Gehen mit aktiver Taille zu beachten ist \pruefen{Wirkung auf die Taille im Zustand 501 mit Realtest oder Doku abgleichen}.

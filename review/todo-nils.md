@@ -23,6 +23,20 @@ Entwurf: `Kapitel/01_Einleitung.tex` (25.11.2026). Plan mit Fragen E1–E5 zum B
 **Angaben und Material**
 - [ ] Overleaf `zotero.bib` aktualisieren: siehe Kap. 5 (Afzal2021 wird jetzt auch in Kap. 1 zitiert).
 
+## Kapitel 2 – Humanoide Roboter und der Unitree G1
+
+Plan und Fragen: [Claude-Dokument Kapitelplan Kap. 2](https://claude.ai/artifact/1t2irkY9H1D4WeYmvxWfaC) (Antwort in die letzte Spalte).
+Entwurf: `Kapitel/02_Humanoide_G1.tex`, vorbereitete Belege `review/kap2-belege-vorbereitet/`.
+
+- [ ] **F1 Zwei Vorschläge freigeben** (zotero.org, `_Vorschläge` → „Bachelorarbeit“ ziehen, PDFs hängen schon dran):
+      „Unitree G1: Humanoid agent AI avatar“ (Webseite, Abruf 25.11.) und „unitree_sdk2_python: G1-Beispiele und LocoClient“
+      (Software @814556d). Danach ersetze ich rund 30 rote Markierungen in 2.2/2.3 durch echte Zitate.
+- [ ] **F2 Ausstattung des Laborroboters:** G1 EDU mit 29 Gelenken (Taille 3, Arm je 7)? Rechenmodul, LiDAR, Kamera,
+      Inspire RH56DFTP an beiden Seiten? Für Tab. 2.2.
+- [ ] **F3 Unitree-Entwicklerdoku als PDF:** Zustände 4 (Preparation) und 501 (Walk mit Taille), Wirkung des arm_sdk-Gewichts.
+      Gleich mit Kap. 6, N8 und Kap. 7, E5 (ein PDF reicht für alle drei).
+- [ ] **F5 optional:** Foto des Laborroboters nach `Bilder/kap2/g1-labor.jpg`.
+
 ## Kapitel 4 – Fähigkeiten humanoider Roboter und verwandte Arbeiten
 
 Entwurf: `Kapitel/04_Faehigkeiten_Verwandte_Arbeiten.tex`, Plan `review/plan-kap4.md`.
