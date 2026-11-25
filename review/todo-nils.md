@@ -174,7 +174,8 @@ Ohne dich erledigt: V1 (Code-Vergleich, Skript `Daten/kap8/v1_betriebsart.py`) u
 - [ ] **Referenz-PC** (M4): siehe Kap. 5, N4.
 
 **Entscheidungen**
-- [ ] **M2 Gliederung 8.4** „Aufgabenunabhängigkeit und modularer Aufbau“ ohne Versuch mit externem Projekt; hängt an P3/P5 im Kap.-5-Dokument.
+- [x] **M2 Gliederung 8.4** „Aufgabenunabhängigkeit und modularer Aufbau“ ohne Versuch mit externem Projekt. Erledigt: P3/P5 in Kap. 5 freigegeben (25.11.), 8.4.2 weist A7 jetzt über K7.1/K7.2 per Analyse nach.
+- [ ] **M10 Begriff Video:** „Werbevideo“ oder „Imagevideo“? Kap. 5 und 8 schreiben jetzt einheitlich „Werbevideo“, bei Wunsch auf „Imagevideo“ umstellen (beide Kapitel).
 - [ ] **M3 V1-Zählung** (60 Stellen in 10 Dateien, 7 Zweckgruppen) als Ergebnis übernehmen?
 - [ ] **M7–M9:** verfehlte Zielwerte offen benennen, Messreihen in Anhang B, Liste der Limitierungen in 8.5.3.
 
