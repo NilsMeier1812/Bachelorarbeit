@@ -4,7 +4,7 @@
 \label{chap:faehigkeiten}
 Dieses Kapitel stellt die Fähigkeiten vor, auf denen die Umgebung aufbaut: die Fortbewegung, die Manipulation mit Armen und Händen sowie die Bedienung durch Menschen.
 Den Abschluss bilden verwandte Arbeiten, die Simulation und realen Roboter verbinden.
-Die Darstellung ist wertungsfrei; die Bewertung folgt im Handlungsbedarf in Abschnitt~\ref{sec:handlungsbedarf}.
+Der Handlungsbedarf in Abschnitt~\ref{sec:handlungsbedarf} wertet diese Arbeiten am Ziel der Arbeit.
 
 % ======================================================================
 \section{Fortbewegung}
@@ -238,3 +238,34 @@ Für den G1 simuliert eine Studie ausschließlich in MATLAB/Simulink mit einem s
 \qf{Trochez2026 (MATLAB/Simulink-Sim2Real-Framework für den G1, Zenodo) ist freigegeben, hat aber noch kein PDF}
 % TODO Kap. 5: Merkmalstabelle tab:stacks hier einfügen
 \pruefen{Merkmalstabelle (Nils 10.11.: gewünscht, mit Textbezug): Merkmalsvergleich der Stacks (Tabelle aus review/plan-sdt-verwandte-arbeiten.md, Abschnitt 4) hier oder in Kap.~5.1 einfügen – jede Zelle braucht einen Beleg aus den README-PDFs}
+
+% ======================================================================
+\section{Handlungsbedarf}
+\label{sec:handlungsbedarf}
+% Seit 25.11.2026 (Nils: Kap. 5 aufgelöst): früherer Abschnitt 5.1 ohne Nummerierung der Defizite und ohne Wiederholung
+% der Einzelbefunde aus 4.1 bis 4.4. Belege L2–L13 in review/kap5-entwurf/belegpruefung.md.
+% Betrachtungsumfang: in Kap. 3 und 4 dargestellte Arbeiten, Recherche Stand November 2026 (review/plan-sdt-verwandte-arbeiten.md).
+Gemessen am Ziel der Arbeit aus Abschnitt~\ref{sec:zielsetzung} sind die betrachteten Arbeiten in vier Punkten unvollständig: in der Durchgängigkeit von Simulation und Realbetrieb, in der Aussagekraft der Simulation, in der Bedienung und in der Bindung an einen Zweck.
+Die Bewertung gilt für die in den Kapiteln~\ref{chap:simulation} und~\ref{chap:faehigkeiten} dargestellten Arbeiten und Werkzeuge nach dem Stand der Recherche im November~2026.
+
+% Negativbefund G1Pilot: README vom 09.11.2026 (Commit 5346e52) ohne Treffer für sim/gazebo/mujoco (HucebotG1Pilot.05).
+Simulation und Realbetrieb sind unter den betrachteten Arbeiten nur für Teile des Funktionsumfangs durchgängig.
+Der Simulator des Herstellers unterstützt in der ausgewerteten Fassung der Projektbeschreibung nur die Entwicklung auf niedriger Ebene \cite{UnitreeMujoco}\ev{UnitreeMujoco.02}, und das Teleoperationssystem aus Abschnitt~\ref{sec:verwandte_arbeiten} führt nur seinen Retargeting-Code unverändert in Simulation und am Roboter aus \cite{Durrani2026}\ev{Durrani2026.03}.
+Der Onboard-Regler, der am realen G1 die Fortbewegung regelt, ist nicht quelloffen, sodass eine Vergleichsarbeit ihm keine inneren Mechanismen zuschreibt \cite{Hu2026}\ev{Hu2026.02}.
+Eine Umgebung um den G1 muss in der Simulation folglich einen anderen Regler für die Fortbewegung einsetzen, und für diese Kombination liegt unter den betrachteten Arbeiten keine Bewertung der Abbildungsgüte vor (Abschnitt~\ref{sec:fazit_simulation}).
+
+% Wertung „Werkzeug für Personen ohne Programmiererfahrung nur für Nao“: unter den in 4.3.2 betrachteten Arbeiten ist Choregraphe
+% das einzige humanoid-spezifische Werkzeug (eigene Auswertung).
+Die Bedienung setzt Spezialhardware oder Vorwissen voraus.
+Die Teleoperation des Herstellers steuert den G1 über XR-Geräte \cite{UnitreeXRTeleop}\ev{UnitreeXRTeleop.01}, und Neueinsteigern empfiehlt ihre Projektbeschreibung, vorher die offizielle Dokumentation mindestens bis zum Kapitel zur Anwendungsentwicklung zu lesen \cite{UnitreeXRTeleop}\ev{UnitreeXRTeleop.02}.
+Ein grafisches Werkzeug für Personen ohne Programmiererfahrung liegt unter den betrachteten Arbeiten mit Choregraphe nur für den Roboter Nao vor \cite{Pot2009}\ev{Pot2009.01}, nicht für den G1.
+
+% Wertung „keine gemeinsame Grundlage zum Andocken eigener Aufgaben“: eigene Auswertung (L12 teilweise).
+Die Werkzeuge sind jeweils auf einen Zweck zugeschnitten, auf Datensammlung, Training von Reglern oder Teleoperation.
+Teleoperation dient in der Forschung als Methode, um Daten am Roboter für das Lernen aus Demonstrationen zu sammeln \cite{Cheng2024}\ev{Cheng2024.01}, und GR00T-WholeBodyControl stellt Checkpoints und Skripte für Training, Bewertung und Einsatz von Ganzkörperreglern bereit \cite{NvidiaGR00TWBC}\ev{NvidiaGR00TWBC.01}.
+Eine gemeinsame Grundlage, an die ein Anwender eigene, vorab nicht bekannte Aufgaben und Folgeprojekte andocken kann, ist unter den betrachteten Werkzeugen für den G1 nicht Gegenstand.
+
+% Zuordnung zu F1–F4 wie bisher (früher D1–D4 -> F1–F4).
+Keine der betrachteten Arbeiten verbindet damit den durchgängigen Weg von der Simulation zum realen G1 mit einer Bedienung für Personen ohne Robotikerfahrung, Schutzmechanismen für den Realbetrieb eines Zweibeiners und einer offenen Grundlage für eigene Aufgaben.
+Die Lücke entsteht erst aus dem Anspruch, diese Eigenschaften in einer Umgebung zu vereinen.
+Die Forschungsfragen aus Abschnitt~\ref{sec:zielsetzung} greifen die vier Punkte auf: F1 die Durchgängigkeit, F2 die Aussagekraft der Simulation, F3 Bedienung und Schutz und F4 die offene Grundlage.

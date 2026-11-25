@@ -1,9 +1,9 @@
 % Vorgehen und Aufbau der Arbeit (Kap. 1.3, fig:aufbau).
-% Eigene Darstellung, keine Quelle. Kapiteltitel wie in Kapitel/*.tex (Stand 25.11.2026), gekürzt.
+% Eigene Darstellung, keine Quelle. Kapiteltitel wie in Kapitel/*.tex (Stand 25.11.2026, nach Auflösung von Kap. 5), gekürzt.
 % Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/aufbau-arbeit} in einer figure-Umgebung. Nicht skalieren.
-% Raster: vier Spalten, Mitten x = 1,7 | 5,7 | 9,7 | 13,7, Blockbreite 34 mm (Kanten 0..15,4), Blockhöhe 14 mm,
-% Zeilenabstand 1,8. Treppe 5 -> 6 -> 7 -> 8 -> 9 = Herleitung, Entwurf, Umsetzung, Prüfung, Zusammenfassung.
-% Zeilenumbrüche von Hand, ohne text width, damit in den Kästen keine Silbentrennung entsteht. Geprüft im 12pt-Build.
+% Raster: drei Spalten, Mitten x = 1,7 | 7,7 | 13,7, Blockbreite 34 mm, Blockhöhe 14 mm, Zeilenabstand 1,8.
+% Grundlagen gebündelt -> 5 -> 6 -> 7 -> 8 = Entwurf, Umsetzung, Prüfung, Zusammenfassung.
+% Zeilenumbrüche von Hand, ohne text width, damit in den Kästen keine Silbentrennung entsteht.
 \begin{tikzpicture}[ba]
   \tikzset{
     k/.style={ba block, minimum width=34mm, minimum height=14mm, font=\footnotesize},
@@ -13,31 +13,27 @@
   }
   % Spaltenköpfe
   \node[kopf] at (1.7,0.95)  {Grundlagen};
-  \node[kopf] at (5.7,0.95)  {Handlungsbedarf};
-  \node[kopf] at (9.7,0.95)  {Entwicklung};
+  \node[kopf] at (7.7,0.95)  {Entwicklung};
   \node[kopf] at (13.7,0.95) {Bewertung};
   % Kapitel
   \node[k]  (K2) at (1.7,0)     {2 Humanoide Roboter\\und Unitree G1};
   \node[k]  (K3) at (1.7,-1.8)  {3 Simulation und\\Infrastruktur};
   \node[k]  (K4) at (1.7,-3.6)  {4 Fähigkeiten,\\verwandte Arbeiten};
-  \node[kh] (K5) at (5.7,0)     {5 Handlungsbedarf,\\Anforderungen,\\Methodik};
-  \node[kh] (K6) at (9.7,0)     {6 Konzept};
-  \node[kh] (K7) at (9.7,-1.8)  {7 Umsetzung};
-  \node[kh] (K8) at (13.7,-1.8) {8 Evaluation};
-  \node[k]  (K9) at (13.7,-3.6) {9 Zusammenfassung\\und Ausblick};
-  % Grundlagen bündeln: Klammer rechts der Spalte, ein Pfeil zu Kap. 5
-  \draw[ba normal] (K2.east) -- (3.75,0);
-  \draw[ba normal] (K3.east) -- (3.75,-1.8);
-  \draw[ba normal] (K4.east) -- (3.75,-3.6) -- (3.75,0);
-  \draw[ba pfeil] (3.75,0) -- (K5.west);
+  \node[kh] (K5) at (7.7,0)     {5 Konzept};
+  \node[kh] (K6) at (7.7,-1.8)  {6 Umsetzung};
+  \node[kh] (K7) at (13.7,-1.8) {7 Evaluation};
+  \node[k]  (K8) at (13.7,-3.6) {8 Zusammenfassung\\und Ausblick};
+  % Grundlagen bündeln: Klammer rechts der Spalte, ein Pfeil zum Konzept
+  \draw[ba normal] (K2.east) -- (4.4,0);
+  \draw[ba normal] (K3.east) -- (4.4,-1.8);
+  \draw[ba normal] (K4.east) -- (4.4,-3.6) -- (4.4,0);
+  \draw[ba pfeil] (4.4,0) -- (K5.west);
   % Fluss
-  \draw[ba pfeil] (K5.east) -- (K6.west);
-  \draw[ba pfeil] (K6.south) -- (K7.north);
-  \draw[ba pfeil] (K7.east) -- (K8.west);
-  \draw[ba pfeil] (K8.south) -- (K9.north);
-  % Rolle der Spalte für die Forschungsfragen
-  \node[klein] at (1.7,-4.55)  {Stand der Technik,\\wertungsfrei};
-  \node[klein] at (5.7,-0.95)  {Defizite, F1 bis F4,\\Anforderungen,\\Versuchsplan};
-  \node[klein] at (9.7,-2.75)  {Lösung zu den\\Anforderungen};
-  \node[klein] at (13.7,-4.55) {Antworten auf\\F1 bis F4};
+  \draw[ba pfeil] (K5.south) -- (K6.north);
+  \draw[ba pfeil] (K6.east) -- (K7.west);
+  \draw[ba pfeil] (K7.south) -- (K8.north);
+  % Rolle der Spalte
+  \node[klein] at (1.7,-4.55)  {Stand der Technik,\\Handlungsbedarf};
+  \node[klein] at (7.7,-2.75)  {Anforderungen\\und Lösung};
+  \node[klein] at (13.7,-4.55) {Versuchsplan,\\Antworten auf F1 bis F4};
 \end{tikzpicture}
