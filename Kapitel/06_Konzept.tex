@@ -79,7 +79,7 @@ Tabelle~\ref{tab:eigenleistung} grenzt die Eigenleistung nach Funktionsbereichen
         Simulationskopplung & neu & Kopplung, Zeitführung, Szenen. \pruefen{Herkunft und Lizenz des Szenen-Editors ergänzen}\\\hline
         Ersatzregler Fortbewegung & neu & Standregler. Policies von Unitree und NVIDIA übernommen.\\\hline
         Hände & neu & Inspire-Hände, Hand-Profile. \pruefen{Herkunft der Modbus-Referenzskripte klären}\\\hline
-        Bedienoberfläche, Gamepad, Smartphone & neu & Original: Basisklasse, Joystick, Umschalter (25 bis 80\,\%).\\\hline
+        Bedienoberfläche, Controller, Smartphone & neu & Original: Basisklasse, Joystick, Umschalter (25 bis 80\,\%).\\\hline
         Posen, Abläufe, Arm-API & neu & Posenspeicher, Abläufe, Editor, HTTP-Schnittstelle.\\\hline
         Bereitstellung, Tests, Dokumentation & neu & Container, Startmenü, 714 Tests. Von 29.200 Zeilen etwa ein Zehntel original.\\\hline
     \end{tabularx}
@@ -131,6 +131,9 @@ Weil nach A2 und A7 mehrere Bedienwege und Projekte dieselbe Steuerung nutzen so
 Sie folgt dem Prinzip, Anforderungen in funktional unabhängige Komponenten zu trennen \cite{Macenski2022}\ev{Macenski2022.04}.
 \pruefen{Logik in der Bedienoberfläche als gedankliche Alternative bestätigen (Plan 6.2.1)}
 Abbildung~\ref{fig:architektur} zeigt die Bedienwege, die Funktionsknoten und die Herstellerschnittstelle.
+% Basis: G1@6a40e47 docs/11-A-Controller.md, Titel „Controller (PS4/Xbox)“ und „Statt des PS4-Controllers geht auch ein Xbox-Controller“.
+% Begriff „Controller“ statt „Gamepad“ (Nils, 26.11.2026, Kap.-7-Plan P1/P2).
+Als Controller unterstützt die Umgebung PS4- und Xbox-Controller.
 
 \begin{figure}[htbp]
   \centering
@@ -274,7 +277,7 @@ Der Not-Halt ist auf jedem Bedienweg auslösbar und verriegelt alle Bewegungsbef
 Am nächsten am klassischen Not-Halt \cite{Ding2026}\ev{Ding2026.02} liegt der Voll-Notaus.
 Er schaltet die Energie nicht ab, dämpft aber alle Gelenke, sodass der Roboter zusammensackt.
 % Basis: G1@6a40e47 docs/51-A-Notaus.md, Tabelle „Stufen“ (Voll-Notaus: „Demo-GUI VOLL-NOTAUS 1,5 s halten, Controller R1 + L1 + PS 2 s halten“); docs/51-T-Notaus.md (demo_ui.HoldButton, FULL_ESTOP_HOLD_S)
-Ausgelöst wird er an der Bedienoberfläche oder am Gamepad.
+Ausgelöst wird er an der Bedienoberfläche oder am Controller.
 
 \begin{figure}[htbp]
   \centering
@@ -389,7 +392,7 @@ Der Not-Halt allein genügt für A5 nicht, weil er erst wirkt, nachdem eine Pers
 %        docs/51-A-Notaus.md, Abschnitte „Stufen“, „Quittieren“, „Was zusätzlich von selbst anhält“; docs/51-T-Notaus.md, Abschnitt „Parameter“ (G1_PHONE_VIEW_ESTOP Default 1)
 Die Mechanismen orientieren sich an Vorgaben für Industrieroboter und Maschinen.
 Die Grenze der Handgeschwindigkeit orientiert sich an der reduzierten Geschwindigkeit der Betriebsart T1 von Industrierobotern \cite{DGUV2015}\ev{DGUV2015.04} und an ISO/TS~15066 \cite{Villani2018}\ev{Villani2018.09}, ist aber eine Sollwertbegrenzung in Software.
-Die Totmanntaste für das Gehen per Gamepad ähnelt einer Zustimmeinrichtung, die nur bei ständiger Betätigung eine Maschinenfunktion erlaubt \cite{DGUV2015}\ev{DGUV2015.06}, gibt anders als dreistufige Zustimmungsschalter \cite{DGUV2015}\ev{DGUV2015.07} aber auch voll durchgedrückt frei.
+Die Totmanntaste für das Gehen per Controller ähnelt einer Zustimmeinrichtung, die nur bei ständiger Betätigung eine Maschinenfunktion erlaubt \cite{DGUV2015}\ev{DGUV2015.06}, gibt anders als dreistufige Zustimmungsschalter \cite{DGUV2015}\ev{DGUV2015.07} aber auch voll durchgedrückt frei.
 Der Not-Halt auf jedem Bedienweg folgt der Forderung, dass die Not-Halt-Funktion jederzeit verfügbar ist und Vorrang hat \cite{DINENISO13850}\ev{DINENISO13850.01}, ist anders als die Not-Halt-Einrichtung von Industrierobotern \cite{DGUV2015}\ev{DGUV2015.09} aber eine Nachricht in der Software.
 
 % Art G (Ding2026.05, Prather2025.06) + Art E: Einordnung, unabhängige Ebene (N9: keine Aussage zu einer Gefährdungsbeurteilung)
@@ -468,7 +471,7 @@ Tabelle~\ref{tab:bedienwege} nennt je Bedienweg den Einsatz und die Einschränku
     \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.8cm}|>{\raggedright\arraybackslash}p{4.2cm}|L|}\hline
         \tabkopfzeile \tabkopf{Bedienweg} & \tabkopf{Einsatz} & \tabkopf{Einschränkungen}\\\hline
         Bedienoberfläche & Standard am PC, Vorführung & Navigation nur in der Simulation\\\hline
-        Gamepad & direkt am Roboter & kein Quittieren des Not-Halts, Posen nur anfahren (Schnellwahl), Abläufe nur weiterschalten oder stoppen\\\hline
+        Controller & direkt am Roboter & kein Quittieren des Not-Halts, Posen nur anfahren (Schnellwahl), Abläufe nur weiterschalten oder stoppen\\\hline
         Smartphone & Zusatz zur Bedienoberfläche & kein Gehen, Arme nur über gespeicherte Posen, Befehle nur in der Rolle \enquote{Bediener}\\\hline
         RViz-Marker & Entwicklung & nur Zielmarker und Navigation (Simulation), kein Not-Halt\\\hline
         Arm-API & Programme ohne ROS~2 & kein Gehen, Posen nur speichern, Not-Halt nur als Abbrechen\\\hline
@@ -499,7 +502,7 @@ Tabelle~\ref{tab:bedienwege} nennt je Bedienweg den Einsatz und die Einschränku
 
 % Basis: G1@6a40e47 g1pilot/teleoperation/shared_state.py (Modulkommentar); docs/50-A-Echter-Roboter.md E
 % („Ein Ziel ersetzt das andere“); docs/23-A-Posen-und-Ablaeufe.md „Pose anfahren“ (manueller Vorrang)
-Gegen konkurrierende Befehle teilen sich Bedienoberfläche und Gamepad einen Bedienzustand, in dem je Feld die jüngste Änderung gilt, und ein neues Bewegungsziel ersetzt das vorige.
+Gegen konkurrierende Befehle teilen sich Bedienoberfläche und Controller einen Bedienzustand, in dem je Feld die jüngste Änderung gilt, und ein neues Bewegungsziel ersetzt das vorige.
 % Basis: G1@6a40e47 docs/10-A-Demo-GUI.md; docs/11-A-Controller.md (Kopf, „Echter Roboter“); docs/12-A-Handy.md
 % (Kopf, „Was das Handy nicht kann“, Hinweis „Zusammenstellen geht nur am PC“); docs/21-A-Arm-API.md „Überblick“;
 % docs/12-T-Handy.md „Aktionen und Rechte“; g1pilot/teleoperation/phone/gateway.py (Modulkommentar, ACTIONS); docs/12-A-Handy.md „Rollen“
