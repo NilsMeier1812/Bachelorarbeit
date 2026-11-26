@@ -162,6 +162,10 @@ Pflicht wird sicher verwendet, Reserve nur, wenn Platz ist.
 - [ ] **Reserve: Szenen-Editor** mit geöffneter Szene AP_1 (`szenen-editor.png`). Für 7.2.3.
 - [ ] **Reserve: Planer in RViz**, Hand fährt um ein Hindernis, geplante Bahn sichtbar (`planer-bahn-rviz.png`). Für 7.4.3.
 
+**Rückmeldung 26.11.** (Tab „Rückmeldung 26.11.“ im Kapitelplan, je Punkt Feld „Deine Antwort“)
+- [ ] **P1–P9 beantworten:** u. a. Name „Bedienoberfläche“ statt Demo-GUI, „Controller“ statt Gamepad, 7.2.2 kürzen statt streichen, neue Reihenfolge 7.4.2 bis 7.4.4.
+- [ ] **P7 Test „gewolltes Berühren“:** prüfen, ob Hand auf Greifobjekt aufsetzen/greifen ohne Abbruch durch die Laufzeitüberwachung klappt. Nur wenn ja, kommt es in den Text.
+
 ## Kapitel 8 – Evaluation
 
 Entwurf: `Kapitel/08_Evaluation.tex` (25.11., ca. 12 S. mit leeren Ergebnistabellen). Plan und Fragen M1–M9 zum Bearbeiten:
