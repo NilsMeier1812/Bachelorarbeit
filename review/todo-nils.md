@@ -163,8 +163,10 @@ Pflicht wird sicher verwendet, Reserve nur, wenn Platz ist.
 - [ ] **Reserve: Planer in RViz**, Hand fährt um ein Hindernis, geplante Bahn sichtbar (`planer-bahn-rviz.png`). Für 7.4.3.
 
 **Rückmeldung 26.11.** (Tab „Rückmeldung 26.11.“ im Kapitelplan, je Punkt Feld „Deine Antwort“)
-- [ ] **P1–P9 beantworten:** u. a. Name „Bedienoberfläche“ statt Demo-GUI, „Controller“ statt Gamepad, 7.2.2 kürzen statt streichen, neue Reihenfolge 7.4.2 bis 7.4.4.
-- [ ] **P7 Test „gewolltes Berühren“:** prüfen, ob Hand auf Greifobjekt aufsetzen/greifen ohne Abbruch durch die Laufzeitüberwachung klappt. Nur wenn ja, kommt es in den Text.
+- [x] **P1–P9:** *beantwortet 26.11., eingearbeitet im Kapitelplan (Abschnitt „Festlegungen aus der Rückmeldung vom 26.11.“)*
+- [ ] **P4 Kollision der Greifobjekte:** Prompt für deinen Agenten im Tab „Rückmeldung 26.11.“ bzw. `/mnt/project-files/kap7/prompt-greifobjekte-kollision.md`. Danach BA-Stable neu setzen und Hash melden.
+- [ ] **P7 Planer-Studie:** Ergebnisse schicken, dann entscheiden wir über „gewolltes Berühren“ im Text.
+- [ ] *(optional)* **P5 Policy-Werkzeug:** nur, wenn nach den Messungen Zeit bleibt. Für die Arbeit eher Komfort als zusätzliche Aussage.
 
 ## Kapitel 8 – Evaluation
 
