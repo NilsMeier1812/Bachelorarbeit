@@ -3,6 +3,7 @@
 
   python scripts/check.py                       alles prüfen (Exit-Code 1 bei Fehlern)
   python scripts/check.py --no-text             Zitat-gegen-PDF-Prüfung überspringen
+  python scripts/check.py --ohne-stil           Stil-Linter (scripts/stil.py) nicht mitlaufen lassen
   python scripts/check.py --pairs review/pairs.jsonl [--file Kapitel/x.tex]
                                                 Satz/Beleg-Paare für den Verifier-Agenten exportieren
 """
@@ -310,6 +311,7 @@ def main():
     ap.add_argument("--no-text", action="store_true", help="Zitate nicht gegen PDF-Text prüfen")
     ap.add_argument("--pairs", metavar="DATEI", help="Satz/Beleg-Paare als JSONL exportieren")
     ap.add_argument("--file", action="append", help="nur diese .tex-Datei(en) prüfen/exportieren")
+    ap.add_argument("--ohne-stil", action="store_true", help="Stil-Linter nicht ausführen")
     args = ap.parse_args()
 
     rep = Report()
@@ -325,6 +327,15 @@ def main():
     renamed = {}
     index = check_evidence(rep, bib, not args.no_text, renamed)
     check_tex(rep, bib, latex_bib, renamed, index, tex_files(args.file), args.pairs)
+    if not args.ohne_stil:
+        import stil  # noqa: E402  (W2: mechanische Stilregeln, nur Warnungen/Hinweise)
+        for f, regel, n, first in stil.run(args.file):
+            try:
+                rel = f.relative_to(ROOT)
+            except ValueError:
+                rel = f
+            msg = f"Stil: {n}x {regel}, Details: python3 scripts/stil.py --file {rel}"
+            (rep.info if regel == "et-al" else rep.warn)(f"{rel}:{first}", msg)
     rep.print()
     sys.exit(1 if rep.errors else 0)
 

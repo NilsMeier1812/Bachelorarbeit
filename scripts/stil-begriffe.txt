@@ -1,0 +1,6 @@
+# Begriffsliste für scripts/stil.py (W2). Eine Regel pro Zeile:
+#   regulärer Ausdruck | Ersatz bzw. Hinweis | Quelle der Regel
+# Groß-/Kleinschreibung wird ignoriert. Geprüft wird nur Fließtext (keine Kommentare, Labels, Formeln, Code).
+# Neue Begriffsregel von Nils = eine neue Zeile hier, kein Thread muss sein Kapitel von Hand absuchen.
+\bDemo(?:-GUI|-Oberfl\w*|-Modus)?\b | „Bedienoberfläche“, Wort „Demo“ ganz raus | Nils 26.11.2026
+\bGamepads?\b | „Controller“ (beim ersten Auftreten: PS4- und Xbox-Controller) | Nils 26.11.2026

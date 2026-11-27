@@ -386,6 +386,11 @@ Dimensions, FAU-Katalog (VPN), Google Scholar (+ Alerts), Scopus, Web of Science
 
 ---
 
+**Mechanisch geprüft (seit 27.11.2026):** Semikolon, Gedankenstrich, ich/wir, Begriffsliste (z. B. Demo, Gamepad),
+Gleitobjekte ohne `[htbp]`, Abbildung/Tabelle ohne `\ref` davor und „X et al.“ im Satz meldet `scripts/stil.py`
+(läuft in `check.py` mit). Die übrigen Punkte dieser Liste prüft weiter das Modell. Neue Begriffsregeln von Nils
+kommen als Zeile in `scripts/stil-begriffe.txt`.
+
 ## 12. Projektspezifische Absprachen (von Nils/Betreuer, hier ergänzen)
 - 2026-11-16 Umfang: 60–80 Seiten Text, 80 ist Obergrenze. Entwürfe dürfen länger sein, Nils kürzt selbst (siehe §3.2).
 - 2026-11-17 Präzisierung: Entwurf ≈ Endumfang ÷ 0,6, Nils kürzt ca. 40 %; nicht das Mehrfache (§3.2).

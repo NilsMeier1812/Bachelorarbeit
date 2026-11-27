@@ -77,3 +77,19 @@ Mit Zotero 7 Desktop geht auch die lokale API: `export ZOTERO_API_BASE=http://lo
   gefunden, liegt es oft an Spalten- oder Tabellenumbrüchen – kurz im PDF nachsehen.
 - **Noch nicht mit echten PDFs aus Zotero getestet:** `zot.py bib` läuft gegen deine Bibliothek, `check.py`
   wurde mit einem Test-PDF geprüft. Der PDF-Download (`zot.py text`) läuft erst, sobald ein Eintrag ein PDF hat.
+
+## Werkzeuge für wiederkehrende Schritte (seit 27.11.2026)
+
+Damit Claude mechanische Arbeit nicht per Modell erledigt (Nutzungslimit), gibt es diese Skripte. Sie entscheiden
+nichts inhaltlich, sie zählen, finden und wandeln um. Regeln für den Gebrauch: `CLAUDE.md`, Abschnitt „Werkzeuge“.
+
+| Skript | Zweck |
+|---|---|
+| `setup.sh` | Sitzungsstart: Pakete, Quellen-Repo, `zot.py bib` und fehlende Texte, G1 `BA-Stable` gegen den Stand in CLAUDE.md |
+| `codebezug.py` | `% DB:`-Fundstellen gegen G1 prüfen (Datei/Zeile vorhanden, seit dem genannten Stand geändert oder verschoben), `--fix` für reine Verschiebungen |
+| `stil.py` + `stil-begriffe.txt` | Semikolon, Gedankenstrich, ich/wir, Begriffsliste, `[htbp]`, Textbezug, „et al.“; läuft in `check.py` als Warnung mit (`--ohne-stil` schaltet ab) |
+| `build.py` | Bauen nach `../ba-build`, Seiten je Kapitel gegen `review/seitenbudget.md`, Overfull-Boxen mit Datei, Kapitel-PDF, Ablage in den Projektdateien |
+| `abbildungen.py` | Abbildungen eines Kapitels als Bild aus dem 12pt-PDF (zum Ansehen) |
+| `lesefassung.py` | Kapitel als Markdown für das Claude-Dokument, `--diff` holt Korrekturen aus dem Dokument-Export zurück |
+
+Selbst ausführen geht auch lokal (Python 3, pandoc, poppler-utils, TeX Live), ist aber nicht nötig.

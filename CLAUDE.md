@@ -60,7 +60,7 @@ Wenn du etwas nicht belegen kannst, **markierst du die Lücke**, statt sie zu f�
 8. **Generierte Dateien nicht von Hand ändern:** `zotero.bib` (verknüpft Overleaf aus Zotero, nur über
    „Aktualisieren“ in Overleaf), `zotero-map.json`, `sources-text/`, `.zotero-cache/`.
 9. **Bevor du eine Aufgabe als fertig meldest:** `python3 scripts/check.py` ausführen. 0 Fehler ist Pflicht;
-   Warnungen nennst du Nils explizit. `\ev{*}` nur für reine Verweise ohne Sachaussage, nie um Fehler
+   Warnungen nennst du Nils explizit (dazu gehören seit 27.11.2026 die Stilfunde aus `scripts/stil.py`). `\ev{*}` nur für reine Verweise ohne Sachaussage, nie um Fehler
    zu kaschieren.
 10. Bei Sprache, Gliederung, Übergängen, LaTeX-Technik darfst du frei helfen – solange dabei keine neuen
     Inhalte ohne Beleg entstehen.
@@ -99,7 +99,43 @@ zitiert werden darf. Web-API: `https://api.zotero.org/users/22350426/...` mit He
 `Zotero-API-Key: dummy` – in Claudes Cloud-Umgebung setzt der Proxy den echten Schlüssel ein.
 
 **Cloud-Sitzungen:** `sources-text/` und `.zotero-cache/` sind gitignored und in einer neuen Sitzung leer.
-Vor dem Exzerpieren oder `check.py` also zuerst `python3 scripts/zot.py text` laufen lassen.
+Jede neue Sitzung beginnt deshalb mit `bash scripts/setup.sh` (siehe „Werkzeuge“).
+
+## Werkzeuge statt Handarbeit (seit 27.11.2026, Nils)
+
+Nils hat am 27.11.2026 Skripte für wiederkehrende, rein mechanische Schritte freigegeben, damit das Nutzungslimit
+reicht. **Jeder Thread nutzt sie, statt dieselben Schritte per Modell zu erledigen.** Sie entscheiden nichts:
+Belegdeckung, Grafikqualität, Formulierungen, Kürzungen und das Bewerten von Nils' Korrekturen bleiben beim Modell.
+Meldet ein Skript etwas, prüft das Modell die Stelle selbst. Läuft ein Skript nicht, von Hand weiterarbeiten
+und es dem Thread „Wiederkehrende Arbeit per Skript automatisieren“ bzw. Nils melden, nicht stillschweigend umgehen.
+
+| Anlass | Befehl | statt |
+|---|---|---|
+| Neue Cloud-Sitzung | `bash scripts/setup.sh` | Pakete, Quellen-Repo, `zot.py bib/text`, G1 BA-Stable einzeln holen |
+| Code-Fundstellen (`% DB:`) prüfen, neuer BA-Stable-Hash | `python3 scripts/codebezug.py [--file …]`, bei neuem Hash `--ziel <hash>`, dann `--ziel <hash> --fix` | alle Fundstellen von Hand nachzählen |
+| Stilregeln (Semikolon, Gedankenstrich, ich/wir, Begriffe, `[htbp]`, Textbezug, „et al.“) | läuft in `check.py` mit, Details `python3 scripts/stil.py --file …` | Kapitel von Hand absuchen |
+| Bauen, Kapitel-PDF, Seiten gegen Budget, Overfull-Boxen | `python3 scripts/build.py --kapitel N [--ablage kapN]` | latexmk, Seiten zählen, PDF ausschneiden, Log lesen |
+| Abbildungen im 12pt-PDF ansehen | `python3 scripts/abbildungen.py --kapitel N` (nach `build.py`) | Seiten suchen und rendern |
+| Lesefassung als Claude-Dokument | `python3 scripts/lesefassung.py Kapitel/<datei>.tex` | Kapitel abschreiben |
+| Nils' Korrekturen im Dokument zurückholen | Tab als Markdown exportieren, `python3 scripts/lesefassung.py Kapitel/<datei>.tex --diff <export>.md` | ganzes Dokument neu lesen |
+
+Hinweise zum Gebrauch:
+- **codebezug.py:** FEHLER (Datei oder Zeile gibt es nicht) immer beheben. PRÜFEN heißt: Bereich hat sich inhaltlich
+  geändert, die Stelle im Code lesen und Text bzw. Zeilen anpassen. VERSCHOBEN schreibt `--fix` selbst um (Zeilen und
+  `@hash`), aber nur in Zeilen, in denen alles eindeutig ist. Wechselt BA-Stable, erst `--ziel <neu>` ohne `--fix`
+  ansehen, dann `--fix`, dann den Hash oben in dieser Datei eintragen.
+- **stil.py:** Funde sind Hinweise. Umformulieren ist Textarbeit des Modells. Neue Begriffsregeln von Nils als eine
+  Zeile in `scripts/stil-begriffe.txt` eintragen. Die Eigenständigkeitserklärung wird nicht geprüft (vorgegebener Wortlaut).
+- **build.py:** Seitenzahlen sind Messwerte des Arbeits-PDFs (Füllstand der letzten Seite eingerechnet). Mit `--ablage`
+  liegen Gesamt- und Kapitel-PDF datiert in `/mnt/project-files/<ordner>/`, zum Anhängen an die Antwort.
+- **abbildungen.py:** Die Bilder weiter selbst ansehen (Überlappungen, bündige Kanten, gleiche Höhen erkennt kein Skript).
+  Bei Platzhaltern oder unsicherem Ausschnitt kommt die ganze Seite.
+- **lesefassung.py:** Erzeugt Markdown im Stil der bisherigen Lesefassungen (Zitate [Key], [QUELLE FEHLT: …],
+  **[PRÜFEN: …]**, nummerierte Überschriften, Abbildungen als Bild, Tabellen, Gleichungen als latex-Block). Das Modell
+  legt das Dokument an, fügt es abschnittsweise ein, lädt die Bilder hoch und vergleicht das Ergebnis einmal grob mit
+  dem PDF. Warnungen (unbekannte Makros, unaufgelöste Verweise) an der Stelle prüfen. Beim Rückweg zeigt `--diff` nur
+  geänderte Absätze mit .tex-Zeile; Formeln im Dokument sind gerendert und werden nur grob verglichen, eine
+  gemeldete Formeländerung von Hand ansehen.
 
 ## Arbeitsablauf
 
@@ -396,7 +432,8 @@ eine Grafik oder Tabelle sie ausdrücklich nutzt – nie `\captionsetup`, Abstä
   danach im Text erläutert (z. B. Zeilen einer Tabelle beim Besprechen ansprechen). Die `table`/`figure`-Umgebung
   steht direkt nach dem Absatz mit dem ersten Verweis.
 - **Teilbilder** mit „a) …“, „b) …“ unter dem jeweiligen Teil (`ba teiltitel`), getrennt durch `ba trenner`.
-- Vor „fertig“: kompilieren und die Grafik im PDF ansehen (überlappende Beschriftungen, Overfull-Boxen).
+- Vor „fertig“: kompilieren und die Grafik im PDF ansehen (überlappende Beschriftungen, Overfull-Boxen):
+  `python3 scripts/build.py`, dann `python3 scripts/abbildungen.py --kapitel N` und die Bilder ansehen.
 
 ## Verifier-Prompt (für den Subagenten, wörtlich übernehmen)
 
@@ -414,11 +451,17 @@ eine Grafik oder Tabelle sie ausdrücklich nutzt – nie `\captionsetup`, Abstä
 ## Befehle
 
 ```bash
-pip install -r requirements.txt              # einmal pro Cloud-Sitzung, falls Pakete fehlen (pdftotext ist da)
+bash scripts/setup.sh                        # Sitzungsstart: Pakete, Quellen-Repo, zot.py bib/text, G1 BA-Stable
+pip install -r requirements.txt              # macht setup.sh mit
 python3 scripts/zot.py bib                   # zotero-map.json aus Zotero, Abgleich mit zotero.bib
 python3 scripts/zot.py text [key ...]        # PDF-Text mit Seitenmarkern (--force zum Neuerzeugen)
 python3 scripts/zot.py link <ITEMKEY> pdf/<Datei>.pdf   # Link-Anhang aufs Quellen-Repo in Zotero
 python3 scripts/zot.py annotations <key>     # Zotero-Markierungen -> evidence/<key>.yaml
 python3 scripts/check.py                     # alles prüfen
 python3 scripts/check.py --pairs review/pairs.jsonl --file Kapitel/02_Humanoide_G1.tex
+python3 scripts/stil.py [--file …] [--summe]  # Stilfunde einzeln (in check.py nur als Summe)
+python3 scripts/codebezug.py [--ziel <hash> [--fix]]   # % DB:-Fundstellen gegen G1 BA-Stable
+python3 scripts/build.py [--kapitel N] [--ablage kapN] # bauen, Seiten je Kapitel, Kapitel-PDF
+python3 scripts/abbildungen.py --kapitel N    # Abbildungen als Bild aus dem 12pt-PDF
+python3 scripts/lesefassung.py Kapitel/x.tex [--diff export.md]  # Lesefassung bzw. Korrekturen zurückholen
 ```
