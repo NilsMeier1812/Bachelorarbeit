@@ -137,6 +137,50 @@ Hinweise zum Gebrauch:
   geänderte Absätze mit .tex-Zeile; Formeln im Dokument sind gerendert und werden nur grob verglichen, eine
   gemeldete Formeländerung von Hand ansehen.
 
+## Modellwahl: Sonnet-Subagents für Zuarbeit (seit 27.11.2026, Nils)
+
+Der Thread selbst läuft mit Opus 5.5. Nils hat am 27.11.2026 freigegeben, dass Threads **Zuarbeit** an Subagents mit
+Sonnet 5.5 geben (Agent-Aufruf mit `model: "sonnet"`), um das Nutzungslimit zu schonen. Maßstab: kein oder nur ein sehr
+geringer Qualitätsverlust. **Das Schreiben des Textes ist das Wichtigste und bleibt vollständig bei Opus.**
+Diese Freigabe ist die Ausnahme zur Grundregel „keine Subagents ohne Auftrag“, aber nur für die Aufgaben unten.
+
+**Bleibt bei Opus (nie an Sonnet):**
+- Kapiteltext formulieren, überarbeiten und kürzen, auch einzelne Abschnitte, Übergänge, Captions und Lesefassungs-Antworten.
+- Kapitelpläne, Gliederung, Konzeptentscheidungen, Auswahl, was in den Text kommt oder gestrichen wird.
+- Nils' Korrekturen bewerten und beantworten, Rückfragen an Nils, Nachrichten an andere Threads.
+- Belege anlegen: welche Stelle eine Aussage trägt, `kernaussage` formulieren, Paraphrase gegen Beleg abwägen.
+- Phase 4 (Verifier): bleibt ein Opus-Subagent, weil er das Qualitätstor ist.
+- Grafiken beurteilen (Bilder aus `abbildungen.py` ansehen) und den Entwurf einer Grafik festlegen.
+- Zotero-Schreibzugriffe (Citation Key, Einträge in `_Vorschläge`, Link-Anhänge) und Pushes auf `main`.
+
+**Darf an Sonnet (Opus prüft das Ergebnis, bevor es verwendet wird):**
+1. **Faktenblätter aus dem G1-Code:** Dateien in BA-Stable lesen und Fakten als Liste mit `Datei:Zeile@hash`,
+   Parametern und Werten liefern, kein Fließtext. Opus prüft Stichproben (mindestens die Zahlen, die in den Text gehen).
+2. **Fundstellen in Quellen suchen:** in `sources-text/<key>.txt` Kandidatenstellen zu den Fragen aus dem Plan finden,
+   je Stelle gedruckte Seite und wörtlich kopiertes Zitat. Opus wählt aus und legt die Belege an, `check.py` prüft den Wortlaut.
+3. **Recherche-Vorarbeit:** Kandidaten suchen, DOI/ISBN über Crossref bzw. Verlag gegenprüfen, Duplikate in Zotero
+   suchen (nur lesen), Open-Access-PDF über OpenAlex holen und Seite 1 gegen Titel und Erstautor prüfen. Ergebnis als
+   Tabelle. Ob eine Quelle vorgeschlagen wird und das Anlegen in Zotero entscheidet Opus.
+4. **Lange Unterlagen lesen und verdichten:** Berichte, READMEs, Doku, Logs, ältere Thread-Verläufe zur Orientierung.
+   Die Zusammenfassung ist nie Beleg und nie Textvorlage.
+5. **Code-Fundstellen nachziehen:** bei `codebezug.py`-Meldungen PRÜFEN die geänderte Code-Stelle lesen und berichten,
+   was sich geändert hat (alt/neu, Zeilen). Ob und wie der Text angepasst wird, entscheidet Opus.
+6. **Mechanische Ersetzungen nach fester Liste:** Begriffe, Labels, Dateipfade nach einer von Opus vorgegebenen Liste
+   (alt → neu, betroffene Dateien), danach `check.py`. Keine Umformulierung darüber hinaus. Opus liest den Diff.
+7. **TikZ/pgfplots nach genauer Vorgabe:** Opus legt Inhalt, Anordnung und Beschriftung fest, Sonnet setzt sie mit den
+   Stilen aus `ba-grafik.tex` um, kompiliert und behebt Overfull-Boxen. Ansehen und Abnahme macht Opus.
+8. **Lesefassung einpflegen:** Markdown aus `lesefassung.py` abschnittsweise ins Claude-Dokument einfügen und Bilder
+   hochladen, wenn die Docs-Werkzeuge im Subagent verfügbar sind. Den groben Vergleich mit dem PDF macht Opus.
+
+**So wird delegiert:**
+- Nur Aufgaben mit viel Lesen und knappem Ergebnis. Was Opus mit wenigen Werkzeugaufrufen selbst erledigt (ein Skriptlauf,
+  ein Eintrag in `todo-nils.md`), nicht delegieren, der Auftrag kostet sonst mehr, als er spart.
+- Der Auftrag nennt Ziel, Dateien, Ausgabeformat und Grenzen und den Satz: „Halte CLAUDE.md ein. Schreib keinen
+  Kapiteltext, ändere nichts in Zotero, pushe nichts, erfinde keine Werte. Was du nicht findest, meldest du als fehlend.“
+- Mehrere unabhängige Aufträge parallel starten, wenn das Warten sonst Zeit kostet.
+- Liefert Sonnet etwas Unklares oder Widersprüchliches, prüft Opus die Stelle selbst statt nachzufragen. Fällt eine Art
+  von Auftrag zweimal schlecht aus, macht Opus sie in diesem Thread wieder selbst und meldet es Nils.
+
 ## Arbeitsablauf
 
 ### Kapitel-Workflow (z. B. „Kapitel 2.3 ist als Nächstes dran“)
