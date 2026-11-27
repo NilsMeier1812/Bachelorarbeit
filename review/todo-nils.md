@@ -191,6 +191,7 @@ Ohne dich erledigt: V1 (Code-Vergleich, Skript `Daten/kap8/v1_betriebsart.py`) u
 
 **Entscheidungen**
 - [x] **M2 Gliederung 8.4** „Aufgabenunabhängigkeit und modularer Aufbau“ ohne Versuch mit externem Projekt. Erledigt: P3/P5 in Kap. 5 freigegeben (25.11.), 8.4.2 weist A7 jetzt über K7.1/K7.2 per Analyse nach.
+- [ ] **M11 Planer-Messreihe (Tischstudie 26.11.):** Rohdaten, Auswerteskripte und Tabellen „nach_fix“ (Stand nach PR #62) ins Repo, z. B. `Daten/kap8/planer/`, oder sagen, wo sie liegen. Gebraucht für Gesamterfolg, Planungszeit und Abstände in V7 (8.2.3). Der Bericht allein reicht nicht als Datenbasis.
 - [ ] **M10 Begriff Video:** „Werbevideo“ oder „Imagevideo“? Kap. 5 und 8 schreiben jetzt einheitlich „Werbevideo“, bei Wunsch auf „Imagevideo“ umstellen (beide Kapitel).
 - [ ] **M3 V1-Zählung** (60 Stellen in 10 Dateien, 7 Zweckgruppen) als Ergebnis übernehmen?
 - [ ] **M7–M9:** verfehlte Zielwerte offen benennen, Messreihen in Anhang B, Liste der Limitierungen in 8.5.3.

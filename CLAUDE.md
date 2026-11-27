@@ -9,9 +9,14 @@ Zusätzlich gilt `Richtlinien-BA.md` (Schreibregeln des Lehrstuhls, vor jeder Te
 gilt für Quellen und Belege diese Datei, für Stil, Aufbau und Zitierform die Richtlinien.
 
 **Code-Bezugsstand (seit 24.11.2026, Nils):** Alle Aussagen über den eigenen Code (Datenbasis, Parameter, `% DB:`-Kommentare)
-beziehen sich auf den Branch `BA-Stable` im Repo `NilsMeier1812/G1`, Stand `6a40e47` (= `main` vom 23.11.2026). Ältere
+beziehen sich auf den Branch `BA-Stable` im Repo `NilsMeier1812/G1`, **Stand `c50a8bf` (27.11.2026, Nils)**, davor `6a40e47` (= `main` vom 23.11.2026). Ältere
 Pläne nennen noch `25d5c1a` (11.11.). Seitdem neu: Demo-GUI und Startmenü umgebaut (PyQt6, Netzwerk-Assistent), Voll-Notaus
 in der Demo-GUI, Pose-Schnellwahl am Controller, Dialog „Neue Hand anlegen“; Planer, IK, Bridge und Lauf-Client unverändert.
+**Neu in `c50a8bf` gegenüber `6a40e47` (PR #60–#64):** Armplaner prüft das Ziel an der exakten Geometrie (aufliegende Hand als Ziel möglich,
+2 cm gelten für die echte Eindringtiefe), 1-cm-Bewegungen an Flächen, vierte Startbahn 30 cm anheben; Laufzeit-Gate unverändert auf
+Kugelniveau. OMPL aus `Dockerfile.sim` entfernt (jetzt in keinem Image). KLT-Kisten in der Sim greifbar und maßhaltig (Quader-Kollision),
+`scene_A5.json` entfernt. Handy-Fenster mit QR-Code (`G1_PHONE_WEB_URL`). Neue Tests `test_grasp_collision` (Gruppe sim), `test_qr_code`.
+`% DB:`-Angaben mit `@6a40e47` bleiben gültig, wenn die Datei sich nicht geändert hat (Diff prüfen).
 Bewegt Nils `BA-Stable` weiter, den neuen Hash hier eintragen.
 
 ## Grundprinzip

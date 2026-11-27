@@ -1,6 +1,6 @@
 % Kap. 8 Evaluation. Entwurf 25.11.2026 (Thread „Kapitel 8“), Plan als Claude-Dokument
 % https://claude.ai/artifact/39C7DTmREcrEFxtpSCXfR2 (Fragen M1–M9).
-% Code-Bezugsstand: G1 Branch BA-Stable @ 6a40e47. Pfade in „% DB:“ relativ zu G1/g1pilot/.
+% Code-Bezugsstand: G1 Branch BA-Stable @ c50a8bf (27.11.2026, nach PR #60–#64; vorher 6a40e47). Pfade in „% DB:“ relativ zu G1/g1pilot/.
 % Grundlage Versuchsplan: review/plan-kap5.md (Abschnitt 6 Steckbriefe A1–A7, 7.2 V1–V11) und Kap.-5-Entwurf
 % (Branch claude/project-thread-95lh4v) mit den Vorschlägen P1–P5 aus dem Kap.-5-Dokument vom 23.11.
 % (keine Nutzerstudie, V10 entfällt, V6 geht in V7 auf). Von Nils am 25.11. freigegeben (Kap. 5, Commit d8cab3c, PR #2):
@@ -14,7 +14,7 @@
 Die Versuche dieses Kapitels prüfen die Anforderungen A1 bis A7 aus Abschnitt~\ref{sec:anforderungen} nach dem Versuchsplan aus Abschnitt~\ref{sec:versuchsplan} und beantworten damit die Forschungsfragen F1 bis F4.
 Abbildung~\ref{fig:eval_ueberblick} ordnet die Versuche nach Forschungsfrage und Prüfebene.
 Die Abschnitte~\ref{sec:eval_f1} bis~\ref{sec:eval_f4} folgen den Forschungsfragen, Abschnitt~\ref{sec:diskussion} gleicht die Ergebnisse mit den Anforderungen ab.
-Alle Versuche beziehen sich auf den Code-Stand und den Referenz-PC aus Abschnitt~\ref{sec:testumgebung} \pruefen{Code-Stand der Messungen: BA-Stable @ 6a40e47 oder späterer Tag mit den Messmitteln (Kap. 5, N11)?}.
+Alle Versuche beziehen sich auf den Code-Stand und den Referenz-PC aus Abschnitt~\ref{sec:testumgebung}.
 
 \begin{figure}[htbp]
   \centering
@@ -38,7 +38,7 @@ Die Analyse des Programmcodes zeigt, wo und wozu sich das Verhalten unterscheide
 \label{sec:eval_code}
 
 \paragraph*{Versuchsaufbau}
-% DB: Skript Daten/kap8/v1_betriebsart.py (Bachelorarbeit-Repo), Lauf 25.11.2026 auf G1 BA-Stable @ 6a40e47; Ergebnis Daten/kap8/v1_betriebsart.csv.
+% DB: Skript Daten/kap8/v1_betriebsart.py (Bachelorarbeit-Repo), Lauf 25.11.2026 auf G1 BA-Stable @ 6a40e47, wiederholt 27.11.2026 @ c50a8bf mit gleichem Ergebnis (nur Zeilen in link.py +31); Ergebnis Daten/kap8/v1_betriebsart.csv.
 Ein Skript durchsucht alle Python-Dateien der Umgebung außer den Tests nach Stellen, an denen die Betriebsart ausgewertet wird.
 Es zählt Aufrufe der Abfragefunktion, Zugriffe auf die gespeicherte Betriebsart und das direkte Lesen des Schalters, nicht aber Kommentare, Beschreibungstexte und Importe.
 Jede Fundstelle ist anschließend von Hand nach ihrem Zweck einer von sieben Gruppen zugeordnet.
@@ -77,10 +77,11 @@ In der Simulation startet die Umgebung dagegen selbsttätig.
 % DB: docs/24-T-Hueftdrehung.md „Taille halten (real)“ (arm_sdk-Gewicht schaltet neben den Armen auch die Taille um, arm_controller hält sie real); docs/30-T-Stehen-und-Gehen.md.
 Fortbewegung und Taille mit zusammen 15 Stellen folgen aus dem Onboard-Regler: Im Realbetrieb führt er die Beine (Abschnitt~\ref{sec:fortbewegungspfade}), und weil die Armschnittstelle des Herstellers auch die Taille umschaltet, hält der Armregler sie dort selbst.
 Nur drei Stellen wählen die Verbindung, drei die Hände, und vier Diagnosewerkzeuge laufen nur in der Simulation.
-% DB: docker/Dockerfile.real Kopf (Basis = Dockerfile.sim ohne onnxruntime, Real-Umgebungsvariablen); Dockerfile.sim:57 (pip install onnxruntime onnx), :71-74 (ENV G1_SIM_MODE=true, INTERFACE=lo);
+% DB: docker/Dockerfile.real Kopf (Basis = Dockerfile.sim ohne onnxruntime, Real-Umgebungsvariablen); Dockerfile.sim:50 (pip install onnxruntime onnx), :68-69 (ENV G1_SIM_MODE=true, INTERFACE=lo) @ c50a8bf;
+%     Unterschied sonst nur Versionsuntergrenze pin (sim :43 "pin>=3.0", real :48 "pin>=2.6"); OMPL seit PR #63 in keinem Image;
 %     launch/bringup_sim.launch.py (236 Zeilen) und bringup_real.launch.py (212 Zeilen) als getrennte Startdateien.
 In der Konfiguration unterscheiden sich die Betriebsarten durch zwei Container-Images und zwei Startdateien.
-Das Image für den Realbetrieb entspricht dem für die Simulation ohne die Laufzeitbibliothek der Lauf-Policy und mit den Umgebungsvariablen für den Roboter.
+Das Image für den Realbetrieb entspricht dem für die Simulation ohne die Laufzeitbibliothek der Lauf-Policy und mit den Umgebungsvariablen für den Roboter, abgesehen von einer abweichenden Versionsuntergrenze der Kinematikbibliothek.
 
 \paragraph*{Diskussion}
 Der Wechsel kommt ohne Änderung am Programmcode aus, A2 ist für K2.1 erfüllt.
@@ -238,7 +239,13 @@ Die Literatur vergleicht Simulation und Realität, indem sie dieselbe Trajektori
 V7 übernimmt beide Ideen mit einer Einschränkung: Als Referenz dienen die Gelenkwinkelgeber des Roboters, weil kein Motion-Capture-System zur Verfügung steht \pruefen{bestätigen: kein Motion-Capture am Lehrstuhl verfügbar}.
 Aus den Gelenkwinkeln berechnet die Vorwärtskinematik die Lage der Hand am Ende jeder Pose (K4.2).
 Die Posenfolge umfasst \pruefen{Anzahl Posen, Auswahl (Arbeitsraum vorne, seitlich, über Kopf), Hand} Posen und läuft in der Simulation zehnmal, am Roboter dreimal.
-Weil jeder Schritt der Folge über den Bahnplaner läuft, liefert derselbe Versuch in der Simulation auch Planungserfolg und Planungszeit \pruefen{Planer-Messreihe (Kap. 5 N11) Teil von V7?}.
+Planungserfolg und Planungszeit bestimmt eine eigene Messreihe in der Simulation, die den Bahnplaner ohne die übrigen Knoten aufruft.
+Sie umfasst 83 Fahrten zwischen Posen über, auf und vor einer Tischplatte sowie über eine 12\,cm und eine 35\,cm hohe Kiste, jede mit drei Wiederholungen.
+Jede geplante Bahn wird an der exakten Geometrie auf ihre Abstände geprüft und in der Physiksimulation nachgefahren, um Kontakte unterwegs zu erkennen.
+% DB: Planer-Tischstudie 26.11.2026, Bericht /mnt/project-files/kap7/planer-studie-2026-11-26.md, Abschnitte „Aufbau“ und „Nachtrag: nach dem Einbau (PR #62)“;
+%     Code G1 BA-Stable @ c50a8bf (enthält PR #62: Zielprüfung an exakter Geometrie, 1-cm-Bewegungen, Startbahn 30 cm).
+%     Tisch wie Arbeitsplatz 1 (Platte 4 cm, 70 x 120 cm), Kisten 9 x 23 cm Grundfläche. 84 Fälle, einer ungültig (Start in der hohen Kiste) -> 83.
+%     Rohdaten und Skripte noch nicht im Repo (Ziel: Daten/kap8/planer/), siehe todo-nils.md M11.
 
 \paragraph*{Ergebnisse}
 Tabelle~\ref{tab:v7} nennt die Abweichungen je Pose.
@@ -263,11 +270,20 @@ Tabelle~\ref{tab:v7} nennt die Abweichungen je Pose.
 % Zielwert K4.2 ≤ 2 cm [V] (Setzung Kap. 5, nicht nachträglich an das Ergebnis anpassen). Verlauf über der Zeit als Diagramm ergänzen, sobald Daten da sind
 % (pgfplots, ba plot, Gelenkwinkel Sim und Real eines Gelenks über der Zeit). Vollständige Reihen in Anhang B (Frage M8).
 
-\pruefen{Ergebnisse V7 in drei Sätzen: mittlere und größte Gelenkwinkelabweichung, Handabweichung gegen 2\,cm, Planungserfolg und -zeit in der Simulation}
+\pruefen{Ergebnisse V7 in drei Sätzen: mittlere und größte Gelenkwinkelabweichung, Handabweichung gegen 2\,cm}
+
+In der Messreihe zum Bahnplaner berührt keine Bahn unterwegs Tisch oder Kiste, auch nicht beim Nachfahren in der Physiksimulation.
+Ziele mit aufliegender Hand erreicht der Planer in 63 von 63 Läufen, Bewegungen um 1\,cm direkt an der Platte in 24 von 24.
+\pruefen{M11: Gesamterfolg aller Läufe, Planungszeit (Median, Maximum) und kleinster exakter Abstand in der Bahnmitte nach PR \#62 aus den Daten „nach\_fix“ übernehmen, dazu Tabelle je Kategorie (frei, auf dem Tisch, um die Kante, Kisten) und ggf. Diagramm der Planungszeit}
+\pruefen{M11: Grenzfall Fahrt aus der Lauf-Pose neben die hohe Kiste (laut Nachtrag 5 bis 6 von 8 Läufen, am Zeitbudget) bestätigen}
+% DB: Bericht planer-studie-2026-11-26.md, Tabelle im Nachtrag (63/63, 24/24, Kontakt unterwegs 0).
 
 \paragraph*{Diskussion}
 Abweichungen zwischen Simulation und Realität entstehen vor allem an Aktoren, Sensoren, zeitlicher Dynamik und Kontaktphysik \cite{Collins2019}\ev{Collins2019.02}, und eine Simulation weicht durch numerische Integrationsfehler und durch Modellfehler ab \cite{Erez2015}\ev{Erez2015.13}.
 \pruefen{Diskussion V7: Welche Gelenke weichen am stärksten ab, passt das zu Aktor- oder Modellfehlern? Einfluss der im Realbetrieb niedrigeren Reglerverstärkung (tab:sim\_real, Grenzwerte)?}
+Die Messreihe zum Bahnplaner ruft den Planer ohne Armregler auf.
+Beim Bewegen der Hand mit Controller oder Marker prüft der Armregler die Abstände weiter am Kugelmodell, deshalb bleibt die Hand dort etwa 1 bis 2\,cm über einer Fläche stehen, während eine geplante Bahn auf der Fläche enden darf.
+% DB: G1@c50a8bf g1pilot/docs/20-T-Arm-Manipulation.md Abschnitt „Laufzeit-Gate“ (gate_hand_floor 0, „beim Joggen bleibt die Hand deshalb ~1-2 cm über einer Fläche stehen“).
 
 % ======================================================================
 \section{Sichere Bedienung ohne Vorerfahrung}
@@ -420,7 +436,7 @@ Die Schnittstellen nach außen, also die Programmierschnittstelle der Arme und d
 %     Arm-API: 21-T-Arm-API.md. Prüfskript-Logik: grep je Knotenname in g1pilot/docs (25.11.2026).
 
 Ein Docker-Image stellt die gesamte benötigte Software bereits installiert bereit und löst so das Problem der Abhängigkeiten \cite{Boettiger2015}\ev{Boettiger2015.06}.
-Die beiden Images der Umgebung sind gleich aufgebaut, dem Image für den Realbetrieb fehlt nur die Laufzeitbibliothek des Ersatzreglers.
+Die beiden Images der Umgebung sind gleich aufgebaut, dem Image für den Realbetrieb fehlt im Wesentlichen nur die Laufzeitbibliothek des Ersatzreglers.
 Ob sich ein externes Projekt tatsächlich ohne Änderung am Kern anbinden lässt, ist damit nicht gezeigt, dafür steht kein Projekt zur Verfügung (Abschnitt~\ref{sec:limitierungen}).
 
 % ======================================================================
