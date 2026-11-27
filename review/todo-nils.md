@@ -168,6 +168,14 @@ Pflicht wird sicher verwendet, Reserve nur, wenn Platz ist.
 - [ ] **P7 Planer-Studie:** Ergebnisse schicken, dann entscheiden wir über „gewolltes Berühren“ im Text.
 - [ ] *(optional)* **P5 Policy-Werkzeug:** nur, wenn nach den Messungen Zeit bleibt. Für die Arbeit eher Komfort als zusätzliche Aussage.
 
+**Entwurf 27.11.** (Lesefassung https://claude.ai/artifact/4pVHGCeMJg3vQ4wmyVP895, 23 S.; Rückfragen stehen dort als [PRÜFEN])
+- [ ] **D1 PR #61/#62 mergen und BA-Stable neu setzen:** 7.2.2 (Greifobjekte über Quader) und 7.4.3/7.4.4 (Zielprüfung an exakter Geometrie, Startbahn 30 cm) sind schon auf diesem Stand geschrieben. Neuen Hash nennen.
+- [ ] **D2 Real-Abbild ohne OMPL:** Im Real-Container fehlt die Planungsbibliothek, der Bahnplaner nimmt dort seinen eingebauten Rückfallweg. Gewollt?
+- [ ] **D3 Realbetrieb ohne Weltmodell:** Die Szenenanbindung startet nur in der Simulation, real prüft der Armregler also nur Körper und Arme. So gewollt?
+- [ ] **D4 Haken-Hand wiegen:** Text sagt rund 110 g (Schätzwert), das Hand-Profil trägt 0,15 kg je Hand. Je Hand oder beide?
+- [ ] **D5 Kurz bestätigen:** nur der Ersatzregler liest die Reservefelder (Fußkräfte); Kran-Beobachtung 21.10. (Knielast als Gehfreigabe); Begründung der Geh-Grenzen 0,4 / 0,3 / 0,4; Taillen-Gains real im Code als „ungeprüft“ markiert.
+- [ ] **D6 Kürzen:** Entwurf 23 S. statt Ziel 15 (Langfassung 29 S. und Kürzungsliste in `review/kap7-entwurf/`). Weitere Kandidaten: 7.7 in 7.2.2 aufgehen lassen, Tabelle Auslegungswerte Armregler, Startmenü knapper.
+
 ## Kapitel 8 – Evaluation
 
 Entwurf: `Kapitel/08_Evaluation.tex` (25.11., ca. 12 S. mit leeren Ergebnistabellen). Plan und Fragen M1–M9 zum Bearbeiten:
