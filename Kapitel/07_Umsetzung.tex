@@ -23,7 +23,7 @@ Welche Quelltextdatei zu welcher Funktionsbezeichnung gehört, ordnet Tabelle~\r
 Die Umgebung setzt die Container-Profile aus Abschnitt~\ref{sec:container_profile} mit drei Container-Abbildern um, getrennt danach, welche Software nur in einer Betriebsart gebraucht wird.
 Das Abbild der Physiksimulation enthält MuJoCo, das Python-SDK des Herstellers, die Kopplungsschicht sowie Szenen und Robotermodelle, aber kein ROS~2.
 Die beiden Abbilder der Steuerung bauen auf ROS~2 Humble auf und enthalten dieselben Funktionsknoten, die Bedienoberfläche und die 3D-Anzeige.
-Nur das Abbild für die Simulation bringt die Laufzeitumgebung für die Lauf-Policies im Format ONNX mit, weil am realen Roboter der Onboard-Regler läuft (Abschnitt~\ref{sec:fortbewegungspfade}), das Abbild für den Realbetrieb dafür den Zugriff auf Eingabegeräte \pruefen{im Real-Abbild fehlt auch die Planungsbibliothek OMPL, der Bahnplaner nutzt dort seinen eingebauten Rückfallweg: gewollt?}.
+Nur das Abbild für die Simulation bringt die Laufzeitumgebung für die Lauf-Policies im Format ONNX mit, weil am realen Roboter der Onboard-Regler läuft (Abschnitt~\ref{sec:fortbewegungspfade}), das Abbild für den Realbetrieb dafür den Zugriff auf Eingabegeräte.
 % DB: g1pilot/docker/Dockerfile.mujoco:1,14-24; g1pilot/docker/Dockerfile.sim:1,9-31,43-56; g1pilot/docker/Dockerfile.real:1-7,15-50 (kein ompl, kein onnxruntime) @6a40e47
 
 Die Betriebsart wählt allein das gestartete Profil, im Profil \emph{sim} mit Physiksimulation und Steuerung, im Profil \emph{real} nur mit der Steuerung, und das Profil setzt eine an einer einzigen Stelle ausgewertete Umgebungsvariable (Abschnitt~\ref{sec:sim_real_schalter}).
@@ -422,7 +422,10 @@ Dieser Überstand bestimmt beim reaktiven Nachführen den kleinsten Abstand der 
 Objekte kennt das Modell als orientierte Quader aus dem gemeinsamen Weltmodell der Szene (Abschnitt~\ref{sec:szenen}).
 Für jedes Paar aus Kugel und Quader liefert es den vorzeichenbehafteten Abstand der Oberflächen samt Gradient nach den Gelenkwinkeln, und zwar über eine eigene Vorwärtskinematik für viele Armstellungen zugleich.
 Handkugeln dürfen Greifobjekte berühren, alle übrigen Kugeln nicht.
-Weil das Weltmodell nur in der Simulation aus der Szene entsteht, prüft das Modell im Realbetrieb nur den eigenen Körper und die Arme gegeneinander \pruefen{Realbetrieb ohne Weltmodell so gewollt? Im Code startet die Szenenanbindung nur mit der Simulation}.
+Weil das Weltmodell nur in der Simulation aus der Szene entsteht, prüft das Modell im Realbetrieb nur den eigenen Körper und die Arme gegeneinander.
+Am realen Roboter erfasst die Umgebung ihr Umfeld nicht, weil eine Erfassung etwa per LiDAR den Rahmen der Arbeit übersteigt.
+Der Armregler kennt dort deshalb keine Objekte und kann ihnen nicht ausweichen.
+% DB: Begründung Nils 27.11.2026 (keine Umfelderfassung real, LiDAR zu aufwendig)
 % DB: g1pilot/g1pilot/manipulation/arm_geometry.py:279-322,486-618 @e452513, g1pilot/g1pilot/manipulation/arm_planner.py:155-158 @e452513, unitree_mujoco/simulate_python/scene_objects.py:277-309 @e452513, g1pilot/launch/bringup_sim.launch.py:125-132 @e452513, g1pilot/g1pilot/navigation/scene_bridge.py:1-19,56 @e452513
 
 \subsection{Bahnplaner}
@@ -568,7 +571,7 @@ Abbildung~\ref{fig:haende} zeigt beide Ausführungen.
 \pruefen{Bild von Nils: Bilder/kap7/hand-haken.jpg}
 
 Der Haken in Abbildung~\ref{fig:haende}~b besteht aus zwei gedruckten, starren Teilen ohne bewegliche Finger, eines je Hand.
-Er wiegt nach Schätzung rund 110\,g \pruefen{Schätzwert von Nils (110\,g, nicht gewogen): je Hand oder für beide? Das Hand-Profil trägt 0,15\,kg je Hand, bitte wiegen und Text und Profil angleichen}.
+Er wiegt etwa 55\,g je Hand \pruefen{Angabe Nils 27.11. (ca. 55\,g je Hand). Das Hand-Profil trägt noch 0,15\,kg je Hand: Profil im Code angleichen und Fundstelle nachtragen, oder Abweichung begründen}.
 % DB: unitree_mujoco/unitree_robots/g1/hands/haken/hand.yaml:1-16 @6a40e47
 
 \subsection{Schnittstelle der Inspire-Hände}
