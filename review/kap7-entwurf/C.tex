@@ -1,0 +1,223 @@
+% ======================================================================
+% Paket C (Entwurf 26.11.2026): Einleitung 7.4 Armregelung und Bahnplanung, 7.4.1 Regelkette und inverse Kinematik,
+% 7.5 Roboterhände mit 7.5.1 und 7.5.2.
+% Code-Bezug: Branch BA-Stable @6a40e47 (Repo NilsMeier1812/G1). Pfade in "% DB:" relativ zur Repo-Wurzel.
+% Direkt einfügbar in Kapitel/07_Umsetzung.tex an den Stellen der Gerüst-Labels. Keine Präambel.
+% Neue Labels: tab:arm_auslegung, eq:glaettung, fig:haende, tab:hand_anbindungen, eq:handabbildung, fig:handprofil.
+% ======================================================================
+
+\section{Armregelung und Bahnplanung}
+\label{sec:armregelung}
+Die Armregelung ist der umfangreichste Teil der Umsetzung, weil jeder Bedienweg und jeder Ablauf die Arme über denselben Armregler bewegt (Abschnitt~\ref{sec:komponenten}).
+Abschnitt~\ref{sec:regelkette} beschreibt, wie der Armregler Handziele und Gelenkziele in jedem Takt zu einem Befehl verarbeitet und wie er die Arme vom Onboard-Regler übernimmt.
+Das Kollisionsmodell, auf dem alle Prüfungen auf Selbstkollision beruhen, steht in Abschnitt~\ref{sec:kollisionsmodell}, der Bahnplaner für kollisionsfreie Gelenkbahnen in Abschnitt~\ref{sec:bahnplaner}.
+Abschnitt~\ref{sec:laufzeitueberwachung} zeigt schließlich, wie die Überwachung zur Laufzeit jeden Befehl vor dem Senden prüft.
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:3662-3917 @6a40e47
+
+\subsection{Regelkette und inverse Kinematik}
+\label{sec:regelkette}
+% Basis: Code arm_controller.py, ik_servo_process.py, utils/ik_solver.py; Auslegungswerte aus Kommentar unter tab:schutzmechanismen (Zeilen 1-4, 11), am Code geprüft.
+Der Armregler setzt die Übergaberegeln (Abschnitt~\ref{sec:armuebergabe}) und die Schutzmechanismen der Arme (Abschnitt~\ref{sec:schutzmechanismen}) in einem festen Regeltakt von 250\,Hz um.
+Er bekommt zwei Arten von Zielen: Handziele aus Zielmarker, Controller und Bedienoberfläche führt er reaktiv nach, Gelenkziele aus Posen, Abläufen und der Rückgabe fährt er als geplante Bahn ab.
+In beiden Betriebsarten schreibt er über den Befehlsweg der Arme (Abschnitt~\ref{sec:g1_armsdk}), in der Simulation an die Simulationsanbindung und am realen Roboter an den Onboard-Regler.
+Abbildung~\ref{fig:regelkette} zeigt die Kette, die jedes Ziel bis zum Befehl durchläuft.
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:268,990-1063,2745-2775,3662-3874 @6a40e47, g1pilot/launch/bringup_sim.launch.py:103-122 @6a40e47
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/armregler-regelkette}
+  \caption[Regelkette des Armreglers]{Regelkette des Armreglers. Inverse Kinematik und Bahnplaner rechnen in eigenen Prozessen, die Kette 1 bis 8 läuft in jedem Takt. Gestrichelte Glieder wirken nur im Realbetrieb.}
+  \label{fig:regelkette}
+\end{figure}
+
+Für reaktive Ziele rechnet die inverse Kinematik (Abschnitt~\ref{sec:ik}) in einem eigenen Prozess, damit eine lange Rechnung den Regeltakt nicht aufhält \qf{Beleg, dass rechenintensiver Python-Code andere Threads desselben Prozesses blockiert (Global Interpreter Lock)}.
+Ein neues Handziel ersetzt dort ein noch wartendes, und ein Zähler je Anfrage verwirft Ergebnisse, die ein neueres Ziel überholt hat.
+Der Regler übernimmt in jedem Takt das zuletzt gelieferte Gelenkziel.
+% DB: g1pilot/g1pilot/manipulation/ik_servo_process.py:1-23,77-182 @6a40e47, g1pilot/g1pilot/manipulation/arm_controller.py:288,3510-3528 @6a40e47
+
+Die inverse Kinematik löst mit gedämpften kleinsten Quadraten, die viele Singularitätsprobleme der Pseudoinversen vermeiden \cite{Aristidou2009}\ev{Aristidou2009.08}.
+Weil eine große Dämpfung die Konvergenz verlangsamt \cite{Aristidou2009}\ev{Aristidou2009.09}, wächst sie nur nahe einer Singularität: Liegt der kleinste Singulärwert der Jacobi-Matrix unter 0,08, steigt die Dämpfung linear von $10^{-6}$ bis höchstens 0,1.
+Die Position der Hand hat Vorrang, die Orientierung folgt im Nullraum der Positionsaufgabe, und ein weiterer Nullraumterm mit der Verstärkung 0,15 zieht die übrige Armhaltung zur Grundstellung \cite{Aristidou2009}\ev{Aristidou2009.05}.
+Je Iteration ist der Schritt auf 0,05\,rad begrenzt, nach höchstens 60 Iterationen oder einem Schritt unter $2\cdot10^{-4}$\,rad bricht der Löser ab.
+Handziele außerhalb von 97\,\% der Reichweite rückt er auf diese Grenze zurück, und eine Lösung mit größerem Fehler als der Ausgangszustand verwirft er zugunsten der Ausgangskonfiguration.
+% DB: g1pilot/g1pilot/utils/ik_solver.py:30-53,159-187,420-441,604-670 @6a40e47, g1pilot/g1pilot/manipulation/arm_controller.py:292,298,524-531,578-580 @6a40e47
+
+Die Kette in Abbildung~\ref{fig:regelkette} wählt zuerst nach Betriebsart das Ziel und begrenzt dann die Gelenkgeschwindigkeit so, dass die Richtung des Schritts erhalten bleibt.
+Danach glättet sie das Ziel nach Gleichung~\ref{eq:glaettung}
+\begin{equation}
+  \mathbf{q}_k = (1-\alpha_{\Delta t})\,\mathbf{q}_{k-1} + \alpha_{\Delta t}\,\tilde{\mathbf{q}}_k
+  \quad\mathrm{mit}\quad
+  \alpha_{\Delta t} = 1-(1-\alpha)^{\Delta t\, f_\mathrm{ref}} ,
+  \label{eq:glaettung}
+\end{equation}
+\formeleintrag{Glättung des Gelenkziels im Armregler}%
+wobei $\mathbf{q}_k$ das geglättete Gelenkziel im Takt $k$ ist, $\tilde{\mathbf{q}}_k$ das geschwindigkeitsbegrenzte Ziel, $\Delta t$ der gemessene Zeitschritt, $\alpha = 0{,}2$ der Glättungsfaktor und $f_\mathrm{ref}$ die Bezugsrate.
+In der Simulation beträgt $f_\mathrm{ref}$ 50\,Hz, sodass die Glättung unabhängig von Schwankungen des Takts wirkt. Im Realbetrieb ist keine Bezugsrate gesetzt, und $\alpha$ gilt unverändert je Takt.
+Geplante Bahnen glättet der Regler in der Simulation nicht ($\alpha = 1$), damit sie der Zeitparametrierung des Planers genau folgen.
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:214,270,279,3530-3536,3879-3896 @6a40e47, g1pilot/launch/bringup_sim.launch.py:103-122 @6a40e47
+
+Die folgenden Glieder begrenzen die Geschwindigkeit von Hand und Ellbogen, im Realbetrieb die Beschleunigung beim Anfahren und den Schleppfehler.
+Die Kollisionsüberwachung (Abschnitt~\ref{sec:laufzeitueberwachung}) gibt den Befehl danach frei oder hält ihn an.
+Zuletzt schreibt der Regler den Sollwinkel mit Steifigkeit, Dämpfung und einer Schwerkraftvorsteuerung. Diese berechnet die Bibliothek Pinocchio, die Algorithmen der Starrkörperdynamik umsetzt \cite{Carpentier2019}\ev{Carpentier2019.01}. Der Regler begrenzt sie für die Arme auf $\pm 20$\,Nm und für die Taille auf $\pm 25$\,Nm.
+Tabelle~\ref{tab:arm_auslegung} stellt die Auslegungswerte für Simulation und Realbetrieb gegenüber.
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:727-744,1116-1151,1401-1429,1431-1459,1569-1601,3900-3917 @6a40e47, g1pilot/launch/bringup_real.launch.py:103-132 @6a40e47, g1pilot/launch/manipulation_launcher.launch.py:53-56,74-79 @6a40e47
+
+\begin{table}[htbp]
+  \tabstil
+  \centering
+  \caption[Auslegungswerte des Armreglers]{Auslegungswerte des Armreglers in Simulation und Realbetrieb. Die Obergrenze erzwingt der Regler im Realbetrieb auch gegen eine abweichende Einstellung. Steifigkeit in Nm/rad, Dämpfung in Nm\,s/rad.}
+  \label{tab:arm_auslegung}
+  \begin{tabularx}{\textwidth}{L>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{3.0cm}}
+    \toprule
+    \tabkopf{Größe} & \tabkopf{Simulation} & \tabkopf{Realbetrieb} & \tabkopf{Obergrenze real}\\
+    \midrule
+    Gelenkgeschwindigkeit & 1,5\,rad/s & 1,5\,rad/s & höchstens 1,5\,rad/s\\
+    Geschwindigkeit von Hand und Ellbogen & 0,5\,m/s & 0,25\,m/s & höchstens 0,25\,m/s\\
+    Anfahrrampe & aus & 3,0\,rad/s\textsuperscript{2} & \\
+    Schleppfehler & aus & 0,3\,rad & \\
+    Steifigkeit/Dämpfung Arm & 150/12 & 60/1,5 & 80/3\\
+    Steifigkeit/Dämpfung Handgelenk & 40/4 & 40/1,5 & 50/3\\
+    Steifigkeit/Dämpfung Taille & Ersatzregler & 150/4 & 250/6\\
+    Gewichtsrampe & 0\,s & 2,0\,s & unter 1,0\,s auf 2,0\,s\\
+    Rückgabe an den Onboard-Regler & entfällt & Toleranz 0,05\,rad, Zeitlimit 12\,s & \\
+    Rückkehr bei Programmende & entfällt & höchstens 2,5\,s mit höchstens 0,8\,rad/s & \\
+    Dämpfung im Not-Halt & 3,0 & 3,0 & \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:165,171,221,310-311,319-324,1116-1151,1461-1532 @6a40e47, g1pilot/launch/bringup_sim.launch.py:103-122 @6a40e47, g1pilot/launch/bringup_real.launch.py:103-132 @6a40e47, g1pilot/launch/manipulation_launcher.launch.py:53-56,74-79 @6a40e47
+
+Die Zeilen der Tabelle~\ref{tab:arm_auslegung} zeigen, dass der Realbetrieb in der Geschwindigkeit von Hand und Ellbogen und in der Steifigkeit vorsichtiger ausgelegt ist als die Simulation.
+Anfahrrampe und Schleppfehler sind nur am realen Roboter aktiv (Abschnitt~\ref{sec:schutzmechanismen}).
+Die Gewichtsrampe blendet im Realbetrieb über 2,0\,s vom Onboard-Regler zur eigenen Regelung über (Abbildung~\ref{fig:armuebergabe}), in der Simulation fehlt der Onboard-Regler und das Gewicht springt.
+Beim Einschalten übernimmt der Regler die gemessene Pose als Ziel, damit der Arm beim Überblenden nicht springt.
+Bei der Rückgabe fährt er die Arme in die beim Start aufgezeichnete Pose des Onboard-Reglers und blendet erst dann aus, bei Programmende fährt er sie in höchstens 2,5\,s dorthin zurück.
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:1307-1347,1349-1399,1461-1532,1772-1798,2221-2314 @6a40e47
+
+Das Überblendgewicht entzieht dem Onboard-Regler nach eigener Beobachtung auch die Taille (Abschnitt~\ref{sec:armuebergabe}) \qf{Herstellerdokumentation zur Wirkung des Überblendgewichts auf die Taille (E5)}.
+Der Armregler hält deshalb im Realbetrieb die Taille selbst in ihrer Ausgangslage, solange das Gewicht wirkt, und zwar auch im Not-Halt. In der Simulation regelt der Ersatzregler die Taille.
+Im Not-Halt bleibt das Gewicht bei 1, die Steifigkeit der Arme fällt auf null und nur die Dämpfung aus Tabelle~\ref{tab:arm_auslegung} bremst sie, ein Einschaltbefehl wird bis zur Quittierung ignoriert.
+Erst der Voll-Notaus gibt auch die Taille frei.
+Ob die Regelkette den Regeltakt hält und die Schutzglieder greifen, prüfen die Abschnitte~\ref{sec:eval_echtzeit} und~\ref{sec:eval_sicherheit}.
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:227,242,1153-1181,1249-1271,1819-1857,1859-1914,1916-1928,1930-1942,2221-2314 @6a40e47, g1pilot/g1pilot/manipulation/waist_hold.py:1-50 @6a40e47, g1pilot/g1pilot/manipulation/waist_yaw.py:1-20 @6a40e47
+
+% ---------------------------------------------------------------------
+% 7.4.2 sec:kollisionsmodell, 7.4.3 sec:bahnplaner, 7.4.4 sec:laufzeitueberwachung: anderes Paket
+% ---------------------------------------------------------------------
+
+\section{Roboterhände}
+\label{sec:haende}
+Am G1 bindet die Umgebung die Inspire-Hände an und erlaubt in der Simulation, sie gegen eigene Handformen wie einen Haken zu tauschen.
+Abbildung~\ref{fig:haende} zeigt beide Ausführungen.
+Die Inspire-Hand ist in Simulation und Realbetrieb verfügbar und über eine gemeinsame Schnittstelle ansprechbar (Abschnitt~\ref{sec:hand_schnittstelle}).
+Eigene Handformen beschreibt ein austauschbares Hand-Profil, das nur in der Simulation wirkt (Abschnitt~\ref{sec:hand_profile}).
+% DB: g1pilot/g1pilot/manipulation/inspire_ftp/bridge.py:45-85 @6a40e47, g1pilot/g1pilot/utils/hand_profile.py:1-79 @6a40e47
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \fbox{\parbox[c][5cm][c]{0.9\textwidth}{\centering Platzhalter: Inspire-Hand am G1}}\\[1mm]
+    {\small a) Inspire-Hand}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \fbox{\parbox[c][5cm][c]{0.9\textwidth}{\centering Platzhalter: Haken am G1}}\\[1mm]
+    {\small b) Haken als eigenes Hand-Profil}
+  \end{minipage}
+  \caption[Handausführungen am G1]{Handausführungen am G1: a) Inspire-Hand, b) Haken als eigenes Hand-Profil.}
+  \label{fig:haende}
+\end{figure}
+\pruefen{Bild von Nils: Bilder/kap7/hand-inspire.jpg}
+
+\pruefen{Bild von Nils: Bilder/kap7/hand-haken.jpg}
+
+Der Haken besteht aus zwei gedruckten, starren Teilen ohne bewegliche Finger, eines je Hand.
+Er wiegt nach Schätzung rund 110\,g \pruefen{Schätzwert von Nils (110\,g, nicht gewogen): je Hand oder für beide? Das Hand-Profil trägt 0,15\,kg je Hand, bitte wiegen und Text und Profil angleichen}.
+% DB: unitree_mujoco/unitree_robots/g1/hands/haken/hand.yaml:1-16 @6a40e47
+
+\subsection{Schnittstelle der Inspire-Hände}
+\label{sec:hand_schnittstelle}
+% Basis: Code inspire_ftp/{joint_map,backends,bridge,model}.py; Model g1_29dof_inspire_ftp.xml.
+Die Hände sind ein eigener Andockpunkt der Umgebung (Abschnitt~\ref{sec:andockpunkte}), den Simulation und Realbetrieb mit derselben Schnittstelle bedienen (Abschnitt~\ref{sec:haende_sdt}).
+Jede Hand hat 12 Gelenke, aber nur 6 Freiheitsgrade, und 6 Kraftsensoren \cite{Inspire2024}\ev{Inspire2024.03}.
+Jeder Freiheitsgrad nimmt einen Winkelwert von 0 bis 1000 an \cite{Inspire2024}\ev{Inspire2024.07}.
+Der Wert 1000 steht für den ganz geöffneten Finger \cite{Inspire2024}\ev{Inspire2024.09}, und die Umgebung bildet jeden dieser Werte auf die gekoppelten Gelenke ab.
+Die Schnittstelle läuft mit 50\,Hz, nimmt Fingerziele aus Posen und Bedienoberfläche an und gibt Winkel, Kräfte und Taktilwerte als Gelenkzustand zurück.
+% DB: g1pilot/g1pilot/manipulation/inspire_ftp/joint_map.py:1-61 @6a40e47, g1pilot/g1pilot/manipulation/inspire_ftp/bridge.py:45,49,195-208 @6a40e47
+
+Hinter der Schnittstelle stehen drei austauschbare Anbindungen, die Tabelle~\ref{tab:hand_anbindungen} vergleicht.
+
+\begin{table}[htbp]
+  \tabstil
+  \centering
+  \caption[Anbindungen der Inspire-Hände]{Anbindungen der Inspire-Hände hinter der gemeinsamen Schnittstelle.}
+  \label{tab:hand_anbindungen}
+  \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.4cm}|L|L|L|}\hline
+    \tabkopfzeile \tabkopf{Anbindung} & \tabkopf{Fingerbewegung} & \tabkopf{Kraft und Taktilwerte} & \tabkopf{Einsatz}\\\hline
+    Nur Anzeige & folgt dem Sollwert mit begrenzter Geschwindigkeit, ohne Physik & keine, Kraft immer null & Simulation, wahlweise\\\hline
+    Kontaktphysik & je Hand 12 Positionsservos im Physikmodell bewegen die Finger & 17 Taktilzonen je Hand, Kraft je Finger als Summe ihrer Zonen, Kraftgrenze durch Rückstellung des Winkels & Simulation, Standard\\\hline
+    Modbus TCP & Register der realen Hand, Sollwerte nur bei Änderung & Lesen mit 20\,Hz, Taktilwerte in jedem zweiten Zyklus, Kraftgrenze in der Hand & Realbetrieb, Standard\\\hline
+  \end{tabularx}
+\end{table}
+% DB: g1pilot/g1pilot/manipulation/inspire_ftp/backends.py:51-108,111-387,390-515,518-564 @6a40e47, g1pilot/launch/bringup_sim.launch.py:171-183 @6a40e47, g1pilot/launch/bringup_real.launch.py:197-210 @6a40e47, unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:61-90,403-416 @6a40e47
+
+Die Kontaktphysik ist in der Simulation voreingestellt.
+Sie bewegt die Finger über Positionsservos, deren Verstärkung das Physikmodell festlegt \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.02}, und misst den Kontakt mit Berührungssensoren \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.08}.
+Übersteigt die Kraft eines Fingers die eingestellte Grenze, voreingestellt 500\,g, öffnet die Anbindung ihn im Verhältnis zur Überschreitung und hält ihn an der erreichten Stelle.
+Damit bildet sie das Verhalten der realen Hand nach, deren Greifkraft sich über Kraftschwellen einstellen lässt \cite{Inspire2024}\ev{Inspire2024.01}.
+In der Anleitung des Herstellers hält etwa der Zeigefinger an, sobald die gemessene Kraft beim Beugen den Wert 300 erreicht \cite{Inspire2024}\ev{Inspire2024.08}.
+% DB: g1pilot/g1pilot/manipulation/inspire_ftp/backends.py:111-387 @6a40e47, g1pilot/g1pilot/manipulation/inspire_ftp/model.py:18-35 @6a40e47
+
+Im Realbetrieb spricht die Anbindung die Hände über Modbus TCP an, das die Hand über IP-Adresse und Port steuert \cite{Inspire2024}\ev{Inspire2024.06}.
+Sie liest die Istwerte mit 20\,Hz in einem eigenen Ablauf je Hand, damit eine langsame oder getrennte Verbindung den Takt der Anbindung nicht blockiert.
+Ein Not-Halt schaltet in Simulation und Realbetrieb beide Hände ab, und die reale Hand bekommt dabei ihren gemessenen Winkel als Ziel, sodass sie stehen bleibt.
+Wie die Hände am realen Roboter greifen, zeigt Abschnitt~\ref{sec:eval_realtests}.
+% DB: g1pilot/g1pilot/manipulation/inspire_ftp/backends.py:390-515 @6a40e47, g1pilot/g1pilot/manipulation/inspire_ftp/bridge.py:80-85,251-258 @6a40e47
+
+\subsection{Austauschbare Hand-Profile}
+\label{sec:hand_profile}
+% Basis: Code unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py, g1pilot/g1pilot/utils/hand_profile.py, g1pilot/start.sh.
+Austauschbare Hand-Profile sind eine reine Simulationsfunktion, mit der sich andere Endeffektoren am Modell des G1 erproben lassen (Abschnitt~\ref{sec:andockpunkte}).
+Am realen Roboter verwendet die Umgebung immer das Modell der Inspire-Hand, auch wenn ein anderes Profil gewählt ist.
+Ein Profil besteht aus einer Beschreibungsdatei und einem Netz der Handform. Ein Generator erzeugt daraus alle Modelle, die die Umgebung braucht.
+Abbildung~\ref{fig:handprofil} zeigt diesen Ablauf.
+% DB: g1pilot/g1pilot/utils/hand_profile.py:1-79 @6a40e47, unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py:1-28 @6a40e47
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/handprofil-ablauf}
+  \caption[Ablauf eines Hand-Profils]{Ablauf eines Hand-Profils vom Netz der Handform bis zu den Nutzern in der Simulation.}
+  \label{fig:handprofil}
+\end{figure}
+
+Der Generator legt das Netz zuerst in das Koordinatensystem des Handgelenks.
+Dafür gibt die Beschreibung an, welche Richtung der Handform vom Arm weg und welche zur Handfläche zeigt.
+Daraus folgt nach Gleichung~\ref{eq:handabbildung} die Abbildung jedes Netzpunkts
+\begin{equation}
+  \mathbf{p}_\mathrm{w} = \mathbf{A}\,\mathbf{p}_\mathrm{s} + \mathbf{b}
+  \quad\mathrm{mit}\quad
+  \mathbf{A} = s\,\mathbf{H}\,\mathbf{R}\,\mathbf{Q}^\mathrm{T}\mathbf{M} ,
+  \quad
+  \mathbf{b} = \mathbf{f} + \mathbf{H}\,\mathbf{d} - \mathbf{A}\,\mathbf{o} ,
+  \label{eq:handabbildung}
+\end{equation}
+\formeleintrag{Abbildung eines Hand-Profils in das Handgelenk}%
+wobei $\mathbf{p}_\mathrm{s}$ ein Punkt des Netzes ist und $\mathbf{p}_\mathrm{w}$ derselbe Punkt im Koordinatensystem des Handgelenks.
+$\mathbf{Q}$ fasst die angegebenen Richtungen der Handform zusammen und $\mathbf{H}$ dieselben Richtungen am Handgelenk, wobei die Handfläche links und rechts zueinander gespiegelt liegt.
+$\mathbf{R}$ ist eine optionale Feindrehung, $s$ der Maßstab des Netzes und $\mathbf{M}$ eine Spiegelung für die linke Hand, sonst die Einheitsmatrix.
+$\mathbf{o}$ ist der Ursprung im Netz, $\mathbf{f}$ der Mittelpunkt des Flansches 41,5\,mm vor dem Handgelenk und $\mathbf{d}$ ein optionaler Versatz.
+Damit genügt ein einziges Netz für beide Hände.
+% DB: unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py:53,154-190 @6a40e47, unitree_mujoco/unitree_robots/g1/hands/haken/hand.yaml:19-37 @6a40e47
+
+Weil die Kollisionserkennung des Physikmodells mit der konvexen Hülle eines Netzes arbeitet \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.10}, zerlegt der Generator die Handform in mehrere konvexe Teile \qf{Beleg für das Verfahren der näherungsweisen konvexen Zerlegung (V-HACD)}.
+Die Trägheit berechnet er aus dem Netz bei gleichmäßiger Dichte und der Masse aus der Beschreibung, die ein Dialog der Bedienoberfläche beim Anlegen einer neuen Hand aus dem Volumen schätzt.
+Aus Profil und Generator bildet er eine Prüfsumme und erzeugt beim Start neu, sobald sie nicht mehr passt. Lässt sich ein Profil nicht bauen, startet die Umgebung mit einem mitgelieferten Standardprofil.
+% DB: unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py:54-83,193-236,437-441 @6a40e47, unitree_mujoco/unitree_robots/g1/tools/hand_new.py:1-17,38-39,66-69 @6a40e47, g1pilot/start.sh:341-353 @6a40e47
+
+Der Generator liefert ein Physikmodell mit Szene und ein Kinematikmodell mit Kollisionsteilen und Werkzeugpunkt.
+Das Physikmodell nutzen die Simulation und das Schwerpunktmodell des Ersatzreglers, das Kinematikmodell die inverse Kinematik, die Anzeige und das Kollisionsmodell (Abschnitt~\ref{sec:kollisionsmodell}).
+Ein neues Profil wirkt so ohne Änderung am Code auf Simulation, Stehen, inverse Kinematik und Kollisionsprüfung.
+Wie sich die Umgebung damit um eigene Endeffektoren erweitern lässt, ordnet Abschnitt~\ref{sec:eval_modular} ein.
+Die Bedienschritte zum Anlegen eines Profils stehen in Anhang~\ref{anh:dokumentation}.
+% DB: unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py:242-298,319-436 @6a40e47, g1pilot/g1pilot/navigation/loco_sim.py:331-345 @6a40e47, g1pilot/g1pilot/manipulation/arm_geometry.py:36-46,370-400 @6a40e47, g1pilot/g1pilot/utils/ik_solver.py:237-238 @6a40e47

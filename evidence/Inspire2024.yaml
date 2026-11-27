@@ -31,3 +31,27 @@ belege:
   kernaussage: 'Schnittstellen: Ethernet, RS485, CAN2.0.'
   quelle: exzerpt
   kommentar: Kap. 2.2/7.5
+- id: Inspire2024.06
+  seite: "6"
+  zitat: "When using Modbus TCP control, the dexterous hands are controlled through IP addresses and port numbers."
+  kernaussage: "Bei Modbus TCP wird die Hand über IP-Adresse und Port angesteuert."
+  quelle: exzerpt
+  kommentar: "Kap. Umsetzung (27.11.2026)"
+- id: Inspire2024.07
+  seite: "23"
+  zitat: "When the angle value for a degree of freedom (DOF) is set to the data within 0-1000, the corresponding finger will take an immediate action."
+  kernaussage: "Ein Winkelwert 0–1000 je Freiheitsgrad bewegt den zugehörigen Finger sofort."
+  quelle: exzerpt
+  kommentar: "Kap. Umsetzung (27.11.2026)"
+- id: Inspire2024.08
+  seite: "25"
+  zitat: "Once it is detected that the actual force (i.e., FORCE_ACT(3);) applied to the index finger during bending reaches 300, the index finger will stop moving; otherwise, the index finger will move to the preset angle."
+  kernaussage: "Im Beispiel stoppt der Zeigefinger, sobald die Ist-Kraft beim Beugen 300 erreicht, sonst fährt er zum Sollwinkel."
+  quelle: exzerpt
+  kommentar: "Kap. Umsetzung (27.11.2026)"
+- id: Inspire2024.09
+  seite: "25"
+  zitat: "set the current actual angle of the index finger \"ANGLE_ACT(3)\" to 1000 (i.e., fully open)."
+  kernaussage: "Der Winkelwert 1000 bedeutet ganz geöffnet."
+  quelle: exzerpt
+  kommentar: "Kap. Umsetzung (27.11.2026)"

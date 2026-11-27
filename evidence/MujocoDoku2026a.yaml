@@ -56,3 +56,9 @@ belege:
     kernaussage: "Bei freien Gelenken umfassen die Positionsdaten 7 Zahlen (3D-Position, Einheitsquaternion), die Geschwindigkeitsdaten 6 Zahlen (lineare und Winkelgeschwindigkeit)."
     quelle: exzerpt
     kommentar: "Kap. 3.2 / 4.x (L7, L9); Floating Base des Humanoiden"
+  - id: MujocoDoku2026a.10
+    seite: "10"
+    zitat: "While any collection of triangles can be loaded and visualized as a mesh, the collision detector works with the convex hull."
+    kernaussage: "Die Kollisionserkennung arbeitet mit der konvexen Hülle eines Netzes."
+    quelle: exzerpt
+    kommentar: "Kap. Umsetzung (27.11.2026)"

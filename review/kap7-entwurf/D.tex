@@ -1,0 +1,152 @@
+% Paket D (Kap. Umsetzung): 7.6 Bedienwege mit 7.6.1 bis 7.6.4. Entwurf 27.11.2026, Code-Stand G1 BA-Stable @6a40e47.
+% Direkt in Kapitel/07_Umsetzung.tex einfügbar (ersetzt das Gerüst von \section{Bedienwege} bis vor \section{Navigation in der Simulation}).
+% Pfade in % DB: relativ zur Repo-Wurzel des Code-Repos (G1 / g1-ba).
+\section{Bedienwege}
+\label{sec:bedienwege}
+Alle Bedienwege erzeugen nur Befehle auf gemeinsamen Befehlsthemen, sodass Bewegungslogik und Schutzmechanismen in den Zielprogrammen liegen und sich von keinem Bedienweg umgehen lassen (Abschnitt~\ref{sec:bedienwege_konzept}).
+Abbildung~\ref{fig:bedienwege_signal} zeigt den Signalweg von der Eingabe bis zur Herstellerschnittstelle, und Tabelle~\ref{tab:bedienwege_umsetzung} nennt je Bedienweg das Eingabegerät, die Schnittstelle zum System und die Auslegungswerte der Zeitüberwachung.
+Der Funktionsumfang je Bedienweg steht in Tabelle~\ref{tab:bedienwege}, die Wirkprinzipien der Schutzmechanismen in Tabelle~\ref{tab:schutzmechanismen}.
+% DB: g1pilot/docs/10-T-Demo-GUI.md (Grundsatz), g1pilot/g1pilot/teleoperation/demo_gui.py:1143 (Anbindung des Smartphones an die Bedienoberfläche), g1pilot/g1pilot/manipulation/arm_api.py:3-30 (Brücke ohne Regellogik)
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/bedienwege-signalfluss}
+  \caption[Signalfluss der Bedienwege]{Signalfluss der Bedienwege. Alle Bedienprogramme senden auf gemeinsame Befehlsthemen, die Schutzmechanismen liegen in den Zielprogrammen. Bedienoberfläche und Vermittlungsschicht des Smartphones laufen in einem Prozess (gemeinsamer Rahmen). Der direkte \acs{DDS}-Zugang umgeht die Zielprogramme.}
+  \label{fig:bedienwege_signal}
+\end{figure}
+
+Die Bedienprogramme übersetzen Eingaben in Ziele und Befehle auf ROS-2-Themen (Abschnitt~\ref{sec:ros2}) und lesen Zustände zurück.
+Als Controller dienen PS4-Controller (DualShock 4) und Xbox-Controller, deren Belegung die Umgebung automatisch zuordnet.
+Das Smartphone ruft über die Vermittlungsschicht dieselben Funktionen auf wie die Knöpfe der Bedienoberfläche, und der Gehbefehl des Controllers nimmt einen eigenen Weg mit Vorrang vor den Fahrbefehlen der Bedienoberfläche.
+Ein direkter Zugang über \ac{DDS} umgeht die Zielprogramme und damit alle Schutzmechanismen (Abschnitt~\ref{sec:entwickler_api}).
+% DB: g1pilot/g1pilot/teleoperation/demo_gui.py:1143; g1pilot/g1pilot/teleoperation/phone/link.py:65-71,137-141; g1pilot/g1pilot/navigation/loco_client.py:714-735; g1pilot/g1pilot/navigation/loco_sim.py:550-556; g1pilot/g1pilot/teleoperation/ps4_walk.py:350-370; g1pilot/g1pilot/teleoperation/ps4_joystick.py:1-48; g1pilot/g1pilot/manipulation/arm_api.py:3-30
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Umsetzung der Bedienwege mit Zeitüberwachung]{Umsetzung der Bedienwege mit Auslegungswerten der Zeitüberwachung. Alle Zeiten gelten in der Simulation und im Realbetrieb, sofern nichts anderes steht.}
+    \label{tab:bedienwege_umsetzung}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.9cm}|>{\raggedright\arraybackslash}p{2.7cm}|>{\raggedright\arraybackslash}p{3.0cm}|L|}\hline
+        \tabkopfzeile \tabkopf{Bedienweg} & \tabkopf{Eingabegerät und Transport} & \tabkopf{Schnittstelle zum System} & \tabkopf{Zeitüberwachung}\\\hline
+        Bedienober\-fläche & Bildschirm mit Maus oder Touch & Befehle und Ziele auf Themen & Fahrbefehl mit 30\,Hz, Voll-Notaus 1,5\,s halten, zweiter Tipp innerhalb von 4\,s, Ablaufschritt ohne Antwort nach 4\,s abgebrochen, Auto-Start (nur Simulation) alle 1,5\,s bis 120\,s.\\\hline
+        Controller & PS4- oder Xbox-Controller über USB oder Bluetooth & Thema mit fester Belegung und eigener Gehbefehlsweg & Gehen stoppt nach 0,3\,s, Hand nach 0,5\,s ohne Daten. Totmanntaste ab halbem Trigger, Voll-Notaus 2,0\,s halten, Schnellwahl 1,5\,s und 3\,s. Real zusätzlich Abschnitt~\ref{sec:onboard_anbindung}.\\\hline
+        Smartphone & Browser über \ac{BLE} & Vermittlungsschicht ruft Funktionen der Bedienoberfläche auf & Herzschlag 5\,Hz, Steuerhoheit nach 2\,s ohne Herzschlag entzogen, Sitzung nach 4\,s beendet, Anzeige ab 1,5\,s gesperrt, Befehl höchstens 3\,s nach Status.\\\hline
+        RViz-Marker & Maus in RViz & Hand-Ziele auf dem Thema der Bedienoberfläche & Marker folgt nach 30\,s ohne Rückmeldung wieder der Hand.\\\hline
+        Arm-API & Fremdes Programm über \ac{HTTP}, \ac{JSON}, nur lokal & Format geprüft, Befehle auf dem Thema der Arme & Antwort innerhalb von 2\,s, Warten höchstens 300\,s.\\\hline
+        Direkter \acs{DDS}-Zugang & Eigenes Programm mit Herstellerpaket & Hersteller\-schnittstelle, Simulation Domain~1 und \texttt{lo} & Keine.\\\hline
+    \end{tabularx}
+\end{table}
+% Fundstellen je Zeile (Pfade relativ zur Repo-Wurzel des Code-Repos, @6a40e47):
+% Bedienoberfläche: g1pilot/g1pilot/teleoperation/demo_gui.py:1122-1124 (cmd_timer 33 ms = 30 Hz), :2087-2097 (außerhalb von Gehen null), :150 (QUIT_CONFIRM_MS 4000), :153 (FULL_ESTOP_HOLD_S 1.5),
+%   g1pilot/g1pilot/teleoperation/sequence_runner.py:46-48 (ACK_TIMEOUT_S 4.0), :189-197; g1pilot/g1pilot/teleoperation/sim_autostart.py:43-44 (period_s 1.5, timeout_s 120.0), demo_gui.py:1146-1162 (nur Simulation).
+% Controller: g1pilot/g1pilot/teleoperation/ps4_joystick.py:68 (stall_timeout_s 0.3), :381-398; ps4_walk.py:230 (joy_timeout_s 0.3), :358-366; ps4_arm_teleop.py:854 (joy_timeout_s 0.5), :1583-1600;
+%   ps4_walk.py:47 (DEADMAN_THRESHOLD 0.5); ps4_arm_teleop.py:839 (full_estop_hold_s 2.0), :878 (quick_timeout_s 1.5), :1180-1185 (QUICK_ANSWER_S 3.0); loco_client.py:148, :160 (Überwachung der Fahrbefehle, Werte siehe Abschnitt Anbindung des Onboard-Reglers).
+% Smartphone: g1pilot/g1pilot/teleoperation/phone/web/app.js:11-12 (HB_MS 200, FRESH_MS 1500); phone/gateway.py:47-52 (CONTROL_TIMEOUT_S 2.0, SESSION_TIMEOUT_S 4.0, STATUS_MAX_LAG 15), phone/link.py:41 (STATUS_MS 200).
+% RViz-Marker: g1pilot/g1pilot/manipulation/interactive_marker.py:60 (goal_timeout_s 30.0), :249-277, :377-410; g1pilot/launch/manipulation_launcher.launch.py:168-180.
+% Arm-API: g1pilot/g1pilot/manipulation/arm_api.py:51-53 (ACCEPT_TIMEOUT_S 2.0, MAX_WAIT_S 300.0), :82 (bind_host 127.0.0.1); g1pilot/g1pilot/utils/common.py:15-47 (Domain 1, lo in der Simulation).
+
+\subsection{Bedienoberfläche}
+\label{sec:bedienoberflaeche}
+Die Bedienoberfläche ist ein Fenster, das Befehle sendet und Zustände anzeigt, ohne selbst Bewegungen zu rechnen (Abschnitt~\ref{sec:komponenten}).
+Abbildung~\ref{fig:bedienoberflaeche} zeigt vier Bereiche: Die Kopfleiste wählt Modus (Gehen oder Greifen) und Ansicht, die Arbeitsfläche enthält nur die Funktionen des aktiven Modus, die Seitenleiste trägt Not-Halt und Voll-Notaus, und die Statusleiste meldet Zustand und Verlauf.
+Am realen Roboter zeigt die Seitenleiste zusätzlich Startleiste, Akkustand und Motortemperaturen, in der Simulation stattdessen Werkzeuge zum Zurücksetzen von Roboter und Szene.
+% DB: g1pilot/g1pilot/teleoperation/demo_gui.py:1164-1170,1331-1392 @6a40e47
+
+\begin{figure}[htbp]
+  \centering
+  \fbox{\parbox[c][4cm][c]{0.9\textwidth}{\centering Platzhalter: Bildschirmfoto der Bedienoberfläche im Modus Greifen mit beschrifteten Bereichen}}
+  \pruefen{Bild von Nils: Bilder/kap7/demo-gui-gesamt.png, Bereiche beschriften}
+  \caption[Bedienoberfläche]{Bedienoberfläche im Modus Greifen mit den vier Bereichen.}
+  \label{fig:bedienoberflaeche}
+\end{figure}
+
+Modus, Handauswahl und Tempostufen teilen sich Bedienoberfläche und Controller über eine gehaltene Zustandsmeldung, die auch später startenden Teilnehmern zugestellt wird \cite{Macenski2022}\ev{Macenski2022.15}.
+Jedes Feld trägt einen eigenen Zeitstempel, der neueste Stand gilt, und der Stempel ist stets größer als jeder gesehene, damit Uhrabweichungen zwischen Prozessen keine Wahl verdrängen.
+Die Meldung enthält keine Fahrbefehle, und jeder Teilnehmer begrenzt die Tempostufen auf sein eigenes Maximum.
+% DB: g1pilot/g1pilot/teleoperation/shared_state.py:3-28,43,47-53,60-107 @6a40e47
+
+Der Posenspeicher ist eine \ac{JSON}-Datei mit Posen, relativen Bewegungen, Abläufen und der Zuordnung der Schnellwahlplätze.
+Eine Pose speichert eine Teilmenge aus linkem Arm (sieben Gelenkwinkel), rechtem Arm und beiden Händen (je sechs Fingerwinkel) und gehört einer Kategorie an.
+Gespeichert wird das zuletzt kommandierte Gelenkziel und nur der Endpunkt, weil die Bahn beim Anfahren neu geplant wird (Abschnitt~\ref{sec:bahnplaner}).
+Eine relative Bewegung verschiebt die Hand im Bezug des Oberkörpers je Achse um höchstens 30\,cm, ein Ablauf verweist auf Posen und Bewegungen mit einer Pause von höchstens 600\,s je Schritt.
+Weil Armregler und Bedienoberfläche dieselbe Datei nutzen, schreibt der Speicher in eine temporäre Datei und benennt sie danach um.
+% DB: g1pilot/g1pilot/manipulation/pose_store.py:13-17,59-77,105-109,274-287; g1pilot/g1pilot/manipulation/arm_controller.py:2649-2660 @6a40e47
+
+Die Ablaufsteuerung ist ein Zustandsautomat, der nur entscheidet, wann der nächste Schritt gesendet wird.
+Jeder Schritt fährt eine Pose über den Armregler an oder sendet bei einer relativen Bewegung ein kartesisches Ziel aus kommandierter Hand plus Verschiebung.
+Im Betrieb am Stück folgt der nächste Schritt nach Erreichen und Pause, im Schrittbetrieb wartet der Ablauf auf ein Weiter von Bedienoberfläche, Smartphone oder Controller.
+Die Simulation startet Abläufe am Stück, der reale Roboter Schritt für Schritt, und ein Ablauf läuft nur im Modus Greifen.
+Not-Halt, Stopp, Moduswechsel, Handbewegung während der Fahrt, ein abgelehnter, fehlgeschlagener oder abgebrochener Schritt und fehlende Antwort des Armreglers beenden ihn (Tabelle~\ref{tab:bedienwege_umsetzung}).
+% DB: g1pilot/g1pilot/teleoperation/sequence_runner.py:4-58,123-243; g1pilot/g1pilot/teleoperation/demo_gui.py:176-198,2136-2190 @6a40e47
+
+In der Simulation aktiviert die Bedienoberfläche nach dem Start selbsttätig den Modus Greifen und wiederholt die Anforderung, bis Armregler und Ersatzregler sie quittieren, weil eine einmalig gesendete, flüchtige Nachricht beim Laden verloren geht \cite{Macenski2022}\ev{Macenski2022.15}.
+Am realen Roboter bewegt sich dagegen nichts ohne Eingabe: Die Modusauswahl bleibt bis zum Start gesperrt, und das Gehen verlangt den Walk-Modus des Onboard-Reglers.
+% DB: g1pilot/g1pilot/teleoperation/sim_autostart.py:3-23,43-47,58-108; g1pilot/g1pilot/teleoperation/demo_gui.py:1146-1162,1832-1875 @6a40e47
+
+Der Not-Halt-Knopf nimmt alle Freigaben zurück und setzt den Not-Halt, der Abläufe, Navigation und Auto-Start abbricht.
+Der Voll-Notaus ist ein Haltetaster: Schon das Drücken löst den normalen Not-Halt aus, erst das Halten über die Haltezeit (Tabelle~\ref{tab:bedienwege_umsetzung}) eskaliert auf den ganzen Roboter und schützt vor versehentlichem Antippen.
+Die Eskalation sendet zuerst den Voll-Notaus, den die Anbindung des Onboard-Reglers vor dem Stopp der Bewegung dämpft und der die Taille des Armreglers schlaff schaltet, danach den normalen Not-Halt (Abschnitt~\ref{sec:zustaende}).
+Ein Not-Halt von Controller oder Smartphone versetzt die Bedienoberfläche in denselben Zustand, ohne ihn erneut zu senden.
+Quittiert wird real über den Startknopf und in der Simulation über die nächste Modusauswahl, und nach einem quittierten Voll-Notaus bleibt der reale Roboter in Damp.
+Die Bedienschritte beschreibt Anhang~\ref{anh:dokumentation}, den Aufwand bis zur ersten Bewegung misst Abschnitt~\ref{sec:eval_bedienaufwand}.
+% DB: g1pilot/g1pilot/teleoperation/demo_gui.py:1301-1316,1786-1803,2462-2549 @6a40e47
+
+\subsection{Controller}
+\label{sec:controller}
+Der Controller ist in drei Schichten gebaut, damit die Bedienlogik ohne Gerät prüfbar bleibt (Abschnitt~\ref{sec:bedienwege_konzept}).
+Die Geräteschicht erkennt den Typ selbst und ordnet Tasten und Achsen beider Gerätefamilien nach Position einer festen Belegung zu.
+Sie verbindet sich nach einem Abriss neu und sendet ohne Verbindung nichts, nie einen eingefrorenen Wert, damit ein Ausfall als ausbleibende Nachricht beim Empfänger ankommt.
+Darauf setzen je ein Programm für Arme und Hände und eines für das Gehen auf.
+% DB: g1pilot/g1pilot/teleoperation/ps4_layout.py:1-20; g1pilot/g1pilot/teleoperation/ps4_joystick.py:1-48,381-398 @6a40e47
+
+Beim Bewegen der Hand ist das Ziel die kommandierte Hand plus Stickausschlag mal Zeitschritt im Bezug des Oberkörpers, mit einem Vorlauf entlang der Bewegungsrichtung von höchstens dem größeren Wert aus 4\,cm und Geschwindigkeit mal 0,5\,s.
+Eine Totzone von 0,12 und eine progressive Kennlinie verhindern ein Kriechen der Hand, und der Stick rastet bis 20\,° neben einer Achse auf diese ein.
+Die drei Tempostufen entsprechen 5, 15 und 30\,cm/s bei Vollausschlag, der reale Roboter beginnt mit der niedrigsten und erlaubt höchstens die mittlere.
+Beim Loslassen sendet der Controller 1\,s lang das Halteziel, weil der Armregler Ziele glättet und sonst den Vorlauf abfährt.
+% DB: g1pilot/g1pilot/teleoperation/hand_jog.py:122-135,181-229,263-267; g1pilot/g1pilot/teleoperation/ps4_arm_teleop.py:826-880; g1pilot/launch/bringup_real.launch.py:49-52 @6a40e47
+
+Das Gehen hat einen eigenen Befehlsweg, der nur bei gehaltener Totmanntaste sendet.
+Seine Tempostufen skalieren am realen Roboter die Geschwindigkeitsgrenze der Anbindung des Onboard-Reglers auf 35, 65 und 100\,\% (Abschnitt~\ref{sec:onboard_anbindung}).
+Die Beine stellt der Controller am realen Roboter nie selbst auf, Modus und Start der Beine bleiben der Bedienoberfläche vorbehalten.
+% DB: g1pilot/g1pilot/teleoperation/ps4_walk.py:30-47,215-232; g1pilot/g1pilot/navigation/loco_client.py:714-735; g1pilot/g1pilot/navigation/loco_sim.py:550-556 @6a40e47
+
+Die Pose-Schnellwahl ordnet 16 Plätzen je eine Pose zu: Zwei Richtungsdrücke am Steuerkreuz bei gehaltener Greifen-Taste wählen einen Platz aus vier mal vier Richtungen, und das Loslassen fährt die Pose an.
+Der Controller liest die Zuordnung bei jedem Druck frisch aus dem Posenspeicher und sendet den Namen auf demselben Weg wie die Bedienoberfläche, sodass die Bahn geplant und geprüft wird.
+Not-Halt und Voll-Notaus wirken auch am gesperrten Controller, und die Haltezeit des Voll-Notaus bricht bei ausbleibenden Daten ab (Tabelle~\ref{tab:bedienwege_umsetzung}).
+Die Wirkung eines Verbindungsabrisses prüft Abschnitt~\ref{sec:eval_sicherheit}.
+% DB: g1pilot/g1pilot/teleoperation/ps4_arm_teleop.py:537-557,586-640,1177-1215; g1pilot/g1pilot/manipulation/pose_store.py:51-57,110-126 @6a40e47
+
+\subsection{Smartphone}
+\label{sec:smartphone}
+Das Smartphone bedient die Umgebung über eine Webseite im Browser, die per \ac{BLE} direkt mit dem Bedienrechner spricht, sodass weder App noch Netzwerk nötig sind.
+\qf{Quelle zu Web Bluetooth und Bluetooth Low Energy (GATT)}
+Gekoppelt wird über einen Kopplungscode mit 80\,Bit, der nur optisch zum Smartphone gelangt, 2\,min gültig ist und nach drei Fehlversuchen verfällt.
+Daraus leiten beide Seiten mit einem schlüsselabhängigen Prüfcode (\ac{HMAC}) einen Geräteschlüssel ab, der nie gesendet wird, und jede Zeile trägt einen streng steigenden Zähler und einen Prüfcode, sodass Inhalte weder fälschbar noch wiederholbar sind.
+\qf{Quelle zum schlüsselabhängigen Prüfcode (HMAC, RFC 2104)}
+% DB: g1pilot/g1pilot/teleoperation/phone/protocol.py:3-23,41-45,78-113; g1pilot/g1pilot/teleoperation/phone/gateway.py:42-43,163-171,299-312 @6a40e47
+
+Die Vermittlungsschicht prüft je Aktion Rolle, Steuerhoheit und Aktualität des Zustands und führt dann dieselben Funktionen der Bedienoberfläche aus.
+Jede Befehlskennung wirkt nur einmal, und Not-Halt und Stopp sind ohne Steuerhoheit erlaubt, der Not-Halt wirkt aber nur, solange der Bedienrechner läuft.
+Fällt die Steuerhoheit weg, bricht die Bedienoberfläche eine vom Smartphone gestartete Bewegung ab.
+Das gilt in Simulation und Realbetrieb gleich, die Zeitgrenzen nennt Tabelle~\ref{tab:bedienwege_umsetzung}, die Zeit bis zum Halt misst Abschnitt~\ref{sec:eval_sicherheit}.
+% DB: g1pilot/g1pilot/teleoperation/phone/gateway.py:58-78,299-330,340-410; g1pilot/g1pilot/teleoperation/phone/link.py:65-71,137-141 @6a40e47
+
+\subsection{Entwickler-Oberfläche und Arm-API}
+\label{sec:entwickler_api}
+Entwickler erreichen die Arme auf drei Ebenen, die nach Tabelle~\ref{tab:andockpunkte} je weniger Schutz bieten, je tiefer sie ansetzen.
+Auf der obersten Ebene setzt der Zielmarker in RViz je Hand ein würfelförmiges Ziel, das aus der Ausgangsbasis stammt (Abschnitt~\ref{sec:ausgangsbasis}) und für diese Arbeit erweitert ist.
+\qf{Quelle zu RViz und interaktiven Markern}
+Außerhalb des Ziehens folgt der Marker der echten Hand, beim Ziehen sendet er ein Hand-Ziel auf dasselbe Thema wie Bedienoberfläche und Controller und bleibt auf dem Ziel, bis der Armregler dessen Ende meldet.
+RViz ist in der Simulation optional und am realen Roboter standardmäßig an.
+% DB: g1pilot/g1pilot/manipulation/interactive_marker.py:21-70,249-277,377-410; g1pilot/launch/manipulation_launcher.launch.py:168-180; g1pilot/NOTICE.md @6a40e47
+
+Die HTTP-Schnittstelle der Arme ist ein eigener Prozess ohne Regellogik, weil in den schnellen Takt des Armreglers kein Webserver gehört.
+Sie nimmt Gelenkwinkel oder kartesische Handposen als \ac{JSON} an, speichert die aktuelle Stellung als Pose und bricht Bewegungen ab.
+Das Format prüft dieselbe Funktion wie im Armregler, während Gelenkgrenzen, Kollision und Reichweite der Armregler prüft.
+Jeder Auftrag durchläuft die Zustände angenommen, ausgeführt und erreicht oder abgelehnt, fehlgeschlagen und abgebrochen.
+Der Dienst bindet standardmäßig nur an den lokalen Rechner, ein Zugriff von außen verlangt eine geöffnete Adresse und ein Kennwort.
+% DB: g1pilot/g1pilot/manipulation/arm_api.py:3-30,51-53,82-106,222,285-310; g1pilot/g1pilot/manipulation/arm_command.py:3-31 @6a40e47
+
+Auf der untersten Ebene laufen mit dem SDK entwickelte Programme auch in der Simulation \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}, wenn sie ihre Verbindung auf Domain 1 und die Schnittstelle \texttt{lo} richten \cite{UnitreeMujoco}\ev{UnitreeMujoco.07,UnitreeMujoco.08}.
+Dieser Weg umgeht Armregler, Kollisionsprüfung und Begrenzer und ist für Projekte gedacht, die einen eigenen vollständigen Regler mitbringen, den Nachweis der Ebenen liefert Abschnitt~\ref{sec:eval_modular}.
+% DB: g1pilot/g1pilot/utils/common.py:15-47 @6a40e47

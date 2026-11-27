@@ -98,3 +98,15 @@ belege:
     kernaussage: "Voreinstellung für alle Geoms ist contype = conaffinity = 1; dieser Test wird dann immer bestanden."
     quelle: exzerpt
     kommentar: "Kap. 3.2 / 4.x (L8)"
+  - id: MujocoDoku2026.17
+    seite: "42"
+    zitat: "Meshes specified by the user can be non-convex, and are rendered as such. For collision purposes however they are replaced with their convex hulls (visualized with the ‘H’ key in simulate), computed by the qhull library."
+    kernaussage: "Nicht konvexe Meshes werden so dargestellt, für die Kollision aber durch ihre konvexe Hülle (qhull) ersetzt."
+    quelle: exzerpt
+    kommentar: "Kap. Umsetzung (27.11.2026)"
+  - id: MujocoDoku2026.18
+    seite: "44"
+    zitat: "In order to model a non-convex object other than a height field, the user must decompose it into a union of convex geoms (which can be primitive shapes or meshes) and attach them to the same body."
+    kernaussage: "Nicht konvexe Objekte (außer Height Fields) muss der Nutzer in eine Vereinigung konvexer Geoms zerlegen, die am selben Körper hängen."
+    quelle: exzerpt
+    kommentar: "Kap. Umsetzung (27.11.2026)"

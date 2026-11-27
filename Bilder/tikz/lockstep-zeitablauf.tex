@@ -1,0 +1,37 @@
+% Zeitablauf des Gleichschritt-Betriebs über zwei Regelschritte (Kap. Umsetzung, fig:lockstep).
+% Eigene Darstellung, schematisch (Zeitachse nicht maßstäblich), keine Quelle in der Caption.
+% Basis: G1@6a40e47 unitree_mujoco/simulate_python/unitree_mujoco.py:180-249 (auf neuen Befehl warten, decimation
+%   Physikschritte, Zustand senden), config.py:61-66 (SIMULATE_DT 0,001 s), :84-108 (decimation = 0,02/0,001 = 20,
+%   Zeitüberwachung 0,2 s); g1pilot/g1pilot/navigation/loco_sim.py:353, :643-648 (ein Befehl je Zustand).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/lockstep-zeitablauf} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    klein/.style={font=\footnotesize},
+    rechnet/.style={ba block, font=\footnotesize, minimum height=6mm, minimum width=0mm, inner sep=1pt},
+    wartet/.style={draw=baGrau, ba duenn, fill=baHellgrau, minimum height=6mm, inner sep=1pt, font=\footnotesize},
+  }
+  % Spuren: Regler y = 1,6, Simulation y = 0; je Physikschritt 0,2 cm
+  \node[klein, anchor=east] at (-0.15,1.6) {Ersatzregler};
+  \node[klein, anchor=east] at (-0.15,0) {Simulation};
+  \draw[ba hilfslinie] (0,1.6) -- (12.6,1.6);
+  \draw[ba hilfslinie] (0,0) -- (12.6,0);
+  \foreach \t/\n in {0/1, 6.2/2} {
+    % Simulation wartet auf den Befehl, während der Regler rechnet
+    \node[wartet, minimum width=16mm] at (\t+0.9,0) {wartet};
+    \node[rechnet, minimum width=12mm] at (\t+0.9,1.6) {rechnet};
+    % Zustand hoch, Befehl runter
+    \draw[ba pfeil] (\t+0.05,0.3) -- (\t+0.25,1.3);
+    \draw[ba pfeil] (\t+1.55,1.3) -- (\t+1.75,0.3);
+    % 20 Physikschritte zu je 1 ms
+    \foreach \k in {0,...,19} {
+      \draw[draw=baGruen, fill=baFlaeche, ba duenn] (\t+1.8+0.2*\k,-0.3) rectangle (\t+2.0+0.2*\k,0.3);
+    }
+  }
+  % letzter Zustand
+  \draw[ba pfeil] (12.25,0.3) -- (12.45,1.3);
+  % Beschriftungen
+  \node[klein, anchor=east] at (0.1,0.85) {Zustand};
+  \node[klein, anchor=west] at (1.7,0.85) {Befehl};
+  \draw[ba duenn, |-|] (1.8,-0.55) -- node[klein, below] {$N = 20$ Physikschritte zu je 1\,ms $=$ 20\,ms Simulationszeit} (5.8,-0.55);
+  \draw[ba duenn, |-|] (0,2.15) -- node[klein, above] {ein Regelschritt} (6.2,2.15);
+\end{tikzpicture}

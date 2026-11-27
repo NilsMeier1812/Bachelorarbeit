@@ -1,0 +1,159 @@
+% ======================================================================
+% Paket E: 7.4.2 Kollisionsmodell, 7.4.3 Bahnplaner, 7.4.4 Laufzeitüberwachung
+% Entwurf 27.11.2026 für Kapitel/07_Umsetzung.tex (nach \subsection{Regelkette und inverse Kinematik} einfügen).
+% Code-Bezug: Repo NilsMeier1812/G1, PR #62 (noch nicht gemergt) @e452513 = BA-Stable 6a40e47 + 2 Commits
+% (geändert nur arm_planner.py, arm_planner_process.py, arm_geometry.py). Pfade relativ zur Repo-Wurzel.
+% Stellen, die erst mit PR #62 gelten, tragen \pruefen{Stand PR \#62 ...}.
+% Zahlen der Planer-Studie vom 26.11. stehen bewusst NICHT hier (gehören in die Evaluation).
+% ======================================================================
+
+\subsection{Kollisionsmodell}
+\label{sec:kollisionsmodell}
+
+% Rückbezug tab:schutzmechanismen (Vermeiden: Kollisionsprüfung und geplante Bahnen), Hüllkörper sec:kollision_sdt.
+Bahnplaner und Laufzeitüberwachung rechnen mit einem Kugelmodell der Arme und Hände, weil beide Abstände für viele Armstellungen in kurzer Zeit brauchen.
+Das Modell setzt die Kollisionsprüfung aus Tabelle~\ref{tab:schutzmechanismen} mit dem Hüllkörper um, dessen Schnitttest nach Abschnitt~\ref{sec:kollision_sdt} am einfachsten ist.
+% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:3-31 @e452513
+
+% Erzeugung und Auflösung der Kugelsätze.
+Das Kugelmodell entsteht beim Start selbsttätig aus den Kollisionsnetzen des Robotermodells.
+Ein Clusterverfahren teilt die mit höchstens 5\,mm Punktabstand abgetastete Oberfläche jedes Kettenglieds in Gruppen und legt um jede Gruppe eine Kugel, die alle ihre Punkte einschließt.
+Gegen die Umgebung gelten Radien bis 2,2\,cm an der Hand und bis 4\,cm am übrigen Arm.
+Gegen den eigenen Körper und den anderen Arm genügen Kugeln bis 5\,cm ab dem Ellbogen, und der Körper selbst ist mit Kugeln bis 9\,cm angenähert.
+Abbildung~\ref{fig:kugelmodell} zeigt den Kugelsatz der Hand, der für eine ausgetauschte Hand auf dieselbe Weise entsteht (Abschnitt~\ref{sec:hand_profile}).
+% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:39-62,114-149,195-250,335-436 @e452513, Daten/kugelmodell/README.md (Abbildung aus Stand fdb9cba, arm_geometry.py bis 6a40e47 unverändert)
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/kugelmodell-haende-3d}
+  \caption[Kugelmodell der Hand]{Kugelsatz der linken Hand für die Prüfung gegen die Umgebung. Die Kugeln umschließen die Kollisionsgeometrie der Hand und ragen deshalb über ihre Oberfläche hinaus.}
+  \label{fig:kugelmodell}
+\end{figure}
+
+In beiden Teilbildern der Abbildung~\ref{fig:kugelmodell} stehen die Kugeln über die Handfläche hinaus.
+Dieser Überstand bestimmt beim reaktiven Nachführen den kleinsten Abstand der Hand zu einer Fläche (Abschnitt~\ref{sec:laufzeitueberwachung}), seine Größe weist Abschnitt~\ref{sec:eval_manipulation} aus.
+% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:387-408,624-634 @e452513
+
+% Abstände, Weltmodell, Greifobjekte, Sim/Real.
+Objekte kennt das Modell als orientierte Quader aus dem gemeinsamen Weltmodell der Szene (Abschnitt~\ref{sec:szenen}).
+Für jedes Paar aus Kugel und Quader liefert es den vorzeichenbehafteten Abstand der Oberflächen samt Gradient nach den Gelenkwinkeln, und zwar über eine eigene Vorwärtskinematik für viele Armstellungen zugleich.
+Handkugeln dürfen Greifobjekte berühren, alle übrigen Kugeln nicht.
+Weil das Weltmodell nur in der Simulation aus der Szene entsteht, prüft das Modell im Realbetrieb nur den eigenen Körper und die Arme gegeneinander \pruefen{Realbetrieb ohne Weltmodell so gewollt? Im Code startet die Szenenanbindung nur mit der Simulation}.
+% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:279-322,486-618 @e452513, g1pilot/g1pilot/manipulation/arm_planner.py:155-158 @e452513, unitree_mujoco/simulate_python/scene_objects.py:277-309 @e452513, g1pilot/launch/bringup_sim.launch.py:125-132 @e452513, g1pilot/g1pilot/navigation/scene_bridge.py:1-19,56 @e452513
+
+\subsection{Bahnplaner}
+\label{sec:bahnplaner}
+
+% Rückbezug tab:schutzmechanismen (geplante Bahnen), Nutzer der geplanten Bewegung, Verweis auf Kap. 4.
+Der Bahnplaner führt jede Armbewegung zu einem festen Ziel: gespeicherte Posen und Abläufe (Abschnitt~\ref{sec:posen_ablaeufe}), Ziele über die Arm-Schnittstelle (Abschnitt~\ref{sec:entwickler_api}), Grundstellung, Lauf-Pose und Rückgabe an den Onboard-Regler (Abschnitt~\ref{sec:armuebergabe}).
+Seine Bahnen halten in der Mitte Abstand zu Objekten und führen nur nahe Start und Ziel dicht heran, weil die Hand dort oft auf einer Fläche aufliegt.
+Die zugrunde liegenden Verfahren führt Abschnitt~\ref{sec:bahnplanung_sdt} ein.
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:6-26 @e452513, g1pilot/g1pilot/manipulation/arm_controller.py:1382-1385,2363,2483-2486,2837,2862,2966 @e452513
+
+% Leitidee Trichter, G7.6.
+Dazu verlangt der Planer für jede Kugel~$k$ und jedes Objekt~$o$ einen Abstandsbedarf
+\begin{equation}
+  b_{ko} = f_{ko} + w_k\,\bigl(C - f_{ko}\bigr), \qquad
+  w_k = 3u_k^2 - 2u_k^3, \qquad
+  u_k = \min\left(\frac{a_k}{R},\ 1\right).
+  \label{eq:abstandsbedarf}
+\end{equation}
+\formeleintrag{Abstandsbedarf des Bahnplaners mit Trichter um Start und Ziel}%
+Darin ist $a_k$ der Abstand der Kugelmitte von ihrer Lage in der näheren der beiden Endstellungen, $R$ der Trichterradius und $C$ der Abstand in der Bahnmitte.
+Der Endwert $f_{ko}$ ist der Abstand des Paars an diesem Endpunkt, wenn er negativ ist, und sonst null.
+Liegt die Kugel nahe an beiden Endpunkten, gilt der kleinere Endwert, damit kurze Bewegungen auf einer Fläche lösbar bleiben \pruefen{Stand PR \#62, nach Merge BA-Stable-Hash eintragen}.
+Voreingestellt sind $C = 5$\,cm und $R = 15$\,cm gegen die Umgebung sowie $C = 1{,}5$\,cm gegen Körper und anderen Arm.
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:72-85,112-114,160-180,251-272,297-316 @e452513
+
+Abbildung~\ref{fig:trichter} zeigt die Wirkung von Gleichung~\ref{eq:abstandsbedarf} an einer Handkugel.
+Am Start liegt die Kugel auf, ihr Bedarf ist null.
+Mit wachsendem $a_k$ steigt er ohne Knick bis zum vollen Abstand~$C$ bei $a_k = R$ und sinkt vor dem Ziel ebenso, sodass von selbst ein weicher Abhebe- und Anfahrbogen über das Hindernis entsteht.
+Steckt eine Kugel am Endpunkt schon im Objekt (Teilbild~b), darf sie dort starten, aber nicht tiefer eindringen.
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:13-26,251-272 @e452513, Daten/planer-trichter.py (Rechnung aus den Voreinstellungen)
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/planer-trichter}
+  \caption[Trichter des Bahnplaners]{Abstandsbedarf des Bahnplaners nach Gleichung~\ref{eq:abstandsbedarf} mit $C = 5$\,cm und $R = 15$\,cm. a) Schematische Bahn einer Handkugel (grün), das Band zeigt Kugelradius plus Bedarf. b) Berechneter Bedarf für zwei Endwerte, keine Messwerte.}
+  \label{fig:trichter}
+\end{figure}
+
+% Optimierung, G7.7.
+Die Bahn besteht aus 24 Stützpunkten im Gelenkraum zwischen fester Start- und Zielstellung, die gemeinsam die Kosten
+\begin{equation}
+  J(\xi) = \frac{1}{2}\,\xi^\mathsf{T} H\,\xi
+  + \lambda_\mathrm{P} \sum_{t} \| p_{t+1} - p_t \|^2
+  + \lambda_\mathrm{K} \sum_{t} \sum_{k,o} \max\bigl(0,\ b_{ko,t} - d_{ko,t}\bigr)^2
+  + \lambda_\mathrm{A}\, J_\mathrm{A}
+  \label{eq:planerkosten}
+\end{equation}
+\formeleintrag{Kostenfunktion der Bahnoptimierung}%
+minimieren.
+Darin enthält $\xi$ die Stützpunkte, $H$ ist die Glattheitsmatrix aus ersten und zweiten Differenzen, $p_t$ der Handpunkt, $d_{ko,t}$ der Abstand aus dem Kugelmodell, und die $\lambda$ sind Gewichte.
+Der Term $J_\mathrm{A}$ lässt die Hand nahe an einem Objekt auf den letzten 10\,cm entlang ihrer Fingerrichtung ankommen, ersatzweise von oben.
+Die Suchrichtung des Gradientenverfahrens ist mit $H^{-1}$ vorkonditioniert, sodass eine Korrektur an einer Stelle die ganze Bahn glatt verformt.
+Diesen vorkonditionierten Gradientenabstieg nutzt auch CHOMP \cite{Schulman2014}\ev{Schulman2014.03}, er bevorzugt Änderungen mit wenig zusätzlicher Beschleunigung \cite{Zucker2013}\ev{Zucker2013.06}.
+Bleibt am Ende eine Verletzung des Bedarfs, steigt $\lambda_\mathrm{K}$ stufenweise.
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:86-88,102-109,194-245,356-464 @e452513
+
+% Rückfallkette B7.10.
+Weil die Optimierung in lokalen Minima hängen bleiben kann (Abschnitt~\ref{sec:bahnplanung_sdt}), durchläuft der Planer die Stufen in Abbildung~\ref{fig:rueckfallkette}, bis eine Bahn die Abschlussprüfung besteht.
+Vorab lehnt er ein Ziel ab, das mit dem eigenen Körper kollidiert oder an der exakten Geometrie mehr als 2\,cm in ein Objekt eindringt.
+Die vier Startbahnen der Optimierung sind die Gerade und Bögen, die die Hand um 15\,cm anheben, um 15\,cm zurückziehen und als letzter Versuch um 30\,cm anheben.
+Danach sucht ein stichprobenbasierter Planer nach dem Prinzip von RRT-Connect \cite{Kuffner2000}\ev{Kuffner2000.01} mit dem kleinsten Abstand $C_\mathrm{min} = 1{,}5$\,cm, und die Glättung hebt den Abstand an, soweit die Bahn gültig bleibt.
+Alle Stufen teilen sich 2,5\,s Rechenzeit.
+\pruefen{Stand PR \#62, nach Merge BA-Stable-Hash eintragen: Zielprüfung an der exakten Geometrie, Startbahn 30\,cm}
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:65-91,516-615,706-833 @e452513, g1pilot/g1pilot/manipulation/arm_geometry.py:621-696 @e452513, g1pilot/g1pilot/manipulation/arm_planner_process.py:53-58,115-125 @e452513
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/planer-rueckfallkette}
+  \caption[Rückfallkette des Bahnplaners]{Rückfallkette des Bahnplaners. Die Stufen laufen von links nach rechts, bis ein Versuch die Abschlussprüfung besteht. $C$ ist der Abstand in der Bahnmitte, $C_\mathrm{min}$ der kleinste zulässige Abstand.}
+  \label{fig:rueckfallkette}
+\end{figure}
+
+% Abschlussprüfung, Zeitparametrierung, Einbindung, Vorverweis.
+Die Abschlussprüfung tastet jede Bahn dicht nach und prüft Bedarf, Gelenkgrenzen und die exakte Selbstkollision.
+Die Zeitparametrierung begrenzt anschließend jedes Gelenk auf 1,2\,rad/s und 2\,rad/s$^2$ sowie jede Kugel und den Handpunkt auf 0,22\,m/s und 0,6\,m/s$^2$, also unter die Grenzen des Armreglers (Abschnitt~\ref{sec:regelkette}).
+Unter 5\,cm Abstand zu einem Objekt sinkt das Tempo bis auf 35\,\%, damit die Hand sanft aufsetzt, in Simulation und Realbetrieb gleich.
+Der Planer läuft in einem eigenen Prozess und plant beide Arme gemeinsam, und der Armregler verwirft ein Ergebnis, sobald eine neuere Anfrage oder ein Abbruch vorliegt.
+Planungserfolg und Planungszeit weist Abschnitt~\ref{sec:eval_manipulation} aus.
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:91-99,467-501,621-663 @e452513, g1pilot/g1pilot/manipulation/arm_controller.py:2969-2980,2982-3060,3062-3131,3148-3171 @e452513, g1pilot/g1pilot/manipulation/arm_planner_process.py:1-26 @e452513, g1pilot/launch/bringup_sim.launch.py:112 @e452513, g1pilot/launch/bringup_real.launch.py:106-107 @e452513
+
+\subsection{Laufzeitüberwachung}
+\label{sec:laufzeitueberwachung}
+
+% Rückbezug tab:schutzmechanismen (Kollisionsprüfung zur Laufzeit), Stelle in der Regelkette.
+Die Laufzeitüberwachung prüft in jedem Regeltakt den kommandierten Schritt der Arme, beim reaktiven Nachführen wie bei geplanten Bahnen.
+Sie bildet die Kollisionsprüfung zur Laufzeit aus Tabelle~\ref{tab:schutzmechanismen}, sitzt hinter den Begrenzern für Geschwindigkeit und Beschleunigung (Abschnitt~\ref{sec:regelkette}) und schützt auch, wenn sich ein Objekt nach der Planung bewegt hat.
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:1729-1761,3895-3908 @e452513
+
+% Umgebung: Untergrenzen, Projektion G7.9, Verlangsamung.
+Gegen Objekte gilt je Paar aus Kugel und Objekt eine Untergrenze von 0\,cm für Handkugeln, damit die Hand aufsetzen darf, und 1\,cm für die übrigen Armkugeln, gegenüber Greifobjekten gilt für Handkugeln keine.
+Nähert sich ein Paar unter seiner Untergrenze weiter an, entfernt die Überwachung den annähernden Anteil aus dem Schritt
+\begin{equation}
+  \Delta q' = \Delta q - \frac{\min\bigl(0,\ g_{ko}^\mathsf{T}\Delta q\bigr)}{g_{ko}^\mathsf{T} g_{ko}}\, g_{ko}
+  \label{eq:projektion}
+\end{equation}
+\formeleintrag{Projektion des Armschritts bei unterschrittener Untergrenze}%
+mit dem Schritt $\Delta q$ der 14 Armgelenke und dem Gradienten $g_{ko}$ des Abstands nach den Gelenkwinkeln.
+Die Hand gleitet so an der Fläche entlang, statt stehen zu bleiben.
+Verletzt auch der projizierte Schritt eine Untergrenze, hält der Arm an.
+Beim reaktiven Nachführen verkleinert die Überwachung außerdem Schritte, die sich einem Objekt auf weniger als 5\,cm über der Untergrenze nähern, bis auf 25\,\%.
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:200-206,1623-1645,1663-1727,1740-1748 @e452513
+
+% Selbstkollision.
+Die Selbstkollision prüft die Überwachung exakt an den konvexen Hüllen von Ellbogen, Handgelenk und Handbasis gegen den Körper und den anderen Arm, die Finger bleiben zum Greifen ausgenommen.
+Dafür nutzt sie das geometrische Modell der Starrkörperbibliothek Pinocchio mit Kollisions- und Abstandsberechnung auf Basis von FCL \cite{Carpentier2019}\ev{Carpentier2019.03,Carpentier2019.04}.
+\qf{Kollisionsbibliothek coal (Nachfolger von hpp-fcl, von Pinocchio heute statt FCL genutzt) als GitHub-Quelle mit Commit-Hash}
+Eine Durchdringung hält den Arm an, und ein Randband von 3\,cm darf nur eine geplante Bahn neu betreten, weil der Planer sie schon exakt geprüft hat.
+% DB: g1pilot/g1pilot/utils/ik_solver.py:53,89,232-300,327-345 @e452513, g1pilot/g1pilot/manipulation/arm_controller.py:1603-1607,1750-1758 @e452513
+
+% Gewolltes Berühren (L7.34), Bahnuhr, Sim/Real, Vorverweis.
+Gewolltes Berühren regeln die Untergrenzen.
+Während einer geplanten Bewegung sinken sie auf die Werte an Start und Ziel der Bahn abzüglich 3\,mm, sodass die Bewegung mit aufliegender Hand enden darf \pruefen{Stand PR \#62: erst mit der exakten Zielprüfung liegt die Hand wirklich auf}.
+Das reaktive Nachführen hält dagegen schon an, wenn das Kugelmodell die Fläche erreicht, also etwas über ihr.
+Hält die Überwachung eine geplante Bewegung an, steht auch deren Bahnuhr, und nach 3\,s Stillstand bricht die Bewegung ab.
+Die Werte gelten in Simulation und Realbetrieb gleich, die Prüfung gegen Objekte wirkt aber nur in der Simulation (Abschnitt~\ref{sec:kollisionsmodell}).
+Die Prüfung der Schutzmechanismen beschreibt Abschnitt~\ref{sec:eval_sicherheit}.
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:1623-1645,3115-3124,3735-3795 @e452513, g1pilot/g1pilot/manipulation/arm_geometry.py:624-638 @e452513, g1pilot/launch/manipulation_launcher.launch.py:32,36 @e452513, g1pilot/launch/bringup_real.launch.py:108 @e452513

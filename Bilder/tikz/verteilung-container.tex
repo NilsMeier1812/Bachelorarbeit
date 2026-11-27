@@ -1,0 +1,76 @@
+% Verteilung der Prozesse auf Host und Container, a) Simulation, b) Realbetrieb (Kap. Umsetzung, fig:verteilung).
+% Eigene Darstellung, keine Quelle in der Caption.
+% Basis: G1@6a40e47 g1pilot/docker-compose.yml:10-17 (network_mode host, Code eingebunden), :25-66 (Container Physiksimulation),
+%   :67-153 (Steuerung Simulation, ROS_DOMAIN_ID=0, Bluetooth über System-D-Bus), :159-261 (Steuerung Realbetrieb,
+%   ROS_DOMAIN_ID=1, ROBOT_INTERFACE, Hände per Modbus TCP 192.168.123.210/.211);
+%   g1pilot/utils/common.py:6-23 (Unitree-DDS Domain 1/lo bzw. 0/Netzwerkkarte);
+%   unitree_mujoco/simulate_python/scene_state_publisher.py:1-22 (UDP von der Simulation zum ROS-Container);
+%   g1pilot/g1_gui.py:1-23 und start.sh:51-58 (Startmenü auf dem Host); docker/sim_shutdown_watcher.sh, real_shutdown_watcher.sh (Wächter auf dem Host);
+%   g1pilot/start_gui/netsetup.py:1-13 (Einrichtung der Netzwerkkarte für das Roboter-LAN);
+%   Arm-API per HTTP: Kap. 6 tab:andockpunkte („beide, lokal“).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/verteilung-container} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    klein/.style={font=\footnotesize, text=baGrau},
+    host/.style={draw=baGrau, ba duenn, fill=baHellgrau!25, rounded corners=3pt},
+    behaelter/.style={draw=baGrau, ba duenn, fill=white, rounded corners=3pt},
+    proz/.style={ba block, font=\footnotesize, minimum width=26mm, minimum height=10mm, text width=24mm},
+    oben/.style={ba block, font=\footnotesize, minimum width=22mm, minimum height=9mm, text width=20mm},
+    aussen/.style={ba block, font=\footnotesize, minimum width=21mm, minimum height=9mm, text width=19mm},
+    kDDS/.style={draw=baGruen, ba dick},
+    kROS/.style={draw=baBlau, ba normal},
+    kUDP/.style={draw=baGrau, ba normal, dash pattern=on 2pt off 2pt},
+    kHTTP/.style={draw=baGrau, ba normal, dash pattern=on 0.8pt off 1.6pt},
+    kBT/.style={draw=baHellblau, ba normal, dash pattern=on 4pt off 1.5pt on 0.8pt off 1.5pt},
+    kMB/.style={draw=baBlau, ba normal, dash pattern=on 7pt off 2pt},
+    kStart/.style={draw=baGrau, ba duenn, ->},
+  }
+  % Raster je Teilbild (x0 = 0 bzw. 8,3): Host 0..7,7 x 1,3..7,5; Container links 0,25..3,35, rechts 4,35..7,45, je 1,6..5,8;
+  % obere Reihe y = 6,7; Prozessreihe A y = 4,15, Reihe B y = 2,55; Geräte außerhalb y = 0,45.
+  \foreach \x/\k/\titel in {0/a/a) Simulation, 8.3/b/b) Realbetrieb} {
+    \draw[host] (\x,1.3) rectangle (\x+7.7,7.8);
+    \node[klein, anchor=north west, inner sep=0pt] at (\x+0.2,7.68) {Host-PC};
+    \node[oben] at (\x+1.35,6.65) {Startmenü};
+    \node[oben] at (\x+3.85,6.65) {Wächter};
+    \node[oben] (FP\k) at (\x+6.35,6.65) {Fremdes\\Programm};
+    \draw[behaelter] (\x+4.35,1.6) rectangle (\x+7.45,5.8);
+    \node[ba teiltitel] at (\x+3.85,-0.35) {\titel};
+  }
+  % ---------------- a) Simulation ----------------
+  \draw[behaelter] (0.25,1.6) rectangle (3.35,5.8);
+  \node[klein, anchor=north west, align=left, inner sep=0pt] at (0.4,5.65) {Container\\Physiksimulation};
+  \node[klein, anchor=north west, align=left, inner sep=0pt] at (4.5,5.65) {Container\\Steuerung};
+  \node[proz, minimum height=26mm] (SIM) at (1.8,3.35) {MuJoCo-\\Simulation mit\\Kopplungs-\\schicht};
+  \node[proz] (FKa) at (5.9,4.15) {Funktions-\\knoten};
+  \node[proz] (BOa) at (5.9,2.55) {Bedien-\\oberfläche};
+  \node[aussen] (SPa) at (5.9,0.45) {Smartphone};
+  \draw[kDDS] (SIM.east |- 0,4.35) -- (FKa.west |- 0,4.35);
+  \draw[kUDP] (SIM.east |- 0,3.95) -- (FKa.west |- 0,3.95);
+  \draw[kROS] (FKa) -- (BOa);
+  \draw[kHTTP] (7.0,0 |- FPa.south) -- (7.0,0 |- FKa.north);
+  \draw[kBT] (SPa.north) -- (BOa.south);
+  % ---------------- b) Realbetrieb ----------------
+  \node[klein, anchor=north west, align=left, inner sep=0pt] at (12.8,5.65) {Container\\Steuerung};
+  \node[proz] (NIC) at (10.1,4.15) {Netzwerkkarte\\(Roboter-LAN)};
+  \node[proz] (FKb) at (14.2,4.15) {Funktions-\\knoten};
+  \node[proz] (BOb) at (14.2,2.55) {Bedien-\\oberfläche};
+  \node[aussen] (G1) at (9.25,0.45) {Unitree G1};
+  \node[aussen] (HA) at (11.6,0.45) {Inspire-\\Hände};
+  \node[aussen] (SPb) at (14.2,0.45) {Smartphone};
+  \draw[kDDS] (NIC.east |- 0,4.35) -- (FKb.west |- 0,4.35);
+  \draw[kMB] (NIC.east |- 0,3.95) -- (FKb.west |- 0,3.95);
+  \draw[kDDS] (9.25,0 |- NIC.south) -- (G1.north);
+  \draw[kMB] (10.85,0 |- NIC.south) -- (10.85,0 |- HA.north);
+  \draw[kROS] (FKb) -- (BOb);
+  \draw[kHTTP] (15.3,0 |- FPb.south) -- (15.3,0 |- FKb.north);
+  \draw[kBT] (SPb.north) -- (BOb.south);
+  \draw[kStart] (9.65,6.2) -- node[klein, right, pos=0.45] {richtet ein} (9.65,0 |- NIC.north);
+  % Trenner zwischen den Teilbildern
+  \draw[ba trenner] (8.15,-0.6) -- (8.15,7.8);
+  % ---------------- Legende (eine Zeile) ----------------
+  \foreach \lx/\stil/\text in {0.4/kDDS/DDS, 2.7/kROS/ROS~2, 5.1/kUDP/UDP,
+                               7.3/kHTTP/HTTP, 9.6/kBT/Bluetooth, 12.6/kMB/Modbus TCP} {
+    \draw[\stil] (\lx,-1.2) -- (\lx+0.8,-1.2);
+    \node[font=\footnotesize, anchor=west, inner sep=2pt] at (\lx+0.85,-1.2) {\text};
+  }
+\end{tikzpicture}

@@ -1,0 +1,144 @@
+% ======================================================================
+% Paket B (Entwurf 27.11.2026): 7.3 Fortbewegung (mit 7.3.1 und 7.3.2) und 7.7 Autonome Navigation in der Simulation.
+% Code-Bezug: Branch BA-Stable @6a40e47 (Repo NilsMeier1812/G1). Pfade in "% DB:" relativ zur Repo-Wurzel (Verzeichnis G1).
+% Direkt einfügbar in Kapitel/07_Umsetzung.tex an den Stellen der Gerüst-Labels. Keine Präambel.
+% Neue Belege (noch ohne echte Nummer): \ev{UnitreeRLMjlab.08}, siehe B-notizen.md.
+% ======================================================================
+
+\section{Fortbewegung}
+\label{sec:fortbewegung_umsetzung}
+% Basis: Doku g1pilot/docs/30-T-Stehen-und-Gehen.md (nur Wegweiser); Code loco_sim.py, loco_client.py.
+Stehen und Gehen führt in der Simulation der Ersatzregler aus und am realen Roboter der Onboard-Regler, beide nehmen dieselben Bedienbefehle an (Abschnitt~\ref{sec:fortbewegungspfade}, A4).
+Der Ersatzregler ist eine eigene Entwicklung um übernommene Lauf-Policies und läuft nur in der Simulation.
+Der Onboard-Regler ist dagegen ein geschlossenes Produkt des Herstellers \cite{Hu2026}\ev{Hu2026.02}, das die Umgebung über eine Anbindung nur im Realbetrieb anspricht.
+Beide abonnieren dieselben ROS-2-Topics für Start, Stehen, Gehen, Not-Halt und die normierte Sollgeschwindigkeit, sodass die Bedienwege (Abschnitt~\ref{sec:bedienwege}) nicht zwischen Simulation und Realbetrieb unterscheiden.
+% DB: g1pilot/g1pilot/navigation/loco_sim.py:249-258; g1pilot/g1pilot/navigation/loco_client.py:236-253
+
+\subsection{Ersatzregler in der Simulation}
+\label{sec:ersatzregler}
+% Basis: Doku 30-T "Zwei kombinierte Regler", "Zustandsmaschine", "Abfangen", "Bekannte Einschränkungen".
+Weil der Onboard-Regler in der Simulation fehlt, übernimmt der Ersatzregler Stehen und Gehen der Beine und der Taille (Abschnitt~\ref{sec:fortbewegungspfade}, A4): Eine Lauf-Policy setzt die Geschwindigkeitsvorgabe um, ein modellbasierter Standregler hält den Roboter am Platz.
+Er rechnet mit 50\,Hz, der Taktrate der eingebundenen Policies, im Gleichschritt mit der Simulation (Abschnitt~\ref{sec:bridge}), und regelt die Arme nicht, die allein dem Armregler gehören (Abschnitt~\ref{sec:armregelung}).
+% DB: g1pilot/g1pilot/navigation/loco_sim.py:45-47,201-203,643-670; g1pilot/g1pilot/navigation/walk_policy.py:86; g1pilot/policies/*/deploy.yaml (step_dt 0.02)
+
+Abbildung~\ref{fig:ersatzregler_zustaende} zeigt die vier Zustände des Ersatzreglers und ihre Übergänge.
+In der Bereitschaft hält die Kopplungsschicht die Basis fest, und die Beine stehen mit erhöhter Dämpfung in der Standpose.
+Befehle führen von dort ins Stehen oder ins Gehen, und eine Geschwindigkeitsvorgabe im Stehen setzt den Roboter nicht in Bewegung.
+Selbsttätig geschehen nur zwei Übergänge, das Abfangen und der Wechsel ins Dämpfen nach einem Sturz.
+Das Dämpfen ist zugleich der Zustand des Not-Halts, der in der Simulation damit auch die Beine dämpft (Abbildung~\ref{fig:betriebszustaende}), und schaltet den Armregler ab.
+% DB: g1pilot/g1pilot/navigation/loco_sim.py:89-98,355-429,431-466,502-517,559-566,672-692
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/ersatzregler-zustaende}
+  \caption[Zustände des Ersatzreglers]{Zustände des Ersatzreglers und ihre Übergänge, nur in der Simulation. Der Befehl Start führt aus jedem Zustand in die Bereitschaft, der Befehl Gehen starten gilt auch aus Bereitschaft und Dämpfen. Selbsttätige Übergänge sind orange und gestrichelt dargestellt.}
+  \label{fig:ersatzregler_zustaende}
+\end{figure}
+
+Die Sturzerkennung wertet nur die IMU aus: Übersteigt die Neigung des Beckens 60 Grad länger als 0,3\,s, wechselt der Regler im Stehen und im Gehen ins Dämpfen, was zu den Verfahren der Sturzvorhersage mit statischem Schwellwert zählt \cite{Subburaman2023}\ev{Subburaman2023.06}.
+Sie gibt es nur in der Simulation (Tabelle~\ref{tab:schutzmechanismen}).
+% DB: g1pilot/g1pilot/navigation/loco_sim.py:144-147,569-577,733-737,769-775
+
+Der Standregler führt die Beine mit einer um den Faktor 10 versteiften Haltungsregelung auf die Standpose und richtet den Roboter über Vorsteuermomente an Knöchel und Hüfte auf.
+Gleichung~\ref{eq:knoechelmoment} beschreibt das Moment am Knöchel um die Querachse:
+\begin{equation}
+  \tau_\mathrm{K} = \mathrm{sat}\!\left( k_\mathrm{p}\, g_x + k_\mathrm{d}\, \omega_y + \tau_\mathrm{I},\; \tau_{\max} \right)
+  \label{eq:knoechelmoment}
+\end{equation}
+\formeleintrag{Knöchelmoment des Standreglers}
+Darin sind $g_x$ die Längskomponente der projizierten Gravitation, die im aufrechten Stand null ist, $\omega_y$ die Drehrate um die Querachse aus der IMU, $\tau_\mathrm{I}$ ein Integralanteil für statische Neigungen und $\mathrm{sat}(\cdot,a)$ die Begrenzung auf den Betrag $a$.
+Die Gewichte betragen $k_\mathrm{p} = 150\,\mathrm{Nm}$ und $k_\mathrm{d} = 40\,\mathrm{Nm\,s/rad}$, die Momentgrenze $\tau_{\max} = 50\,\mathrm{Nm}$.
+Eine Schwerpunkt-Führung verhindert zusätzlich, dass Arme und Lasten den Roboter über die Fußkante kippen: Der Schwerpunkt folgt aus den Gelenkwinkeln über ein Starrkörpermodell, das die Bibliothek Pinocchio \cite{Carpentier2019}\ev{Carpentier2019.01} aus der Modelldatei der Simulation lädt \qf{Pinocchio: Laden von MJCF-Modellen und Schwerpunktberechnung (Software-Dokumentation)}, und der Regler verschiebt das Becken, bis der Schwerpunkt 3,5\,cm vor dem Knöchel liegt.
+% DB: g1pilot/g1pilot/navigation/stand_balancer.py:78-92,99-113,290-314,348-371,380-390; g1pilot/g1pilot/navigation/com_model.py:23-51; g1pilot/g1pilot/navigation/loco_sim.py:166-186,331-346
+
+Lauf-Policies verschiedener Herkunft sind hinter einer gemeinsamen Beschreibungsdatei austauschbar, was die Frage nach der Modularität auf der Ebene der Daten beantwortet (Abschnitt~\ref{sec:erweiterungskonzept}).
+Eine Policy besteht aus einem neuronalen Netz im ONNX-Format \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.04} und dieser Datei, die Regelperiode, gesteuerte Gelenke, Ausgangsstellung, Steifigkeit, Dämpfung, Aktionsskalierung, Aufbau der Beobachtung und Bereich der Geschwindigkeitsvorgabe festlegt.
+Eine Formatkennung darin wählt die Aufbereitung der Beobachtung, alle Formate bedienen dieselbe Schnittstelle, und eine weitere Policy bekannten Formats braucht nur ihre beiden Dateien.
+% DB: g1pilot/g1pilot/navigation/walk_policy.py:23-29,78-120,183-203,333-358; g1pilot/policies/*/deploy.yaml
+
+Drei Policies aus zwei Quellen sind eingebunden (Tabelle~\ref{tab:policies}, Tabelle~\ref{tab:policies_einbindung}).
+Die Policy von Unitree stammt aus Unitree RL Mjlab \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.01}, deren Projekt empfiehlt, Policies vor dem Einsatz am Roboter in der Simulation unitree\_mujoco zu erproben \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.08}.
+Die beiden Policies von NVIDIA stammen aus WBC-AGILE \qf{WBC-AGILE: Zhao2026, Freigabe fehlt}.
+Die Netze sind unverändert übernommen, bei AGILE nur von TorchScript nach ONNX konvertiert, Beschreibungsdatei, Standpose, Abfang-Policy und die Begrenzung der Vorwärtsgeschwindigkeit auf 1,0\,m/s sind eigene Festlegungen.
+Bei den AGILE-Policies bleiben die Arme frei \qf{Trainingsbedingungen der AGILE-Policies (Zhao2026)}, bei der Unitree-Policy parkt der Armregler sie in einer Gehpose, und Gehen starten wirkt erst, wenn die Arme dort stehen, spätestens nach 15\,s.
+% DB: g1pilot/policies/g1_wholebody/ATTRIBUTION.md:1-10; g1pilot/policies/agile_velocity_g1/ATTRIBUTION.md:1-18; g1pilot/policies/agile_velocity_height_g1/deploy.yaml:122-137,155-156; g1pilot/g1pilot/navigation/walk_policy.py:10-21,131,355-358; g1pilot/g1pilot/navigation/loco_sim.py:157-163,444-466,626-631; g1pilot/NOTICE.md:40-41
+
+Tabelle~\ref{tab:policies_einbindung} ordnet die drei Policies den Formaten und ihrer Einbindung zu.
+Die Aktion des Netzes wird je Gelenk in einen Sollwinkel umgerechnet (Gleichung~\ref{eq:aktion_sollwert}), den die Kopplungsschicht als Sollwert ihres PD-Gesetzes ausführt (Abschnitt~\ref{sec:bridge}).
+
+\begin{table}[htbp]
+    \tabstil
+    \setlength{\tabcolsep}{3pt}
+    \centering
+    \caption[Einbindung der Lauf-Policies]{Einbindung der drei Lauf-Policies in den Ersatzregler. Herkunft und Eigenschaften der Policies stehen in Tabelle~\ref{tab:policies}.}
+    \label{tab:policies_einbindung}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.3cm}|>{\raggedright\arraybackslash}p{2.4cm}|X|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{2.1cm}|}\hline
+        \tabkopfzeile \tabkopf{Policy} & \tabkopf{Eingabe} & \tabkopf{Aktionen und Beobachtung} & \tabkopf{Arme beim Gehen} & \tabkopf{Abfang-Policy}\\\hline
+        Unitree RL Mjlab & 98 Werte, ein Zeitschritt & 29 Gelenke berechnet, 15 (Beine, Taille) ausgeführt, Beobachtung mit Gangphase und letzter Aktion & Gehpose, vom Armregler geparkt & dieselbe Policy\\\hline
+        WBC-AGILE Velocity & 255 Werte, fünf Zeitschritte & 14 gesteuerte Gelenke (Beine, Taille in Wank- und Nickachse), Taillendrehung gehalten & frei & dieselbe Policy\\\hline
+        WBC-AGILE Velocity-Height & 400 Werte, fünf Zeitschritte & 12 Beingelenke, Taille gehalten, Beobachtung mit Höhenvorgabe und allen 29 Gelenken & frei & Velocity\\\hline
+    \end{tabularx}
+\end{table}
+% DB: g1pilot/policies/*/deploy.yaml; g1pilot/g1pilot/navigation/walk_policy.py:122-330
+
+Gleichung~\ref{eq:aktion_sollwert} gilt für alle drei Formate:
+\begin{equation}
+  q_{\mathrm{soll},i} = q_{0,i} + s_i \cdot \mathrm{sat}\!\left( a_i,\; a_{\max} \right)
+  \label{eq:aktion_sollwert}
+\end{equation}
+\formeleintrag{Sollwinkel aus der Aktion einer Lauf-Policy}
+Dabei sind $q_{0,i}$ die Ausgangsstellung und $s_i$ die Skalierung des Gelenks $i$ aus der Beschreibungsdatei sowie $a_i$ die Ausgabe des Netzes.
+Die Begrenzung $a_{\max}$ gilt nur, wo die Beschreibungsdatei sie nennt, bei WBC-AGILE Velocity-Height mit dem Wert 6.
+Die normierte Geschwindigkeitsvorgabe der Bedienwege zwischen $-1$ und $1$ skaliert der Ersatzregler auf den Befehlsbereich der Policy, vorwärts bis 1,0\,m/s bei zwei Policies und bis 0,5\,m/s bei einer.
+Eine eigene Grenze setzt die Simulation nicht, im Unterschied zum Realbetrieb (Abschnitt~\ref{sec:onboard_anbindung}).
+% DB: g1pilot/g1pilot/navigation/walk_policy.py:103-111,270-272,328; g1pilot/g1pilot/navigation/loco_sim.py:559-566; g1pilot/policies/g1_wholebody/deploy.yaml:12-15; g1pilot/policies/agile_velocity_g1/deploy.yaml:66-71; g1pilot/policies/agile_velocity_height_g1/deploy.yaml:67-70,104-108
+
+Der Wechsel vom Gehen ins Stehen läuft in zwei Schritten, weil die Policy in einer Hocke mit leicht versetzten Füßen anhält: Zuerst bremst die Policy mit der Geschwindigkeit null, bis der Roboter 0,3\,s lang ruhig ist, danach übernimmt der Standregler, hält die vorgefundene Beinstellung und blendet seine Steifigkeit über 0,4\,s ein.
+Das Abfangen überträgt die Aufgabe kurzzeitig an die Policy, wenn die Neigung einer Fußsohle 6 Grad oder der horizontale Anteil der projizierten Gravitation 0,2 länger als 0,04\,s überschreitet, und nach der Beruhigung kehrt der Regler zum Standregler zurück.
+% DB: g1pilot/g1pilot/navigation/stand_balancer.py:15-29,115-175,201-234,330-337; g1pilot/g1pilot/navigation/loco_sim.py:120-139,355-383,417-442,788-808
+
+Der Ersatzregler ist ein Stellvertreter für die Simulation und nicht für den realen Roboter vorgesehen.
+Er liest nur IMU und Gelenkgeber, der Schwerpunkt stammt aus dem Modell der Simulation, und Lasten in den Händen kennt er nicht, weshalb Aussagen über das Gehen in der Simulation nur für ihn gelten (Abschnitt~\ref{sec:fortbewegungspfade}) und Abschnitt~\ref{sec:eval_fortbewegung} prüft, wie gut er Befehle umsetzt.
+% DB: g1pilot/g1pilot/navigation/loco_sim.py:725-757; g1pilot/g1pilot/navigation/com_model.py:1-17; g1pilot/docs/30-T-Stehen-und-Gehen.md:440-457
+
+\subsection{Anbindung des Onboard-Reglers}
+\label{sec:onboard_anbindung}
+% Basis: Doku 30-T "loco_client", 51-T, 50-A E.
+Am realen Roboter bildet eine dünne Anbindung dieselben Bedienbefehle wie beim Ersatzregler auf Aufrufe des Onboard-Reglers ab (Abschnitt~\ref{sec:fortbewegungspfade}, A5), sie gilt nur im Realbetrieb.
+Die Herstellerbibliothek ruft den Regler über Anfrage und Antwort auf \cite{UnitreeSDK2Py}\ev{UnitreeSDK2Py.01}, seine Zustände zeigt Tabelle~\ref{tab:g1_fsm}.
+Dass der Onboard-Regler den Unterkörper übernimmt, stammt aus G1Pilot \cite{HucebotG1Pilot}\ev{HucebotG1Pilot.01}, dessen Grundgerüst der Anbindung zu etwa 20\,\% erhalten ist (Tabelle~\ref{tab:eigenleistung}), eigen sind Bodenkontaktprüfung, Wege des Halts und Zustandsabgleich.
+% DB: g1pilot/NOTICE.md:21; g1pilot/g1pilot/navigation/loco_client.py:16-21,153-154,179-186,205-216
+
+Das Gehen gibt die Anbindung nur frei, wenn der Roboter in der Vorbereitung steht, kein Not-Halt aktiv ist und beide Knie Last tragen, geschätzt als Motormoment von mindestens 10\,Nm, höchstens 0,5\,s alt.
+Die Last am Knie dient als Kriterium, weil der gemeldete Modus am Kran nicht zwischen hängend und stehend unterscheidet \pruefen{Beobachtung am Kran (Real-Test 21.10.2026) von Nils bestätigen oder in Kapitel~\ref{chap:evaluation} belegen}.
+Fahrbefehle skaliert die Anbindung auf höchstens 0,4\,m/s vorwärts, 0,3\,m/s seitlich und 0,4\,rad/s Drehung, erneuert sie mit 20\,Hz und sendet einen Halt, wenn der Befehlsstrom länger als 0,5\,s ausbleibt \qf{Wirkung der Befehlsdauer am Onboard-Regler (Unitree-Entwicklerdoku)}.
+Beide Prüfungen und Grenzen gibt es nur im Realbetrieb, die Simulation begrenzt allein über den Befehlsbereich der Policy.
+\pruefen{Begründung der Geh-Grenzen 0,4 / 0,3 / 0,4 von Nils (Orientierung, Real-Test?)}
+% DB: g1pilot/g1pilot/navigation/ground_contact.py:3-22,27-79; g1pilot/g1pilot/navigation/loco_client.py:145-149,160,419-436,638-655,696-711,764-811,1021-1046; g1pilot/launch/bringup_real.launch.py:56-62,174-177,185-188
+
+Halt-Befehle haben Vorrang vor laufenden Aufrufen: Der Not-Halt sendet die Geschwindigkeit null und dämpft die Beine nur auf ausdrückliche Einstellung, der Voll-Notaus wählt zuerst den Dämpfungszustand (Abbildung~\ref{fig:betriebszustaende}), und beide warten auf einen laufenden Aufruf höchstens 0,5\,s.
+Zweimal je Sekunde gleicht die Anbindung zudem die Zustandsnummer des Onboard-Reglers mit ihrem Zustand ab, weil der Roboter auch außerhalb der Umgebung umgeschaltet werden kann, und sperrt bei Abweichung die Fahrbefehle.
+Die Wirkung der Halt-Stufen prüft Abschnitt~\ref{sec:eval_sicherheit}.
+% DB: g1pilot/g1pilot/navigation/loco_client.py:88-92,116,163,264-277,383-397,438-524,538-573,1089-1103; g1pilot/launch/bringup_real.launch.py:183-184
+
+% ----------------------------------------------------------------------
+% Optionale Tabelle T7.3 (nur bei Platz), Einbindung vor "Die Wirkung der Halt-Stufen ..." wäre möglich.
+% ----------------------------------------------------------------------
+
+\section{Autonome Navigation in der Simulation}
+\label{sec:navigation}
+% Basis: Doku 31-T-Navigation.md (Wegweiser), NOTICE.md; Code navigation/*.py.
+Die Navigation stammt überwiegend aus der Ausgangsbasis und ist nur in der Simulation eingebunden.
+Pfadplaner, Pfadfolger und Kartenerzeugung sind aus G1Pilot übernommen \cite{HucebotG1Pilot}\ev{HucebotG1Pilot.04}, der Anteil des Originals liegt je nach Datei zwischen 35 und 80\,\% (Tabelle~\ref{tab:eigenleistung}).
+Der Planer sucht im Belegungsraster einen kürzesten Weg mit einem Sicherheitsabstand von 0,30\,m um Objekte, der Folger erzeugt daraus Befehle eines virtuellen Controllers.
+Ergänzt sind die Karte aus dem gemeinsamen Weltmodell, die Position aus dem Simulationszustand, Stationen der Szene als Ziele und eine Zielanfahrt nahe an Tischen.
+% DB: g1pilot/NOTICE.md:22; g1pilot/g1pilot/navigation/dijkstra_planner.py:42-64; g1pilot/g1pilot/navigation/nav2point.py:15-35; g1pilot/g1pilot/navigation/sim_localization.py:1-19
+
+Die Karte entsteht aus den Objekten der Szene (Abschnitt~\ref{sec:szenen}) als Raster aus 100 mal 100 Zellen von je 0,1\,m, die Position liest die Lokalisierung direkt aus dem Zustand von MuJoCo.
+Die letzten 0,60\,m vor dem Ziel dürfen in den Sicherheitsabstand hineinreichen, aber nicht näher als 0,10\,m an ein Objekt, damit Stationen nahe an Tischen erreichbar sind, und jede Station erhält in der Bedienoberfläche einen Zielknopf.
+% DB: g1pilot/g1pilot/navigation/create_map.py:1-17,60-94; g1pilot/g1pilot/navigation/sim_localization.py:60-96; unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:618-638; g1pilot/g1pilot/navigation/dijkstra_planner.py:52-58,157-166; g1pilot/g1pilot/teleoperation/demo_gui.py:2033-2046
+
+Ein Umschalter gibt entweder die Befehle des Folgers oder die des Controllers an den Ersatzregler weiter, wobei er nur Eingänge der letzten 0,3\,s zulässt, und eine Brücke wandelt sie in die normierte Sollgeschwindigkeit um (Abschnitt~\ref{sec:ersatzregler}).
+Die Navigation läuft nur in der Simulation, weil die Position dort direkt aus MuJoCo kommt, während am realen Roboter seit dem Verwerfen der LiDAR-Ortung eine Lokalisierung fehlt.
+Sie dockt über die ROS-2-Kanäle der Bedienwege an und läuft damit unter denselben Befehlswegen wie eine manuelle Bedienung (Tabelle~\ref{tab:andockpunkte}).
+% DB: g1pilot/g1pilot/teleoperation/joy_mux.py:17-70,157-170; g1pilot/g1pilot/navigation/joy_to_cmdvel.py:1-35; g1pilot/launch/bringup_sim.launch.py:41-46,196-235

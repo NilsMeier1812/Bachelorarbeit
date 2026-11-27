@@ -1,0 +1,37 @@
+% Zustände und Übergänge des Ersatzreglers (Abbildung fig:ersatzregler_zustaende). Eigene Darstellung.
+% Sachgrundlage ist Eigenleistung, Datenbasis G1-Repo (BA-Stable @6a40e47):
+%   g1pilot/g1pilot/navigation/loco_sim.py:89-98 (Zustände), :355-383 (Stehen starten), :385-415 (Gehen starten),
+%   :417-429 (Abfangen), :431-466 (Befehle), :502-517 (Not-Halt, Start), :569-577 (Sturzerkennung), :733-737 und :769-775 (Sturz zu Dämpfen).
+% Nicht eingezeichnet (Erläuterung in der Bildunterschrift): Start führt aus jedem Zustand in die Bereitschaft, Gehen starten gilt auch
+% aus Bereitschaft und Dämpfen.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/ersatzregler-zustaende} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    zust/.style={ba block, minimum width=30mm, minimum height=12mm, text width=28mm},
+    hand/.style={ba pfeil},                                   % durch Befehl ausgelöst
+    auto/.style={ba pfeil, color=baAkzent, dash pattern=on 3pt off 2pt},   % selbsttätig
+    lab/.style={font=\footnotesize, align=center, inner sep=1.5pt},
+  }
+  % Zustände
+  \node[zust] (B) at (2.3,0)   {\textbf{Bereitschaft}\\{\footnotesize Basis gehalten}};
+  \node[zust] (S) at (8.0,0)   {\textbf{Stehen}\\{\footnotesize Standregler}};
+  \node[zust] (G) at (13.7,0)  {\textbf{Gehen}\\{\footnotesize Lauf-Policy}};
+  \node[zust] (D) at (8.0,-3.6) {\textbf{Dämpfen}\\{\footnotesize Gelenke gedämpft}};
+  % Anfangszustand
+  \node[ba basis] (I) at (0.1,0) {};
+  \draw[hand] (I) -- (B.west);
+  % Befehle
+  \draw[hand] (B.east) -- node[lab, above] {Stehen\\starten} (S.west);
+  \draw[hand] ([yshift=2mm]S.east) -- node[lab, above] {Gehen\\starten} ([yshift=2mm]G.west);
+  \draw[hand] ([yshift=-2mm]G.west) -- node[lab, below, yshift=-1mm] {Stehen starten,\\nach Beruhigung} ([yshift=-2mm]S.east);
+  \draw[hand] ([xshift=-6mm]D.north) -- node[lab, left] {Stehen\\starten} ([xshift=-6mm]S.south);
+  \draw[hand] (D.west) to[out=180, in=-90] node[lab, pos=0.55, below left] {Start} (B.south);
+  \draw[hand] ([yshift=-12mm]D.south) -- node[lab, right] {Not-Halt aus\\jedem Zustand} (D.south);
+  % Selbsttätige Übergänge
+  \draw[auto] ([xshift=-7mm]S.north) to[out=90, in=90, looseness=2.4] node[lab, above] {Abfangen} ([xshift=7mm]S.north);
+  \draw[auto] ([xshift=6mm]S.south) -- node[lab, right] {Sturz\\erkannt} ([xshift=6mm]D.north);
+  \draw[auto] (G.south) to[out=-90, in=0] node[lab, pos=0.3, right=1mm] {Sturz\\erkannt} (D.east);
+  % Legende
+  \draw[hand] (11.0,-4.7) -- (12.2,-4.7) node[lab, right, align=left] {durch Befehl};
+  \draw[auto] (11.0,-5.35) -- (12.2,-5.35) node[lab, right, align=left] {selbsttätig};
+\end{tikzpicture}

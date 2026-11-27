@@ -43,3 +43,9 @@ belege:
   kernaussage: 'Play: trainierte Policies werden zur Prüfung des erwarteten Verhaltens wiedergegeben.'
   quelle: exzerpt
   kommentar: README
+- id: UnitreeRLMjlab.08
+  seite: "3"
+  zitat: "Before deploying on the real robot, it is recommended to perform simulation deployment using [unitree_mujoco](https://github.com/unitreerobotics/unitree_mujoco) to prevent abnormal behaviors on the physical robot."
+  kernaussage: "Das Projekt empfiehlt, Policies vor dem Einsatz am realen Roboter in unitree_mujoco zu erproben, um Fehlverhalten am Roboter zu vermeiden."
+  quelle: exzerpt
+  kommentar: "Kap. Umsetzung (27.11.2026)"

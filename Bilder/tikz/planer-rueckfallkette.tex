@@ -1,0 +1,34 @@
+% Rückfallkette des Armplaners: Zielprüfung, Gerade, Optimierung aus Startbahnen, stichprobenbasierter Planer,
+% verringerter Abstand; jeder Versuch nur gültig nach bestandener Abschlussprüfung, danach Zeitparametrierung.
+% Eigene Darstellung. Code: G1 PR #62 @e452513, g1pilot/g1pilot/manipulation/arm_planner.py:730-833 (_plan_arms),
+% :483-501 (validate), :621-663 (time_parameterize).
+% Stand PR #62 (vor Merge, nach Merge BA-Stable-Hash eintragen): Zielprüfung an der exakten Geometrie (:733-744),
+% Startbahn "30 cm anheben" (:780-783).
+\begin{tikzpicture}[ba, node distance=6mm,
+    stufe/.style={ba block, minimum width=21mm, text width=19mm, minimum height=24mm, font=\footnotesize},
+    ende/.style={ba block, minimum width=21mm, text width=19mm, minimum height=8mm, font=\footnotesize}]
+  % Stufen in Prüfreihenfolge
+  \node[stufe] (z) {\textbf{Vorab}\\ Zielprüfung: Kollision mit Körper, Eindringtiefe};
+  \node[stufe, right=of z] (s1) {\textbf{Stufe 1}\\ Gerade im Gelenkraum};
+  \node[stufe, right=of s1] (s2) {\textbf{Stufe 2}\\ Optimierung, vier Startbahnen, Abstand $C$};
+  \node[stufe, right=of s2] (s3) {\textbf{Stufe 3}\\ RRT-Connect mit $C_\mathrm{min}$, dann Glättung};
+  \node[stufe, right=of s3] (s4) {\textbf{Stufe 4}\\ kleinerer Abstand, auch über Lauf-Pose};
+  \node[ende, right=of s4, draw=baAkzent, text=baAkzent] (nw) {kein Weg\\ gefunden};
+  \node[ende, below=10mm of z, draw=baAkzent, text=baAkzent] (ab) {Ziel\\ abgelehnt};
+  % Abbruchwege
+  \draw[ba pfeil] (z) -- (s1);
+  \draw[ba pfeil] (s1) -- (s2);
+  \draw[ba pfeil] (s2) -- (s3);
+  \draw[ba pfeil] (s3) -- (s4);
+  \draw[ba pfeil] (s4) -- (nw);
+  \draw[ba pfeil, baAkzent] (z) -- node[right, font=\footnotesize, align=left] {in\\ Kollision} (ab);
+  \node[font=\footnotesize, text=baGrau, anchor=south west, inner xsep=0pt] at ([yshift=1mm]s1.north west) {Pfeil nach rechts: keine gültige Bahn, nächste Stufe};
+  % Gemeinsamer Ausgang
+  \coordinate (zpa) at ($(s1.south west)+(0,-8mm)$);
+  \coordinate (zpb) at ($(s4.south east)+(0,-18mm)$);
+  \draw[ba block hervor] (zpa) rectangle (zpb);
+  \node[font=\footnotesize, align=center] (zp) at ($(zpa)!0.5!(zpb)$)
+        {\textbf{Abschlussprüfung bestanden}\\ $\rightarrow$ Zeitparametrierung $\rightarrow$ Bahn an den Armregler};
+  \foreach \s in {s1, s2, s3, s4}
+    \draw[ba pfeil] (\s.south) -- (\s.south |- zpa);
+\end{tikzpicture}

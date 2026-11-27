@@ -1,0 +1,59 @@
+% Signalfluss der Bedienwege: Eingabe, Bedienprogramm, gemeinsame Befehlsthemen, Zielprogramme, Herstellerschnittstelle.
+% Eigene Darstellung (Abschnitt "Bedienwege" in Kapitel Umsetzung, B7.13). Keine Quelle in der Caption.
+% Basis: G1@6a40e47 g1pilot/docs/10-T-Demo-GUI.md (Grundsatz, Topics), docs/11-T-Controller.md (Datenfluss),
+%   docs/12-T-Handy.md (Aufbau: Vermittlungsschicht im Prozess der Bedienoberfläche), docs/21-T-Arm-API.md (Architektur, direkter DDS-Zugang),
+%   g1pilot/manipulation/interactive_marker.py (Zielmarker), g1pilot/teleoperation/phone/link.py (Anbindung an die GUI-Methoden).
+% Vereinfachungen: Hände real über Modbus (siehe fig:sim_real_schalter), Navigation in der Simulation und Posenspeicher nicht gezeichnet.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/bedienwege-signalfluss} in einer figure-Umgebung. Nicht skalieren.
+% Raster (cm): Zeilenabstand 1,45, Blockhöhe 1,15. Spalten: Eingabe 0..2,9 | Bedienprogramm 3,5..6,9 | Befehlsthemen 7,5..10,6 | Zielprogramme 11,3..15,0.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    ein/.style={ba block, font=\footnotesize, minimum width=29mm, minimum height=11.5mm, text width=26mm},
+    prog/.style={ba block hervor, font=\footnotesize, minimum width=34mm, minimum height=11.5mm, text width=31mm},
+    thema/.style={ba block, font=\footnotesize, minimum width=27mm, minimum height=10mm, text width=25mm, inner sep=2pt},
+    ziel/.style={ba block hervor, font=\footnotesize, minimum width=31mm, minimum height=14mm, text width=28mm},
+    kopf/.style={font=\footnotesize, text=baGrau, anchor=north, align=center},
+  }
+  % ---------------- Spaltenköpfe ----------------
+  \node[kopf] at (1.45,1.85) {Eingabe};
+  \node[kopf] at (5.2,1.85)  {Bedienprogramm};
+  \node[kopf] at (9.05,1.85) {Befehlsthemen};
+  \node[kopf] at (13.15,1.85) {Zielprogramme mit\\Schutzmechanismen};
+  % ---------------- Eingabe und Bedienprogramme (Zeilen y = 0, -1,45, ... -5,8) ----------------
+  \node[ein]  (E1) at (1.45,0)     {Bildschirm,\\Maus};
+  \node[ein]  (E2) at (1.45,-1.45) {Smartphone\\(Browser, BLE)};
+  \node[ein]  (E3) at (1.45,-2.9)  {Controller\\(USB, Bluetooth)};
+  \node[ein]  (E4) at (1.45,-4.35) {RViz\\(Maus)};
+  \node[ein]  (E5) at (1.45,-5.8)  {Fremdes Programm\\(HTTP)};
+  \node[ein]  (E6) at (1.45,-8.1)  {Fremdes Programm\\(DDS)};
+  \node[prog] (P1) at (5.2,0)      {Bedienoberfläche};
+  \node[prog] (P2) at (5.2,-1.45)  {Vermittlungsschicht};
+  \node[prog] (P3) at (5.2,-2.9)   {Controller-Programme};
+  \node[prog] (P4) at (5.2,-4.35)  {Zielmarker};
+  \node[prog] (P5) at (5.2,-5.8)   {HTTP-Brücke};
+  % Bedienoberfläche und Vermittlungsschicht laufen in einem Prozess
+  \draw[ba gruppe] (3.3,0.8) rectangle (7.1,-2.2);
+  % ---------------- Befehlsthemen ----------------
+  \draw[ba gruppe] (7.5,0.8) rectangle (10.6,-6.7);
+  \node[thema] at (9.05,-0.3)  {Ziele für Arme\\und Hände};
+  \node[thema] at (9.05,-2.1)  {Fahrbefehle};
+  \node[thema] at (9.05,-3.9)  {Modus und\\Freigabe};
+  \node[thema] at (9.05,-5.7)  {Not-Halt};
+  % ---------------- Zielprogramme ----------------
+  \draw[ba gruppe] (11.3,0.8) rectangle (15.0,-6.7);
+  \node[ziel] (Z1) at (13.15,-0.9)  {Armregler};
+  \node[ziel] (Z2) at (13.15,-3.0)  {Fortbewegung};
+  \node[ziel] (Z3) at (13.15,-5.1)  {Hände};
+  % ---------------- Herstellerschnittstelle (unten, Zeile 6) ----------------
+  \node[ba block, fill=baHellgrau!40, font=\footnotesize, minimum width=75mm, minimum height=11.5mm, text width=72mm] (HS) at (11.25,-8.1)
+    {Herstellerschnittstelle (DDS):\\Kopplungsschicht der Simulation oder realer Roboter};
+  % ---------------- Pfeile ----------------
+  \foreach \i in {1,2,3,4,5} {\draw[ba pfeil] (E\i.east) -- (P\i.west);}
+  \draw[ba pfeil] (7.1,0)     -- (7.5,0);
+  \draw[ba pfeil] (7.1,-1.45) -- (7.5,-1.45);
+  \foreach \i in {3,4,5} {\draw[ba pfeil] (P\i.east) -- (P\i -| 7.5,0);}
+  \draw[ba pfeil] (10.6,-2.8) -- (11.3,-2.8);
+  \draw[ba pfeil] (13.15,-6.7) -- (13.15,-7.525);
+  \draw[ba normal, baAkzent, dash pattern=on 4pt off 2pt, ->] (E6.east) -- (HS.west);
+  \node[font=\footnotesize, text=baAkzent, anchor=south, align=center] at (5.2,-8.0) {ohne\\Schutzmechanismen};
+\end{tikzpicture}

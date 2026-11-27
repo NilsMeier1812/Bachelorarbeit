@@ -13,3 +13,15 @@ belege:
   kernaussage: Pinocchio bietet neben Standardalgorithmen (Vorwärts-/Inversdynamik) Funktionen für Regelung, Planung und Simulation.
   quelle: exzerpt
   kommentar: Kap. 4.2.1/7.4
+- id: Carpentier2019.03
+  seite: "3"
+  zitat: "Aside the kinematic model, Pinocchio defines a geometric model, i.e. the volumes attached to the kinematic tree. This model can be used for displaying the robot and computing quantities associated to collisions."
+  kernaussage: "Pinocchio hat neben dem kinematischen ein geometrisches Modell, das u. a. für Kollisionsgrößen dient."
+  quelle: exzerpt
+  kommentar: "Kap. Umsetzung (27.11.2026)"
+- id: Carpentier2019.04
+  seite: "3"
+  zitat: "Collision and distance algorithms for the kinematic trees are implemented, based on FCL methods."
+  kernaussage: "Pinocchio implementiert Kollisions- und Abstandsalgorithmen für kinematische Bäume auf Basis von FCL."
+  quelle: exzerpt
+  kommentar: "Kap. Umsetzung (27.11.2026)"

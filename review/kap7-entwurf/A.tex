@@ -1,0 +1,251 @@
+% ======================================================================
+% Paket A (Entwurf 27.11.2026): Kapiteleinleitung, Containerisierte Bereitstellung, Simulationsumgebung.
+% Einfügen in Kapitel/07_Umsetzung.tex direkt nach \chapter{Umsetzung}\label{chap:umsetzung}.
+% Code-Bezug: G1 Branch BA-Stable @6a40e47 (Pfade relativ zur Repo-Wurzel), Greifobjekte nach PR #61 @8eb34f4.
+% Notizen, Faktenblatt, vorgeschlagene Belege: review/kap7-entwurf/A-notizen.md
+% ======================================================================
+
+% ---------------------- Kapiteleinleitung -----------------------------
+Die Umgebung setzt die Entscheidungen aus Kapitel~\ref{chap:konzept} entlang des Wegs eines Befehls um, von der Bereitstellung über die Simulation bis zu den Bedienwegen.
+Abschnitt~\ref{sec:bereitstellung} zeigt, wo welcher Prozess läuft, und Abschnitt~\ref{sec:simulationsumgebung}, wie MuJoCo die Stelle des Roboters einnimmt.
+Die Abschnitte~\ref{sec:fortbewegung_umsetzung} bis~\ref{sec:haende} beschreiben die Funktionsknoten für Beine, Arme und Hände, Abschnitt~\ref{sec:bedienwege} die Anbindung der Bedienwege und Abschnitt~\ref{sec:navigation} ein eingebundenes Modul.
+Für alle Abschnitte gilt eine Leseregel: Was nicht ausdrücklich als nur in der Simulation oder nur im Realbetrieb gültig gekennzeichnet ist, gilt in beiden Betriebsarten.
+Die Auslegungswerte der Schutzmechanismen aus Tabelle~\ref{tab:schutzmechanismen} stehen bei der jeweiligen Komponente, Messergebnisse folgen erst in Kapitel~\ref{chap:evaluation}.
+Welche Quelltextdatei zu welcher Funktionsbezeichnung gehört, ordnet Tabelle~\ref{tab:quelltext} im Anhang zu \pruefen{Anhangtabelle tab:quelltext (TA.1, AP 5) anlegen}.
+% DB: Gliederung nach review/kap7-entwurf/plan-kap7.md §1.1 und §2; keine Sachaussage über Code.
+
+% ======================================================================
+\section{Containerisierte Bereitstellung}
+\label{sec:bereitstellung}
+% ======================================================================
+Die Umgebung ist auf drei Container-Abbilder verteilt, getrennt danach, welche Software nur in einer Betriebsart gebraucht wird.
+Damit setzt sie die Container-Profile aus Abschnitt~\ref{sec:container_profile} um, mit denen sie nach A6 und A7 ohne native Installation auf neuen PCs läuft (Abschnitt~\ref{sec:container}).
+Das Abbild der Physiksimulation enthält MuJoCo, das Python-SDK des Herstellers und die Kopplungsschicht, aber kein ROS~2.
+Die beiden Abbilder der Steuerung bauen auf ROS~2 Humble auf und enthalten dieselben Funktionsknoten.
+Nur das Abbild für die Simulation bringt zusätzlich die Laufzeitumgebung für die Lauf-Policies im Format ONNX mit, weil am realen Roboter der Onboard-Regler läuft (Abschnitt~\ref{sec:fortbewegungspfade}).
+Tabelle~\ref{tab:container} fasst die drei Abbilder zusammen.
+% DB: g1pilot/docker/Dockerfile.mujoco:1-30, g1pilot/docker/Dockerfile.sim:1-85, g1pilot/docker/Dockerfile.real:1-84 @6a40e47
+
+\begin{table}[htbp]
+    \tabstil
+    \centering
+    \caption[Container-Abbilder der Umgebung]{Container-Abbilder der Umgebung. Eine Compose-Datei startet sie in zwei Profilen, alle Container teilen das Netzwerk des Host-PCs.}
+    \label{tab:container}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.9cm}|>{\raggedright\arraybackslash}p{2.6cm}|L|>{\raggedright\arraybackslash}p{1.5cm}|}\hline
+        \tabkopfzeile \tabkopf{Abbild} & \tabkopf{Basis} & \tabkopf{Inhalt} & \tabkopf{Profil}\\\hline
+        Physik\-simulation & Ubuntu 22.04 & MuJoCo, Python-SDK des Herstellers, Kopplungsschicht, Szenen und Robotermodelle, kein ROS~2 & sim\\\hline
+        Steuerung Simulation & ROS~2 Humble & Funktionsknoten, Bedienoberfläche, 3D-Anzeige, Laufzeit für ONNX-Netze der Lauf-Policies & sim\\\hline
+        Steuerung Realbetrieb & ROS~2 Humble & Funktionsknoten, Bedienoberfläche, 3D-Anzeige, Zugriff auf Eingabegeräte, keine Laufzeit für Lauf-Policies \pruefen{im Real-Abbild fehlt auch die Planungsbibliothek OMPL, der Bahnplaner nutzt dort seinen eingebauten Rückfallweg: gewollt?} & real\\\hline
+    \end{tabularx}
+\end{table}
+% DB: g1pilot/docker/Dockerfile.mujoco:1,14-24; g1pilot/docker/Dockerfile.sim:1,9-31,43-56; g1pilot/docker/Dockerfile.real:1-7,15-50 (kein ompl, kein onnxruntime);
+%     g1pilot/docker-compose.yml:25-31 (mujoco-sim, profiles sim), :67-75 (g1pilot-sim), :159-169 (g1pilot-real, privileged für /dev/input) @6a40e47
+
+Tabelle~\ref{tab:container} zeigt, dass sich die beiden Steuerungsabbilder nur in Ergänzungen unterscheiden, nicht in den Funktionsknoten.
+Die Wahl der Betriebsart trifft allein das gestartete Profil: Im Profil \emph{sim} laufen Physiksimulation und Steuerung als zwei Container, im Profil \emph{real} nur die Steuerung.
+Das Profil setzt eine Umgebungsvariable, die die Funktionsknoten an einer einzigen Stelle auswerten (Abschnitt~\ref{sec:sim_real_schalter}).
+Alle Container teilen das Netzwerk des Host-PCs, sodass die Steuerung die Simulation über dessen Loopback-Schnittstelle und den Roboter über dessen Netzwerkkarte erreicht.
+Der Verkehr von ROS~2 ist per Konfiguration auf die Loopback-Schnittstelle beschränkt und gelangt so nicht in das Netz des Roboters.
+Abbildung~\ref{fig:verteilung} zeigt die Verteilung der Prozesse in beiden Profilen.
+% DB: g1pilot/docker-compose.yml:10-17 (network_mode host), :32, :84 (G1_SIM_MODE=true), :172 (false); g1pilot/g1pilot/utils/common.py:24-55;
+%     g1pilot/docker/cyclonedds.xml:1-16 (nur lo, kein Multicast), g1pilot/docker/Dockerfile.real:74-81 @6a40e47
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/verteilung-container}
+  \caption[Verteilung der Prozesse auf Host und Container]{Verteilung der Prozesse auf Host-PC und Container in a) der Simulation und b) dem Realbetrieb. Die Herstellerschnittstelle läuft in der Simulation auf DDS-Domain~1 über die Loopback-Schnittstelle, im Realbetrieb auf Domain~0 über die Netzwerkkarte. Die Linienart kennzeichnet den Kanal.}
+  \label{fig:verteilung}
+\end{figure}
+
+In beiden Profilen laufen Funktionsknoten und Bedienoberfläche im Container, Startmenü und Wächter dagegen auf dem Host.
+In der Simulation verbinden zwei Kanäle die Container: die Herstellerschnittstelle über DDS und ein UDP-Kanal für die Objekte der Szene (Abschnitt~\ref{sec:szenen}).
+Im Realbetrieb erreicht die Steuerung über dieselbe Netzwerkkarte den Roboter per DDS und die Inspire-Hände per Modbus TCP (Abschnitt~\ref{sec:haende}).
+Fremde Programme greifen in beiden Fällen über HTTP auf die Arm-API zu (Abschnitt~\ref{sec:entwickler_api}), das Smartphone ist per Bluetooth an die Bedienoberfläche angebunden (Abschnitt~\ref{sec:smartphone}).
+% DB: g1pilot/docker-compose.yml:120-125, :187-197 (Handy, Hände per Modbus TCP); unitree_mujoco/simulate_python/scene_state_publisher.py:1-22;
+%     g1pilot/g1pilot/manipulation/arm_api.py:1-26; docker/sim_shutdown_watcher.sh:1-15 („Die Demo-GUI laeuft IM Container“) @6a40e47
+
+Einstellungen gelangen als Umgebungsvariablen vom Startmenü über das Startskript und die Compose-\hspace{0pt}Datei bis in die Parameter der Funktionsknoten.
+Der Quelltext ist in den Container eingebunden und wird bei jedem Start neu übersetzt, sodass eine Änderung ohne Neubau des Abbilds wirkt.
+% DB: g1pilot/start_gui/core.py:263-316 (sim_launch, real_launch: Env + start.sh --yes); g1pilot/docker-compose.yml:33-57, :82-127, :145-151 (colcon build beim Start), :14, :130 (Code eingebunden);
+%     g1pilot/launch/bringup_sim.launch.py:53, :160-162 (G1_WALK_POLICY -> Parameter policy) @6a40e47
+
+Das Startmenü ist eine grafische Oberfläche auf dem Host und erledigt alle Schritte vor dem Start, für die sonst ein Terminal nötig wäre.
+Für die Simulation wählt die bedienende Person Szene, Hände, Lauf-Policy und Bediengeräte, wobei das Startmenü Vorschaubilder neuer oder geänderter Szenen selbst erzeugt.
+Vor dem Start baut es die gewählte Szene zusammen (Abschnitt~\ref{sec:szenen}), erzeugt ein veraltetes Handmodell neu (Abschnitt~\ref{sec:haende}), prüft, ob Docker erreichbar ist, und bindet bei vorhandener Grafikkarte die passende Zusatzkonfiguration ein.
+Für den Realbetrieb erkennt es die Netzwerkschnittstellen des PCs und wählt die vor, die eine Adresse im Netz des Roboters hat.
+Eine Live-Anzeige prüft im Hintergrund alle 3\,s, ob ein Kabel steckt, ob die Adresse im Netz des Roboters liegt, ob der Roboter antwortet und ob beide Hände erreichbar sind. Sie warnt außerdem, wenn eine zweite Schnittstelle im selben Netz liegt.
+Fehlt die Adresse, richtet ein Netzwerk-Assistent ein dauerhaftes Verbindungsprofil mit fester Adresse ein, ohne Standardroute und Namensauflösung, damit der Internetzugang über eine andere Verbindung erhalten bleibt.
+Der Assistent zeigt die Befehle vor dem Ausführen an, ändert ein vorhandenes Profil statt es zu löschen und aktiviert das Profil von selbst, sobald der Roboter angeschlossen ist.
+Die Bedienschritte beschreibt Anhang~\ref{anh:dokumentation}.
+% DB: g1pilot/g1_gui.py:1-23; g1pilot/start_gui/views.py:131-260 (SimView), :423-471 (RealView, Vorwahl 192.168.123.x :449-457, LinkMonitor :470-472);
+%     g1pilot/start_gui/app.py:136-187 (Doku-Betrachter, Vorschaubilder), :190-195 (Docker-Prüfung); g1pilot/start_gui/core.py:138-174 (detect_nics), :224-247 (Einstellungen merken), :394-420 (veraltete Vorschaubilder);
+%     g1pilot/start.sh:341-353 (Handprofil neu erzeugen), :390-398 (Szene bauen), :440-447 (GPU-Zusatzdateien);
+%     g1pilot/start_gui/network.py:1-9, :26 (POLL_MS = 3000), :34-98; g1pilot/start_gui/netsetup.py:1-13, :179-211 (Profil ohne Gateway/DNS, never-default, modify statt delete, autoconnect), :241-303 (LinkStatus, probe) @6a40e47
+
+Im Realbetrieb gibt das Startmenü den Start erst frei, wenn die bedienende Person bestätigt, die Sicherheitshinweise gelesen zu haben und dass der Bereich frei ist.
+Die Bestätigung wird bei jedem Start neu verlangt und nie gespeichert, und das Startskript verweigert den Realbetrieb ohne sie.
+Auch danach bewegt sich der Roboter erst, wenn er an der Bedienoberfläche gestartet wird (Abschnitt~\ref{sec:bedienoberflaeche}), während die Simulation selbsttätig startet.
+% DB: g1pilot/start_gui/views.py:423-425 („Die Bestaetigung wird NIE gemerkt“), :519-544, :631-636; g1pilot/start_gui/core.py:290-295 (G1_REAL_CONFIRM); g1pilot/start.sh:243-253;
+%     g1pilot/g1pilot/teleoperation/sim_autostart.py (nur is_sim_mode, siehe Kap. 6 Kommentar zu tab:sim_real) @6a40e47
+
+Beendet wird über die Bedienoberfläche, die im Container läuft und die Container deshalb nicht selbst stoppen kann.
+Sie legt eine Anforderung im eingebundenen Verzeichnis ab, die ein Wächter auf dem Host ausführt.
+In der Simulation stoppt er die Container sofort.
+Im Realbetrieb gibt die Bedienoberfläche vorher die Arme an den Onboard-Regler zurück, und der Wächter stoppt die Container mit einer Frist von 20\,s, in der ein noch aktiver Armregler die Arme selbst zurückgibt (Abschnitt~\ref{sec:regelkette}).
+Wie schnell eine Person ohne Vorerfahrung die Umgebung damit in Betrieb nimmt, prüft Abschnitt~\ref{sec:eval_bedienaufwand}.
+% DB: g1pilot/docker/sim_shutdown_watcher.sh:1-31 (kill + down); g1pilot/docker/real_shutdown_watcher.sh:1-39 (stop mit SIGTERM, dann down); g1pilot/docker-compose.yml:248-261 (exec, stop_grace_period 20s);
+%     g1pilot/start.sh:485-495 @6a40e47
+
+% ======================================================================
+\section{Simulationsumgebung}
+\label{sec:simulationsumgebung}
+% ======================================================================
+Die Simulationsumgebung ersetzt den Roboter unterhalb der Herstellerschnittstelle durch MuJoCo und besteht aus der Kopplungsschicht mit ihrer Zeitführung und den Szenen.
+Sie setzt die Umschaltung aus Abschnitt~\ref{sec:sim_real_schalter} um und trägt damit A2 bis A4.
+Grundlage ist der Python-Simulator aus dem MuJoCo-Projekt des Herstellers \cite{UnitreeMujoco}\ev{UnitreeMujoco.04}.
+Alles in diesem Abschnitt gilt nur in der Simulation.
+% DB: unitree_mujoco/simulate_python/unitree_mujoco.py:1-23, :118-131 @6a40e47
+
+\subsection{Kopplung von MuJoCo und DDS}
+\label{sec:bridge}
+Die Kopplungsschicht bildet die Nachrichten des realen Roboters nach, sodass die Funktionsknoten nicht unterscheiden, ob die Simulation oder der Roboter antwortet.
+Sie erweitert diesen Simulator, der mit dem SDK entwickelte Programme einbinden soll \cite{UnitreeMujoco}\ev{UnitreeMujoco.01} und Motorbefehle der Nachricht LowCmd sowie Motorzustände der Nachricht LowState unterstützt \cite{UnitreeMujoco}\ev{UnitreeMujoco.05}.
+Wie dort empfohlen, läuft er auf Domain~1 über die Loopback-Schnittstelle \cite{UnitreeMujoco}\ev{UnitreeMujoco.07,UnitreeMujoco.08}.
+ROS~2 belegt jeweils die andere Domain, in der Simulation Domain~0 und im Realbetrieb Domain~1, damit kein Prozess, der beide Schnittstellen nutzt, dieselbe Domain zweimal öffnet.
+Neu sind ein zweiter Befehlsweg für die Arme, das Halten und Aufstellen des Roboters, Zusatzgrößen für den Ersatzregler und ein eigener Kanal für die Finger der simulierten Hände (Abschnitt~\ref{sec:haende}).
+% DB: unitree_mujoco/simulate_python/config.py:51-52 (DOMAIN_ID 1, lo); unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:100-110, :238-257 (rt/lowcmd, rt/arm_sdk, rt/inspire/*);
+%     g1pilot/g1pilot/utils/common.py:6-23 (gespiegelte Domains); g1pilot/docker-compose.yml:85-88, :173-176 @6a40e47
+
+Die Gelenke des Simulationsmodells sind als Motoren mit direkter Momentvorgabe angelegt \cite{MujocoDoku2026}\ev{MujocoDoku2026.06}, den Regler je Gelenk rechnet die Kopplungsschicht selbst.
+Aus den Größen eines Motorbefehls (Abschnitt~\ref{sec:g1_sdk}) berechnet sie in jedem Physikschritt mit den aktuellen Sensorwerten das Stellmoment des Gelenks $i$ zu
+\begin{equation}
+  \tau_i = \tau_{\mathrm{v},i} + k_{\mathrm{p},i}\,\bigl(q_{\mathrm{s},i} - q_i\bigr) + k_{\mathrm{d},i}\,\bigl(\dot q_{\mathrm{s},i} - \dot q_i\bigr),
+  \label{eq:pd}
+\end{equation}
+\formeleintrag{Stellmoment je Gelenk in der Kopplungsschicht}%
+wobei $\tau_{\mathrm{v},i}$ das Vorsteuermoment, $k_{\mathrm{p},i}$ und $k_{\mathrm{d},i}$ die Verstärkungen für Winkel- und Geschwindigkeitsabweichung, $q_{\mathrm{s},i}$ und $\dot q_{\mathrm{s},i}$ Sollwinkel und Sollgeschwindigkeit sowie $q_i$ und $\dot q_i$ die gemessenen Werte bezeichnen.
+Weil Gleichung~\ref{eq:pd} in jedem Physikschritt neu ausgewertet wird, hängt die Regelrate nicht davon ab, wie oft Befehle eintreffen.
+Ob die Firmware des realen G1 dasselbe Gesetz rechnet, ist nicht belegt \qf{Herstellerangabe zum Regelgesetz des Motorbefehls am realen G1 (E5)}.
+% DB: unitree_robots/g1/g1_29dof.xml:388-418 (<motor>); unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:304-307 (_pd: tau + kp*(q_soll-q) + kd*(dq_soll-dq)), :393-456 (je Sim-Schritt);
+%     unitree_mujoco/simulate_python/unitree_mujoco.py:146-150 @6a40e47
+
+Zwei Befehlswege werden je Gelenk zu einem Stellmoment zusammengeführt.
+Beine und Taille, die Gelenke 0 bis 14, folgen allein dem Befehlsweg der Fortbewegung.
+Für die Arme, die Gelenke 15 bis 28, wertet die Kopplungsschicht Gleichung~\ref{eq:pd} für beide Wege aus und überblendet die Momente zu
+\begin{equation}
+  \tau_i = w\,\tau_i^{\mathrm{A}} + (1-w)\,\tau_i^{\mathrm{F}}, \qquad i = 15, \dots, 28,
+  \label{eq:ueberblendung}
+\end{equation}
+\formeleintrag{Überblendung der Armmomente zwischen zwei Befehlswegen}%
+wobei $\tau_i^{\mathrm{A}}$ das Moment aus dem Befehlsweg der Arme, $\tau_i^{\mathrm{F}}$ das aus dem Befehlsweg der Fortbewegung und $w \in [0, 1]$ das Überblendgewicht bezeichnet.
+Das Gewicht steht wie bei der Oberkörper-Schnittstelle des realen Roboters im sonst ungenutzten Eintrag~29 des Armbefehls (Abschnitt~\ref{sec:g1_armsdk}), Werte außerhalb des Intervalls werden begrenzt.
+Weil nicht dokumentiert ist, wie die Firmware Zwischenwerte verrechnet (Abschnitt~\ref{sec:g1_armsdk}), ist die lineare Überblendung eine Annahme der Simulation.
+Abbildung~\ref{fig:bridge} zeigt beide Befehlswege und den Rückweg.
+% DB: unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:280-285 (ARM_LO 15, ARM_HI 28, WEIGHT_IDX 29), :420-447 (w begrenzt auf [0,1], w*tau_a + (1-w)*tau_l, Beine/Taille direkt) @6a40e47
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/bridge-signalfluss}
+  \caption[Signalfluss der Kopplungsschicht]{Signalfluss der Kopplungsschicht in der Simulation. Beine und Taille folgen dem Befehlsweg der Fortbewegung, die Arme werden zwischen beiden Befehlswegen überblendet. Gestrichelt sind Größen, die nur die Simulation liefert.}
+  \label{fig:bridge}
+\end{figure}
+
+Im Rückweg der Abbildung~\ref{fig:bridge} füllt die Kopplungsschicht die Zustandsnachricht mit Winkel, Geschwindigkeit und geschätztem Moment jedes Gelenks sowie den Werten der IMU.
+Zusätzlich schreibt sie in sonst ungenutzte Reservefelder die Normalkräfte beider Füße und die horizontale Geschwindigkeit des Roboters, die nur der Ersatzregler auswertet (Abschnitt~\ref{sec:ersatzregler}).
+Damit bleiben diese Größen von der Herstellerschnittstelle getrennt, und kein Funktionsknoten, der auch am realen Roboter läuft, ist auf sie angewiesen \pruefen{bestätigen, dass außer dem Ersatzregler kein Knoten die Reservefelder liest}.
+% DB: unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:184-207 (reserve[0..3]), :487-557 (PublishLowState) @6a40e47
+
+Den Roboter hält die Kopplungsschicht über eine Schweiß-Zwangsbedingung zwischen Rumpf und Welt \cite{MujocoDoku2026}\ev{MujocoDoku2026.03}, solange der Ersatzregler in Bereitschaft ist.
+Dessen Zustand liest sie aus dem sonst ungenutzten Eintrag~29 des Befehlswegs der Fortbewegung.
+Wechselt der Ersatzregler ins Stehen, stellt sie den Roboter in die kommandierte Standpose, setzt das Becken auf die Höhe, bei der beide Füße auf dem Boden stehen, und löst die Zwangsbedingung.
+Bis der erste Befehl der Fortbewegung eintrifft, hält ein fester PD-Regler Beine und Taille in einer Standpose.
+Ob die Funktionsknoten in Simulation und Realbetrieb tatsächlich ohne Codeunterschied laufen, prüft Abschnitt~\ref{sec:eval_code}.
+% DB: unitree_mujoco/simulate_python/config.py:134-188 (Startup-Hold, Managed-Weld, Pelvis-Höhe aus Beinpose); unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:146-180, :309-391 (_set_weld, _reset_pose, _stance_height, _handle_managed_weld);
+%     unitree_mujoco/unitree_robots/g1/scene.xml:31 (hold_base_weld an torso_link); g1pilot/g1pilot/navigation/loco_sim.py:655-660 (_write: Zustandscode in Eintrag 29) @6a40e47
+
+\paragraph*{Zeitschritt und Gleichschritt-Betrieb}
+\phantomsection\label{sec:zeitschritt}%
+Die Simulation rechnet mit einem Physikschritt von 1\,ms und führt je Befehl der Fortbewegung eine feste Zahl von Physikschritten aus.
+Der Zeitschritt ist der wichtigste Parameter zwischen Stabilität und Rechenzeit (Abschnitt~\ref{sec:mujoco}).
+Der kleine Schritt ist nötig, weil der Dämpfungsanteil von Gleichung~\ref{eq:pd} außerhalb des Simulators entsteht und deshalb nicht implizit integriert wird, wie es MuJoCo für die Geschwindigkeitsrückführung eigener Aktuatoren vorsieht \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.05}.
+Bei größerem Schritt schwingen die leichten Armgelenke auf \pruefen{Beobachtung zum Zeitschritt bestätigen (E6), Messwerte nur in Abschnitt eval\_echtzeit}.
+% DB: unitree_mujoco/simulate_python/config.py:61-67 (SIMULATE_DT 0.001, Begründung im Kommentar, VIEWER_DT 0.02); unitree_mujoco/simulate_python/unitree_mujoco.py:111 @6a40e47
+
+Die Beschreibungsdateien der eingebundenen Lauf-Policies geben einen Regelschritt von 20\,ms vor.
+Damit eine Policy auf jedem Rechner dieselbe simulierte Zeit je Schritt sieht, wartet die Simulation im Gleichschritt-Betrieb auf jeden Befehl der Fortbewegung und rechnet dann mit gehaltenem Befehl
+\begin{equation}
+  N = \frac{T_{\mathrm{R}}}{\Delta t} = \frac{20\,\mathrm{ms}}{1\,\mathrm{ms}} = 20
+  \label{eq:physikschritte}
+\end{equation}
+\formeleintrag{Physikschritte je Regelschritt im Gleichschritt-Betrieb}%
+Physikschritte, wobei $T_{\mathrm{R}}$ die Dauer eines Regelschritts und $\Delta t$ den Physikschritt bezeichnet.
+Danach sendet sie genau einen neuen Zustand, auf den der Ersatzregler mit genau einem Befehl antwortet (Abbildung~\ref{fig:lockstep}).
+% DB: g1pilot/policies/g1_wholebody/deploy.yaml:2, policies/agile_velocity_g1/deploy.yaml:8, policies/agile_velocity_height_g1/deploy.yaml:12 (step_dt 0.02);
+%     unitree_mujoco/simulate_python/config.py:84-108 (decimation = 0.02/0.001 = 20); unitree_mujoco/simulate_python/unitree_mujoco.py:180-242;
+%     g1pilot/g1pilot/navigation/loco_sim.py:353 (_state_seq), :643-648 (ein Befehl je Zustand); g1pilot/start.sh:403-404 (Lockstep im Betrieb immer an) @6a40e47
+
+\begin{figure}[htbp]
+  \centering
+  \input{Bilder/tikz/lockstep-zeitablauf}
+  \caption[Zeitablauf des Gleichschritt-Betriebs]{Zeitablauf des Gleichschritt-Betriebs über zwei Regelschritte, schematisch. Während der Ersatzregler rechnet, wartet die Simulation, sodass diese Wartezeit keine Simulationszeit verbraucht.}
+  \label{fig:lockstep}
+\end{figure}
+
+Wie Abbildung~\ref{fig:lockstep} zeigt, vergeht Simulationszeit nur während der Physikschritte.
+Nach oben ist der Ablauf auf Echtzeit begrenzt: Ein Regelschritt dauert mindestens $N \Delta t$ geteilt durch einen einstellbaren Echtzeitfaktor, das Verhältnis aus simulierter und realer Zeit \cite{Pitonakova2018}\ev{Pitonakova2018.01}.
+Trifft 0,2\,s lang kein Befehl ein, rechnet die Simulation trotzdem weiter, damit sie beim Start und nach einem Ausfall des Ersatzreglers nicht stehen bleibt.
+Der Armregler ist nicht an diesen Takt gebunden, die Kopplungsschicht übernimmt jeweils seinen letzten Befehl (Abschnitt~\ref{sec:regelkette}), und die Anzeige läuft entkoppelt mit 50 Bildern je Sekunde.
+Ob die Simulation damit Echtzeit hält, prüft Abschnitt~\ref{sec:eval_echtzeit}.
+% DB: unitree_mujoco/simulate_python/unitree_mujoco.py:186-202, :244-249 (Pacing, cycle_wall = decimation*dt/factor), :206-212 (Watchdog), :252-257 (Viewer-Thread);
+%     unitree_mujoco/simulate_python/config.py:80 (SIM_REALTIME_FACTOR), :105-108 (Watchdog 0,2 s); unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:287-298 (nur rt/lowcmd zählt cmd_seq) @6a40e47
+
+\subsection{Szenen und Arbeitsplatzmodelle}
+\label{sec:szenen}
+Eine Szene entsteht aus einer festen Basis und einer Umgebung, die nur Objekte enthält, sodass eine neue Arbeitsumgebung keine Änderung am Programm erfordert (A1).
+Damit sind Szenen ein Andockpunkt auf der Ebene der Daten (Abschnitt~\ref{sec:andockpunkte}).
+Die Umgebung baut der Nutzer in einem grafischen Editor, der auf einem fremden Projekt aufbaut \qf{Szenen-Editor mujoco-scene-editor als Software-Quelle mit Commit-Hash (E5)}.
+Beim Start ergänzt ein Generator den Roboter mit der gewählten Hand, Boden, Licht und die Schweiß-Zwangsbedingung und schreibt daraus eine Szene im Format MJCF (Abschnitt~\ref{sec:mujoco}).
+Boden oder Licht, die eine Umgebung selbst mitbringt, verwirft er.
+% DB: unitree_mujoco/scene_editor/build_env_scene.py:1-36, :96-138 (build_base), :488-560 (merge_environment, Boden/Licht verworfen); unitree_mujoco/scene_editor/README.md:5-8, :20-32;
+%     g1pilot/start.sh:390-398 @6a40e47
+
+Ob ein Objekt Hindernis, Greifobjekt, Startpunkt oder Station ist, legt sein Namensvorsatz fest.
+Ein Greifobjekt wandelt der Generator in einen Körper mit freiem Gelenk um \cite{Todorov2012}\ev{Todorov2012.22}, damit es sich beim Greifen mitbewegt.
+Der Startpunkt legt Position und Blickrichtung des Roboters fest, Stationen sind Ziele der Navigation (Abschnitt~\ref{sec:navigation}), und beide entfernt der Generator aus der Geometrie.
+Alle übrigen Objekte sind feste Hindernisse.
+Wie viel Programmcode eine neue Aufgabe in einer neuen Szene erfordert, prüft Abschnitt~\ref{sec:eval_aufgaben}.
+% DB: unitree_mujoco/scene_editor/build_env_scene.py:47-58 (Präfixe grasp_, g1_spawn, station_), :140-172 (_wrap_grasp_geom, freejoint), :609-641 (extract_stations, extract_spawn);
+%     unitree_mujoco/simulate_python/unitree_mujoco.py:25-39 (Startpunkt ins Modell) @6a40e47
+
+Für die Kollision ersetzt MuJoCo jedes Netz durch seine konvexe Hülle \cite{MujocoDoku2026}\ev{MujocoDoku2026.17}, nicht konvexe Objekte sind als Vereinigung konvexer Teile an einem Körper zu modellieren \cite{MujocoDoku2026}\ev{MujocoDoku2026.18}.
+Ein Arbeitsplatz aus einem einzigen Netz wäre sonst ein voller Block, in dem abgelegte Objekte stecken.
+Der Generator zerlegt die Netze fester Hindernisse deshalb in bis zu 64 konvexe Teile \qf{Verfahren der konvexen Zerlegung V-HACD, Mamou2009 nicht freigegeben} und nutzt das ursprüngliche Netz nur noch zur Darstellung.
+Große waagrechte Ablageflächen wie Tischplatten bildet er zusätzlich als exakte Quader ab, weil die Teile der Zerlegung dort leicht schräg liegen und abgelegte Objekte langsam abrutschen würden.
+% DB: unitree_mujoco/scene_editor/build_env_scene.py:252-303 (VHACD_RESOLUTION, maxConvexHulls=64, Begründung Ablageflächen), :437-485 (add_collision_hulls, Optik contype/conaffinity 0) @6a40e47
+
+Greifobjekte aus einem nicht konvexen Netz, etwa eine Kleinladungsträger-Kiste, kollidieren über achsparallele Quader, die der Generator aus einem Voxelgitter mit 3\,mm Kantenlänge zusammenfasst.
+Innenraum und Grifftaschen bleiben dadurch offen, während konvexe Netze die Hülle von MuJoCo behalten \pruefen{Stand PR \#61, nach Merge BA-Stable-Hash eintragen}.
+Über die Kollisionsfilter von MuJoCo \cite{MujocoDoku2026}\ev{MujocoDoku2026.15} berühren die Hände alle Objekte der Umgebung, nicht aber den eigenen Körper: Körper und Hände des Roboters liegen in getrennten Gruppen, die Objekte der Umgebung in beiden.
+% DB: unitree_mujoco/scene_editor/build_env_scene.py:488-526 (Begründung, GRASP_VOXEL 0.003), :659-745 (_grasp_boxes, add_grasp_collision, konvex -> keine Quader), :822-831 (Kollisions-Bits) @8eb34f4 (PR #61);
+%     BA-Stable: unitree_mujoco/scene_editor/build_env_scene.py:560-569 (Kollisions-Bits, ENV_COLLISION_BITS = 3 :79); unitree_robots/g1/g1_29dof_inspire_ftp.xml:227 ff. (Hand-Geoms contype 2) @6a40e47
+
+Ein gemeinsames Weltmodell macht die Objekte der Szene allen Funktionsknoten bekannt.
+Die Simulation sendet sie zehnmal je Sekunde über UDP an die Steuerung, feste Hindernisse mit ihrer Pose aus der Szene und Greifobjekte mit ihrer aktuellen Pose.
+Ein Funktionsknoten veröffentlicht daraus eine Liste von Markern, die die 3D-Anzeige darstellt, der Armregler für die Kollisionsprüfung nutzt (Abschnitt~\ref{sec:kollisionsmodell}) und die Navigation zu ihrer Karte rastert (Abschnitt~\ref{sec:navigation}).
+Feste Hindernisse gehen dabei als umhüllende Quader der einzelnen Teile ein, weil ein Quader um den ganzen Arbeitsplatz jede Armstellung als Kollision melden würde.
+Im Realbetrieb startet dieser Knoten nicht, dort steht kein Weltmodell zur Verfügung.
+Abbildung~\ref{fig:szene} zeigt die Szene AP\_1 in MuJoCo und dasselbe Weltmodell in der 3D-Anzeige.
+% DB: unitree_mujoco/simulate_python/scene_state_publisher.py:1-22, :54; unitree_mujoco/simulate_python/config.py:191-205; unitree_mujoco/simulate_python/scene_objects.py:37-45;
+%     g1pilot/g1pilot/navigation/scene_bridge.py:1-18; g1pilot/launch/bringup_sim.launch.py:125-133, :212-213 (bringup_real.launch.py ohne scene_bridge) @6a40e47
+
+\begin{figure}[htbp]
+  \centering
+  \fbox{\parbox[c][4.5cm][c]{0.9\textwidth}{\centering Platzhalter: Szene AP\_1 in MuJoCo (links) und dasselbe Weltmodell in der 3D-Anzeige (rechts)}}
+  \pruefen{Bild von Nils: Bilder/kap7/szene-mujoco-rviz.png}
+  \caption[Szene eines Arbeitsplatzes in Simulation und 3D-Anzeige]{Szene AP\_1 in der Simulation und als gemeinsames Weltmodell in der 3D-Anzeige. Feste Hindernisse und Greifobjekte stammen aus derselben Szenendatei.}
+  \label{fig:szene}
+\end{figure}
+
+Abbildung~\ref{fig:szene} zeigt links den Arbeitsplatz, wie ihn die Physik rechnet, und rechts dieselben Objekte als Marker der 3D-Anzeige \pruefen{Beschreibung an das Bild anpassen}.
+Die Marker unterscheiden Hindernisse und Greifobjekte, weil der Armregler Hindernissen ausweicht, Greifobjekte aber berühren darf.
+% DB: g1pilot/g1pilot/navigation/scene_bridge.py:11-13 (Hindernis -> ausweichen, Greif-Objekt -> Hand darf ran) @6a40e47

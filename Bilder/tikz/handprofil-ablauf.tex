@@ -1,0 +1,47 @@
+% Ablauf eines Hand-Profils (B7.11, fig:handprofil, Abschnitt sec:hand_profile). Nur Simulation.
+% Eigene Darstellung (Eigenleistung), keine Quelle in der Caption.
+% Datenbasis G1@6a40e47 (BA-Stable), Pfade relativ zur Repo-Wurzel:
+%   Profil: unitree_mujoco/unitree_robots/g1/hands/haken/hand.yaml:1-37 (Beschreibung + STL).
+%   Generator: unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py:154-190 (Abbildung, Gl. eq:handabbildung),
+%     :193-220 (konvexe Zerlegung), :222-236 (Trägheit), :71-83 (Prüfsumme), :437-441 (Prüfung beim Start),
+%     g1pilot/start.sh:341-353 (Neuerzeugen beim Start).
+%   Ausgaben: gen_hand_profile.py:319-371 (MJCF + Szene), :372-436 (URDF mit Kollisionsteilen und Werkzeugpunkt).
+%   Nutzer: Simulation (MJCF), g1pilot/g1pilot/navigation/loco_sim.py:331-345 (Schwerpunktmodell Ersatzregler),
+%     g1pilot/g1pilot/utils/ik_solver.py:237-238 (IK/Anzeige über URDF), g1pilot/g1pilot/manipulation/arm_geometry.py:36-46,370-400
+%     (Kugelmodell aus der Kollisionsgeometrie).
+% Stil: ba-grafik.tex. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    hp/.style={ba block, text width=30mm, minimum height=10mm},
+    gen/.style={ba block hervor, text width=38mm, minimum height=27mm},
+    sp/.style={font=\footnotesize, text=baGrau, anchor=south},
+  }
+  % Spaltenköpfe
+  \node[sp] at (1.75,1.75) {Profil};
+  \node[sp] at (6.0,1.75) {Generator};
+  \node[sp] at (10.15,1.75) {Modelle};
+  \node[sp] at (14.25,1.75) {Nutzer};
+  % Profil
+  \node[hp] (BE) at (1.75,0.75) {Beschreibung\\(Montage, Masse)};
+  \node[hp] (NE) at (1.75,-0.75) {Netz der\\Handform};
+  % Generator
+  \node[gen, align=left] (GE) at (6.0,0) {Abbildung in das\\Handgelenk\\(Gleichung~\ref{eq:handabbildung})\\[1mm]
+    konvexe Zerlegung\\[1mm] Trägheit\\[1mm] Prüfsumme};
+  % Modelle
+  \node[hp] (PM) at (10.15,0.75) {Physikmodell\\mit Szene};
+  \node[hp] (KM) at (10.15,-0.75) {Kinematikmodell\\mit Kollisions\-teilen};
+  % Nutzer
+  \node[hp, minimum height=7mm, font=\footnotesize] (U1) at (14.25,1.35) {Simulation};
+  \node[hp, minimum height=7mm, font=\footnotesize] (U2) at (14.25,0.45) {Schwerpunktmodell};
+  \node[hp, minimum height=7mm, font=\footnotesize] (U3) at (14.25,-0.45) {Kinematik, Anzeige};
+  \node[hp, minimum height=7mm, font=\footnotesize] (U4) at (14.25,-1.35) {Kollisionsmodell};
+  % Pfeile
+  \draw[ba pfeil] (BE.east) -- (BE.east -| GE.west);
+  \draw[ba pfeil] (NE.east) -- (NE.east -| GE.west);
+  \draw[ba pfeil] (GE.east |- PM.west) -- (PM.west);
+  \draw[ba pfeil] (GE.east |- KM.west) -- (KM.west);
+  \draw[ba pfeil] (PM.east) -- (U1.west);
+  \draw[ba pfeil] (PM.east) -- (U2.west);
+  \draw[ba pfeil] (KM.east) -- (U3.west);
+  \draw[ba pfeil] (KM.east) -- (U4.west);
+\end{tikzpicture}

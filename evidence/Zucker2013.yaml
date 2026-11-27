@@ -31,3 +31,9 @@ belege:
   kernaussage: Sampling-basierte Ansätze finden meist erst einen kollisionsfreien Pfad ohne Kostenmaß und verbessern ihn dann heuristisch.
   quelle: exzerpt
   kommentar: Kap. 4.2.3
+- id: Zucker2013.06
+  seite: "11"
+  zitat: "In the typical Euclidean case we would have M = I; instead, we choose M to be the matrix A defined in the previous subsection. Again, this means we prefer perturbations which add only small amounts of additional acceleration to the overall trajectory."
+  kernaussage: "CHOMP misst die Schrittweite der Bahnänderung mit der Glattheitsmatrix A statt euklidisch und bevorzugt Änderungen mit wenig zusätzlicher Beschleunigung."
+  quelle: exzerpt
+  kommentar: "Kap. Umsetzung (27.11.2026)"

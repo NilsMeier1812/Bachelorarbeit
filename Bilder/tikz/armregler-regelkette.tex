@@ -1,0 +1,68 @@
+% Verarbeitungskette des Armreglers je Regeltakt (B7.7, fig:regelkette, Abschnitt sec:regelkette).
+% Eigene Darstellung (Eigenleistung), keine Quelle in der Caption.
+% Datenbasis G1@6a40e47 (BA-Stable), Pfade relativ zu g1pilot/g1pilot/:
+%   Reihenfolge der Blöcke: manipulation/arm_controller.py:3662-3874 (main_loop: Zweige Lauf-Pose, Grundstellung,
+%     geplante Bahn, Rückgabe, reaktives Nachführen), :3879-3887 (Gelenkgeschwindigkeit richtungserhaltend),
+%     :3889-3896 (Glätten, _alpha_dt :3530-3536), :3900 (_limit_cartesian_speed), :3902 (_limit_accel),
+%     :3904 (_apply_collision_gate), :3907 (_limit_tracking_error), :3917 (_write_arm_cmd :1431-1459: PD-Sollwert,
+%     Schwerkraftvorsteuerung, Gewicht, Taille).
+%   Regeltakt 250 Hz: arm_controller.py:268 (rate_hz). "nur real": Anfahrrampe und Schleppfehler sind in der
+%     Simulation 0 = aus (launch/manipulation_launcher.launch.py:78-79), real 3,0 rad/s^2 bzw. 0,3 rad
+%     (launch/bringup_real.launch.py:110-111). Taille nur real: arm_controller.py:1153-1164 (_init_waist_hold).
+%   IK-Prozess: manipulation/ik_servo_process.py:1-23, :77-182; Planer-Prozess: manipulation/arm_planner_process.py:1-26.
+%   Eingänge: reaktives Nachführen aus Zielmarker, Controller, Bedienoberfläche (ik_servo_process.py:4-6);
+%     geplante Bewegung für Posen, Abläufe, Arm-API und Rückgabe (arm_controller.py:2745-2775, :1356-1386).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/armregler-regelkette} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    kette/.style={ba block, text width=29mm, minimum height=17mm},
+    real/.style={kette, dash pattern=on 3pt off 2pt},
+    proz/.style={ba block hervor, text width=40mm, minimum height=11mm},
+    nr/.style={font=\footnotesize, text=baGrau, anchor=south west, inner sep=1pt},
+    gtitel/.style={font=\footnotesize, text=baGrau, anchor=north west, inner sep=1pt},
+    pl/.style={font=\footnotesize, align=center},
+    ein/.style={font=\footnotesize, align=center, text=baGrau, text width=48mm},
+  }
+  % ---------------- Prozesse oberhalb des Regeltakts ----------------
+  \node[proz] (IK) at (2.85,3.35) {Inverse Kinematik\\je neuem Handziel};
+  \node[proz] (PL) at (11.35,3.35) {Bahnplaner\\(Abschnitt~\ref{sec:bahnplaner})};
+  \draw[ba gruppe] (0.35,2.55) rectangle (5.35,4.35);
+  \node[gtitel] at (0.4,4.33) {IK-Prozess};
+  \draw[ba gruppe] (8.85,2.55) rectangle (13.85,4.35);
+  \node[gtitel] at (8.9,4.33) {Planer-Prozess};
+  % Eingänge
+  \node[ein] (EIK) at (2.85,5.2) {Handziele aus Zielmarker, Controller, Bedienoberfläche};
+  \node[ein] (EPL) at (11.35,5.2) {Gelenkziele aus Posen, Abläufen, Arm-API, Rückgabe};
+  \draw[ba pfeil] (EIK.south) -- (2.85,4.35);
+  \draw[ba pfeil] (EPL.south) -- (11.35,4.35);
+  % ---------------- Regeltakt ----------------
+  \draw[ba gruppe] (0.0,-3.6) rectangle (15.6,1.45);
+  \node[gtitel, anchor=south east] at (15.55,-3.58) {Regeltakt des Armreglers, 250\,Hz};
+  % Reihe 1 (links nach rechts)
+  \node[kette] (B1) at (1.85,0.0) {Zielkonfiguration\\nach Betriebsart};
+  \node[kette] (B2) at (5.8,0.0) {Geschwindigkeit der Gelenke begrenzen};
+  \node[kette] (B3) at (9.75,0.0) {Glätten\\(Gleichung~\ref{eq:glaettung})};
+  \node[kette] (B4) at (13.7,0.0) {Geschwindigkeit von Hand und Ellbogen begrenzen};
+  % Reihe 2 (rechts nach links)
+  \node[real] (B5) at (13.7,-2.2) {Anfahrrampe\\(nur real)};
+  \node[kette] (B6) at (9.75,-2.2) {Kollisions\-überwachung (Abschnitt~\ref{sec:laufzeitueberwachung})};
+  \node[real] (B7) at (5.8,-2.2) {Schleppfehler begrenzen\\(nur real)};
+  \node[kette] (B8) at (1.85,-2.2) {Befehl mit Schwerkraft\-vorsteuerung schreiben};
+  % Nummern
+  \foreach \b/\n in {B1/1,B2/2,B3/3,B4/4,B5/5,B6/6,B7/7,B8/8}{\node[nr] at (\b.north west) {\n};}
+  % Fluss
+  \draw[ba pfeil] (B1) -- (B2);
+  \draw[ba pfeil] (B2) -- (B3);
+  \draw[ba pfeil] (B3) -- (B4);
+  \draw[ba pfeil] (B4) -- (B5);
+  \draw[ba pfeil] (B5) -- (B6);
+  \draw[ba pfeil] (B6) -- (B7);
+  \draw[ba pfeil] (B7) -- (B8);
+  % Prozesse -> Zielkonfiguration
+  \draw[ba pfeil] (1.85,2.55) -- (B1.north) node[pl, pos=0.28, right] {letztes Gelenkziel};
+  \draw[ba pfeil] (11.35,2.55) -- (11.35,1.15) -| (3.0,0.85) node[pl, pos=0.25, above] {zeitparametrierte Bahn};
+  % Ausgang
+  \node[ba block, text width=70mm, minimum height=11mm, anchor=north west] (OUT) at (0.35,-4.1)
+    {Befehlsweg der Arme mit Überblendgewicht,\\im Realbetrieb zusätzlich die Taille};
+  \draw[ba pfeil] (B8.south) -- (B8.south |- OUT.north);
+\end{tikzpicture}

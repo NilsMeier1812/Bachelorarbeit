@@ -1,0 +1,63 @@
+% Trichter des Armplaners: a) Skizze einer Handbahn über ein Hindernis mit dem Abstandsbedarf als Band,
+% b) Abstandsbedarf über dem Abstand zum näheren Endpunkt (Gleichung eq:abstandsbedarf).
+% Eigene Darstellung. a) schematisch, 1 cm in der Skizze = 10 cm; Band = Kugelradius + Bedarf b(a) mit
+%   C = 5 cm, R = 15 cm, Endwert 0; Koordinaten der Bandränder einmalig mit derselben Formel berechnet
+%   (kubische Bezierkurve (0.8,0.18) (0.8,2.4) (6.4,2.4) (6.4,0.18), Kugelradius 0.18).
+% b) Daten: Daten/planer-trichter.csv aus Daten/planer-trichter.py (Voreinstellungen des Planers, kein Messwert).
+% Code: G1 PR #62 @e452513, g1pilot/g1pilot/manipulation/arm_planner.py:72-100, 112-114, 251-272.
+\begin{tikzpicture}[ba]
+  % ---------------- a) Skizze ----------------
+  \begin{scope}
+    % Tisch und Hindernis (Flächen grau = Objekte des Weltmodells)
+    \fill[baHellgrau] (0,-0.3) rectangle (7.2,0);
+    \draw[baGrau, ba normal] (0,-0.3) rectangle (7.2,0);
+    \fill[baHellgrau] (3.0,0) rectangle (4.2,1.0);
+    \draw[baGrau, ba normal] (3.0,0) rectangle (4.2,1.0);
+    \node[text=baGrau] at (3.6,0.5) {Hindernis};
+    \node[text=baGrau, anchor=north] at (3.6,-0.32) {Tisch};
+    % Band: Kugelradius + Abstandsbedarf entlang der Bahn
+    \fill[baHellblau, fill opacity=0.35]
+      (0.62,0.19) -- (0.62,0.37) -- (0.61,0.56) -- (0.62,0.75) -- (0.64,0.96) -- (0.69,1.17) -- (0.76,1.37) -- (0.87,1.57) -- (1.00,1.75) -- (1.17,1.91) -- (1.36,2.03) -- (1.56,2.13) -- (1.77,2.21) -- (1.98,2.29) -- (2.21,2.35) -- (2.43,2.41) -- (2.66,2.45) -- (2.89,2.48) -- (3.13,2.51) -- (3.36,2.52) -- (3.60,2.52) -- (3.84,2.52) -- (4.07,2.51) -- (4.31,2.48) -- (4.54,2.45) -- (4.77,2.41) -- (4.99,2.35) -- (5.22,2.29) -- (5.43,2.21) -- (5.64,2.13) -- (5.84,2.03) -- (6.03,1.91) -- (6.20,1.75) -- (6.33,1.57) -- (6.44,1.37) -- (6.51,1.17) -- (6.56,0.96) -- (6.58,0.75) -- (6.59,0.56) -- (6.58,0.37) -- (6.58,0.19)
+      -- (6.22,0.17) -- (6.19,0.32) -- (6.13,0.44) -- (6.04,0.53) -- (5.93,0.60) -- (5.81,0.65) -- (5.68,0.68) -- (5.56,0.71) -- (5.44,0.74) -- (5.32,0.77) -- (5.21,0.83) -- (5.08,0.89) -- (4.95,0.94) -- (4.80,0.99) -- (4.65,1.04) -- (4.49,1.08) -- (4.32,1.11) -- (4.14,1.13) -- (3.96,1.15) -- (3.78,1.16) -- (3.60,1.16) -- (3.42,1.16) -- (3.24,1.15) -- (3.06,1.13) -- (2.88,1.11) -- (2.71,1.08) -- (2.55,1.04) -- (2.40,0.99) -- (2.25,0.94) -- (2.12,0.89) -- (1.99,0.83) -- (1.88,0.77) -- (1.76,0.74) -- (1.64,0.71) -- (1.52,0.68) -- (1.39,0.65) -- (1.27,0.60) -- (1.16,0.53) -- (1.07,0.44) -- (1.01,0.32) -- (0.98,0.17) -- cycle;
+    \draw[baBlau, ba duenn, dash pattern=on 2pt off 1.5pt]
+      (0.62,0.19) -- (0.62,0.37) -- (0.61,0.56) -- (0.62,0.75) -- (0.64,0.96) -- (0.69,1.17) -- (0.76,1.37) -- (0.87,1.57) -- (1.00,1.75) -- (1.17,1.91) -- (1.36,2.03) -- (1.56,2.13) -- (1.77,2.21) -- (1.98,2.29) -- (2.21,2.35) -- (2.43,2.41) -- (2.66,2.45) -- (2.89,2.48) -- (3.13,2.51) -- (3.36,2.52) -- (3.60,2.52) -- (3.84,2.52) -- (4.07,2.51) -- (4.31,2.48) -- (4.54,2.45) -- (4.77,2.41) -- (4.99,2.35) -- (5.22,2.29) -- (5.43,2.21) -- (5.64,2.13) -- (5.84,2.03) -- (6.03,1.91) -- (6.20,1.75) -- (6.33,1.57) -- (6.44,1.37) -- (6.51,1.17) -- (6.56,0.96) -- (6.58,0.75) -- (6.59,0.56) -- (6.58,0.37) -- (6.58,0.19);
+    \draw[baBlau, ba duenn, dash pattern=on 2pt off 1.5pt]
+      (6.22,0.17) -- (6.19,0.32) -- (6.13,0.44) -- (6.04,0.53) -- (5.93,0.60) -- (5.81,0.65) -- (5.68,0.68) -- (5.56,0.71) -- (5.44,0.74) -- (5.32,0.77) -- (5.21,0.83) -- (5.08,0.89) -- (4.95,0.94) -- (4.80,0.99) -- (4.65,1.04) -- (4.49,1.08) -- (4.32,1.11) -- (4.14,1.13) -- (3.96,1.15) -- (3.78,1.16) -- (3.60,1.16) -- (3.42,1.16) -- (3.24,1.15) -- (3.06,1.13) -- (2.88,1.11) -- (2.71,1.08) -- (2.55,1.04) -- (2.40,0.99) -- (2.25,0.94) -- (2.12,0.89) -- (1.99,0.83) -- (1.88,0.77) -- (1.76,0.74) -- (1.64,0.71) -- (1.52,0.68) -- (1.39,0.65) -- (1.27,0.60) -- (1.16,0.53) -- (1.07,0.44) -- (1.01,0.32) -- (0.98,0.17);
+    % Bahn der Kugelmitte
+    \draw[baBlau, ba normal] (0.8,0.18) .. controls (0.8,2.4) and (6.4,2.4) .. (6.4,0.18);
+    % Trichterradius R um Start und Ziel
+    \draw[ba hilfslinie] (0.8,0.18) ++(10:1.5) arc[start angle=10, end angle=125, radius=1.5];
+    \draw[ba hilfslinie] (6.4,0.18) ++(55:1.5) arc[start angle=55, end angle=170, radius=1.5];
+    \draw[ba duenn, baGrau, ->] (0.8,0.18) -- ++(125:1.5) node[midway, below left=-1pt, text=black] {$R$};
+    \draw[ba duenn, baGrau, ->] (6.4,0.18) -- ++(55:1.5) node[midway, below right=-1pt, text=black] {$R$};
+    % Abstandsbedarf C in der Bahnmitte
+    \draw[ba duenn, black, <->] (3.6,2.03) -- (3.6,2.52);
+    \node[anchor=west] at (3.65,2.36) {$C$};
+    % Kugel der Hand an Start, Mitte, Ziel
+    \foreach \p in {(0.8,0.18), (3.6,1.845), (6.4,0.18)}
+      \fill[baGruen] \p circle (0.18);
+    \node[anchor=north] at (0.8,-0.32) {Start};
+    \node[anchor=north] at (6.4,-0.32) {Ziel};
+    \node[ba teiltitel, anchor=north west] at (0,-1.55) {a) Bahn einer Handkugel mit Trichtern};
+  \end{scope}
+  % Trennlinie
+  \draw[ba trenner] (7.55,-2.0) -- (7.55,3.0);
+  % ---------------- b) Abstandsbedarf ----------------
+  \begin{scope}[xshift=9.1cm, yshift=-0.3cm]
+    \begin{axis}[ba plot, scale only axis, width=6.3cm, height=2.9cm,
+        xmin=0, xmax=20, ymin=-2.5, ymax=6,
+        xtick={0,5,10,15,20}, ytick={-2,0,2,4,6},
+        xlabel={Abstand $a$ zum näheren Endpunkt in cm},
+        ylabel={Bedarf $b$ in cm},
+        legend pos=south east, legend style={font=\footnotesize}]
+      \addplot+[no markers] table[x=a_cm, y=b_f0_cm, col sep=comma] {Daten/planer-trichter.csv};
+      \addlegendentry{Endwert $f=0$}
+      \addplot+[no markers, dash pattern=on 4pt off 2pt] table[x=a_cm, y=b_fm2_cm, col sep=comma] {Daten/planer-trichter.csv};
+      \addlegendentry{Endwert $f=-2$\,cm}
+      \draw[ba hilfslinie] (axis cs:15,-2.5) -- (axis cs:15,6);
+      \node[anchor=south west, font=\footnotesize] at (axis cs:15,3.0) {$R$};
+      \node[anchor=south west, font=\footnotesize] at (axis cs:0.5,5.0) {$C$};
+    \end{axis}
+    \node[ba teiltitel, anchor=north west] at (-1.55,-1.25) {b) Abstandsbedarf über dem Abstand};
+  \end{scope}
+\end{tikzpicture}

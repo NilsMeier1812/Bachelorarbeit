@@ -1,0 +1,45 @@
+% Signalfluss der Kopplungsschicht zwischen Herstellerschnittstelle und MuJoCo (Kap. Umsetzung, fig:bridge).
+% Eigene Darstellung, keine Quelle in der Caption.
+% Basis: G1@6a40e47 unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:280-298 (zwei Befehlswege, Index 15..28 Arme,
+%   Index 29 Gewicht), :304-307 (PD-Gesetz je Motor), :393-456 (Überblendung w*tau_a + (1-w)*tau_l, Beine/Taille direkt),
+%   :487-557 (Zustandsnachricht: Gelenke, IMU; Reservefelder 0..3 Fußkräfte und Basisgeschwindigkeit);
+%   unitree_robots/g1/g1_29dof.xml:388 ff. (Aktoren als <motor>).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/bridge-signalfluss} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    klein/.style={font=\footnotesize},
+    bl/.style={ba block, font=\footnotesize, minimum width=24mm, minimum height=9mm},
+    pd/.style={ba block, font=\footnotesize, minimum width=18mm, minimum height=7mm},
+    zusatz/.style={ba normal, ->, dash pattern=on 3pt off 2pt},
+  }
+  % Spalten: Regler x = 1,2 | PD x = 6,0 | Überblendung x = 9,3 | MuJoCo x = 14,3
+  \node[bl, minimum height=17mm] (ER) at (1.2,3.6) {Ersatzregler};
+  \node[bl] (AR) at (1.2,0.9) {Armregler};
+  \node[pd] (PD1) at (6.0,4.2) {PD-Gesetz};
+  \node[pd] (PD2) at (6.0,3.0) {PD-Gesetz};
+  \node[pd] (PD3) at (6.0,0.9) {PD-Gesetz};
+  \node[ba block hervor, font=\footnotesize, minimum width=24mm, minimum height=9mm, align=center] (UB) at (8.8,1.95)
+    {Überblendung\\mit Gewicht $w$};
+  \node[bl, minimum height=44mm, align=center] (MJ) at (14.1,2.6) {MuJoCo\\(Drehmoment-\\Aktoren)};
+  \node[bl, align=center] (ZN) at (9.3,-0.5) {Zustandsnachricht};
+  % Befehle (zwei Befehlswege)
+  \draw[ba pfeil] (ER.east |- PD1) -- node[klein, above] {Gelenke 0--14} (PD1.west);
+  \draw[ba pfeil] (ER.east |- PD2) -- node[klein, above] {Gelenke 15--28} (PD2.west);
+  \draw[ba pfeil] (AR.east) -- node[klein, above] {Gelenke 15--28} node[klein, below] {Gewicht $w$} (PD3.west);
+  \draw[ba pfeil] (PD2.east) -| node[klein, above, pos=0.3] {$1-w$} (UB.north);
+  \draw[ba pfeil] (PD3.east) -| node[klein, below, pos=0.3] {$w$} (UB.south);
+  \draw[ba pfeil] (PD1.east) -- node[klein, above] {Momente 0--14} (PD1.east -| MJ.west);
+  \draw[ba pfeil] (UB.east) -- node[klein, above] {Momente 15--28} (UB.east -| MJ.west);
+  % Rückweg
+  \draw[ba pfeil] (MJ.south) |- node[klein, above, pos=0.75] {Sensorwerte} (ZN.east);
+  \draw[ba pfeil] (ZN.west |- 0,-0.35) -- (-0.3,-0.35) |- (AR.west);
+  \draw[ba pfeil] (-0.3,0.9) |- ([yshift=-2mm]ER.west);
+  \node[klein, anchor=south west] at (2.6,-0.35) {Gelenkzustand, IMU};
+  \draw[zusatz] (ZN.west |- 0,-0.65) -- (-0.6,-0.65) |- ([yshift=2mm]ER.west);
+  \node[klein, anchor=north west] at (0.2,-0.65) {nur Simulation: Fußkräfte, Basisgeschwindigkeit};
+  % Kopplungsschicht
+  \begin{scope}[on background layer]
+    \node[ba gruppe, fit=(PD1) (PD2) (PD3) (UB) (ZN), inner xsep=8pt, inner ysep=8pt] (KS) {};
+  \end{scope}
+  \node[klein, text=baGrau, anchor=south west, inner sep=1pt] at ([yshift=1pt]KS.north west) {Kopplungsschicht, je Physikschritt};
+\end{tikzpicture}
