@@ -30,7 +30,9 @@ ROMAN = re.compile(r"^[ivxlcdm]+$", re.I)
 
 def bauen():
     BUILD.mkdir(exist_ok=True)
+    # biber läuft im Build-Ordner und fände zotero.bib dort nicht, deshalb --input-directory aufs Repo
     r = subprocess.run(["latexmk", "-pdf", "-interaction=nonstopmode",
+                        "-e", f"$biber = 'biber --input-directory={ROOT} %O %S'",
                         f"-outdir={BUILD}", "main.tex"], cwd=ROOT, capture_output=True, text=True, errors="replace")
     if not PDF.exists():
         print(r.stdout[-3000:])
