@@ -174,6 +174,8 @@ Pflicht wird sicher verwendet, Reserve nur, wenn Platz ist.
 - [x] **D3 Realbetrieb ohne Weltmodell:** Die Szenenanbindung startet nur in der Simulation, real prüft der Armregler also nur Körper und Arme. So gewollt?
   → Nils 27.11.: ja, ohne Umfelderfassung (LiDAR zu aufwendig) kein Ausweichen real. Als Begründung in den Text übernommen.
 - [ ] **D4 Haken-Hand wiegen:** Text sagt rund 110 g (Schätzwert), das Hand-Profil trägt 0,15 kg je Hand. Je Hand oder beide?
+      *Stand 27.11.: Text sagt 55 g je Hand (deine Angabe), Profil noch 0,15 kg. Seit eb38574 geht die Masse real in die Schwerkraftvorsteuerung ein, also bitte wiegen und im Profil eintragen.*
+- [ ] **D5 BA-Stable nachziehen:** Abschnitt Roboterhände beschreibt den Handtausch am realen Roboter nach Commit eb38574. Wenn die Tests durch sind und BA-Stable weiterzieht, kurz Bescheid geben, dann stelle ich die Fundstellen um.
   → Nils 27.11.: ca. 55 g je Hand, im Text eingetragen. Offen nur noch: Hand-Profil im Code (0,15 kg) angleichen oder Abweichung begründen.
 - [ ] **D5 Kurz bestätigen:** nur der Ersatzregler liest die Reservefelder (Fußkräfte); Kran-Beobachtung 21.10. (Knielast als Gehfreigabe); Begründung der Geh-Grenzen 0,4 / 0,3 / 0,4; Taillen-Gains real im Code als „ungeprüft“ markiert.
 - [ ] **D6 Kürzen:** Entwurf 23 S. statt Ziel 15 (Langfassung 29 S. und Kürzungsliste in `review/kap7-entwurf/`). Weitere Kandidaten: 7.7 in 7.2.2 aufgehen lassen, Tabelle Auslegungswerte Armregler, Startmenü knapper.

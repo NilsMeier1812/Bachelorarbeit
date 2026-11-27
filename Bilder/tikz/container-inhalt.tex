@@ -1,0 +1,49 @@
+% Inhalt der drei Docker-Container (Physiksimulation, Steuerung Simulation, Steuerung Realbetrieb), Kap. Umsetzung (fig:container-inhalt).
+% Eigene Darstellung, keine Quelle in der Caption.
+% Datenbasis G1@c50a8bf (BA-Stable), Pfade relativ zum Repo-Root von g1pilot:
+%   Physiksimulation: g1pilot/docker/Dockerfile.mujoco:1 (Ubuntu 22.04), :14 (pip: mujoco, pygame, numpy), :16-19 (Unitree-SDK Python),
+%     :22-24 (cyclonedds.xml, simulate_python/, unitree_robots/ = Szenen und Robotermodelle), :31 (unitree_mujoco.py).
+%   Steuerung (Simulation): g1pilot/docker/Dockerfile.sim:1 (ros:humble), :9-31 (ROS-2-Pakete, rviz2, joy), :43 (pyqt6, pin, meshcat, evdev),
+%     :50 (onnxruntime, onnx für loco_sim).
+%   Steuerung (Realbetrieb): g1pilot/docker/Dockerfile.real:1-7 (Kopfkommentar: Basis = Dockerfile.sim ohne onnxruntime), :15-50 (wie Sim, pin>=2.6, evdev).
+%   Profile: g1pilot/docker-compose.yml:27 (sim), :69 (sim), :163 (real).
+%   Nicht aus den Dockerfiles belegt: "Kopplungsschicht" (Annahme: unitree_mujoco/simulate_python/unitree_mujoco.py) und
+%     "Funktionsknoten" (Code aus dem eingebundenen Repo, nicht im Image); "Zugriff auf Eingabegeräte" steht in beiden Steuerungs-Images (evdev), siehe Bericht.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/container-inhalt} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    behaelter/.style={draw=baGrau, ba normal, rounded corners=3pt},
+    cblock/.style={ba block, text width=37mm, minimum width=42mm, minimum height=12mm},
+    chervor/.style={ba block hervor, text width=37mm, minimum width=42mm, minimum height=12mm},
+    ctitel/.style={font=\small\bfseries, anchor=center},
+    klammer/.style={ba normal, draw=baGrau},
+  }
+  % Kästen: x0 = 0 | 5,3 | 10,6, Breite 4,9, y von 0 bis -6,95; Blöcke Mitte x0+2,45, y = -1,55 - 1,45 i
+  \foreach \x/\titel in {0/Physiksimulation, 5.3/{Steuerung (Simulation)}, 10.6/{Steuerung (Realbetrieb)}} {
+    \draw[behaelter] (\x,0) rectangle (\x+4.9,-6.95);
+    \node[ctitel] at (\x+2.45,-0.5) {\titel};
+  }
+  % Physiksimulation
+  \node[cblock] at (2.45,-1.55) {MuJoCo};
+  \node[cblock] at (2.45,-3.0) {SDK des Herstellers\\(Python)};
+  \node[cblock] at (2.45,-4.45) {Kopplungsschicht};
+  \node[cblock] at (2.45,-5.9) {Szenen und\\Robotermodelle};
+  % Steuerung Simulation
+  \node[cblock] at (7.75,-1.55) {ROS~2 Humble};
+  \node[cblock] at (7.75,-3.0) {Funktionsknoten};
+  \node[cblock] at (7.75,-4.45) {Bedienoberfläche und 3D-Anzeige};
+  \node[chervor] at (7.75,-5.9) {ONNX-Laufzeit für Lauf-Policies};
+  % Steuerung Realbetrieb
+  \node[cblock] at (13.05,-1.55) {ROS~2 Humble};
+  \node[cblock] at (13.05,-3.0) {Funktionsknoten};
+  \node[cblock] at (13.05,-4.45) {Bedienoberfläche und 3D-Anzeige};
+  \node[chervor] at (13.05,-5.9) {Zugriff auf\\Eingabegeräte};
+  % Profile
+  \draw[klammer] (0.0,-7.25) -- (0.0,-7.45) -- (10.2,-7.45) -- (10.2,-7.25);
+  \node[font=\small, anchor=north] at (5.1,-7.5) {Profil sim};
+  \draw[klammer] (10.6,-7.25) -- (10.6,-7.45) -- (15.5,-7.45) -- (15.5,-7.25);
+  \node[font=\small, anchor=north] at (13.05,-7.5) {Profil real};
+  % Legende
+  \node[ba block hervor, minimum width=6mm, minimum height=4mm, inner sep=0pt] at (1.2,-8.7) {};
+  \node[font=\footnotesize, anchor=mid west] at (1.6,-8.7) {nur in einem der beiden Steuerungs-Container};
+\end{tikzpicture}

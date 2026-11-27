@@ -13,3 +13,9 @@ belege:
   kernaussage: Kern ist eine Vorverarbeitung, die automatisch eng anliegende Kugelhierarchien für starre und gelenkige Objekte erzeugt.
   quelle: exzerpt
   kommentar: Kap. 4.2.2
+- id: Hubbard1996.03
+  seite: '189'
+  zitat: This algorithm is efficient because testing two spheres for intersection is a very fast operation, and the hierarchy prunes the numbers of spheres to test.
+  kernaussage: Der Algorithmus ist effizient, weil der Schnitttest zweier Kugeln sehr schnell ist und die Hierarchie die Zahl der zu prüfenden Kugeln verringert.
+  quelle: exzerpt
+  kommentar: Kap. 7.4.2 – Begründung Kugelmodell (P39)

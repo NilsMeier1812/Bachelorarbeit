@@ -1,0 +1,21 @@
+% Ebenen des Zugangs zu den Armen (Kap. Umsetzung, fig:api_ebenen, Abschnitt sec:entwickler_api).
+% Eigene Darstellung. Ebenen und Schutz nach Kap. 6 tab:andockpunkte; Datenbasis G1@c50a8bf:
+%   g1pilot/g1pilot/manipulation/interactive_marker.py:21-70 (Zielmarker -> Hand-Ziel-Thema),
+%   g1pilot/g1pilot/manipulation/arm_api.py:3-30 (HTTP-Brücke ohne Regellogik, Armregler prüft),
+%   g1pilot/g1pilot/utils/common.py:15-47 (direkter DDS-Zugang, Domain 1 / lo in der Simulation).
+% Stil: ba-grafik.tex. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    ebene/.style={ba block, text width=52mm, minimum height=12mm},
+    schutz/.style={font=\footnotesize, align=left, anchor=west, text width=72mm},
+  }
+  \node[ebene] (Z) at (0,0)    {Zielmarker in RViz\\(Hand-Ziel)};
+  \node[ebene] (A) at (0,-1.8) {Arm-Schnittstelle über HTTP\\(Gelenk- oder Handziel)};
+  \node[ebene, ba block hervor] (D) at (0,-3.6) {Direkter Zugang über DDS\\(Motorbefehle)};
+  \node[schutz] at (3.2,0)    {Armregler mit inverser Kinematik,\\Kollisionsprüfung und Begrenzern};
+  \node[schutz] at (3.2,-1.8) {Armregler mit Bahnplaner, Kollisionsprüfung\\und Begrenzern, Format geprüft};
+  \node[schutz] at (3.2,-3.6) {kein Schutz der Umgebung,\\eigener Regler erforderlich};
+  \node[font=\footnotesize, text=baGrau, anchor=south] at (0,0.75) {Zugang};
+  \node[font=\footnotesize, text=baGrau, anchor=south west] at (3.2,0.75) {Schutz dazwischen};
+  \draw[ba pfeil] (-3.4,0.4) -- node[font=\footnotesize, rotate=90, above] {weniger Schutz} (-3.4,-4.0);
+\end{tikzpicture}

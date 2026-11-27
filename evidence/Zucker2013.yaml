@@ -37,3 +37,9 @@ belege:
   kernaussage: "CHOMP misst die Schrittweite der Bahnänderung mit der Glattheitsmatrix A statt euklidisch und bevorzugt Änderungen mit wenig zusätzlicher Beschleunigung."
   quelle: exzerpt
   kommentar: "Kap. Umsetzung (27.11.2026)"
+- id: Zucker2013.07
+  seite: '12'
+  zitat: In this way, the nearest distance to any point in B can be made simple to compute. For spheres, the distance to any point is given by the distance to the center of the sphere minus its radius.
+  kernaussage: Mit Hüllkörpern wie Kugeln ist der kleinste Abstand einfach zu berechnen, bei einer Kugel als Abstand zum Mittelpunkt minus Radius.
+  quelle: exzerpt
+  kommentar: Kap. 7.4.2 – Begründung Kugelmodell (P39)
