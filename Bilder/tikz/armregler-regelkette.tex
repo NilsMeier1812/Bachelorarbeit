@@ -15,7 +15,7 @@
 % Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/armregler-regelkette} in einer figure-Umgebung. Nicht skalieren.
 \begin{tikzpicture}[ba]
   \tikzset{
-    kette/.style={ba block, text width=29mm, minimum height=17mm},
+    kette/.style={ba block, text width=29mm, minimum height=19mm},
     real/.style={kette, dash pattern=on 3pt off 2pt},
     proz/.style={ba block hervor, text width=40mm, minimum height=11mm},
     nr/.style={font=\footnotesize, text=baGrau, anchor=south west, inner sep=1pt},
@@ -36,18 +36,18 @@
   \draw[ba pfeil] (EIK.south) -- (2.85,4.35);
   \draw[ba pfeil] (EPL.south) -- (11.35,4.35);
   % ---------------- Regeltakt ----------------
-  \draw[ba gruppe] (0.0,-3.6) rectangle (15.6,1.45);
-  \node[gtitel, anchor=south east] at (15.55,-3.58) {Regeltakt des Armreglers, 250\,Hz};
+  \draw[ba gruppe] (0.0,-4.0) rectangle (15.6,1.75);
+  \node[gtitel, anchor=south east] at (15.55,-3.98) {Regeltakt des Armreglers, 250\,Hz};
   % Reihe 1 (links nach rechts)
   \node[kette] (B1) at (1.85,0.0) {Zielkonfiguration\\nach Betriebsart};
   \node[kette] (B2) at (5.8,0.0) {Geschwindigkeit der Gelenke begrenzen};
   \node[kette] (B3) at (9.75,0.0) {Glätten\\(Gleichung~\ref{eq:glaettung})};
-  \node[kette] (B4) at (13.7,0.0) {Geschwindigkeit von Hand und Ellbogen begrenzen};
+  \node[kette] (B4) at (13.7,0.0) {Tempo von Hand\\und Ellbogen\\begrenzen};
   % Reihe 2 (rechts nach links)
-  \node[real] (B5) at (13.7,-2.2) {Anfahrrampe\\(nur real)};
-  \node[kette] (B6) at (9.75,-2.2) {Kollisions\-überwachung (Abschnitt~\ref{sec:laufzeitueberwachung})};
-  \node[real] (B7) at (5.8,-2.2) {Schleppfehler begrenzen\\(nur real)};
-  \node[kette] (B8) at (1.85,-2.2) {Befehl mit Schwerkraft\-vorsteuerung schreiben};
+  \node[real] (B5) at (13.7,-2.55) {Anfahrrampe\\(nur real)};
+  \node[kette] (B6) at (9.75,-2.55) {Kollisions\-überwachung (Abschnitt~\ref{sec:laufzeitueberwachung})};
+  \node[real] (B7) at (5.8,-2.55) {Schleppfehler begrenzen\\(nur real)};
+  \node[kette] (B8) at (1.85,-2.55) {Befehl mit\\Vorsteuerung der\\Schwerkraft};
   % Nummern
   \foreach \b/\n in {B1/1,B2/2,B3/3,B4/4,B5/5,B6/6,B7/7,B8/8}{\node[nr] at (\b.north west) {\n};}
   % Fluss
@@ -60,9 +60,9 @@
   \draw[ba pfeil] (B7) -- (B8);
   % Prozesse -> Zielkonfiguration
   \draw[ba pfeil] (1.85,2.55) -- (B1.north) node[pl, pos=0.28, right] {letztes Gelenkziel};
-  \draw[ba pfeil] (11.35,2.55) -- (11.35,1.15) -| (3.0,0.85) node[pl, pos=0.25, above] {zeitparametrierte Bahn};
+  \draw[ba pfeil] (11.35,2.55) -- (11.35,1.25) -| (3.0,0.95) node[pl, pos=0.25, above] {zeitparametrierte Bahn};
   % Ausgang
-  \node[ba block, text width=70mm, minimum height=11mm, anchor=north west] (OUT) at (0.35,-4.1)
+  \node[ba block, text width=70mm, minimum height=11mm, anchor=north west] (OUT) at (0.35,-4.45)
     {Befehlsweg der Arme mit Überblendgewicht,\\im Realbetrieb zusätzlich die Taille};
   \draw[ba pfeil] (B8.south) -- (B8.south |- OUT.north);
 \end{tikzpicture}
