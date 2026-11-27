@@ -5,7 +5,7 @@
 % Gekürzte Fassung vom 27.11.2026 (Ziel Entwurf 20--21 S.). Langfassung: review/kap7-entwurf/07_Umsetzung_Langfassung.tex,
 % gestrichene Stellen wörtlich in review/kap7-entwurf/kuerzungen.md.
 % Paket A (Entwurf 27.11.2026): Kapiteleinleitung, Containerisierte Bereitstellung, Simulationsumgebung.
-% Code-Bezug: G1 Branch BA-Stable @6a40e47 (Pfade relativ zur Repo-Wurzel), Greifobjekte nach PR #61 @8eb34f4.
+% Code-Bezug: G1 Branch BA-Stable @c50a8bf (27.11.2026, nach Merge PR #60-#64; Pfade relativ zur Repo-Wurzel).
 % Notizen, Faktenblatt, vorgeschlagene Belege: review/kap7-entwurf/A-notizen.md
 % ======================================================================
 
@@ -24,14 +24,14 @@ Die Umgebung setzt die Container-Profile aus Abschnitt~\ref{sec:container_profil
 Das Abbild der Physiksimulation enthält MuJoCo, das Python-SDK des Herstellers, die Kopplungsschicht sowie Szenen und Robotermodelle, aber kein ROS~2.
 Die beiden Abbilder der Steuerung bauen auf ROS~2 Humble auf und enthalten dieselben Funktionsknoten, die Bedienoberfläche und die 3D-Anzeige.
 Nur das Abbild für die Simulation bringt die Laufzeitumgebung für die Lauf-Policies im Format ONNX mit, weil am realen Roboter der Onboard-Regler läuft (Abschnitt~\ref{sec:fortbewegungspfade}), das Abbild für den Realbetrieb dafür den Zugriff auf Eingabegeräte.
-% DB: g1pilot/docker/Dockerfile.mujoco:1,14-24; g1pilot/docker/Dockerfile.sim:1,9-31,43-56; g1pilot/docker/Dockerfile.real:1-7,15-50 (kein ompl, kein onnxruntime) @6a40e47
+% DB: g1pilot/docker/Dockerfile.mujoco:1,14-24; g1pilot/docker/Dockerfile.sim:1,9-31,41-50; g1pilot/docker/Dockerfile.real:1-7,15-50 (kein onnxruntime) @c50a8bf
 
 Die Betriebsart wählt allein das gestartete Profil, im Profil \emph{sim} mit Physiksimulation und Steuerung, im Profil \emph{real} nur mit der Steuerung, und das Profil setzt eine an einer einzigen Stelle ausgewertete Umgebungsvariable (Abschnitt~\ref{sec:sim_real_schalter}).
 Alle Container teilen das Netzwerk des Host-PCs, wobei der Verkehr von ROS~2 per Konfiguration auf die Loopback-Schnittstelle beschränkt ist und so nicht in das Netz des Roboters gelangt.
 Abbildung~\ref{fig:verteilung} zeigt die Verteilung der Prozesse in beiden Profilen.
-% DB: g1pilot/docker/Dockerfile.mujoco:1,14-24; g1pilot/docker/Dockerfile.sim:1,9-31,43-56; g1pilot/docker/Dockerfile.real:1-7,15-50 (kein ompl, kein onnxruntime);
+% DB: g1pilot/docker/Dockerfile.mujoco:1,14-24; g1pilot/docker/Dockerfile.sim:1,9-31,41-50; g1pilot/docker/Dockerfile.real:1-7,15-50 (kein onnxruntime);
 %     g1pilot/docker-compose.yml:10-17 (network_mode host), :25-31, :32, :67-75, :84 (G1_SIM_MODE=true), :159-169, :172 (false); g1pilot/g1pilot/utils/common.py:24-55;
-%     g1pilot/docker/cyclonedds.xml:1-16 (nur lo, kein Multicast), g1pilot/docker/Dockerfile.real:74-81 @6a40e47
+%     g1pilot/docker/cyclonedds.xml:1-16 (nur lo, kein Multicast), g1pilot/docker/Dockerfile.real:74-81 @c50a8bf
 
 \begin{figure}[htbp]
   \centering
@@ -43,7 +43,7 @@ Abbildung~\ref{fig:verteilung} zeigt die Verteilung der Prozesse in beiden Profi
 In beiden Profilen der Abbildung~\ref{fig:verteilung} laufen Funktionsknoten und Bedienoberfläche im Container, Startmenü und Wächter dagegen auf dem Host.
 In der Simulation verbinden die Herstellerschnittstelle über DDS und ein UDP-Kanal für die Objekte der Szene die Container (Abschnitt~\ref{sec:szenen}), im Realbetrieb erreicht die Steuerung über die Netzwerkkarte den Roboter per DDS und die Inspire-Hände per Modbus TCP (Abschnitt~\ref{sec:haende}).
 % DB: g1pilot/docker-compose.yml:120-125, :187-197 (Handy, Hände per Modbus TCP); unitree_mujoco/simulate_python/scene_state_publisher.py:1-22;
-%     g1pilot/g1pilot/manipulation/arm_api.py:1-26; docker/sim_shutdown_watcher.sh:1-15 („Die Demo-GUI laeuft IM Container“) @6a40e47
+%     g1pilot/g1pilot/manipulation/arm_api.py:1-26; docker/sim_shutdown_watcher.sh:1-15 („Die Demo-GUI laeuft IM Container“) @c50a8bf
 
 Das Startmenü ist eine grafische Oberfläche auf dem Host und erledigt alle Schritte vor dem Start, für die sonst ein Terminal nötig wäre.
 Für die Simulation baut es die gewählte Szene zusammen (Abschnitt~\ref{sec:szenen}), erzeugt ein veraltetes Handmodell neu (Abschnitt~\ref{sec:haende}) und prüft, ob Docker erreichbar ist.
@@ -52,17 +52,17 @@ Die Bedienschritte beschreibt Anhang~\ref{anh:dokumentation}.
 % DB: g1pilot/g1_gui.py:1-23; g1pilot/start_gui/views.py:131-260 (SimView), :423-471 (RealView, Vorwahl 192.168.123.x :449-457, LinkMonitor :470-472);
 %     g1pilot/start_gui/app.py:190-195 (Docker-Prüfung); g1pilot/start_gui/core.py:138-174 (detect_nics);
 %     g1pilot/start.sh:341-353 (Handprofil neu erzeugen), :390-398 (Szene bauen);
-%     g1pilot/start_gui/network.py:1-9, :26 (POLL_MS = 3000), :34-98; g1pilot/start_gui/netsetup.py:1-13, :179-211 (Profil ohne Gateway/DNS, never-default), :241-303 (LinkStatus, probe) @6a40e47
+%     g1pilot/start_gui/network.py:1-9, :26 (POLL_MS = 3000), :34-98; g1pilot/start_gui/netsetup.py:1-13, :179-211 (Profil ohne Gateway/DNS, never-default), :241-303 (LinkStatus, probe) @c50a8bf
 
 Im Realbetrieb gibt das Startmenü den Start erst frei, wenn die bedienende Person bei jedem Start neu bestätigt, die Sicherheitshinweise gelesen zu haben und dass der Bereich frei ist, und das Startskript verweigert den Realbetrieb ohne diese Bestätigung.
 Auch danach bewegt sich der Roboter erst, wenn er an der Bedienoberfläche gestartet wird (Abschnitt~\ref{sec:bedienoberflaeche}), während die Simulation selbsttätig startet.
 % DB: g1pilot/start_gui/views.py:423-425 („Die Bestaetigung wird NIE gemerkt“), :519-544, :631-636; g1pilot/start_gui/core.py:290-295 (G1_REAL_CONFIRM); g1pilot/start.sh:243-253;
-%     g1pilot/g1pilot/teleoperation/sim_autostart.py (nur is_sim_mode, siehe Kap. 6 Kommentar zu tab:sim_real) @6a40e47
+%     g1pilot/g1pilot/teleoperation/sim_autostart.py (nur is_sim_mode, siehe Kap. 6 Kommentar zu tab:sim_real) @c50a8bf
 
 Beendet wird über die Bedienoberfläche, deren Anforderung ein Wächter auf dem Host ausführt, im Realbetrieb erst nach Rückgabe der Arme an den Onboard-Regler und mit 20\,s Frist, in der ein noch aktiver Armregler die Arme selbst zurückgibt (Abschnitt~\ref{sec:regelkette}).
 Wie schnell eine Person ohne Vorerfahrung die Umgebung damit in Betrieb nimmt, prüft Abschnitt~\ref{sec:eval_bedienaufwand}.
 % DB: g1pilot/docker/sim_shutdown_watcher.sh:1-31 (kill + down); g1pilot/docker/real_shutdown_watcher.sh:1-39 (stop mit SIGTERM, dann down); g1pilot/docker-compose.yml:248-261 (exec, stop_grace_period 20s);
-%     g1pilot/start.sh:485-495 @6a40e47
+%     g1pilot/start.sh:485-495 @c50a8bf
 
 % ======================================================================
 \section{Simulationsumgebung}
@@ -72,7 +72,7 @@ Die Simulationsumgebung ersetzt den Roboter unterhalb der Herstellerschnittstell
 Sie setzt die Umschaltung aus Abschnitt~\ref{sec:sim_real_schalter} um und trägt damit A2 bis A4.
 Grundlage ist der Python-Simulator aus dem MuJoCo-Projekt des Herstellers \cite{UnitreeMujoco}\ev{UnitreeMujoco.04}.
 Alles in diesem Abschnitt gilt nur in der Simulation.
-% DB: unitree_mujoco/simulate_python/unitree_mujoco.py:1-23, :118-131 @6a40e47
+% DB: unitree_mujoco/simulate_python/unitree_mujoco.py:1-23, :118-131 @c50a8bf
 
 \subsection{Kopplung von MuJoCo und DDS}
 \label{sec:bridge}
@@ -82,7 +82,7 @@ Wie dort empfohlen, läuft er auf Domain~1 über die Loopback-Schnittstelle \cit
 ROS~2 belegt jeweils die andere Domain, in der Simulation Domain~0 und im Realbetrieb Domain~1, damit kein Prozess, der beide Schnittstellen nutzt, dieselbe Domain zweimal öffnet.
 Neu sind ein zweiter Befehlsweg für die Arme, das Halten und Aufstellen des Roboters, Zusatzgrößen für den Ersatzregler und ein eigener Kanal für die Finger der simulierten Hände (Abschnitt~\ref{sec:haende}).
 % DB: unitree_mujoco/simulate_python/config.py:51-52 (DOMAIN_ID 1, lo); unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:100-110, :238-257 (rt/lowcmd, rt/arm_sdk, rt/inspire/*);
-%     g1pilot/g1pilot/utils/common.py:6-23 (gespiegelte Domains); g1pilot/docker-compose.yml:85-88, :173-176 @6a40e47
+%     g1pilot/g1pilot/utils/common.py:6-23 (gespiegelte Domains); g1pilot/docker-compose.yml:85-88, :173-176 @c50a8bf
 
 Die Gelenke des Simulationsmodells sind als Motoren mit direkter Momentvorgabe angelegt \cite{MujocoDoku2026}\ev{MujocoDoku2026.06}, den Regler je Gelenk rechnet die Kopplungsschicht selbst.
 Aus den Größen eines Motorbefehls (Abschnitt~\ref{sec:g1_sdk}) berechnet sie in jedem Physikschritt mit den aktuellen Sensorwerten das Stellmoment des Gelenks $i$ zu
@@ -95,7 +95,7 @@ wobei $\tau_{\mathrm{v},i}$ das Vorsteuermoment, $k_{\mathrm{p},i}$ und $k_{\mat
 Weil Gleichung~\ref{eq:pd} in jedem Physikschritt neu ausgewertet wird, hängt die Regelrate nicht davon ab, wie oft Befehle eintreffen.
 Ob die Firmware des realen G1 dasselbe Gesetz rechnet, ist nicht belegt \qf{Herstellerangabe zum Regelgesetz des Motorbefehls am realen G1 (E5)}.
 % DB: unitree_robots/g1/g1_29dof.xml:388-418 (<motor>); unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:304-307 (_pd: tau + kp*(q_soll-q) + kd*(dq_soll-dq)), :393-456 (je Sim-Schritt);
-%     unitree_mujoco/simulate_python/unitree_mujoco.py:146-150 @6a40e47
+%     unitree_mujoco/simulate_python/unitree_mujoco.py:146-150 @c50a8bf
 
 Zwei Befehlswege werden je Gelenk zu einem Stellmoment zusammengeführt.
 Beine und Taille, die Gelenke 0 bis 14, folgen allein dem Befehlsweg der Fortbewegung.
@@ -109,7 +109,7 @@ wobei $\tau_i^{\mathrm{A}}$ das Moment aus dem Befehlsweg der Arme, $\tau_i^{\ma
 Das Gewicht steht wie bei der Oberkörper-Schnittstelle des realen Roboters im sonst ungenutzten Eintrag~29 des Armbefehls (Abschnitt~\ref{sec:g1_armsdk}), Werte außerhalb des Intervalls werden begrenzt.
 Weil nicht dokumentiert ist, wie die Firmware Zwischenwerte verrechnet (Abschnitt~\ref{sec:g1_armsdk}), ist die lineare Überblendung eine Annahme der Simulation.
 Abbildung~\ref{fig:bridge} zeigt beide Befehlswege und den Rückweg.
-% DB: unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:280-285 (ARM_LO 15, ARM_HI 28, WEIGHT_IDX 29), :420-447 (w begrenzt auf [0,1], w*tau_a + (1-w)*tau_l, Beine/Taille direkt) @6a40e47
+% DB: unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:280-285 (ARM_LO 15, ARM_HI 28, WEIGHT_IDX 29), :420-447 (w begrenzt auf [0,1], w*tau_a + (1-w)*tau_l, Beine/Taille direkt) @c50a8bf
 
 \begin{figure}[htbp]
   \centering
@@ -121,28 +121,28 @@ Abbildung~\ref{fig:bridge} zeigt beide Befehlswege und den Rückweg.
 Im Rückweg der Abbildung~\ref{fig:bridge} füllt die Kopplungsschicht die Zustandsnachricht mit Winkel, Geschwindigkeit und geschätztem Moment jedes Gelenks sowie den Werten der IMU.
 Zusätzlich schreibt sie in sonst ungenutzte Reservefelder die Normalkräfte beider Füße und die horizontale Geschwindigkeit des Roboters, die nur der Ersatzregler auswertet (Abschnitt~\ref{sec:ersatzregler}).
 Damit bleiben diese Größen von der Herstellerschnittstelle getrennt, und kein Funktionsknoten, der auch am realen Roboter läuft, ist auf sie angewiesen \pruefen{bestätigen, dass außer dem Ersatzregler kein Knoten die Reservefelder liest}.
-% DB: unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:184-207 (reserve[0..3]), :487-557 (PublishLowState) @6a40e47
+% DB: unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:184-207 (reserve[0..3]), :487-557 (PublishLowState) @c50a8bf
 
 Den Roboter hält die Kopplungsschicht über eine Schweiß-Zwangsbedingung zwischen Rumpf und Welt \cite{MujocoDoku2026}\ev{MujocoDoku2026.03}, solange der Ersatzregler in Bereitschaft ist.
 Dessen Zustand liest sie aus dem sonst ungenutzten Eintrag~29 des Befehlswegs der Fortbewegung.
 Wechselt der Ersatzregler ins Stehen, stellt sie den Roboter mit beiden Füßen auf den Boden in die kommandierte Standpose und löst die Zwangsbedingung.
 Ob die Funktionsknoten in Simulation und Realbetrieb tatsächlich ohne Codeunterschied laufen, prüft Abschnitt~\ref{sec:eval_code}.
 % DB: unitree_mujoco/simulate_python/config.py:134-188 (Startup-Hold, Managed-Weld, Pelvis-Höhe aus Beinpose); unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:146-180, :309-391 (_set_weld, _reset_pose, _stance_height, _handle_managed_weld);
-%     unitree_mujoco/unitree_robots/g1/scene.xml:31 (hold_base_weld an torso_link); g1pilot/g1pilot/navigation/loco_sim.py:655-660 (_write: Zustandscode in Eintrag 29) @6a40e47
+%     unitree_mujoco/unitree_robots/g1/scene.xml:31 (hold_base_weld an torso_link); g1pilot/g1pilot/navigation/loco_sim.py:655-660 (_write: Zustandscode in Eintrag 29) @c50a8bf
 
 \paragraph*{Zeitschritt und Gleichschritt-Betrieb}
 \phantomsection\label{sec:zeitschritt}%
 Die Simulation rechnet mit einem Physikschritt von 1\,ms und führt je Befehl der Fortbewegung eine feste Zahl von Physikschritten aus.
 Der kleine Schritt ist nötig, weil der Dämpfungsanteil von Gleichung~\ref{eq:pd} außerhalb des Simulators entsteht und deshalb nicht implizit integriert wird, wie es MuJoCo für die Geschwindigkeitsrückführung eigener Aktuatoren vorsieht \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.05}.
 Bei größerem Schritt schwingen die leichten Armgelenke auf \pruefen{Beobachtung zum Zeitschritt bestätigen (E6), Messwerte nur in Abschnitt eval\_echtzeit}.
-% DB: unitree_mujoco/simulate_python/config.py:61-67 (SIMULATE_DT 0.001, Begründung im Kommentar, VIEWER_DT 0.02); unitree_mujoco/simulate_python/unitree_mujoco.py:111 @6a40e47
+% DB: unitree_mujoco/simulate_python/config.py:61-67 (SIMULATE_DT 0.001, Begründung im Kommentar, VIEWER_DT 0.02); unitree_mujoco/simulate_python/unitree_mujoco.py:111 @c50a8bf
 
 Die Beschreibungsdateien der eingebundenen Lauf-Policies geben einen Regelschritt von 20\,ms vor.
 Damit eine Policy auf jedem Rechner dieselbe simulierte Zeit je Schritt sieht, wartet die Simulation im Gleichschritt-Betrieb auf jeden Befehl der Fortbewegung und rechnet dann mit gehaltenem Befehl $N = T_{\mathrm{R}}/\Delta t = 20$ Physikschritte, wobei $T_{\mathrm{R}} = 20$\,ms die Dauer eines Regelschritts und $\Delta t = 1$\,ms den Physikschritt bezeichnet.
 Danach sendet sie genau einen neuen Zustand, auf den der Ersatzregler mit genau einem Befehl antwortet (Abbildung~\ref{fig:lockstep}).
 % DB: g1pilot/policies/g1_wholebody/deploy.yaml:2, policies/agile_velocity_g1/deploy.yaml:8, policies/agile_velocity_height_g1/deploy.yaml:12 (step_dt 0.02);
 %     unitree_mujoco/simulate_python/config.py:84-108 (decimation = 0.02/0.001 = 20); unitree_mujoco/simulate_python/unitree_mujoco.py:180-242;
-%     g1pilot/g1pilot/navigation/loco_sim.py:353 (_state_seq), :643-648 (ein Befehl je Zustand); g1pilot/start.sh:403-404 (Lockstep im Betrieb immer an) @6a40e47
+%     g1pilot/g1pilot/navigation/loco_sim.py:353 (_state_seq), :643-648 (ein Befehl je Zustand); g1pilot/start.sh:403-404 (Lockstep im Betrieb immer an) @c50a8bf
 
 \begin{figure}[htbp]
   \centering
@@ -157,29 +157,30 @@ Trifft 0,2\,s lang kein Befehl ein, rechnet die Simulation trotzdem weiter, dami
 Der Armregler ist nicht an diesen Takt gebunden, die Kopplungsschicht übernimmt jeweils seinen letzten Befehl (Abschnitt~\ref{sec:regelkette}), und die Anzeige läuft entkoppelt mit 50 Bildern je Sekunde.
 Ob die Simulation damit Echtzeit hält, prüft Abschnitt~\ref{sec:eval_echtzeit}.
 % DB: unitree_mujoco/simulate_python/unitree_mujoco.py:186-202, :244-249 (Pacing, cycle_wall = decimation*dt/factor), :206-212 (Watchdog), :252-257 (Viewer-Thread);
-%     unitree_mujoco/simulate_python/config.py:80 (SIM_REALTIME_FACTOR), :105-108 (Watchdog 0,2 s); unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:287-298 (nur rt/lowcmd zählt cmd_seq) @6a40e47
+%     unitree_mujoco/simulate_python/config.py:80 (SIM_REALTIME_FACTOR), :105-108 (Watchdog 0,2 s); unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:287-298 (nur rt/lowcmd zählt cmd_seq) @c50a8bf
 
 \subsection{Szenen und Arbeitsplatzmodelle}
 \label{sec:szenen}
 Eine Szene entsteht aus einer festen Basis und einer Umgebung, die nur Objekte enthält, sodass eine neue Arbeitsumgebung keine Änderung am Programm erfordert (A1) und Szenen einen Andockpunkt auf der Ebene der Daten bilden (Abschnitt~\ref{sec:andockpunkte}).
 Die Umgebung baut der Nutzer in einem grafischen Editor, der auf einem fremden Projekt aufbaut \qf{Szenen-Editor mujoco-scene-editor als Software-Quelle mit Commit-Hash (E5)}.
 Beim Start ergänzt ein Generator den Roboter mit der gewählten Hand, Boden, Licht und die Schweiß-Zwangsbedingung und schreibt daraus eine Szene im Format MJCF (Abschnitt~\ref{sec:mujoco}).
-% DB: unitree_mujoco/scene_editor/build_env_scene.py:1-36, :96-138 (build_base), :488-560 (merge_environment, Boden/Licht verworfen); unitree_mujoco/scene_editor/README.md:5-8, :20-32;
-%     g1pilot/start.sh:390-398 @6a40e47
+% DB: unitree_mujoco/scene_editor/build_env_scene.py:1-36, :96-138 (build_base), :880-971 (merge_environment, Boden/Licht verworfen); unitree_mujoco/scene_editor/README.md:5-8, :20-32;
+%     g1pilot/start.sh:390-398 @c50a8bf
 
 Ob ein Objekt Hindernis, Greifobjekt, Startpunkt oder Station ist, legt sein Namensvorsatz fest.
 Ein Greifobjekt wandelt der Generator in einen Körper mit freiem Gelenk um \cite{Todorov2012}\ev{Todorov2012.22}, damit es sich beim Greifen mitbewegt, Startpunkt und Stationen als Ziele der Navigation (Abschnitt~\ref{sec:navigation}) entfernt er aus der Geometrie.
-% DB: unitree_mujoco/scene_editor/build_env_scene.py:47-58 (Präfixe grasp_, g1_spawn, station_), :140-172 (_wrap_grasp_geom, freejoint), :609-641 (extract_stations, extract_spawn);
-%     unitree_mujoco/simulate_python/unitree_mujoco.py:25-39 (Startpunkt ins Modell) @6a40e47
+% DB: unitree_mujoco/scene_editor/build_env_scene.py:47-58 (Präfixe grasp_, g1_spawn, station_), :140-172 (_wrap_grasp_geom, freejoint), :1004-1037 (extract_stations, extract_spawn);
+%     unitree_mujoco/simulate_python/unitree_mujoco.py:25-39 (Startpunkt ins Modell) @c50a8bf
 
 Für die Kollision ersetzt MuJoCo jedes Netz durch seine konvexe Hülle \cite{MujocoDoku2026}\ev{MujocoDoku2026.17}, nicht konvexe Objekte sind als Vereinigung konvexer Teile an einem Körper zu modellieren \cite{MujocoDoku2026}\ev{MujocoDoku2026.18}.
 Ein Arbeitsplatz aus einem einzigen Netz wäre sonst ein voller Block, in dem abgelegte Objekte stecken.
 Der Generator zerlegt die Netze fester Hindernisse deshalb in bis zu 64 konvexe Teile \qf{Verfahren der konvexen Zerlegung V-HACD, Mamou2009 nicht freigegeben} und nutzt das ursprüngliche Netz nur noch zur Darstellung.
-% DB: unitree_mujoco/scene_editor/build_env_scene.py:252-303 (VHACD_RESOLUTION, maxConvexHulls=64, Begründung Ablageflächen), :437-485 (add_collision_hulls, Optik contype/conaffinity 0) @6a40e47
-Greifobjekte aus einem nicht konvexen Netz, etwa eine Kleinladungsträger-Kiste, kollidieren über achsparallele Quader aus einem Voxelgitter mit 3\,mm Kantenlänge, sodass Innenraum und Grifftaschen offen bleiben \pruefen{Stand PR \#61, nach Merge BA-Stable-Hash eintragen}.
+% DB: unitree_mujoco/scene_editor/build_env_scene.py:252-303 (VHACD_RESOLUTION, maxConvexHulls=64, Begründung Ablageflächen), :437-485 (add_collision_hulls, Optik contype/conaffinity 0) @c50a8bf
+Greifobjekte aus einem nicht konvexen Netz, etwa eine Kleinladungsträger-Kiste, kollidieren über achsparallele Quader, sodass Innenraum und Grifftaschen offen bleiben.
+Die Quader entstehen aus einem Gitter mit höchstens 4\,mm Kantenlänge, dessen Ebenen auf den achsparallelen Wandflächen des Netzes liegen, sodass gerade Wände und Grifftaschen maßhaltig bleiben und nur schräge oder runde Flächen zu Stufen von höchstens 4\,mm werden.
 Über die Kollisionsfilter von MuJoCo \cite{MujocoDoku2026}\ev{MujocoDoku2026.15} berühren die Hände alle Objekte der Umgebung, nicht aber den eigenen Körper: Körper und Hände des Roboters liegen in getrennten Gruppen, die Objekte der Umgebung in beiden.
-% DB: unitree_mujoco/scene_editor/build_env_scene.py:488-526 (Begründung, GRASP_VOXEL 0.003), :659-745 (_grasp_boxes, add_grasp_collision, konvex -> keine Quader), :822-831 (Kollisions-Bits) @8eb34f4 (PR #61);
-%     BA-Stable: unitree_mujoco/scene_editor/build_env_scene.py:560-569 (Kollisions-Bits, ENV_COLLISION_BITS = 3 :79); unitree_robots/g1/g1_29dof_inspire_ftp.xml:227 ff. (Hand-Geoms contype 2) @6a40e47
+% DB: unitree_mujoco/scene_editor/build_env_scene.py:486-534 (Begründung Wand-Gitter, GRASP_VOXEL 0.004), :727-828 (_grasp_boxes), :853-877 (add_grasp_collision, konvex -> keine Quader), :955-965 (Kollisions-Bits, ENV_COLLISION_BITS = 3 :79);
+%     unitree_robots/g1/g1_29dof_inspire_ftp.xml:227 ff. (Hand-Geoms contype 2) @c50a8bf
 
 Ein gemeinsames Weltmodell macht die Objekte der Szene allen Funktionsknoten bekannt.
 Die Simulation sendet sie zehnmal je Sekunde über UDP an die Steuerung, wo ein Funktionsknoten daraus Marker für die 3D-Anzeige, die Kollisionsprüfung des Armreglers (Abschnitt~\ref{sec:kollisionsmodell}) und die Karte der Navigation (Abschnitt~\ref{sec:navigation}) veröffentlicht.
@@ -187,7 +188,7 @@ Feste Hindernisse gehen dabei als umhüllende Quader der einzelnen Teile ein, we
 Im Realbetrieb startet dieser Knoten nicht, dort steht kein Weltmodell zur Verfügung.
 Abbildung~\ref{fig:szene} zeigt die Szene AP\_1 in MuJoCo und dasselbe Weltmodell in der 3D-Anzeige.
 % DB: unitree_mujoco/simulate_python/scene_state_publisher.py:1-22, :54; unitree_mujoco/simulate_python/config.py:191-205; unitree_mujoco/simulate_python/scene_objects.py:37-45;
-%     g1pilot/g1pilot/navigation/scene_bridge.py:1-18; g1pilot/launch/bringup_sim.launch.py:125-133, :212-213 (bringup_real.launch.py ohne scene_bridge) @6a40e47
+%     g1pilot/g1pilot/navigation/scene_bridge.py:1-18; g1pilot/launch/bringup_sim.launch.py:125-133, :212-213 (bringup_real.launch.py ohne scene_bridge) @c50a8bf
 
 \begin{figure}[htbp]
   \centering
@@ -199,11 +200,11 @@ Abbildung~\ref{fig:szene} zeigt die Szene AP\_1 in MuJoCo und dasselbe Weltmodel
 
 Abbildung~\ref{fig:szene} zeigt links den Arbeitsplatz, wie ihn die Physik rechnet, und rechts dieselben Objekte als Marker der 3D-Anzeige \pruefen{Beschreibung an das Bild anpassen}.
 Die Marker unterscheiden Hindernisse und Greifobjekte, weil der Armregler Hindernissen ausweicht, Greifobjekte aber berühren darf.
-% DB: g1pilot/g1pilot/navigation/scene_bridge.py:11-13 (Hindernis -> ausweichen, Greif-Objekt -> Hand darf ran) @6a40e47
+% DB: g1pilot/g1pilot/navigation/scene_bridge.py:11-13 (Hindernis -> ausweichen, Greif-Objekt -> Hand darf ran) @c50a8bf
 
 % ======================================================================
 % Paket B (Entwurf 27.11.2026): 7.3 Fortbewegung (mit 7.3.1 und 7.3.2) und 7.7 Autonome Navigation in der Simulation.
-% Code-Bezug: Branch BA-Stable @6a40e47 (Repo NilsMeier1812/G1). Pfade in "% DB:" relativ zur Repo-Wurzel (Verzeichnis G1).
+% Code-Bezug: Branch BA-Stable @c50a8bf (Repo NilsMeier1812/G1). Pfade in "% DB:" relativ zur Repo-Wurzel (Verzeichnis G1).
 % Neue Belege (noch ohne echte Nummer): \ev{UnitreeRLMjlab.08}, siehe B-notizen.md.
 % ======================================================================
 
@@ -286,14 +287,14 @@ Die Wirkung der Halt-Stufen prüft Abschnitt~\ref{sec:eval_sicherheit}.
 % ======================================================================
 % Paket C (Entwurf 26.11.2026): Einleitung 7.4 Armregelung und Bahnplanung, 7.4.1 Regelkette und inverse Kinematik,
 % 7.5 Roboterhände mit 7.5.1 und 7.5.2.
-% Code-Bezug: Branch BA-Stable @6a40e47 (Repo NilsMeier1812/G1). Pfade in "% DB:" relativ zur Repo-Wurzel.
+% Code-Bezug: Branch BA-Stable @c50a8bf (Repo NilsMeier1812/G1). Pfade in "% DB:" relativ zur Repo-Wurzel.
 % ======================================================================
 
 \section{Armregelung und Bahnplanung}
 \label{sec:armregelung}
 Die Armregelung ist der umfangreichste Teil der Umsetzung, weil jeder Bedienweg und jeder Ablauf die Arme über denselben Armregler bewegt (Abschnitt~\ref{sec:komponenten}).
 Sie besteht aus der Regelkette des Armreglers (Abschnitt~\ref{sec:regelkette}), dem Kollisionsmodell (Abschnitt~\ref{sec:kollisionsmodell}), dem Bahnplaner (Abschnitt~\ref{sec:bahnplaner}) und der Laufzeitüberwachung (Abschnitt~\ref{sec:laufzeitueberwachung}).
-% DB: g1pilot/g1pilot/manipulation/arm_controller.py:3662-3917 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:3662-3917 @c50a8bf
 
 \subsection{Regelkette und inverse Kinematik}
 \label{sec:regelkette}
@@ -302,7 +303,7 @@ Der Armregler setzt die Übergaberegeln (Abschnitt~\ref{sec:armuebergabe}) und d
 Er bekommt zwei Arten von Zielen: Handziele aus Zielmarker, Controller und Bedienoberfläche führt er reaktiv nach, Gelenkziele aus Posen, Abläufen und der Rückgabe fährt er als geplante Bahn ab.
 In beiden Betriebsarten schreibt er über den Befehlsweg der Arme (Abschnitt~\ref{sec:g1_armsdk}), in der Simulation an die Simulationsanbindung und am realen Roboter an den Onboard-Regler.
 Abbildung~\ref{fig:regelkette} zeigt die Kette, die jedes Ziel bis zum Befehl durchläuft.
-% DB: g1pilot/g1pilot/manipulation/arm_controller.py:268,990-1063,2745-2775,3662-3874 @6a40e47, g1pilot/launch/bringup_sim.launch.py:103-122 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:268,990-1063,2745-2775,3662-3874 @c50a8bf, g1pilot/launch/bringup_sim.launch.py:103-122 @c50a8bf
 
 \begin{figure}[htbp]
   \centering
@@ -314,13 +315,13 @@ Abbildung~\ref{fig:regelkette} zeigt die Kette, die jedes Ziel bis zum Befehl du
 Für reaktive Ziele rechnet die inverse Kinematik (Abschnitt~\ref{sec:ik}) in einem eigenen Prozess, damit eine lange Rechnung den Regeltakt nicht aufhält \qf{Beleg, dass rechenintensiver Python-Code andere Threads desselben Prozesses blockiert (Global Interpreter Lock)}.
 Ein neues Handziel ersetzt dort ein noch wartendes, und ein Zähler je Anfrage verwirft Ergebnisse, die ein neueres Ziel überholt hat.
 Der Regler übernimmt in jedem Takt das zuletzt gelieferte Gelenkziel.
-% DB: g1pilot/g1pilot/manipulation/ik_servo_process.py:1-23,77-182 @6a40e47, g1pilot/g1pilot/manipulation/arm_controller.py:288,3510-3528 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/ik_servo_process.py:1-23,77-182 @c50a8bf, g1pilot/g1pilot/manipulation/arm_controller.py:288,3510-3528 @c50a8bf
 
 Die inverse Kinematik löst mit gedämpften kleinsten Quadraten, die viele Singularitätsprobleme der Pseudoinversen vermeiden \cite{Aristidou2009}\ev{Aristidou2009.08}.
 Weil eine große Dämpfung die Konvergenz verlangsamt \cite{Aristidou2009}\ev{Aristidou2009.09}, wächst sie nur, wenn der kleinste Singulärwert der Jacobi-Matrix eine Schwelle unterschreitet.
 Die Position der Hand hat Vorrang, die Orientierung folgt im Nullraum der Positionsaufgabe, und ein weiterer Nullraumterm zieht die übrige Armhaltung zur Grundstellung \cite{Aristidou2009}\ev{Aristidou2009.05}.
 Handziele außerhalb von 97\,\% der Reichweite rückt der Löser auf diese Grenze zurück, und eine Lösung mit größerem Fehler als der Ausgangszustand verwirft er zugunsten der Ausgangskonfiguration.
-% DB: g1pilot/g1pilot/utils/ik_solver.py:30-53,159-187,420-441,604-670 @6a40e47, g1pilot/g1pilot/manipulation/arm_controller.py:292,298,524-531,578-580 @6a40e47
+% DB: g1pilot/g1pilot/utils/ik_solver.py:30-53,159-187,420-441,604-670 @c50a8bf, g1pilot/g1pilot/manipulation/arm_controller.py:292,298,524-531,578-580 @c50a8bf
 
 Die Kette in Abbildung~\ref{fig:regelkette} wählt zuerst nach Betriebsart das Ziel und begrenzt dann die Gelenkgeschwindigkeit so, dass die Richtung des Schritts erhalten bleibt.
 Danach glättet sie das Ziel nach Gleichung~\ref{eq:glaettung}
@@ -334,13 +335,13 @@ Danach glättet sie das Ziel nach Gleichung~\ref{eq:glaettung}
 wobei $\mathbf{q}_k$ das geglättete Gelenkziel im Takt $k$ ist, $\tilde{\mathbf{q}}_k$ das geschwindigkeitsbegrenzte Ziel, $\Delta t$ der gemessene Zeitschritt, $\alpha = 0{,}2$ der Glättungsfaktor und $f_\mathrm{ref}$ die Bezugsrate.
 In der Simulation beträgt $f_\mathrm{ref}$ 50\,Hz, sodass die Glättung unabhängig von Schwankungen des Takts wirkt. Im Realbetrieb ist keine Bezugsrate gesetzt, und $\alpha$ gilt unverändert je Takt.
 Geplante Bahnen glättet der Regler in der Simulation nicht ($\alpha = 1$), damit sie der Zeitparametrierung des Planers genau folgen.
-% DB: g1pilot/g1pilot/manipulation/arm_controller.py:214,270,279,3530-3536,3879-3896 @6a40e47, g1pilot/launch/bringup_sim.launch.py:103-122 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:214,270,279,3530-3536,3879-3896 @c50a8bf, g1pilot/launch/bringup_sim.launch.py:103-122 @c50a8bf
 
 Die folgenden Glieder begrenzen die Geschwindigkeit von Hand und Ellbogen, im Realbetrieb die Beschleunigung beim Anfahren und den Schleppfehler.
 Die Kollisionsüberwachung (Abschnitt~\ref{sec:laufzeitueberwachung}) gibt den Befehl danach frei oder hält ihn an.
 Zuletzt schreibt der Regler den Sollwinkel mit Steifigkeit, Dämpfung und einer Schwerkraftvorsteuerung. Diese berechnet die Bibliothek Pinocchio, die Algorithmen der Starrkörperdynamik umsetzt \cite{Carpentier2019}\ev{Carpentier2019.01}. Der Regler begrenzt sie für die Arme auf $\pm 20$\,Nm und für die Taille auf $\pm 25$\,Nm.
 Tabelle~\ref{tab:arm_auslegung} stellt die Auslegungswerte für Simulation und Realbetrieb gegenüber.
-% DB: g1pilot/g1pilot/manipulation/arm_controller.py:727-744,1116-1151,1401-1429,1431-1459,1569-1601,3900-3917 @6a40e47, g1pilot/launch/bringup_real.launch.py:103-132 @6a40e47, g1pilot/launch/manipulation_launcher.launch.py:53-56,74-79 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:727-744,1116-1151,1401-1429,1431-1459,1569-1601,3900-3917 @c50a8bf, g1pilot/launch/bringup_real.launch.py:103-132 @c50a8bf, g1pilot/launch/manipulation_launcher.launch.py:53-56,74-79 @c50a8bf
 
 \begin{table}[!htbp]
   \tabstil
@@ -365,7 +366,7 @@ Tabelle~\ref{tab:arm_auslegung} stellt die Auslegungswerte für Simulation und R
     \bottomrule
   \end{tabularx}
 \end{table}
-% DB: g1pilot/g1pilot/manipulation/arm_controller.py:165,171,221,310-311,319-324,1116-1151,1461-1532 @6a40e47, g1pilot/launch/bringup_sim.launch.py:103-122 @6a40e47, g1pilot/launch/bringup_real.launch.py:103-132 @6a40e47, g1pilot/launch/manipulation_launcher.launch.py:53-56,74-79 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:165,171,221,310-311,319-324,1116-1151,1461-1532 @c50a8bf, g1pilot/launch/bringup_sim.launch.py:103-122 @c50a8bf, g1pilot/launch/bringup_real.launch.py:103-132 @c50a8bf, g1pilot/launch/manipulation_launcher.launch.py:53-56,74-79 @c50a8bf
 
 Die Zeilen der Tabelle~\ref{tab:arm_auslegung} zeigen, dass der Realbetrieb in der Geschwindigkeit von Hand und Ellbogen und in der Steifigkeit vorsichtiger ausgelegt ist als die Simulation.
 Anfahrrampe und Schleppfehler sind nur am realen Roboter aktiv (Abschnitt~\ref{sec:schutzmechanismen}).
@@ -373,14 +374,12 @@ Die Gewichtsrampe setzt das Übernehmen nach Abbildung~\ref{fig:armuebergabe} um
 Weil das Überblendgewicht dem Onboard-Regler nach eigener Beobachtung auch die Taille entzieht (Abschnitt~\ref{sec:armuebergabe}) \qf{Herstellerdokumentation zur Wirkung des Überblendgewichts auf die Taille (E5)}, hält der Armregler sie im Realbetrieb selbst in ihrer Ausgangslage, auch im Not-Halt, und erst der Voll-Notaus gibt sie frei.
 Im Not-Halt fällt die Steifigkeit der Arme auf null, nur die Dämpfung aus Tabelle~\ref{tab:arm_auslegung} bremst sie, und ein Einschaltbefehl wird bis zur Quittierung ignoriert.
 Ob die Regelkette den Regeltakt hält und die Schutzglieder greifen, prüfen die Abschnitte~\ref{sec:eval_echtzeit} und~\ref{sec:eval_sicherheit}.
-% DB: g1pilot/g1pilot/manipulation/arm_controller.py:1307-1347,1349-1399,1461-1532,1772-1798,2221-2314 @6a40e47
-% DB: g1pilot/g1pilot/manipulation/arm_controller.py:227,242,1153-1181,1249-1271,1819-1857,1859-1914,1916-1928,1930-1942,2221-2314 @6a40e47, g1pilot/g1pilot/manipulation/waist_hold.py:1-50 @6a40e47, g1pilot/g1pilot/manipulation/waist_yaw.py:1-20 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:1307-1347,1349-1399,1461-1532,1772-1798,2221-2314 @c50a8bf
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:227,242,1153-1181,1249-1271,1819-1857,1859-1914,1916-1928,1930-1942,2221-2314 @c50a8bf, g1pilot/g1pilot/manipulation/waist_hold.py:1-50 @c50a8bf, g1pilot/g1pilot/manipulation/waist_yaw.py:1-20 @c50a8bf
 
 % ======================================================================
 % Paket E: 7.4.2 Kollisionsmodell, 7.4.3 Bahnplaner, 7.4.4 Laufzeitüberwachung
-% Code-Bezug: Repo NilsMeier1812/G1, PR #62 (noch nicht gemergt) @e452513 = BA-Stable 6a40e47 + 2 Commits
-% (geändert nur arm_planner.py, arm_planner_process.py, arm_geometry.py). Pfade relativ zur Repo-Wurzel.
-% Stellen, die erst mit PR #62 gelten, tragen \pruefen{Stand PR \#62 ...}.
+% Code-Bezug: G1 Branch BA-Stable @c50a8bf (PR #62 gemergt, Planer-Dateien identisch mit e452513). Pfade relativ zur Repo-Wurzel.
 % Zahlen der Planer-Studie vom 26.11. stehen bewusst NICHT hier (gehören in die Evaluation).
 % ======================================================================
 
@@ -390,7 +389,7 @@ Ob die Regelkette den Regeltakt hält und die Schutzglieder greifen, prüfen die
 % Rückbezug tab:schutzmechanismen (Vermeiden: Kollisionsprüfung und geplante Bahnen), Hüllkörper sec:kollision_sdt.
 Bahnplaner und Laufzeitüberwachung rechnen mit einem Kugelmodell der Arme und Hände, weil beide Abstände für viele Armstellungen in kurzer Zeit brauchen.
 Das Modell setzt die Kollisionsprüfung aus Tabelle~\ref{tab:schutzmechanismen} mit dem Hüllkörper um, dessen Schnitttest nach Abschnitt~\ref{sec:kollision_sdt} am einfachsten ist.
-% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:3-31 @e452513
+% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:3-31 @c50a8bf
 
 % Erzeugung und Auflösung der Kugelsätze.
 Das Kugelmodell entsteht beim Start selbsttätig aus den Kollisionsnetzen des Robotermodells.
@@ -398,7 +397,7 @@ Ein Clusterverfahren teilt die mit höchstens 5\,mm Punktabstand abgetastete Obe
 Gegen die Umgebung gelten Radien bis 2,2\,cm an der Hand und bis 4\,cm am übrigen Arm.
 Gegen den eigenen Körper und den anderen Arm genügen Kugeln bis 5\,cm ab dem Ellbogen, und der Körper selbst ist mit Kugeln bis 9\,cm angenähert.
 Abbildung~\ref{fig:kugelmodell} zeigt den Kugelsatz der Hand, der für eine ausgetauschte Hand auf dieselbe Weise entsteht (Abschnitt~\ref{sec:hand_profile}).
-% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:39-62,114-149,195-250,335-436 @e452513, Daten/kugelmodell/README.md (Abbildung aus Stand fdb9cba, arm_geometry.py bis 6a40e47 unverändert)
+% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:39-62,114-149,195-250,335-436 @c50a8bf, Daten/kugelmodell/README.md (Abbildung aus Stand fdb9cba, arm_geometry.py bis 6a40e47 unverändert)
 
 % Gekürzt: nur Teilbild a) aus Bilder/tikz/kugelmodell-haende-3d.tex (Datei unverändert, dort beide Teilbilder mit Haken).
 \begin{figure}[htbp]
@@ -416,7 +415,7 @@ Abbildung~\ref{fig:kugelmodell} zeigt den Kugelsatz der Hand, der für eine ausg
 
 In Abbildung~\ref{fig:kugelmodell} stehen die Kugeln über die Handfläche hinaus.
 Dieser Überstand bestimmt beim reaktiven Nachführen den kleinsten Abstand der Hand zu einer Fläche (Abschnitt~\ref{sec:laufzeitueberwachung}), seine Größe weist Abschnitt~\ref{sec:eval_manipulation} aus.
-% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:387-408,624-634 @e452513
+% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:387-408,624-634 @c50a8bf
 
 % Abstände, Weltmodell, Greifobjekte, Sim/Real.
 Objekte kennt das Modell als orientierte Quader aus dem gemeinsamen Weltmodell der Szene (Abschnitt~\ref{sec:szenen}).
@@ -426,7 +425,7 @@ Weil das Weltmodell nur in der Simulation aus der Szene entsteht, prüft das Mod
 Am realen Roboter erfasst die Umgebung ihr Umfeld nicht, weil eine Erfassung etwa per LiDAR den Rahmen der Arbeit übersteigt.
 Der Armregler kennt dort deshalb keine Objekte und kann ihnen nicht ausweichen.
 % DB: Begründung Nils 27.11.2026 (keine Umfelderfassung real, LiDAR zu aufwendig)
-% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:279-322,486-618 @e452513, g1pilot/g1pilot/manipulation/arm_planner.py:155-158 @e452513, unitree_mujoco/simulate_python/scene_objects.py:277-309 @e452513, g1pilot/launch/bringup_sim.launch.py:125-132 @e452513, g1pilot/g1pilot/navigation/scene_bridge.py:1-19,56 @e452513
+% DB: g1pilot/g1pilot/manipulation/arm_geometry.py:279-322,486-618 @c50a8bf, g1pilot/g1pilot/manipulation/arm_planner.py:155-158 @c50a8bf, unitree_mujoco/simulate_python/scene_objects.py:283-315 @c50a8bf, g1pilot/launch/bringup_sim.launch.py:125-132 @c50a8bf, g1pilot/g1pilot/navigation/scene_bridge.py:1-19,56 @c50a8bf
 
 \subsection{Bahnplaner}
 \label{sec:bahnplaner}
@@ -435,7 +434,7 @@ Der Armregler kennt dort deshalb keine Objekte und kann ihnen nicht ausweichen.
 Der Bahnplaner führt jede Armbewegung zu einem festen Ziel: gespeicherte Posen und Abläufe (Abschnitt~\ref{sec:posen_ablaeufe}), Ziele über die Arm-Schnittstelle (Abschnitt~\ref{sec:entwickler_api}), Grundstellung, Lauf-Pose und Rückgabe an den Onboard-Regler (Abschnitt~\ref{sec:armuebergabe}).
 Seine Bahnen halten in der Mitte Abstand zu Objekten und führen nur nahe Start und Ziel dicht heran, weil die Hand dort oft auf einer Fläche aufliegt.
 Die zugrunde liegenden Verfahren führt Abschnitt~\ref{sec:bahnplanung_sdt} ein.
-% DB: g1pilot/g1pilot/manipulation/arm_planner.py:6-26 @e452513, g1pilot/g1pilot/manipulation/arm_controller.py:1382-1385,2363,2483-2486,2837,2862,2966 @e452513
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:6-26 @c50a8bf, g1pilot/g1pilot/manipulation/arm_controller.py:1382-1385,2363,2483-2486,2837,2862,2966 @c50a8bf
 
 % Leitidee Trichter, G7.6.
 Dazu verlangt der Planer für jede Kugel~$k$ und jedes Objekt~$o$ einen Abstandsbedarf
@@ -448,15 +447,15 @@ Dazu verlangt der Planer für jede Kugel~$k$ und jedes Objekt~$o$ einen Abstands
 \formeleintrag{Abstandsbedarf des Bahnplaners mit Trichter um Start und Ziel}%
 Darin ist $a_k$ der Abstand der Kugelmitte von ihrer Lage in der näheren der beiden Endstellungen, $R$ der Trichterradius und $C$ der Abstand in der Bahnmitte.
 Der Endwert $f_{ko}$ ist der Abstand des Paars an diesem Endpunkt, wenn er negativ ist, und sonst null.
-Liegt die Kugel nahe an beiden Endpunkten, gilt der kleinere Endwert, damit kurze Bewegungen auf einer Fläche lösbar bleiben \pruefen{Stand PR \#62, nach Merge BA-Stable-Hash eintragen}.
+Liegt die Kugel nahe an beiden Endpunkten, gilt der kleinere Endwert, damit kurze Bewegungen auf einer Fläche lösbar bleiben.
 Voreingestellt sind $C = 5$\,cm und $R = 15$\,cm gegen die Umgebung sowie $C = 1{,}5$\,cm gegen Körper und anderen Arm.
-% DB: g1pilot/g1pilot/manipulation/arm_planner.py:72-85,112-114,160-180,251-272,297-316 @e452513
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:72-85,112-114,160-180,251-272,297-316 @c50a8bf
 
 Abbildung~\ref{fig:trichter} zeigt die Wirkung von Gleichung~\ref{eq:abstandsbedarf} an einer Handkugel.
 Am Start liegt die Kugel auf, ihr Bedarf ist null.
 Mit wachsendem $a_k$ steigt er ohne Knick bis zum vollen Abstand~$C$ bei $a_k = R$ und sinkt vor dem Ziel ebenso, sodass von selbst ein weicher Abhebe- und Anfahrbogen über das Hindernis entsteht.
 Steckt eine Kugel am Endpunkt schon im Objekt (Teilbild~b), darf sie dort starten, aber nicht tiefer eindringen.
-% DB: g1pilot/g1pilot/manipulation/arm_planner.py:13-26,251-272 @e452513, Daten/planer-trichter.py (Rechnung aus den Voreinstellungen)
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:13-26,251-272 @c50a8bf, Daten/planer-trichter.py (Rechnung aus den Voreinstellungen)
 
 \begin{figure}[htbp]
   \centering
@@ -481,7 +480,7 @@ Der Term $J_\mathrm{A}$ lässt die Hand nahe an einem Objekt auf den letzten 10\
 Die Suchrichtung des Gradientenverfahrens ist mit $H^{-1}$ vorkonditioniert, sodass eine Korrektur an einer Stelle die ganze Bahn glatt verformt.
 Diesen vorkonditionierten Gradientenabstieg nutzt auch CHOMP \cite{Schulman2014}\ev{Schulman2014.03}, er bevorzugt Änderungen mit wenig zusätzlicher Beschleunigung \cite{Zucker2013}\ev{Zucker2013.06}.
 Bleibt am Ende eine Verletzung des Bedarfs, steigt $\lambda_\mathrm{K}$ stufenweise.
-% DB: g1pilot/g1pilot/manipulation/arm_planner.py:86-88,102-109,194-245,356-464 @e452513
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:86-88,102-109,194-245,356-464 @c50a8bf
 
 % Rückfallkette B7.10.
 Weil die Optimierung in lokalen Minima hängen bleiben kann (Abschnitt~\ref{sec:bahnplanung_sdt}), durchläuft der Planer die Stufen in Abbildung~\ref{fig:rueckfallkette}, bis eine Bahn die Abschlussprüfung besteht.
@@ -489,8 +488,7 @@ Vorab lehnt er ein Ziel ab, das mit dem eigenen Körper kollidiert oder an der e
 Die vier Startbahnen der Optimierung sind die Gerade und Bögen, die die Hand um 15\,cm anheben, um 15\,cm zurückziehen und als letzter Versuch um 30\,cm anheben.
 Danach sucht ein stichprobenbasierter Planer nach dem Prinzip von RRT-Connect \cite{Kuffner2000}\ev{Kuffner2000.01} mit dem kleinsten Abstand $C_\mathrm{min} = 1{,}5$\,cm, und die Glättung hebt den Abstand an, soweit die Bahn gültig bleibt.
 Alle Stufen teilen sich 2,5\,s Rechenzeit.
-\pruefen{Stand PR \#62, nach Merge BA-Stable-Hash eintragen: Zielprüfung an der exakten Geometrie, Startbahn 30\,cm}
-% DB: g1pilot/g1pilot/manipulation/arm_planner.py:65-91,516-615,706-833 @e452513, g1pilot/g1pilot/manipulation/arm_geometry.py:621-696 @e452513, g1pilot/g1pilot/manipulation/arm_planner_process.py:53-58,115-125 @e452513
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:65-91,516-615,706-833 @c50a8bf, g1pilot/g1pilot/manipulation/arm_geometry.py:621-696 @c50a8bf, g1pilot/g1pilot/manipulation/arm_planner_process.py:53-58,115-125 @c50a8bf
 
 \begin{figure}[htbp]
   \centering
@@ -505,7 +503,7 @@ Die Zeitparametrierung begrenzt anschließend jedes Gelenk auf 1,2\,rad/s und 2\
 Unter 5\,cm Abstand zu einem Objekt sinkt das Tempo bis auf 35\,\%, damit die Hand sanft aufsetzt, in Simulation und Realbetrieb gleich.
 Der Planer läuft in einem eigenen Prozess und plant beide Arme gemeinsam, und der Armregler verwirft ein Ergebnis, sobald eine neuere Anfrage oder ein Abbruch vorliegt.
 Planungserfolg und Planungszeit weist Abschnitt~\ref{sec:eval_manipulation} aus.
-% DB: g1pilot/g1pilot/manipulation/arm_planner.py:91-99,467-501,621-663 @e452513, g1pilot/g1pilot/manipulation/arm_controller.py:2969-2980,2982-3060,3062-3131,3148-3171 @e452513, g1pilot/g1pilot/manipulation/arm_planner_process.py:1-26 @e452513, g1pilot/launch/bringup_sim.launch.py:112 @e452513, g1pilot/launch/bringup_real.launch.py:106-107 @e452513
+% DB: g1pilot/g1pilot/manipulation/arm_planner.py:91-99,467-501,621-663 @c50a8bf, g1pilot/g1pilot/manipulation/arm_controller.py:2969-2980,2982-3060,3062-3131,3148-3171 @c50a8bf, g1pilot/g1pilot/manipulation/arm_planner_process.py:1-26 @c50a8bf, g1pilot/launch/bringup_sim.launch.py:112 @c50a8bf, g1pilot/launch/bringup_real.launch.py:106-107 @c50a8bf
 
 \subsection{Laufzeitüberwachung}
 \label{sec:laufzeitueberwachung}
@@ -513,7 +511,7 @@ Planungserfolg und Planungszeit weist Abschnitt~\ref{sec:eval_manipulation} aus.
 % Rückbezug tab:schutzmechanismen (Kollisionsprüfung zur Laufzeit), Stelle in der Regelkette.
 Die Laufzeitüberwachung prüft in jedem Regeltakt den kommandierten Schritt der Arme, beim reaktiven Nachführen wie bei geplanten Bahnen.
 Sie bildet die Kollisionsprüfung zur Laufzeit aus Tabelle~\ref{tab:schutzmechanismen}, sitzt hinter den Begrenzern für Geschwindigkeit und Beschleunigung (Abschnitt~\ref{sec:regelkette}) und schützt auch, wenn sich ein Objekt nach der Planung bewegt hat.
-% DB: g1pilot/g1pilot/manipulation/arm_controller.py:1729-1761,3895-3908 @e452513
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:1729-1761,3895-3908 @c50a8bf
 
 % Umgebung: Untergrenzen, Projektion G7.9, Verlangsamung.
 Gegen Objekte gilt je Paar aus Kugel und Objekt eine Untergrenze von 0\,cm für Handkugeln, damit die Hand aufsetzen darf, und 1\,cm für die übrigen Armkugeln, gegenüber Greifobjekten gilt für Handkugeln keine.
@@ -527,29 +525,29 @@ mit dem Schritt $\Delta q$ der 14 Armgelenke und dem Gradienten $g_{ko}$ des Abs
 Die Hand gleitet so an der Fläche entlang, statt stehen zu bleiben.
 Verletzt auch der projizierte Schritt eine Untergrenze, hält der Arm an.
 Beim reaktiven Nachführen verkleinert die Überwachung außerdem Schritte, die sich einem Objekt auf weniger als 5\,cm über der Untergrenze nähern, bis auf 25\,\%.
-% DB: g1pilot/g1pilot/manipulation/arm_controller.py:200-206,1623-1645,1663-1727,1740-1748 @e452513
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:200-206,1623-1645,1663-1727,1740-1748 @c50a8bf
 
 % Selbstkollision.
 Die Selbstkollision prüft die Überwachung exakt an den konvexen Hüllen von Ellbogen, Handgelenk und Handbasis gegen den Körper und den anderen Arm, die Finger bleiben zum Greifen ausgenommen.
 Dafür nutzt sie das geometrische Modell der Starrkörperbibliothek Pinocchio mit Kollisions- und Abstandsberechnung auf Basis von FCL \cite{Carpentier2019}\ev{Carpentier2019.03,Carpentier2019.04}.
 \qf{Kollisionsbibliothek coal (Nachfolger von hpp-fcl, von Pinocchio heute statt FCL genutzt) als GitHub-Quelle mit Commit-Hash}
 Eine Durchdringung hält den Arm an, und ein Randband von 3\,cm darf nur eine geplante Bahn neu betreten, weil der Planer sie schon exakt geprüft hat.
-% DB: g1pilot/g1pilot/utils/ik_solver.py:53,89,232-300,327-345 @e452513, g1pilot/g1pilot/manipulation/arm_controller.py:1603-1607,1750-1758 @e452513
+% DB: g1pilot/g1pilot/utils/ik_solver.py:53,89,232-300,327-345 @c50a8bf, g1pilot/g1pilot/manipulation/arm_controller.py:1603-1607,1750-1758 @c50a8bf
 
 % Gewolltes Berühren (L7.34), Bahnuhr, Sim/Real, Vorverweis.
 Gewolltes Berühren regeln die Untergrenzen.
-Während einer geplanten Bewegung sinken sie auf die Werte an Start und Ziel der Bahn abzüglich 3\,mm, sodass die Bewegung mit aufliegender Hand enden darf \pruefen{Stand PR \#62: erst mit der exakten Zielprüfung liegt die Hand wirklich auf}.
+Während einer geplanten Bewegung sinken sie auf die Werte an Start und Ziel der Bahn abzüglich 3\,mm, sodass die Bewegung mit aufliegender Hand enden darf.
 Das reaktive Nachführen hält dagegen schon an, wenn das Kugelmodell die Fläche erreicht, also etwas über ihr.
 Hält die Überwachung eine geplante Bewegung an, steht auch deren Bahnuhr, und nach 3\,s Stillstand bricht die Bewegung ab.
 Die Werte gelten in Simulation und Realbetrieb gleich, die Prüfung gegen Objekte wirkt aber nur in der Simulation (Abschnitt~\ref{sec:kollisionsmodell}).
 Die Prüfung der Schutzmechanismen beschreibt Abschnitt~\ref{sec:eval_sicherheit}.
-% DB: g1pilot/g1pilot/manipulation/arm_controller.py:1623-1645,3115-3124,3735-3795 @e452513, g1pilot/g1pilot/manipulation/arm_geometry.py:624-638 @e452513, g1pilot/launch/manipulation_launcher.launch.py:32,36 @e452513, g1pilot/launch/bringup_real.launch.py:108 @e452513
+% DB: g1pilot/g1pilot/manipulation/arm_controller.py:1623-1645,3115-3124,3735-3795 @c50a8bf, g1pilot/g1pilot/manipulation/arm_geometry.py:624-638 @c50a8bf, g1pilot/launch/manipulation_launcher.launch.py:32,36 @c50a8bf, g1pilot/launch/bringup_real.launch.py:108 @c50a8bf
 
 \section{Roboterhände}
 \label{sec:haende}
 Am G1 bindet die Umgebung die Inspire-Hände in Simulation und Realbetrieb über eine gemeinsame Schnittstelle an (Abschnitt~\ref{sec:hand_schnittstelle}) und erlaubt nur in der Simulation, sie über austauschbare Hand-Profile gegen eigene Handformen wie einen Haken zu tauschen (Abschnitt~\ref{sec:hand_profile}).
 Abbildung~\ref{fig:haende} zeigt beide Ausführungen.
-% DB: g1pilot/g1pilot/manipulation/inspire_ftp/bridge.py:45-85 @6a40e47, g1pilot/g1pilot/utils/hand_profile.py:1-79 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/inspire_ftp/bridge.py:45-85 @c50a8bf, g1pilot/g1pilot/utils/hand_profile.py:1-79 @c50a8bf
 
 \begin{figure}[htbp]
   \centering
@@ -572,7 +570,7 @@ Abbildung~\ref{fig:haende} zeigt beide Ausführungen.
 
 Der Haken in Abbildung~\ref{fig:haende}~b besteht aus zwei gedruckten, starren Teilen ohne bewegliche Finger, eines je Hand.
 Er wiegt etwa 55\,g je Hand \pruefen{Angabe Nils 27.11. (ca. 55\,g je Hand). Das Hand-Profil trägt noch 0,15\,kg je Hand: Profil im Code angleichen und Fundstelle nachtragen, oder Abweichung begründen}.
-% DB: unitree_mujoco/unitree_robots/g1/hands/haken/hand.yaml:1-16 @6a40e47
+% DB: unitree_mujoco/unitree_robots/g1/hands/haken/hand.yaml:1-16 @c50a8bf
 
 \subsection{Schnittstelle der Inspire-Hände}
 \label{sec:hand_schnittstelle}
@@ -582,19 +580,19 @@ Jeder Freiheitsgrad nimmt einen Winkelwert von 0 bis 1000 an \cite{Inspire2024}\
 Der Wert 1000 steht für den ganz geöffneten Finger \cite{Inspire2024}\ev{Inspire2024.09}, und die Umgebung bildet jeden dieser Werte auf die gekoppelten Gelenke ab.
 Die gemeinsame Schnittstelle (Abschnitt~\ref{sec:haende_sdt}) läuft mit 50\,Hz, nimmt Fingerziele aus Posen und Bedienoberfläche an und gibt Winkel, Kräfte und Taktilwerte als Gelenkzustand zurück.
 Hinter ihr stehen drei austauschbare Anbindungen: eine reine Anzeige ohne Physik und Kraft, deren Finger dem Sollwert mit begrenzter Geschwindigkeit folgen, die Kontaktphysik in der Simulation und Modbus TCP im Realbetrieb.
-% DB: g1pilot/g1pilot/manipulation/inspire_ftp/joint_map.py:1-61 @6a40e47, g1pilot/g1pilot/manipulation/inspire_ftp/bridge.py:45,49,195-208 @6a40e47,
-%     g1pilot/g1pilot/manipulation/inspire_ftp/backends.py:51-108,111-387,390-515,518-564 @6a40e47, g1pilot/launch/bringup_sim.launch.py:171-183 @6a40e47, g1pilot/launch/bringup_real.launch.py:197-210 @6a40e47, unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:61-90,403-416 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/inspire_ftp/joint_map.py:1-61 @c50a8bf, g1pilot/g1pilot/manipulation/inspire_ftp/bridge.py:45,49,195-208 @c50a8bf,
+%     g1pilot/g1pilot/manipulation/inspire_ftp/backends.py:51-108,111-387,390-515,518-564 @c50a8bf, g1pilot/launch/bringup_sim.launch.py:171-183 @c50a8bf, g1pilot/launch/bringup_real.launch.py:197-210 @c50a8bf, unitree_mujoco/simulate_python/unitree_sdk2py_bridge.py:61-90,403-416 @c50a8bf
 
 
 Die in der Simulation voreingestellte Kontaktphysik bewegt die Finger je Hand über 12 Positionsservos, deren Verstärkung das Physikmodell festlegt \cite{MujocoDoku2026b}\ev{MujocoDoku2026b.02}, und misst den Kontakt mit Berührungssensoren \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.08} in 17 Taktilzonen je Hand, deren Summe die Kraft je Finger ergibt.
 Übersteigt die Kraft eines Fingers die eingestellte Grenze, voreingestellt 500\,g, öffnet die Anbindung ihn im Verhältnis zur Überschreitung und bildet so die reale Hand nach, deren Greifkraft sich über Kraftschwellen einstellen lässt \cite{Inspire2024}\ev{Inspire2024.01}.
-% DB: g1pilot/g1pilot/manipulation/inspire_ftp/backends.py:111-387 @6a40e47, g1pilot/g1pilot/manipulation/inspire_ftp/model.py:18-35 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/inspire_ftp/backends.py:111-387 @c50a8bf, g1pilot/g1pilot/manipulation/inspire_ftp/model.py:18-35 @c50a8bf
 
 Im Realbetrieb spricht die Anbindung die Hände über Modbus TCP an, das die Hand über IP-Adresse und Port steuert \cite{Inspire2024}\ev{Inspire2024.06}.
 Sie schreibt Sollwerte nur bei Änderung und liest die Istwerte mit 20\,Hz in einem eigenen Ablauf je Hand, damit eine langsame oder getrennte Verbindung den Takt der Anbindung nicht blockiert, die Kraftgrenze wirkt dort in der Hand selbst.
 Ein Not-Halt schaltet in Simulation und Realbetrieb beide Hände ab, und die reale Hand bekommt dabei ihren gemessenen Winkel als Ziel, sodass sie stehen bleibt.
 Wie die Hände am realen Roboter greifen, zeigt Abschnitt~\ref{sec:eval_realtests}.
-% DB: g1pilot/g1pilot/manipulation/inspire_ftp/backends.py:390-515 @6a40e47, g1pilot/g1pilot/manipulation/inspire_ftp/bridge.py:80-85,251-258 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/inspire_ftp/backends.py:390-515 @c50a8bf, g1pilot/g1pilot/manipulation/inspire_ftp/bridge.py:80-85,251-258 @c50a8bf
 
 \subsection{Austauschbare Hand-Profile}
 \label{sec:hand_profile}
@@ -604,19 +602,19 @@ Austauschbare Hand-Profile sind eine reine Simulationsfunktion, mit der sich and
 Am realen Roboter verwendet die Umgebung immer das Modell der Inspire-Hand, auch wenn ein anderes Profil gewählt ist.
 Ein Profil besteht aus einer Beschreibungsdatei und einem Netz der Handform, aus denen ein Generator alle Modelle erzeugt, die die Umgebung braucht.
 Er legt das Netz über eine affine Abbildung in das Koordinatensystem des Handgelenks, wofür die Beschreibung angibt, welche Richtung der Handform vom Arm weg und welche zur Handfläche zeigt, und spiegelt es für die linke Hand, sodass ein einziges Netz für beide Hände genügt.
-% DB: g1pilot/g1pilot/utils/hand_profile.py:1-79 @6a40e47, unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py:1-28,53,154-190 @6a40e47, unitree_mujoco/unitree_robots/g1/hands/haken/hand.yaml:19-37 @6a40e47
+% DB: g1pilot/g1pilot/utils/hand_profile.py:1-79 @c50a8bf, unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py:1-28,53,154-190 @c50a8bf, unitree_mujoco/unitree_robots/g1/hands/haken/hand.yaml:19-37 @c50a8bf
 
 Weil die Kollisionserkennung des Physikmodells mit der konvexen Hülle eines Netzes arbeitet \cite{MujocoDoku2026a}\ev{MujocoDoku2026a.10}, zerlegt der Generator die Handform in mehrere konvexe Teile \qf{Beleg für das Verfahren der näherungsweisen konvexen Zerlegung (V-HACD)}.
 Ändern sich Profil oder Generator, erzeugt er die Modelle beim Start neu, und lässt sich ein Profil nicht bauen, startet die Umgebung mit einem mitgelieferten Standardprofil.
-% DB: unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py:54-83,193-236,437-441 @6a40e47, g1pilot/start.sh:341-353 @6a40e47
+% DB: unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py:54-83,193-236,437-441 @c50a8bf, g1pilot/start.sh:341-353 @c50a8bf
 
 Das erzeugte Physikmodell nutzen die Simulation und das Schwerpunktmodell des Ersatzreglers, das Kinematikmodell mit Kollisionsteilen und Werkzeugpunkt die inverse Kinematik, die Anzeige und das Kollisionsmodell (Abschnitt~\ref{sec:kollisionsmodell}).
 Ein neues Profil wirkt so ohne Änderung am Code auf Simulation, Stehen, inverse Kinematik und Kollisionsprüfung (Abschnitt~\ref{sec:eval_modular}).
 Die Bedienschritte zum Anlegen eines Profils stehen in Anhang~\ref{anh:dokumentation}.
-% DB: unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py:242-298,319-436 @6a40e47, g1pilot/g1pilot/navigation/loco_sim.py:331-345 @6a40e47, g1pilot/g1pilot/manipulation/arm_geometry.py:36-46,370-400 @6a40e47, g1pilot/g1pilot/utils/ik_solver.py:237-238 @6a40e47
+% DB: unitree_mujoco/unitree_robots/g1/tools/gen_hand_profile.py:242-298,319-436 @c50a8bf, g1pilot/g1pilot/navigation/loco_sim.py:331-345 @c50a8bf, g1pilot/g1pilot/manipulation/arm_geometry.py:36-46,370-400 @c50a8bf, g1pilot/g1pilot/utils/ik_solver.py:237-238 @c50a8bf
 
 % ======================================================================
-% Paket D (Kap. Umsetzung): 7.6 Bedienwege mit 7.6.1 bis 7.6.4. Entwurf 27.11.2026, Code-Stand G1 BA-Stable @6a40e47.
+% Paket D (Kap. Umsetzung): 7.6 Bedienwege mit 7.6.1 bis 7.6.4. Entwurf 27.11.2026, Code-Stand G1 BA-Stable @c50a8bf.
 % Pfade in % DB: relativ zur Repo-Wurzel des Code-Repos (G1 / g1-ba).
 % ======================================================================
 \section{Bedienwege}
@@ -635,7 +633,7 @@ Abbildung~\ref{fig:bedienwege_signal} zeigt den Signalweg von der Eingabe bis zu
 Die Bedienprogramme in Abbildung~\ref{fig:bedienwege_signal} übersetzen Eingaben in Ziele und Befehle auf ROS-2-Themen (Abschnitt~\ref{sec:ros2}) und lesen Zustände zurück.
 Das Smartphone ruft über die Vermittlungsschicht dieselben Funktionen auf wie die Knöpfe der Bedienoberfläche, und der Gehbefehl des Controllers nimmt einen eigenen Weg mit Vorrang vor den Fahrbefehlen der Bedienoberfläche.
 Tabelle~\ref{tab:bedienwege_umsetzung} nennt je Bedienweg das Eingabegerät, die Schnittstelle zum System und die Auslegungswerte der Zeitüberwachung, den Funktionsumfang nennt Tabelle~\ref{tab:bedienwege}.
-% DB: g1pilot/g1pilot/teleoperation/demo_gui.py:1143; g1pilot/g1pilot/teleoperation/phone/link.py:65-71,137-141; g1pilot/g1pilot/navigation/loco_client.py:714-735; g1pilot/g1pilot/navigation/loco_sim.py:550-556; g1pilot/g1pilot/teleoperation/ps4_walk.py:350-370; g1pilot/g1pilot/manipulation/arm_api.py:3-30
+% DB: g1pilot/g1pilot/teleoperation/demo_gui.py:1143; g1pilot/g1pilot/teleoperation/phone/link.py:96-102,168-172; g1pilot/g1pilot/navigation/loco_client.py:714-735; g1pilot/g1pilot/navigation/loco_sim.py:550-556; g1pilot/g1pilot/teleoperation/ps4_walk.py:350-370; g1pilot/g1pilot/manipulation/arm_api.py:3-30
 
 \begin{table}[htbp]
     \tabstil
@@ -652,7 +650,7 @@ Tabelle~\ref{tab:bedienwege_umsetzung} nennt je Bedienweg das Eingabegerät, die
         Direkter DDS-Zugang & Eigenes Programm mit Herstellerpaket & Hersteller\-schnittstelle, Simulation Domain~1 und \texttt{lo} & Keine.\\\hline
     \end{tabularx}
 \end{table}
-% Fundstellen je Zeile (Pfade relativ zur Repo-Wurzel des Code-Repos, @6a40e47):
+% Fundstellen je Zeile (Pfade relativ zur Repo-Wurzel des Code-Repos, @c50a8bf):
 % Bedienoberfläche: g1pilot/g1pilot/teleoperation/demo_gui.py:1122-1124 (cmd_timer 33 ms = 30 Hz), :2087-2097 (außerhalb von Gehen null), :150 (QUIT_CONFIRM_MS 4000), :153 (FULL_ESTOP_HOLD_S 1.5),
 %   g1pilot/g1pilot/teleoperation/sequence_runner.py:46-48 (ACK_TIMEOUT_S 4.0), :189-197; g1pilot/g1pilot/teleoperation/sim_autostart.py:43-44 (period_s 1.5, timeout_s 120.0), demo_gui.py:1146-1162 (nur Simulation).
 % Controller: g1pilot/g1pilot/teleoperation/ps4_joystick.py:68 (stall_timeout_s 0.3), :381-398; ps4_walk.py:230 (joy_timeout_s 0.3), :358-366; ps4_arm_teleop.py:854 (joy_timeout_s 0.5), :1583-1600;
@@ -663,13 +661,13 @@ Tabelle~\ref{tab:bedienwege_umsetzung} nennt je Bedienweg das Eingabegerät, die
 
 Die letzte Zeile der Tabelle~\ref{tab:bedienwege_umsetzung} ist der einzige Bedienweg ohne Zeitüberwachung, weil der direkte Zugang über DDS die Zielprogramme und damit alle Schutzmechanismen umgeht (Abschnitt~\ref{sec:entwickler_api}).
 Die übrigen Zeilen greifen die folgenden Abschnitte bei den einzelnen Bedienwegen auf.
-% DB: g1pilot/g1pilot/manipulation/arm_api.py:3-30; g1pilot/g1pilot/utils/common.py:15-47 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/arm_api.py:3-30; g1pilot/g1pilot/utils/common.py:15-47 @c50a8bf
 
 \subsection{Bedienoberfläche}
 \label{sec:bedienoberflaeche}
 Die Bedienoberfläche ist ein Fenster, das Befehle sendet und Zustände anzeigt, ohne selbst Bewegungen zu rechnen (Abschnitt~\ref{sec:komponenten}).
 Abbildung~\ref{fig:bedienoberflaeche} zeigt vier Bereiche: Die Kopfleiste wählt Modus (Gehen oder Greifen) und Ansicht, die Arbeitsfläche enthält nur die Funktionen des aktiven Modus, die Seitenleiste trägt Not-Halt und Voll-Notaus, und die Statusleiste meldet Zustand und Verlauf.
-% DB: g1pilot/g1pilot/teleoperation/demo_gui.py:1164-1170,1331-1392 @6a40e47
+% DB: g1pilot/g1pilot/teleoperation/demo_gui.py:1164-1170,1331-1392 @c50a8bf
 
 \begin{figure}[htbp]
   \centering
@@ -681,50 +679,51 @@ Abbildung~\ref{fig:bedienoberflaeche} zeigt vier Bereiche: Die Kopfleiste wählt
 
 Die Wahl aus der Kopfleiste in Abbildung~\ref{fig:bedienoberflaeche}, also Modus, Handauswahl und Tempostufen, teilen sich Bedienoberfläche und Controller über eine gehaltene Zustandsmeldung, die auch später startenden Teilnehmern zugestellt wird \cite{Macenski2022}\ev{Macenski2022.15}.
 Jedes Feld trägt einen eigenen, stets über jeden gesehenen hinaus erhöhten Zeitstempel, sodass der neueste Stand gilt und Uhrabweichungen zwischen Prozessen keine Wahl verdrängen.
-% DB: g1pilot/g1pilot/teleoperation/shared_state.py:3-28,43,47-53,60-107 @6a40e47
+% DB: g1pilot/g1pilot/teleoperation/shared_state.py:3-28,43,47-53,60-107 @c50a8bf
 
 Posen, relative Bewegungen, Abläufe und die Zuordnung der Schnellwahlplätze stehen in einer JSON-Datei (Abschnitt~\ref{sec:posen_ablaeufe}), wobei eine Pose nur das zuletzt kommandierte Gelenkziel als Endpunkt speichert, weil die Bahn beim Anfahren neu geplant wird (Abschnitt~\ref{sec:bahnplaner}).
-% DB: g1pilot/g1pilot/manipulation/pose_store.py:13-17,59-77,105-109,274-287; g1pilot/g1pilot/manipulation/arm_controller.py:2649-2660 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/pose_store.py:13-17,59-77,105-109,274-287; g1pilot/g1pilot/manipulation/arm_controller.py:2649-2660 @c50a8bf
 Die Ablaufsteuerung ist ein Zustandsautomat, der nur entscheidet, wann der nächste Schritt über den Armregler gesendet wird, in der Simulation am Stück und am realen Roboter jeweils nach einem Weiter von Bedienoberfläche, Smartphone oder Controller.
 Not-Halt, Stopp, Moduswechsel, Handbewegung während der Fahrt, ein abgelehnter, fehlgeschlagener oder abgebrochener Schritt und fehlende Antwort des Armreglers beenden den Ablauf (Tabelle~\ref{tab:bedienwege_umsetzung}).
-% DB: g1pilot/g1pilot/teleoperation/sequence_runner.py:4-58,123-243; g1pilot/g1pilot/teleoperation/demo_gui.py:176-198,2136-2190 @6a40e47
+% DB: g1pilot/g1pilot/teleoperation/sequence_runner.py:4-58,123-243; g1pilot/g1pilot/teleoperation/demo_gui.py:176-198,2136-2190 @c50a8bf
 
 Der Not-Halt-Knopf bricht Abläufe, Navigation und Auto-Start ab, und der Voll-Notaus ist ein Haltetaster: Schon das Drücken löst den normalen Not-Halt aus, erst das Halten über die Haltezeit (Tabelle~\ref{tab:bedienwege_umsetzung}) eskaliert auf den ganzen Roboter (Abschnitt~\ref{sec:zustaende}) und schützt so vor versehentlichem Antippen.
 Quittiert wird real über den Startknopf und in der Simulation über die nächste Modusauswahl, und nach einem quittierten Voll-Notaus bleibt der reale Roboter in Damp.
 Die Bedienschritte beschreibt Anhang~\ref{anh:dokumentation}, den Aufwand bis zur ersten Bewegung misst Abschnitt~\ref{sec:eval_bedienaufwand}.
-% DB: g1pilot/g1pilot/teleoperation/demo_gui.py:1301-1316,1786-1803,2462-2549 @6a40e47
+% DB: g1pilot/g1pilot/teleoperation/demo_gui.py:1301-1316,1786-1803,2462-2549 @c50a8bf
 
 \subsection{Controller}
 \label{sec:controller}
 Der Controller ist in drei Schichten gebaut, damit die Bedienlogik ohne Gerät prüfbar bleibt (Abschnitt~\ref{sec:bedienwege_konzept}).
 Die Geräteschicht ordnet Tasten und Achsen von PS4-Controller (DualShock 4) und Xbox-Controller selbst einer festen Belegung zu und sendet ohne Verbindung nichts, nie einen eingefrorenen Wert, damit ein Ausfall als ausbleibende Nachricht beim Empfänger ankommt.
 Darauf setzen je ein Programm für Arme und Hände und eines für das Gehen auf.
-% DB: g1pilot/g1pilot/teleoperation/ps4_layout.py:1-20; g1pilot/g1pilot/teleoperation/ps4_joystick.py:1-48,381-398 @6a40e47
+% DB: g1pilot/g1pilot/teleoperation/ps4_layout.py:1-20; g1pilot/g1pilot/teleoperation/ps4_joystick.py:1-48,381-398 @c50a8bf
 
 Beim Bewegen der Hand ist das Ziel die kommandierte Hand plus Stickausschlag mal Zeitschritt im Bezug des Oberkörpers, mit einem Vorlauf entlang der Bewegungsrichtung.
 Die drei Tempostufen entsprechen 5, 15 und 30\,cm/s bei Vollausschlag, der reale Roboter beginnt mit der niedrigsten und erlaubt höchstens die mittlere.
-% DB: g1pilot/g1pilot/teleoperation/hand_jog.py:122-135,181-229,263-267; g1pilot/g1pilot/teleoperation/ps4_arm_teleop.py:826-880; g1pilot/launch/bringup_real.launch.py:49-52 @6a40e47
+% DB: g1pilot/g1pilot/teleoperation/hand_jog.py:122-135,181-229,263-267; g1pilot/g1pilot/teleoperation/ps4_arm_teleop.py:826-880; g1pilot/launch/bringup_real.launch.py:49-52 @c50a8bf
 
 Das Gehen hat einen eigenen Befehlsweg, der nur bei gehaltener Totmanntaste sendet und dessen Tempostufen am realen Roboter die Geschwindigkeitsgrenze der Anbindung des Onboard-Reglers auf 35, 65 und 100\,\% skalieren (Abschnitt~\ref{sec:onboard_anbindung}).
 Die Beine stellt der Controller am realen Roboter nie selbst auf, Modus und Start der Beine bleiben der Bedienoberfläche vorbehalten.
-% DB: g1pilot/g1pilot/teleoperation/ps4_walk.py:30-47,215-232; g1pilot/g1pilot/navigation/loco_client.py:714-735; g1pilot/g1pilot/navigation/loco_sim.py:550-556 @6a40e47
+% DB: g1pilot/g1pilot/teleoperation/ps4_walk.py:30-47,215-232; g1pilot/g1pilot/navigation/loco_client.py:714-735; g1pilot/g1pilot/navigation/loco_sim.py:550-556 @c50a8bf
 
 Die Pose-Schnellwahl ordnet 16 Plätzen je eine Pose zu, deren Zuordnung der Controller bei jedem Druck frisch aus dem Posenspeicher liest und die er auf demselben Weg wie die Bedienoberfläche anfordert, sodass die Bahn geplant und geprüft wird.
 Not-Halt und Voll-Notaus wirken auch am gesperrten Controller, und die Haltezeit des Voll-Notaus bricht bei ausbleibenden Daten ab (Tabelle~\ref{tab:bedienwege_umsetzung}), was Abschnitt~\ref{sec:eval_sicherheit} prüft.
-% DB: g1pilot/g1pilot/teleoperation/ps4_arm_teleop.py:537-557,586-640,1177-1215; g1pilot/g1pilot/manipulation/pose_store.py:51-57,110-126 @6a40e47
+% DB: g1pilot/g1pilot/teleoperation/ps4_arm_teleop.py:537-557,586-640,1177-1215; g1pilot/g1pilot/manipulation/pose_store.py:51-57,110-126 @c50a8bf
 
 \subsection{Smartphone}
 \label{sec:smartphone}
 Das Smartphone bedient die Umgebung über eine Webseite im Browser, die per BLE direkt mit dem Bedienrechner spricht, sodass weder App noch Netzwerk nötig sind.
+Die Adresse der Webseite zeigt die Bedienoberfläche in ihrem Fenster für das Smartphone als QR-Code und als Text an.
 \qf{Quelle zu Web Bluetooth und Bluetooth Low Energy (GATT)}
 Aus einem nur optisch übertragenen Kopplungscode leiten beide Seiten mit einem schlüsselabhängigen Prüfcode (HMAC) einen nie gesendeten Geräteschlüssel ab, und jede Nachricht trägt einen streng steigenden Zähler und einen Prüfcode, sodass Inhalte weder fälschbar noch wiederholbar sind.
 \qf{Quelle zum schlüsselabhängigen Prüfcode (HMAC, RFC 2104)}
-% DB: g1pilot/g1pilot/teleoperation/phone/protocol.py:3-23,41-45,78-113; g1pilot/g1pilot/teleoperation/phone/gateway.py:42-43,163-171,299-312 @6a40e47
+% DB: g1pilot/g1pilot/teleoperation/phone/link.py:20-21,54-77,549-558 (QR-Code); g1pilot/g1pilot/teleoperation/phone/protocol.py:3-23,41-45,78-113; g1pilot/g1pilot/teleoperation/phone/gateway.py:42-43,163-171,299-312 @c50a8bf
 
 Die Vermittlungsschicht prüft je Aktion Rolle, Steuerhoheit und Aktualität des Zustands und führt dann dieselben Funktionen der Bedienoberfläche aus.
 Not-Halt und Stopp sind ohne Steuerhoheit erlaubt, der Not-Halt wirkt aber nur, solange der Bedienrechner läuft, und fällt die Steuerhoheit weg, bricht die Bedienoberfläche eine vom Smartphone gestartete Bewegung ab.
 Das gilt in Simulation und Realbetrieb gleich, die Zeitgrenzen nennt Tabelle~\ref{tab:bedienwege_umsetzung}, die Zeit bis zum Halt misst Abschnitt~\ref{sec:eval_sicherheit}.
-% DB: g1pilot/g1pilot/teleoperation/phone/gateway.py:58-78,299-330,340-410; g1pilot/g1pilot/teleoperation/phone/link.py:65-71,137-141 @6a40e47
+% DB: g1pilot/g1pilot/teleoperation/phone/gateway.py:58-78,299-330,340-410; g1pilot/g1pilot/teleoperation/phone/link.py:96-102,168-172 @c50a8bf
 
 \subsection{Entwickler-Oberfläche und Arm-API}
 \label{sec:entwickler_api}
@@ -732,16 +731,16 @@ Entwickler erreichen die Arme auf drei Ebenen, die nach Tabelle~\ref{tab:andockp
 Auf der obersten Ebene setzt der Zielmarker in RViz je Hand ein würfelförmiges Ziel, das aus der Ausgangsbasis stammt (Abschnitt~\ref{sec:ausgangsbasis}) und für diese Arbeit erweitert ist.
 \qf{Quelle zu RViz und interaktiven Markern}
 Beim Ziehen sendet er ein Hand-Ziel auf dasselbe Thema wie Bedienoberfläche und Controller.
-% DB: g1pilot/g1pilot/manipulation/interactive_marker.py:21-70,249-277,377-410; g1pilot/launch/manipulation_launcher.launch.py:168-180; g1pilot/NOTICE.md @6a40e47
+% DB: g1pilot/g1pilot/manipulation/interactive_marker.py:21-70,249-277,377-410; g1pilot/launch/manipulation_launcher.launch.py:168-180; g1pilot/NOTICE.md @c50a8bf
 
 Die HTTP-Schnittstelle der Arme ist ein eigener Prozess ohne Regellogik, weil in den schnellen Takt des Armreglers kein Webserver gehört.
 Sie nimmt Gelenkwinkel oder kartesische Handposen als JSON an und prüft nur das Format, Gelenkgrenzen, Kollision und Reichweite prüft der Armregler.
 Der Dienst bindet standardmäßig nur an den lokalen Rechner, ein Zugriff von außen verlangt eine geöffnete Adresse und ein Kennwort.
-% DB: g1pilot/g1pilot/manipulation/arm_api.py:3-30,51-53,82-106,222,285-310; g1pilot/g1pilot/manipulation/arm_command.py:3-31 @6a40e47
+% DB: g1pilot/g1pilot/manipulation/arm_api.py:3-30,51-53,82-106,222,285-310; g1pilot/g1pilot/manipulation/arm_command.py:3-31 @c50a8bf
 
 Auf der untersten Ebene laufen mit dem SDK entwickelte Programme auch in der Simulation \cite{UnitreeMujoco}\ev{UnitreeMujoco.01}, wenn sie ihre Verbindung auf Domain 1 und die Schnittstelle \texttt{lo} richten \cite{UnitreeMujoco}\ev{UnitreeMujoco.07,UnitreeMujoco.08}.
 Dieser Weg umgeht Armregler, Kollisionsprüfung und Begrenzer und ist für Projekte gedacht, die einen eigenen vollständigen Regler mitbringen, den Nachweis der Ebenen liefert Abschnitt~\ref{sec:eval_modular}.
-% DB: g1pilot/g1pilot/utils/common.py:15-47 @6a40e47
+% DB: g1pilot/g1pilot/utils/common.py:15-47 @c50a8bf
 
 \section{Autonome Navigation in der Simulation}
 \label{sec:navigation}
