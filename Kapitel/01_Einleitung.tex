@@ -54,7 +54,7 @@ Aufgabenunabhängig bedeutet hier, dass die Umgebung die Grundfähigkeiten Gehen
 Ausgangsbasis ist das quelloffene ROS-2-Paket G1Pilot, das den Unterkörper dem Regler des Herstellers überlässt und Werkzeuge für die Steuerung des Oberkörpers und die Teleoperation bereitstellt \cite{HucebotG1Pilot}\ev{HucebotG1Pilot.01}.
 Welche Teile übernommen sind und welche die Arbeit ergänzt, grenzt Abschnitt~\ref{sec:eigenleistung} ab.
 
-Aus dem Ziel folgen vier Forschungsfragen, die Kapitel~\ref{chap:handlungsbedarf} aus den Defiziten der betrachteten Arbeiten begründet:
+Aus dem Ziel folgen vier Forschungsfragen, die der Handlungsbedarf in Abschnitt~\ref{sec:handlungsbedarf} aus den Lücken der betrachteten Arbeiten begründet:
 \begin{description}
   \item[F1] Wie lässt sich erreichen, dass derselbe Programmstand die Simulation und den realen G1 steuert und der Wechsel nur die Konfiguration ändert?
   \item[F2] Wie gut bildet die Simulation das Verhalten des G1 ab, und wo liegen ihre Grenzen?
@@ -74,24 +74,21 @@ Für F4 genügt die Darstellung des modularen Aufbaus, ein eigener Erweiterungsv
 \section{Vorgehen und Aufbau der Arbeit}
 \label{sec:aufbau}
 Die Arbeit führt von den Grundlagen über den Handlungsbedarf zur Entwicklung der Umgebung und zu ihrer Bewertung, wie Abbildung~\ref{fig:aufbau} zeigt.
-Die Kapitel~\ref{chap:humanoide} bis~\ref{chap:faehigkeiten} legen die Grundlagen, ohne zu werten.
+Die Kapitel~\ref{chap:humanoide} bis~\ref{chap:faehigkeiten} legen die Grundlagen, die Kapitel~\ref{chap:simulation} und~\ref{chap:faehigkeiten} schließen jeweils mit dem, was sich daraus für die Umgebung ergibt.
 Kapitel~\ref{chap:humanoide} beschreibt humanoide Roboter in der Produktion sowie Hardware und Software-Schnittstellen des Unitree G1.
 Kapitel~\ref{chap:simulation} behandelt Simulation in der Robotik mit der Lücke zwischen Simulation und Realität, Physiksimulatoren mit dem Schwerpunkt MuJoCo, die Middleware ROS~2 mit DDS, die Containerisierung und die Sicherheit beim Betrieb von Robotern.
-Kapitel~\ref{chap:faehigkeiten} stellt Verfahren für Fortbewegung, Manipulation und Bedienung humanoider Roboter vor und schließt mit verwandten Arbeiten zum G1.
+Kapitel~\ref{chap:faehigkeiten} stellt Verfahren für Fortbewegung, Manipulation und Bedienung humanoider Roboter sowie verwandte Arbeiten zum G1 vor und leitet daraus den Handlungsbedarf ab.
 
 \begin{figure}[htbp]
   \centering
   \input{Bilder/tikz/aufbau-arbeit}
-  \caption[Vorgehen und Aufbau der Arbeit]{Vorgehen und Aufbau der Arbeit. Hervorgehoben sind die Kapitel, die Ziel, Anforderungen und Lösung der Arbeit tragen. Unter jeder Spalte steht ihr Beitrag zu den Forschungsfragen F1 bis F4.}
+  \caption[Vorgehen und Aufbau der Arbeit]{Vorgehen und Aufbau der Arbeit. Hervorgehoben sind die Kapitel, die Anforderungen, Lösung und Bewertung der Arbeit tragen. Unter jeder Spalte steht ihr Beitrag zu den Forschungsfragen F1 bis F4.}
   \label{fig:aufbau}
 \end{figure}
 
-Kapitel~\ref{chap:handlungsbedarf} wertet diese Arbeiten am Ziel der Arbeit.
-Es leitet aus den Defiziten die Forschungsfragen und die Anforderungen an die Umgebung mit Kennzahlen und Zielwerten her und legt den Versuchsplan fest, bevor Ergebnisse vorliegen.
-
-Kapitel~\ref{chap:konzept} entwirft die Umgebung entlang der Anforderungen: Ausgangsbasis und Eigenleistung, Gesamtarchitektur mit der Umschaltung zwischen Simulation und Realbetrieb, Sicherheits- und Bedienkonzept sowie den modularen Aufbau.
+Kapitel~\ref{chap:konzept} legt zuerst die Anforderungen an die Umgebung mit Kennzahlen und Zielwerten fest und entwirft sie dann entlang dieser Anforderungen: Ausgangsbasis und Eigenleistung, Gesamtarchitektur mit der Umschaltung zwischen Simulation und Realbetrieb, Sicherheits- und Bedienkonzept sowie den modularen Aufbau.
 Kapitel~\ref{chap:umsetzung} beschreibt die Umsetzung der Bausteine, von der containerisierten Bereitstellung über Simulation, Fortbewegung, Armregelung und Hände bis zu den Bedienwegen.
 Bedienschritte und Installationsbefehle stehen nicht im Haupttext, sondern in Auszügen im Anhang.
 
-Kapitel~\ref{chap:evaluation} prüft die Umgebung nach dem Versuchsplan in der Simulation und am realen G1, gegliedert nach den Forschungsfragen, und diskutiert die Ergebnisse mit ihren Grenzen.
+Kapitel~\ref{chap:evaluation} legt den Versuchsplan fest und prüft die Umgebung danach in der Simulation und am realen G1, gegliedert nach den Forschungsfragen, und diskutiert die Ergebnisse mit ihren Grenzen.
 Kapitel~\ref{chap:zusammenfassung} fasst die Antworten auf F1 bis F4 und die Beiträge der Arbeit zusammen und gibt einen Ausblick.

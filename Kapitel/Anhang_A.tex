@@ -2,3 +2,73 @@
 % Weitere Anhänge als eigene Dateien anlegen und in main.tex einbinden, sobald Inhalt da ist.
 \chapter{Vollständige Messreihen}
 \label{app:messreihen}
+
+% ----------------------------------------------------------------------
+% Abschnitt Testumgebung: am 25.11.2026 aus Kap. 5 (Abschnitt 5.3.3, sec:testumgebung) hierher verschoben (P6, Nils).
+% Basis: G1@6a40e47 (Branch BA-Stable, Merge vom 23.11.2026), Dockerfiles und docker-compose.yml; Faktenblatt
+% review/kap5-entwurf/fakten-testumgebung.md (d), dort noch Stand 25d5c1a. Docker-Dateien, unitree_mujoco/simulate_python
+% und die Attrappen-Dateien sind zwischen 25d5c1a und 6a40e47 unverändert (git diff), nur test/run_tests.sh und neue Tests.
+% Referenz-PC und Roboterstand liefert Nils (N4), bis dahin \pruefen.
+% ----------------------------------------------------------------------
+\section{Testumgebung der Versuche}
+\label{anh:testumgebung}
+Die Versuche aus Abschnitt~\ref{sec:versuchsplan} beziehen sich auf einen Referenz-PC, feste Softwarestände und einen Roboter, die Tabelle~\ref{tab:testumgebung} zusammenstellt.
+Die Angaben zu den Softwareständen gelten für den Code-Stand der Arbeit.
+
+% tab:testumgebung  (schlichter Stil, zwei Spalten). Art E.
+\begin{table}[!ht]
+    \setstretch{1.0}\tabstil\setlength{\tabcolsep}{4pt}
+    \centering
+    \caption[Testumgebung]{Testumgebung mit Referenz-PC, Softwareständen und Roboter. Angaben zu den Softwareständen gelten für den festgelegten Code-Stand.}
+    \label{tab:testumgebung}
+    \begin{tabularx}{\textwidth}{P{3.6cm}L}
+        \toprule
+        \tabkopf{Merkmal} & \tabkopf{Wert}\\
+        \midrule
+        Prozessor & \pruefen{Prozessor des Referenz-PCs von Nils}\\
+        Arbeitsspeicher & \pruefen{Arbeitsspeicher des Referenz-PCs von Nils}\\
+        Grafik & \pruefen{Grafikausstattung des Referenz-PCs von Nils}\\
+        Betriebssystem & \pruefen{Betriebssystem und Version des Referenz-PCs von Nils}\\
+        Container-Laufzeit & \pruefen{Version der Container-Laufzeit am Referenz-PC}\\
+        % Basis: G1@6a40e47 g1pilot/docker/Dockerfile.sim:1, Dockerfile.real:7 (Basis-Image ros:humble ohne Prüfsumme)
+        ROS-2-Version & ROS~2 Humble (Basis-Image über Tag, nicht auf eine Prüfsumme festgelegt). Paketstände nicht festgelegt \pruefen{Paketstände im Container auslesen und eintragen}\\
+        % Basis: G1@6a40e47 g1pilot/docker/Dockerfile.mujoco:14 (pip install mujoco ohne Versionsangabe)
+        MuJoCo-Version & nicht festgelegt \pruefen{installierte Version im Container auslesen und eintragen}\\
+        % Basis: G1@6a40e47 g1pilot/docker/Dockerfile.sim:36-39, Dockerfile.real:42-45, Dockerfile.mujoco:16-19 (Commit 7c661d27f4ae)
+        Version des Hersteller-SDK & Python-SDK in einer Abspaltung (Fork), Commit 7c661d2 (in allen drei Images gleich)\\
+        % Basis: G1@6a40e47 g1pilot/docker/Dockerfile.sim:15,81, Dockerfile.real:21,80 (rmw_cyclonedds_cpp, apt ohne Version)
+        DDS-Implementierung & Cyclone~DDS über \texttt{rmw\_cyclonedds\_cpp}, Version nicht festgelegt \pruefen{installierte Version im Container auslesen}\\
+        % Basis: G1@6a40e47 g1pilot/docker/Dockerfile.sim:48 (Kommentar cp310 für Ubuntu 22.04 = ros:humble)
+        Python & folgt dem Basis-Image, nicht festgelegt \pruefen{installierte Version im Container auslesen}\\
+        % Basis: G1 git log -1 6a40e47 (Merge PR #59 vom 23.11.2026), Branch BA-Stable laut CLAUDE.md (Nils, 24.11.)
+        Code-Stand der Umgebung & Repository \texttt{G1}, Branch \texttt{BA-Stable}, Commit 6a40e47 vom 23.11.2026\\
+        Roboter (Modell, Ausführung, Softwarestand) & Unitree G1 \pruefen{Ausführung und Softwarestand des Roboters von Nils}\\
+        Hände & \pruefen{Typ und Ausführung der Hände von Nils}\\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+% Basis: fakten-testumgebung.md (d); G1@6a40e47 g1pilot/docker/Dockerfile.sim, Dockerfile.real, Dockerfile.mujoco, docker-compose.yml
+Die Softwarestände legen die Container-Images der Umgebung fest (Abschnitt~\ref{sec:container}), die die Software bereits installiert, konfiguriert und getestet enthalten \cite{Boettiger2015}\ev{Boettiger2015.06}.
+Die Versionen von MuJoCo und weiteren Python-Paketen sind darin nicht festgelegt und werden aus den gebauten Images ausgelesen \pruefen{installierte Versionen von MuJoCo, CycloneDDS und Pinocchio aus den gebauten Images ablesen und in tab:testumgebung eintragen}.
+% Basis: G1 git diff --name-status 25d5c1a 6a40e47 (keine neuen Messskripte), todo-nils.md Kap. 5 „Festen Code-Stand im G1-Repo markieren“, N11
+Die Messmittel für V4, V7 und V8 sind im Code-Stand 6a40e47 noch nicht enthalten, sodass diese Versuche an einem später markierten Stand laufen \pruefen{Tag bzw. Commit des Mess-Stands eintragen und die Testzahlen dort neu zählen}.
+
+% Basis: G1@6a40e47, gezählt wie fakten-testumgebung.md (a), (c):
+%   Dateien: git ls-tree -r --name-only 6a40e47 g1pilot/test/ | grep "/test_[^/]*\.py$" -> 55
+%   Testfunktionen: grep -cE "^\s*(async )?def test_" je Datei, Summe -> 714 (keine Testklassen)
+%   Gruppe sicherheit: Liste in g1pilot/test/run_tests.sh:21-26 (26 Dateien, alle vorhanden) -> 465 Testfunktionen
+%   Dateien mit pytest.importorskip -> 38 (mit skipif zusätzlich: 39)
+%   Zum Vergleich 25d5c1a mit derselben Methode: 46 / 597 / 25 Dateien, 442 / 30.
+%   Ohne Roboter und Simulation: g1pilot/docs/60-A-Tests.md:21; still übersprungen, kein Nachweis: run_tests.sh:13-14, 60-A-Tests.md:59-61.
+Am Stand 6a40e47 umfasst die Testsuite, die ohne Roboter und ohne laufende Simulation läuft, 714 Testfunktionen in 55 Dateien, davon die Gruppe „sicherheit“ 26 Dateien mit 465 Testfunktionen.
+Fehlen Abhängigkeiten, überspringt die Suite Tests ohne Fehlermeldung, und 38 der 55 Dateien setzen solche Abhängigkeiten voraus.
+Für K5.5 zählt deshalb nur ein Lauf ohne übersprungene Tests \pruefen{Testumgebung angeben (Image oder Python-Umgebung mit Version), in der die Suite für K5.5 läuft}.
+
+% Basis: fakten-testumgebung.md (b); G1@6a40e47 g1pilot/test/test_arm_controller_real.py:29-160 (FakeG1, Stubs),
+% g1pilot/test/test_loco_client_real.py:28-110 (FakeLoco), beide gegen 25d5c1a unverändert.
+Die Attrappe aus Abschnitt~\ref{sec:testumgebung} bildet für die Arme den Zustand und die Armschnittstelle des Roboters nach, wobei die gemessenen Gelenkwinkel dem Sollwert mit einem einfachen Nachlauf folgen.
+Für die Fortbewegung zeichnet sie die Aufrufe an den Onboard-Regler auf und führt dessen Betriebszustand als Zahl, ohne eine Bewegung zu simulieren.
+Netzwerk, Beine und Gleichgewicht, Hände und Kollisionen bildet sie nicht nach, sodass Ergebnisse gegen sie die Logik der Programme belegen, nicht die Wirkung am Roboter.
+% Basis: fakten-testumgebung.md (e) V5 (g1pilot/tools/walk_diag.py record, nur lesend, in 6a40e47 vorhanden); plan-kap5.md Abschnitt 7.3 und N11 (Messmittel baut Nils)
+Für die Fortbewegung am Roboter steht eine nur lesende Aufzeichnung bereit, die übrigen Messmittel einschließlich der Zeitmessungen für V8 ergänzt die Arbeit \pruefen{Messmittel (N11) nach Fertigstellung bestätigen und Ablage für den Anhang nennen}.

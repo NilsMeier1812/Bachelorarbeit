@@ -1,0 +1,222 @@
+% ======================================================================
+% Kapitel 5 – Tabellen (AP3). Entwurf, noch nicht in Kapitel/05_*.tex eingebunden.
+% Jede Tabelle wird im Fließtext davor mit Tabelle~\ref{...} eingeführt (AP4-AP6) und steht
+% direkt nach dem Absatz mit dem ersten Verweis. Stil: ba-grafik.tex (Gitter bzw. schlicht).
+% Labels: tab:defizite, tab:anforderungen, tab:kennzahlen, tab:versuchsplan, tab:testumgebung.
+% Offene Verweise: tab:stacks (Kap. 4.4) existiert noch nicht und wird hier bewusst nicht verwendet.
+% Hilfsdefinition (AP7: bei der Zusammenführung nach ba-grafik.tex bzw. in die Kapitelpräambel übernehmen):
+% linksbündige Spalte fester Breite mit Silbentrennung, passend zu L aus ba-grafik.tex.
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash\hspace{0pt}}p{#1}}
+% ======================================================================
+
+
+% ----------------------------------------------------------------------
+% tab:defizite  (Abschnitt 5.1, Stufe „Kann“)
+% Art T: Belege je Zelle. Art W: Aussagen ohne \cite sind eigene Wertung mit Geltungsbereich,
+% Basis: Kap. 3.2-3.3 und 4.3-4.4 der Arbeit, review/plan-kap5.md Abschnitt 5.1 (L2-L5, L8-L12).
+% Preprint (Ding2026) und graue Literatur (Prather2025) sind in der Zelle gekennzeichnet.
+% ----------------------------------------------------------------------
+\begin{table}[htbp]
+    \setstretch{1.0}\tabstil\setlength{\tabcolsep}{4pt}
+    \centering
+    \caption[Defizite der betrachteten Arbeiten und zugehörige Forschungsfragen]{Defizite der betrachteten Arbeiten und zugehörige Forschungsfragen. Die Befunde gelten für die in den Kapiteln~\ref{chap:simulation} und~\ref{chap:faehigkeiten} behandelten Arbeiten.}
+    \label{tab:defizite}
+    \begin{tabularx}{\textwidth}{|P{2.6cm}|L|P{1.3cm}|}\hline
+        \tabkopfzeile \tabkopf{Defizit} & \tabkopf{Befund in den betrachteten Arbeiten} & \tabkopf{Frage}\\\hline
+        D1 Durchgängigkeit von Simulation und Realbetrieb &
+        Der Simulator des Herstellers unterstützt nur die Entwicklung auf niedriger Ebene \cite{UnitreeMujoco}\ev{UnitreeMujoco.02}.
+        Eine Arbeit führt denselben Retargeting-Code in Simulation und am G1 aus, aber für eine Funktion (Teleoperation mit Bewegungserfassungsanzug) \cite{Durrani2026}\ev{Durrani2026.01,Durrani2026.03}.
+        Eine andere Arbeit beruht nur auf Simulation und nennt Versuche am G1 als nötig \cite{Yu2026}\ev{Yu2026.04}. &
+        F1\\\hline
+        D2 Aussagekraft der Simulation &
+        Der sichere Übergang von der Simulation in die reale Welt bleibt laut einer Übersichtsarbeit eine Herausforderung \cite{Tong2024}\ev{Tong2024.06}.
+        Die Sim-to-Real-Lücke ist laut den Autoren ausgeprägter als Abweichungen zwischen Simulatoren \cite{He2025}\ev{He2025.07}; das betrifft dort den Transfer gelernter Policies.
+        Eine Bewertung für einen Bedien-Stack, in dem Simulation und Roboter verschiedene Regler für die Fortbewegung nutzen, liegt unter den betrachteten Arbeiten nicht vor. &
+        F2\\\hline
+        D3 Bedienung und Sicherheit &
+        Teleoperationssysteme früherer Arbeiten nutzen Motion Capture, VR-Brillen und Exoskelette, die teuer und örtlich eingeschränkt sind \cite{Fu2024}\ev{Fu2024.01}.
+        Für Neueinsteiger empfiehlt der Hersteller, vorab die offizielle Dokumentation zu lesen \cite{UnitreeXRTeleop}\ev{UnitreeXRTeleop.02}.
+        Choregraphe ist eine grafische Umgebung zur Programmierung des Nao \cite{Pot2009}\ev{Pot2009.01}.
+        Laut einem Bericht (graue Literatur) ist das Normenwerk nicht für Humanoide ausgelegt \cite{Prather2025}\ev{Prather2025.01}; laut einem Preprint erzeugt Energieentzug bei einem laufenden Zweibeiner einen unkontrollierten Sturz \cite{Ding2026}\ev{Ding2026.03}. &
+        F3\\\hline
+        D4 Zweckbindung der Werkzeuge &
+        Teleoperation dient der Datensammlung \cite{Cheng2024}\ev{Cheng2024.01}; ein Repository enthält Skripte zu Training, Bewertung und Einsatz von Ganzkörperreglern \cite{NvidiaGR00TWBC}\ev{NvidiaGR00TWBC.01}, ein weiteres Projekt betrifft Reinforcement Learning mit MuJoCo als Physik-Backend \cite{UnitreeRLMjlab}\ev{UnitreeRLMjlab.01}.
+        Eine gemeinsame Grundlage, an die sich vorab nicht bekannte Aufgaben und Projekte anbinden lassen, ist unter den betrachteten Arbeiten nicht Gegenstand. &
+        F4\\\hline
+    \end{tabularx}
+\end{table}
+
+
+% ----------------------------------------------------------------------
+% tab:anforderungen  (Abschnitt 5.2, Kern)
+% Setzungen (Art S). Zielwerte mit [V] sind Vorschläge vom 16.11. und gelten vorläufig.
+% Basis: review/plan-kap5.md Abschnitt 6 (A1-A7) und 7.1.
+% Lösungsneutral: keine Komponenten, Bedienwege oder Auslegungswerte der Schutzmechanismen.
+% Die ausführliche Bestimmung der Kennzahlen steht in tab:kennzahlen; hier nur die Kurzbezeichnung.
+% ----------------------------------------------------------------------
+\begin{table}[htbp]
+    \setstretch{1.0}\tabstil\setlength{\tabcolsep}{4pt}\footnotesize
+    \centering
+    \caption[Anforderungen A1 bis A7]{Anforderungen A1 bis A7 mit Prüfkriterien und Zielwerten. Kennzahlen K und Versuche V: Tabellen~\ref{tab:kennzahlen} und~\ref{tab:versuchsplan}. Die Zielwerte sind Setzungen; die Handgeschwindigkeit orientiert sich an \cite{Villani2018}\ev{Villani2018.09} und \cite{DGUV2015}\ev{DGUV2015.04}, ohne Normerfüllung.}
+    \label{tab:anforderungen}
+    \begin{tabularx}{\textwidth}{|P{0.8cm}|L|P{3.2cm}|P{3.3cm}|P{1.2cm}|P{1.8cm}|}\hline
+        \tabkopfzeile \tabkopf{Nr.} & \tabkopf{Anforderung} & \tabkopf{Prüfkriterium} & \tabkopf{Zielwert} & \tabkopf{Frage} & \tabkopf{Nachweis in}\\\hline
+        A1 &
+        Gehen, Armbewegung und Greifen stehen einzeln und kombiniert bereit; eine neue Aufgabe erfordert keine Änderung des Programmcodes. &
+        Abdeckung (K1.1); geänderte Zeilen (K1.2) &
+        K1.1: vollständig; K1.2: 0 &
+        F4 &
+        \ref{sec:eval_aufgaben}\\\hline
+        A2 &
+        Derselbe Programmstand steuert Simulation und realen G1; der Wechsel ändert nur die Konfiguration. &
+        Geänderte Zeilen (K2.1); Unterschiede im Programmcode (K2.2); gemeinsame Funktionen (K2.3) &
+        K2.1: 0; K2.2: vollständig erfasst und begründet; K2.3: alle bis auf begründete Ausnahmen &
+        F1 &
+        \ref{sec:eval_code}, \ref{sec:eval_realtests}, \ref{sec:eval_video}\\\hline
+        A3 &
+        Simulation und Regelkreise laufen auf einem handelsüblichen PC ohne Rechenbeschleuniger in Echtzeit. &
+        Echtzeitfaktor (K3.1); Takttreue (K3.2) &
+        K3.1: im Mittel mindestens 0,95; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A3
+        K3.2: mindestens 95\,\% der Sollrate % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A3
+        &
+        F2 &
+        \ref{sec:eval_echtzeit}\\\hline
+        A4 &
+        Eine in der Simulation eingerichtete Armbewegung bleibt am realen Roboter innerhalb einer Toleranz; die Abweichungen der Fortbewegung sind benannt. &
+        Gelenkwinkel (K4.1); Handposition (K4.2); Geschwindigkeit (K4.3) &
+        K4.2: höchstens 2\,cm; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A4
+        K4.1, K4.3: ohne Zielwert &
+        F2 &
+        \ref{sec:eval_fortbewegung}, \ref{sec:eval_manipulation}\\\hline
+        A5 &
+        Bedienfehler und Ausfall eines Bedienwegs führen nicht zu unbegrenzter Bewegung; ein Halt ist jederzeit auslösbar und bringt den stehenden Roboter nicht zum Sturz. &
+        Handgeschwindigkeit (K5.1); Not-Halt auslösbar (K5.2); Reaktionszeit (K5.3); Zeit bis Halt (K5.4); Tests (K5.5); Stand nach Not-Halt (K5.6) &
+        K5.1: höchstens 250\,mm/s; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
+        K5.2: alle; K5.3: höchstens 100\,ms; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
+        K5.4: höchstens 1\,s; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
+        K5.5: alle bestanden, keiner übersprungen; K5.6: bleibt stehen &
+        F3 &
+        \ref{sec:eval_sicherheit}\\\hline
+        A6 &
+        Eine Person ohne Robotik- und Programmiererfahrung nimmt die Umgebung in Betrieb und führt die Grundfähigkeiten ohne Programmcode aus. &
+        Inbetriebnahme (K6.1); Bedienhandlungen (K6.2); ohne Programmierung (K6.3) &
+        K6.1: höchstens 60\,min; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A6
+        K6.2: je höchstens 5; % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A6
+        K6.3: ja &
+        F3 &
+        \ref{sec:eval_bedienaufwand}\\\hline
+        A7 &
+        Ein externes Projekt lässt sich über dokumentierte Schnittstellen anbinden, ohne den Kern der Umgebung zu ändern. &
+        Geänderte Zeilen im Kern (K7.1); gezeigte Schnittstellen (K7.3) &
+        K7.1: 0; K7.3: mindestens eine &
+        F4 &
+        \ref{sec:eval_extern}\\\hline
+    \end{tabularx}
+\end{table}
+
+
+% ----------------------------------------------------------------------
+% tab:kennzahlen  (Abschnitt 5.3.1, Kern)
+% Reihenfolge nach Forschungsfragen (A2, A3, A4, A5, A6, A1, A7), nicht nach A-Nummer.
+% Zusammengefasst auf 14 Zeilen; K1.3, K6.4 und K7.2 stehen in der Caption.
+% Basis: review/plan-kap5.md Abschnitt 6 und 7.1. Zielwerte stehen in tab:anforderungen.
+% ----------------------------------------------------------------------
+\begin{table}[htbp]
+    \setstretch{1.0}\tabstil\setlength{\tabcolsep}{4pt}\footnotesize
+    \centering
+    \caption[Kennzahlen, Nachweisarten und Zuordnung]{Kennzahlen mit Bestimmung, Nachweisart und Zuordnung zu Anforderungen und Forschungsfragen. Ohne Zielwert werden zusätzlich der Zeitaufwand für die Beispielaufgabe (K1.3), der Aufwand der Anbindung (K7.2) und, falls eine Nutzerstudie stattfindet, die Bewertung durch Probanden (K6.4) berichtet.}
+    \label{tab:kennzahlen}
+    \begin{tabularx}{\textwidth}{|P{1.9cm}|L|P{2.8cm}|P{2.6cm}|P{1.2cm}|}\hline
+        \tabkopfzeile \tabkopf{Kennzahl} & \tabkopf{Bestimmung (Größe, Einheit)} & \tabkopf{Nachweisart} & \tabkopf{Anforderung} & \tabkopf{Frage}\\\hline
+        K2.1, K2.2 & Geänderte Zeilen Programmcode beim Wechsel (Anzahl); Stellen mit unterschiedlichem Verhalten (Anzahl, Art, Begründung) & Analyse & A2 & F1\\\hline
+        K2.3 & Funktionen mit derselben Bedienung in Simulation und Realbetrieb (Anteil) & Demonstration & A2 & F1\\\hline
+        K3.1 & Echtzeitfaktor: simulierte Zeit je verstrichener Zeit (Verhältnis) & Messung & A3 & F2\\\hline
+        K3.2 & Takttreue: erreichte Rate je Sollrate (\%), Streuung der Zykluszeit (ms) & Messung & A3 & F2\\\hline
+        K4.1, K4.2 & Abweichung der Gelenkwinkel der Arme über der Zeit (Grad); Abweichung der Handposition am Ende jeder Bewegung (cm) & Messung & A4 & F2\\\hline
+        K4.3 & Erreichte je vorgegebener Geschwindigkeit in Simulation und Realbetrieb (Verhältnis) & Messung & A4 & F2\\\hline
+        K5.1 & Größte Geschwindigkeit der Hand im Realbetrieb (mm/s) & Messung & A5 & F3\\\hline
+        K5.2 & Not-Halt auslösbar je Kombination aus Bedienweg und Betriebszustand (Anteil) & Test & A5 & F3\\\hline
+        K5.3, K5.4 & Zeit vom Auslösen des Not-Halts bis zum geänderten Befehl an der Herstellerschnittstelle (ms); Zeit vom Ausfall eines Bedienwegs bis zum Halt (s) & Messung & A5 & F3\\\hline
+        K5.5, K5.6 & Bestandene sicherheitsrelevante Tests (Anteil, keiner übersprungen); Roboter bleibt nach Not-Halt der Arme stehen (ja/nein) & Test, Demonstration & A5 & F3\\\hline
+        K6.1, K6.2 & Zeit (min) und Schritte der Inbetriebnahme; Bedienhandlungen bis zur ersten Arm- und Gehbewegung (Anzahl) & Messung & A6 & F3\\\hline
+        K6.3 & Grundfähigkeiten ohne Programmierung und Befehlszeile nach dem Start ausführbar (ja/nein) & Demonstration & A6 & F3\\\hline
+        K1.1, K1.2 & Abdeckung der Grundfähigkeiten (Anzahl); geänderte Zeilen Programmcode für eine Beispielaufgabe (Anzahl) & Demonstration, Analyse & A1 & F4\\\hline
+        K7.1, K7.3 & Geänderte Zeilen im Kern der Umgebung (Anzahl); gezeigte Schnittstellen (Anzahl) & Demonstration, Analyse & A7 & F4\\\hline
+    \end{tabularx}
+\end{table}
+
+
+% ----------------------------------------------------------------------
+% tab:versuchsplan  (Abschnitt 5.3.2, Kern)
+% Umfang [V]: Vorschlag 16.11. (Simulation und Attrappe je 10 Wiederholungen, Roboter je 3, V4 je Lauf 10 min,
+% V9 dreimal). Auswertung jeweils Mittelwert und Spannweite. Spalte „Mittel am Stand“ steht bewusst nicht
+% in der Tabelle (nur Planungshilfe im Plan, Abschnitt 7.2).
+% Basis: review/plan-kap5.md Abschnitt 7.2; Faktenblatt review/kap5-entwurf/fakten-testumgebung.md (e).
+% ----------------------------------------------------------------------
+\begin{table}[htbp]
+    \setstretch{1.0}\tabstil\setlength{\tabcolsep}{4pt}\footnotesize
+    \centering
+    \caption[Versuchsplan]{Versuchsplan mit Prüfebene, Kennzahlen, Umfang (Wiederholungen je Prüfebene) und Auswertung. Ausgewertet werden Mittelwert und Spannweite; „Kann“ kennzeichnet Prüfebenen, die von Zeit und Zugang zum Roboter abhängen.}
+    \label{tab:versuchsplan}
+    \begin{tabularx}{\textwidth}{|P{1.4cm}|L|P{2.2cm}|P{1.9cm}|P{2.5cm}|P{1.5cm}|}\hline
+        \tabkopfzeile \tabkopf{Versuch} & \tabkopf{Gegenstand} & \tabkopf{Prüfebene} & \tabkopf{Kennzahlen} & \tabkopf{Umfang} & \tabkopf{Auswertung in}\\\hline
+        V1 & Programmcode und Konfiguration in Simulation und Realbetrieb im Vergleich & Analyse & K2.1, K2.2 & einmal am festen Code-Stand & \ref{sec:eval_code}\\\hline
+        V2 & Funktionsprüfung am G1 nach festem Protokoll (Verbinden, Arme, Greifen, Gehen, Not-Halt) & Roboter & K2.3, K1.1, K5.6 & 3 Wiederholungen % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_realtests}\\\hline
+        V3 & Anwendungsfall Werbevideo: genutzte Funktionen, nötige Anpassungen & Roboter & K2.3 (qualitativ) & \pruefen{Umfang nach Angaben von Nils} & \ref{sec:eval_video}\\\hline
+        V4 & Echtzeitfaktor und Takttreue auf dem Referenz-PC; Kann: auf schwächerem PC & Simulation, Attrappe & K3.1, K3.2 & je 10 Läufe zu 10\,min % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_echtzeit}\\\hline
+        V5 & Fortbewegung je Lauf-Policy: Geschwindigkeitsfolge, Wechsel Gehen/Stehen, Stöße & Simulation; Kann: Roboter & K4.3 & Simulation 10, Roboter 3 Wiederholungen % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_fortbewegung}\\\hline
+        V6 & Manipulation: Planungserfolg und -zeit, Restfehler der inversen Kinematik, Tippbetrieb & Simulation & stützt A4, A1 & 10 Wiederholungen je Testfall % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_manipulation}\\\hline
+        V7 & Dieselbe Folge gespeicherter Posen in Simulation und am Roboter, Gelenkwinkel aufgezeichnet & Simulation, Roboter & K4.1, K4.2 & Simulation 10, Roboter 3 Wiederholungen % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_manipulation}\\\hline
+        V8 & Schutzmechanismen: Tests, Handgeschwindigkeit bei Zielsprüngen, Reaktionszeit des Not-Halts, Ausfall eines Bedienwegs & Attrappe; Kann: Roboter & K5.1 bis K5.5 & Attrappe 10, Roboter 3 Wiederholungen % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_sicherheit}\\\hline
+        V9 & Bedienaufwand: Inbetriebnahme bis zur ersten Bewegung; Start bis zur ersten Arm- und Gehbewegung & Simulation; Kann: Roboter & K6.1 bis K6.3 & 3 Durchläufe auf frischem System % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_bedienaufwand}\\\hline
+        V10 & Anbindung eines externen Projekts & Simulation; Kann: Roboter & K7.1 bis K7.3 & \pruefen{Umfang nach Wahl des Projekts (N5)} & \ref{sec:eval_extern}\\\hline
+        V11 & Neue Aufgabe: in der Simulation eingerichtet, am Roboter ausgeführt & Simulation, Roboter & K1.1 bis K1.3 & Einrichtung einmal; Ausführung Simulation 10, Roboter 3 % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_aufgaben}\\\hline
+    \end{tabularx}
+\end{table}
+
+
+% ----------------------------------------------------------------------
+% tab:testumgebung  (Abschnitt 5.3.3, Kern, schlichter Stil, zwei Spalten)
+% Art E. Basis: G1@25d5c1a, Dockerfiles und docker-compose.yml; Faktenblatt (d).
+% Referenz-PC und Roboterstand liefert Nils (N4), bis dahin \pruefen.
+% Nicht festgelegte Softwarestände sind als solche gekennzeichnet (am Code-Stand ungepinnt).
+% ----------------------------------------------------------------------
+\begin{table}[htbp]
+    \setstretch{1.0}\tabstil\setlength{\tabcolsep}{4pt}
+    \centering
+    \caption[Testumgebung]{Testumgebung mit Referenz-PC, Softwareständen und Roboter. Angaben zu den Softwareständen gelten für den festgelegten Code-Stand.}
+    \label{tab:testumgebung}
+    \begin{tabularx}{\textwidth}{P{4.6cm}L}
+        \toprule
+        \tabkopf{Merkmal} & \tabkopf{Wert}\\
+        \midrule
+        Prozessor & \pruefen{Prozessor des Referenz-PCs von Nils}\\
+        Arbeitsspeicher & \pruefen{Arbeitsspeicher des Referenz-PCs von Nils}\\
+        Grafik & \pruefen{Grafikausstattung des Referenz-PCs von Nils}\\
+        Betriebssystem & \pruefen{Betriebssystem und Version des Referenz-PCs von Nils}\\
+        Container-Laufzeit & \pruefen{Version der Container-Laufzeit am Referenz-PC}\\
+        % Basis: G1@25d5c1a docker/Dockerfile.sim:1, docker/Dockerfile.real:7 (Basis-Image ros:humble ohne Prüfsumme)
+        ROS-2-Version & ROS~2 Humble (Basis-Image über Tag, nicht auf eine Prüfsumme festgelegt); Paketstände nicht festgelegt \pruefen{Paketstände im Container auslesen und eintragen}\\
+        % Basis: G1@25d5c1a docker/Dockerfile.mujoco:14 (pip install mujoco ohne Versionsangabe)
+        MuJoCo-Version & nicht festgelegt \pruefen{installierte Version im Container auslesen und eintragen}\\
+        % Basis: G1@25d5c1a docker/Dockerfile.sim:36-39, Dockerfile.real:42-45, Dockerfile.mujoco:16-19 (Commit 7c661d27f4ae)
+        Version des Hersteller-SDK & Python-SDK in einer Abspaltung (Fork), Commit 7c661d2 (in allen drei Images gleich)\\
+        % Basis: G1@25d5c1a docker/Dockerfile.sim:81-82, Dockerfile.real:80-81 (rmw_cyclonedds_cpp, apt ohne Version)
+        DDS-Implementierung & Cyclone~DDS über \texttt{rmw\_cyclonedds\_cpp}; Version nicht festgelegt \pruefen{installierte Version im Container auslesen}\\
+        % Basis: G1@25d5c1a docker/Dockerfile.sim:47-50 (Python folgt dem Basis-Image Ubuntu 22.04)
+        Python & folgt dem Basis-Image; nicht festgelegt \pruefen{installierte Version im Container auslesen}\\
+        % Basis: G1@25d5c1a git log -1 (Commit 25d5c1a vom 11.11.2026)
+        Code-Stand der Umgebung & Repository \texttt{G1}, Commit 25d5c1a vom 11.11.2026 \pruefen{festen Code-Stand vor den Messungen bestätigen}\\
+        Roboter (Modell, Ausführung, Softwarestand) & Unitree G1 \pruefen{Ausführung und Softwarestand des Roboters von Nils}\\
+        Hände & \pruefen{Typ und Ausführung der Hände von Nils}\\
+        \bottomrule
+    \end{tabularx}
+\end{table}

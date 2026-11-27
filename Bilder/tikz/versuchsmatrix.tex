@@ -1,0 +1,70 @@
+% Versuche V1 bis V11 nach Prüfebene und Umfang (Wiederholungen), nach Forschungsfragen gruppiert.
+% Eigene Darstellung, keine Fremdquelle. Daten identisch mit tab:versuchsplan (Kapitel 5, Abschnitt sec:versuchsplan;
+% Umfang: Vorschlag 16.11., plan-kap5.md Abschnitt 7.2). „offen“ = Umfang dort noch \pruefen (V3, V10).
+% V4: je 10 Läufe zu 10 min; V6: 10 je Testfall; V9: 3 Durchläufe auf frischem System; V11: Einrichtung einmal,
+% Ausführung Simulation 10, Roboter 3. Kann-Ebenen ohne Umfangsangabe in der Tabelle bleiben leer.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/versuchsmatrix} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    fest/.style={circle, draw=baGruen, fill=baFlaeche, line width=0.8pt, minimum size=6.4mm, inner sep=0pt, font=\footnotesize},
+    kann/.style={circle, draw=baGrau, fill=white, line width=0.8pt, dash pattern=on 2pt off 1.5pt, minimum size=6.4mm, inner sep=0pt, font=\footnotesize},
+    kopf/.style={font=\small, anchor=base},
+    vlab/.style={font=\small, anchor=west},
+    flab/.style={font=\small, anchor=west, text=baGrau},
+    grenze/.style={draw=baHellgrau, ba normal},
+  }
+  % Spalten
+  \def\xA{4.4}\def\xT{6.9}\def\xS{9.4}\def\xR{11.9}
+  % Zeilen (y), Gruppen durch Abstand getrennt
+  \def\ya{0}\def\yb{-0.75}\def\yc{-1.5}
+  \def\yd{-2.55}\def\ye{-3.3}\def\yf{-4.05}\def\yg{-4.8}
+  \def\yh{-5.85}\def\yi{-6.6}
+  \def\yj{-7.65}\def\yk{-8.4}
+  % ---------- Kopf ----------
+  \node[kopf] at (\xA,0.55) {Analyse};
+  \node[kopf] at (\xT,0.55) {Attrappe};
+  \node[kopf] at (\xS,0.55) {Simulation};
+  \node[kopf] at (\xR,0.55) {Roboter};
+  \draw[ba pfeil, baGrau] ({\xT-0.9},1.45) -- ({\xR+0.9},1.45);
+  \node[font=\footnotesize, text=baGrau, anchor=south] at (\xS,1.5) {Prüfebenen: wachsender Aufwand und wachsende Aussagekraft};
+  % ---------- Gruppen F1 bis F4 ----------
+  \foreach \y/\f/\s in {0/F1/sec:eval_f1, -2.55/F2/sec:eval_f2, -5.85/F3/sec:eval_f3, -7.65/F4/sec:eval_f4} {
+    \node[flab] at (0,\y) {\f};
+    \node[font=\footnotesize, text=baGrau, anchor=west] at (13.2,\y) {Abschnitt~\ref{\s}};
+  }
+  \foreach \y in {-2.0, -5.3, -7.1} \draw[grenze] (0,\y) -- (15.6,\y);
+  \draw[grenze] (0,0.5) -- (15.6,0.5);
+  \draw[grenze] (0,-8.85) -- (15.6,-8.85);
+  % ---------- Versuchsnamen ----------
+  \foreach \y/\v in {\ya/V1, \yb/V2, \yc/V3, \yd/V4, \ye/V5, \yf/V6, \yg/V7, \yh/V8, \yi/V9, \yj/V10, \yk/V11}
+    \node[vlab] at (0.9,\y) {\v};
+  % ---------- Markierungen ----------
+  % F1
+  \node[fest] at (\xA,\ya) {1};
+  \node[fest] at (\xR,\yb) {3};
+  \node[fest, font=\scriptsize] at (\xR,\yc) {offen};
+  % F2
+  \node[fest] at (\xT,\yd) {10};
+  \node[fest] at (\xS,\yd) {10};
+  \node[fest] at (\xS,\ye) {10};
+  \node[kann] at (\xR,\ye) {3};
+  \node[fest] at (\xS,\yf) {10};
+  \node[fest] at (\xS,\yg) {10};
+  \node[fest] at (\xR,\yg) {3};
+  % F3
+  \node[fest] at (\xT,\yh) {10};
+  \node[kann] at (\xR,\yh) {3};
+  \node[fest] at (\xS,\yi) {3};
+  \node[kann] at (\xR,\yi) {};
+  % F4
+  \node[fest, font=\scriptsize] at (\xS,\yj) {offen};
+  \node[kann] at (\xR,\yj) {};
+  \node[fest] at (\xS,\yk) {10};
+  \node[fest] at (\xR,\yk) {3};
+  % ---------- Legende ----------
+  \node[fest] (l1) at (0.35,-9.55) {};
+  \node[font=\footnotesize, anchor=west] at ($(l1.east)+(0.1,0)$) {fest geplant};
+  \node[kann] (l2) at (3.7,-9.55) {};
+  \node[font=\footnotesize, anchor=west] at ($(l2.east)+(0.1,0)$) {Kann, abhängig von Zeit und Zugang zum Roboter};
+  \node[font=\footnotesize, anchor=west, align=left] at (0.0,-10.45) {Zahl im Kreis: Wiederholungen bzw. Durchläufe; „offen“: Umfang noch festzulegen;\\leerer Kreis: Umfang nicht vorgegeben};
+\end{tikzpicture}

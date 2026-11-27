@@ -1,0 +1,21 @@
+% Zielkonflikte zwischen den Anforderungen A1, A5, A6 und A7.
+% Eigene Darstellung, keine Fremdquelle. Inhalt aus Kapitel 5, Abschnitt sec:anforderungen, Absatz „Zielkonflikte“.
+% Auflösung erst in Kapitel 6 (nicht Teil der Grafik). Lösungsneutral.
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/zielkonflikte} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    anf/.style={ba block, minimum width=32mm, minimum height=12mm, text width=30mm},
+    konflikt/.style={ba normal, <->, baAkzent, dash pattern=on 4pt off 2pt},
+    anm/.style={font=\footnotesize, text=black, align=center, fill=white, inner sep=2pt},
+  }
+  \node[anf] (A1) at (1.6,0)     {\textbf{A1}\\Aufgaben-\\unabhängigkeit};
+  \node[anf] (A5) at (8.0,2.2)   {\textbf{A5}\\Schutzfunktionen};
+  \node[anf] (A6) at (8.0,-2.2)  {\textbf{A6}\\Bedienung ohne\\Robotikerfahrung};
+  \node[anf] (A7) at (14.3,2.2)  {\textbf{A7}\\Erweiterbarkeit};
+  \draw[konflikt] (A1.north) |- (A5.west);
+  \draw[konflikt] (A1.south) |- (A6.west);
+  \draw[konflikt] (A5.east) -- (A7.west);
+  \node[anm] at (4.5,2.2)  {Begrenzung der Arme\\schränkt nutzbare\\Bewegungen ein};
+  \node[anm] at (4.5,-2.2) {wenige Bedienhand-\\lungen gegenüber allen\\Grundfähigkeiten einzeln\\und kombiniert};
+  \node[anm] at (11.15,2.2) {Befehle externer\\Projekte können\\Schutzfunktionen\\umgehen};
+\end{tikzpicture}

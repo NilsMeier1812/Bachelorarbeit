@@ -75,3 +75,15 @@ belege:
     kernaussage: "Akademische Arbeiten zur End-User-Roboterprogrammierung zeigen wegen fehlender Einsätze und Nutzerstudien außerhalb des Labors möglicherweise nur ein eingeschränktes Bild."
     quelle: exzerpt
     kommentar: "Kap. 5.1 Handlungsbedarf"
+  - id: Ajaykumar2021.13
+    seite: "21"
+    zitat: "Task success is measured by checking whether a user-authored program results in successful execution (e.g., [54, 94]) or meets pre-defined standards of correctness (e.g., [53, 70, 116])."
+    kernaussage: "Aufgabenerfolg wird gemessen, indem geprüft wird, ob ein vom Nutzer erstelltes Programm erfolgreich ausgeführt wird oder vorab festgelegte Korrektheitsstandards erfüllt."
+    quelle: exzerpt
+    kommentar: "Kap. 5.3.1 (L19, AP2): Aufgabenerfolg als übliches Maß bei Nutzerstudien zur End-User-Roboterprogrammierung"
+  - id: Ajaykumar2021.14
+    seite: "25"
+    zitat: "Furthermore, subjective measures, such as system usability, may be susceptible to influence from factors unrelated to the programming methods and techniques being evaluated, such as hardware unreliability [6, 86] or users’ perceptions of the robot being programmed [96]."
+    kernaussage: "Subjektive Maße wie die Usability können laut Survey durch Faktoren beeinflusst werden, die mit der bewerteten Programmiermethode nichts zu tun haben, etwa unzuverlässige Hardware oder die Wahrnehmung des Roboters durch die Nutzer."
+    quelle: exzerpt
+    kommentar: "Kap. 5.3.1 (L28, AP2): Grenze subjektiver Bewertung; ergänzt Ajaykumar2021.12"

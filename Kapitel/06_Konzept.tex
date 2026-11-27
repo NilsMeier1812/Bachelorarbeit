@@ -6,7 +6,151 @@
 \label{chap:konzept}
 % Basis: Plan review/plan-kap6.md Abschnitt 5 „Kapiteleinleitung“; Grundsätze abgeleitet aus G1@6a40e47
 % g1pilot/docs/02-T-Architektur.md („Sim ↔ Real: Ein Schalter“), docs/10-T-Demo-GUI.md („Grundsatz“), docs/20-T-Arm-Manipulation.md („Laufzeit-Gate“).
-Die Umgebung ist entlang der Anforderungen A1 bis A7 aus Tabelle~\ref{tab:anforderungen} nach drei Grundsätzen angelegt, die sich durch alle Bausteine ziehen \pruefen{Wortlaut der Entwurfsgrundsätze von Nils bestätigen (N2)}: Simulation und Roboter teilen eine Herstellerschnittstelle, Bewegung und Schutz liegen in wenigen Funktionsknoten, die niemand umgeht, und jede Funktion ist zuerst in der Simulation ausführbar.
+Die Umgebung ist entlang der Anforderungen A1 bis A7 aus Abschnitt~\ref{sec:anforderungen} nach drei Grundsätzen angelegt, die sich durch alle Bausteine ziehen \pruefen{Wortlaut der Entwurfsgrundsätze von Nils bestätigen (N2)}: Simulation und Roboter teilen eine Herstellerschnittstelle, Bewegung und Schutz liegen in wenigen Funktionsknoten, die niemand umgeht, und jede Funktion ist zuerst in der Simulation ausführbar.
+
+% ======================================================================
+% Seit 25.11.2026 (Nils: Kap. 5 aufgelöst): Anforderungen aus dem früheren Kap. 5.2, inhaltlich unverändert
+% (Stand Commit d8cab3c, freigegeben 25.11. mit P1–P6). Labels sec:anforderungen, tab:anforderungen, fig:handtoleranz,
+% fig:schutzzeiten unverändert.
+% Hilfsdefinition für die Tabellen (vorher Kap. 5): linksbündige Spalte fester Breite mit Silbentrennung.
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash\hspace{0pt}}p{#1}}
+\section{Anforderungen}
+\label{sec:anforderungen}
+% --- Herleitung und Maßstab der Formulierung (Art S; Methodik Art T)
+Sieben Anforderungen übersetzen den Handlungsbedarf aus Abschnitt~\ref{sec:handlungsbedarf} in Eigenschaften, die die Umgebung nachweisbar besitzen muss, und jede ist genau einer Forschungsfrage zugeordnet.
+Zwischen operationaler und lösungsneutraler Formulierung einer Anforderung besteht ein Zielkonflikt, weil ein zu starkes Beharren auf eindeutigen, detaillierten Anforderungen den Lösungsfreiraum einschränkt \cite{Bender2021}\ev{Bender2021.04}.
+Die Arbeit trennt deshalb jede Anforderung in einen lösungsneutralen Satz und Kennzahlen mit Zielwert als Mindest- oder Höchstwert. Wie die Umgebung die Anforderung erfüllt, legen erst die folgenden Abschnitte fest.
+
+% --- Verbindlichkeit (Art S)
+A1 bis A7 sind Forderungen: Eine Anforderung ist verfehlt, sobald eine ihrer Kennzahlen den Zielwert nicht erreicht, und Kennzahlen ohne Zielwert beschreiben nur das Verhalten.
+Fehlt ein Bezugswert in den Quellen, ist der Zielwert eine Setzung. Alle Zielwerte stehen vor der Evaluation fest und werden nicht an die Ergebnisse angepasst (Abschnitt~\ref{sec:abgleich}), die Versuche dazu nennt Abschnitt~\ref{sec:versuchsplan}.
+Tabelle~\ref{tab:anforderungen} stellt die Anforderungen mit Kennzahlen und Zielwerten zusammen. Die Kennzahlen tragen die Nummer ihrer Anforderung, sodass K2.1 die erste Kennzahl zu A2 bezeichnet.
+
+% ----------------------------------------------------------------------
+% tab:anforderungen  (seit 25.11. Abschnitt 5.1 im Konzept, vorher Kap. 5.2) – enthält seit der Kürzung 17.11. auch den Inhalt von tab:kennzahlen
+% (Größe, Einheit, Nachweisart je Kennzahl). Setzungen (Art S). Zielwerte mit [V] sind Vorschläge vom 16.11.
+% Basis: review/plan-kap5.md Abschnitt 6 (A1-A7) und 7.1. Lösungsneutral: keine Komponenten, Bedienwege oder
+% Auslegungswerte der Schutzmechanismen. Reihenfolge A1-A7 (Nummernfolge).
+% 25.11.: Semikolons der Zellen durch Zeilenumbrüche bzw. Punkte ersetzt (Richtlinien §4.3), K6.4 gestrichen (P1),
+% A7 neu (P3, lösungsneutral, Nachweis nur Analyse des Aufbaus, keine Containernamen), V6/V10 entfallen (P5).
+% ----------------------------------------------------------------------
+% Mehrseitig (xltabular, CLAUDE.md „Tabellen“): als Gleitobjekt war die Tabelle zu hoch für eine Seite.
+\begingroup
+    \setstretch{1.0}\tabstil\setlength{\tabcolsep}{3pt}\setlength{\LTpre}{\medskipamount}\footnotesize
+    \begin{xltabular}{\textwidth}{|P{0.6cm}|L|P{2.3cm}|P{1.9cm}|}
+    \caption[Anforderungen A1 bis A7 mit Kennzahlen und Zielwerten]{Anforderungen A1 bis A7 (fett) mit Kennzahlen, Zielwert (nach dem Pfeil), Nachweisart, Forschungsfrage F, Versuchen V und Abschnitt des Nachweises. Die Zielwerte sind Setzungen, die Handgeschwindigkeit orientiert sich ohne Normerfüllung an \cite{Villani2018}\ev{Villani2018.09} und \cite{DGUV2015}\ev{DGUV2015.04}.}
+    \label{tab:anforderungen}\\
+    \hline
+        \tabkopfzeile \tabkopf{Nr.} & \tabkopf{Kennzahlen (Größe, Einheit) $\rightarrow$ Zielwert} & \tabkopf{Nachweisart} & \tabkopf{F, V, Nachweis}\\\hline
+    \endfirsthead
+    \hline
+        \tabkopfzeile \tabkopf{Nr.} & \tabkopf{Kennzahlen (Größe, Einheit) $\rightarrow$ Zielwert} & \tabkopf{Nachweisart} & \tabkopf{F, V, Nachweis}\\\hline
+    \endhead
+
+        \textbf{A1} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Gehen, Armbewegung und Greifen stehen einzeln und kombiniert bereit. Eine neue Aufgabe erfordert keine Änderung des Programmcodes.}}\\\cline{2-4}
+        & K1.1 Abdeckung der Grundfähigkeiten (Anzahl) $\rightarrow$~\textbf{vollständig}. K1.2 geänderte Zeilen Programmcode für eine Beispielaufgabe (Anzahl) $\rightarrow$~\textbf{0}. K1.3 Zeit für das Einrichten der Beispielaufgabe, ohne Zielwert &
+        Demonstration, Analyse & F4\newline V2, V11\newline \ref{sec:eval_aufgaben}, \ref{sec:eval_realtests}\\\hline
+        \textbf{A2} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Derselbe Programmstand steuert Simulation und realen G1. Der Wechsel ändert nur die Konfiguration.}}\\\cline{2-4}
+        & K2.1 geänderte Zeilen Programmcode beim Wechsel (Anzahl) $\rightarrow$~\textbf{0}. K2.2 Stellen mit unterschiedlichem Verhalten (Anzahl, Art, Begründung) $\rightarrow$~\textbf{vollständig erfasst und begründet}. K2.3 Funktionen mit derselben Bedienung in Simulation und Realbetrieb (Anteil) $\rightarrow$~\textbf{alle außer den in Abschnitt~\ref{sec:sim_real_schalter} ausgewiesenen} &
+        Analyse (K2.1, K2.2), Demonstration (K2.3) & F1\newline V1, V2, V3\newline \ref{sec:eval_code}, \ref{sec:eval_realtests}, \ref{sec:eval_video}\\\hline
+        \textbf{A3} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Simulation und Regelkreise laufen auf einem handelsüblichen PC ohne Rechenbeschleuniger in Echtzeit.}}\\\cline{2-4}
+        & K3.1 Echtzeitfaktor: simulierte Zeit je verstrichener Zeit (Verhältnis) $\rightarrow$~\textbf{im Mittel mindestens 0,95}. % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A3
+        K3.2 Takttreue: erreichte Rate je Sollrate (\%), Streuung der Zykluszeit (ms) $\rightarrow$~\textbf{mindestens 95\,\% der Sollrate} % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A3
+        &
+        Messung & F2\newline V4\newline \ref{sec:eval_echtzeit}\\\hline
+        \textbf{A4} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Eine in der Simulation eingerichtete Armbewegung bleibt am realen Roboter innerhalb einer Toleranz. Die Abweichungen der Fortbewegung sind benannt.}}\\\cline{2-4}
+        & K4.1 Abweichung der Gelenkwinkel der Arme über der Zeit (Grad), ohne Zielwert. K4.2 Abweichung der Handposition am Ende jeder Bewegung (cm) $\rightarrow$~\textbf{höchstens 2\,cm}. % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A4
+        K4.3 erreichte je vorgegebener Geschwindigkeit in Simulation und Realbetrieb (Verhältnis), ohne Zielwert &
+        Messung & F2\newline V5, V7\newline \ref{sec:eval_fortbewegung}, \ref{sec:eval_manipulation}\\\hline
+        \textbf{A5} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Bedienfehler und Ausfall eines Bedienwegs führen nicht zu unbegrenzter Bewegung. Ein Halt ist jederzeit auslösbar und bringt den stehenden Roboter nicht zum Sturz.}}\\\cline{2-4}
+        & K5.1 größte Geschwindigkeit der Hand im Realbetrieb (mm/s) $\rightarrow$~\textbf{höchstens 250\,mm/s}. % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
+        K5.2 Not-Halt auslösbar je Kombination aus Bedienweg und Betriebszustand (Anteil) $\rightarrow$~\textbf{alle}. K5.3 Zeit vom Auslösen des Not-Halts bis zum geänderten Befehl an der Herstellerschnittstelle (ms) $\rightarrow$~\textbf{höchstens 100\,ms}. % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
+        K5.4 Zeit vom Ausfall eines Bedienwegs oder der Verbindung bis zum Halt der Bewegung (s) $\rightarrow$~\textbf{höchstens 1\,s}. % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
+        K5.5 bestandene sicherheitsrelevante Tests (Anteil) $\rightarrow$~\textbf{alle bestanden, keiner übersprungen}. K5.6 Roboter bleibt nach Not-Halt der Arme stehen (ja/nein) $\rightarrow$~\textbf{bleibt stehen} &
+        Messung (K5.1, K5.3, K5.4), Test (K5.2, K5.5), Demonstration (K5.6) & F3\newline V2, V8\newline \ref{sec:eval_sicherheit}, \ref{sec:eval_realtests}\\\hline
+        \textbf{A6} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Eine Person ohne Robotik- und Programmiererfahrung nimmt die Umgebung in Betrieb und führt die Grundfähigkeiten ohne Programmcode aus.}}\\\cline{2-4}
+        & K6.1 Zeit (min) und Schritte der Inbetriebnahme vom frisch eingerichteten PC bis zur ersten Bewegung in der Simulation $\rightarrow$~\textbf{höchstens 60\,min einschließlich Installation}. % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A6
+        K6.2 Bedienhandlungen vom Start bis zur ersten Arm- und Gehbewegung (Anzahl) $\rightarrow$~\textbf{je höchstens 5}. % Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A6
+        K6.3 Grundfähigkeiten nach dem Start ohne Programmierung und Befehlszeile ausführbar (ja/nein) $\rightarrow$~\textbf{ja} &
+        Messung (K6.1, K6.2), Demonstration (K6.3) & F3\newline V9\newline \ref{sec:eval_bedienaufwand}\\\hline
+        % A7 neu (P3, Nils 25.11.): lösungsneutral, Nachweis nur per Analyse des Aufbaus, kein eigener Versuch
+        % (Betreuerin 23.11., Richtlinien §12). Abgleich in Kap. 8: tab:abgleich, Kriterium „Funktionen in getrennten
+        % Einheiten mit dokumentierten Schnittstellen“, Abschnitt sec:eval_modular.
+        \textbf{A7} & \multicolumn{3}{p{\dimexpr\textwidth-0.6cm-4\tabcolsep-3\arrayrulewidth\relax}|}{\textbf{Die Funktionen sind in getrennten, einzeln startbaren Einheiten mit dokumentierten Schnittstellen gekapselt.}}\\\cline{2-4}
+        & K7.1 Funktionen der Umgebung, die einer einzeln startbaren Einheit zugeordnet sind (Anteil) $\rightarrow$~\textbf{alle}. K7.2 Schnittstellen der Einheiten untereinander und nach außen dokumentiert (ja/nein) $\rightarrow$~\textbf{ja} &
+        Analyse & F4\newline kein Versuch\newline \ref{sec:eval_modular}\\\hline
+    \end{xltabular}
+\endgroup
+
+% --- F1 -> A2 (Art S; Übertragungsargument Art T)
+Für A2 (F1) spricht die Übertragbarkeit von Prüfergebnissen: Läuft derselbe Retargeting-Code unverändert in Simulation und am realen Roboter, gilt in einer der betrachteten Arbeiten eine bestandene Sim-to-Sim-Prüfung als starkes Indiz für die erfolgreiche Übertragung auf die Hardware \cite{Durrani2026}\ev{Durrani2026.03}.
+Stellen mit unterschiedlichem Verhalten sind zulässig, werden aber nach K2.2 erfasst und begründet, damit sichtbar bleibt, wo ein Simulationsergebnis nicht unmittelbar für den Realbetrieb gilt.
+
+% --- F2 -> A3 (Art S; Definition Echtzeitfaktor Art T)
+F2 stützt sich auf A3 und A4. A3 verlangt Echtzeit, weil sich die Bedienung sonst zeitlich anders verhält als im Realbetrieb und der Vergleich nach A4 seine Grundlage verliert.
+Als Maß dient der Echtzeitfaktor~$R$, den ein Leistungsvergleich von Robotiksimulatoren als Verhältnis von simulierter zu realer Zeit definiert. Bei $R > 1$ kann eine Simulation schneller als Echtzeit laufen und umgekehrt \cite{Pitonakova2018}\ev{Pitonakova2018.01}.
+% Basis: G1@6a40e47 unitree_mujoco/simulate_python/unitree_mujoco.py:166-178 (SIM_REALTIME_FACTOR nur Soll-Deckel),
+% config.py:102 (Lockstep), docker-compose.yml:40,43 (SIM_REALTIME_FACTOR=1.0, SIM_LOCKSTEP=1); fakten-testumgebung.md (d), (e) V4.
+% Gegen 25d5c1a unverändert (git diff ohne Änderung in unitree_mujoco/simulate_python). Kein Messwert.
+Da die Simulation in der verwendeten Konfiguration nach oben auf Echtzeit begrenzt ist (Abschnitt~\ref{sec:zeitschritt}), bestimmt K3.1, wie weit der Echtzeitfaktor im Mittel unter~1 liegt.
+Als Erfüllung gilt nur der schmale Bereich zwischen 0,95 und~1, dessen Abschlag kurze Lastspitzen des PCs zulässt. Die Sollraten für K3.2 nennt Kapitel~\ref{chap:umsetzung}.
+
+% --- F2 -> A4 (Art S)
+A4 grenzt „realitätsnah“ auf benannte Größen ein: Für die Arme vergleicht K4.1 die Gelenkwinkel derselben Bewegungsfolge in Simulation und Realbetrieb über der Zeit, und K4.2 die daraus berechnete Handposition am Ende jeder Bewegung, wie Abbildung~\ref{fig:handtoleranz} schematisch zeigt.
+Der Zielwert von 2\,cm ist eine Setzung: Ein in der Simulation eingelerntes Greifziel soll am Roboter ohne Nachkorrektur erreichbar sein.
+
+% Eigene Darstellung (Erweiterung Abbildungen, 17.11.2026); schematisch, keine Messwerte.
+\begin{figure}[!htbp]
+  \centering
+  \input{Bilder/tikz/handtoleranz}
+  \caption[Prüfkriterien der Arme nach Anforderung A4]{Prüfkriterien der Arme nach Anforderung A4, schematisch und nicht maßstäblich. a)~Gelenkwinkel derselben Bewegungsfolge in Simulation und Realbetrieb und ihre Abweichung über der Zeit (K4.1, ohne Zielwert). b)~Abweichung der aus den Gelenkwinkeln berechneten Handposition am Ende einer Bewegung von der Simulation mit dem Zielwert von höchstens 2\,cm (K4.2).}
+  \label{fig:handtoleranz}
+\end{figure}
+
+Für die Fortbewegung ist kein Zielwert gesetzt, weil die Implementierung des Onboard-Reglers nicht quelloffen ist \cite{Hu2026}\ev{Hu2026.02}. K4.3 stellt nur das Verhältnis von erreichter zu vorgegebener Geschwindigkeit in beiden Betriebsarten nebeneinander.
+
+% --- F3 -> A5 (Art S; Orientierung an Rechtsrahmen und Normen, Art T)
+F3 führt zu A5 und A6.
+A5 orientiert sich am Rechtsrahmen aus Abschnitt~\ref{sec:schutzfunktionen}, ohne dessen Erfüllung zu beanspruchen: Nach der Maschinenrichtlinie muss die Not-Halt-Funktion unabhängig von der Betriebsart jederzeit verfügbar und betriebsbereit sein \cite{MRL2006}\ev{MRL2006.09}.
+Beim Zweibeiner kann gerade ein zu aggressiver Halt laut dem genannten Preprint eine Störung jenseits der Erholungsgrenze des Balancereglers einbringen und einen Sturz auslösen \cite{Ding2026}\ev{Ding2026.09}. Deshalb fordert K5.6, dass der stehende Roboter nach einem Not-Halt der Arme stehen bleibt.
+
+Der Zielwert der Handgeschwindigkeit (K5.1) orientiert sich an zwei Angaben aus Abschnitt~\ref{sec:schutzfunktionen}: In der Betriebsart manuell reduzierte Geschwindigkeit (T1) gilt eine reduzierte Geschwindigkeit von höchstens 250\,mm/s in Verbindung mit Zustimmungsschalter und Tippschaltung \cite{DGUV2015}\ev{DGUV2015.04}, und ISO/TS~15066 legt zulässige Größen für zwei kollaborative Betriebsarten unter der Grundannahme einer sicher reduzierten Geschwindigkeit von höchstens 250\,mm/s fest \cite{Villani2018}\ev{Villani2018.09}.
+Weil sich die bestehenden Robotiknormen nicht direkt auf Humanoide anwenden lassen \cite{Prather2025}\ev{Prather2025.06}, übernimmt der Zielwert nur den Zahlenwert, ohne die übrigen Schutzmaßnahmen dieser Betriebsarten oder eine Normerfüllung zu fordern.
+
+% Basis: Nachrecherche Not-Halt-Zeit 16.11.2026 (review/plan-kap5.md Abschnitt 9; belegpruefung.md L17); Negativbefund mit Geltungsbereich, nicht zitierbar
+Einen festen Höchstwert für die Anhaltezeit nennen die ausgewerteten Quellen nicht. Die beiden Zeitkriterien K5.3 und K5.4 sind deshalb Setzungen, die Abbildung~\ref{fig:schutzzeiten} in den Ablauf eines Halts einordnet.
+Für K5.3 ist das Ziel, dass der Halt gegenüber der Reaktion der Bedienperson nicht ins Gewicht fällt. \qf{Bezugswert für die Reaktionszeit einer Bedienperson, der die Wahl von 100 ms stützt (L17, Q6 offen)}
+
+% Eigene Darstellung (Erweiterung Abbildungen, 17.11.2026); schematisch, keine Auslegungswerte.
+\begin{figure}[!htbp]
+  \centering
+  \input{Bilder/tikz/schutz-zeiten}
+  \caption[Zeitkriterien des Halts nach Anforderung A5]{Zeitkriterien des Halts nach Anforderung A5, schematisch und nicht maßstäblich. a)~Die Anhaltezeit setzt sich aus Reaktionszeit und Bremszeit zusammen \cite{DGUV2015}\ev{DGUV2015.18,DGUV2015.19}. K5.3 erfasst nur den Teil vor der Herstellerschnittstelle. b)~K5.4 bewertet die Kette vom Ausfall eines Bedienwegs bis zum Halt, mit K5.1 bleibt der Weg der Hand begrenzt.}
+  \label{fig:schutzzeiten}
+\end{figure}
+
+Teil~a) der Abbildung zeigt, dass nur der vordere Teil der Anhaltezeit einen Zielwert trägt, Teil~b) das Zusammenwirken von K5.4 und K5.1: Bei höchstens 250\,mm/s legt die Hand in höchstens 1\,s höchstens 250\,mm zurück.
+K5.4 bewertet die Wirkung der gesamten Kette, nicht die einzelnen Auslegungswerte, die Abschnitt~\ref{sec:schutzmechanismen} festlegt.
+
+% --- F3 -> A6 (Art S; Herleitung Art T)
+% Keine Nutzerstudie (P1, Betreuerin 23.11., Richtlinien §12): K6.4 und der Prüfhinweis zu N3 entfallen.
+A6 übernimmt das in Abschnitt~\ref{sec:laienbedienung_sdt} genannte Ziel der End-User-Roboterprogrammierung und prüft es technisch über den Bedienaufwand vom frisch eingerichteten PC bis zur ersten Arm- und Gehbewegung.
+% Basis: Betreuergespräch 23.11.2026, Richtlinien §12
+Ein Vorher-Nachher-Vergleich ist nicht möglich, weil es vor dieser Arbeit keine Umgebung gab, deren Bedienung als Bezug dienen kann.
+Beide Grenzwerte sind Setzungen: Eine Person ohne Vorerfahrung soll die Umgebung innerhalb einer Arbeitsstunde ohne fremde Hilfe in Betrieb nehmen, und wenige, eindeutige Schritte bilden das Gegenstück zu einer Bedienung, die das Lesen einer Entwicklerdokumentation voraussetzt.
+
+% --- F4 -> A1, A7 (Art S; Vorbild Art T)
+F4 führt zu A1 und A7.
+Vorbild für A1 sind vorgefertigte Bausteine, wie sie Choregraphe in einer Bibliothek vorprogrammierter Verhalten von Funktionen wie Gehen und Aufstehen bis zum Auslesen von Sensoren anbietet \cite{Pot2009}\ev{Pot2009.05}.
+Der Begriff „Aufgabe“ ist dabei eng gefasst: Eine Aufgabe ist eine feste Folge von Bewegungen ohne Wahrnehmung der Umgebung. Die Beispielaufgabe für K1.2 besteht aus einer neuen Szene und einem neuen Ablauf.
+Vorbild für A7 ist das Designprinzip der Modularität in ROS~2 \cite{Macenski2022}\ev{Macenski2022.05}.
+% Basis: Betreuergespräch 23.11.2026, Richtlinien §12 (Erweiterbarkeit nicht eigens nachweisen, als Entwurfsfrage führen)
+A7 fordert nur die Kapselung in getrennte Einheiten mit dokumentierten Schnittstellen und wird am Aufbau der Umgebung analysiert, den Abschnitt~\ref{sec:erweiterungskonzept} entwirft, nicht an einem angebundenen Projekt.
+
+% --- Randbedingungen und Zielkonflikte (Art S, Vorverweis auf Kap. 6)
+Als Randbedingung verwendet die Umgebung ausschließlich quelloffene Werkzeuge, damit Folgeprojekte sie weiterverwenden und ändern können.
+Drei Paare von Anforderungen stehen zueinander in Konflikt: Die Begrenzung der Armbewegung nach A5 schränkt die Bewegungen einer Aufgabe nach A1 ein, wenige Bedienhandlungen nach A6 stehen dem vollständigen Zugang zu allen Grundfähigkeiten nach A1 entgegen, und dokumentierte Schnittstellen nach A7 eröffnen Wege, auf denen Befehle anderer Programme die Schutzfunktionen nach A5 umgehen können.
+Die Abschnitte~\ref{sec:sicherheitskonzept}, \ref{sec:bedienkonzept} und~\ref{sec:erweiterungskonzept} lösen diese Konflikte auf.
 
 % Code-Stand 6.1: G1@6a40e47; übernommener Stand = G1@6c0f331 ohne die Simulationsdateien
 % (docker-compose.sim.yaml, docker/Dockerfile.sim, docker/Dockerfile.mujoco, launch/bringup_sim.launch.py,

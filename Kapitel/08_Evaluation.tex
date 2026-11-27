@@ -11,11 +11,66 @@
 \chapter{Evaluation}
 \label{chap:evaluation}
 
-Die Versuche dieses Kapitels prüfen die Anforderungen A1 bis A7 aus Abschnitt~\ref{sec:anforderungen} nach dem Versuchsplan aus Abschnitt~\ref{sec:versuchsplan} und beantworten damit die Forschungsfragen F1 bis F4.
-Abbildung~\ref{fig:eval_ueberblick} ordnet die Versuche nach Forschungsfrage und Prüfebene.
-Die Abschnitte~\ref{sec:eval_f1} bis~\ref{sec:eval_f4} folgen den Forschungsfragen, Abschnitt~\ref{sec:diskussion} gleicht die Ergebnisse mit den Anforderungen ab.
-Alle Versuche beziehen sich auf den Code-Stand und den Referenz-PC aus Abschnitt~\ref{sec:testumgebung} \pruefen{Code-Stand der Messungen: BA-Stable @ 6a40e47 oder späterer Tag mit den Messmitteln (Kap. 5, N11)?}.
+Die Versuche dieses Kapitels prüfen die Anforderungen A1 bis A7 aus Abschnitt~\ref{sec:anforderungen} und beantworten damit die Forschungsfragen F1 bis F4.
+Abschnitt~\ref{sec:versuchsplan} legt Vorgehen und Versuchsplan fest, die Abschnitte~\ref{sec:eval_f1} bis~\ref{sec:eval_f4} folgen den Forschungsfragen, Abschnitt~\ref{sec:diskussion} gleicht die Ergebnisse mit den Anforderungen ab.
+Alle Versuche beziehen sich auf den Code-Stand und den Referenz-PC aus Anhang~\ref{anh:testumgebung} \pruefen{Code-Stand der Messungen: BA-Stable @ 6a40e47 oder späterer Tag mit den Messmitteln (Kap. 5, N11)?}.
 
+% ======================================================================
+\section{Vorgehen und Versuchsplan}
+\label{sec:bewertungsmethodik}
+\label{sec:versuchsplan}
+\label{sec:kennzahlen}
+% Seit 25.11.2026 (Nils: Kap. 5 aufgelöst): früheres Kap. 5.3 (Commit d8cab3c), gekürzt um die Kette D -> F -> A -> V
+% und Abb. bewertungslogik (Zuordnung steht in tab:anforderungen und fig:eval_ueberblick). Labels sec:kennzahlen,
+% sec:versuchsplan, sec:testumgebung bleiben als Anker für bestehende Verweise.
+Geprüft wird nach einem Versuchsplan, der vor der Durchführung feststand, auf drei Ebenen mit wachsendem Aufwand und wachsender Aussagekraft: gegen eine Attrappe des Roboters, in der Simulation und am realen Roboter.
+Die Attrappe prüft die Logik der Schutzmechanismen ohne Gefährdung, auch für Fehlerfälle, die am Roboter nicht gefahrlos auslösbar sind, denn Tests im Feld sind laut einer Arbeit zur Testautomatisierung in der Robotik unter anderem zeitaufwendig, teuer und potenziell gefährlich \cite{Afzal2021}\ev{Afzal2021.01}.
+
+Die Kennzahlen werden mit vier Nachweisarten bestimmt.
+Eine Analyse wertet Programmcode und Konfiguration aus, ein Test prüft automatisiert gegen ein festes Soll-Ergebnis, eine Messung liefert eine Größe mit Einheit aus aufgezeichneten Daten, und eine Demonstration führt eine Funktion nach festem Protokoll aus und hält fest, ob sie gelingt.
+
+% Umfang: Vorschlag 16.11. (plan-kap5.md Abschnitt 7.2; Realversuche ab 23.11., V7, V2, V11, V5, V9 je dreimal)
+Jede Funktion wird zuerst in der Simulation und erst danach am Roboter geprüft, auf allen Ebenen mit denselben Skripten, die Rohdaten aufzeichnen (am Roboter nur lesend), und an einem festen Code-Stand.
+In der Simulation und gegen die Attrappe umfasst jeder Versuch zehn Wiederholungen, am Roboter drei, berichtet werden Mittelwert und Spannweite.
+Tabelle~\ref{tab:versuchsplan} nennt die Versuche im Einzelnen, Abbildung~\ref{fig:eval_ueberblick} ordnet sie nach Forschungsfrage und Prüfebene.
+
+% ----------------------------------------------------------------------
+% tab:versuchsplan  (seit 25.11. Abschnitt 7.1, vorher Kap. 5.3.2)
+% Umfang [V]: Vorschlag 16.11. (Simulation und Attrappe je 10 Wiederholungen, Roboter je 3, V4 je Lauf 10 min,
+% V9 dreimal). Spalte „Mittel am Stand“ steht bewusst nicht in der Tabelle (nur Planungshilfe im Plan, Abschnitt 7.2).
+% Basis: review/plan-kap5.md Abschnitt 7.2; Faktenblatt review/kap5-entwurf/fakten-testumgebung.md (e).
+% 25.11. (P5): 11 -> 9 Versuche. V6 (Planungserfolg und -zeit) ist in V7 aufgegangen, V10 entfällt (A7 nur Analyse).
+% Nummern NICHT neu vergeben, weil Kap. 8 (Abschnitte, Tabellen, eval-ueberblick) V1–V5, V7–V9, V11 nutzt.
+% Wenn Nils durchnummerieren will: Kap. 5, Kap. 8, Bilder/tikz/bewertungslogik.tex und eval-ueberblick.tex gemeinsam ändern.
+% ----------------------------------------------------------------------
+\begin{table}[!ht]
+    \setstretch{1.0}\tabstil\setlength{\tabcolsep}{4pt}\footnotesize
+    \centering
+    \caption[Versuchsplan]{Versuchsplan mit Prüfebene, Kennzahlen, Umfang (Wiederholungen je Prüfebene) und Auswertung. „Kann“ kennzeichnet Prüfebenen, die von Zeit und Zugang zum Roboter abhängen.}
+    \label{tab:versuchsplan}
+    \begin{tabularx}{\textwidth}{|P{0.7cm}|L|P{1.75cm}|P{1.9cm}|P{2.3cm}|P{1.25cm}|}\hline
+        \tabkopfzeile \tabkopf{Nr.} & \tabkopf{Gegenstand} & \tabkopf{Prüfebene} & \tabkopf{Kenn\-zahlen} & \tabkopf{Umfang} & \tabkopf{Aus\-wer\-tung in}\\\hline
+        V1 & Programmcode und Konfiguration in Simulation und Realbetrieb im Vergleich & Analyse & K2.1, K2.2 & einmal am festen Code-Stand & \ref{sec:eval_code}\\\hline
+        V2 & Funktionsprüfung am G1 nach festem Protokoll (Verbinden, Arme, Greifen, Gehen, Not-Halt) & Roboter & K2.3, K1.1, K5.6 & Roboter 3 % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_realtests}\\\hline
+        % V3: qualitativ, einmal (P4, Nils 25.11.); Angaben zum Video weiter offen (N10, Prüfhinweis im Text unten).
+        V3 & Anwendungsfall Werbevideo: genutzte Funktionen, nötige Anpassungen & Roboter & K2.3 (qualitativ) & einmal & \ref{sec:eval_video}\\\hline
+        V4 & Echtzeitfaktor und Takttreue auf dem Referenz-PC, Kann: auf schwächerem PC & Simulation, Attrappe & K3.1, K3.2 & je 10 Läufe zu 10\,min % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_echtzeit}\\\hline
+        V5 & Fortbewegung je Lauf-Policy: Geschwindigkeitsfolge, Wechsel Gehen/Stehen, Stöße & Simulation, Kann: Roboter & K4.3 & Simulation 10, Roboter 3 % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_fortbewegung}\\\hline
+        V7 & Dieselbe Posenfolge in Simulation und am Roboter mit Aufzeichnung der Gelenkwinkel, in der Simulation auch Planungserfolg und -zeit & Simulation, Roboter & K4.1, K4.2 & Simulation 10, Roboter 3 % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_manipulation}\\\hline
+        V8 & Schutzmechanismen: Tests, Handgeschwindigkeit bei Zielsprüngen, Reaktionszeit des Not-Halts, Ausfall eines Bedienwegs & Attrappe, Kann: Roboter & K5.1 bis K5.5 & Attrappe 10, Roboter 3 % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_sicherheit}\\\hline
+        V9 & Bedienaufwand: Inbetriebnahme bis zur ersten Bewegung, Start bis zur ersten Arm- und Gehbewegung & Simulation, Kann: Roboter & K6.1 bis K6.3 & 3 Durchläufe auf frischem System % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_bedienaufwand}\\\hline
+        V11 & Neue Aufgabe: in der Simulation eingerichtet, am Roboter ausgeführt & Simulation, Roboter & K1.1 bis K1.3 & Einrichtung einmal, Ausführung Simulation 10, Roboter 3 % Umfang: Vorschlag 16.11., Begründung siehe plan-kap5.md Abschnitt 7.2
+        & \ref{sec:eval_aufgaben}\\\hline
+    \end{tabularx}
+\end{table}
+
+% Zur Abbildung: V1–V11 ohne V6 und V10 (Kap.-5-Vorschläge P3, P5). V6 (Planer, IK, Tippbetrieb) ist Teil von V7.
 \begin{figure}[htbp]
   \centering
   \input{Bilder/tikz/eval-ueberblick}
@@ -23,9 +78,26 @@ Alle Versuche beziehen sich auf den Code-Stand und den Referenz-PC aus Abschnitt
   \label{fig:eval_ueberblick}
 \end{figure}
 
-% Zur Abbildung: V1–V11 ohne V6 und V10 (Kap.-5-Vorschläge P3, P5). V6 (Planer, IK, Tippbetrieb) ist Teil von V7.
-Die Versuche in der Simulation und an der Attrappe sind wiederholbar und gefahrlos, die Versuche am Roboter zeigen die Übertragbarkeit, aber mit wenigen Wiederholungen.
-Wo es möglich ist, bestimmen Simulation und Roboter dieselben Kennzahlen mit denselben Skripten.
+Fest am Roboter geplant sind V2, V3, V7 und V11, als Ergänzung V5, V8 und V9.
+V3 wertet einmal und qualitativ einen realen Anwendungsfall aus, den Transport einer Box für ein Werbevideo \pruefen{Angaben zum Werbevideo (N10): wann gedreht, welche Funktionen genutzt, was angepasst werden musste}.
+Fällt ein Versuch aus, führt Abschnitt~\ref{sec:abgleich} die betroffene Anforderung als nicht nachgewiesen.
+% Basis: G1@6a40e47 g1pilot/docs/50-A-Echter-Roboter.md, Abschnitt A „Vor dem Einschalten“ und Abschnitt F „Ablauf der ersten Tests“
+Versuche am Roboter laufen unter Sicherung durch einen Kran und eine zweite Person mit der Fernbedienung des Herstellers, die allen anderen Bedienwegen als Not-Halt übergeordnet ist.
+
+Aus den in Abschnitt~\ref{sec:abbildungsguete} beschriebenen Verfahren übernimmt die Arbeit den Vergleich derselben Bewegung in Simulation und am realen Roboter über der Zeit, den eine Arbeit mit einem Motion-Capture-System als Referenz über den euklidischen Abstand der Handgelenkposition zur Zielposition bewertet \cite{Collins2019}\ev{Collins2019.03,Collins2019.06}.
+K4.2 schließt an dieses Abstandsmaß an, Bezug sind mangels Motion-Capture-System die Gelenkwinkelgeber des Roboters.
+
+Bei den Gütekriterien stützt sich die Objektivität auf skriptgestützte Aufzeichnung und Auswertung sowie feste Protokolle, Reliabilität auf festen Code-Stand, Referenz-PC und Wiederholungen.
+Die Validität ist an vier vorab bekannten Stellen begrenzt: Erstens beziehen sich K4.1 und K4.2 auf die Gelenkwinkelgeber und nicht auf eine externe Referenz, und eine Simulation kann wegen numerischer Integrationsfehler und wegen Modellfehlern von der Realität abweichen \cite{Erez2015}\ev{Erez2015.13}. Der Vergleich erfasst beide Ursachen gemeinsam und trennt sie nicht.
+Zweitens messen K6.1 bis K6.3 den Bedienaufwand, nicht die Gebrauchstauglichkeit. Drittens zeigen Versuche gegen die Attrappe die Logik der Programme, nicht das Verhalten der Mechanik, und viertens erlauben drei Wiederholungen am Roboter keine statistische Absicherung, sodass die Ergebnisse dort als Stichproben gelten.
+
+\label{sec:testumgebung}
+% Testumgebung: Tabelle tab:testumgebung, Softwarestände, Testsuite, Attrappe und Messmittel in Kapitel/Anhang_A.tex
+% (anh:testumgebung, Basis G1@6a40e47). Label sec:testumgebung zeigt auf diesen Absatz.
+Alle Versuche beziehen sich auf einen festen Referenz-PC, feste Softwarestände und einen festen Roboter, die Anhang~\ref{anh:testumgebung} in Tabelle~\ref{tab:testumgebung} zusammen mit Testsuite und Messmitteln nennt.
+% Basis: fakten-testumgebung.md (b); G1@6a40e47 g1pilot/test/test_arm_controller_real.py (FakeG1), test_loco_client_real.py (FakeLoco),
+% beide gegen 25d5c1a unverändert.
+Die Attrappe ersetzt in den Tests nur die Bibliothek der Herstellerschnittstelle, während die Programme des Realbetriebs unverändert laufen.
 
 % ======================================================================
 \section{Einheitliche Ausführung in Simulation und Realbetrieb}
@@ -289,7 +361,7 @@ Ein Testlauf zählt nur, wenn kein Test übersprungen wurde, denn bei fehlenden 
 Die Zeitmessungen laufen zehnmal an der Attrappe und als Ergänzung dreimal am Roboter \pruefen{Messmittel für K5.3/K5.4 (Kap. 5 N11) vorhanden? Ergänzung am Roboter gemacht?}.
 
 \paragraph*{Ergebnisse}
-Tabelle~\ref{tab:sicherheit} stellt die Ergebnisse den Zielwerten aus Kapitel~\ref{chap:handlungsbedarf} gegenüber.
+Tabelle~\ref{tab:sicherheit} stellt die Ergebnisse den Zielwerten aus Abschnitt~\ref{sec:anforderungen} gegenüber.
 
 \begin{table}[htbp]
     \tabstil
@@ -437,7 +509,7 @@ Eine verfehlte Anforderung wird als solche benannt und in Abschnitt~\ref{sec:lim
     \tabstil
     \setlength{\tabcolsep}{3pt}
     \centering
-    \caption[Abgleich der Ergebnisse mit den Anforderungen]{Abgleich der Ergebnisse mit den Anforderungen aus Kapitel~\ref{chap:handlungsbedarf}. Bewertung: erfüllt, teilweise, nicht erfüllt.}
+    \caption[Abgleich der Ergebnisse mit den Anforderungen]{Abgleich der Ergebnisse mit den Anforderungen aus Abschnitt~\ref{sec:anforderungen}. Bewertung: erfüllt, teilweise, nicht erfüllt.}
     \label{tab:abgleich}
     \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.6cm}|L|L|>{\raggedright\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{2.2cm}|}\hline
         \tabkopfzeile \tabkopf{Anforderung} & \tabkopf{Kriterium und Zielwert} & \tabkopf{Ergebnis} & \tabkopf{Abschn.} & \tabkopf{Bewertung}\\\hline

@@ -1,0 +1,63 @@
+% Echtzeitfaktor R und Zielwerte von A3 (K3.1, K3.2), SCHEMATISCH: keine Messwerte, Steigungen nicht maßstäblich.
+% Eigene Darstellung. Definition R = simulierte / reale Zeit nach Pitonakova2018.01 (Beleg in der Caption).
+% Begrenzung nach oben auf Echtzeit: Kapitel 5, Abschnitt sec:kennzahlen (Basis dort im Kommentar).
+% Zielwerte 0,95 und 95 % aus tab:anforderungen (Vorschlag 16.11.).
+% Stil: ba-grafik.tex. Einbinden: \input{Bilder/tikz/echtzeitfaktor} in einer figure-Umgebung. Nicht skalieren.
+\begin{tikzpicture}[ba]
+  \tikzset{
+    anm/.style={font=\footnotesize, text=baGrau, align=left},
+    achse/.style={ba normal, baGrau, ->},
+    skala/.style={ba normal, baGrau},
+  }
+  % ======================= a) Simulierte über realer Zeit =======================
+  \begin{scope}
+    % Bereich R > 1 (durch Begrenzung ausgeschlossen)
+    \fill[baHellgrau!60] (0,0) -- (4.6,4.6) -- (0,4.6) -- cycle;
+    \node[anm, align=center] at (1.75,3.85) {$R > 1$:\\durch Begrenzung\\ausgeschlossen};
+    % Achsen
+    \draw[achse] (0,0) -- (5.6,0) node[below left, text=black, font=\small] {reale Zeit $t$};
+    \draw[achse] (0,0) -- (0,4.9) node[anchor=south west, xshift=-1mm, text=black, font=\small] {simulierte Zeit $t_\mathrm{sim}$};
+    % R = 1 und R < 1
+    \draw[ba dick, baBlau] (0,0) -- (4.6,4.6) node[right, font=\footnotesize, text=baBlau] {$R = 1$ (Echtzeit)};
+    \draw[ba dick, baGruen, dash pattern=on 5pt off 2pt] (0,0) -- (5.2,3.4) node[right, font=\footnotesize, text=black, align=left] {$R < 1$};
+    % Steigungsdreieck an der Linie R < 1
+    \coordinate (P1) at (2.6,1.7);
+    \coordinate (P2) at (4.0,{1.7+1.4*3.4/5.2});
+    \draw[ba duenn, baGrau] (P1) -- (P2 |- P1) -- (P2);
+    \node[font=\footnotesize, below] at ($(P1)!0.5!(P2 |- P1)$) {$\Delta t$};
+    \node[font=\footnotesize, right] at ($(P2 |- P1)!0.5!(P2)$) {$\Delta t_\mathrm{sim}$};
+    \node[font=\footnotesize, anchor=north west] at (0.15,-0.55) {$R = \Delta t_\mathrm{sim} / \Delta t$};
+    \node[ba teiltitel] at (2.8,-1.15) {a) Echtzeitfaktor als Steigung};
+  \end{scope}
+  % Trennlinie
+  \draw[ba trenner] (7.35,-1.4) -- (7.35,5.2);
+  % ======================= b) Zielwerte auf Zahlengeraden =======================
+  \begin{scope}[xshift=8.0cm]
+    % --- K3.1: mittlerer Echtzeitfaktor
+    \node[anchor=west, font=\small] at (0,4.45) {K3.1: Echtzeitfaktor im Mittel};
+    \draw[skala] (0,3.3) -- (6.6,3.3);
+    \draw[skala, dash pattern=on 1pt off 1.5pt] (-0.2,3.3) -- (0,3.3);
+    % Bereiche (Bedeutung zusätzlich als Text)
+    \fill[baFlaeche] (3.0,3.12) rectangle (5.0,3.48);
+    \draw[ba normal, baGruen] (3.0,3.12) rectangle (5.0,3.48);
+    \fill[baHellgrau!60] (5.0,3.12) rectangle (6.6,3.48);
+    \draw[ba grenzwert] (3.0,2.85) -- (3.0,3.75);
+    \draw[skala] (5.0,2.95) -- (5.0,3.65);
+    \node[font=\footnotesize, above, text=baAkzent] at (3.0,3.75) {0,95};
+    \node[font=\footnotesize, above] at (5.0,3.75) {1};
+    \node[anm, align=center, anchor=north] at (1.5,3.0) {verfehlt};
+    \node[anm, align=center, anchor=north] at (4.0,3.0) {Zielwert\\erreicht};
+    \node[anm, align=center, anchor=north] at (5.8,3.0) {aus-\\geschlossen};
+    % --- K3.2: Takttreue je Regelkreis
+    \node[anchor=west, font=\small] at (0,1.55) {K3.2: erreichte Rate je Sollrate};
+    \draw[skala, ->] (0,0.4) -- (6.6,0.4);
+    \draw[skala, dash pattern=on 1pt off 1.5pt] (-0.2,0.4) -- (0,0.4);
+    \fill[baFlaeche] (3.0,0.22) rectangle (6.4,0.58);
+    \draw[ba normal, baGruen] (6.4,0.58) -- (3.0,0.58) -- (3.0,0.22) -- (6.4,0.22);
+    \draw[ba grenzwert] (3.0,-0.05) -- (3.0,0.85);
+    \node[font=\footnotesize, above, text=baAkzent] at (3.0,0.85) {95\,\%};
+    \node[anm, align=center, anchor=north] at (1.5,0.1) {verfehlt};
+    \node[anm, align=center, anchor=north] at (4.7,0.1) {Zielwert erreicht};
+    \node[ba teiltitel] at (3.2,-1.15) {b) Zielwerte nach A3};
+  \end{scope}
+\end{tikzpicture}

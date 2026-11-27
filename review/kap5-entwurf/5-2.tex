@@ -1,0 +1,168 @@
+% ======================================================================
+% Abschnitt 5.2 Anforderungen – Entwurf AP5, Stand 17.11.2026 (Claude)
+% Ohne \section-Zeile; \section{Anforderungen} und \label{sec:anforderungen} stehen im Gerüst
+% Kapitel/05_Handlungsbedarf_Methodik.tex und werden in AP7 zusammengeführt.
+% Grundlage: review/plan-kap5.md Abschnitt 5 (5.2) und 6 (Steckbriefe A1–A7); Belege nach
+% review/kap5-entwurf/belegpruefung.md (nur „trägt“ / „trägt mit Einschränkung“).
+% Lösungsneutral: keine Komponenten, Namen von Bedienwegen, Taktraten oder Auslegungswerte (Plan Abschnitt 2).
+% K-Nummern stehen nur als Kommentar; im Text führt sie erst Abschnitt 5.3.1 ein.
+% ======================================================================
+
+% --- Herleitung und Nutzergruppen (Art S)
+Die Anforderungen übersetzen die Defizite D1 bis D4 aus Abschnitt~\ref{sec:handlungsbedarf} in Eigenschaften, die die Umgebung nachweisbar besitzen muss.
+Aus jedem Defizit folgt mindestens eine Anforderung, und jede Anforderung ist genau einer der Forschungsfragen F1 bis F4 aus Abschnitt~\ref{sec:zielsetzung} zugeordnet.
+Drei Nutzergruppen bestimmen dabei die Sicht auf die Umgebung: die Bedienperson ohne Robotikerfahrung, die eine Aufgabe zuerst in der Simulation und anschließend am Roboter erprobt, die Person, die ein eigenes Projekt an die Umgebung anbindet, und die Person, die sich während des Realbetriebs in der Nähe des Roboters aufhält.
+Die erste Gruppe prägt vor allem die Anforderungen an Bedienung und Simulation, die zweite die Anforderungen an Aufgabenunabhängigkeit und Erweiterbarkeit und die dritte die Anforderung an die Sicherheit.
+
+% --- Maßstab für die Formulierung (Art T für die Methodik, Art S für die Anwendung)
+Jede Anforderung ist so formuliert, dass sich ihre Erfüllung messen oder eindeutig feststellen lässt.
+Die Messbarkeit einer Anforderung ist Voraussetzung dafür, ihre Umsetzung nachzuverfolgen und zu beurteilen \cite{Bender2021}\ev{Bender2021.02}, und als Qualitätskriterium einer Anforderung gilt ihre Verifizierbarkeit durch Angabe messbarer Ausprägungen \cite{Bender2021}\ev{Bender2021.03}.
+Zwischen operationaler und lösungsneutraler Formulierung besteht allerdings ein Zielkonflikt, weil ein zu starkes Beharren auf eindeutigen, detaillierten Anforderungen den Lösungsfreiraum einschränkt \cite{Bender2021}\ev{Bender2021.04}.
+Die Arbeit trennt deshalb jede Anforderung in einen lösungsneutralen Satz und ein oder mehrere Prüfkriterien mit Zielwert; wie die Umgebung die Anforderung erfüllt, legt erst Kapitel~\ref{chap:konzept} fest.
+Ist beim Erreichen eines Zielwerts ein Spielraum zulässig, wird die Anforderung mit einem Wertebereich oder Grenzwert statt eines festen Punktwerts spezifiziert \cite{Bender2021}\ev{Bender2021.05}; die Zielwerte der Arbeit sind entsprechend als Mindest- oder Höchstwerte angegeben.
+
+% --- Verbindlichkeit und Zeitpunkt der Festlegung (Art S)
+Nach ihrer Verbindlichkeit lassen sich Forderungen (Muss-Anforderungen) und Wünsche (Soll-Anforderungen) unterscheiden, wobei Wünsche zusätzlich in Stufen gewichtet werden können \cite{Bender2021}\ev{Bender2021.01}.
+Die Anforderungen A1 bis A7 sind durchweg Forderungen; Prüfkriterien ohne Zielwert dienen nur der Beschreibung des Verhaltens und entscheiden nicht über die Erfüllung.
+Wo die ausgewerteten Quellen keinen Bezugswert liefern, ist der Zielwert eine Setzung, deren Begründung jeweils bei der Anforderung steht.
+Alle Zielwerte stehen vor der Evaluation fest und werden nicht an die Ergebnisse angepasst; der Abgleich in Abschnitt~\ref{sec:abgleich} prüft gegen diese Werte und benennt jede verfehlte Anforderung.
+
+% --- Einführung der Tabelle
+Tabelle~\ref{tab:anforderungen} stellt die Anforderungen A1 bis A7 mit Prüfkriterium, Zielwert, zugeordneter Forschungsfrage und dem Abschnitt des Nachweises in Kapitel~\ref{chap:evaluation} zusammen.
+Die Nummern bleiben in der gesamten Arbeit gleich; die folgenden Absätze erläutern die Zeilen der Tabelle nach Forschungsfragen geordnet, sodass A1 und A7 gemeinsam bei F4 stehen.
+
+% hier tab:anforderungen aus tabellen.tex
+
+% --- F1 -> A2 (Art S; Herleitung aus D1, Übertragungsargument Art T)
+Zur Forschungsfrage F1 gehört die Anforderung A2: Derselbe Programmstand steuert die Simulation und den realen G1, und der Wechsel zwischen beiden erfordert keine Änderung am Programmcode, sondern nur eine Änderung der Konfiguration.
+% Basis: Abschnitt 5.1 (D1), Kap. 4.4; Wertung mit Geltungsbereich
+Sie folgt aus D1, weil unter den in Abschnitt~\ref{sec:verwandte_arbeiten} betrachteten Arbeiten keine dieselbe Ausführung in Simulation und Realbetrieb über einzelne Funktionen oder die niedrige Ebene hinaus bietet (Abschnitt~\ref{sec:handlungsbedarf}).
+Der Nutzen liegt in der Übertragbarkeit von Prüfergebnissen: Läuft derselbe Retargeting-Code unverändert in Simulation und am realen Roboter, gilt in einer der betrachteten Arbeiten eine bestandene Sim-to-Sim-Prüfung als starkes Indiz für die erfolgreiche Übertragung auf die Hardware \cite{Durrani2026}\ev{Durrani2026.03}.
+A2 wird an drei Prüfkriterien gemessen.
+Die Zahl der beim Wechsel geänderten Zeilen Programmcode muss null betragen. % K2.1
+Die Stellen im Programmcode, an denen sich das Verhalten zwischen Simulation und Realbetrieb unterscheidet, sind vollständig zu erfassen und einzeln zu begründen; eine Höchstzahl ist dafür nicht vorgegeben. % K2.2
+Außerdem müssen alle Funktionen in Simulation und Realbetrieb mit derselben Bedienung ausführbar sein, ausgenommen die Funktionen, die Abschnitt~\ref{sec:sim_real_schalter} vorab als nur in einer Betriebsart verfügbar ausweist. % K2.3
+
+A2 fordert damit ausdrücklich keinen Programmcode ohne jede Unterscheidung der Betriebsarten.
+Unterschiede sind zulässig, werden aber gezählt und begründet, damit sichtbar bleibt, an welchen Stellen ein Ergebnis aus der Simulation nicht unmittelbar für den Realbetrieb gilt.
+Verfehlt ist A2, wenn der Wechsel eine Änderung am Programmcode erfordert, wenn die Analyse eine nicht erfasste oder nicht begründete Abweichung findet oder wenn eine nicht ausgenommene Funktion nur in einer Betriebsart bedienbar ist.
+
+% --- F2 -> A3 (Art S; Definition Echtzeitfaktor Art T)
+Die Forschungsfrage F2 stützt sich auf die Anforderungen A3 und A4, die beide aus D2 folgen.
+A3 verlangt, dass die Simulation und die Regelkreise der Umgebung auf einem handelsüblichen PC ohne Rechenbeschleuniger in Echtzeit laufen.
+Läuft die Simulation langsamer als in Echtzeit, verhält sich die Bedienung in der Simulation zeitlich anders als im Realbetrieb, und der Vergleich nach A4 verliert seine Grundlage; der Verzicht auf besondere Hardware hält zugleich die Einstiegshürde aus D3 niedrig.
+Als Maß dient der Echtzeitfaktor~$R$, den ein Leistungsvergleich von Robotiksimulatoren als Verhältnis von simulierter zu realer Zeit definiert; bei $R > 1$ kann eine Simulation schneller als Echtzeit laufen und umgekehrt \cite{Pitonakova2018}\ev{Pitonakova2018.01}.
+Der Echtzeitfaktor muss auf dem Referenz-PC im Mittel mindestens 0,95 betragen. % K3.1 – Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A3
+Der Abschlag gegenüber~1 lässt kurze Lastspitzen des PCs zu, ohne dass sich die Bedienung in der Simulation zeitlich merklich vom Roboter unterscheidet.
+
+Neben der Simulation selbst müssen die Regelkreise ihren Takt halten.
+Für jeden Regelkreis muss die erreichte Rate mindestens 95\,\% der Sollrate betragen (Takttreue); zusätzlich wird die Streuung der Zykluszeit angegeben. % K3.2 – Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A3
+Die Begründung entspricht der des Echtzeitfaktors, und die Sollraten selbst sind Auslegungswerte, die Kapitel~\ref{chap:umsetzung} nennt.
+Für die Grenzen von 0,95 und 95\,\% sowie für den Begriff „handelsüblich“ liefern die ausgewerteten Quellen keinen Bezugswert; beide Zielwerte sind Setzungen und beziehen sich auf den Referenz-PC, den Abschnitt~\ref{sec:testumgebung} beschreibt.
+Verfehlt ist A3, wenn der mittlere Echtzeitfaktor unter 0,95 oder die Rate eines Regelkreises unter 95\,\% seiner Sollrate liegt.
+
+% --- F2 -> A4 (Art S; Vergleichsweg Art T)
+A4 verlangt eine realitätsnahe Simulation und grenzt „realitätsnah“ auf benannte Größen ein.
+Eine in der Simulation eingerichtete Armbewegung muss am realen Roboter so verlaufen, dass die Abweichung innerhalb einer für die Aufgabe festgelegten Toleranz bleibt; für die Fortbewegung sind die Abweichungen zwischen Simulation und Realbetrieb zu bestimmen und zu benennen.
+Der Vergleichsweg lehnt sich an Arbeiten aus Abschnitt~\ref{sec:abbildungsguete} an: Eine Arbeit führt dieselben Szenarien in mehreren Simulatoren aus und vergleicht die Daten mit den realen Bewegungen eines Manipulators, die ein Motion-Capture-System als Referenz aufzeichnet \cite{Collins2019}\ev{Collins2019.03}; Kennzahl ist dort der euklidische Abstand der Handgelenkposition zur Zielposition über der Zeit \cite{Collins2019}\ev{Collins2019.06}.
+Eine weitere Arbeit spielt dieselbe in der Testumgebung ausgeführte Trajektorie in der Trainingsumgebung ab und bewertet die Abweichung mit Kennzahlen wie dem MPJPE \cite{He2025}\ev{He2025.09}.
+Die Arbeit übernimmt den Vergleich derselben Bewegung über der Zeit, ersetzt die externe Referenz aber durch die Gelenkwinkelgeber des Roboters.
+
+Für die Arme gelten zwei Prüfkriterien.
+Das erste ist die Abweichung der Gelenkwinkel zwischen Simulation und Realbetrieb bei gleicher Bewegungsfolge, angegeben als Verlauf über der Zeit sowie als mittlere und größte Abweichung. % K4.1
+Das zweite ist die daraus berechnete Abweichung der Handposition am Ende jeder Bewegung, die höchstens 2\,cm betragen darf. % K4.2 – Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A4
+Der Wert ist eine Setzung: Ein in der Simulation eingelerntes Greifziel soll am Roboter ohne Nachkorrektur erreichbar sein.
+Verfehlt ist A4, wenn die Handposition am Ende einer Bewegung um mehr als 2\,cm von der Simulation abweicht.
+
+Für die Fortbewegung ist kein Zielwert gesetzt.
+Die Implementierung des Onboard-Reglers ist nicht quelloffen \cite{Hu2026}\ev{Hu2026.02}; A4 fordert deshalb nicht, dass die Simulation sein Gangbild abbildet, sondern nur, dass dieselben Befehle in beiden Betriebsarten wirken, was bereits A2 abdeckt.
+Zur Beschreibung des Verhaltens wird das Verhältnis von erreichter zu vorgegebener Geschwindigkeit in Simulation und Realbetrieb nebeneinandergestellt und die Unterschiede benannt. % K4.3
+Bezug aller Messungen nach A4 sind die Gelenkwinkelgeber des Roboters; eine externe Referenz für die absolute Lage steht nicht zur Verfügung.
+
+% --- F3 -> A5 (Art S; Orientierung an Rechtsrahmen und Normen, Art T)
+Die Forschungsfrage F3 führt aus D3 zu den Anforderungen A5 und A6.
+A5 verlangt, dass ein Bedienfehler oder der Ausfall eines Bedienwegs am realen Roboter nicht zu einer unbegrenzten Bewegung führt: Die Bewegungen der Arme sind begrenzt, ein Halt ist jederzeit auslösbar, und der Halt bringt den stehenden Roboter nicht zum Sturz.
+Die Anforderung orientiert sich am Rechtsrahmen aus Abschnitt~\ref{sec:schutzfunktionen}, ohne dessen Erfüllung zu beanspruchen.
+Nach der Maschinenrichtlinie sind Steuerungen so auszulegen, dass vernünftigerweise vorhersehbare Bedienungsfehler nicht zu Gefährdungssituationen führen \cite{MRL2006}\ev{MRL2006.04}, und die Not-Halt-Funktion muss unabhängig von der Betriebsart jederzeit verfügbar und betriebsbereit sein \cite{MRL2006}\ev{MRL2006.09}.
+Die Norm zum Not-Halt verlangt zusätzlich, dass nach Betätigung gefahrbringende Bewegungen angehalten werden, ohne zusätzliche Gefährdungen zu verursachen \cite{DINENISO13850}\ev{DINENISO13850.02}.
+Beim laufenden Zweibeiner kann gerade das Abschalten eine solche Gefährdung sein: Energieentzug bei einem laufenden Zweibeiner erzeugt nach einem nicht begutachteten Preprint einen unkontrollierten Sturz \cite{Ding2026}\ev{Ding2026.03}, und ein zu aggressiver Halt kann laut derselben Arbeit eine Störung jenseits der Erholungsgrenze des Balancereglers einbringen und einen Sturz auslösen \cite{Ding2026}\ev{Ding2026.09}.
+
+Prüfkriterium für die Begrenzung der Armbewegung ist die größte Geschwindigkeit der Hand im Realbetrieb; sie darf höchstens 250\,mm/s betragen. % K5.1 – Zielwert: Orientierung an Villani2018.09 und DGUV2015.04, siehe plan-kap5.md A5
+Der Wert orientiert sich an zwei Angaben aus Abschnitt~\ref{sec:schutzfunktionen}: In der Betriebsart manuell reduzierte Geschwindigkeit (T1) gilt eine reduzierte Geschwindigkeit von höchstens 250\,mm/s in Verbindung mit Zustimmungsschalter und Tippschaltung \cite{DGUV2015}\ev{DGUV2015.04}, und ISO/TS~15066 legt zulässige Größen für zwei kollaborative Betriebsarten unter der Grundannahme einer sicher reduzierten Geschwindigkeit von höchstens 250\,mm/s fest \cite{Villani2018}\ev{Villani2018.09}.
+Auf nichtindustrielle Anwendungen dürfen die Anforderungen der Norm für Industrieroboter angewendet werden, solange keine entsprechenden Normen für den nichtindustriellen Bereich vorliegen \cite{DGUV2015}\ev{DGUV2015.02}; der Anwendungsbereich der ISO/TS~15066 ist dagegen laut einem nicht begutachteten Bericht auf am Boden fixierte, an Schienen geführte oder auf statisch stabilen Basen integrierte Roboter beschränkt \cite{Prather2025}\ev{Prather2025.05}.
+Der Zielwert übernimmt deshalb nur den Zahlenwert als Orientierung; A5 fordert weder die übrigen Schutzmaßnahmen dieser Betriebsarten noch eine Normerfüllung.
+
+Drei Prüfkriterien betreffen den Halt.
+Der Not-Halt muss in jeder Kombination aus Bedienweg und Betriebszustand auslösbar sein; auch die Norm zum Not-Halt verlangt, dass die Funktion jederzeit verfügbar und funktionsfähig ist und in allen Betriebsarten Vorrang vor allen anderen Funktionen hat \cite{DINENISO13850}\ev{DINENISO13850.01}. % K5.2
+Für die zeitliche Wirkung eines Stopps fordert EN~ISO~10218-1 laut DGUV im Anhang~B vom Roboterhersteller Angaben zu Anhaltezeit und Anhalteweg, die vor allem zur Berechnung des Sicherheitsabstands dienen \cite{DGUV2015}\ev{DGUV2015.17}.
+Die Anhaltezeit ist die Gesamtzeit vom Einleiten eines Stopps bis zum Stillstand der Roboterachsen \cite{DGUV2015}\ev{DGUV2015.18}; sie setzt sich aus der Reaktionszeit, die von Übertragungs-, Verarbeitungs- und Schaltzeiten abhängt, und der Bremszeit zusammen \cite{DGUV2015}\ev{DGUV2015.19}.
+% Basis: Nachrecherche Not-Halt-Zeit 16.11.2026 (review/plan-kap5.md Abschnitt 9; belegpruefung.md L17); Negativbefund mit Geltungsbereich, nicht zitierbar
+Die Norm verlangt damit, die Anhaltezeit zu bestimmen und anzugeben; einen festen Höchstwert nennen die in dieser Arbeit ausgewerteten Quellen nicht.
+Die beiden Zeitkriterien der Arbeit sind deshalb Setzungen.
+
+Die Reaktionszeit vom Auslösen des Not-Halts bis zum geänderten Befehl an der Herstellerschnittstelle darf höchstens 100\,ms betragen. % K5.3 – Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
+Das Kriterium erfasst den Teil der Reaktionszeit, der vor der Herstellerschnittstelle liegt.
+Der Wert ist eine Setzung mit dem Ziel, dass der Halt gegenüber der Reaktion der Bedienperson nicht ins Gewicht fällt. \qf{Bezugswert für die Reaktionszeit einer Bedienperson, der die Wahl von 100 ms stützt (L17, Q6 offen)}
+Vom Ausfall eines Bedienwegs oder der Verbindung bis zum Halt der Bewegung dürfen höchstens 1\,s vergehen. % K5.4 – Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A5
+Bei einer Handgeschwindigkeit von höchstens 250\,mm/s legt die Hand in dieser Zeit höchstens 250\,mm zurück, sodass der Weg bis zum Halt begrenzt bleibt.
+Das Kriterium bewertet die Wirkung der gesamten Kette vom Ausfall bis zum Halt und nicht die einzelnen Auslegungswerte, die Abschnitt~\ref{sec:schutzmechanismen} festlegt.
+
+Zwei weitere Prüfkriterien ergänzen die Messungen.
+Alle automatisierten Prüfungen der Schutzfunktionen müssen bestanden sein, und keine darf übersprungen werden. % K5.5
+Außerdem muss der stehende Roboter nach einem Not-Halt stehen bleiben, was am realen Roboter demonstriert wird. % K5.6
+Verfehlt ist A5, sobald eines der Prüfkriterien seinen Zielwert nicht erreicht.
+Die Arbeit prüft damit die Wirkung von Schutzfunktionen, nimmt aber keine sicherheitstechnische Bewertung vor; A5 fordert keine Normerfüllung, und die Auslegungswerte der Schutzfunktionen legt erst Abschnitt~\ref{sec:schutzmechanismen} fest.
+
+% --- F3 -> A6 (Art S; Herleitung Art T)
+A6 verlangt, dass eine Person ohne Robotik- und Programmiererfahrung die Umgebung in Betrieb nimmt und die Grundfähigkeiten ausführt, ohne Programmcode zu schreiben.
+Die Anforderung übernimmt das Ziel der End-User-Roboterprogrammierung, die Komplexität der Roboterprogrammierung in Methoden zu überführen, die für Nutzer ohne umfangreiche Robotikerfahrung zugänglich sind \cite{Ajaykumar2021}\ev{Ajaykumar2021.03}.
+Für den Humanoiden Nao eröffnet in der grafischen Programmierumgebung Choregraphe die gleichzeitige Nutzung von Flussdiagramm und Zeitleiste laut den Entwicklern viele Möglichkeiten, mit dem Roboter zu arbeiten, ohne eine Zeile C++ zu kompilieren \cite{Pot2009}\ev{Pot2009.06}, und an dieselbe Umgebung stellen sie die Anforderung, auf PC, Mac und Linux zu laufen, damit Kunden ihre Rechnerumgebung beim Kauf eines Roboters nicht ändern müssen \cite{Pot2009}\ev{Pot2009.04}.
+Im Gegensatz dazu empfiehlt der Hersteller des G1 Personen, die noch nicht mit einem seiner Roboter gearbeitet haben, vor der Nutzung von xr\_teleoperate die offizielle Dokumentation mindestens bis zum Kapitel zur Anwendungsentwicklung zu lesen \cite{UnitreeXRTeleop}\ev{UnitreeXRTeleop.02}.
+
+A6 wird über den Bedienaufwand geprüft.
+Die Inbetriebnahme von einem frisch eingerichteten PC bis zur ersten Bewegung in der Simulation darf einschließlich aller Installationsschritte höchstens 60\,min dauern; zusätzlich wird die Zahl der Schritte angegeben. % K6.1 – Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A6
+Die Grenze ist eine Setzung: Eine Person ohne Vorerfahrung soll die Umgebung innerhalb einer Arbeitsstunde ohne fremde Hilfe in Betrieb nehmen können.
+Von der gestarteten Umgebung bis zur ersten Armbewegung und bis zur ersten Gehbewegung sind jeweils höchstens fünf Bedienhandlungen zulässig. % K6.2 – Zielwert: Vorschlag 16.11., Begründung siehe plan-kap5.md A6
+Auch dieser Wert ist eine Setzung; wenige, eindeutige Schritte bilden das Gegenstück zu einer Bedienung, die das Lesen einer Entwicklerdokumentation voraussetzt.
+Schließlich muss jede Grundfähigkeit nach dem Start ohne Programmierung und ohne Befehlszeile ausführbar sein; für die Inbetriebnahme gilt diese Bedingung nicht, ihren Aufwand erfasst das Zeitkriterium. % K6.3
+Verfehlt ist A6, wenn die Inbetriebnahme länger als 60\,min dauert, eine der beiden ersten Bewegungen mehr als fünf Bedienhandlungen erfordert oder eine Grundfähigkeit nach dem Start nur mit Programmierung oder Befehlszeile ausführbar ist.
+
+Zeit und Zahl der Schritte messen den Aufwand, nicht die Gebrauchstauglichkeit.
+Nutzerstudien zur End-User-Roboterprogrammierung messen die Usability am häufigsten mit der System Usability Scale \cite{Ajaykumar2021}\ev{Ajaykumar2021.09}, und Lücken im Verständnis der Nutzer lassen sich über Anzahl, Rate und Art ihrer Fehler beobachten \cite{Ajaykumar2021}\ev{Ajaykumar2021.11}.
+Sofern eine Studie mit Personen ohne Robotikerfahrung durchgeführt wird, kommen beide Größen als zusätzliche Prüfkriterien ohne Zielwert hinzu; ohne eine solche Studie ist A6 nur über den Aufwand belegt.
+\pruefen{N3 Nutzerstudie ja oder nein: bei nein die beiden vorigen Sätze auf einen Satz zur Grenze kürzen und die Studie im Ausblick nennen}
+% K6.4 (nur mit Nutzerstudie)
+
+% --- F4 -> A1 (Art S; Vorbild Art T)
+Die Forschungsfrage F4 führt aus D4 zu den Anforderungen A1 und A7.
+A1 verlangt Aufgabenunabhängigkeit: Die Umgebung stellt die Grundfähigkeiten Gehen, Armbewegung und Greifen einzeln und kombiniert bereit, und eine neue Aufgabe lässt sich einrichten, ohne den Programmcode zu ändern.
+Vorbild sind vorgefertigte Bausteine, wie sie Choregraphe in einer Bibliothek vorprogrammierter Verhalten von Funktionen wie Gehen und Aufstehen bis zum Auslesen von Sensoren anbietet \cite{Pot2009}\ev{Pot2009.05}.
+Das erste Prüfkriterium ist die Abdeckung der drei Grundfähigkeiten, jeweils in Simulation und Realbetrieb sowie einzeln und kombiniert; Zielwert ist die vollständige Abdeckung. % K1.1
+Das zweite ist die Zahl der geänderten Zeilen Programmcode für eine neue Beispielaufgabe, die aus einer neuen Szene und einem neuen Ablauf besteht; Zielwert ist null. % K1.2
+Die Zeit für das Einrichten der Beispielaufgabe wird nur angegeben und hat keinen Zielwert. % K1.3
+
+Der Begriff „Aufgabe“ ist dabei eng gefasst.
+Eine Aufgabe ist eine feste Folge von Bewegungen ohne Wahrnehmung der Umgebung; Aufgaben, die auf Änderungen der Umgebung reagieren, sind nicht Gegenstand von A1.
+Verfehlt ist A1, wenn eine Grundfähigkeit in einer Betriebsart oder in Kombination nicht verfügbar ist oder die Beispielaufgabe eine Änderung am Programmcode erfordert.
+
+% --- F4 -> A7 (Art S; Vorbild Art T)
+A7 verlangt Erweiterbarkeit: Ein externes Projekt lässt sich über dokumentierte Schnittstellen anbinden, ohne den Kern der Umgebung zu ändern.
+Als Vorbild dient das Designprinzip der Modularität in ROS~2, das auf mehreren Ebenen von Bibliotheksschnittstellen über Nachrichtendefinitionen bis zum Software-Ökosystem durchgesetzt wird \cite{Macenski2022}\ev{Macenski2022.05}; die Middleware-Implementierungen sind dort ohne Codeänderung austauschbar \cite{Macenski2022}\ev{Macenski2022.11}.
+Prüfkriterium ist die Zahl der für die Anbindung geänderten Zeilen im Kern der Umgebung mit dem Zielwert null; was zum Kern gehört, legt Abschnitt~\ref{sec:erweiterungskonzept} vor der Prüfung fest. % K7.1
+Der Aufwand auf der Seite des Projekts, gemessen in Zeilen Programmcode und Arbeitszeit, wird nur angegeben. % K7.2
+An einem Beispielprojekt muss außerdem mindestens eine der in Abschnitt~\ref{sec:andockpunkte} beschriebenen Schnittstellen gezeigt werden. % K7.3
+Verfehlt ist A7, wenn die Anbindung eine Änderung am Kern erfordert oder keine Schnittstelle an einem Beispielprojekt gezeigt wird.
+\pruefen{N5: Beispielprojekt für A7 festlegen (laut Antwort vom 16.11. kein externes Projekt, optional ein Beispielprogramm); ohne Beispielprojekt bleibt A7 konzeptionell und gilt in Abschnitt~8.5.1 als nicht nachgewiesen}
+
+% --- Randbedingungen (Kann; Art S, eine Tatsache Art T)
+Neben den Anforderungen gelten vier Randbedingungen, die vorgegeben oder bewusst gesetzt sind.
+Der Roboter und seine Hände sind vorgegeben, und die Implementierung des Onboard-Reglers ist nicht quelloffen \cite{Hu2026}\ev{Hu2026.02}, sodass sein Programmcode für die Arbeit nicht einsehbar ist.
+Für Simulation und Bedienung steht ein handelsüblicher PC ohne Rechenbeschleuniger zur Verfügung.
+Die Umgebung verwendet ausschließlich quelloffene Werkzeuge, damit Folgeprojekte sie weiterverwenden und ändern können.
+
+% --- Zielkonflikte (Kern; Art S, Vorverweis auf Kap. 6)
+Mehrere Anforderungen stehen zueinander in Konflikt.
+Die Begrenzung der Armbewegung nach A5 schränkt die Bewegungen ein, die eine Aufgabe nach A1 nutzen kann.
+Eine einfache Bedienung nach A6 verlangt wenige Bedienhandlungen, während A1 alle drei Grundfähigkeiten einzeln und kombiniert zugänglich machen soll.
+Offene Schnittstellen nach A7 eröffnen schließlich Wege, auf denen Befehle eines externen Projekts die Schutzfunktionen nach A5 umgehen können.
+Kapitel~\ref{chap:konzept} löst diese Konflikte auf, für den Schutz in Abschnitt~\ref{sec:sicherheitskonzept}, für die Bedienung in Abschnitt~\ref{sec:bedienkonzept} und für die Erweiterung in Abschnitt~\ref{sec:erweiterungskonzept}; Kapitel~\ref{chap:evaluation} zeigt, ob dabei eine der beteiligten Anforderungen verfehlt wird.
